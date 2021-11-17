@@ -14,10 +14,25 @@ workflow INPUT_CHECK {
     SAMPLESHEET_CHECK ( samplesheet )
         .csv
         .splitCsv ( header:true, sep:',' )
-        //.map { create_fastq_channels(it) }
+        .map { create_input_channels(it) }
         .set { contigs }
 
     emit:
     contigs                                   // channel: [ val(meta), [ fasta ] ]
     versions = SAMPLESHEET_CHECK.out.versions // channel: [ versions.yml ]
+}
+
+// Function to get list of [ meta, [ fasta ] ]
+def create_input_channels(LinkedHashMap row) {
+    def meta = [:]
+    meta.id           = row.sample
+
+    def array = []
+    if (!file(row.fastq_1).exists()) {
+        exit 1, "[funscan] error: please check input samplesheet. FASTA file does not exist for: \n${row.fasta}"
+    } else {
+        array = [ meta, [ file(row.fasta) ] ]
+    }
+
+    return array
 }
