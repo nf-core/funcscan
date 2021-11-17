@@ -11,7 +11,7 @@ WorkflowFuncscan.initialise(params, log)
 
 // TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.multiqc_config, params.fasta ]
+def checkPathParamList = [ params.input, params.multiqc_config ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
@@ -40,6 +40,8 @@ def modules = params.modules.clone()
 //
 include { INPUT_CHECK } from '../subworkflows/local/input_check' addParams( options: [:] )
 
+include { GUNZIP_WITH_META } from '../subworkflows/local/gunzip_with_meta'  addParams( options: [:] )
+
 /*
 ========================================================================================
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
@@ -49,17 +51,20 @@ include { INPUT_CHECK } from '../subworkflows/local/input_check' addParams( opti
 def multiqc_options   = modules['multiqc']
 multiqc_options.args += params.multiqc_title ? Utils.joinModuleArgs(["--title \"$params.multiqc_title\""]) : ''
 
+def gunzip_input_fasta_options = modules['gunzip']
+
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { FASTQC  } from '../modules/nf-core/modules/fastqc/main'  addParams( options: modules['fastqc'] )
 include { MULTIQC } from '../modules/nf-core/modules/multiqc/main' addParams( options: multiqc_options   )
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'  addParams( options: [publish_files : ['_versions.yml':'']] )
+
+include { GUNZIP as GUNZIP_INPUT_FASTA } from '../modules/nf-core/modules/gunzip/main' addParams( options: gunzip_input_fasta_options   )
 
 /*
 ========================================================================================
     RUN MAIN WORKFLOW
-========================================================================================
+========================================================================================ddParams( options: gunzip_input_fasta_options   )
 */
 
 // Info required for completion email and summary
@@ -77,13 +82,12 @@ workflow FUNCSCAN {
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
+    //    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    // MODULE: Run GUNZIP
     //
-    // MODULE: Run FastQC
-    //
-    FASTQC (
-        INPUT_CHECK.out.reads
+    GUNZIP_WITH_META (
+        INPUT_CHECK.out.contigs
     )
-    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
@@ -100,7 +104,6 @@ workflow FUNCSCAN {
     ch_multiqc_files = ch_multiqc_files.mix(ch_multiqc_custom_config.collect().ifEmpty([]))
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
 
     MULTIQC (
         ch_multiqc_files.collect()

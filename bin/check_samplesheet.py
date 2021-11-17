@@ -43,10 +43,8 @@ def check_samplesheet(file_in, file_out):
     """
     This function checks that the samplesheet follows the following structure:
 
-    sample,fastq_1,fastq_2
-    SAMPLE_PE,SAMPLE_PE_RUN1_1.fastq.gz,SAMPLE_PE_RUN1_2.fastq.gz
-    SAMPLE_PE,SAMPLE_PE_RUN2_1.fastq.gz,SAMPLE_PE_RUN2_2.fastq.gz
-    SAMPLE_SE,SAMPLE_SE_RUN1_1.fastq.gz,
+    sample,fasta
+    contig_1,https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/bacteroides_fragilis/genome/genome.fna.gz
 
     For an example see:
     https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/samplesheet/samplesheet_test_illumina_amplicon.csv
@@ -58,7 +56,7 @@ def check_samplesheet(file_in, file_out):
         ## Check header
         MIN_COLS = 2
         # TODO nf-core: Update the column names for the input samplesheet
-        HEADER = ["sample", "fastq_1", "fastq_2"]
+        HEADER = ["sample", "fasta"]
         header = [x.strip('"') for x in fin.readline().strip().split(",")]
         if header[: len(HEADER)] != HEADER:
             print("ERROR: Please check samplesheet header -> {} != {}".format(",".join(header), ",".join(HEADER)))
@@ -84,33 +82,31 @@ def check_samplesheet(file_in, file_out):
                 )
 
             ## Check sample name entries
-            sample, fastq_1, fastq_2 = lspl[: len(HEADER)]
+            sample, fasta = lspl[: len(HEADER)]
             sample = sample.replace(" ", "_")
             if not sample:
                 print_error("Sample entry has not been specified!", "Line", line)
 
-            ## Check FastQ file extension
-            for fastq in [fastq_1, fastq_2]:
-                if fastq:
-                    if fastq.find(" ") != -1:
-                        print_error("FastQ file contains spaces!", "Line", line)
-                    if not fastq.endswith(".fastq.gz") and not fastq.endswith(".fq.gz"):
+            ## Check FastA file extension
+            for fasta in [fasta]:
+                if fasta:
+                    if fasta.find(" ") != -1:
+                        print_error("FastA file contains spaces!", "Line", line)
+                    if not fasta.endswith(".fasta.gz") and not fasta.endswith(".fa.gz") and not fasta.endswith(".fna.gz"):
                         print_error(
-                            "FastQ file does not have extension '.fastq.gz' or '.fq.gz'!",
+                            "FastA file does not have extension '.fasta.gz', '.fa.gz', or '.fna.gz'!",
                             "Line",
                             line,
                         )
 
-            ## Auto-detect paired-end/single-end
-            sample_info = []  ## [single_end, fastq_1, fastq_2]
-            if sample and fastq_1 and fastq_2:  ## Paired-end short reads
-                sample_info = ["0", fastq_1, fastq_2]
-            elif sample and fastq_1 and not fastq_2:  ## Single-end short reads
-                sample_info = ["1", fastq_1, fastq_2]
+            ## Extend metadata etc.
+            sample_info = []
+            if sample and fasta:
+                sample_info = [fasta]
             else:
                 print_error("Invalid combination of columns provided!", "Line", line)
 
-            ## Create sample mapping dictionary = { sample: [ single_end, fastq_1, fastq_2 ] }
+            ## Create sample mapping dictionary = { sample: [ fasta ] }
             if sample not in sample_mapping_dict:
                 sample_mapping_dict[sample] = [sample_info]
             else:
@@ -124,7 +120,7 @@ def check_samplesheet(file_in, file_out):
         out_dir = os.path.dirname(file_out)
         make_dir(out_dir)
         with open(file_out, "w") as fout:
-            fout.write(",".join(["sample", "single_end", "fastq_1", "fastq_2"]) + "\n")
+            fout.write(",".join(["sample", "fasta"]) + "\n")
             for sample in sorted(sample_mapping_dict.keys()):
 
                 ## Check that multiple runs of the same sample are of the same datatype
@@ -132,7 +128,7 @@ def check_samplesheet(file_in, file_out):
                     print_error("Multiple runs of a sample must be of the same datatype!", "Sample: {}".format(sample))
 
                 for idx, val in enumerate(sample_mapping_dict[sample]):
-                    fout.write(",".join(["{}_T{}".format(sample, idx + 1)] + val) + "\n")
+                    fout.write(",".join(["{}".format(sample, idx + 1)] + val) + "\n")
     else:
         print_error("No entries to process!", "Samplesheet: {}".format(file_in))
 
