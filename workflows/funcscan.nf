@@ -38,9 +38,7 @@ def modules = params.modules.clone()
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { INPUT_CHECK } from '../subworkflows/local/input_check' addParams( options: [:] )
-
-//include { GUNZIP_WITH_META } from '../subworkflows/local/gunzip_with_meta'  addParams( options: [:] )
+include { INPUT_CHECK } from '../subworkflows/local/input_check'
 
 /*
 ========================================================================================
@@ -48,23 +46,13 @@ include { INPUT_CHECK } from '../subworkflows/local/input_check' addParams( opti
 ========================================================================================
 */
 
-def multiqc_options   = modules['multiqc']
-multiqc_options.args += params.multiqc_title ? Utils.joinModuleArgs(["--title \"$params.multiqc_title\""]) : ''
-
-def fargene_options   = modules['fargene']
-def prokka_options   = modules['prokka']
-
-//def gunzip_input_fasta_options = modules['gunzip']
-
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { MULTIQC } from '../modules/nf-core/modules/multiqc/main' addParams( options: multiqc_options   )
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'  addParams( options: [publish_files : ['_versions.yml':'']] )
-include { FARGENE } from '../modules/nf-core/modules/fargene/main' addParams( options: fargene_options   )
-include { PROKKA } from '../modules/nf-core/modules/prokka/main' addParams( options: prokka_options   )
-
-//include { GUNZIP as GUNZIP_INPUT_FASTA } from '../modules/nf-core/modules/gunzip/main' addParams( options: gunzip_input_fasta_options   )
+include { MULTIQC } from '../modules/nf-core/modules/multiqc/main'
+include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
+include { FARGENE } from '../modules/nf-core/modules/fargene/main'
+include { PROKKA } from '../modules/nf-core/modules/prokka/main'
 
 /*
 ========================================================================================
@@ -87,18 +75,13 @@ workflow FUNCSCAN {
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
+    // TODO gunzip input FASTA for FARGENE
+
     FARGENE (
         INPUT_CHECK.out.contigs,
         params.fargene_hmm_model
     )
     ch_versions = ch_versions.mix(FARGENE.out.versions)
-
-    //    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
-    // MODULE: Run GUNZIP
-    //
-    // GUNZIP_WITH_META (
-    //     INPUT_CHECK.out.contigs
-    // )
 
     PROKKA (
 	INPUT_CHECK.out.contigs,
