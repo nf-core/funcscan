@@ -31,7 +31,7 @@ def create_input_channels(LinkedHashMap row) {
     if (!file(row.fasta).exists()) {
         exit 1, "[funscan] error: please check input samplesheet. FASTA file does not exist for: \n${row.fasta}"
     } else {
-        array = [ meta, [ file(row.fasta) ] ]
+        array = [ meta, file(row.fasta) ]
     }
 
     return array

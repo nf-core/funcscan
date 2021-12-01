@@ -32,9 +32,6 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 ========================================================================================
 */
 
-// Don't overwrite global params.modules, create a copy instead and use that within the main script.
-def modules = params.modules.clone()
-
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
@@ -49,10 +46,12 @@ include { INPUT_CHECK } from '../subworkflows/local/input_check'
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { MULTIQC } from '../modules/nf-core/modules/multiqc/main'
+include { MULTIQC                     } from '../modules/nf-core/modules/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
+
+include { GUNZIP  } from '../modules/nf-core/modules/gunzip/main'
 include { FARGENE } from '../modules/nf-core/modules/fargene/main'
-include { PROKKA } from '../modules/nf-core/modules/prokka/main'
+include { PROKKA  } from '../modules/nf-core/modules/prokka/main'
 
 /*
 ========================================================================================
@@ -77,14 +76,19 @@ workflow FUNCSCAN {
 
     // Some tools require uncompressed input
     INPUT_CHECK.out.contigs
+        .dump(tag: 'gzipbranchin')
         .branch {
-            compressed: it[1].endsWith('.gz')
+            compressed: it[1].toString().endsWith('.gz')
             uncompressed: it[1]
         }
         .set { fasta_prep }
 
+
     GUNZIP ( fasta_prep.compressed )
     ch_versions = ch_versions.mix(GUNZIP.out.versions)
+
+    // Merge all the already uncompressed and newly compressed FASTAs here into
+    // a single input channel for downstream
     ch_prepped_input = GUNZIP.out.gunzip.mix(fasta_prep.uncompressed)
 
     // Some tools require annotated FASTAs
@@ -102,13 +106,11 @@ workflow FUNCSCAN {
     ch_versions = ch_versions.mix(FARGENE.out.versions)
 
 
-
-    CUSTOM_DUMPSOFTWAREVERSIONS ( ch_versions.unique().collectFile(name: 'collated_versions.yml') )
-
     // BGCs
     // TODO antismash
 
-
+    // Cleaning up versions
+    CUSTOM_DUMPSOFTWAREVERSIONS ( ch_versions.unique().collectFile(name: 'collated_versions.yml') )
 
     //
     // MODULE: MultiQC
