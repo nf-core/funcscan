@@ -75,24 +75,40 @@ workflow FUNCSCAN {
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
-    // TODO optional gunzip input FASTA for e.g. FARGENE
+    // Some tools require uncompressed input
+    INPUT_CHECK.out.contigs
+        .branch {
+            compressed: it[1].endsWith('.gz')
+            uncompressed: it[1]
+        }
+        .set { fasta_prep }
 
-    FARGENE (
-        INPUT_CHECK.out.contigs,
-        params.fargene_hmm_model
-    )
-    ch_versions = ch_versions.mix(FARGENE.out.versions)
+    GUNZIP ( fasta_prep.compressed )
+    ch_versions = ch_versions.mix(GUNZIP.out.versions)
+    ch_prepped_input = GUNZIP.out.gunzip.mix(fasta_prep.uncompressed)
 
-    PROKKA (
-        INPUT_CHECK.out.contigs,
-        [],
-        []
-    )
+    // Some tools require annotated FASTAs
+    PROKKA ( ch_prepped_input, [], [] )
     ch_versions = ch_versions.mix(PROKKA.out.versions)
 
-    CUSTOM_DUMPSOFTWAREVERSIONS (
-        ch_versions.unique().collectFile(name: 'collated_versions.yml')
-    )
+    // AMPs
+    // TODO AMPEP(?)
+    // TODO ampir
+    // TODO MACREL
+
+    // AMRs
+    // TODO deeparg
+    FARGENE ( ch_prepped_input, params.fargene_hmm_model )
+    ch_versions = ch_versions.mix(FARGENE.out.versions)
+
+
+
+    CUSTOM_DUMPSOFTWAREVERSIONS ( ch_versions.unique().collectFile(name: 'collated_versions.yml') )
+
+    // BGCs
+    // TODO antismash
+
+
 
     //
     // MODULE: MultiQC
