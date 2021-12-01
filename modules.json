@@ -4,7 +4,7 @@
     "repos": {
         "nf-core/modules": {
             "custom/dumpsoftwareversions": {
-                "git_sha": "84f2302920078b0cf7716b2a2e5fcc0be5c4531d"
+                "git_sha": "20d8250d9f39ddb05dfb437603aaf99b5c0b2b41"
             },
             "fargene": {
                 "git_sha": "eff515891de1673eb54c540b4966c479b28a7e7b"

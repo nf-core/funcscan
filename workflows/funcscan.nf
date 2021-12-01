@@ -75,7 +75,7 @@ workflow FUNCSCAN {
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
-    // TODO gunzip input FASTA for FARGENE
+    // TODO optional gunzip input FASTA for e.g. FARGENE
 
     FARGENE (
         INPUT_CHECK.out.contigs,
@@ -84,9 +84,9 @@ workflow FUNCSCAN {
     ch_versions = ch_versions.mix(FARGENE.out.versions)
 
     PROKKA (
-	INPUT_CHECK.out.contigs,
-	[],
-	[]
+        INPUT_CHECK.out.contigs,
+        [],
+        []
     )
     ch_versions = ch_versions.mix(PROKKA.out.versions)
 
