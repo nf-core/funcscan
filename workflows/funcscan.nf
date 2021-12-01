@@ -76,20 +76,19 @@ workflow FUNCSCAN {
 
     // Some tools require uncompressed input
     INPUT_CHECK.out.contigs
-        .dump(tag: 'gzipbranchin')
         .branch {
             compressed: it[1].toString().endsWith('.gz')
             uncompressed: it[1]
         }
         .set { fasta_prep }
 
-
     GUNZIP ( fasta_prep.compressed )
     ch_versions = ch_versions.mix(GUNZIP.out.versions)
 
     // Merge all the already uncompressed and newly compressed FASTAs here into
     // a single input channel for downstream
-    ch_prepped_input = GUNZIP.out.gunzip.mix(fasta_prep.uncompressed)
+    ch_prepped_input = GUNZIP.out.gunzip
+                        .mix(fasta_prep.uncompressed)
 
     // Some tools require annotated FASTAs
     PROKKA ( ch_prepped_input, [], [] )
@@ -104,7 +103,6 @@ workflow FUNCSCAN {
     // TODO deeparg
     FARGENE ( ch_prepped_input, params.fargene_hmm_model )
     ch_versions = ch_versions.mix(FARGENE.out.versions)
-
 
     // BGCs
     // TODO antismash
