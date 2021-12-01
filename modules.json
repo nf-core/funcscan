@@ -4,16 +4,19 @@
     "repos": {
         "nf-core/modules": {
             "custom/dumpsoftwareversions": {
-                "git_sha": "84f2302920078b0cf7716b2a2e5fcc0be5c4531d"
+                "git_sha": "20d8250d9f39ddb05dfb437603aaf99b5c0b2b41"
             },
             "fargene": {
                 "git_sha": "1f8f86b79361fb9999b56680105f439df81d718d"
             },
             "gunzip": {
-                "git_sha": "e560fbbc3ed68e62bc810a50f552394056f81762"
+                "git_sha": "20d8250d9f39ddb05dfb437603aaf99b5c0b2b41"
             },
             "multiqc": {
                 "git_sha": "7b3315591a149609e27914965f858c9a7e071564"
+            },
+            "prokka": {
+                "git_sha": "20d8250d9f39ddb05dfb437603aaf99b5c0b2b41"
             }
         }
     }
