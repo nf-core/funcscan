@@ -13,7 +13,7 @@ class WorkflowFuncscan {
         //if (!params.fasta) {
         //    log.error "Genome fasta file not specified with e.g. '--fasta genome.fa' or via a detectable config file."
         //    System.exit(1)
-        }
+        //}
     }
 
     //
