@@ -57,6 +57,7 @@ def check_samplesheet(file_in, file_out):
         MIN_COLS = 2
         # TODO nf-core: Update the column names for the input samplesheet
         HEADER = ["sample", "fasta"]
+
         header = [x.strip('"') for x in fin.readline().strip().split(",")]
         if header[: len(HEADER)] != HEADER:
             print("ERROR: Please check samplesheet header -> {} != {}".format(",".join(header), ",".join(HEADER)))
@@ -121,6 +122,7 @@ def check_samplesheet(file_in, file_out):
         make_dir(out_dir)
         with open(file_out, "w") as fout:
             fout.write(",".join(["sample", "fasta"]) + "\n")
+
             for sample in sorted(sample_mapping_dict.keys()):
 
                 ## Check that multiple runs of the same sample are of the same datatype
