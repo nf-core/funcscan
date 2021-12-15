@@ -56,7 +56,7 @@ include { PROKKA  } from '../modules/nf-core/modules/prokka/main'
 /*
 ========================================================================================
     RUN MAIN WORKFLOW
-========================================================================================ddParams( options: gunzip_input_fasta_options   )
+========================================================================================
 */
 
 // Info required for completion email and summary
