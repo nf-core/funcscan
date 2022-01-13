@@ -1,4 +1,4 @@
-# ![nf-core/funcscan](docs/images/nf-core-funcscan_logo_light.png#gh-light-mode-only) ![nf-core/funcscan](docs/images/nf-core-funcscan_logo_dark.png#gh-dark-mode-only)
+# ![nf-core/funcscan](docs/images/nf-core_funcscan_logo_flat_light.png#gh-light-mode-only) ![nf-core/funcscan](docs/images/nf-core_funccsan_logo_flat_black.png#gh-dark-mode-only)
 
 [![GitHub Actions CI Status](https://github.com/nf-core/funcscan/workflows/nf-core%20CI/badge.svg)](https://github.com/nf-core/funcscan/actions?query=workflow%3A%22nf-core+CI%22)
 [![GitHub Actions Linting Status](https://github.com/nf-core/funcscan/workflows/nf-core%20linting/badge.svg)](https://github.com/nf-core/funcscan/actions?query=workflow%3A%22nf-core+linting%22)
@@ -17,7 +17,7 @@
 ## Introduction
 
 <!-- TODO nf-core: Write a 1-2 sentence summary of what data the pipeline is for and what it does -->
-**nf-core/funcscan** is a bioinformatics best-practice analysis pipeline for Pipeline for screening for functional components of assembled contigs.
+**nf-core/funcscan** is a bioinformatics best-practice analysis pipeline for screening for functional components of assembled contigs. This includes mining for antimicrobial peptides, antibiotic resistance genes and biosynthetis gene clusters.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
@@ -30,6 +30,10 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+3. Annotates prokaryotic input assembled contigs using ([`PROKKA`](https://github.com/tseemann/prokka))
+4. Mines for antimicrobial peptides using a number of published tools, e.g. ...
+5. Mines for antibiotic resistant genes using a number of pucblishe tools, e.g. ....
+6. Mines for biosynthetic genee clusters using a number of published tools, e.g. ... 
 
 ## Quick Start
 
