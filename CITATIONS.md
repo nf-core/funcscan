@@ -16,13 +16,13 @@
     > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
 
 * [Prokka](https://doi.org/10.1093/bioinformatics/btu153)
-    > Seemann, T. (2014). Prokka: rapid prokaryotic genome annotation. Bioinformatics , 30(14), 2068–2069. https://doi.org/10.1093/bioinformatics/btu153
+    > Seemann, T. (2014). Prokka: rapid prokaryotic genome annotation. Bioinformatics , 30(14), 2068–2069. [https://doi.org/10.1093/bioinformatics/btu153](https://doi.org/10.1093/bioinformatics/btu153)
 
 * [fARGene](https://doi.org/10.1186/s40168-019-0670-1)
-    > Berglund, F., Österlund, T., Boulund, F., Marathe, N. P., Larsson, D. G. J., & Kristiansson, E. (2019). Identification and reconstruction of novel antibiotic resistance genes from metagenomes. Microbiome, 7(1), 52. https://doi.org/10.1186/s40168-019-0670-1
+    > Berglund, F., Österlund, T., Boulund, F., Marathe, N. P., Larsson, D. G. J., & Kristiansson, E. (2019). Identification and reconstruction of novel antibiotic resistance genes from metagenomes. Microbiome, 7(1), 52. [https://doi.org/10.1186/s40168-019-0670-1](https://doi.org/10.1186/s40168-019-0670-1)
 
 * [DeepARG](https://doi.org/10.1186/s40168-018-0401-z)
-    > Arango-Argoty, G., Garner, E., Pruden, A., Heath, L. S., Vikesland, P., & Zhang, L. (2018). DeepARG: a deep learning approach for predicting antibiotic resistance genes from metagenomic data. Microbiome, 6(1), 23. https://doi.org/10.1186/s40168-018-0401-z
+    > Arango-Argoty, G., Garner, E., Pruden, A., Heath, L. S., Vikesland, P., & Zhang, L. (2018). DeepARG: a deep learning approach for predicting antibiotic resistance genes from metagenomic data. Microbiome, 6(1), 23. [https://doi.org/10.1186/s40168-018-0401-z](https://doi.org/10.1186/s40168-018-0401-z)
 
 ## Software packaging/containerisation tools
 
