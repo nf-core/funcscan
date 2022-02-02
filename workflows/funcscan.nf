@@ -49,9 +49,11 @@ include { INPUT_CHECK } from '../subworkflows/local/input_check'
 include { MULTIQC                     } from '../modules/nf-core/modules/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
 
-include { GUNZIP  } from '../modules/nf-core/modules/gunzip/main'
-include { FARGENE } from '../modules/nf-core/modules/fargene/main'
-include { PROKKA  } from '../modules/nf-core/modules/prokka/main'
+include { GUNZIP               } from '../modules/nf-core/modules/gunzip/main'
+include { FARGENE              } from '../modules/nf-core/modules/fargene/main'
+include { PROKKA               } from '../modules/nf-core/modules/prokka/main'
+include { DEEPARG_DOWNLOADDATA } from '../modules/nf-core/modules/deeparg/downloaddata/main'
+include { DEEPARG_PREDICT      } from '../modules/nf-core/modules/deeparg/predict/main'
 
 /*
 ========================================================================================
@@ -94,17 +96,51 @@ workflow FUNCSCAN {
     PROKKA ( ch_prepped_input, [], [] )
     ch_versions = ch_versions.mix(PROKKA.out.versions)
 
-    // AMPs
+    /*
+        AMPs
+    */
+
     // TODO AMPEP(?)
     // TODO ampir
     // TODO MACREL
 
-    // AMRs
-    // TODO deeparg
+    /*
+        AMRs
+    */
+
+    // fARGene run
     FARGENE ( ch_prepped_input, params.fargene_hmm_model )
     ch_versions = ch_versions.mix(FARGENE.out.versions)
 
-    // BGCs
+    // DeepARG prepare download
+    if ( params.deeparg_data ) {
+        Channel
+            .fromPath( params.deeparg_data )
+            .set { ch_deeparg_db }
+    } else {
+        DEEPARG_DOWNLOADDATA()
+        DEEPARG_DOWNLOADDATA.out.db.set { ch_deeparg_db }
+    }
+
+    // DeepARG run
+
+    PROKKA.out.fna
+        .map {
+            it ->
+                def meta  = it[0]
+                def anno  = it[1]
+                def model = params.deeparg_model
+
+            [ meta, anno, model ]
+        }
+        .set { ch_input_for_deeparg }
+
+    DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db )
+    ch_versions = ch_versions.mix(DEEPARG_PREDICT.out.versions)
+
+    /*
+        BGCs
+    */
     // TODO antismash
 
     // Cleaning up versions

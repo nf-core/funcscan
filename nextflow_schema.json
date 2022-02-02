@@ -291,5 +291,39 @@
         {
             "$ref": "#/definitions/generic_options"
         }
-    ]
+    ],
+    "properties": {
+        "deeparg_data": {
+            "type": "string",
+            "default": "None"
+        },
+        "deeparg_model": {
+            "type": "string",
+            "default": "ss"
+        },
+        "deeparg_type": {
+            "type": "string",
+            "default": "nucl"
+        },
+        "deeparg_min_prob": {
+            "type": "number",
+            "default": 0.8
+        },
+        "deeparg_alignment_identity": {
+            "type": "integer",
+            "default": 50
+        },
+        "deeparg_alignment_evalue": {
+            "type": "number",
+            "default": 1e-10
+        },
+        "deeparg_alignment_overlap": {
+            "type": "number",
+            "default": 0.8
+        },
+        "deeparg_num_alignments_per_entry": {
+            "type": "integer",
+            "default": 1000
+        }
+    }
 }
