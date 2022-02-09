@@ -12,6 +12,9 @@
             "gunzip": {
                 "git_sha": "20d8250d9f39ddb05dfb437603aaf99b5c0b2b41"
             },
+            "macrel/contigs": {
+                "git_sha": "1f3f2b18bb11be73b90d3a19e4f764aa88612f91"
+            },
             "multiqc": {
                 "git_sha": "20d8250d9f39ddb05dfb437603aaf99b5c0b2b41"
             },

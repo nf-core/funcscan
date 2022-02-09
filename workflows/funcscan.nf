@@ -52,6 +52,7 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/
 include { GUNZIP  } from '../modules/nf-core/modules/gunzip/main'
 include { FARGENE } from '../modules/nf-core/modules/fargene/main'
 include { PROKKA  } from '../modules/nf-core/modules/prokka/main'
+include { MACREL_CONTIGS  } from '../modules/nf-core/modules/macrel/contigs/main'
 
 /*
 ========================================================================================
@@ -97,7 +98,9 @@ workflow FUNCSCAN {
     // AMPs
     // TODO AMPEP(?)
     // TODO ampir
-    // TODO MACREL
+    MACREL_CONTIGS ( ch_prepped_input )
+    ch_versions = ch_versions.mix(params.MACREL.out.versions)
+
 
     // AMRs
     // TODO deeparg
