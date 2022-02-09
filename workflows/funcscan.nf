@@ -49,11 +49,14 @@ include { INPUT_CHECK } from '../subworkflows/local/input_check'
 include { MULTIQC                     } from '../modules/nf-core/modules/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
 
-include { GUNZIP               } from '../modules/nf-core/modules/gunzip/main'
-include { FARGENE              } from '../modules/nf-core/modules/fargene/main'
-include { PROKKA               } from '../modules/nf-core/modules/prokka/main'
-include { DEEPARG_DOWNLOADDATA } from '../modules/nf-core/modules/deeparg/downloaddata/main'
-include { DEEPARG_PREDICT      } from '../modules/nf-core/modules/deeparg/predict/main'
+
+include { GUNZIP                } from '../modules/nf-core/modules/gunzip/main'
+include { FARGENE               } from '../modules/nf-core/modules/fargene/main'
+include { PROKKA                } from '../modules/nf-core/modules/prokka/main'
+include { MACREL_CONTIGS        } from '../modules/nf-core/modules/macrel/contigs/main'
+include { DEEPARG_DOWNLOADDATA  } from '../modules/nf-core/modules/deeparg/downloaddata/main'
+include { DEEPARG_PREDICT       } from '../modules/nf-core/modules/deeparg/predict/main'
+
 
 /*
 ========================================================================================
@@ -102,7 +105,9 @@ workflow FUNCSCAN {
 
     // TODO AMPEP(?)
     // TODO ampir
-    // TODO MACREL
+    MACREL_CONTIGS ( ch_prepped_input )
+    ch_versions = ch_versions.mix(params.MACREL.out.versions)
+
 
     /*
         AMRs
