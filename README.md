@@ -1,4 +1,4 @@
-# ![nf-core/funcscan](docs/images/nf-core_funcscan_logo_flat_light.png#gh-light-mode-only) ![nf-core/funcscan](docs/images/nf-core_funccsan_logo_flat_black.png#gh-dark-mode-only)
+# ![nf-core/funcscan](docs/images/nf-core-funcscan_logo_light.png#gh-light-mode-only) ![nf-core/funcscan](docs/images/nf-core-funcscan_logo_dark.png#gh-dark-mode-only)
 
 [![GitHub Actions CI Status](https://github.com/nf-core/funcscan/workflows/nf-core%20CI/badge.svg)](https://github.com/nf-core/funcscan/actions?query=workflow%3A%22nf-core+CI%22)
 [![GitHub Actions Linting Status](https://github.com/nf-core/funcscan/workflows/nf-core%20linting/badge.svg)](https://github.com/nf-core/funcscan/actions?query=workflow%3A%22nf-core+linting%22)
