@@ -16,16 +16,13 @@
     > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
 
 * [PROKKA](https://doi.org/10.1093/bioinformatics/btu153)
-    > Torsten Seemann, Prokka: rapid prokaryotic genome annotation, Bioinformatics, Volume 30, Issue 14, 15 July 2014, Pages 2068–2069.
+    > Seemann, Torsten. 2014. "Prokka: Rapid Prokaryotic Genome Annotation." Bioinformatics  30 (14): 2068–69. 
 
 * [MACREL](https://doi.org/10.7717/peerj.10555)
-    > Santos-Júnior CD, Pan S, Zhao X, Coelho LP. 2020. Macrel: antimicrobial peptide screening in genomes and metagenomes. PeerJ 8:e10555.
+    > Santos-Júnior CD, Pan S, Zhao X, Coelho LP. 2020. "Macrel: antimicrobial peptide screening in genomes and metagenomes." PeerJ 8:e10555.
 
 * [FARGENE](https://doi.org/10.1186/s40168-019-0670-1)
-    > Berglund, F., Österlund, T., Boulund, F. et al. Identification and reconstruction of novel antibiotic resistance genes from metagenomes. Microbiome 7, 52 (2019).
-
-* [ANTISMASH](https://doi.org/10.1093/nar/gkz310)
-    > Kai Blin, Simon Shaw, Katharina Steinke, Rasmus Villebro, Nadine Ziemert, Sang Yup Lee, Marnix H Medema, Tilmann Weber, antiSMASH 5.0: updates to the secondary metabolite genome mining pipeline, Nucleic Acids Research, Volume 47, Issue W1, 02 July 2019, Pages W81–W87.
+    > Berglund, Fanny, Tobias Österlund, Fredrik Boulund, Nachiket P. Marathe, D. G. Joakim Larsson, and Erik Kristiansson. 2019. "Identification and Reconstruction of Novel Antibiotic Resistance Genes from Metagenomes." Microbiome 7 (1): 52.
 
 ## Software packaging/containerisation tools
 
