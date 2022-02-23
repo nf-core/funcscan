@@ -92,7 +92,7 @@ def check_samplesheet(file_in, file_out):
                 if fasta:
                     if fasta.find(" ") != -1:
                         print_error("FastA file contains spaces!", "Line", line)
-                    if not fasta.endswith(".fasta.gz") and not fasta.endswith(".fa.gz") and not fasta.endswith(".fna.gz")  and not fasta.endswith(".fasta") and not fasta.endswith(".fa") and not fasta.endswith(".fna"):
+                    if Path(fasta).suffixes.join("") not in (".fasta.gz", ".fa.gz", ".fna.gz", ".fasta", ".fa", ".fna"):
                         print_error(
                             "FastA file does not have extension '.fasta.gz', '.fa.gz', '.fna.gz', '.fasta', '.fa', '.fna'!",
                             "Line",
