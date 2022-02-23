@@ -106,7 +106,7 @@ workflow FUNCSCAN {
     // TODO AMPEP(?)
     // TODO ampir
     MACREL_CONTIGS ( ch_prepped_input )
-    ch_versions = ch_versions.mix(params.MACREL.out.versions)
+    ch_versions = ch_versions.mix(MACREL.out.versions)
 
 
     /*
