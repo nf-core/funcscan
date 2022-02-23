@@ -95,3 +95,9 @@ You can cite the `nf-core` publication as follows:
 > Philip Ewels, Alexander Peltzer, Sven Fillinger, Harshil Patel, Johannes Alneberg, Andreas Wilm, Maxime Ulysse Garcia, Paolo Di Tommaso & Sven Nahnsen.
 >
 > _Nat Biotechnol._ 2020 Feb 13. doi: [10.1038/s41587-020-0439-x](https://dx.doi.org/10.1038/s41587-020-0439-x).
+
+### Tool references
+
+* [**PROKKA**](https://doi.org/10.1093/bioinformatics/btu153) Seemann (2014) _Bioinformatics_ 30(14), 16. DOI: [10.1093/bioinformatics/btu153](https://doi.org/10.1093/bioinformatics/btu153)
+* [**fARGene**](https://doi.org/10.1186/s40168-019-0670-1) Bergland et al. (2019) Microbiome, 7(1), 52. DOI: [10.1186/s40168-019-0670-1](https://doi.org/10.1186/s40168-019-0670-1)
+* [**DeepARG**](https://doi.org/10.1186/s40168-018-0401-z): Arango-Argoty et al. (2018) _Microbiome_, 6(1), 23. DOI: [10.1186/s40168-018-0401-z](https://doi.org/10.1186/s40168-018-0401-z)

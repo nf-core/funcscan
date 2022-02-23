@@ -10,8 +10,6 @@
 
 ## Pipeline tools
 
-* [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
-
 * [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
     > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
 
@@ -23,6 +21,9 @@
 
 * [FARGENE](https://doi.org/10.1186/s40168-019-0670-1)
     > Berglund, Fanny, Tobias Österlund, Fredrik Boulund, Nachiket P. Marathe, D. G. Joakim Larsson, and Erik Kristiansson. 2019. "Identification and Reconstruction of Novel Antibiotic Resistance Genes from Metagenomes." Microbiome 7 (1): 52.
+
+* [DeepARG](https://doi.org/10.1186/s40168-018-0401-z)
+    > Arango-Argoty, Gustavo, Emily Garner, Amy Pruden, Lenwood S. Heath, Peter Vikesland, and Liqing Zhang. 2018. "DeepARG: A Deep Learning Approach for Predicting Antibiotic Resistance Genes from Metagenomic Data." Microbiome 6 (1): 23.
 
 ## Software packaging/containerisation tools
 
