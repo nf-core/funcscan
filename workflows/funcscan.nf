@@ -11,7 +11,7 @@ WorkflowFuncscan.initialise(params, log)
 
 // TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.multiqc_config, params.fasta ]
+def checkPathParamList = [ params.input, params.multiqc_config ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
@@ -46,9 +46,17 @@ include { INPUT_CHECK } from '../subworkflows/local/input_check'
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { FASTQC                      } from '../modules/nf-core/modules/fastqc/main'
 include { MULTIQC                     } from '../modules/nf-core/modules/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
+
+
+include { GUNZIP                } from '../modules/nf-core/modules/gunzip/main'
+include { FARGENE               } from '../modules/nf-core/modules/fargene/main'
+include { PROKKA                } from '../modules/nf-core/modules/prokka/main'
+include { MACREL_CONTIGS        } from '../modules/nf-core/modules/macrel/contigs/main'
+include { DEEPARG_DOWNLOADDATA  } from '../modules/nf-core/modules/deeparg/downloaddata/main'
+include { DEEPARG_PREDICT       } from '../modules/nf-core/modules/deeparg/predict/main'
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,17 +79,77 @@ workflow FUNCSCAN {
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
-    //
-    // MODULE: Run FastQC
-    //
-    FASTQC (
-        INPUT_CHECK.out.reads
-    )
-    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    // Some tools require uncompressed input
+    INPUT_CHECK.out.contigs
+        .branch {
+            compressed: it[1].toString().endsWith('.gz')
+            uncompressed: it[1]
+        }
+        .set { fasta_prep }
 
-    CUSTOM_DUMPSOFTWAREVERSIONS (
-        ch_versions.unique().collectFile(name: 'collated_versions.yml')
-    )
+    GUNZIP ( fasta_prep.compressed )
+    ch_versions = ch_versions.mix(GUNZIP.out.versions)
+
+    // Merge all the already uncompressed and newly compressed FASTAs here into
+    // a single input channel for downstream
+    ch_prepped_input = GUNZIP.out.gunzip
+                        .mix(fasta_prep.uncompressed)
+
+    // Some tools require annotated FASTAs
+    PROKKA ( ch_prepped_input, [], [] )
+    ch_versions = ch_versions.mix(PROKKA.out.versions)
+
+    /*
+        AMPs
+    */
+
+    // TODO AMPEP(?)
+    // TODO ampir
+    MACREL_CONTIGS ( ch_prepped_input )
+    ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)
+
+
+    /*
+        AMRs
+    */
+
+    // fARGene run
+    FARGENE ( ch_prepped_input, params.fargene_hmm_model )
+    ch_versions = ch_versions.mix(FARGENE.out.versions)
+
+    // DeepARG prepare download
+    if ( params.deeparg_data ) {
+        Channel
+            .fromPath( params.deeparg_data )
+            .set { ch_deeparg_db }
+    } else {
+        DEEPARG_DOWNLOADDATA()
+        DEEPARG_DOWNLOADDATA.out.db.set { ch_deeparg_db }
+    }
+
+    // DeepARG run
+
+    PROKKA.out.fna
+        .map {
+            it ->
+                def meta  = it[0]
+                def anno  = it[1]
+                def model = params.deeparg_model
+
+            [ meta, anno, model ]
+        }
+        .set { ch_input_for_deeparg }
+
+    DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db )
+    ch_versions = ch_versions.mix(DEEPARG_PREDICT.out.versions)
+
+    /*
+        BGCs
+    */
+    // TODO antismash
+
+    // Cleaning up versions
+    CUSTOM_DUMPSOFTWAREVERSIONS ( ch_versions.unique().collectFile(name: 'collated_versions.yml') )
 
     //
     // MODULE: MultiQC
@@ -94,7 +162,6 @@ workflow FUNCSCAN {
     ch_multiqc_files = ch_multiqc_files.mix(ch_multiqc_custom_config.collect().ifEmpty([]))
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
 
     MULTIQC (
         ch_multiqc_files.collect()

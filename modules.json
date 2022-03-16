@@ -6,10 +6,25 @@
             "custom/dumpsoftwareversions": {
                 "git_sha": "20d8250d9f39ddb05dfb437603aaf99b5c0b2b41"
             },
-            "fastqc": {
-                "git_sha": "9d0cad583b9a71a6509b754fdf589cbfbed08961"
+            "deeparg/downloaddata": {
+                "git_sha": "c3bacb9fdd8d35b26a4673ce3fd052d600817ad3"
+            },
+            "deeparg/predict": {
+                "git_sha": "fc1e694e6e1879540987e4269adeaf8f1d507f98"
+            },
+            "fargene": {
+                "git_sha": "1f8f86b79361fb9999b56680105f439df81d718d"
+            },
+            "gunzip": {
+                "git_sha": "20d8250d9f39ddb05dfb437603aaf99b5c0b2b41"
+            },
+            "macrel/contigs": {
+                "git_sha": "1f3f2b18bb11be73b90d3a19e4f764aa88612f91"
             },
             "multiqc": {
+                "git_sha": "20d8250d9f39ddb05dfb437603aaf99b5c0b2b41"
+            },
+            "prokka": {
                 "git_sha": "20d8250d9f39ddb05dfb437603aaf99b5c0b2b41"
             }
         }
