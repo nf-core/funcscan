@@ -156,9 +156,9 @@ workflow FUNCSCAN {
     HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix(DEEPARG_PREDICT.out.potential_arg).dump(tag: "in_hamr_deep"), 'json', '1.0.2', '2'  )
     // TODO provide output format as a user-defined option
     ch_input_to_hamronization_summarize = Channel.empty()
-    ch_input_to_hamronziation_summarize = ch_input_to_hamrionzation_summarize.mix(HAMRONIZATION_DEEPARG.out.json)
+    ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_DEEPARG.out.json)
 
-    ch_input_to_hamrionization_summarize
+    ch_input_to_hamronization_summarize
         .dump(tag: "map_in")
         .map{
             [ it[1] ]
