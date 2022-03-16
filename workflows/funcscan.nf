@@ -161,7 +161,7 @@ workflow FUNCSCAN {
     ch_input_to_hamronization_summarize
         .dump(tag: "map_in")
         .map{
-            [ it[1] ]
+            it[1]
         }
         .collect()
         .dump(tag: "map_out")
