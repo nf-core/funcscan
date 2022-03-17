@@ -17,6 +17,9 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 // Check mandatory parameters
 if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
 
+// TODO update to only display if DeepARG is activated
+if (  "${workflow.containerEngine}" == 'singularity' && params.deeparg_data ) log.warn("[nf-core/funcscan] warning: running with singularity requires DeepARG to run the container with --fakerun. This may not be available on all systems")
+
 /*
 ========================================================================================
     CONFIG FILES
@@ -118,11 +121,11 @@ workflow FUNCSCAN {
     ch_versions = ch_versions.mix(FARGENE.out.versions)
 
     // DeepARG prepare download
-    if ( params.deeparg_data ) {
+    if ( params.run_deeparg && params.deeparg_data ) {
         Channel
             .fromPath( params.deeparg_data )
             .set { ch_deeparg_db }
-    } else {
+    } else if ( params.run_deeparg && !params.deeparg_data ) {
         DEEPARG_DOWNLOADDATA()
         DEEPARG_DOWNLOADDATA.out.db.set { ch_deeparg_db }
     }
@@ -140,8 +143,10 @@ workflow FUNCSCAN {
         }
         .set { ch_input_for_deeparg }
 
-    DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db )
-    ch_versions = ch_versions.mix(DEEPARG_PREDICT.out.versions)
+    if ( params.run_deeparg ) {
+        DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db )
+        ch_versions = ch_versions.mix(DEEPARG_PREDICT.out.versions)
+    }
 
     /*
         BGCs
