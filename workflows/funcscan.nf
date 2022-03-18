@@ -121,12 +121,16 @@ workflow FUNCSCAN {
     ch_versions = ch_versions.mix(FARGENE.out.versions)
 
     // DeepARG prepare download
+    if ( params.run_deeparg ){
+        ch_deeparg_pkg = file("$projectDir/assets/multiqc_config.yaml", checkIfExists: true)
+    }
+
     if ( params.run_deeparg && params.deeparg_data ) {
         Channel
             .fromPath( params.deeparg_data )
             .set { ch_deeparg_db }
     } else if ( params.run_deeparg && !params.deeparg_data ) {
-        DEEPARG_DOWNLOADDATA()
+        DEEPARG_DOWNLOADDATA( ch_deeparg_pkg )
         DEEPARG_DOWNLOADDATA.out.db.set { ch_deeparg_db }
     }
 
@@ -144,7 +148,7 @@ workflow FUNCSCAN {
         .set { ch_input_for_deeparg }
 
     if ( params.run_deeparg ) {
-        DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db )
+        DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db, ch_deeparg_pkg )
         ch_versions = ch_versions.mix(DEEPARG_PREDICT.out.versions)
     }
 
