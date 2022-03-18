@@ -18,6 +18,12 @@
             "gunzip": {
                 "git_sha": "20d8250d9f39ddb05dfb437603aaf99b5c0b2b41"
             },
+            "hamronization/deeparg": {
+                "git_sha": "4983f77796ce7e367df6e1dd68ffd24cc924074f"
+            },
+            "hamronization/summarize": {
+                "git_sha": "61c88c623389ba4646e5f01547db3050f0abd7fc"
+            },
             "macrel/contigs": {
                 "git_sha": "1f3f2b18bb11be73b90d3a19e4f764aa88612f91"
             },

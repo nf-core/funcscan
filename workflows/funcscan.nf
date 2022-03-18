@@ -1,7 +1,7 @@
 /*
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     VALIDATE INPUTS
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
 def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
@@ -21,18 +21,18 @@ if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input sample
 if (  "${workflow.containerEngine}" == 'singularity' && params.deeparg_data ) log.warn("[nf-core/funcscan] warning: running with singularity requires DeepARG to run the container with --fakerun. This may not be available on all systems")
 
 /*
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     CONFIG FILES
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
 ch_multiqc_config        = file("$projectDir/assets/multiqc_config.yaml", checkIfExists: true)
 ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multiqc_config) : Channel.empty()
 
 /*
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT LOCAL MODULES/SUBWORKFLOWS
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
 //
@@ -41,9 +41,9 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 include { INPUT_CHECK } from '../subworkflows/local/input_check'
 
 /*
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
 //
@@ -53,18 +53,19 @@ include { MULTIQC                     } from '../modules/nf-core/modules/multiqc
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
 
 
-include { GUNZIP                } from '../modules/nf-core/modules/gunzip/main'
-include { FARGENE               } from '../modules/nf-core/modules/fargene/main'
-include { PROKKA                } from '../modules/nf-core/modules/prokka/main'
-include { MACREL_CONTIGS        } from '../modules/nf-core/modules/macrel/contigs/main'
-include { DEEPARG_DOWNLOADDATA  } from '../modules/nf-core/modules/deeparg/downloaddata/main'
-include { DEEPARG_PREDICT       } from '../modules/nf-core/modules/deeparg/predict/main'
-
+include { GUNZIP                  } from '../modules/nf-core/modules/gunzip/main'
+include { FARGENE                 } from '../modules/nf-core/modules/fargene/main'
+include { PROKKA                  } from '../modules/nf-core/modules/prokka/main'
+include { MACREL_CONTIGS          } from '../modules/nf-core/modules/macrel/contigs/main'
+include { DEEPARG_DOWNLOADDATA    } from '../modules/nf-core/modules/deeparg/downloaddata/main'
+include { DEEPARG_PREDICT         } from '../modules/nf-core/modules/deeparg/predict/main'
+include { HAMRONIZATION_DEEPARG   } from '../modules/nf-core/modules/hamronization/deeparg/main'
+include { HAMRONIZATION_SUMMARIZE } from '../modules/nf-core/modules/hamronization/summarize/main'
 
 /*
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
 // Info required for completion email and summary
@@ -157,6 +158,26 @@ workflow FUNCSCAN {
     */
     // TODO antismash
 
+    // Reporting
+    // TODO: have to hardcode the tool/db versions here, will need to work out
+    // how to automate in the future - but DEEPARG won't change
+
+    HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix(DEEPARG_PREDICT.out.potential_arg).dump(tag: "in_hamr_deep"), 'json', '1.0.2', '2'  )
+    // TODO provide output format as a user-defined option
+    ch_input_to_hamronization_summarize = Channel.empty()
+    ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_DEEPARG.out.json)
+
+    ch_input_to_hamronization_summarize
+        .dump(tag: "map_in")
+        .map{
+            it[1]
+        }
+        .collect()
+        .dump(tag: "map_out")
+        .set { ch_input_for_hamronization_summarize }
+
+    HAMRONIZATION_SUMMARIZE( ch_input_for_hamronization_summarize, params.hamronization_summarize_format )
+
     // Cleaning up versions
     CUSTOM_DUMPSOFTWAREVERSIONS ( ch_versions.unique().collectFile(name: 'collated_versions.yml') )
 
@@ -180,9 +201,9 @@ workflow FUNCSCAN {
 }
 
 /*
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     COMPLETION EMAIL AND SUMMARY
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
 workflow.onComplete {
@@ -193,7 +214,7 @@ workflow.onComplete {
 }
 
 /*
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     THE END
-========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
