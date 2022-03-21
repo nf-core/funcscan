@@ -87,18 +87,18 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 The `*.ARG` output files contain the following fields:
 
-> * ARG_NAME
-> * QUERY_START
-> * QUERY_END
-> * QUERY_ID
-> * PREDICTED_ARG_CLASS
-> * BEST_HIT_FROM_DATABASE
-> * PREDICTION_PROBABILITY
-> * ALIGNMENT_BESTHIT_IDENTITY (%)
-> * ALIGNMENT_BESTHIT_LENGTH
-> * ALIGNMENT_BESTHIT_BITSCORE
-> * ALIGNMENT_BESTHIT_EVALUE
-> * COUNTS
+* ARG_NAME
+* QUERY_START
+* QUERY_END
+* QUERY_ID
+* PREDICTED_ARG_CLASS
+* BEST_HIT_FROM_DATABASE
+* PREDICTION_PROBABILITY
+* ALIGNMENT_BESTHIT_IDENTITY (%)
+* ALIGNMENT_BESTHIT_LENGTH
+* ALIGNMENT_BESTHIT_BITSCORE
+* ALIGNMENT_BESTHIT_EVALUE
+* COUNTS
 
 ### fARGene
 
@@ -106,26 +106,27 @@ The `*.ARG` output files contain the following fields:
 <summary>Output files</summary>
 
 * `fargene/`
-    * `fargene_analysis.log`: xxx
+    * `fargene_analysis.log`: Contains the output that Fargene produced during its run
     * `<sample_name>/`:
-        * `hmmsearchresults/`: xxx.
+        * `hmmsearchresults/`: Contains the output from hmmsearch.
         * `predictedGenes/`: 
             * `*-filtered.fasta`: nucleotide sequences of predicted ARGs.
             * `*-filtered-peptides.fasta`: aminoacid sequences of predicted ARGs.
-        * `results_summary.txt`: xxx.
-        * `tmpdir/`: xxx
+        * `results_summary.txt`: Text summary of run results, listing predicted genes and ORFs for each input file.
+        * `tmpdir/`: Contains temporary output files and fasta files.
+
 
 </details>
 
 [fARGene](https://github.com/fannyhb/fargene) (Fragmented Antibiotic Resistance Gene Identifier) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimized models for a number or resistance gene types. The model to be used has to be specified for each run (`--hmm-model`). Models available are:
 
-> * `class_a`: Class A beta-lactamases
-> * `class_b_1_2`: Subclass B1 and B2 beta-lactamases
-> * `class_b3`: Subclass B3 beta-lactamases
-> * `class_d_1`: Class C beta-lactamases
-> * `class_d_2`: Class D beta-lactamases
-> * `qnr`: Quinolone resistance genes
-> * `tet_efflux`, `tet_rpg`, `tet_enzyme`: Tetracycline resistance genes
+* `class_a`: Class A beta-lactamases
+* `class_b_1_2`: Subclass B1 and B2 beta-lactamases
+* `class_b3`: Subclass B3 beta-lactamases
+* `class_d_1`: Class C beta-lactamases
+* `class_d_2`: Class D beta-lactamases
+* `qnr`: Quinolone resistance genes
+* `tet_efflux`, `tet_rpg`, `tet_enzyme`: Tetracycline resistance genes
 
 <!--### RGI
 
