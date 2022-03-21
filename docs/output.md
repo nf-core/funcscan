@@ -86,6 +86,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 [deepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/) uses deep learning to characterize and annotate antibiotic resistance genes in metagenomes. It is composed of two models for two types of input: short sequence reads and gene-like sequences. In this pipeline we use the `ls` model, which is suitable for annotating full sequence genes and to discover novel antibiotic resistance genes from assembled samples. The tool `Diamond` is used as an aligner. 
 
 The `*.ARG` output files contain the following fields:
+
 > * ARG_NAME
 > * QUERY_START
 > * QUERY_END
@@ -117,6 +118,7 @@ The `*.ARG` output files contain the following fields:
 </details>
 
 [fARGene](https://github.com/fannyhb/fargene) (Fragmented Antibiotic Resistance Gene Identifier) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimized models for a number or resistance gene types. The model to be used has to be specified for each run (`--hmm-model`). Models available are:
+
 > * `class_a`: Class A beta-lactamases
 > * `class_b_1_2`: Subclass B1 and B2 beta-lactamases
 > * `class_b3`: Subclass B3 beta-lactamases
