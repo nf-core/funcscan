@@ -66,6 +66,8 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 The nf-core/funcscan pipeline comes with documentation about the pipeline [usage](https://nf-co.re/funcscan/usage), [parameters](https://nf-co.re/funcscan/parameters) and [output](https://nf-co.re/funcscan/output).
 
+The colour codes used for generating the [FUNCSCAN logo](https://github.com/Darcy220606/funcscan/blob/Workflow_diagram/docs/images/funcscan_icon.svg) are 6266AF(HEX) and 3E4FA2(HEX).
+
 ## Credits
 
 nf-core/funcscan was originally written by Jasmin Frangenberg, Anan Ibrahim, James A. Fellows Yates.
