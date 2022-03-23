@@ -17,9 +17,6 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 // Check mandatory parameters
 if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
 
-// TODO update to only display if DeepARG is activated
-if (  "${workflow.containerEngine}" == 'singularity' && params.deeparg_data ) log.warn("[nf-core/funcscan] warning: running with singularity requires DeepARG to run the container with --fakerun. This may not be available on all systems")
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     CONFIG FILES
@@ -122,10 +119,6 @@ workflow FUNCSCAN {
     ch_versions = ch_versions.mix(FARGENE.out.versions)
 
     // DeepARG prepare download
-    if ( params.run_deeparg ){
-        ch_deeparg_pkg = file("$projectDir/assets/multiqc_config.yaml", checkIfExists: true)
-    }
-
     if ( params.run_deeparg && params.deeparg_data ) {
         Channel
             .fromPath( params.deeparg_data )
