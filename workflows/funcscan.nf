@@ -119,12 +119,12 @@ workflow FUNCSCAN {
     ch_versions = ch_versions.mix(FARGENE.out.versions)
 
     // DeepARG prepare download
-    if ( params.deeparg_data ) {
+    if ( params.run_deeparg && params.deeparg_data ) {
         Channel
             .fromPath( params.deeparg_data )
             .set { ch_deeparg_db }
-    } else {
-        DEEPARG_DOWNLOADDATA()
+    } else if ( params.run_deeparg && !params.deeparg_data ) {
+        DEEPARG_DOWNLOADDATA( )
         DEEPARG_DOWNLOADDATA.out.db.set { ch_deeparg_db }
     }
 
@@ -141,8 +141,11 @@ workflow FUNCSCAN {
         }
         .set { ch_input_for_deeparg }
 
-    DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db )
-    ch_versions = ch_versions.mix(DEEPARG_PREDICT.out.versions)
+    if ( params.run_deeparg ) {
+        DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db )
+        ch_versions = ch_versions.mix(DEEPARG_PREDICT.out.versions)
+        HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix(DEEPARG_PREDICT.out.potential_arg).dump(tag: "in_hamr_deep"), 'json', '1.0.2', '2'  )
+    }
 
     /*
         BGCs
@@ -153,7 +156,7 @@ workflow FUNCSCAN {
     // TODO: have to hardcode the tool/db versions here, will need to work out
     // how to automate in the future - but DEEPARG won't change
 
-    HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix(DEEPARG_PREDICT.out.potential_arg).dump(tag: "in_hamr_deep"), 'json', '1.0.2', '2'  )
+
     // TODO provide output format as a user-defined option
     ch_input_to_hamronization_summarize = Channel.empty()
     ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_DEEPARG.out.json)

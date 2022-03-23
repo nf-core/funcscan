@@ -341,6 +341,9 @@
         "deeparg_num_alignments_per_entry": {
             "type": "integer",
             "default": 1000
+        },
+        "run_deeparg": {
+            "type": "boolean"
         }
     }
 }
