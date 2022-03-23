@@ -7,10 +7,10 @@
                 "git_sha": "20d8250d9f39ddb05dfb437603aaf99b5c0b2b41"
             },
             "deeparg/downloaddata": {
-                "git_sha": "f469045a95aad1ce911f0e6db7393800535935d2"
+                "git_sha": "15c7190e2271de7ff347940460a484f69e27a106"
             },
             "deeparg/predict": {
-                "git_sha": "f469045a95aad1ce911f0e6db7393800535935d2"
+                "git_sha": "15c7190e2271de7ff347940460a484f69e27a106"
             },
             "fargene": {
                 "git_sha": "1f8f86b79361fb9999b56680105f439df81d718d"
