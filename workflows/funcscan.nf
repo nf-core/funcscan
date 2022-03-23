@@ -97,54 +97,66 @@ workflow FUNCSCAN {
                         .mix(fasta_prep.uncompressed)
 
     // Some tools require annotated FASTAs
-    PROKKA ( ch_prepped_input, [], [] )
-    ch_versions = ch_versions.mix(PROKKA.out.versions)
-
+    // TODO only execute when we run tools that require prokka as input, e.g.
+    // if ( params.run_bgc_tool1 | params.run_bgc_tool2 | params.run_bgc_tool3 ) etc.
+    if ( params.run_arg_deeparg ) {
+        PROKKA ( ch_prepped_input, [], [] )
+        ch_versions = ch_versions.mix(PROKKA.out.versions)
+    }
     /*
         AMPs
     */
 
     // TODO AMPEP(?)
     // TODO ampir
-    MACREL_CONTIGS ( ch_prepped_input )
-    ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)
-
+    if ( params.run_amp_macrel ) {
+        MACREL_CONTIGS ( ch_prepped_input )
+        ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)
+    }
 
     /*
-        AMRs
+        ARGs
     */
 
+    // Prepare HAMRONIZATION channel
+    ch_input_to_hamronization_summarize = Channel.empty()
+
     // fARGene run
-    FARGENE ( ch_prepped_input, params.fargene_hmm_model )
-    ch_versions = ch_versions.mix(FARGENE.out.versions)
+    if ( params.run_arg_fargene ) {
+        FARGENE ( ch_prepped_input, params.fargene_hmm_model )
+        ch_versions = ch_versions.mix(FARGENE.out.versions)
+    }
 
     // DeepARG prepare download
-    if ( params.run_deeparg && params.deeparg_data ) {
+    if ( params.run_arg_deeparg && params.deeparg_data ) {
         Channel
             .fromPath( params.deeparg_data )
             .set { ch_deeparg_db }
-    } else if ( params.run_deeparg && !params.deeparg_data ) {
+    } else if ( params.run_arg_deeparg && !params.deeparg_data ) {
         DEEPARG_DOWNLOADDATA( )
         DEEPARG_DOWNLOADDATA.out.db.set { ch_deeparg_db }
     }
 
     // DeepARG run
 
-    PROKKA.out.fna
-        .map {
-            it ->
-                def meta  = it[0]
-                def anno  = it[1]
-                def model = params.deeparg_model
+    if ( params.run_arg_deeparg ) {
 
-            [ meta, anno, model ]
-        }
-        .set { ch_input_for_deeparg }
+        PROKKA.out.fna
+                .map {
+                    it ->
+                        def meta  = it[0]
+                        def anno  = it[1]
+                        def model = params.deeparg_model
 
-    if ( params.run_deeparg ) {
+                    [ meta, anno, model ]
+                }
+                .set { ch_input_for_deeparg }
+
         DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db )
         ch_versions = ch_versions.mix(DEEPARG_PREDICT.out.versions)
         HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix(DEEPARG_PREDICT.out.potential_arg).dump(tag: "in_hamr_deep"), 'json', '1.0.2', '2'  )
+        ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_DEEPARG.out.json)
+
     }
 
     /*
@@ -158,8 +170,6 @@ workflow FUNCSCAN {
 
 
     // TODO provide output format as a user-defined option
-    ch_input_to_hamronization_summarize = Channel.empty()
-    ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_DEEPARG.out.json)
 
     ch_input_to_hamronization_summarize
         .dump(tag: "map_in")
