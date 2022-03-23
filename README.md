@@ -17,6 +17,7 @@
 ## Introduction
 
 <!-- TODO nf-core: Write a 1-2 sentence summary of what data the pipeline is for and what it does -->
+
 **nf-core/funcscan** is a bioinformatics best-practice analysis pipeline for screening for functional components of assembled contigs. This includes mining for antimicrobial peptides, antibiotic resistance genes and biosynthetic gene clusters.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
@@ -100,6 +101,6 @@ You can cite the `nf-core` publication as follows:
 
 ### Tool references
 
-* [**PROKKA**](https://doi.org/10.1093/bioinformatics/btu153) Seemann (2014) _Bioinformatics_ 30(14), 16. DOI: [10.1093/bioinformatics/btu153](https://doi.org/10.1093/bioinformatics/btu153)
-* [**fARGene**](https://doi.org/10.1186/s40168-019-0670-1) Bergland et al. (2019) Microbiome, 7(1), 52. DOI: [10.1186/s40168-019-0670-1](https://doi.org/10.1186/s40168-019-0670-1)
-* [**DeepARG**](https://doi.org/10.1186/s40168-018-0401-z): Arango-Argoty et al. (2018) _Microbiome_, 6(1), 23. DOI: [10.1186/s40168-018-0401-z](https://doi.org/10.1186/s40168-018-0401-z)
+- [**PROKKA**](https://doi.org/10.1093/bioinformatics/btu153) Seemann (2014) _Bioinformatics_ 30(14), 16. DOI: [10.1093/bioinformatics/btu153](https://doi.org/10.1093/bioinformatics/btu153)
+- [**fARGene**](https://doi.org/10.1186/s40168-019-0670-1) Bergland et al. (2019) Microbiome, 7(1), 52. DOI: [10.1186/s40168-019-0670-1](https://doi.org/10.1186/s40168-019-0670-1)
+- [**DeepARG**](https://doi.org/10.1186/s40168-018-0401-z): Arango-Argoty et al. (2018) _Microbiome_, 6(1), 23. DOI: [10.1186/s40168-018-0401-z](https://doi.org/10.1186/s40168-018-0401-z)
