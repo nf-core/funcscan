@@ -37,6 +37,9 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 //
 include { INPUT_CHECK } from '../subworkflows/local/input_check'
 
+include { AMP } from '../subworkflows/local/amp'
+include { ARG } from '../subworkflows/local/arg'
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
@@ -49,15 +52,9 @@ include { INPUT_CHECK } from '../subworkflows/local/input_check'
 include { MULTIQC                     } from '../modules/nf-core/modules/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
 
-
 include { GUNZIP                  } from '../modules/nf-core/modules/gunzip/main'
-include { FARGENE                 } from '../modules/nf-core/modules/fargene/main'
 include { PROKKA                  } from '../modules/nf-core/modules/prokka/main'
-include { MACREL_CONTIGS          } from '../modules/nf-core/modules/macrel/contigs/main'
-include { DEEPARG_DOWNLOADDATA    } from '../modules/nf-core/modules/deeparg/downloaddata/main'
-include { DEEPARG_PREDICT         } from '../modules/nf-core/modules/deeparg/predict/main'
-include { HAMRONIZATION_DEEPARG   } from '../modules/nf-core/modules/hamronization/deeparg/main'
-include { HAMRONIZATION_SUMMARIZE } from '../modules/nf-core/modules/hamronization/summarize/main'
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,6 +68,7 @@ def multiqc_report = []
 workflow FUNCSCAN {
 
     ch_versions = Channel.empty()
+    ch_mqc  = Channel.empty()
 
     //
     // SUBWORKFLOW: Read in samplesheet, validate and stage input files
@@ -103,60 +101,24 @@ workflow FUNCSCAN {
         PROKKA ( ch_prepped_input, [], [] )
         ch_versions = ch_versions.mix(PROKKA.out.versions)
     }
+
     /*
         AMPs
     */
-
-    // TODO AMPEP(?)
-    // TODO ampir
-    if ( params.run_amp_macrel ) {
-        MACREL_CONTIGS ( ch_prepped_input )
-        ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)
+    if ( params.run_amp_screening ) {
+        AMP ( ch_prepped_input )
+        ch_versions = ch_versions.mix(AMP.out.versions)
+        ch_mqc      = ch_mqc.mix(AMP.out.mqc)
     }
 
     /*
         ARGs
     */
 
-    // Prepare HAMRONIZATION channel
-    ch_input_to_hamronization_summarize = Channel.empty()
-
-    // fARGene run
-    if ( params.run_arg_fargene ) {
-        FARGENE ( ch_prepped_input, params.fargene_hmm_model )
-        ch_versions = ch_versions.mix(FARGENE.out.versions)
-    }
-
-    // DeepARG prepare download
-    if ( params.run_arg_deeparg && params.deeparg_data ) {
-        Channel
-            .fromPath( params.deeparg_data )
-            .set { ch_deeparg_db }
-    } else if ( params.run_arg_deeparg && !params.deeparg_data ) {
-        DEEPARG_DOWNLOADDATA( )
-        DEEPARG_DOWNLOADDATA.out.db.set { ch_deeparg_db }
-    }
-
-    // DeepARG run
-
-    if ( params.run_arg_deeparg ) {
-
-        PROKKA.out.fna
-                .map {
-                    it ->
-                        def meta  = it[0]
-                        def anno  = it[1]
-                        def model = params.deeparg_model
-
-                    [ meta, anno, model ]
-                }
-                .set { ch_input_for_deeparg }
-
-        DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db )
-        ch_versions = ch_versions.mix(DEEPARG_PREDICT.out.versions)
-        HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix(DEEPARG_PREDICT.out.potential_arg).dump(tag: "in_hamr_deep"), 'json', '1.0.2', '2'  )
-        ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_DEEPARG.out.json)
-
+    if ( params.run_arg_screening ) {
+        ARG ( ch_prepped_input, PROKKA.out.fna )
+        ch_versions = ch_versions.mix(ARG.out.versions)
+        ch_mqc      = ch_mqc.mix(ARG.out.mqc)
     }
 
     /*
@@ -164,23 +126,10 @@ workflow FUNCSCAN {
     */
     // TODO antismash
 
-    // Reporting
-    // TODO: have to hardcode the tool/db versions here, will need to work out
-    // how to automate in the future - but DEEPARG won't change
 
 
-    // TODO provide output format as a user-defined option
 
-    ch_input_to_hamronization_summarize
-        .dump(tag: "map_in")
-        .map{
-            it[1]
-        }
-        .collect()
-        .dump(tag: "map_out")
-        .set { ch_input_for_hamronization_summarize }
 
-    HAMRONIZATION_SUMMARIZE( ch_input_for_hamronization_summarize, params.hamronization_summarize_format )
 
     // Cleaning up versions
     CUSTOM_DUMPSOFTWAREVERSIONS ( ch_versions.unique().collectFile(name: 'collated_versions.yml') )
