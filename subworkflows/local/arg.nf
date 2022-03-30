@@ -23,7 +23,7 @@ workflow ARG {
 
     // fARGene run
     if ( !params.skip_arg_fargene ) {
-        FARGENE ( ch_prepped_input, params.fargene_hmm_model )
+        FARGENE ( contigs, params.fargene_hmm_model )
         ch_versions = ch_versions.mix(FARGENE.out.versions)
     }
 
@@ -32,7 +32,7 @@ workflow ARG {
         Channel
             .fromPath( params.deeparg_data )
             .set { ch_deeparg_db }
-    } else if ( params.run_arg_deeparg && !params.deeparg_data ) {
+    } else if ( !params.skip_arg_deeparg && !params.deeparg_data ) {
         DEEPARG_DOWNLOADDATA( )
         DEEPARG_DOWNLOADDATA.out.db.set { ch_deeparg_db }
     }
