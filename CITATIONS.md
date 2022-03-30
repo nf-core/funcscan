@@ -10,33 +10,39 @@
 
 ## Pipeline tools
 
-* [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
-    > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
+- [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
+  > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
 
 * [PROKKA](https://doi.org/10.1093/bioinformatics/btu153)
-    > Seemann, Torsten. 2014. "Prokka: Rapid Prokaryotic Genome Annotation." Bioinformatics  30 (14): 2068–69.
+
+  > Seemann, Torsten. 2014. "Prokka: Rapid Prokaryotic Genome Annotation." Bioinformatics 30 (14): 2068–69.
 
 * [MACREL](https://doi.org/10.7717/peerj.10555)
-    > Santos-Júnior CD, Pan S, Zhao X, Coelho LP. 2020. "Macrel: antimicrobial peptide screening in genomes and metagenomes." PeerJ 8:e10555.
+
+  > Santos-Júnior CD, Pan S, Zhao X, Coelho LP. 2020. "Macrel: antimicrobial peptide screening in genomes and metagenomes." PeerJ 8:e10555.
 
 * [FARGENE](https://doi.org/10.1186/s40168-019-0670-1)
-    > Berglund, Fanny, Tobias Österlund, Fredrik Boulund, Nachiket P. Marathe, D. G. Joakim Larsson, and Erik Kristiansson. 2019. "Identification and Reconstruction of Novel Antibiotic Resistance Genes from Metagenomes." Microbiome 7 (1): 52.
+
+  > Berglund, Fanny, Tobias Österlund, Fredrik Boulund, Nachiket P. Marathe, D. G. Joakim Larsson, and Erik Kristiansson. 2019. "Identification and Reconstruction of Novel Antibiotic Resistance Genes from Metagenomes." Microbiome 7 (1): 52.
 
 * [DeepARG](https://doi.org/10.1186/s40168-018-0401-z)
-    > Arango-Argoty, Gustavo, Emily Garner, Amy Pruden, Lenwood S. Heath, Peter Vikesland, and Liqing Zhang. 2018. "DeepARG: A Deep Learning Approach for Predicting Antibiotic Resistance Genes from Metagenomic Data." Microbiome 6 (1): 23.
+  > Arango-Argoty, Gustavo, Emily Garner, Amy Pruden, Lenwood S. Heath, Peter Vikesland, and Liqing Zhang. 2018. "DeepARG: A Deep Learning Approach for Predicting Antibiotic Resistance Genes from Metagenomic Data." Microbiome 6 (1): 23.
 
 ## Software packaging/containerisation tools
 
-* [Anaconda](https://anaconda.com)
-    > Anaconda Software Distribution. Computer software. Vers. 2-2.4.0. Anaconda, Nov. 2016. Web.
+- [Anaconda](https://anaconda.com)
 
-* [Bioconda](https://pubmed.ncbi.nlm.nih.gov/29967506/)
-    > Grüning B, Dale R, Sjödin A, Chapman BA, Rowe J, Tomkins-Tinch CH, Valieris R, Köster J; Bioconda Team. Bioconda: sustainable and comprehensive software distribution for the life sciences. Nat Methods. 2018 Jul;15(7):475-476. doi: 10.1038/s41592-018-0046-7. PubMed PMID: 29967506.
+  > Anaconda Software Distribution. Computer software. Vers. 2-2.4.0. Anaconda, Nov. 2016. Web.
 
-* [BioContainers](https://pubmed.ncbi.nlm.nih.gov/28379341/)
-    > da Veiga Leprevost F, Grüning B, Aflitos SA, Röst HL, Uszkoreit J, Barsnes H, Vaudel M, Moreno P, Gatto L, Weber J, Bai M, Jimenez RC, Sachsenberg T, Pfeuffer J, Alvarez RV, Griss J, Nesvizhskii AI, Perez-Riverol Y. BioContainers: an open-source and community-driven framework for software standardization. Bioinformatics. 2017 Aug 15;33(16):2580-2582. doi: 10.1093/bioinformatics/btx192. PubMed PMID: 28379341; PubMed Central PMCID: PMC5870671.
+- [Bioconda](https://pubmed.ncbi.nlm.nih.gov/29967506/)
 
-* [Docker](https://dl.acm.org/doi/10.5555/2600239.2600241)
+  > Grüning B, Dale R, Sjödin A, Chapman BA, Rowe J, Tomkins-Tinch CH, Valieris R, Köster J; Bioconda Team. Bioconda: sustainable and comprehensive software distribution for the life sciences. Nat Methods. 2018 Jul;15(7):475-476. doi: 10.1038/s41592-018-0046-7. PubMed PMID: 29967506.
 
-* [Singularity](https://pubmed.ncbi.nlm.nih.gov/28494014/)
-    > Kurtzer GM, Sochat V, Bauer MW. Singularity: Scientific containers for mobility of compute. PLoS One. 2017 May 11;12(5):e0177459. doi: 10.1371/journal.pone.0177459. eCollection 2017. PubMed PMID: 28494014; PubMed Central PMCID: PMC5426675.
+- [BioContainers](https://pubmed.ncbi.nlm.nih.gov/28379341/)
+
+  > da Veiga Leprevost F, Grüning B, Aflitos SA, Röst HL, Uszkoreit J, Barsnes H, Vaudel M, Moreno P, Gatto L, Weber J, Bai M, Jimenez RC, Sachsenberg T, Pfeuffer J, Alvarez RV, Griss J, Nesvizhskii AI, Perez-Riverol Y. BioContainers: an open-source and community-driven framework for software standardization. Bioinformatics. 2017 Aug 15;33(16):2580-2582. doi: 10.1093/bioinformatics/btx192. PubMed PMID: 28379341; PubMed Central PMCID: PMC5870671.
+
+- [Docker](https://dl.acm.org/doi/10.5555/2600239.2600241)
+
+- [Singularity](https://pubmed.ncbi.nlm.nih.gov/28494014/)
+  > Kurtzer GM, Sochat V, Bauer MW. Singularity: Scientific containers for mobility of compute. PLoS One. 2017 May 11;12(5):e0177459. doi: 10.1371/journal.pone.0177459. eCollection 2017. PubMed PMID: 28494014; PubMed Central PMCID: PMC5426675.

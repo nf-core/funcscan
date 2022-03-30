@@ -4,34 +4,34 @@
     "repos": {
         "nf-core/modules": {
             "custom/dumpsoftwareversions": {
-                "git_sha": "20d8250d9f39ddb05dfb437603aaf99b5c0b2b41"
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
             "deeparg/downloaddata": {
-                "git_sha": "c3bacb9fdd8d35b26a4673ce3fd052d600817ad3"
+                "git_sha": "15c7190e2271de7ff347940460a484f69e27a106"
             },
             "deeparg/predict": {
-                "git_sha": "fc1e694e6e1879540987e4269adeaf8f1d507f98"
+                "git_sha": "15c7190e2271de7ff347940460a484f69e27a106"
             },
             "fargene": {
-                "git_sha": "1f8f86b79361fb9999b56680105f439df81d718d"
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
             "gunzip": {
-                "git_sha": "20d8250d9f39ddb05dfb437603aaf99b5c0b2b41"
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
             "hamronization/deeparg": {
-                "git_sha": "4983f77796ce7e367df6e1dd68ffd24cc924074f"
+                "git_sha": "f0800157544a82ae222931764483331a81812012"
             },
             "hamronization/summarize": {
-                "git_sha": "61c88c623389ba4646e5f01547db3050f0abd7fc"
+                "git_sha": "f0800157544a82ae222931764483331a81812012"
             },
             "macrel/contigs": {
-                "git_sha": "1f3f2b18bb11be73b90d3a19e4f764aa88612f91"
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
             "multiqc": {
-                "git_sha": "20d8250d9f39ddb05dfb437603aaf99b5c0b2b41"
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
             "prokka": {
-                "git_sha": "20d8250d9f39ddb05dfb437603aaf99b5c0b2b41"
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             }
         }
     }

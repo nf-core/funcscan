@@ -10,10 +10,7 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": [
-                "input",
-                "outdir"
-            ],
+            "required": ["input", "outdir"],
             "properties": {
                 "input": {
                     "type": "string",
@@ -46,6 +43,49 @@
             },
             "help_text": ""
         },
+        "arg_deeparg": {
+            "title": "ARG-DeepARG",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "run_arg_deeparg": {
+                    "type": "boolean"
+                },
+                "deeparg_data": {
+                    "type": "string",
+                    "default": "None"
+                },
+                "deeparg_model": {
+                    "type": "string",
+                    "default": "ss"
+                },
+                "deeparg_type": {
+                    "type": "string",
+                    "default": "nucl"
+                },
+                "deeparg_min_prob": {
+                    "type": "number",
+                    "default": 0.8
+                },
+                "deeparg_alignment_evalue": {
+                    "type": "number",
+                    "default": 1e-10
+                },
+                "deeparg_alignment_identity": {
+                    "type": "integer",
+                    "default": 50
+                },
+                "deeparg_alignment_overlap": {
+                    "type": "number",
+                    "default": 0.8
+                },
+                "deeparg_num_alignments_per_entry": {
+                    "type": "integer",
+                    "default": 1000
+                }
+            }
+        },
         "amr_fargene": {
             "title": "AMR-fargene",
             "type": "object",
@@ -53,6 +93,10 @@
             "default": "",
             "help_text": "[fARGene](https://github.com/fannyhb/fargene) (Fragmented Antibiotic Resistance Gene iENntifiEr ) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimized models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes.",
             "properties": {
+                "run_arg_fargene": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-play"
+                },
                 "fargene_hmm_model": {
                     "type": "string",
                     "default": "class_a",
@@ -74,6 +118,29 @@
                 }
             },
             "fa_icon": "fas fa-bacteria"
+        },
+        "amp_macrel": {
+            "title": "AMP-Macrel",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "run_amp_macrel": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "reporting": {
+            "title": "Reporting",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "hamronization_summarize_format": {
+                    "type": "string",
+                    "default": "interactive"
+                }
+            }
         },
         "reference_genome_options": {
             "title": "Reference genome options",
@@ -215,14 +282,7 @@
                     "description": "Method used to save pipeline results to output directory.",
                     "help_text": "The Nextflow `publishDir` option specifies which intermediate files should be saved to the output directory. This option tells the pipeline what method should be used to move these files. See [Nextflow docs](https://www.nextflow.io/docs/latest/process.html#publishdir) for details.",
                     "fa_icon": "fas fa-copy",
-                    "enum": [
-                        "symlink",
-                        "rellink",
-                        "link",
-                        "copy",
-                        "copyNoFollow",
-                        "move"
-                    ],
+                    "enum": ["symlink", "rellink", "link", "copy", "copyNoFollow", "move"],
                     "hidden": true
                 },
                 "email_on_fail": {
@@ -294,7 +354,16 @@
             "$ref": "#/definitions/input_output_options"
         },
         {
+            "$ref": "#/definitions/arg_deeparg"
+        },
+        {
             "$ref": "#/definitions/amr_fargene"
+        },
+        {
+            "$ref": "#/definitions/amp_macrel"
+        },
+        {
+            "$ref": "#/definitions/reporting"
         },
         {
             "$ref": "#/definitions/reference_genome_options"
@@ -308,39 +377,5 @@
         {
             "$ref": "#/definitions/generic_options"
         }
-    ],
-    "properties": {
-        "deeparg_data": {
-            "type": "string",
-            "default": "None"
-        },
-        "deeparg_model": {
-            "type": "string",
-            "default": "ss"
-        },
-        "deeparg_type": {
-            "type": "string",
-            "default": "nucl"
-        },
-        "deeparg_min_prob": {
-            "type": "number",
-            "default": 0.8
-        },
-        "deeparg_alignment_identity": {
-            "type": "integer",
-            "default": 50
-        },
-        "deeparg_alignment_evalue": {
-            "type": "number",
-            "default": 1e-10
-        },
-        "deeparg_alignment_overlap": {
-            "type": "number",
-            "default": 0.8
-        },
-        "deeparg_num_alignments_per_entry": {
-            "type": "integer",
-            "default": 1000
-        }
-    }
+    ]
 }
