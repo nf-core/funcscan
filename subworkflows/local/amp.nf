@@ -14,7 +14,7 @@ workflow AMP {
 
     // TODO AMPEP(?)
     // TODO ampir
-    if ( !params.skip_amp_macrel ) {
+    if ( !params.amp_skip_macrel ) {
         MACREL_CONTIGS ( contigs )
         ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)
     }

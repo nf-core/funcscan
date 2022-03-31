@@ -22,31 +22,31 @@ workflow ARG {
     ch_input_to_hamronization_summarize = Channel.empty()
 
     // fARGene run
-    if ( !params.skip_arg_fargene ) {
-        FARGENE ( contigs, params.fargene_hmm_model )
+    if ( !params.arg_skip_fargene ) {
+        FARGENE ( contigs, params.arg_fargene_hmmmodel )
         ch_versions = ch_versions.mix(FARGENE.out.versions)
     }
 
     // DeepARG prepare download
-    if ( !params.skip_arg_deeparg && params.deeparg_data ) {
+    if ( !params.arg_skip_deeparg && params.arg_deeparg_data ) {
         Channel
-            .fromPath( params.deeparg_data )
+            .fromPath( params.arg_deeparg_data )
             .set { ch_deeparg_db }
-    } else if ( !params.skip_arg_deeparg && !params.deeparg_data ) {
+    } else if ( !params.arg_skip_deeparg && !params.arg_deeparg_data ) {
         DEEPARG_DOWNLOADDATA( )
         DEEPARG_DOWNLOADDATA.out.db.set { ch_deeparg_db }
     }
 
     // DeepARG run
 
-    if ( !params.skip_arg_deeparg ) {
+    if ( !params.arg_skip_deeparg ) {
 
         annotations
                 .map {
                     it ->
                         def meta  = it[0]
                         def anno  = it[1]
-                        def model = params.deeparg_model
+                        def model = params.arg_deeparg_model
 
                     [ meta, anno, model ]
                 }
@@ -71,7 +71,7 @@ workflow ARG {
         .dump(tag: "map_out")
         .set { ch_input_for_hamronization_summarize }
 
-    HAMRONIZATION_SUMMARIZE( ch_input_for_hamronization_summarize, params.hamronization_summarize_format )
+    HAMRONIZATION_SUMMARIZE( ch_input_for_hamronization_summarize, params.arg_hamronization_summarizeformat )
 
     emit:
     versions = ch_versions

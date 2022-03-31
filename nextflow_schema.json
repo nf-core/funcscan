@@ -63,38 +63,38 @@
             "description": "",
             "default": "",
             "properties": {
-                "skip_arg_deeparg": {
+                "arg_skip_deeparg": {
                     "type": "boolean"
                 },
-                "deeparg_data": {
+                "arg_deeparg_data": {
                     "type": "string",
                     "default": "None"
                 },
-                "deeparg_model": {
+                "arg_deeparg_model": {
                     "type": "string",
                     "default": "ss"
                 },
-                "deeparg_type": {
+                "arg_deeparg_type": {
                     "type": "string",
                     "default": "nucl"
                 },
-                "deeparg_min_prob": {
+                "arg_deeparg_minprob": {
                     "type": "number",
                     "default": 0.8
                 },
-                "deeparg_alignment_evalue": {
+                "arg_deeparg_alignmentevalue": {
                     "type": "number",
                     "default": 1e-10
                 },
-                "deeparg_alignment_identity": {
+                "arg_deeparg_alignmentidentity": {
                     "type": "integer",
                     "default": 50
                 },
-                "deeparg_alignment_overlap": {
+                "arg_deeparg_alignmentoverlap": {
                     "type": "number",
                     "default": 0.8
                 },
-                "deeparg_num_alignments_per_entry": {
+                "arg_deeparg_numalignmentsperentry": {
                     "type": "integer",
                     "default": 1000
                 }
@@ -107,10 +107,10 @@
             "default": "",
             "help_text": "[fARGene](https://github.com/fannyhb/fargene) (Fragmented Antibiotic Resistance Gene iENntifiEr ) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimized models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes.",
             "properties": {
-                "skip_arg_fargene": {
+                "arg_skip_fargene": {
                     "type": "boolean"
                 },
-                "fargene_hmm_model": {
+                "arg_fargene_hmmmodel": {
                     "type": "string",
                     "default": "class_a",
                     "description": "Specify which pre-defined HMM model to use",
@@ -138,7 +138,7 @@
             "description": "",
             "default": "",
             "properties": {
-                "skip_amp_macrel": {
+                "amp_skip_macrel": {
                     "type": "boolean"
                 }
             }
@@ -149,7 +149,7 @@
             "description": "",
             "default": "",
             "properties": {
-                "hamronization_summarize_format": {
+                "arg_hamronization_summarizeformat": {
                     "type": "string",
                     "default": "interactive"
                 }
