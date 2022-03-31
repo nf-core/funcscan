@@ -114,7 +114,6 @@ workflow FUNCSCAN {
     /*
         ARGs
     */
-
     if ( params.run_arg_screening ) {
         ARG ( ch_prepped_input, PROKKA.out.fna )
         ch_versions = ch_versions.mix(ARG.out.versions)

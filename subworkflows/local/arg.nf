@@ -11,7 +11,7 @@ include { HAMRONIZATION_SUMMARIZE } from '../../modules/nf-core/modules/hamroniz
 
 workflow ARG {
     take:
-    contigs // file: /path/to/samplesheet.csv
+    contigs // tuple val(meta), path(contigs)
     annotations // output from prokka
 
     main:
@@ -58,17 +58,15 @@ workflow ARG {
     // Reporting
     // Note:currently hardcoding versions
     // how to automate in the future - but DEEPARG won't change as abandonware?
-        HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix(DEEPARG_PREDICT.out.potential_arg).dump(tag: "in_hamr_deep"), 'json', '1.0.2', '2'  )
+        HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix(DEEPARG_PREDICT.out.potential_arg), 'json', '1.0.2', '2'  )
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_DEEPARG.out.json)
     }
 
     ch_input_to_hamronization_summarize
-        .dump(tag: "map_in")
         .map{
             it[1]
         }
         .collect()
-        .dump(tag: "map_out")
         .set { ch_input_for_hamronization_summarize }
 
     HAMRONIZATION_SUMMARIZE( ch_input_for_hamronization_summarize, params.arg_hamronization_summarizeformat )

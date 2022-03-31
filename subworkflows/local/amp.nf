@@ -6,7 +6,7 @@ include { MACREL_CONTIGS          } from '../../modules/nf-core/modules/macrel/c
 
 workflow AMP {
     take:
-    contigs // file: /path/to/samplesheet.csv
+    contigs // tuple val(meta), path(contigs)
 
     main:
     ch_versions = Channel.empty()
