@@ -52,7 +52,7 @@ workflow ARG {
                 }
                 .set { ch_input_for_deeparg }
 
-        DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db )
+        DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db.first() )
         ch_versions = ch_versions.mix(DEEPARG_PREDICT.out.versions)
 
     // Reporting
