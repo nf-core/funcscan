@@ -97,7 +97,7 @@ workflow FUNCSCAN {
     // Some tools require annotated FASTAs
     // TODO only execute when we run tools that require prokka as input, e.g.
     // if ( params.run_bgc_tool1 | params.run_bgc_tool2 | params.run_bgc_tool3 ) etc.
-    if ( params.run_arg_screening & !params.arg_skip_deeparg ) {
+    if ( params.run_arg_screening && !params.arg_skip_deeparg ) {
         PROKKA ( ch_prepped_input, [], [] )
         ch_versions = ch_versions.mix(PROKKA.out.versions)
     }
