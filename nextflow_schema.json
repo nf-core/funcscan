@@ -143,6 +143,22 @@
                 }
             }
         },
+        "amp_hmmer_hmmsearch": {
+            "title": "AMP-HMMer-HMMSearch",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "amp_skip_hmmsearch": {
+                    "type": "string",
+                    "default": "false"
+                },
+                "amp_hmmsearch_models": {
+                    "type": "string",
+                    "default": null
+                }
+            }
+        },
         "reporting": {
             "title": "Reporting",
             "type": "object",
@@ -377,6 +393,9 @@
         },
         {
             "$ref": "#/definitions/amp_macrel"
+        },
+        {
+            "$ref": "#/definitions/amp_hmmer_hmmsearch"
         },
         {
             "$ref": "#/definitions/reporting"
