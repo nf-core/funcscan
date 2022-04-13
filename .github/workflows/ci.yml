@@ -45,7 +45,7 @@ jobs:
       - name: Download required test data
         run: |
           mkdir -p databases/hmms/
-          for i in ABC_tran Pkinase; do wget https://github.com/jfy133/nf-core-test-datasets/raw/funcscan/hmms/"$i".hmm -P databases/hmms/; done
+          for i in ABC_tran Pkinase; do wget https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/hmms/"$i".hmm -P databases/hmms/; done
 
       - name: Run pipeline with test data
         # TODO nf-core: You can customise CI pipeline run tests as required
