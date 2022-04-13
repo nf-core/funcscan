@@ -42,9 +42,14 @@ jobs:
           wget -qO- get.nextflow.io | bash
           sudo mv nextflow /usr/local/bin/
 
+      - name: Download required test data
+        run: |
+          mkdir -p databases/hmms/
+          for i in ABC_tran Pkinase; do wget https://github.com/jfy133/nf-core-test-datasets/raw/funcscan/hmms/"$i".hmm -P databases/hmms/; done
+
       - name: Run pipeline with test data
         # TODO nf-core: You can customise CI pipeline run tests as required
         # For example: adding multiple test runs with different parameters
         # Remember that you can parallelise this by using strategy.matrix
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results
+          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results --amp_hmmsearch_models 'databases/hmms/*hmm'

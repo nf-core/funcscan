@@ -41,7 +41,7 @@ workflow AMP {
                     def meta_new = [:]
                     meta_new['id'] = meta_faa['id'] + '_'  + meta_hmm['id']
                 // TODO make optional outputs params?
-                [ meta_new, hmm, faa, [], [], [] ]
+                [ meta_new, hmm, faa, params.amp_hmmsearch_savealignments, params.amp_hmmsearch_savetargets, params.amp_hmmsearch_savedomains ]
             }
             .dump(tag: "input_for_hmmsearch")
 
