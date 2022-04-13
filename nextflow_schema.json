@@ -143,6 +143,30 @@
                 }
             }
         },
+        "amp_hmmer_hmmsearch": {
+            "title": "AMP-HMMer-HMMSearch",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "amp_skip_hmmsearch": {
+                    "type": "boolean"
+                },
+                "amp_hmmsearch_models": {
+                    "type": "string",
+                    "default": "None"
+                },
+                "amp_hmmsearch_savealignments": {
+                    "type": "boolean"
+                },
+                "amp_hmmsearch_savetargets": {
+                    "type": "boolean"
+                },
+                "amp_hmmsearch_savedomains": {
+                    "type": "boolean"
+                }
+            }
+        },
         "reporting": {
             "title": "Reporting",
             "type": "object",
@@ -377,6 +401,9 @@
         },
         {
             "$ref": "#/definitions/amp_macrel"
+        },
+        {
+            "$ref": "#/definitions/amp_hmmer_hmmsearch"
         },
         {
             "$ref": "#/definitions/reporting"
