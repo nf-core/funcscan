@@ -28,9 +28,7 @@ workflow AMP {
             .map {
                 file ->
                     def meta  = [:]
-                    ext_index       = file.getName().lastIndexOf(".")
-                    ext             = file.getName().substring(ext_index)
-                    meta['id'] = ext == '.gz' ? file.getName() - '.hmm.gz' :  file.getName() - '.hmm'
+                    meta['id'] = file.extension == 'gz' ? file.name - '.hmm.gz' :  file.name - '.hmm'
 
                 [ meta, file ]
             }

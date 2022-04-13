@@ -29,12 +29,12 @@ workflow ARG {
 
     // DeepARG prepare download
     if ( !params.arg_skip_deeparg && params.arg_deeparg_data ) {
-        Channel
+        ch_deeparg_db = Channel
             .fromPath( params.arg_deeparg_data )
-            .set { ch_deeparg_db }
+            .first()
     } else if ( !params.arg_skip_deeparg && !params.arg_deeparg_data ) {
         DEEPARG_DOWNLOADDATA( )
-        DEEPARG_DOWNLOADDATA.out.db.set { ch_deeparg_db }
+        ch_deeparg_db = DEEPARG_DOWNLOADDATA.out.db
     }
 
     // DeepARG run
