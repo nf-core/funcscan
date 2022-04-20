@@ -28,6 +28,9 @@ jobs:
               "outdir": "s3://${{ secrets.AWS_S3_BUCKET }}/funcscan/results-${{ github.sha }}"
             }
           profiles: test_full,aws_tower
+<<<<<<< HEAD
           nextflow_config: |
             process.errorStrategy = 'retry'
             process.maxRetries = 3
+=======
+>>>>>>> TEMPLATE
