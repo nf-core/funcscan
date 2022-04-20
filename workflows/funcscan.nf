@@ -108,7 +108,7 @@ workflow FUNCSCAN {
             PROKKA ( ch_prepped_input, [], [] )
             ch_versions = ch_versions.mix(PROKKA.out.versions)
             annotation_output = PROKKA.out.faa
-        }        
+        }
     }
 
     /*
