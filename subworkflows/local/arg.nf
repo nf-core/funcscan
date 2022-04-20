@@ -29,12 +29,12 @@ workflow ARG {
 
     // DeepARG prepare download
     if ( !params.arg_skip_deeparg && params.arg_deeparg_data ) {
-        Channel
+        ch_deeparg_db = Channel
             .fromPath( params.arg_deeparg_data )
-            .set { ch_deeparg_db }
+            .first()
     } else if ( !params.arg_skip_deeparg && !params.arg_deeparg_data ) {
         DEEPARG_DOWNLOADDATA( )
-        DEEPARG_DOWNLOADDATA.out.db.set { ch_deeparg_db }
+        ch_deeparg_db = DEEPARG_DOWNLOADDATA.out.db
     }
 
     // DeepARG run
@@ -52,7 +52,7 @@ workflow ARG {
                 }
                 .set { ch_input_for_deeparg }
 
-        DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db.first() )
+        DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db )
         ch_versions = ch_versions.mix(DEEPARG_PREDICT.out.versions)
 
     // Reporting
