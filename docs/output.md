@@ -35,6 +35,7 @@ work/
 ```bash
 outdir/
 ├── antismash/
+├── amplify/
 ├── deeparg/
 ├── fargene/
 ├── hamronizer/
@@ -63,7 +64,7 @@ Antimicrobial Peptides (AMPs) and peptide annotation:
   <!--* [acep](#acep) - antimicrobial peptide detection-->
   <!--* [ai4amp](#ai4amp) - antimicrobial peptide detection-->
   <!--* [ampir](#ampir) - antimicrobial peptide detection-->
-  <!--* [amplify](#amplify) - antimicrobial peptide detection-->
+- [amplify](#amplify) - antimicrobial peptide detection
   <!--* [EnsembleAMPPred](#ensembleamppred) - antimicrobial peptide detection-->
 - [Macrel](#macrel) - antimicrobial peptide detection
 <!--* [neubi](#neubi) - antimicrobial peptide detection-->
@@ -278,19 +279,17 @@ The `*.ARG` output files contain the following fields:
 [ampir](https://github.com/Legana/ampir) (antimicrobial peptide prediction in r) package was designed to predict antimicrobial peptides (AMPs) from any given size protein dataset. ampir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, “precursor” and “mature” that have been trained on publicly available antimicrobial peptide data.
 -->
 
-<!--### AMPlify
+### AMPlify
 
 <details markdown="1">
 <summary>Output files</summary>
 
-* `amplify/`
-    * `output1`: xxx
-    * `output2/`: xxx
+-*`amplify/`
+    -* `AMPlify_results.tsv`: contig amino-acid sequences with prediction result (AMP or non-AMP) and information on sequence length, charge, probability score, AMPlify log-scaled score)
 
 </details>
 
-[AMPlify](https://github.com/bcgsc/AMPlify) is an attentive deep learning model for antimicrobial peptide prediction.
--->
+[AMPlify](https://github.com/bcgsc/AMPlify) is an attentive deep learning model for antimicrobial peptide prediction. It takes in annotated contigs (.faa) and classifies them as either AMP or non-AMP.
 
 <!--### Ensemble-AMPPred
 
