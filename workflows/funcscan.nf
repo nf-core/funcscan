@@ -108,7 +108,7 @@ workflow FUNCSCAN {
     if ( params.run_amp_screening ) {
 
         if ( !params.amp_skip_hmmsearch ) {
-            AMP ( ch_prepped_input, PROKKA.out.faa.dump(tag: 'faa') )
+            AMP ( ch_prepped_input, PROKKA.out.faa )
         } else {
             AMP ( ch_prepped_input, [] )
         }
