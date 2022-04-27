@@ -17,12 +17,13 @@ workflow AMP {
 
 
     // TODO ampir
-    // TODO AMPlify
-    if ( !params.amp_skip_amplify_predict ) {
+    
+/*
+    if ( !params.amp_skip_amplify ) {
         AMPLIFY_PREDICT ( faa, [] )
         ch_versions = ch_versions.mix(AMPLIFY_PREDICT.out.versions)
     }
-
+*/
     if ( !params.amp_skip_macrel ) {
         MACREL_CONTIGS ( contigs )
         ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)

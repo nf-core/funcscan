@@ -3,6 +3,9 @@
     "homePage": "https://github.com/nf-core/funcscan",
     "repos": {
         "nf-core/modules": {
+            "amplify/predict": {
+                "git_sha": "6c45773c0b7f4bdaa8c9716091b0e721a5ae96f3"
+            },
             "custom/dumpsoftwareversions": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
