@@ -167,6 +167,17 @@
                 }
             }
         },
+        "amp_amplify_predict": {
+            "title": "AMP-AMPlify-Predict",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "amp_skip_amplify": {
+                    "type": "boolean"
+                }
+            }
+        },
         "reporting": {
             "title": "Reporting",
             "type": "object",
@@ -404,6 +415,9 @@
         },
         {
             "$ref": "#/definitions/amp_hmmer_hmmsearch"
+        },
+        {
+            "$ref": "#/definitions/amp_amplify_predict"
         },
         {
             "$ref": "#/definitions/reporting"
