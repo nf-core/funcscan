@@ -17,8 +17,8 @@ workflow AMP {
 
 
     // TODO ampir
-ch_faa_for_amplify = faa
-ch_faa_for_hmmsearch = faa
+    ch_faa_for_amplify = faa
+    ch_faa_for_hmmsearch = faa
     if ( !params.amp_skip_amplify ) {
         AMPLIFY_PREDICT ( ch_faa_for_amplify, [] )
         ch_versions = ch_versions.mix(AMPLIFY_PREDICT.out.versions)
@@ -40,7 +40,7 @@ ch_faa_for_hmmsearch = faa
                 [ meta, file ]
             }
 
-        ch_in_for_hmmsearch = faa.combine(ch_amp_hmm_models_meta)
+        ch_in_for_hmmsearch = ch_faa_for_hmmsearch.combine(ch_amp_hmm_models_meta)
             .map {
                 meta_faa, faa, meta_hmm, hmm ->
                     def meta_new = [:]
@@ -48,7 +48,6 @@ ch_faa_for_hmmsearch = faa
                 // TODO make optional outputs params?
                 [ meta_new, hmm, faa, params.amp_hmmsearch_savealignments, params.amp_hmmsearch_savetargets, params.amp_hmmsearch_savedomains ]
             }
-            .dump(tag: "input_for_hmmsearch")
 
         HMMER_HMMSEARCH ( ch_in_for_hmmsearch )
 
