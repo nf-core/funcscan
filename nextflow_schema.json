@@ -177,8 +177,7 @@
             "default": "",
             "properties": {
                 "amp_skip_amplify": {
-                    "type": "string",
-                    "default": "false"
+                    "type": "boolean"
                 }
             }
         },
