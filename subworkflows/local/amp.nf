@@ -4,6 +4,7 @@
 
 include { MACREL_CONTIGS          } from '../../modules/nf-core/modules/macrel/contigs/main'
 include { HMMER_HMMSEARCH         } from '../../modules/nf-core/modules/hmmer/hmmsearch/main'
+include { AMPLIFY_PREDICT         } from '../../modules/nf-core/modules/amplify/predict/main'
 
 workflow AMP {
     take:
@@ -14,8 +15,14 @@ workflow AMP {
     ch_versions = Channel.empty()
     ch_mqc      = Channel.empty()
 
-    // TODO AMPEP(?)
+
     // TODO ampir
+    // TODO AMPlify
+    if ( !params.amp_skip_amplify_predict ) {
+        AMPLIFY_PREDICT ( faa, [] )
+        ch_versions = ch_versions.mix(AMPLIFY_PREDICT.out.versions)
+    }
+
     if ( !params.amp_skip_macrel ) {
         MACREL_CONTIGS ( contigs )
         ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)

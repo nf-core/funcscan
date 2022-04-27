@@ -132,6 +132,17 @@
             },
             "fa_icon": "fas fa-bacteria"
         },
+        "amp_amplify_predict": {
+            "title": "AMP-AMPlify-Predict",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "amp_skip_amplify_predict": {
+                    "type": "boolean"
+                }
+            }
+        },
         "amp_macrel": {
             "title": "AMP-Macrel",
             "type": "object",
