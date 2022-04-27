@@ -52,8 +52,9 @@ include { ARG } from '../subworkflows/local/arg'
 include { MULTIQC                     } from '../modules/nf-core/modules/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
 
-include { GUNZIP                  } from '../modules/nf-core/modules/gunzip/main'
-include { PROKKA                  } from '../modules/nf-core/modules/prokka/main'
+include { GUNZIP as GUNZIP_FASTA      } from '../modules/nf-core/modules/gunzip/main'
+include { GUNZIP as GUNZIP_FAA        } from '../modules/nf-core/modules/gunzip/main'
+include { PROKKA                      } from '../modules/nf-core/modules/prokka/main'
 
 
 /*
@@ -76,23 +77,47 @@ workflow FUNCSCAN {
     INPUT_CHECK (
         ch_input
     )
-    ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
+
+    /* TODO Separate out FASTA & FAA using multiMAP
+        -> separte GUNZIP for FAA
+        -> downstream re-merge with .combine
+        -> conditional logic which to run PROKKA/which NOT
+        -> ?multiMap input into AMP workflows? Or change expected input tuple?
+
+    */
 
     // Some tools require uncompressed input
-    INPUT_CHECK.out.contigs
-        .branch {
-            compressed: it[1].toString().endsWith('.gz')
-            uncompressed: it[1]
+    ch_prep_for_gunzip = INPUT_CHECK.out.contigs
+        .multiMap {
+            meta, fasta, faa ->
+                meta: meta
+                fasta: fasta
+                faa: faa
         }
-        .set { fasta_prep }
 
-    GUNZIP ( fasta_prep.compressed )
-    ch_versions = ch_versions.mix(GUNZIP.out.versions)
+    ch_fasta_for_gunzip = ch_prep_for_gunzip.fasta
+        .branch {
+            meta, file ->
+                compressed: file.extension == '.gz'
+                uncompressed: true
+        }
+
+    ch_faa_for_gunzip = ch_prep_for_gunzip.faa
+        .branch {
+            meta, file ->
+                compressed: file.extension == '.gz'
+                uncompressed: true
+        }
+
+    GUNZIP_FASTA ( ch_fasta_for_gunzip.compressed )
+    GUNZIP_FAA ( ch_faa_for_gunzip.compressed )
+    ch_versions = ch_versions.mix(GUNZIP_FASTA.out.versions)
+    ch_versions = ch_versions.mix(GUNZIP_FAA.out.versions)
 
     // Merge all the already uncompressed and newly compressed FASTAs here into
     // a single input channel for downstream
-    ch_prepped_input = GUNZIP.out.gunzip
-                        .mix(fasta_prep.uncompressed)
+    ch_prepped_input = GUNZIP_FASTA.out.gunzip
+                        .mix(ch_fasta_for_gunzip.uncompressed)
 
     // Some tools require annotated FASTAs
     // TODO only execute when we run tools that require prokka as input, e.g.

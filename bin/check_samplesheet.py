@@ -25,7 +25,7 @@ class RowChecker:
 
     """
 
-    VALID_FORMATS = (
+    VALID_NUCL_FORMATS = (
         ".fa",
         ".fna",
         ".fasta",
@@ -34,10 +34,20 @@ class RowChecker:
         ".fasta.gz",
     )
 
+    VALID_AMINO_FORMATS = (
+        ".fa",
+        ".faa",
+        ".fasta",
+        ".fa.gz",
+        ".faa.gz",
+        ".fasta.gz",
+    )
+
     def __init__(
         self,
         sample_col="sample",
         contig_col="fasta",
+        faa_col="faa",
         **kwargs,
     ):
         """
@@ -47,12 +57,15 @@ class RowChecker:
             sample_col (str): The name of the column that contains a contig's
                 identifier (default "sample").
             contig_col (str): The name of the column that contains the contig's
-                FASTA file path (default "fastqa").
-
+                FASTA file path (default "fasta").
+            faa_col (str): The name of an optional column that contains a
+                translated version of a contig's FASTA file with amino
+                acids (default: "faa")
         """
         super().__init__(**kwargs)
         self._sample_col = sample_col
         self._contig_col = contig_col
+        self._faa_col = faa_col
         self._seen = set()
         self.modified = []
 
@@ -68,7 +81,11 @@ class RowChecker:
         self._validate_sample(row)
         self._validate_fasta(row)
         self._validate_fasta_format(row)
-        self._seen.add((row[self._sample_col], row[self._contig_col]))
+        self._validate_faa(row)
+        self._validate_faa_format(row)
+        self._seen.add(
+            (row[self._sample_col], row[self._contig_col], row[self._faa_col])
+        )
         self.modified.append(row)
 
     def _validate_sample(self, row):
@@ -85,12 +102,31 @@ class RowChecker:
         ), f"The FASTA filename may not contain any spaces '{row[self._contig_col]}'."
 
     def _validate_fasta_format(self, row):
-        """Assert that a given filename has one of the expected FASTQ extensions."""
+        """Assert that a given filename has one of the expected FASTA extensions."""
         filename = Path(row[self._contig_col]).name
-        assert any(filename.endswith(extension) for extension in self.VALID_FORMATS), (
+        assert any(
+            filename.endswith(extension) for extension in self.VALID_NUCL_FORMATS
+        ), (
             f"The FASTA file has an unrecognized extension: {filename}\n"
-            f"It should be one of: {', '.join(self.VALID_FORMATS)}"
+            f"It should be one of: {', '.join(self.VALID_NUCL_FORMATS)}"
         )
+
+    def _validate_faa(self, row):
+        """Assert that the FAA entry is non-empty and has the right format."""
+        assert (
+            " " not in Path(row[self._faa_col]).name
+        ), f"The FAA filename may not contain any spaces '{row[self._faa_col]}'."
+
+    def _validate_faa_format(self, row):
+        """Assert that a given filename has one of the expected FAA extensions."""
+        if row[self._faa_col] != "":
+            filename = Path(row[self._faa_col]).name
+            assert any(
+                filename.endswith(extension) for extension in self.VALID_AMINO_FORMATS
+            ), (
+                f"The FAA file has an unrecognized extension: {filename}\n"
+                f"It should be one of: {', '.join(self.VALID_AMINO_FORMATS)}"
+            )
 
 
 def sniff_format(handle):
@@ -134,11 +170,12 @@ def check_samplesheet(file_in, file_out):
     Example:
         This function checks that the samplesheet follows the following structure::
 
-            sample,fasta
-            contig_1,https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/bacteroides_fragilis/genome/genome.fna.gz
+        sample,fasta,faa
+        sample_1,https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/wastewater_metagenome_contigs_1.fasta.gz,
+        sample_2,https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/wastewater_metagenome_contigs_2.fasta.gz,https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/wastewater_metagenome_prokka_2.faa.gz
 
     """
-    required_columns = {"sample", "fasta"}
+    required_columns = {"sample", "fasta", "faa"}
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_in.open(newline="") as in_handle:
         reader = csv.DictReader(in_handle, dialect=sniff_format(in_handle))

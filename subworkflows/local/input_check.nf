@@ -9,14 +9,13 @@ workflow INPUT_CHECK {
     samplesheet // file: /path/to/samplesheet.csv
 
     main:
-    SAMPLESHEET_CHECK ( samplesheet )
+    parsed_samplesheet = SAMPLESHEET_CHECK ( samplesheet )
         .csv
         .splitCsv ( header:true, sep:',' )
         .map { create_input_channels(it) }
-        .set { contigs }
 
     emit:
-    contigs                                   // channel: [ val(meta), [ fasta ] ]
+    contigs  = parsed_samplesheet             // channel: [ val(meta), [ fasta ] ]
     versions = SAMPLESHEET_CHECK.out.versions // channel: [ versions.yml ]
 }
 
@@ -27,9 +26,12 @@ def create_input_channels(LinkedHashMap row) {
 
     def array = []
     if (!file(row.fasta).exists()) {
-        exit 1, "[funscan] error: please check input samplesheet. FASTA file does not exist for: \n${row.fasta}"
+        exit 1, "[funcscan] error: please check input samplesheet. FASTA file does not exist for: \n${row.fasta}"
+    } else if ( row.faa != '' && !file(row.faa).exists() ) {
+        exit 1, "[funcscan] error: please check input samplesheet. FAA file does not exist for: \n${row.faa}"
     } else {
-        array = [ meta, file(row.fasta) ]
+        def faafile = row.faa != '' ? file(row.faa) : ''
+        array = [ meta, file(row.fasta), faafile ]
     }
 
     return array
