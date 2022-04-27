@@ -168,7 +168,7 @@
             }
         },
         "new_group_1": {
-            "title": "New Group 1",
+            "title": "AMP-AMPlify-Predict",
             "type": "object",
             "description": "",
             "default": "",
@@ -417,7 +417,7 @@
             "$ref": "#/definitions/amp_hmmer_hmmsearch"
         },
         {
-            "$ref": "#/definitions/new_group_1"
+            "$ref": "#/definitions/amp_amplify_predict"
         },
         {
             "$ref": "#/definitions/reporting"

@@ -284,7 +284,7 @@ The `*.ARG` output files contain the following fields:
 <details markdown="1">
 <summary>Output files</summary>
 
--_`amplify/` -_ `AMPlify_results.tsv`: contig amino-acid sequences with prediction result (AMP or non-AMP) and information on sequence length, charge, probability score, AMPlify log-scaled score)
+-_`amplify/` -_ `*_results.tsv`: contig amino-acid sequences with prediction result (AMP or non-AMP) and information on sequence length, charge, probability score, AMPlify log-scaled score)
 
 </details>
 
