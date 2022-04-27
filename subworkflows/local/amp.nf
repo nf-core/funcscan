@@ -7,23 +7,23 @@ include { HMMER_HMMSEARCH         } from '../../modules/nf-core/modules/hmmer/hm
 
 workflow AMP {
     take:
-    contigs // tuple val(meta), path(contigs)
-    faa     // tuple val(meta), path(PROKKA.out.faa)
+    input // tuple val(meta), path(contigs), path(annotations)
 
     main:
-    ch_versions = Channel.empty()
-    ch_mqc      = Channel.empty()
+    ch_versions         = Channel.empty()
+    ch_multiqc_files    = Channel.empty()
 
     // TODO AMPEP(?)
     // TODO ampir
     if ( !params.amp_skip_macrel ) {
-        MACREL_CONTIGS ( contigs )
+        MACREL_CONTIGS ( input.map{meta, fasta, faa -> [meta, fasta]} )
         ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)
     }
 
     if ( !params.amp_skip_hmmsearch ) {
         if (params.amp_hmmsearch_models) { ch_amp_hmm_models = Channel.fromPath( params.amp_hmmsearch_models, checkIfExists: true ) } else { exit 1, '[nf-core/funscan] error: hmm model files not found for --amp_hmmsearch_models! Please check input.' }
 
+        // Generate meta for HMM models
         ch_amp_hmm_models_meta = ch_amp_hmm_models
             .map {
                 file ->
@@ -33,12 +33,13 @@ workflow AMP {
                 [ meta, file ]
             }
 
-        ch_in_for_hmmsearch = faa.combine(ch_amp_hmm_models_meta)
+        // We only want to combine FAA files here with the HMM models
+        ch_in_for_hmmsearch = input.map{meta, fasta, faa -> [meta, faa]}.combine(ch_amp_hmm_models_meta )
+        .dump(tag: "hello")
             .map {
                 meta_faa, faa, meta_hmm, hmm ->
                     def meta_new = [:]
-                    meta_new['id'] = meta_faa['id'] + '_'  + meta_hmm['id']
-                // TODO make optional outputs params?
+                    meta_new['id'] = meta_faa['id'] + '-'  + meta_hmm['id']
                 [ meta_new, hmm, faa, params.amp_hmmsearch_savealignments, params.amp_hmmsearch_savetargets, params.amp_hmmsearch_savedomains ]
             }
             .dump(tag: "input_for_hmmsearch")
@@ -50,6 +51,6 @@ workflow AMP {
 
     emit:
     versions = ch_versions
-    mqc = ch_mqc
+    mqc = ch_multiqc_files
 
 }

@@ -16,14 +16,14 @@ workflow ARG {
 
     main:
     ch_versions = Channel.empty()
-    ch_mqc      = Channel.empty()
+    ch_multiqc_files      = Channel.empty()
 
      // Prepare HAMRONIZATION reporting channel
     ch_input_to_hamronization_summarize = Channel.empty()
 
     // fARGene run
     if ( !params.arg_skip_fargene ) {
-        FARGENE ( contigs, params.arg_fargene_hmmmodel )
+        FARGENE ( contigs.map{ meta, fasta, faa -> [ meta, fasta ] }, params.arg_fargene_hmmmodel )
         ch_versions = ch_versions.mix(FARGENE.out.versions)
     }
 
@@ -73,6 +73,6 @@ workflow ARG {
 
     emit:
     versions = ch_versions
-    mqc = ch_mqc
+    mqc = ch_multiqc_files
 
 }

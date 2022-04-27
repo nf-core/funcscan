@@ -69,7 +69,7 @@ def multiqc_report = []
 workflow FUNCSCAN {
 
     ch_versions = Channel.empty()
-    ch_mqc  = Channel.empty()
+    ch_multiqc_files  = Channel.empty()
 
     //
     // SUBWORKFLOW: Read in samplesheet, validate and stage input files
@@ -86,26 +86,27 @@ workflow FUNCSCAN {
 
     */
 
-    // Some tools require uncompressed input
+    // Some tools require uncompressed input. Here separate out compressed and
+    // uncompressed files accordingly for FASTA/FAA then mix them all back
+    // together again to a single channel for downstream.
     ch_prep_for_gunzip = INPUT_CHECK.out.contigs
         .multiMap {
             meta, fasta, faa ->
-                meta: meta
-                fasta: fasta
-                faa: faa
+                fasta: [ meta, fasta ]
+                faa: [ meta, faa ]
         }
 
     ch_fasta_for_gunzip = ch_prep_for_gunzip.fasta
         .branch {
             meta, file ->
-                compressed: file.extension == '.gz'
+                compressed: file.extension == 'gz'
                 uncompressed: true
         }
 
     ch_faa_for_gunzip = ch_prep_for_gunzip.faa
         .branch {
             meta, file ->
-                compressed: file.extension == '.gz'
+                compressed: file != '' && file.extension == 'gz'
                 uncompressed: true
         }
 
@@ -114,17 +115,38 @@ workflow FUNCSCAN {
     ch_versions = ch_versions.mix(GUNZIP_FASTA.out.versions)
     ch_versions = ch_versions.mix(GUNZIP_FAA.out.versions)
 
-    // Merge all the already uncompressed and newly compressed FASTAs here into
-    // a single input channel for downstream
-    ch_prepped_input = GUNZIP_FASTA.out.gunzip
-                        .mix(ch_fasta_for_gunzip.uncompressed)
+    ch_prepped_input_fasta = GUNZIP_FASTA.out.gunzip.mix(ch_fasta_for_gunzip.uncompressed)
+    ch_prepped_input_faa = GUNZIP_FAA.out.gunzip.mix(ch_faa_for_gunzip.uncompressed)
+    ch_unzipped_input = ch_prepped_input_fasta.join(ch_prepped_input_faa)
 
-    // Some tools require annotated FASTAs
-    // TODO only execute when we run tools that require prokka as input, e.g.
-    // if ( params.run_bgc_tool1 | params.run_bgc_tool2 | params.run_bgc_tool3 ) etc.
+    // Some tools require annotated FASTAs, but Prokka is slow - so only run
+    // when tools that use them activated
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && !params.amp_skip_hmmsearch ) ) {
-        PROKKA ( ch_prepped_input, [], [] )
+
+        // Only run if we haven't already got annotated files already
+        ch_input_to_prokka = ch_unzipped_input
+            .branch{
+                meta, fasta, faa ->
+                    run: faa == ''
+                    skip: true
+            }
+
+        // Extract just the fasta to match PROKKA expected input
+        PROKKA ( ch_input_to_prokka.run.map {meta, fasta, faa -> [meta, fasta]}, [], [] )
+
+        // Join back newly created FAA files with the original contigs for
+        // downstream
+        ch_output_from_prokka = ch_input_to_prokka.run
+            .map {
+                meta, fasta, faa ->
+                    [ meta, fasta ]
+            }
+            .join( PROKKA.out.faa )
+        ch_prepped_input = ch_input_to_prokka.skip.mix( ch_output_from_prokka )
         ch_versions = ch_versions.mix(PROKKA.out.versions)
+        ch_multiqc_files = ch_multiqc_files.mix(PROKKA.out.txt)
+    } else {
+        ch_prepped_input = ch_unzipped_input
     }
 
     /*
@@ -133,23 +155,25 @@ workflow FUNCSCAN {
     if ( params.run_amp_screening ) {
 
         if ( !params.amp_skip_hmmsearch ) {
-            AMP ( ch_prepped_input, PROKKA.out.faa )
+            AMP ( ch_prepped_input )
         } else {
             AMP ( ch_prepped_input, [] )
         }
 
 
         ch_versions = ch_versions.mix(AMP.out.versions)
-        ch_mqc      = ch_mqc.mix(AMP.out.mqc)
+        ch_multiqc_files      = ch_multiqc_files.mix(AMP.out.mqc)
     }
 
     /*
         ARGs
     */
+    // TODO WHY DO WE NEED PROKKA.OUT.FNA? HOW TO SEND DOWNSTREAM? WHAT HAPPENS
+    // IF PRE-SUPPLIED FAA, SO PROKKA NOT RUN? APPARENTLY ONLY NEEDS
     if ( params.run_arg_screening ) {
         ARG ( ch_prepped_input, PROKKA.out.fna )
         ch_versions = ch_versions.mix(ARG.out.versions)
-        ch_mqc      = ch_mqc.mix(ARG.out.mqc)
+        ch_multiqc_files      = ch_multiqc_files.mix(ARG.out.mqc)
     }
 
     /*
