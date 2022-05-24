@@ -122,7 +122,11 @@ workflow FUNCSCAN {
         ARGs
     */
     if ( params.run_arg_screening ) {
-        ARG ( ch_prepped_input, PROKKA.out.fna )
+        if (params.arg_skip_deeparg) {
+            ARG ( ch_prepped_input, [] )
+        } else {
+            ARG ( ch_prepped_input, PROKKA.out.fna )
+        }
         ch_versions = ch_versions.mix(ARG.out.versions)
         ch_mqc      = ch_mqc.mix(ARG.out.mqc)
     }
