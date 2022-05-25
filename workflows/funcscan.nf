@@ -39,7 +39,7 @@ include { INPUT_CHECK } from '../subworkflows/local/input_check'
 
 include { AMP } from '../subworkflows/local/amp'
 include { ARG } from '../subworkflows/local/arg'
-
+include { BGC } from '../subworkflows/local/bgc'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
@@ -97,7 +97,7 @@ workflow FUNCSCAN {
     // Some tools require annotated FASTAs
     // TODO only execute when we run tools that require prokka as input, e.g.
     // if ( params.run_bgc_tool1 | params.run_bgc_tool2 | params.run_bgc_tool3 ) etc.
-    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && (!params.amp_skip_hmmsearch || !params.amp_skip_amplify) ) ) {
+    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && (!params.amp_skip_hmmsearch || !params.amp_skip_amplify) ) || (params.run_bgc_screening) ) {
         PROKKA ( ch_prepped_input, [], [] )
         ch_versions = ch_versions.mix(PROKKA.out.versions)
     }
@@ -134,7 +134,11 @@ workflow FUNCSCAN {
     /*
         BGCs
     */
-    // TODO antismash
+    if ( params.run_bgc_screening ) {
+        BGC ( PROKKA.out.fna, PROKKA.out.gff )
+        ch_version = ch_versions.mix(BGC.out.versions)
+        ch_mqc     = ch_mqc.mix(BGC.out.mqc)
+    }
 
     // Cleaning up versions
     CUSTOM_DUMPSOFTWAREVERSIONS ( ch_versions.unique().collectFile(name: 'collated_versions.yml') )
