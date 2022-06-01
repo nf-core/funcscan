@@ -107,6 +107,9 @@ workflow FUNCSCAN {
             ch_versions = ch_versions.mix(PROKKA.out.versions)
             ch_annotation_output = PROKKA.out.faa
         }
+    else {
+    ( ch_annotation_output = Channel.empty() )
+    }
     }
 
     /*
