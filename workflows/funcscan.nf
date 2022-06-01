@@ -101,11 +101,11 @@ workflow FUNCSCAN {
         if ( params.run_annotation_tool == "prodigal") {
             PRODIGAL ( ch_prepped_input, params.my_prodigal_f )
             ch_versions = ch_versions.mix(PRODIGAL.out.versions)
-            annotation_output = PRODIGAL.out.amino_acid_fasta
+            ch_annotation_output = PRODIGAL.out.amino_acid_fasta
         }   else if ( params.run_annotation_tool == "prokka") {
             PROKKA ( ch_prepped_input, [], [] )
             ch_versions = ch_versions.mix(PROKKA.out.versions)
-            annotation_output = PROKKA.out.faa
+            ch_annotation_output = PROKKA.out.faa
         }
     }
 
