@@ -23,8 +23,32 @@ workflow ARG {
 
     // fARGene run
     if ( !params.arg_skip_fargene ) {
-        FARGENE ( contigs, params.arg_fargene_hmmmodel )
+
+        def fargene_classes = params.arg_fargene_hmmmodel
+
+        // TODO check that all elements in requested are valid
+        // e.g. with .contains
+        ch_fargene_classes = Channel.of( fargene_classes.split(',') )
+
+        ch_fargene_input = contigs
+                            .dump(tag: "fargene_contigs_raw")
+                            .combine(ch_fargene_classes)
+                            .dump(tag: "fargene_contigs_hmmclass")
+                            .map {
+                                meta, contigs, hmm_class ->
+                                    def meta_new = meta.clone()
+                                    meta_new['hmm_class'] = hmm_class
+                                [ meta_new, contigs, hmm_class ]
+                            }
+                            .dump(tag: "fargene_updated_meta")
+                            .multiMap {
+                                contigs: [ it[0], it[1] ]
+                                hmmclass: it[2]
+                            }
+
+        FARGENE ( ch_fargene_input.contigs, ch_fargene_input.hmmclass )
         ch_versions = ch_versions.mix(FARGENE.out.versions)
+
     }
 
     // DeepARG prepare download
