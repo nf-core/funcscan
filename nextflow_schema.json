@@ -11,6 +11,11 @@
             "description": "",
             "default": "",
             "properties": {
+                "run_annotation_tool": {
+                    "type": "string",
+                    "default": "prodigal",
+                    "description": "Assign which annotation tool to run either prodigal or prokka"
+                },
                 "run_amp_screening": {
                     "type": "boolean"
                 },
@@ -56,6 +61,19 @@
                 }
             },
             "help_text": ""
+        },
+        "new_group_1": {
+            "title": "New Group 1",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "my_prodigal_f": {
+                    "type": "string",
+                    "default": "gff",
+                    "description": "Assign output format to either gff,gbk,sqn or sco"
+                }
+            }
         },
         "arg_deeparg": {
             "title": "ARG-DeepARG",
@@ -403,6 +421,9 @@
         },
         {
             "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/new_group_1"
         },
         {
             "$ref": "#/definitions/arg_deeparg"
