@@ -3,13 +3,40 @@
     "homePage": "https://github.com/nf-core/funcscan",
     "repos": {
         "nf-core/modules": {
+            "amplify/predict": {
+                "git_sha": "6c45773c0b7f4bdaa8c9716091b0e721a5ae96f3"
+            },
             "custom/dumpsoftwareversions": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
-            "fastqc": {
+            "deeparg/downloaddata": {
+                "git_sha": "15c7190e2271de7ff347940460a484f69e27a106"
+            },
+            "deeparg/predict": {
+                "git_sha": "15c7190e2271de7ff347940460a484f69e27a106"
+            },
+            "fargene": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "gunzip": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "hamronization/deeparg": {
+                "git_sha": "f0800157544a82ae222931764483331a81812012"
+            },
+            "hamronization/summarize": {
+                "git_sha": "f0800157544a82ae222931764483331a81812012"
+            },
+            "hmmer/hmmsearch": {
+                "git_sha": "f0800157544a82ae222931764483331a81812012"
+            },
+            "macrel/contigs": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
             "multiqc": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "prokka": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             }
         }

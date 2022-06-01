@@ -11,7 +11,7 @@ WorkflowFuncscan.initialise(params, log)
 
 // TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.multiqc_config, params.fasta ]
+def checkPathParamList = [ params.input, params.multiqc_config ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
@@ -37,6 +37,9 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 //
 include { INPUT_CHECK } from '../subworkflows/local/input_check'
 
+include { AMP } from '../subworkflows/local/amp'
+include { ARG } from '../subworkflows/local/arg'
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
@@ -46,9 +49,12 @@ include { INPUT_CHECK } from '../subworkflows/local/input_check'
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { FASTQC                      } from '../modules/nf-core/modules/fastqc/main'
 include { MULTIQC                     } from '../modules/nf-core/modules/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
+
+include { GUNZIP                  } from '../modules/nf-core/modules/gunzip/main'
+include { PROKKA                  } from '../modules/nf-core/modules/prokka/main'
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -62,6 +68,7 @@ def multiqc_report = []
 workflow FUNCSCAN {
 
     ch_versions = Channel.empty()
+    ch_mqc  = Channel.empty()
 
     //
     // SUBWORKFLOW: Read in samplesheet, validate and stage input files
@@ -71,17 +78,66 @@ workflow FUNCSCAN {
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
-    //
-    // MODULE: Run FastQC
-    //
-    FASTQC (
-        INPUT_CHECK.out.reads
-    )
-    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    // Some tools require uncompressed input
+    INPUT_CHECK.out.contigs
+        .branch {
+            compressed: it[1].toString().endsWith('.gz')
+            uncompressed: it[1]
+        }
+        .set { fasta_prep }
 
-    CUSTOM_DUMPSOFTWAREVERSIONS (
-        ch_versions.unique().collectFile(name: 'collated_versions.yml')
-    )
+    GUNZIP ( fasta_prep.compressed )
+    ch_versions = ch_versions.mix(GUNZIP.out.versions)
+
+    // Merge all the already uncompressed and newly compressed FASTAs here into
+    // a single input channel for downstream
+    ch_prepped_input = GUNZIP.out.gunzip
+                        .mix(fasta_prep.uncompressed)
+
+    // Some tools require annotated FASTAs
+    // TODO only execute when we run tools that require prokka as input, e.g.
+    // if ( params.run_bgc_tool1 | params.run_bgc_tool2 | params.run_bgc_tool3 ) etc.
+    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && (!params.amp_skip_hmmsearch || !params.amp_skip_amplify) ) ) {
+        PROKKA ( ch_prepped_input, [], [] )
+        ch_versions = ch_versions.mix(PROKKA.out.versions)
+    }
+
+    /*
+        AMPs
+    */
+    if ( params.run_amp_screening ) {
+
+        if ( !params.amp_skip_hmmsearch ) {
+            AMP ( ch_prepped_input, PROKKA.out.faa )
+        } else {
+            AMP ( ch_prepped_input, [] )
+        }
+
+
+        ch_versions = ch_versions.mix(AMP.out.versions)
+        ch_mqc      = ch_mqc.mix(AMP.out.mqc)
+    }
+
+    /*
+        ARGs
+    */
+    if ( params.run_arg_screening ) {
+        if (params.arg_skip_deeparg) {
+            ARG ( ch_prepped_input, [] )
+        } else {
+            ARG ( ch_prepped_input, PROKKA.out.fna )
+        }
+        ch_versions = ch_versions.mix(ARG.out.versions)
+        ch_mqc      = ch_mqc.mix(ARG.out.mqc)
+    }
+
+    /*
+        BGCs
+    */
+    // TODO antismash
+
+    // Cleaning up versions
+    CUSTOM_DUMPSOFTWAREVERSIONS ( ch_versions.unique().collectFile(name: 'collated_versions.yml') )
 
     //
     // MODULE: MultiQC
@@ -94,7 +150,6 @@ workflow FUNCSCAN {
     ch_multiqc_files = ch_multiqc_files.mix(ch_multiqc_custom_config.collect().ifEmpty([]))
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
 
     MULTIQC (
         ch_multiqc_files.collect()

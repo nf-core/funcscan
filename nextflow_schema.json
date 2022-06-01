@@ -5,6 +5,20 @@
     "description": "Pipeline for screening for functional components of assembled contigs",
     "type": "object",
     "definitions": {
+        "screening_subworkflow_activation": {
+            "title": "Screening Subworkflow Activation",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "run_amp_screening": {
+                    "type": "boolean"
+                },
+                "run_arg_screening": {
+                    "type": "boolean"
+                }
+            }
+        },
         "input_output_options": {
             "title": "Input/output options",
             "type": "object",
@@ -39,6 +53,140 @@
                     "type": "string",
                     "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
                     "fa_icon": "fas fa-file-signature"
+                }
+            },
+            "help_text": ""
+        },
+        "arg_deeparg": {
+            "title": "ARG-DeepARG",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "arg_skip_deeparg": {
+                    "type": "boolean"
+                },
+                "arg_deeparg_data": {
+                    "type": "string",
+                    "default": "None"
+                },
+                "arg_deeparg_model": {
+                    "type": "string",
+                    "default": "ss"
+                },
+                "arg_deeparg_type": {
+                    "type": "string",
+                    "default": "nucl"
+                },
+                "arg_deeparg_minprob": {
+                    "type": "number",
+                    "default": 0.8
+                },
+                "arg_deeparg_alignmentevalue": {
+                    "type": "number",
+                    "default": 1e-10
+                },
+                "arg_deeparg_alignmentidentity": {
+                    "type": "integer",
+                    "default": 50
+                },
+                "arg_deeparg_alignmentoverlap": {
+                    "type": "number",
+                    "default": 0.8
+                },
+                "arg_deeparg_numalignmentsperentry": {
+                    "type": "integer",
+                    "default": 1000
+                }
+            }
+        },
+        "amr_fargene": {
+            "title": "AMR-fargene",
+            "type": "object",
+            "description": "Parameters for fargene",
+            "default": "",
+            "help_text": "[fARGene](https://github.com/fannyhb/fargene) (Fragmented Antibiotic Resistance Gene iENntifiEr ) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimized models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes.",
+            "properties": {
+                "arg_skip_fargene": {
+                    "type": "boolean"
+                },
+                "arg_fargene_hmmmodel": {
+                    "type": "string",
+                    "default": "class_a",
+                    "description": "Specify which pre-defined HMM model to use",
+                    "help_text": "Where hmm-model can be any of the pre-defined models:\n    - Class A beta-lactamases --hmm-model class_a\n    - Subclass B1 and B2 beta-lactamases --hmm-model class_b_1_2\n    - Subclass B3 beta-lactamases --hmm-model class_b_3\n    - Class C beta-lactamases --hmm-model class_c\n    - Class D beta-lactamases\n        -hmm-model class_d_1\n        -hmm-model class_d_2\n    - qnr --hmm-model qnr\n    - Tetracycline resistance genes\n        -hmm-model tet_efflux\n        -hmm-model tet_rpg\n        -hmm-model tet_enzyme",
+                    "enum": [
+                        "class_a",
+                        "class_b_1_2",
+                        "class_b_3",
+                        "class_c",
+                        "class_d_1",
+                        "class_d_2",
+                        "qnr",
+                        "tet_efflux",
+                        "tet_rpg",
+                        "tet_enzyme"
+                    ],
+                    "fa_icon": "fas fa-project-diagram"
+                }
+            },
+            "fa_icon": "fas fa-bacteria"
+        },
+        "amp_macrel": {
+            "title": "AMP-Macrel",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "amp_skip_macrel": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "amp_hmmer_hmmsearch": {
+            "title": "AMP-HMMer-HMMSearch",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "amp_skip_hmmsearch": {
+                    "type": "boolean"
+                },
+                "amp_hmmsearch_models": {
+                    "type": "string",
+                    "default": "None"
+                },
+                "amp_hmmsearch_savealignments": {
+                    "type": "boolean"
+                },
+                "amp_hmmsearch_savetargets": {
+                    "type": "boolean"
+                },
+                "amp_hmmsearch_savedomains": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "amp_amplify_predict": {
+            "title": "AMP-AMPlify-Predict",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "amp_skip_amplify": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "reporting": {
+            "title": "Reporting",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "arg_hamronization_summarizeformat": {
+                    "type": "string",
+                    "default": "interactive"
                 }
             }
         },
@@ -251,7 +399,28 @@
     },
     "allOf": [
         {
+            "$ref": "#/definitions/screening_subworkflow_activation"
+        },
+        {
             "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/arg_deeparg"
+        },
+        {
+            "$ref": "#/definitions/amr_fargene"
+        },
+        {
+            "$ref": "#/definitions/amp_macrel"
+        },
+        {
+            "$ref": "#/definitions/amp_hmmer_hmmsearch"
+        },
+        {
+            "$ref": "#/definitions/amp_amplify_predict"
+        },
+        {
+            "$ref": "#/definitions/reporting"
         },
         {
             "$ref": "#/definitions/reference_genome_options"

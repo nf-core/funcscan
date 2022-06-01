@@ -10,10 +10,32 @@
 
 ## Pipeline tools
 
-- [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
-
 - [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
   > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
+
+* [PROKKA](https://doi.org/10.1093/bioinformatics/btu153)
+
+  > Seemann, Torsten. 2014. "Prokka: Rapid Prokaryotic Genome Annotation." Bioinformatics 30 (14): 2068–69.
+
+* [MACREL](https://doi.org/10.7717/peerj.10555)
+
+  > Santos-Júnior CD, Pan S, Zhao X, Coelho LP. 2020. "Macrel: antimicrobial peptide screening in genomes and metagenomes." PeerJ 8:e10555.
+
+* [fARGene](https://doi.org/10.1186/s40168-019-0670-1)
+
+  > Berglund, Fanny, Tobias Österlund, Fredrik Boulund, Nachiket P. Marathe, D. G. Joakim Larsson, and Erik Kristiansson. 2019. "Identification and Reconstruction of Novel Antibiotic Resistance Genes from Metagenomes." Microbiome 7 (1): 52.
+
+* [DeepARG](https://doi.org/10.1186/s40168-018-0401-z)
+
+  > Arango-Argoty, Gustavo, Emily Garner, Amy Pruden, Lenwood S. Heath, Peter Vikesland, and Liqing Zhang. 2018. "DeepARG: A Deep Learning Approach for Predicting Antibiotic Resistance Genes from Metagenomic Data." Microbiome 6 (1): 23.
+
+* [hmmsearch](https://doi.org/10.1371/journal.pcbi.1002195.)
+
+  > Eddy, Sean R. 2011. “Accelerated Profile HMM Searches.” PLoS Computational Biology 7 (10): e1002195.
+
+* [AMPlify](https://doi.org/10.1186/s12864-022-08310-4)
+
+  > Chenkai Li, Darcy Sutherland, S. Austin Hammond, Chen Yang, Figali Taho, Lauren Bergman, Simon Houston, René L. Warren, Titus Wong, Linda M. N. Hoang, Caroline E. Cameron, Caren C. Helbing & Inanc Birol. 2022. "AMPlify: attentive deep learning model for discovery of novel antimicrobial peptides effective against WHO priority pathogens". BMC Genomics 23, 77.
 
 ## Software packaging/containerisation tools
 
