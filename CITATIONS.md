@@ -30,7 +30,12 @@
   > Arango-Argoty, Gustavo, Emily Garner, Amy Pruden, Lenwood S. Heath, Peter Vikesland, and Liqing Zhang. 2018. "DeepARG: A Deep Learning Approach for Predicting Antibiotic Resistance Genes from Metagenomic Data." Microbiome 6 (1): 23.
 
 * [hmmsearch](https://doi.org/10.1371/journal.pcbi.1002195.)
+
   > Eddy, Sean R. 2011. “Accelerated Profile HMM Searches.” PLoS Computational Biology 7 (10): e1002195.
+
+* [AMPlify](https://doi.org/10.1186/s12864-022-08310-4)
+
+  > Chenkai Li, Darcy Sutherland, S. Austin Hammond, Chen Yang, Figali Taho, Lauren Bergman, Simon Houston, René L. Warren, Titus Wong, Linda M. N. Hoang, Caroline E. Cameron, Caren C. Helbing & Inanc Birol. 2022. "AMPlify: attentive deep learning model for discovery of novel antimicrobial peptides effective against WHO priority pathogens". BMC Genomics 23, 77.
 
 ## Software packaging/containerisation tools
 
