@@ -34,6 +34,7 @@ workflow ARG {
             .first()
     } else if ( !params.arg_skip_deeparg && !params.arg_deeparg_data ) {
         DEEPARG_DOWNLOADDATA( )
+        ch_versions = ch_versions.mix(DEEPARG_DOWNLOADDATA.out.versions)
         ch_deeparg_db = DEEPARG_DOWNLOADDATA.out.db
     }
 
@@ -59,6 +60,7 @@ workflow ARG {
     // Note:currently hardcoding versions
     // how to automate in the future - but DEEPARG won't change as abandonware?
         HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix(DEEPARG_PREDICT.out.potential_arg), 'json', '1.0.2', '2'  )
+        ch_versions = ch_versions.mix(HAMRONIZATION_DEEPARG.out.versions)
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_DEEPARG.out.json)
     }
 
@@ -70,6 +72,7 @@ workflow ARG {
         .set { ch_input_for_hamronization_summarize }
 
     HAMRONIZATION_SUMMARIZE( ch_input_for_hamronization_summarize, params.arg_hamronization_summarizeformat )
+    ch_versions = ch_versions.mix(HAMRONIZATION_SUMMARIZE.out.versions)
 
     emit:
     versions = ch_versions

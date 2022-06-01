@@ -50,6 +50,7 @@ workflow AMP {
             }
 
         HMMER_HMMSEARCH ( ch_in_for_hmmsearch )
+        ch_versions = ch_versions.mix(HMMER_HMMSEARCH.out.versions)
 
 
     }

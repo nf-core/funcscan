@@ -69,6 +69,7 @@ workflow FUNCSCAN {
 
     ch_versions = Channel.empty()
     ch_mqc  = Channel.empty()
+    ch_funcscan_logo = Channel.fromPath("$projectDir/docs/images/nf-core-funcscan_logo_flat_light.png")
 
     //
     // SUBWORKFLOW: Read in samplesheet, validate and stage input files
@@ -100,6 +101,7 @@ workflow FUNCSCAN {
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && (!params.amp_skip_hmmsearch || !params.amp_skip_amplify) ) ) {
         PROKKA ( ch_prepped_input, [], [] )
         ch_versions = ch_versions.mix(PROKKA.out.versions)
+        ch_mqc = ch_mqc.mix( PROKKA.out.txt.map{it[1]} )
     }
 
     /*
@@ -150,6 +152,10 @@ workflow FUNCSCAN {
     ch_multiqc_files = ch_multiqc_files.mix(ch_multiqc_custom_config.collect().ifEmpty([]))
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
+
+    ch_multiqc_files = ch_multiqc_files.mix(ch_funcscan_logo)
+
+    ch_multiqc_files = ch_multiqc_files.mix(ch_mqc)
 
     MULTIQC (
         ch_multiqc_files.collect()
