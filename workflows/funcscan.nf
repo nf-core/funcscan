@@ -54,8 +54,6 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/
 
 include { GUNZIP                  } from '../modules/nf-core/modules/gunzip/main'
 include { PROKKA                  } from '../modules/nf-core/modules/prokka/main'
-include { PRODIGAL                } from '../modules/nf-core/modules/prodigal/main'
-
 
 
 /*
@@ -99,20 +97,9 @@ workflow FUNCSCAN {
     // Some tools require annotated FASTAs
     // TODO only execute when we run tools that require prokka as input, e.g.
     // if ( params.run_bgc_tool1 | params.run_bgc_tool2 | params.run_bgc_tool3 ) etc.
-
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && (!params.amp_skip_hmmsearch || !params.amp_skip_amplify) ) ) {
         PROKKA ( ch_prepped_input, [], [] )
         ch_versions = ch_versions.mix(PROKKA.out.versions)
-    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && !params.amp_skip_hmmsearch ) ) {
-        if ( params.run_annotation_tool == "prodigal") {
-            PRODIGAL ( ch_prepped_input, params.my_prodigal_f )
-            ch_versions = ch_versions.mix(PRODIGAL.out.versions)
-            annotation_output = PRODIGAL.out.amino_acid_fasta
-        }   else if ( params.run_annotation_tool == "prokka") {
-            PROKKA ( ch_prepped_input, [], [] )
-            ch_versions = ch_versions.mix(PROKKA.out.versions)
-            annotation_output = PROKKA.out.faa
-        }        
     }
 
     /*
@@ -121,7 +108,7 @@ workflow FUNCSCAN {
     if ( params.run_amp_screening ) {
 
         if ( !params.amp_skip_hmmsearch ) {
-            AMP ( ch_prepped_input, annotation_output )
+            AMP ( ch_prepped_input, PROKKA.out.faa )
         } else {
             AMP ( ch_prepped_input, [] )
         }
@@ -135,15 +122,11 @@ workflow FUNCSCAN {
         ARGs
     */
     if ( params.run_arg_screening ) {
-
         if (params.arg_skip_deeparg) {
             ARG ( ch_prepped_input, [] )
         } else {
             ARG ( ch_prepped_input, PROKKA.out.fna )
         }
-=======
-        ARG ( ch_prepped_input, annotation_output )
-
         ch_versions = ch_versions.mix(ARG.out.versions)
         ch_mqc      = ch_mqc.mix(ARG.out.mqc)
     }
