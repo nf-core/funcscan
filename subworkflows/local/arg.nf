@@ -24,10 +24,6 @@ workflow ARG {
     // fARGene run
     if ( !params.arg_skip_fargene ) {
 
-        def fargene_classes = params.arg_fargene_hmmmodel
-
-        // TODO check that all elements in requested are valid
-        // e.g. with .contains
         ch_fargene_classes = Channel.of( fargene_classes.split(',') )
 
         ch_fargene_input = contigs
