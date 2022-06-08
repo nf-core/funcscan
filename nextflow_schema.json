@@ -64,8 +64,7 @@
             "default": "",
             "properties": {
                 "bgc_skip_antismash": {
-                    "type": "string",
-                    "default": "false"
+                    "type": "boolean"
                 },
                 "run_bgc_screening": {
                     "type": "boolean"
