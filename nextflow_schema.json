@@ -90,11 +90,8 @@
                 },
                 "arg_deeparg_model": {
                     "type": "string",
-                    "default": "ss"
-                },
-                "arg_deeparg_type": {
-                    "type": "string",
-                    "default": "nucl"
+                    "default": "LS",
+                    "enum": ["LS", "SS"]
                 },
                 "arg_deeparg_minprob": {
                     "type": "number",
