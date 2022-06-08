@@ -24,7 +24,7 @@ workflow ARG {
     // fARGene run
     if ( !params.arg_skip_fargene ) {
 
-        ch_fargene_classes = Channel.of( params.arg_fargene_hmmmodel.split(',') )
+        ch_fargene_classes = Channel.fromList( params.arg_fargene_hmmmodel.split(',') )
 
         ch_fargene_input = contigs
                             .dump(tag: "fargene_contigs_raw")
