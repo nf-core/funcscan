@@ -112,7 +112,7 @@
                 },
                 "arg_fargene_hmmmodel": {
                     "type": "string",
-                    "default": "class_a",
+                    "default": "class_a,class_b_1_2,class_b_3,class_c,class_d_1,class_d_2,qnr,tet_efflux,tet_rpg,tet_enzyme",
                     "description": "Specify which pre-defined HMM model to use",
                     "help_text": "Where hmm-model can be any of the pre-defined models:\n    - Class A beta-lactamases --hmm-model class_a\n    - Subclass B1 and B2 beta-lactamases --hmm-model class_b_1_2\n    - Subclass B3 beta-lactamases --hmm-model class_b_3\n    - Class C beta-lactamases --hmm-model class_c\n    - Class D beta-lactamases\n        -hmm-model class_d_1\n        -hmm-model class_d_2\n    - qnr --hmm-model qnr\n    - Tetracycline resistance genes\n        -hmm-model tet_efflux\n        -hmm-model tet_rpg\n        -hmm-model tet_enzyme",
                     "fa_icon": "fas fa-project-diagram"
