@@ -34,6 +34,7 @@ workflow ARG {
                                 meta, contigs, hmm_class ->
                                     def meta_new = meta.clone()
                                     meta_new['hmm_class'] = hmm_class
+                                    meta_new['id'] = meta_new['id'] + '_' + meta_new['hmm_class']
                                 [ meta_new, contigs, hmm_class ]
                             }
                             .dump(tag: "fargene_updated_meta")
