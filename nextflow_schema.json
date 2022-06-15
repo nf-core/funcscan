@@ -16,6 +16,9 @@
                 },
                 "run_arg_screening": {
                     "type": "boolean"
+                },
+                "run_bgc_screening": {
+                    "type": "boolean"
                 }
             }
         },
@@ -66,8 +69,15 @@
                 "bgc_skip_antismash": {
                     "type": "boolean"
                 },
-                "run_bgc_screening": {
-                    "type": "boolean"
+                "bgc_antismash_database": {
+                    "type": "string",
+                    "description": "Path to user-defined antiSMASH database",
+                    "default": "None"
+                },
+                "bgc_antismash_dir": {
+                    "type": "string",
+                    "description": "Path to user-defined antiSMASH directory",
+                    "default": "None"
                 }
             }
         },

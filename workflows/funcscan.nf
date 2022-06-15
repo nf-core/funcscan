@@ -31,7 +31,7 @@ def fargene_user_classes = fargene_classes.tokenize(',')
 def fargene_classes_valid = fargene_user_classes.intersect( fargene_valid_classes )
 def fargene_classes_missing = fargene_user_classes - fargene_classes_valid
 
-if ( fargene_classes_missing.size() > 0 ) exit 1, "[nf-core/taxprofiler] ERROR: invalid class present in --arg_fargene_hmmodel. Please check input. Invalid class: ${fargene_classes_missing.join(', ')}"
+if ( fargene_classes_missing.size() > 0 ) exit 1, "[nf-core/funcscan] ERROR: invalid class present in --arg_fargene_hmmodel. Please check input. Invalid class: ${fargene_classes_missing.join(', ')}"
 
 
 /*
