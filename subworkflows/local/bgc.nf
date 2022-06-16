@@ -16,18 +16,21 @@ workflow BGC {
     main:
     ch_versions = Channel.empty()
     ch_mqc      = Channel.empty()
+    print(params.bgc_antismash_databases)
+
     // Check whether user supplies database and/or antismash directory. If not, use those from nf-core.
-    // params.bgc_antismash_databases = null
-    // params.bgc_antismash_directory = null
-    ch_antismash_databases = Channel
-        .fromPath( params.bgc_antismash_databases )
-        .first()
-    ch_antismash_directory = Channel
-        .fromPath( params.bgc_antismash_directory )
-        .first()
+    if ( params.bgc_antismash_databases ) {
 
-    if ( !ch_antismash_databases ) {
+        ch_antismash_databases = Channel
+            .fromPath( params.bgc_antismash_databases )
+            .first()
+        ch_antismash_directory = Channel
+            .fromPath( params.bgc_antismash_directory )
+            .first()
 
+    } else {
+
+        print('here')
         ch_css_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/css.tar.gz"
         ch_detection_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/detection.tar.gz"
         ch_modules_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/modules.tar.gz"
@@ -40,7 +43,7 @@ workflow BGC {
         ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.versions)
         ch_antismash_databases = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.database
 
-        if ( !ch_antismash_directory) {
+        if ( !params.bgc_antismash_directory) {
             ch_antismash_directory = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.antismash_dir
         }
     }
