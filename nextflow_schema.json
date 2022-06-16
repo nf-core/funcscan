@@ -69,12 +69,12 @@
                 "bgc_skip_antismash": {
                     "type": "boolean"
                 },
-                "bgc_antismash_database": {
+                "bgc_antismash_databases": {
                     "type": "string",
                     "description": "Path to user-defined antiSMASH database",
                     "default": "None"
                 },
-                "bgc_antismash_dir": {
+                "bgc_antismash_directory": {
                     "type": "string",
                     "description": "Path to user-defined antiSMASH directory",
                     "default": "None"

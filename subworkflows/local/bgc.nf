@@ -8,6 +8,7 @@ include { ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES } from '../../modules/nf-core
 include { ANTISMASH_ANTISMASHLITE                  } from '../../modules/nf-core/modules/antismash/antismashlite/main'
 
 workflow BGC {
+
     take:
     fna     // tuple val(meta), path(PROKKA.out.fna)
     gff     // tuple val(meta), path(PROKKA.out.gff)
@@ -15,14 +16,17 @@ workflow BGC {
     main:
     ch_versions = Channel.empty()
     ch_mqc      = Channel.empty()
-
     // Check whether user supplies database and/or antismash directory. If not, use those from nf-core.
-    params.bgc_antismash_database = 'None'
-    params.bgc_antismash_dir = 'None'
-    ch_antismash_database = params.bgc_antismash_database
-    ch_antismash_directory = params.bgc_antismash_dir
+    // params.bgc_antismash_databases = null
+    // params.bgc_antismash_directory = null
+    ch_antismash_databases = Channel
+        .fromPath( params.bgc_antismash_databases )
+        .first()
+    ch_antismash_directory = Channel
+        .fromPath( params.bgc_antismash_directory )
+        .first()
 
-    if ( ch_antismash_database == 'None' ) {
+    if ( !ch_antismash_databases ) {
 
         ch_css_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/css.tar.gz"
         ch_detection_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/detection.tar.gz"
@@ -34,14 +38,14 @@ workflow BGC {
 
         ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES ( UNTAR_CSS.out.untar.map{ it[1] }, UNTAR_DETECTION.out.untar.map{ it[1] }, UNTAR_MODULES.out.untar.map{ it[1] } )
         ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.versions)
-        ch_antismash_database = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.database
+        ch_antismash_databases = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.database
 
-        if ( ch_antismash_directory = 'None') {
+        if ( !ch_antismash_directory) {
             ch_antismash_directory = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.antismash_dir
         }
     }
 
-    ANTISMASH_ANTISMASHLITE ( fna, ch_antismash_database, ch_antismash_directory, gff.map{ it[1] } )
+    ANTISMASH_ANTISMASHLITE ( fna, ch_antismash_databases, ch_antismash_directory, gff.map{ it[1] } )
         ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITE.out.versions)
 
     emit:
