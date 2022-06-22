@@ -68,7 +68,7 @@
             "description": "",
             "default": "",
             "properties": {
-                "my_prodigal_f": {
+                "prodigal_output_format": {
                     "type": "string",
                     "default": "gff",
                     "description": "Assign output format to either gff,gbk,sqn or sco"
