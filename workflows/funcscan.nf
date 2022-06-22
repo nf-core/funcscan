@@ -97,7 +97,7 @@ workflow FUNCSCAN {
     // Some tools require annotated FASTAs
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && !params.amp_skip_hmmsearch ) ) {
         if ( params.run_annotation_tool == "prodigal") {
-            PRODIGAL ( ch_prepped_input, params.my_prodigal_f )
+            PRODIGAL ( ch_prepped_input, params.prodigal_output_format )
             ch_versions = ch_versions.mix(PRODIGAL.out.versions)
             ch_annotation_output = PRODIGAL.out.amino_acid_fasta
         }   else if ( params.run_annotation_tool == "prokka") {
