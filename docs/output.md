@@ -60,7 +60,7 @@ Antimicrobial Resistance Genes (ARGs):
 
 Antimicrobial Peptides (AMPs) and peptide annotation:
 
-- [Prokka](#prokka) - (default) open reading frame and functional protein annotation
+- [Prokka](#prokka) - (optional: alternative to prodigal) open reading frame and functional protein annotation
 - [Prodigal](#prodigal) - for open reading frame annotation
   <!--* [acep](#acep) - antimicrobial peptide detection-->
   <!--* [ai4amp](#ai4amp) - antimicrobial peptide detection-->
