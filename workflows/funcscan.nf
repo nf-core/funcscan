@@ -108,7 +108,7 @@ workflow FUNCSCAN {
             ch_annotation_output = PROKKA.out.faa
         }
     else {
-    ( ch_annotation_output = Channel.empty() )
+        ( ch_annotation_output = Channel.empty() )
     }
     }
 
