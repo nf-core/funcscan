@@ -95,8 +95,6 @@ workflow FUNCSCAN {
                         .mix(fasta_prep.uncompressed)
 
     // Some tools require annotated FASTAs
-    // TODO only execute when we run tools that require prokka/prodigal as input, e.g.
-    // if ( params.run_bgc_tool1 | params.run_bgc_tool2 | params.run_bgc_tool3 ) etc.
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && !params.amp_skip_hmmsearch ) ) {
         if ( params.run_annotation_tool == "prodigal") {
             PRODIGAL ( ch_prepped_input, params.my_prodigal_f )
