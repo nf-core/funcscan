@@ -100,6 +100,17 @@
                 }
             }
         },
+        "new_group_1": {
+            "title": "New Group 1",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "arg_skip_rgi": {
+                    "type": "boolean"
+                }
+            }
+        },
         "amr_fargene": {
             "title": "AMR-fargene",
             "type": "object",
@@ -394,6 +405,9 @@
         },
         {
             "$ref": "#/definitions/arg_deeparg"
+        },
+        {
+            "$ref": "#/definitions/new_group_1"
         },
         {
             "$ref": "#/definitions/amr_fargene"
