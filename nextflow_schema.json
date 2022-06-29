@@ -407,7 +407,7 @@
             "$ref": "#/definitions/arg_deeparg"
         },
         {
-            "$ref": "#/definitions/new_group_1"
+            "$ref": "#/definitions/arg_rgi"
         },
         {
             "$ref": "#/definitions/amr_fargene"
