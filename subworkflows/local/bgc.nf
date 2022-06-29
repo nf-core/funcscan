@@ -18,6 +18,7 @@ workflow BGC {
     ch_mqc      = Channel.empty()
 
     // Check whether user supplies database and/or antismash directory. If not, obtain them via nf-core/modules/antismashlite/antismashlitedownloaddatabases.
+    // Important for future maintenance: For CI tests, only the first of the 4 options below is used. Thus, all 4 combinations below should be tested locally whenever the antiSMASH module gets updated.
     if ( params.bgc_antismash_databases && params.bgc_antismash_directory ) {
 
         // Supply databases
@@ -90,8 +91,15 @@ workflow BGC {
 
     }
 
-    ANTISMASH_ANTISMASHLITE ( fna, ch_antismash_databases, ch_antismash_directory, gff.map{ it[1] } )
-        ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITE.out.versions)
+    ch_antismash_input = fna.mix(gff)
+                            .groupTuple()
+                            .multiMap {
+                                fna: [ it[0], it[1][1] ]
+                                gff: it[1][0]
+                            }
+
+    ANTISMASH_ANTISMASHLITE ( ch_antismash_input.fna, ch_antismash_databases, ch_antismash_directory, ch_antismash_input.gff )
+    ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITE.out.versions)
 
     emit:
     versions = ch_versions
