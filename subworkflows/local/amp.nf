@@ -13,8 +13,6 @@ workflow AMP {
 
     main:
     ch_versions = Channel.empty()
-    ch_mqc      = Channel.empty()
-
 
     // TODO ampir
     ch_faa_for_amplify = faa
@@ -57,6 +55,5 @@ workflow AMP {
 
     emit:
     versions = ch_versions
-    mqc = ch_mqc
 
 }

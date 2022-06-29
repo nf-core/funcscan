@@ -16,7 +16,6 @@ workflow ARG {
 
     main:
     ch_versions = Channel.empty()
-    ch_mqc      = Channel.empty()
 
      // Prepare HAMRONIZATION reporting channel
     ch_input_to_hamronization_summarize = Channel.empty()
@@ -76,6 +75,5 @@ workflow ARG {
 
     emit:
     versions = ch_versions
-    mqc = ch_mqc
 
 }
