@@ -205,10 +205,10 @@ The `*.ARG` output files contain the following fields:
 <details markdown="1">
 <summary>Output files</summary>
 
-* `rgi/`
-    * `<samplename>.json`: hit results in json format
-    * `<samplename>.txt`: hit results table separated by '#'
-    * `<samplename>.fasta.temp.*.json`: four temporary json files where '*' stands for 'homolog', 'overexpression', 'predictedGenes' and 'predictedGenes.protein'.
+- `rgi/`
+  - `<samplename>.json`: hit results in json format
+  - `<samplename>.txt`: hit results table separated by '#'
+  - `<samplename>.fasta.temp.*.json`: four temporary json files where '\*' stands for 'homolog', 'overexpression', 'predictedGenes' and 'predictedGenes.protein'.
 
 </details>
 
