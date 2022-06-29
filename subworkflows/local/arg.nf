@@ -5,6 +5,7 @@
 include { FARGENE                 } from '../../modules/nf-core/modules/fargene/main'
 include { DEEPARG_DOWNLOADDATA    } from '../../modules/nf-core/modules/deeparg/downloaddata/main'
 include { DEEPARG_PREDICT         } from '../../modules/nf-core/modules/deeparg/predict/main'
+include { RGI_MAIN               } from '../../modules/nf-core/modules/rgi/main/main'
 
 include { HAMRONIZATION_DEEPARG   } from '../../modules/nf-core/modules/hamronization/deeparg/main'
 include { HAMRONIZATION_SUMMARIZE } from '../../modules/nf-core/modules/hamronization/summarize/main'
@@ -43,6 +44,14 @@ workflow ARG {
 
         FARGENE ( ch_fargene_input.contigs, ch_fargene_input.hmmclass )
         ch_versions = ch_versions.mix(FARGENE.out.versions)
+
+    }
+
+    // RGI run
+    if ( !params.arg_skip_rgi ) {
+
+        RGI_MAIN ( contigs )
+        ch_versions = ch_versions.mix(RGI_MAIN.out.versions)
 
     }
 

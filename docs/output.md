@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The output of nf-core/funcscan provides the output directories from each tool applied, as well as a summary of tool outputs for each of the functional groups: antibiotic resistance genes ([DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/), [fargene](https://github.com/fannyhb/fargene)), antimicrobial peptides ([macrel](https://github.com/BigDataBiology/macrel), [hmmsearch](http://hmmer.org)), biosynthetic gene clusters ([antiSMASH](https://docs.antismash.secondarymetabolites.org)) and functional annotation ([prokka](https://github.com/tseemann/prokka)).
+The output of nf-core/funcscan provides the output directories from each tool applied, as well as a summary of tool outputs for each of the functional groups: antibiotic resistance genes ([DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/), [fargene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi)), antimicrobial peptides ([macrel](https://github.com/BigDataBiology/macrel), [hmmsearch](http://hmmer.org)), biosynthetic gene clusters ([antiSMASH](https://docs.antismash.secondarymetabolites.org)) and functional annotation ([prokka](https://github.com/tseemann/prokka)).
 
 Furtermore, for reproducibility, versions of all software used in the run is presented in a [MultiQC](http://multiqc.info) report.
 
@@ -43,7 +43,8 @@ outdir/
 ├── macrel/
 ├── multiqc/
 ├── pipeline_info/
-└── prokka/
+├── prokka/
+└── rgi/
 work/
 ```
 
@@ -55,7 +56,7 @@ Antimicrobial Resistance Genes (ARGs):
 
 - [DeepARG](#deeparg) - antimicrobial resistance gene detection, using a deep learning model
 - [fARGene](#fargene) - antimicrobial resistance gene detection, using a deep learning model
-<!--* [rgi](#rgi) - antimicrobial resistance gene detection, based on alignment to the CARD database-->
+- [rgi](#rgi) - antimicrobial resistance gene detection, based on alignment to the CARD database
 
 Antimicrobial Peptides (AMPs) and peptide annotation:
 
@@ -197,19 +198,19 @@ The `*.ARG` output files contain the following fields:
 - `qnr`: Quinolone resistance genes
 - `tet_efflux`, `tet_rpg`, `tet_enzyme`: Tetracycline resistance genes
 
-<!--### RGI
+### RGI
 
 <details markdown="1">
 <summary>Output files</summary>
 
-* `rgi/`
-    * `output1`: xxx
-    * `output2/`: xxx
+- `rgi/`
+  - `<samplename>.json`: hit results in json format
+  - `<samplename>.txt`: hit results table separated by '#'
+  - `<samplename>.fasta.temp.*.json`: four temporary json files where '\*' stands for 'homolog', 'overexpression', 'predictedGenes' and 'predictedGenes.protein'.
 
 </details>
 
 [RGI](https://github.com/arpcard/rgi) (Resistance Gene Identifier) predicts resistome(s) from protein or nucleotide data based on homology and SNP models. It uses reference data from the Comprehensive Antibiotic Resistance Database (CARD).
--->
 
 ### Prokka
 
