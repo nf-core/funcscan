@@ -107,7 +107,7 @@ workflow FUNCSCAN {
         }
     else {
         ( ch_annotation_output = Channel.empty() )
-    }
+        }
     }
 
     /*
