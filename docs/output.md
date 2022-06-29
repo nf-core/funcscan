@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The output of nf-core/funcscan provides the output directories from each tool applied, as well as a summary of tool outputs for each of the functional groups: antibiotic resistance genes ([DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/), [fargene](https://github.com/fannyhb/fargene)), antimicrobial peptides ([macrel](https://github.com/BigDataBiology/macrel), [hmmsearch](http://hmmer.org)), biosynthetic gene clusters ([antiSMASH](https://docs.antismash.secondarymetabolites.org)) and functional annotation ([prokka](https://github.com/tseemann/prokka)).
+The output of nf-core/funcscan provides the output directories from each tool applied, as well as a summary of tool outputs for each of the functional groups: antibiotic resistance genes ([DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/), [fargene](https://github.com/fannyhb/fargene)), antimicrobial peptides ([macrel](https://github.com/BigDataBiology/macrel), [hmmsearch](http://hmmer.org)), biosynthetic gene clusters ([antiSMASH](https://docs.antismash.secondarymetabolites.org)) and functional annotation ([prokka](https://github.com/tseemann/prokka) and ([prodigal](https://github.com/hyattpd/Prodigal)).
 
 Furtermore, summary statistics of the whole run is presented in a [MultiQC](http://multiqc.info) report.
 
@@ -26,6 +26,7 @@ outdir/
 ├── multiqc/
 #├── neubi/
 ├── pipeline_info/
+├── prodigal/
 ├── prokka/
 #└── rgi/
 work/
@@ -43,6 +44,7 @@ outdir/
 ├── macrel/
 ├── multiqc/
 ├── pipeline_info/
+├── prodigal/
 └── prokka/
 work/
 ```
@@ -59,8 +61,8 @@ Antimicrobial Resistance Genes (ARGs):
 
 Antimicrobial Peptides (AMPs) and peptide annotation:
 
-- [Prokka](#prokka) - (default) open reading frame and functional protein annotation
-  <!--* [prodigal](#prodigal) - (optional: replaces prokka) open reading frame annotation-->
+- [Prodigal](#prodigal) - for open reading frame annotation
+- [Prokka](#prokka) - (optional: alternative to prodigal) open reading frame and functional protein annotation
   <!--* [acep](#acep) - antimicrobial peptide detection-->
   <!--* [ai4amp](#ai4amp) - antimicrobial peptide detection-->
   <!--* [ampir](#ampir) - antimicrobial peptide detection-->
@@ -212,6 +214,22 @@ The `*.ARG` output files contain the following fields:
 
 [RGI](https://github.com/arpcard/rgi) (Resistance Gene Identifier) predicts resistome(s) from protein or nucleotide data based on homology and SNP models. It uses reference data from the Comprehensive Antibiotic Resistance Database (CARD).
 -->
+
+### Prodigal
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `prokka/`
+  - `<samplename>/`:
+    - `*.gff`: Annotation in GFF3 format, containing both sequences and annotations
+    - `*.fna`: Nucleotide FASTA file of the input contig sequences.
+    - `*.faa`: Protein FASTA file of the translated CDS sequences.
+    - `*_all.txt`: Text file containing all_gene_annotations.
+
+</details>
+
+[Prodigal](https://github.com/hyattpd/Prodigal) is an alternative for prokka that does whole genome annotation to identify CDS in a set of genomic DNA sequences. It can be applied to annotate bacterial, archaeal and viral genomes.
 
 ### Prokka
 
