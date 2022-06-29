@@ -17,6 +17,23 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 // Check mandatory parameters
 if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
 
+// Validate fARGene inputs
+// Split input into array, find the union with our valid classes, extract only
+// invalid classes, and if they exist, exit. Note `tokenize` used here as this
+// works for `interesect` and other groovy functions, but require `split` for
+// `Channel.of` creation. See `arg.nf` for latter.
+def fargene_classes = params.arg_fargene_hmmmodel
+def fargene_valid_classes = [ "class_a", "class_b_1_2", "class_b_3",
+                            "class_c", "class_d_1", "class_d_2",
+                            "qnr", "tet_efflux", "tet_rpg", "tet_enzyme"
+                            ]
+def fargene_user_classes = fargene_classes.tokenize(',')
+def fargene_classes_valid = fargene_user_classes.intersect( fargene_valid_classes )
+def fargene_classes_missing = fargene_user_classes - fargene_classes_valid
+
+if ( fargene_classes_missing.size() > 0 ) exit 1, "[nf-core/taxprofiler] ERROR: invalid class present in --arg_fargene_hmmodel. Please check input. Invalid class: ${fargene_classes_missing.join(', ')}"
+
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     CONFIG FILES

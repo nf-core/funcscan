@@ -5,6 +5,7 @@
 include { FARGENE                 } from '../../modules/nf-core/modules/fargene/main'
 include { DEEPARG_DOWNLOADDATA    } from '../../modules/nf-core/modules/deeparg/downloaddata/main'
 include { DEEPARG_PREDICT         } from '../../modules/nf-core/modules/deeparg/predict/main'
+include { RGI_MAIN               } from '../../modules/nf-core/modules/rgi/main/main'
 
 include { HAMRONIZATION_DEEPARG   } from '../../modules/nf-core/modules/hamronization/deeparg/main'
 include { HAMRONIZATION_SUMMARIZE } from '../../modules/nf-core/modules/hamronization/summarize/main'
@@ -23,8 +24,36 @@ workflow ARG {
 
     // fARGene run
     if ( !params.arg_skip_fargene ) {
-        FARGENE ( contigs, params.arg_fargene_hmmmodel )
+
+        ch_fargene_classes = Channel.fromList( params.arg_fargene_hmmmodel.tokenize(',') )
+
+        ch_fargene_input = contigs
+                            .dump(tag: "fargene_contigs_raw")
+                            .combine(ch_fargene_classes)
+                            .dump(tag: "fargene_contigs_hmmclass")
+                            .map {
+                                meta, contigs, hmm_class ->
+                                    def meta_new = meta.clone()
+                                    meta_new['hmm_class'] = hmm_class
+                                [ meta_new, contigs, hmm_class ]
+                            }
+                            .dump(tag: "fargene_updated_meta")
+                            .multiMap {
+                                contigs: [ it[0], it[1] ]
+                                hmmclass: it[2]
+                            }
+
+        FARGENE ( ch_fargene_input.contigs, ch_fargene_input.hmmclass )
         ch_versions = ch_versions.mix(FARGENE.out.versions)
+
+    }
+
+    // RGI run
+    if ( !params.arg_skip_rgi ) {
+
+        RGI_MAIN ( contigs )
+        ch_versions = ch_versions.mix(RGI_MAIN.out.versions)
+
     }
 
     // DeepARG prepare download
