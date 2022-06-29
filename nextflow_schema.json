@@ -11,11 +11,22 @@
             "description": "",
             "default": "",
             "properties": {
+                "run_annotation_tool": {
+                    "type": "string",
+                    "default": "prodigal",
+                    "description": "Assign which annotation tool to run either prodigal or prokka",
+                    "enum": ["prodigal", "prokka"]
+                },
                 "run_amp_screening": {
                     "type": "boolean"
                 },
                 "run_arg_screening": {
                     "type": "boolean"
+                },
+                "prodigal_output_format": {
+                    "type": "string",
+                    "default": "gff",
+                    "description": "Assign output format to either gff,gbk,sqn or sco"
                 }
             }
         },
@@ -72,11 +83,8 @@
                 },
                 "arg_deeparg_model": {
                     "type": "string",
-                    "default": "ss"
-                },
-                "arg_deeparg_type": {
-                    "type": "string",
-                    "default": "nucl"
+                    "default": "LS",
+                    "enum": ["LS", "SS"]
                 },
                 "arg_deeparg_minprob": {
                     "type": "number",

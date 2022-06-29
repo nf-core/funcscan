@@ -17,6 +17,10 @@
 
   > Seemann, Torsten. 2014. "Prokka: Rapid Prokaryotic Genome Annotation." Bioinformatics 30 (14): 2068–69.
 
+* [PRODIGAL](https://doi.org/10.1186/1471-2105-11-119)
+
+  > Hyatt, D., Chen, GL., LoCascio, P.F. et al. 2010. "Prodigal: prokaryotic gene recognition and translation initiation site identification". BMC Bioinformatics 11: 119.
+
 * [MACREL](https://doi.org/10.7717/peerj.10555)
 
   > Santos-Júnior CD, Pan S, Zhao X, Coelho LP. 2020. "Macrel: antimicrobial peptide screening in genomes and metagenomes." PeerJ 8:e10555.
