@@ -5,6 +5,7 @@
 include { MACREL_CONTIGS          } from '../../modules/nf-core/modules/macrel/contigs/main'
 include { HMMER_HMMSEARCH         } from '../../modules/nf-core/modules/hmmer/hmmsearch/main'
 include { AMPLIFY_PREDICT         } from '../../modules/nf-core/modules/amplify/predict/main'
+include { AMPIR                   } from '../../modules/nf-core/modules/ampir/main'
 
 workflow AMP {
     take:
@@ -15,19 +16,23 @@ workflow AMP {
     ch_versions = Channel.empty()
     ch_mqc      = Channel.empty()
 
-
-    // TODO ampir
     ch_faa_for_amplify = faa
     ch_faa_for_hmmsearch = faa
+    ch_faa_for_ampir = faa
+
+    // AMPLIFY
     if ( !params.amp_skip_amplify ) {
         AMPLIFY_PREDICT ( ch_faa_for_amplify, [] )
         ch_versions = ch_versions.mix(AMPLIFY_PREDICT.out.versions)
     }
+
+    // MACREL
     if ( !params.amp_skip_macrel ) {
         MACREL_CONTIGS ( contigs )
         ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)
     }
 
+    // HMMSEARCH
     if ( !params.amp_skip_hmmsearch ) {
         if (params.amp_hmmsearch_models) { ch_amp_hmm_models = Channel.fromPath( params.amp_hmmsearch_models, checkIfExists: true ) } else { exit 1, '[nf-core/funscan] error: hmm model files not found for --amp_hmmsearch_models! Please check input.' }
 
@@ -50,8 +55,15 @@ workflow AMP {
             }
 
         HMMER_HMMSEARCH ( ch_in_for_hmmsearch )
+    }
 
-
+    // AMPIR
+    if ( !params.amp_skip_ampir ) {
+        ch_faa_for_ampir.dump(tag: "faa_for_ampir")
+        println(params.amp_ampir_minlength)
+        println(params.amp_ampir_minprobability)
+        println(params.amp_ampir_model)
+        //AMPIR ( ch_faa_for_ampir, params.amp_ampir_model, params.amp_ampir_minlength, params.amp_ampir_minprobability )
     }
 
     emit:
