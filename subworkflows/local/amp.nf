@@ -13,8 +13,6 @@ workflow AMP {
 
     main:
     ch_versions = Channel.empty()
-    ch_mqc      = Channel.empty()
-
 
     // TODO ampir
     ch_faa_for_amplify = faa
@@ -50,12 +48,12 @@ workflow AMP {
             }
 
         HMMER_HMMSEARCH ( ch_in_for_hmmsearch )
+        ch_versions = ch_versions.mix(HMMER_HMMSEARCH.out.versions)
 
 
     }
 
     emit:
     versions = ch_versions
-    mqc = ch_mqc
 
 }

@@ -85,7 +85,7 @@ def multiqc_report = []
 workflow FUNCSCAN {
 
     ch_versions = Channel.empty()
-    ch_mqc  = Channel.empty()
+    ch_funcscan_logo = Channel.fromPath("$projectDir/docs/images/nf-core-funcscan_logo_flat_light.png")
 
     //
     // SUBWORKFLOW: Read in samplesheet, validate and stage input files
@@ -138,7 +138,6 @@ workflow FUNCSCAN {
             AMP ( ch_prepped_input, [] )
         }
         ch_versions = ch_versions.mix(AMP.out.versions)
-        ch_mqc      = ch_mqc.mix(AMP.out.mqc)
     }
 
     /*
@@ -151,7 +150,6 @@ workflow FUNCSCAN {
             ARG ( ch_prepped_input, ch_annotation_output )
         }
         ch_versions = ch_versions.mix(ARG.out.versions)
-        ch_mqc      = ch_mqc.mix(ARG.out.mqc)
     }
 
     /*
@@ -173,6 +171,8 @@ workflow FUNCSCAN {
     ch_multiqc_files = ch_multiqc_files.mix(ch_multiqc_custom_config.collect().ifEmpty([]))
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
+
+    ch_multiqc_files = ch_multiqc_files.mix(ch_funcscan_logo)
 
     MULTIQC (
         ch_multiqc_files.collect()
