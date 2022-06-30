@@ -117,14 +117,17 @@ workflow FUNCSCAN {
         if ( params.run_annotation_tool == "prodigal") {
             PRODIGAL ( ch_prepped_input, params.prodigal_output_format )
             ch_versions = ch_versions.mix(PRODIGAL.out.versions)
-            ch_annotation_output = PRODIGAL.out.amino_acid_fasta
+            ch_annotation_faa = PRODIGAL.out.amino_acid_fasta
+            ch_annotation_gff = Channel.empty()
         }   else if ( params.run_annotation_tool == "prokka") {
             PROKKA ( ch_prepped_input, [], [] )
             ch_versions = ch_versions.mix(PROKKA.out.versions)
-            ch_annotation_output = PROKKA.out.faa
+            ch_annotation_faa = PROKKA.out.faa
+            ch_annotation_gff = PROKKA.out.gff
         }
     } else {
-        ( ch_annotation_output = Channel.empty() )
+        ch_annotation_faa = Channel.empty()
+        ch_annotation_gff = Channel.empty()
     }
 
     /*
@@ -133,7 +136,7 @@ workflow FUNCSCAN {
     if ( params.run_amp_screening ) {
 
         if ( !params.amp_skip_hmmsearch ) {
-            AMP ( ch_prepped_input, ch_annotation_output )
+            AMP ( ch_prepped_input, ch_annotation_faa )
         }   else {
             AMP ( ch_prepped_input, [] )
         }
@@ -148,7 +151,7 @@ workflow FUNCSCAN {
         if (params.arg_skip_deeparg) {
             ARG ( ch_prepped_input, [] )
         } else {
-            ARG ( ch_prepped_input, ch_annotation_output )
+            ARG ( ch_prepped_input, ch_annotation_faa )
         }
         ch_versions = ch_versions.mix(ARG.out.versions)
         ch_mqc      = ch_mqc.mix(ARG.out.mqc)
