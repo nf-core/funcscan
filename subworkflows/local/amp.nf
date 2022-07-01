@@ -9,27 +9,31 @@ include { AMPLIFY_PREDICT         } from '../../modules/nf-core/modules/amplify/
 workflow AMP {
     take:
     contigs // tuple val(meta), path(contigs)
-    faa     // tuple val(meta), path(PROKKA.out.faa)
+    faa     // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
 
     main:
     ch_versions = Channel.empty()
-    ch_mqc      = Channel.empty()
-
 
     // TODO ampir
+
     ch_faa_for_amplify = faa
     ch_faa_for_hmmsearch = faa
+
+    // AMPLIFY
     if ( !params.amp_skip_amplify ) {
         AMPLIFY_PREDICT ( ch_faa_for_amplify, [] )
         ch_versions = ch_versions.mix(AMPLIFY_PREDICT.out.versions)
     }
+
+    // MACREL
     if ( !params.amp_skip_macrel ) {
         MACREL_CONTIGS ( contigs )
         ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)
     }
 
+    // HMMSEARCH
     if ( !params.amp_skip_hmmsearch ) {
-        if (params.amp_hmmsearch_models) { ch_amp_hmm_models = Channel.fromPath( params.amp_hmmsearch_models, checkIfExists: true ) } else { exit 1, '[nf-core/funscan] error: hmm model files not found for --amp_hmmsearch_models! Please check input.' }
+        if ( params.amp_hmmsearch_models ) { ch_amp_hmm_models = Channel.fromPath( params.amp_hmmsearch_models, checkIfExists: true ) } else { exit 1, '[nf-core/funscan] error: hmm model files not found for --amp_hmmsearch_models! Please check input.' }
 
         ch_amp_hmm_models_meta = ch_amp_hmm_models
             .map {
@@ -50,12 +54,10 @@ workflow AMP {
             }
 
         HMMER_HMMSEARCH ( ch_in_for_hmmsearch )
-
-
+        ch_versions = ch_versions.mix(HMMER_HMMSEARCH.out.versions)
     }
 
     emit:
     versions = ch_versions
-    mqc = ch_mqc
 
 }

@@ -85,7 +85,7 @@ def multiqc_report = []
 workflow FUNCSCAN {
 
     ch_versions = Channel.empty()
-    ch_mqc  = Channel.empty()
+    ch_funcscan_logo = Channel.fromPath("$projectDir/docs/images/nf-core-funcscan_logo_flat_light.png")
 
     //
     // SUBWORKFLOW: Read in samplesheet, validate and stage input files
@@ -112,8 +112,7 @@ workflow FUNCSCAN {
                         .mix(fasta_prep.uncompressed)
 
     // Some tools require annotated FASTAs
-
-    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && (!params.amp_skip_hmmsearch || !params.amp_skip_amplify) ) || (params.run_bgc_screening) ) {
+    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify ) ) || (params.run_bgc_screening ) {
         if ( params.run_annotation_tool == "prodigal") {
             PRODIGAL ( ch_prepped_input, params.prodigal_output_format )
             ch_versions = ch_versions.mix(PRODIGAL.out.versions)
@@ -135,13 +134,12 @@ workflow FUNCSCAN {
     */
     if ( params.run_amp_screening ) {
 
-        if ( !params.amp_skip_hmmsearch ) {
+        if ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify ) {
             AMP ( ch_prepped_input, ch_annotation_faa )
         }   else {
             AMP ( ch_prepped_input, [] )
         }
         ch_versions = ch_versions.mix(AMP.out.versions)
-        ch_mqc      = ch_mqc.mix(AMP.out.mqc)
     }
 
     /*
@@ -154,7 +152,6 @@ workflow FUNCSCAN {
             ARG ( ch_prepped_input, ch_annotation_faa )
         }
         ch_versions = ch_versions.mix(ARG.out.versions)
-        ch_mqc      = ch_mqc.mix(ARG.out.mqc)
     }
 
     /*
@@ -180,6 +177,8 @@ workflow FUNCSCAN {
     ch_multiqc_files = ch_multiqc_files.mix(ch_multiqc_custom_config.collect().ifEmpty([]))
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
+
+    ch_multiqc_files = ch_multiqc_files.mix(ch_funcscan_logo)
 
     MULTIQC (
         ch_multiqc_files.collect()
