@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The output of nf-core/funcscan provides the output directories from each tool applied, as well as a summary of tool outputs for each of the functional groups: antibiotic resistance genes ([DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/), [fargene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi)), antimicrobial peptides ([macrel](https://github.com/BigDataBiology/macrel), [hmmsearch](http://hmmer.org)), biosynthetic gene clusters ([antiSMASH](https://docs.antismash.secondarymetabolites.org)) and functional annotation ([prokka](https://github.com/tseemann/prokka)) and ([prodigal](https://github.com/hyattpd/Prodigal)).
+The output of nf-core/funcscan provides the output directories from each tool applied, as well as a summary of tool outputs for each of the functional groups: antibiotic resistance genes ([DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/), [fargene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi)), antimicrobial peptides ([macrel](https://github.com/BigDataBiology/macrel), [amplify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net/), [hmmsearch](http://hmmer.org)), biosynthetic gene clusters ([antiSMASH](https://docs.antismash.secondarymetabolites.org)) and functional annotation ([prokka](https://github.com/tseemann/prokka)) and ([prodigal](https://github.com/hyattpd/Prodigal)).
 
 Furthermore, for reproducibility, versions of all software used in the run is presented in a [MultiQC](http://multiqc.info) report.
 
@@ -14,8 +14,8 @@ outdir/
 #├── acep/
 #├── ai4amp/
 ├── antismash/
-#├── amplify/
-#├── ampir/
+├── amplify/
+├── ampir/
 #├── combiamp/
 ├── deeparg/
 #├── ensembleamppred/
@@ -37,6 +37,7 @@ work/
 outdir/
 ├── antismash/
 ├── amplify/
+├── ampir/
 ├── deeparg/
 ├── fargene/
 ├── hamronizer/
@@ -66,7 +67,7 @@ Antimicrobial Peptides (AMPs) and peptide annotation:
 - [Prokka](#prokka) - (optional: alternative to prodigal) open reading frame and functional protein annotation
   <!--* [acep](#acep) - antimicrobial peptide detection-->
   <!--* [ai4amp](#ai4amp) - antimicrobial peptide detection-->
-  <!--* [ampir](#ampir) - antimicrobial peptide detection-->
+- [ampir](#ampir) - antimicrobial peptide detection
 - [amplify](#amplify) - antimicrobial peptide detection
   <!--* [EnsembleAMPPred](#ensembleamppred) - antimicrobial peptide detection-->
 - [Macrel](#macrel) - antimicrobial peptide detection
