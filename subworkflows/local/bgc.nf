@@ -15,7 +15,6 @@ workflow BGC {
 
     main:
     ch_versions = Channel.empty()
-    ch_mqc      = Channel.empty()
 
     // Check whether user supplies database and/or antismash directory. If not, obtain them via nf-core/modules/antismashlite/antismashlitedownloaddatabases.
     // Important for future maintenance: For CI tests, only the first of the 4 options below is used. Thus, all 4 combinations below should be tested locally whenever the antiSMASH module gets updated.
@@ -103,6 +102,5 @@ workflow BGC {
 
     emit:
     versions = ch_versions
-    mqc = ch_mqc
 
 }
