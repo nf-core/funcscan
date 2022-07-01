@@ -24,6 +24,9 @@
             "hamronization/deeparg": {
                 "git_sha": "f0800157544a82ae222931764483331a81812012"
             },
+            "hamronization/rgi": {
+                "git_sha": "057a889d3b277e1e1dc7544dd312ca7801bed8f5"
+            },
             "hamronization/summarize": {
                 "git_sha": "f0800157544a82ae222931764483331a81812012"
             },
