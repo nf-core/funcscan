@@ -112,7 +112,7 @@ workflow FUNCSCAN {
                         .mix(fasta_prep.uncompressed)
 
     // Some tools require annotated FASTAs
-    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify ) ) || (params.run_bgc_screening ) {
+    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify ) ) || (params.run_bgc_screening ) ) {
         if ( params.run_annotation_tool == "prodigal") {
             PRODIGAL ( ch_prepped_input, params.prodigal_output_format )
             ch_versions = ch_versions.mix(PRODIGAL.out.versions)
