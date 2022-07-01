@@ -444,5 +444,22 @@
         {
             "$ref": "#/definitions/generic_options"
         }
-    ]
+    ],
+    "properties": {
+        "amp_skip_ampir": {
+            "type": "boolean"
+        },
+        "amp_ampir_model": {
+            "type": "string",
+            "default": "precursor"
+        },
+        "amp_ampir_minlength": {
+            "type": "integer",
+            "default": 10
+        },
+        "amp_ampir_minprobability": {
+            "type": "number",
+            "default": 0.8
+        }
+    }
 }

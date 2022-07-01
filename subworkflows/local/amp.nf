@@ -5,6 +5,7 @@
 include { MACREL_CONTIGS          } from '../../modules/nf-core/modules/macrel/contigs/main'
 include { HMMER_HMMSEARCH         } from '../../modules/nf-core/modules/hmmer/hmmsearch/main'
 include { AMPLIFY_PREDICT         } from '../../modules/nf-core/modules/amplify/predict/main'
+include { AMPIR                   } from '../../modules/nf-core/modules/ampir/main'
 
 workflow AMP {
     take:
@@ -14,10 +15,12 @@ workflow AMP {
     main:
     ch_versions = Channel.empty()
 
-    // TODO ampir
-
-    ch_faa_for_amplify = faa
+    // When adding new tool that requires FAA, make sure to update conditions
+    // in funcscan.nf around annotation and AMP subworkflow execution
+    // to ensure annotation is executed!
+    ch_faa_for_amplify   = faa
     ch_faa_for_hmmsearch = faa
+    ch_faa_for_ampir     = faa
 
     // AMPLIFY
     if ( !params.amp_skip_amplify ) {
@@ -29,6 +32,12 @@ workflow AMP {
     if ( !params.amp_skip_macrel ) {
         MACREL_CONTIGS ( contigs )
         ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)
+    }
+
+    // AMPIR
+    if ( !params.amp_skip_ampir ) {
+        AMPIR ( ch_faa_for_ampir, params.amp_ampir_model, params.amp_ampir_minlength, params.amp_ampir_minprobability )
+        ch_versions = ch_versions.mix(AMPIR.out.versions)
     }
 
     // HMMSEARCH

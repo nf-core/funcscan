@@ -282,19 +282,18 @@ The `*.ARG` output files contain the following fields:
 [AI4AMP](https://github.com/LinTzuTang/AI4AMP_predictor) is a sequence-based antimicrobial peptides (AMP) predictor based on PC6 protein encoding method and deep learning.
 -->
 
-<!--### Ampir
+### Ampir
 
 <details markdown="1">
 <summary>Output files</summary>
 
-* `ampir/`
-    * `output1`: xxx
-    * `output2/`: xxx
+- `ampir/`
+  - `<samplename>.ampir.faa`: predicted AMP sequences in FAA format
+  - `<samplename>.ampir.tsv`: predicted AMP metadata in TSV format, contains contig name, sequence and probability score
 
 </details>
 
 [ampir](https://github.com/Legana/ampir) (antimicrobial peptide prediction in r) package was designed to predict antimicrobial peptides (AMPs) from any given size protein dataset. ampir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, “precursor” and “mature” that have been trained on publicly available antimicrobial peptide data.
--->
 
 ### AMPlify
 

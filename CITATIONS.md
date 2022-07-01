@@ -45,6 +45,10 @@
 
   > Chenkai Li, Darcy Sutherland, S. Austin Hammond, Chen Yang, Figali Taho, Lauren Bergman, Simon Houston, René L. Warren, Titus Wong, Linda M. N. Hoang, Caroline E. Cameron, Caren C. Helbing & Inanc Birol. 2022. "AMPlify: attentive deep learning model for discovery of novel antimicrobial peptides effective against WHO priority pathogens". BMC Genomics 23, 77.
 
+* [AMPIR](https://doi.org/10.1093/bioinformatics/btaa653.)
+
+> Fingerhut, Legana C. H. W., David J. Miller, Jan M. Strugnell, Norelle L. Daly, and Ira R. Cooke. 2021. “Ampir: An R Package for Fast Genome-Wide Prediction of Antimicrobial Peptides.” Bioinformatics 36 (21): 5262–63.
+
 ## Software packaging/containerisation tools
 
 - [Anaconda](https://anaconda.com)
