@@ -54,8 +54,7 @@ workflow ARG {
         ch_versions = ch_versions.mix(RGI_MAIN.out.versions)
 
     // Reporting
-    // Note:currently hardcoding versions, has to be updated with every RGI-Container-update
-    // how to automate in the future - but DEEPARG won't change as abandonware?
+    // Note: currently hardcoding versions, has to be updated with every RGI-Container-update
         HAMRONIZATION_RGI ( RGI_MAIN.out.tsv, 'json', '5.2.1', '3.2.3' )
         ch_versions = ch_versions.mix(HAMRONIZATION_RGI.out.versions)
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_RGI.out.json)
