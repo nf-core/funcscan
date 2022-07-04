@@ -113,20 +113,26 @@ workflow FUNCSCAN {
 
     // Some tools require annotated FASTAs
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify ) ) || (params.run_bgc_screening ) ) {
+
         if ( params.run_annotation_tool == "prodigal") {
-            PRODIGAL ( ch_prepped_input, params.prodigal_output_format )
-            ch_versions = ch_versions.mix(PRODIGAL.out.versions)
-            ch_annotation_faa = PRODIGAL.out.amino_acid_fasta
-            ch_annotation_gff = Channel.empty()
+            PRODIGAL ( ch_prepped_input, "gff" )
+            ch_versions              = ch_versions.mix(PRODIGAL.out.versions)
+            ch_annotation_faa        = PRODIGAL.out.amino_acid_fasta
+            ch_annotation_fna        = PRODIGAL.out.nucleotide_fasta
+            ch_annotation_gff        = PRODIGAL.out.gene_annotations
         }   else if ( params.run_annotation_tool == "prokka") {
             PROKKA ( ch_prepped_input, [], [] )
-            ch_versions = ch_versions.mix(PROKKA.out.versions)
-            ch_annotation_faa = PROKKA.out.faa
-            ch_annotation_gff = PROKKA.out.gff
+            ch_versions              = ch_versions.mix(PROKKA.out.versions)
+            ch_annotation_faa        = PROKKA.out.faa
+            ch_annotation_fna        = PROKKA.out.fna
+            ch_annotation_gff        = PROKKA.out.gff
         }
+
     } else {
-        ch_annotation_faa = Channel.empty()
-        ch_annotation_gff = Channel.empty()
+
+        ch_annotation_faa        = Channel.empty()
+        ch_annotation_fna        = Channel.empty()
+        ch_annotation_gff        = Channel.empty()
     }
 
     /*
@@ -136,7 +142,7 @@ workflow FUNCSCAN {
 
         if ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify ) {
             AMP ( ch_prepped_input, ch_annotation_faa )
-        }   else {
+        } else {
             AMP ( ch_prepped_input, [] )
         }
         ch_versions = ch_versions.mix(AMP.out.versions)
@@ -158,7 +164,7 @@ workflow FUNCSCAN {
         BGCs
     */
     if ( params.run_bgc_screening ) {
-        BGC ( ch_annotation_faa, ch_annotation_gff )
+        BGC ( fasta_prep.compressed, ch_annotation_gff )
         ch_version = ch_versions.mix(BGC.out.versions)
     }
 

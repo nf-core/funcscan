@@ -93,8 +93,8 @@ workflow BGC {
     ch_antismash_input = fna.mix(gff)
                             .groupTuple()
                             .multiMap {
-                                fna: [ it[0], it[1][1] ]
-                                gff: it[1][0]
+                                fna: [ it[0], it[1][0] ]
+                                gff: it[1][1]
                             }
 
     ANTISMASH_ANTISMASHLITE ( ch_antismash_input.fna, ch_antismash_databases, ch_antismash_directory, ch_antismash_input.gff )
