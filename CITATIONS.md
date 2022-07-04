@@ -49,6 +49,10 @@
 
   > Kai Blin, Simon Shaw, Alexander M Kloosterman, Zach Charlop-Powers, Gilles P van Wezel, Marnix H Medema, Tilmann Weber, antiSMASH 6.0: improving cluster detection and comparison capabilities, Nucleic Acids Research, Volume 49, Issue W1, 2 July 2021, Pages W29–W35.
 
+* [AMPIR](https://doi.org/10.1093/bioinformatics/btaa653.)
+
+> Fingerhut, Legana C. H. W., David J. Miller, Jan M. Strugnell, Norelle L. Daly, and Ira R. Cooke. 2021. “Ampir: An R Package for Fast Genome-Wide Prediction of Antimicrobial Peptides.” Bioinformatics 36 (21): 5262–63.
+
 ## Software packaging/containerisation tools
 
 - [Anaconda](https://anaconda.com)
