@@ -5,37 +5,15 @@
     "description": "Pipeline for screening for functional components of assembled contigs",
     "type": "object",
     "definitions": {
-        "screening_subworkflow_activation": {
-            "title": "Screening Subworkflow Activation",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "properties": {
-                "run_annotation_tool": {
-                    "type": "string",
-                    "default": "prodigal",
-                    "description": "Assign which annotation tool to run either prodigal or prokka",
-                    "enum": ["prodigal", "prokka"]
-                },
-                "run_amp_screening": {
-                    "type": "boolean"
-                },
-                "run_arg_screening": {
-                    "type": "boolean"
-                },
-                "prodigal_output_format": {
-                    "type": "string",
-                    "default": "gff",
-                    "description": "Assign output format to either gff,gbk,sqn or sco"
-                }
-            }
-        },
         "input_output_options": {
             "title": "Input/output options",
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "outdir"],
+            "required": [
+                "input",
+                "outdir"
+            ],
             "properties": {
                 "input": {
                     "type": "string",
@@ -68,85 +46,77 @@
             },
             "help_text": ""
         },
-        "arg_deeparg": {
-            "title": "ARG-DeepARG",
+        "screening_type_activation": {
+            "title": "Screening Type Activation",
             "type": "object",
             "description": "",
             "default": "",
             "properties": {
-                "arg_skip_deeparg": {
-                    "type": "boolean"
+                "run_amp_screening": {
+                    "type": "boolean",
+                    "description": "Activate antimicrobial peptide screening"
                 },
-                "arg_deeparg_data": {
-                    "type": "string",
-                    "default": "None"
-                },
-                "arg_deeparg_model": {
-                    "type": "string",
-                    "default": "LS",
-                    "enum": ["LS", "SS"]
-                },
-                "arg_deeparg_minprob": {
-                    "type": "number",
-                    "default": 0.8
-                },
-                "arg_deeparg_alignmentevalue": {
-                    "type": "number",
-                    "default": 1e-10
-                },
-                "arg_deeparg_alignmentidentity": {
-                    "type": "integer",
-                    "default": 50
-                },
-                "arg_deeparg_alignmentoverlap": {
-                    "type": "number",
-                    "default": 0.8
-                },
-                "arg_deeparg_numalignmentsperentry": {
-                    "type": "integer",
-                    "default": 1000
+                "run_arg_screening": {
+                    "type": "boolean",
+                    "description": "Activate antimicrobial resistance gene screening"
                 }
             }
         },
-        "arg_rgi": {
-            "title": "ARG-RGI",
-            "type": "object",
-            "description": "Parameters for RGI - Resistance Gene Identifier",
-            "default": "",
-            "properties": {
-                "arg_skip_rgi": {
-                    "type": "boolean"
-                }
-            }
-        },
-        "amr_fargene": {
-            "title": "AMR-fargene",
-            "type": "object",
-            "description": "Parameters for fargene",
-            "default": "",
-            "help_text": "[fARGene](https://github.com/fannyhb/fargene) (Fragmented Antibiotic Resistance Gene Identifier ) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimized models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes.",
-            "properties": {
-                "arg_skip_fargene": {
-                    "type": "boolean"
-                },
-                "arg_fargene_hmmmodel": {
-                    "type": "string",
-                    "default": "class_a,class_b_1_2,class_b_3,class_c,class_d_1,class_d_2,qnr,tet_efflux,tet_rpg,tet_enzyme",
-                    "description": "Specify which pre-defined HMM model to use",
-                    "help_text": "Where hmm-model can be any of the pre-defined models:\n    - Class A beta-lactamases --hmm-model class_a\n    - Subclass B1 and B2 beta-lactamases --hmm-model class_b_1_2\n    - Subclass B3 beta-lactamases --hmm-model class_b_3\n    - Class C beta-lactamases --hmm-model class_c\n    - Class D beta-lactamases\n        -hmm-model class_d_1\n        -hmm-model class_d_2\n    - qnr --hmm-model qnr\n    - Tetracycline resistance genes\n        -hmm-model tet_efflux\n        -hmm-model tet_rpg\n        -hmm-model tet_enzyme",
-                    "fa_icon": "fas fa-project-diagram"
-                }
-            },
-            "fa_icon": "fas fa-bacteria"
-        },
-        "amp_macrel": {
-            "title": "AMP-Macrel",
+        "annotation": {
+            "title": "Annotation",
             "type": "object",
             "description": "",
             "default": "",
             "properties": {
-                "amp_skip_macrel": {
+                "run_annotation_tool": {
+                    "type": "string",
+                    "default": "prodigal",
+                    "description": "Assign which annotation tool to run either prodigal or prokka",
+                    "enum": [
+                        "prodigal",
+                        "prokka"
+                    ]
+                },
+                "prodigal_output_format": {
+                    "type": "string",
+                    "default": "gff",
+                    "description": "Assign output format to either gff,gbk,sqn or sco"
+                }
+            }
+        },
+        "amp_amplify": {
+            "title": "AMP: AMPlify",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "amp_skip_amplify": {
+                    "type": "boolean",
+                    "description": "",
+                    "help_text": ""
+                }
+            }
+        },
+        "amp_ampir": {
+            "title": "AMP Ampir",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "amp_skip_ampir": {
                     "type": "boolean"
+                },
+                "amp_ampir_model": {
+                    "type": "string",
+                    "default": "precursor"
+                },
+                "amp_ampir_minlength": {
+                    "type": "integer",
+                    "default": 10
+                },
+                "amp_ampir_minprobability": {
+                    "type": "number",
+                    "default": 0.8
                 }
             }
         },
@@ -174,13 +144,87 @@
                 }
             }
         },
-        "amp_amplify_predict": {
-            "title": "AMP-AMPlify-Predict",
+        "amp_macrel": {
+            "title": "AMP-Macrel",
             "type": "object",
             "description": "",
             "default": "",
             "properties": {
-                "amp_skip_amplify": {
+                "amp_skip_macrel": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "arg_deeparg": {
+            "title": "ARG-DeepARG",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "arg_skip_deeparg": {
+                    "type": "boolean"
+                },
+                "arg_deeparg_data": {
+                    "type": "string",
+                    "default": "None"
+                },
+                "arg_deeparg_model": {
+                    "type": "string",
+                    "default": "LS",
+                    "enum": [
+                        "LS",
+                        "SS"
+                    ]
+                },
+                "arg_deeparg_minprob": {
+                    "type": "number",
+                    "default": 0.8
+                },
+                "arg_deeparg_alignmentevalue": {
+                    "type": "number",
+                    "default": 1e-10
+                },
+                "arg_deeparg_alignmentidentity": {
+                    "type": "integer",
+                    "default": 50
+                },
+                "arg_deeparg_alignmentoverlap": {
+                    "type": "number",
+                    "default": 0.8
+                },
+                "arg_deeparg_numalignmentsperentry": {
+                    "type": "integer",
+                    "default": 1000
+                }
+            }
+        },
+        "arg_fargene": {
+            "title": "ARG-fargene",
+            "type": "object",
+            "description": "Parameters for fargene",
+            "default": "",
+            "help_text": "[fARGene](https://github.com/fannyhb/fargene) (Fragmented Antibiotic Resistance Gene Identifier ) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimized models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes.",
+            "properties": {
+                "arg_skip_fargene": {
+                    "type": "boolean"
+                },
+                "arg_fargene_hmmmodel": {
+                    "type": "string",
+                    "default": "class_a,class_b_1_2,class_b_3,class_c,class_d_1,class_d_2,qnr,tet_efflux,tet_rpg,tet_enzyme",
+                    "description": "Specify which pre-defined HMM model to use",
+                    "help_text": "Where hmm-model can be any of the pre-defined models:\n    - Class A beta-lactamases --hmm-model class_a\n    - Subclass B1 and B2 beta-lactamases --hmm-model class_b_1_2\n    - Subclass B3 beta-lactamases --hmm-model class_b_3\n    - Class C beta-lactamases --hmm-model class_c\n    - Class D beta-lactamases\n        -hmm-model class_d_1\n        -hmm-model class_d_2\n    - qnr --hmm-model qnr\n    - Tetracycline resistance genes\n        -hmm-model tet_efflux\n        -hmm-model tet_rpg\n        -hmm-model tet_enzyme",
+                    "fa_icon": "fas fa-project-diagram"
+                }
+            },
+            "fa_icon": "fas fa-bacteria"
+        },
+        "arg_rgi": {
+            "title": "ARG-RGI",
+            "type": "object",
+            "description": "Parameters for RGI - Resistance Gene Identifier",
+            "default": "",
+            "properties": {
+                "arg_skip_rgi": {
                     "type": "boolean"
                 }
             }
@@ -207,7 +251,8 @@
                     "type": "string",
                     "description": "Name of iGenomes reference.",
                     "fa_icon": "fas fa-book",
-                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details."
+                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details.",
+                    "hidden": true
                 },
                 "fasta": {
                     "type": "string",
@@ -216,7 +261,8 @@
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
                     "description": "Path to FASTA genome file.",
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
-                    "fa_icon": "far fa-file-code"
+                    "fa_icon": "far fa-file-code",
+                    "hidden": true
                 },
                 "igenomes_base": {
                     "type": "string",
@@ -230,8 +276,8 @@
                     "type": "boolean",
                     "description": "Do not load the iGenomes reference config.",
                     "fa_icon": "fas fa-ban",
-                    "hidden": true,
-                    "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
+                    "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`.",
+                    "hidden": true
                 }
             }
         },
@@ -337,7 +383,14 @@
                     "description": "Method used to save pipeline results to output directory.",
                     "help_text": "The Nextflow `publishDir` option specifies which intermediate files should be saved to the output directory. This option tells the pipeline what method should be used to move these files. See [Nextflow docs](https://www.nextflow.io/docs/latest/process.html#publishdir) for details.",
                     "fa_icon": "fas fa-copy",
-                    "enum": ["symlink", "rellink", "link", "copy", "copyNoFollow", "move"],
+                    "enum": [
+                        "symlink",
+                        "rellink",
+                        "link",
+                        "copy",
+                        "copyNoFollow",
+                        "move"
+                    ],
                     "hidden": true
                 },
                 "email_on_fail": {
@@ -406,28 +459,34 @@
     },
     "allOf": [
         {
-            "$ref": "#/definitions/screening_subworkflow_activation"
-        },
-        {
             "$ref": "#/definitions/input_output_options"
         },
         {
-            "$ref": "#/definitions/arg_deeparg"
+            "$ref": "#/definitions/screening_type_activation"
         },
         {
-            "$ref": "#/definitions/arg_rgi"
+            "$ref": "#/definitions/annotation"
         },
         {
-            "$ref": "#/definitions/amr_fargene"
+            "$ref": "#/definitions/amp_amplify"
         },
         {
-            "$ref": "#/definitions/amp_macrel"
+            "$ref": "#/definitions/amp_ampir"
         },
         {
             "$ref": "#/definitions/amp_hmmer_hmmsearch"
         },
         {
-            "$ref": "#/definitions/amp_amplify_predict"
+            "$ref": "#/definitions/amp_macrel"
+        },
+        {
+            "$ref": "#/definitions/arg_deeparg"
+        },
+        {
+            "$ref": "#/definitions/arg_fargene"
+        },
+        {
+            "$ref": "#/definitions/arg_rgi"
         },
         {
             "$ref": "#/definitions/reporting"
@@ -444,22 +503,5 @@
         {
             "$ref": "#/definitions/generic_options"
         }
-    ],
-    "properties": {
-        "amp_skip_ampir": {
-            "type": "boolean"
-        },
-        "amp_ampir_model": {
-            "type": "string",
-            "default": "precursor"
-        },
-        "amp_ampir_minlength": {
-            "type": "integer",
-            "default": 10
-        },
-        "amp_ampir_minprobability": {
-            "type": "number",
-            "default": 0.8
-        }
-    }
+    ]
 }
