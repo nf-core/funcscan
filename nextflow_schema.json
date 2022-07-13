@@ -22,7 +22,7 @@
                     "pattern": "^\\S+\\.csv$",
                     "schema": "assets/schema_input.json",
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
-                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 2 columns, and a header row. See [usage docs](https://nf-co.re/funcscan/usage#samplesheet-input).",
+                    "help_text": "Before running the pipeline, you will need to create a design file with information about the samples to be scanned by `funcscan`, containing `sample name` and `path/to/your/contigs.fasta`. Use this parameter to specify its location. It has to be a comma-separated file with 2 columns, and a header row (`sample, fasta`). See [usage docs](https://nf-co.re/funcscan/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "outdir": {
