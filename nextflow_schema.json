@@ -68,7 +68,7 @@
         "annotation": {
             "title": "Annotation",
             "type": "object",
-            "description": "",
+            "description": "These options influence the generation of annotation files required for downstream steps in ARG and AMP workflows.",
             "default": "",
             "properties": {
                 "run_annotation_tool": {
@@ -99,7 +99,7 @@
         "amp_amplify": {
             "title": "AMP: AMPlify",
             "type": "object",
-            "description": "Antimicrobial Peptide detection",
+            "description": "Antimicrobial Peptide detection using a deep learning model",
             "default": "",
             "properties": {
                 "amp_skip_amplify": {
@@ -108,12 +108,13 @@
                     "fa_icon": "fas fa-ban"
                 }
             },
-            "fa_icon": "fas fa-tools"
+            "fa_icon": "fas fa-tools",
+            "help_text": "AMPlify is an attentive deep learning model for antimicrobial peptide prediction. It takes in annotated contigs (.faa) and classifies them as either AMP or non-AMP.\n\nDocumentation: https://github.com/bcgsc/AMPlify"
         },
         "amp_ampir": {
-            "title": "AMP Ampir",
+            "title": "AMP: ampir",
             "type": "object",
-            "description": "Antimicrobial Peptide detection (R package)",
+            "description": "Antimicrobial Peptide detection using machine learning",
             "default": "",
             "properties": {
                 "amp_skip_ampir": {
@@ -147,12 +148,13 @@
                     "fa_icon": "fas fa-dice"
                 }
             },
-            "fa_icon": "fas fa-tools"
+            "fa_icon": "fas fa-tools",
+            "help_text": "ampir (antimicrobial peptide prediction in r) is an r package designed to predict antimicrobial peptides (AMPs) from any given size protein dataset. ampir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, \u201cprecursor\u201d and \u201cmature\u201d that have been trained on publicly available antimicrobial peptide data.\n\nDocumentation: https://github.com/Legana/ampir"
         },
-        "amp_hmmer_hmmsearch": {
-            "title": "AMP-HMMer-HMMSearch",
+        "amp_hmmsearch": {
+            "title": "AMP: HMMSearch",
             "type": "object",
-            "description": "Antimicrobial Peptide detection based on HMM",
+            "description": "Antimicrobial Peptide detection based on predefined HMM models",
             "default": "",
             "properties": {
                 "amp_skip_hmmsearch": {
@@ -186,12 +188,13 @@
                     "fa_icon": "far fa-save"
                 }
             },
-            "fa_icon": "fas fa-tools"
+            "fa_icon": "fas fa-tools",
+            "help_text": "HMMER/hmmsearch is used for searching sequence databases for sequence homologs, and for making sequence alignments. It implements methods using probabilistic models called profile hidden Markov models (profile HMMs). `hmmsearch` is used to search one or more profiles against a sequence database.\n\nDocumentation: http://hmmer.org"
         },
         "amp_macrel": {
-            "title": "AMP-Macrel",
+            "title": "AMP: Macrel",
             "type": "object",
-            "description": "",
+            "description": "Antimicrobial Peptide detection mining from metagenomes",
             "default": "",
             "properties": {
                 "amp_skip_macrel": {
@@ -200,12 +203,13 @@
                     "fa_icon": "fas fa-ban"
                 }
             },
-            "fa_icon": "fas fa-tools"
+            "fa_icon": "fas fa-tools",
+            "help_text": "Macrel is a tool that mines antimicrobial peptides (AMPs) from (meta)genomes by predicting peptides from genomes (provided as contigs) and outputs all the predicted anti-microbial peptides found.\n\nDocumentation: https://github.com/BigDataBiology/macrel"
         },
         "arg_deeparg": {
-            "title": "ARG-DeepARG",
+            "title": "ARG: DeepARG",
             "type": "object",
-            "description": "Antimicrobial resistance gene detection, using a deep learning model",
+            "description": "Antimicrobial resistance gene detection using a deep learning model",
             "default": "",
             "properties": {
                 "arg_skip_deeparg": {
@@ -267,14 +271,15 @@
                     "fa_icon": "far fa-gem"
                 }
             },
-            "fa_icon": "fas fa-tools"
+            "fa_icon": "fas fa-tools",
+            "help_text": "deepARG uses deep learning to characterize and annotate antibiotic resistance genes in metagenomes. It is composed of two models for two types of input: short sequence reads and gene-like sequences. In this pipeline we use the `ls` model, which is suitable for annotating full sequence genes and to discover novel antibiotic resistance genes from assembled samples. The tool `Diamond` is used as an aligner.\n\nDocumentation: https://bitbucket.org/gusphdproj/deeparg-ss/src/master/"
         },
         "arg_fargene": {
-            "title": "ARG-fARGene",
+            "title": "ARG: fARGene",
             "type": "object",
-            "description": "Antimicrobial resistance gene detection, using a deep learning model",
+            "description": "Antimicrobial resistance gene detection using a deep learning model",
             "default": "",
-            "help_text": "[fARGene](https://github.com/fannyhb/fargene) (Fragmented Antibiotic Resistance Gene Identifier ) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimized models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes.",
+            "help_text": "fARGene (Fragmented Antibiotic Resistance Gene Identifier) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimized models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes. \nDocumentation:  https://github.com/fannyhb/fargene",
             "properties": {
                 "arg_skip_fargene": {
                     "type": "boolean",
@@ -292,10 +297,11 @@
             "fa_icon": "fas fa-tools"
         },
         "arg_rgi": {
-            "title": "ARG-RGI",
+            "title": "ARG: RGI",
             "type": "object",
             "description": "Antimicrobial resistance gene detection, based on alignment to the CARD database",
             "default": "",
+            "help_text": "RGI (Resistance Gene Identifier) predicts resistome(s) from protein or nucleotide data based on homology and SNP models. It uses reference data from the Comprehensive Antibiotic Resistance Database (CARD).\n\nDocumentation: https://github.com/arpcard/rgi",
             "properties": {
                 "arg_skip_rgi": {
                     "type": "boolean",
@@ -324,7 +330,8 @@
                     "fa_icon": "far fa-file-code"
                 }
             },
-            "fa_icon": "fas fa-file-import"
+            "fa_icon": "fas fa-file-import",
+            "help_text": ""
         },
         "reference_genome_options": {
             "title": "Reference genome options",
@@ -559,7 +566,7 @@
             "$ref": "#/definitions/amp_ampir"
         },
         {
-            "$ref": "#/definitions/amp_hmmer_hmmsearch"
+            "$ref": "#/definitions/amp_hmmsearch"
         },
         {
             "$ref": "#/definitions/amp_macrel"
