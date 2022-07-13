@@ -33,7 +33,7 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 
 ## Databases and reference files
 
-nf-core/funcscan utilises various tools that use databases and reference files to generate results. While nf-core/funcscan offers in some cases functionality to autodownload databases for you, these databases can be very large, and it is more efficient to store these files in a central place and can be reused across pipeline runs.
+nf-core/funcscan utilises various tools that use databases and reference files to generate results. While nf-core/funcscan offers in some cases functionality to autodownload databases for you, these databases can be very large, and it is more efficient to store these files in a central place from where they can be reused across pipeline runs.
 
 Here we will describe where you can obtain databases and reference files for tools included in the pipeline.
 
@@ -45,7 +45,7 @@ This requires supplying a list of HMM model files ending in `.hmm`, that have mo
 
 You can download such files from places such as [https://pfam.xfam.org/](https://pfam.xfam.org/) for antimicrobial peptides (AMP), or the antiSMASH github repository for [biosynthetic gene cluster](https://github.com/antismash/antismash/tree/master/antismash/detection/hmm_detection/data) related HMM models
 
-You should place all of these in a directory and can be supplied e.g. for AMP models
+You should place all of these in a directory and supply them e.g. to AMP models
 
 ```bash
 --amp_hmmsearch_models '/<path>/<to>/<amp>/*.hmm'
@@ -55,7 +55,7 @@ You should place all of these in a directory and can be supplied e.g. for AMP mo
 
 DeepARG requires a database of potential antimicrobial resistence gene sequences, based on a consensus from UNIPROT, CARD and ARDB.
 
-nf-core/funcscan can download this database for you, however it is very slow and pipeline runtime will be imporved if you download this separately and supply it to the pipeline.
+nf-core/funcscan can download this database for you, however it is very slow and pipeline runtime will be improved if you download this separately and supply it to the pipeline.
 
 You can either:
 
@@ -95,7 +95,7 @@ work                # Directory containing the nextflow working files
 
 By default, no screening workflows for any of the natural product types will be executed. However, when activating a given screening workflow, all tools within the workflow will be activated. Therefore you must explicitly skip those tools you do not wish to run.
 
-For example, if you want to run AMP and ARG screening but you don't want to run DeepARG tool of the ARG workflow and the Macrel of the AMP workflow, you would define this as follows:
+For example, if you want to run AMP and ARG screening but you don't want to run the DeepARG tool of the ARG workflow and the Macrel tool of the AMP workflow, you would define this as follows:
 
 ```console
 nextflow run nf-core/funcscan --input <my_samplesheet>.csv --outdir <OUTDIR> -profile docker --run_arg_screening --arg_skip_deeparg --run_amp_screening --arg_skip_macrel
