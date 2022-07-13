@@ -17,9 +17,7 @@
 
 ## Introduction
 
-<!-- TODO nf-core: Write a 1-2 sentence summary of what data the pipeline is for and what it does -->
-
-**nf-core/funcscan** is a bioinformatics best-practice analysis pipeline for screening for functional components of assembled contigs. This includes mining for antimicrobial peptides, antibiotic resistance genes and biosynthetic gene clusters.
+**nf-core/funcscan** is a bioinformatics best-practice analysis pipeline for the screening of functional components of nucleotide sequences such as assembled contigs. This includes mining for antimicrobial peptides, antibiotic resistance genes and biosynthetic gene clusters.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
@@ -29,12 +27,10 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 ## Pipeline summary
 
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
-
-1. Annotates prokaryotic input assembled contigs using ([`PROKKA`](https://github.com/tseemann/prokka))
-2. Screens contigs for antimicrobial peptide-like sequences with: ...
-3. Screens contigs for antibiotic resistant gene-like sequences with:. ...
-4. Screens contigs for biosynthetic gene cluster-like sequences with: ...
+1. Annotates prokaryotic input assembled contigs ([`Prodigal`](https://github.com/hyattpd/Prodigal) or [`PROKKA`](https://github.com/tseemann/prokka))
+2. Screens contigs for antimicrobial peptide-like sequences with: [ampir](https://cran.r-project.org/web/packages/ampir/index.html), [Macrel](https://github.com/BigDataBiology/macrel), [HMMER](http://hmmer.org/), [AMPlify](https://github.com/bcgsc/AMPlify)
+3. Screens contigs for antibiotic resistant gene-like sequences with:. [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi), [DEEPARG](https://bench.cs.vt.edu/deeparg)
+4. Screens contigs for biosynthetic gene cluster-like sequences with: <!-- [antiSMASH](https://antismash.secondarymetabolites.org/#!/start), [gecco](https://gecco.embl.de/), [HMMER](http://hmmer.org/) -->
 5. Software version reporting with ([`MultiQC`](http://multiqc.info/))
 
 ## Quick Start
@@ -58,10 +54,8 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 4. Start running your own analysis!
 
-   <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
-
    ```console
-   nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> --genome GRCh37 -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
+   nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile <docker/singularity/podman/shifter/charliecloud/conda/institute> --run_amp_screening --run_arg_screening
    ```
 
 ## Documentation
@@ -70,11 +64,11 @@ The nf-core/funcscan pipeline comes with documentation about the pipeline [usage
 
 ## Credits
 
-nf-core/funcscan was originally written by Jasmin Frangenberg, Anan Ibrahim, James A. Fellows Yates.
+nf-core/funcscan was originally written by Jasmin Frangenberg, Anan Ibrahim, Louisa Perelo, Moritz E. Beber, James A. Fellows Yates.
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
+Rosa Herbst, Martin Klapper.
 
 ## Contributions and Support
 
@@ -87,8 +81,6 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 <!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
 <!-- If you use  nf-core/funcscan for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
 
-<!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
-
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
 You can cite the `nf-core` publication as follows:
@@ -98,9 +90,3 @@ You can cite the `nf-core` publication as follows:
 > Philip Ewels, Alexander Peltzer, Sven Fillinger, Harshil Patel, Johannes Alneberg, Andreas Wilm, Maxime Ulysse Garcia, Paolo Di Tommaso & Sven Nahnsen.
 >
 > _Nat Biotechnol._ 2020 Feb 13. doi: [10.1038/s41587-020-0439-x](https://dx.doi.org/10.1038/s41587-020-0439-x).
-
-### Tool references
-
-- [**PROKKA**](https://doi.org/10.1093/bioinformatics/btu153) Seemann (2014) _Bioinformatics_ 30(14), 16. DOI: [10.1093/bioinformatics/btu153](https://doi.org/10.1093/bioinformatics/btu153)
-- [**fARGene**](https://doi.org/10.1186/s40168-019-0670-1) Bergland et al. (2019) Microbiome, 7(1), 52. DOI: [10.1186/s40168-019-0670-1](https://doi.org/10.1186/s40168-019-0670-1)
-- [**DeepARG**](https://doi.org/10.1186/s40168-018-0401-z): Arango-Argoty et al. (2018) _Microbiome_, 6(1), 23. DOI: [10.1186/s40168-018-0401-z](https://doi.org/10.1186/s40168-018-0401-z)
