@@ -51,12 +51,12 @@
             "properties": {
                 "run_amp_screening": {
                     "type": "boolean",
-                    "description": "Activate antimicrobial peptide screening",
+                    "description": "Activate antimicrobial peptide screening tools",
                     "fa_icon": "fas fa-check-circle"
                 },
                 "run_arg_screening": {
                     "type": "boolean",
-                    "description": "Activate antimicrobial resistance gene screening",
+                    "description": "Activate antimicrobial resistance gene screening tools",
                     "fa_icon": "fas fa-check-circle"
                 }
             },
@@ -71,14 +71,14 @@
                 "run_annotation_tool": {
                     "type": "string",
                     "default": "prodigal",
-                    "description": "Assign which annotation tool to run either prodigal or prokka",
+                    "description": "Specify which annotation tool to run either prodigal or prokka",
                     "enum": ["prodigal", "prokka"],
                     "fa_icon": "fas fa-edit"
                 },
                 "prodigal_output_format": {
                     "type": "string",
                     "default": "gff",
-                    "description": "Assign output format to either gff,gbk,sqn or sco",
+                    "description": "Specify annotation output format. Options: gff, gbk, sqn, sco",
                     "fa_icon": "fas fa-file-import"
                 }
             },
@@ -112,7 +112,7 @@
                 "amp_ampir_model": {
                     "type": "string",
                     "default": "precursor",
-                    "description": "specify support vector machine classification model",
+                    "description": "Specify which machine learning classification model to use",
                     "help_text": "AMPir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, \u201cprecursor\u201d and \u201cmature\u201d. The default model, \u201cprecursor\u201d is best suited for full length proteins and the \u201cmature\u201d model is best suited for small mature proteins (<60 amino acids). AMPpir also accepts custom (user trained) models based on the caret package.\n\n> Modifies AMPir parameter: `model =`",
                     "enum": ["precursor", "mature"],
                     "fa_icon": "fas fa-layer-group"
@@ -120,15 +120,15 @@
                 "amp_ampir_minlength": {
                     "type": "integer",
                     "default": 10,
-                    "description": "specify minimum protein length",
-                    "help_text": "Filters result for minimum protein length.\nNote that amino acid sequences that are shorter than 10 amino acids long and/or contain anything other than the standard 20 amino acids are not evaluated and will contain an NA as their prob_AMP value.",
+                    "description": "Specify minimum protein length for prediction calculation",
+                    "help_text": "Filters result for minimum protein length.\nNote that amino acid sequences that are shorter than 10 amino acids long and/or contain anything other than the standard 20 amino acids are not evaluated and will contain an NA as their prob_AMP value\n\n> Modifies AMPir parameter: `min_length` in the `calculate_features()` function",
                     "fa_icon": "fas fa-ruler-horizontal"
                 },
                 "amp_ampir_minprobability": {
                     "type": "number",
                     "default": 0.8,
                     "description": "specify predicted probability value",
-                    "help_text": "Filters results based on calculated probability stored in data frame columns `prob_AMP`\nNote that amino acid sequences that are shorter than 10 amino acids long and/or contain anything other than the standard 20 amino acids are not evaluated and will contain an NA as their prob_AMP value.\n\n> Modifies AMPir parameter: `prob_AMP`",
+                    "help_text": "Filters results based on calculated probability stored in data frame columns `prob_AMP`.\nNote that amino acid sequences that are shorter than 10 amino acids long and/or contain anything other than the standard 20 amino acids are not evaluated and will contain an `NA` as their prob_AMP value.\n\n> Modifies AMPir parameter: `prob_AMP`",
                     "fa_icon": "fas fa-dice"
                 }
             },
@@ -148,13 +148,13 @@
                 "amp_hmmsearch_models": {
                     "type": "string",
                     "default": "None",
-                    "description": "Specifies models for search",
-                    "help_text": "Biosequence analysis using profile hidden Markov Models.\nThe models input includes the `.hmm` file and the `.fna` database file.",
+                    "description": "Specify path (with wildcard) to AMP hmm models  to searching against",
+                    "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--amp_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n",
                     "fa_icon": "fas fa-layer-group"
                 },
                 "amp_hmmsearch_savealignments": {
                     "type": "boolean",
-                    "help_text": "Save a multiple alignment of all significant hits (those satisfy- ing inclusion thresholds) to the file\n\n> Modifies HMMsearch parameter: `-A`",
+                    "help_text": "Save a multiple alignment of all significant hits (those satisfying inclusion thresholds) to a file\n\n> Modifies HMMsearch parameter: `-A`",
                     "description": "Saves a multiple alignment of all significant hits to the file",
                     "fa_icon": "far fa-save"
                 },
@@ -167,7 +167,7 @@
                 "amp_hmmsearch_savedomains": {
                     "type": "boolean",
                     "help_text": "Save a simple tabular (space-delimited) file summarizing the per-domain output, with one data line per homologous domain detected in a query sequence for each homologous model.\n\n> Modifies HMMsearch parameter: `--domtblout`",
-                    "description": "Saves a simple tabular file summarising the per-domain output",
+                    "description": "Save a simple tabular file summarising the per-domain output",
                     "fa_icon": "far fa-save"
                 }
             },
@@ -207,42 +207,42 @@
                     "type": "string",
                     "default": "LS",
                     "enum": ["LS", "SS"],
-                    "description": "Select model to use (short or long sequences, SS|LS)",
-                    "help_text": "Select model to use: short sequences for reads (SS) | long sequences for genes (LS)\n\n> Modifies DeepARG parameter: `--model`",
+                    "description": "Specify which model to use (short or long sequences). Options: SS, LS)",
+                    "help_text": "Specify which model to use: short sequences for reads (`SS`) | long sequences for genes (`LS`). In the vast majority of cases we recommend using the `LS` model when using funcscan\n\n> Modifies DeepARG parameter: `--model`",
                     "fa_icon": "fas fa-layer-group"
                 },
                 "arg_deeparg_minprob": {
                     "type": "number",
                     "default": 0.8,
-                    "description": "Minimum probability cutoff",
-                    "help_text": "Sets the minimum probability cutoff, default is 0.8\n\n> Modifies DeepARG parameter: `--min-prob`\n\n",
+                    "description": "Specify minimum probability cutoff",
+                    "help_text": "Sets the minimum probability cutoff below which hits are discarded, default is 0.8\n\n> Modifies DeepARG parameter: `--min-prob`\n\n",
                     "fa_icon": "fas fa-dice"
                 },
                 "arg_deeparg_alignmentevalue": {
                     "type": "number",
                     "default": 1e-10,
-                    "description": "Evalue cutoff",
-                    "help_text": "Sets the cutoff value for Evalue\n\n> Modifies DeepARG parameter: `--arg-alignment-evalue`",
+                    "description": "Specify Evalue cutoff",
+                    "help_text": "Sets the cutoff value for Evalue below which hits are discarded\n\n> Modifies DeepARG parameter: `--arg-alignment-evalue`",
                     "fa_icon": "fas fa-align-center"
                 },
                 "arg_deeparg_alignmentidentity": {
                     "type": "integer",
                     "default": 50,
-                    "description": "Identity cutoff for sequence alignment",
-                    "help_text": "Sets the value for Identity cutoff for sequence alignment\n\n> Modifies DeepARG parameter: `----arg-alignment-identity`",
+                    "description": "Specify percent identity cutoff for sequence alignment",
+                    "help_text": "Sets the value for Identity cutoff for sequence alignment\n\n> Modifies DeepARG parameter: `--arg-alignment-identity`",
                     "fa_icon": "fas fa-align-center"
                 },
                 "arg_deeparg_alignmentoverlap": {
                     "type": "number",
                     "default": 0.8,
-                    "description": "Alignment read overlap",
+                    "description": "Specify alignment read overlap",
                     "help_text": "Sets the value for the allowed alignment read overlap.\n\n> Modifies DeepARG parameter: `--arg-alignment-overlap`",
                     "fa_icon": "fas fa-align-center"
                 },
                 "arg_deeparg_numalignmentsperentry": {
                     "type": "integer",
                     "default": 1000,
-                    "description": "Diamond, minimum number of alignments per entry",
+                    "description": "Specify minimum number of alignments per entry for DIAMOND step of DeepARG",
                     "help_text": "Sets the value of minimum number of alignments per entry for Diamond.\n\n> Modifies DeepARG parameter: `--arg-num-alignments-per-entry`",
                     "fa_icon": "far fa-gem"
                 }
@@ -264,8 +264,8 @@
                 "arg_fargene_hmmmodel": {
                     "type": "string",
                     "default": "class_a,class_b_1_2,class_b_3,class_c,class_d_1,class_d_2,qnr,tet_efflux,tet_rpg,tet_enzyme",
-                    "description": "Specify which pre-defined HMM model to use",
-                    "help_text": "Where hmm-model can be any of the pre-defined models:\n    - Class A beta-lactamases --hmm-model class_a\n    - Subclass B1 and B2 beta-lactamases --hmm-model class_b_1_2\n    - Subclass B3 beta-lactamases --hmm-model class_b_3\n    - Class C beta-lactamases --hmm-model class_c\n    - Class D beta-lactamases\n        -hmm-model class_d_1\n        -hmm-model class_d_2\n    - qnr --hmm-model qnr\n    - Tetracycline resistance genes\n        -hmm-model tet_efflux\n        -hmm-model tet_rpg\n        -hmm-model tet_enzyme\n\n> Modifies fARGene parameter: `--hmm-model`",
+                    "description": "Specify comma-separated list of which pre-defined HMM models to screen against",
+                    "help_text": "Specify via a comma separated list any of the hmm-models of the pre-defined models:\n    - Class A beta-lactamases: `class_a`\n    - Subclass B1 and B2 beta-lactamases: `class_b_1_2`\n    - Subclass B3 beta-lactamases: `class_b_3`\n    - Class C beta-lactamases: `class_c\n    - Class D beta-lactamases: `class_d_1`, `class_d_2`\n    - qnr: `qnr`\n    - Tetracycline resistance genes `tet_efflux`, `tet_rpg`, `tet_enzyme`\n\n> Modifies fARGene parameter: `--hmm-model`",
                     "fa_icon": "fas fa-layer-group"
                 }
             },
