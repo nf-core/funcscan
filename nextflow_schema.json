@@ -127,7 +127,7 @@
                 "amp_ampir_minprobability": {
                     "type": "number",
                     "default": 0.8,
-                    "description": "specify predicted probability value",
+                    "description": "Specify predicted probability value to filter for",
                     "help_text": "Filters results based on calculated probability stored in data frame columns `prob_AMP`.\nNote that amino acid sequences that are shorter than 10 amino acids long and/or contain anything other than the standard 20 amino acids are not evaluated and will contain an `NA` as their prob_AMP value.\n\n> Modifies AMPir parameter: `prob_AMP`",
                     "fa_icon": "fas fa-dice"
                 }
