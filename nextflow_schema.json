@@ -192,6 +192,22 @@
             "fa_icon": "fas fa-tools",
             "help_text": "Macrel is a tool that mines antimicrobial peptides (AMPs) from (meta)genomes by predicting peptides from genomes (provided as contigs) and outputs all the predicted anti-microbial peptides found.\n\nDocumentation: https://github.com/BigDataBiology/macrel"
         },
+        "arg_amrfinderplus": {
+            "title": "ARG: AMRfinderPlus",
+            "type": "object",
+            "description": "Antimicrobial resistance gene detection based on NCBI\u2019s curated Reference Gene Database and curated collection of Hidden Markov Models",
+            "default": "",
+            "help_text": "NCBI has developed AMRFinderPlus, a tool that identifies AMR genes, resistance-associated point mutations, and select other classes of genes using protein annotations and/or assembled nucleotide sequence. AMRFinderPlus is used in the Pathogen Detection pipeline, and these data are displayed in NCBI\u2019s Isolate Browser. AMRFinderPlus relies on NCBI\u2019s curated Reference Gene Database and curated collection of Hidden Markov Models.",
+            "fa_icon": "fas fa-tools",
+            "properties": {
+                "arg_skip_amrfinderplus": {
+                    "type": "string",
+                    "default": "false",
+                    "description": "Skip AMRfinderPlus during the ARG-screening",
+                    "fa_icon": "fas fa-ban"
+                }
+            }
+        },
         "arg_deeparg": {
             "title": "ARG: DeepARG",
             "type": "object",
@@ -542,6 +558,9 @@
         },
         {
             "$ref": "#/definitions/amp_macrel"
+        },
+        {
+            "$ref": "#/definitions/arg_amrfinderplus"
         },
         {
             "$ref": "#/definitions/arg_deeparg"
