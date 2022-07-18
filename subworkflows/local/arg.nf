@@ -36,6 +36,7 @@ workflow ARG {
         ch_amrfinderplus_db = AMRFINDERPLUS_UPDATE.out.db
     }
 
+    if ( !params.arg_skip_amrfinderplus ) {
         AMRFINDERPLUS_RUN ( contigs, ch_amrfinderplus_db )
         ch_versions = ch_versions.mix(AMRFINDERPLUS_RUN.out.versions)
 
@@ -136,3 +137,4 @@ workflow ARG {
 
     emit:
     versions = ch_versions
+}
