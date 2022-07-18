@@ -204,6 +204,12 @@
                     "type": "boolean",
                     "description": "Skip AMRfinderPlus during the ARG-screening",
                     "fa_icon": "fas fa-ban"
+                },
+                "arg_amrfinderplus_db": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fas fa-layer-group",
+                    "help_text": "Specify the path to a local version of the ARMfinderPlus database (see the pipelines' [usage documentation](https://nf-co.re/funcscan/usage)). If no input is given, the module ARMFINDERPLUS_UPDATE will download the database for you."
                 }
             }
         },
