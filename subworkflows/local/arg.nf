@@ -136,5 +136,3 @@ workflow ARG {
 
     emit:
     versions = ch_versions
-
-}
