@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The output of nf-core/funcscan provides the output directories from each tool applied, as well as a summary of tool outputs for each of the functional groups: antibiotic resistance genes ([DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/), [fargene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi)), antimicrobial peptides ([macrel](https://github.com/BigDataBiology/macrel), [amplify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net/), [hmmsearch](http://hmmer.org)), biosynthetic gene clusters ([antiSMASH](https://docs.antismash.secondarymetabolites.org)) and functional annotation ([prokka](https://github.com/tseemann/prokka)) and ([prodigal](https://github.com/hyattpd/Prodigal)).
+The output of nf-core/funcscan provides the output directories from each tool applied, as well as a summary of tool outputs for each of the functional groups: antibiotic resistance genes ([AMRfinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder/),[DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/), [fargene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi)), antimicrobial peptides ([macrel](https://github.com/BigDataBiology/macrel), [amplify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net/), [hmmsearch](http://hmmer.org)), biosynthetic gene clusters ([antiSMASH](https://docs.antismash.secondarymetabolites.org)) and functional annotation ([prokka](https://github.com/tseemann/prokka)) and ([prodigal](https://github.com/hyattpd/Prodigal)).
 
 Furthermore, for reproducibility, versions of all software used in the run is presented in a [MultiQC](http://multiqc.info) report.
 
@@ -38,6 +38,7 @@ outdir/
 ├── antismash/
 ├── amplify/
 ├── ampir/
+├── amrfinder/
 ├── deeparg/
 ├── fargene/
 ├── hamronizer/
@@ -57,6 +58,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 Antimicrobial Resistance Genes (ARGs):
 
+- [AMRfinderPlus](#amrfinderplus) - antimicrobial resistance gene detection, using NCBI’s curated Reference Gene Database and curated collection of Hidden Markov Models
 - [DeepARG](#deeparg) - antimicrobial resistance gene detection, using a deep learning model
 - [fARGene](#fargene) - antimicrobial resistance gene detection, using a deep learning model
 - [rgi](#rgi) - antimicrobial resistance gene detection, based on alignment to the CARD database
@@ -141,6 +143,44 @@ Output Summaries:
 
 [ComBGC](https://link-to-tool-page.org) xxx tool description here xxx SUMMARY of BGC tools' output
 -->
+
+### AMRfinderPlus
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `amrfinderplus/`
+  - `db/`: contains the database downloaded with `amrfinderplus update`
+  - `*.tsv`: contains the search results
+
+</details>
+
+[AMRfinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder/) relies on NCBI’s curated Reference Gene Database and curated collection of Hidden Markov Models. It identifies antimicrobial resistance genes, resistance-associated point mutations, and select other classes of genes using protein annotations and/or assembled nucleotide sequence.
+
+The `*.tsv` output files contain the following fields:
+
+- Protein identifier
+- Contig id
+- Start
+- Stop
+- Strand
+- Gene symbol
+- Sequence name
+- Scope
+- Element type
+- Element subtype
+- Class
+- Subclass
+- Method
+- Target length
+- Reference sequence length
+- % Coverage of reference sequence
+- % Identity to reference sequence
+- Alignment length
+- Accession of closest sequence
+- Name of closest sequence
+- HMM id
+- HMM description
 
 ### DeepARG
 

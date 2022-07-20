@@ -18,6 +18,10 @@
 
   > Chenkai Li, Darcy Sutherland, S. Austin Hammond, Chen Yang, Figali Taho, Lauren Bergman, Simon Houston, René L. Warren, Titus Wong, Linda M. N. Hoang, Caroline E. Cameron, Caren C. Helbing & Inanc Birol. 2022. "AMPlify: attentive deep learning model for discovery of novel antimicrobial peptides effective against WHO priority pathogens". BMC Genomics 23, 77.
 
+- [AMRfinderPlus](https://doi.org/10.1038/s41598-021-91456-0)
+
+  > Feldgarden, Michael, Vyacheslav Brover, Narjol Gonzalez-Escalona, Jonathan G. Frye, Julie Haendiges, Daniel H. Haft , Maria Hoffmann, James B. Pettengill, Arjun B. Prasad, Glenn E. Tillman, Gregory H. Tyson, William Klimke. 2021. AMRFinderPlus and the Reference Gene Catalog facilitate examination of the genomic links among antimicrobial resistance, stress response, and virulence. Sci Rep. 11(1): 12728.
+
 - [DeepARG](https://doi.org/10.1186/s40168-018-0401-z)
 
   > Arango-Argoty, Gustavo, Emily Garner, Amy Pruden, Lenwood S. Heath, Peter Vikesland, and Liqing Zhang. 2018. "DeepARG: A Deep Learning Approach for Predicting Antibiotic Resistance Genes from Metagenomic Data." Microbiome 6 (1): 23.
