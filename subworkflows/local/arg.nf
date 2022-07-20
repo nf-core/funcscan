@@ -2,13 +2,16 @@
     Run ARG screening tools
 */
 
-include { FARGENE                 } from '../../modules/nf-core/modules/fargene/main'
-include { DEEPARG_DOWNLOADDATA    } from '../../modules/nf-core/modules/deeparg/downloaddata/main'
-include { DEEPARG_PREDICT         } from '../../modules/nf-core/modules/deeparg/predict/main'
-include { RGI_MAIN                } from '../../modules/nf-core/modules/rgi/main/main'
-include { HAMRONIZATION_RGI       } from '../../modules/nf-core/modules/hamronization/rgi/main'
-include { HAMRONIZATION_DEEPARG   } from '../../modules/nf-core/modules/hamronization/deeparg/main'
-include { HAMRONIZATION_SUMMARIZE } from '../../modules/nf-core/modules/hamronization/summarize/main'
+include { AMRFINDERPLUS_UPDATE        }  from '../../modules/nf-core/modules/amrfinderplus/update/main'
+include { AMRFINDERPLUS_RUN           }  from '../../modules/nf-core/modules/amrfinderplus/run/main'
+include { FARGENE                     }  from '../../modules/nf-core/modules/fargene/main'
+include { DEEPARG_DOWNLOADDATA        }  from '../../modules/nf-core/modules/deeparg/downloaddata/main'
+include { DEEPARG_PREDICT             }  from '../../modules/nf-core/modules/deeparg/predict/main'
+include { RGI_MAIN                    }  from '../../modules/nf-core/modules/rgi/main/main'
+include { HAMRONIZATION_RGI           }  from '../../modules/nf-core/modules/hamronization/rgi/main'
+include { HAMRONIZATION_DEEPARG       }  from '../../modules/nf-core/modules/hamronization/deeparg/main'
+include { HAMRONIZATION_AMRFINDERPLUS }  from '../../modules/nf-core/modules/hamronization/amrfinderplus/main'
+include { HAMRONIZATION_SUMMARIZE     }  from '../../modules/nf-core/modules/hamronization/summarize/main'
 
 workflow ARG {
     take:
@@ -20,6 +23,30 @@ workflow ARG {
 
      // Prepare HAMRONIZATION reporting channel
     ch_input_to_hamronization_summarize = Channel.empty()
+
+    // AMRfinderplus run
+        // Prepare channel for database
+    if ( !params.arg_skip_amrfinderplus && params.arg_amrfinderplus_db ) {
+        ch_amrfinderplus_db = Channel
+            .fromPath( params.arg_amrfinderplus_db )
+            .first()
+    } else if ( !params.arg_skip_deeparg && !params.arg_amrfinderplus_db ) {
+        AMRFINDERPLUS_UPDATE( )
+        ch_versions = ch_versions.mix(AMRFINDERPLUS_UPDATE.out.versions)
+        ch_amrfinderplus_db = AMRFINDERPLUS_UPDATE.out.db
+    }
+
+    if ( !params.arg_skip_amrfinderplus ) {
+        AMRFINDERPLUS_RUN ( contigs, ch_amrfinderplus_db )
+        ch_versions = ch_versions.mix(AMRFINDERPLUS_RUN.out.versions)
+
+    // Reporting
+    // Note: currently hardcoding versions, TODO: has to be updated when amrfinderplus_run is updated to emit
+        HAMRONIZATION_AMRFINDERPLUS ( AMRFINDERPLUS_RUN.out.report, 'json', '3.10.30', '2022-05-26.1' )
+        ch_versions = ch_versions.mix(HAMRONIZATION_AMRFINDERPLUS.out.versions)
+        ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_AMRFINDERPLUS.out.json)
+
+    }
 
     // fARGene run
     if ( !params.arg_skip_fargene ) {
@@ -110,5 +137,4 @@ workflow ARG {
 
     emit:
     versions = ch_versions
-
 }
