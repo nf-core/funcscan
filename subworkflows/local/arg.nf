@@ -42,7 +42,7 @@ workflow ARG {
 
     // Reporting
     // Note: currently hardcoding versions, TODO: has to be updated when amrfinderplus_run is updated to emit
-        HAMRONIZATION_AMRFINDERPLUS ( AMRFINDERPLUS_RUN.out.report, 'json', '3.10.30', '2022-05-26.1' )
+        HAMRONIZATION_AMRFINDERPLUS ( AMRFINDERPLUS_RUN.out.report, 'json', AMRFINDERPLUS_RUN.out.tool_version, AMRFINDERPLUS_RUN.out.db_version )
         ch_versions = ch_versions.mix(HAMRONIZATION_AMRFINDERPLUS.out.versions)
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_AMRFINDERPLUS.out.json)
 
