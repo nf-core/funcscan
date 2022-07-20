@@ -90,10 +90,10 @@ workflow ARG {
         DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db )
         ch_versions = ch_versions.mix(DEEPARG_PREDICT.out.versions)
 
-    // Reporting
-    // Note:currently hardcoding versions
-    // how to automate in the future - but DEEPARG won't change as abandonware?
-        HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix(DEEPARG_PREDICT.out.potential_arg), 'json', '1.0.2', '2'  )
+        // Reporting
+        // Note: currently hardcoding versions as unreported by DeepARG
+        // Make sure to update on version bump.
+        HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix(DEEPARG_PREDICT.out.potential_arg), 'json', '1.0.2', params.arg_deeparg_data_version )
         ch_versions = ch_versions.mix(HAMRONIZATION_DEEPARG.out.versions)
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_DEEPARG.out.json)
     }
