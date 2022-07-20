@@ -28,6 +28,7 @@ process RGI_MAIN {
         --num_threads $task.cpus \\
         --output_file $prefix \\
         --input_sequence $fasta
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         rgi: \$(rgi main --version)
