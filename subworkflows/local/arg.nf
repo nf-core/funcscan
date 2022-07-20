@@ -2,13 +2,13 @@
     Run ARG screening tools
 */
 
-include { FARGENE                                  } from '../../modules/nf-core/modules/fargene/main'
-include { DEEPARG_DOWNLOADDATA                     } from '../../modules/nf-core/modules/deeparg/downloaddata/main'
-include { DEEPARG_PREDICT                          } from '../../modules/nf-core/modules/deeparg/predict/main'
-include { RGI_MAIN                                 } from '../../modules/nf-core/modules/rgi/main/main'
-include { HAMRONIZATION_RGI                        } from '../../modules/nf-core/modules/hamronization/rgi/main'
-include { HAMRONIZATION_DEEPARG                    } from '../../modules/nf-core/modules/hamronization/deeparg/main'
-include { HAMRONIZATION_SUMMARIZE                  } from '../../modules/nf-core/modules/hamronization/summarize/main'
+include { FARGENE                 } from '../../modules/nf-core/modules/fargene/main'
+include { DEEPARG_DOWNLOADDATA    } from '../../modules/nf-core/modules/deeparg/downloaddata/main'
+include { DEEPARG_PREDICT         } from '../../modules/nf-core/modules/deeparg/predict/main'
+include { RGI_MAIN                } from '../../modules/nf-core/modules/rgi/main/main'
+include { HAMRONIZATION_RGI       } from '../../modules/nf-core/modules/hamronization/rgi/main'
+include { HAMRONIZATION_DEEPARG   } from '../../modules/nf-core/modules/hamronization/deeparg/main'
+include { HAMRONIZATION_SUMMARIZE } from '../../modules/nf-core/modules/hamronization/summarize/main'
 
 workflow ARG {
     take:
