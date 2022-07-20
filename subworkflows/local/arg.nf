@@ -30,7 +30,7 @@ workflow ARG {
         ch_amrfinderplus_db = Channel
             .fromPath( params.arg_amrfinderplus_db )
             .first()
-    } else if ( !params.arg_skip_deeparg && !params.arg_amrfinderplus_db ) {
+    } else if ( !params.arg_skip_amrfinderplus && !params.arg_amrfinderplus_db ) {
         AMRFINDERPLUS_UPDATE( )
         ch_versions = ch_versions.mix(AMRFINDERPLUS_UPDATE.out.versions)
         ch_amrfinderplus_db = AMRFINDERPLUS_UPDATE.out.db
