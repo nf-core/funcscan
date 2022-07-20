@@ -9,7 +9,6 @@ def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
 // Validate input parameters
 WorkflowFuncscan.initialise(params, log)
 
-// TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
 def checkPathParamList = [ params.input, params.multiqc_config ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
@@ -31,7 +30,7 @@ def fargene_user_classes = fargene_classes.tokenize(',')
 def fargene_classes_valid = fargene_user_classes.intersect( fargene_valid_classes )
 def fargene_classes_missing = fargene_user_classes - fargene_classes_valid
 
-if ( fargene_classes_missing.size() > 0 ) exit 1, "[nf-core/taxprofiler] ERROR: invalid class present in --arg_fargene_hmmodel. Please check input. Invalid class: ${fargene_classes_missing.join(', ')}"
+if ( fargene_classes_missing.size() > 0 ) exit 1, "[nf-core/funcscan] ERROR: invalid class present in --arg_fargene_hmmodel. Please check input. Invalid class: ${fargene_classes_missing.join(', ')}"
 
 
 /*
@@ -56,6 +55,7 @@ include { INPUT_CHECK } from '../subworkflows/local/input_check'
 
 include { AMP } from '../subworkflows/local/amp'
 include { ARG } from '../subworkflows/local/arg'
+include { BGC } from '../subworkflows/local/bgc'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -116,19 +116,28 @@ workflow FUNCSCAN {
     */
 
     // Some tools require annotated FASTAs
-    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) ) {
+    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening ) ) {
+
         if ( params.run_annotation_tool == "prodigal") {
-            PRODIGAL ( ch_prepped_input, params.prodigal_output_format )
-            ch_versions = ch_versions.mix(PRODIGAL.out.versions)
-            ch_annotation_output = PRODIGAL.out.amino_acid_fasta
+            PRODIGAL ( ch_prepped_input, "gff" )
+            ch_versions              = ch_versions.mix(PRODIGAL.out.versions)
+            ch_annotation_faa        = PRODIGAL.out.amino_acid_fasta
+            ch_annotation_fna        = PRODIGAL.out.nucleotide_fasta
+            ch_annotation_gff        = PRODIGAL.out.gene_annotations
         }   else if ( params.run_annotation_tool == "prokka") {
             PROKKA ( ch_prepped_input, [], [] )
-            ch_versions = ch_versions.mix(PROKKA.out.versions)
-            ch_annotation_output = PROKKA.out.faa
+            ch_versions              = ch_versions.mix(PROKKA.out.versions)
+            ch_annotation_faa        = PROKKA.out.faa
+            ch_annotation_fna        = PROKKA.out.fna
+            ch_annotation_gff        = PROKKA.out.gff
         }
-    else {
-        ( ch_annotation_output = Channel.empty() )
-        }
+
+    } else {
+
+        ch_annotation_faa        = Channel.empty()
+        ch_annotation_fna        = Channel.empty()
+        ch_annotation_gff        = Channel.empty()
+
     }
 
     /*
@@ -139,7 +148,6 @@ workflow FUNCSCAN {
         AMPs
     */
     if ( params.run_amp_screening ) {
-
         if ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) {
             AMP ( ch_prepped_input, ch_annotation_output )
         }   else {
@@ -155,7 +163,7 @@ workflow FUNCSCAN {
         if (params.arg_skip_deeparg) {
             ARG ( ch_prepped_input, [] )
         } else {
-            ARG ( ch_prepped_input, ch_annotation_output )
+            ARG ( ch_prepped_input, ch_annotation_faa )
         }
         ch_versions = ch_versions.mix(ARG.out.versions)
     }
@@ -163,7 +171,10 @@ workflow FUNCSCAN {
     /*
         BGCs
     */
-    // TODO antismash
+    if ( params.run_bgc_screening ) {
+        BGC ( fasta_prep.compressed, ch_annotation_gff )
+        ch_version = ch_versions.mix(BGC.out.versions)
+    }
 
     // Cleaning up versions
     CUSTOM_DUMPSOFTWAREVERSIONS ( ch_versions.unique().collectFile(name: 'collated_versions.yml') )
