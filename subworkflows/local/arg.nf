@@ -2,13 +2,13 @@
     Run ARG screening tools
 */
 
-include { FARGENE                 } from '../../modules/nf-core/modules/fargene/main'
-include { DEEPARG_DOWNLOADDATA    } from '../../modules/nf-core/modules/deeparg/downloaddata/main'
-include { DEEPARG_PREDICT         } from '../../modules/nf-core/modules/deeparg/predict/main'
-include { RGI_MAIN                } from '../../modules/nf-core/modules/rgi/main/main'
-include { HAMRONIZATION_RGI       } from '../../modules/nf-core/modules/hamronization/rgi/main'
-include { HAMRONIZATION_DEEPARG   } from '../../modules/nf-core/modules/hamronization/deeparg/main'
-include { HAMRONIZATION_SUMMARIZE } from '../../modules/nf-core/modules/hamronization/summarize/main'
+include { FARGENE                                  } from '../../modules/nf-core/modules/fargene/main'
+include { DEEPARG_DOWNLOADDATA                     } from '../../modules/nf-core/modules/deeparg/downloaddata/main'
+include { DEEPARG_PREDICT                          } from '../../modules/nf-core/modules/deeparg/predict/main'
+include { RGI_MAIN                                 } from '../../modules/nf-core/modules/rgi/main/main'
+include { HAMRONIZATION_RGI                        } from '../../modules/nf-core/modules/hamronization/rgi/main'
+include { HAMRONIZATION_DEEPARG                    } from '../../modules/nf-core/modules/hamronization/deeparg/main'
+include { HAMRONIZATION_SUMMARIZE                  } from '../../modules/nf-core/modules/hamronization/summarize/main'
 
 workflow ARG {
     take:
@@ -55,7 +55,7 @@ workflow ARG {
 
     // Reporting
     // Note: currently hardcoding versions, has to be updated with every RGI-Container-update
-        HAMRONIZATION_RGI ( RGI_MAIN.out.tsv, 'json', '5.2.1', '3.2.3' )
+        HAMRONIZATION_RGI ( RGI_MAIN.out.tsv, 'json', RGI_MAIN.out.tool_version, RGI_MAIN.out.db_version )
         ch_versions = ch_versions.mix(HAMRONIZATION_RGI.out.versions)
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_RGI.out.json)
 
