@@ -74,6 +74,26 @@ You can then supply the path to resulting database directory with:
 --arg_deeparg_data '/<path>/<to>/<deeparg>/<db>/'
 ```
 
+### AntiSMASH
+
+AntiSMASH requires several databases of potential biosynthetic gene cluster (BGC) sequences (ClusterBlast, MIBiG, Pfam, Resfams, TIGRFAMs).
+
+nf-core/funcscan can download these databases for you, however this is very slow and pipeline runtime will be improved if you download them separately and supply them to the pipeline.
+The same applies for the antiSMASH installation directory, which is also a required parameter for the pipeline.
+
+To supply the database directories to the pipeline:
+
+1. Install antiSMASH from [bioconda](https://bioconda.github.io/recipes/antismash-lite/README.html)
+2. Run `download-antismash-databases`
+3. You can then supply the paths to the resulting databases and the whole installation directory with:
+
+```bash
+--bgc_antismash_databases '/<path>/<to>/<antismash>/<db>/'
+--bgc_antismash_directory '/<path>/<to>/<antismash>/<dir>/'
+```
+
+If these flags are not provided, the databases will be auto-downloaded upon each BGC screening run of the pipeline.
+
 ## Running the pipeline
 
 The typical command for running the pipeline is as follows:
