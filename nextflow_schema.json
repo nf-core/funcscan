@@ -5,6 +5,29 @@
     "description": "Pipeline for screening for functional components of assembled contigs",
     "type": "object",
     "definitions": {
+        "screening_subworkflow_activation": {
+            "title": "Screening Subworkflow Activation",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "run_annotation_tool": {
+                    "type": "string",
+                    "default": "prodigal",
+                    "description": "Assign which annotation tool to run either prodigal or prokka",
+                    "enum": ["prodigal", "prokka"]
+                },
+                "run_amp_screening": {
+                    "type": "boolean"
+                },
+                "run_arg_screening": {
+                    "type": "boolean"
+                },
+                "run_bgc_screening": {
+                    "type": "boolean"
+                }
+            }
+        },
         "input_output_options": {
             "title": "Input/output options",
             "type": "object",
@@ -42,6 +65,27 @@
                 }
             },
             "help_text": ""
+        },
+        "bgc_antismash": {
+            "title": "BGC_antiSMASH",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "bgc_skip_antismash": {
+                    "type": "boolean"
+                },
+                "bgc_antismash_databases": {
+                    "type": "string",
+                    "description": "Path to user-defined antiSMASH database",
+                    "default": "None"
+                },
+                "bgc_antismash_directory": {
+                    "type": "string",
+                    "description": "Path to user-defined antiSMASH directory",
+                    "default": "None"
+                }
+            }
         },
         "screening_type_activation": {
             "title": "Screening Type Activation",
@@ -551,6 +595,9 @@
         },
         {
             "$ref": "#/definitions/arg_rgi"
+        },
+        {
+            "$ref": "#/definitions/bgc_antismash"
         },
         {
             "$ref": "#/definitions/reporting"
