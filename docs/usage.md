@@ -95,6 +95,9 @@ You can then supply the path to resulting database directory with:
 --arg_deeparg_data '/<path>/<to>/<deeparg>/<db>/'
 ```
 
+Note that if you supply your own database that is not downloaded by the pipeline, make sure to also supply `--arg_deeparg_data_version` along
+with the version number so hAMRonization will correctly display the database version in the summary report.
+
 ### AntiSMASH
 
 AntiSMASH requires several databases of potential biosynthetic gene cluster (BGC) sequences (ClusterBlast, MIBiG, Pfam, Resfams, TIGRFAMs).
