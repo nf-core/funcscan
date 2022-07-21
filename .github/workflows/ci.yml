@@ -13,7 +13,7 @@ env:
   CAPSULE_LOG: none
 
 jobs:
-  test_amp_arg:
+  test:
     name: Run pipeline with test data (AMP and ARG workflows)
     # Only run on push if this is the nf-core dev branch (merged PRs)
     if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
