@@ -30,7 +30,7 @@ workflow ARG {
         ch_amrfinderplus_db = Channel
             .fromPath( params.arg_amrfinderplus_db )
             .first()
-    } else if ( !params.arg_skip_deeparg && !params.arg_amrfinderplus_db ) {
+    } else if ( !params.arg_skip_amrfinderplus && !params.arg_amrfinderplus_db ) {
         AMRFINDERPLUS_UPDATE( )
         ch_versions = ch_versions.mix(AMRFINDERPLUS_UPDATE.out.versions)
         ch_amrfinderplus_db = AMRFINDERPLUS_UPDATE.out.db
@@ -41,8 +41,7 @@ workflow ARG {
         ch_versions = ch_versions.mix(AMRFINDERPLUS_RUN.out.versions)
 
     // Reporting
-    // Note: currently hardcoding versions, TODO: has to be updated when amrfinderplus_run is updated to emit
-        HAMRONIZATION_AMRFINDERPLUS ( AMRFINDERPLUS_RUN.out.report, 'json', '3.10.30', '2022-05-26.1' )
+        HAMRONIZATION_AMRFINDERPLUS ( AMRFINDERPLUS_RUN.out.report, 'json', AMRFINDERPLUS_RUN.out.tool_version, AMRFINDERPLUS_RUN.out.db_version )
         ch_versions = ch_versions.mix(HAMRONIZATION_AMRFINDERPLUS.out.versions)
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_AMRFINDERPLUS.out.json)
 
@@ -82,7 +81,7 @@ workflow ARG {
 
     // Reporting
     // Note: currently hardcoding versions, has to be updated with every RGI-Container-update
-        HAMRONIZATION_RGI ( RGI_MAIN.out.tsv, 'json', '5.2.1', '3.2.3' )
+        HAMRONIZATION_RGI ( RGI_MAIN.out.tsv, 'json', RGI_MAIN.out.tool_version, RGI_MAIN.out.db_version )
         ch_versions = ch_versions.mix(HAMRONIZATION_RGI.out.versions)
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_RGI.out.json)
 
@@ -117,10 +116,10 @@ workflow ARG {
         DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db )
         ch_versions = ch_versions.mix(DEEPARG_PREDICT.out.versions)
 
-    // Reporting
-    // Note:currently hardcoding versions
-    // how to automate in the future - but DEEPARG won't change as abandonware?
-        HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix(DEEPARG_PREDICT.out.potential_arg), 'json', '1.0.2', '2'  )
+        // Reporting
+        // Note: currently hardcoding versions as unreported by DeepARG
+        // Make sure to update on version bump.
+        HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix(DEEPARG_PREDICT.out.potential_arg), 'json', '1.0.2', params.arg_deeparg_data_version )
         ch_versions = ch_versions.mix(HAMRONIZATION_DEEPARG.out.versions)
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_DEEPARG.out.json)
     }

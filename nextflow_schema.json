@@ -229,6 +229,13 @@
                     "description": "Specify the path to the DeepARG database",
                     "help_text": "Specify the path to a local version of the DeepARG database (see the pipelines' [usage documentation](https://nf-co.re/funcscan/usage)). If no input is given, the module will download the database for you, however this is not recommended, as the database is large and this will take time."
                 },
+                "arg_deeparg_data_version": {
+                    "type": "integer",
+                    "default": 2,
+                    "description": "Specify the numeric version number of a user supplied DeepaRG database",
+                    "fa_icon": "fas fa-code-branch",
+                    "help_text": "The DeepARG tool itself does not report explicit the database version it uses. We assume the latest version (as downloaded by the tool's database download module), however if you supply a different database, you must supply the version with this parameter for use with the downstream hAMRonization tool. \n\nThe version number must be without any leading `v` etc."
+                },
                 "arg_deeparg_model": {
                     "type": "string",
                     "default": "LS",
