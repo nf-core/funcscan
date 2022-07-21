@@ -51,6 +51,27 @@ You should place all of these in a directory and supply them e.g. to AMP models
 --amp_hmmsearch_models '/<path>/<to>/<amp>/*.hmm'
 ```
 
+### ARMfinderPlus
+
+AMRfinderPlus relies on NCBI’s curated Reference Gene Database and curated collection of Hidden Markov Models.
+
+nf-core/funcscan will download this database for you, unless the path to a local version is given with:
+
+```bash
+--arg_amrfinderplus_db '/<path>/<to>/<amrfinderplus_db>/'
+```
+
+You can either:
+
+1. Install AMRfinderPlus from [bioconda](https://bioconda.github.io/recipes/ncbi-amrfinderplus/README.html?highlight=amrfinderplus)
+2. Run `amrfinder --update`, which will download the latest version of the AMRFinderPlus database to the default location (location of the AMRFinderPlus binaries/data). It creates a directory under data in the format YYYY-MM-DD.version (e.g., 2019-03-06.1).
+
+Or
+
+1. Download the files directly form the [NCBI FTP site](https://ftp.ncbi.nlm.nih.gov/pathogen/Antimicrobial_resistance/AMRFinderPlus/database/latest/)
+
+The path to the resulting database directory can be supplied to the pipeline as described above.
+
 ### DeepARG
 
 DeepARG requires a database of potential antimicrobial resistence gene sequences, based on a consensus from UNIPROT, CARD and ARDB.
@@ -73,6 +94,9 @@ You can then supply the path to resulting database directory with:
 ```bash
 --arg_deeparg_data '/<path>/<to>/<deeparg>/<db>/'
 ```
+
+Note that if you supply your own database that is not downloaded by the pipeline, make sure to also supply `--arg_deeparg_data_version` along
+with the version number so hAMRonization will correctly display the database version in the summary report.
 
 ## Running the pipeline
 
