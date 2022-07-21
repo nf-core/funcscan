@@ -17,7 +17,7 @@ workflow BGC {
     ch_versions = Channel.empty()
 
     // Check whether user supplies database and/or antismash directory. If not, obtain them via nf-core/modules/antismashlite/antismashlitedownloaddatabases.
-    // Important for future maintenance: For CI tests, only the first of the 4 options below is used. Thus, all 4 combinations below should be tested locally whenever the antiSMASH module gets updated.
+    // Important for future maintenance: For CI tests, only the "else" option below is used. Both options should be tested locally whenever the antiSMASH module gets updated.
     if ( params.bgc_antismash_databases && params.bgc_antismash_directory ) {
 
         // Supply databases
@@ -30,47 +30,9 @@ workflow BGC {
             .fromPath( params.bgc_antismash_directory )
             .first()
 
-    } else if ( params.bgc_antismash_databases && !params.bgc_antismash_directory ) {
+    } else {
 
-        // Supply databases
-        ch_antismash_databases = Channel
-            .fromPath( params.bgc_antismash_databases )
-            .first()
-
-        // Supply antiSMASH directory
-        ch_css_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/css.tar.gz"
-        ch_detection_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/detection.tar.gz"
-        ch_modules_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/modules.tar.gz"
-
-        UNTAR_CSS ( [ [], ch_css_for_antismash ] )
-        UNTAR_DETECTION ( [ [], ch_detection_for_antismash ] )
-        UNTAR_MODULES ( [ [], ch_modules_for_antismash ] )
-
-        ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES ( UNTAR_CSS.out.untar.map{ it[1] }, UNTAR_DETECTION.out.untar.map{ it[1] }, UNTAR_MODULES.out.untar.map{ it[1] } )
-        ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.versions)
-        ch_antismash_directory = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.antismash_dir
-
-    } else if ( !params.bgc_antismash_databases && params.bgc_antismash_directory ) {
-
-        // Supply databases
-        ch_css_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/css.tar.gz"
-        ch_detection_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/detection.tar.gz"
-        ch_modules_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/modules.tar.gz"
-
-        UNTAR_CSS ( [ [], ch_css_for_antismash ] )
-        UNTAR_DETECTION ( [ [], ch_detection_for_antismash ] )
-        UNTAR_MODULES ( [ [], ch_modules_for_antismash ] )
-
-        ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES ( UNTAR_CSS.out.untar.map{ it[1] }, UNTAR_DETECTION.out.untar.map{ it[1] }, UNTAR_MODULES.out.untar.map{ it[1] } )
-        ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.versions)
-        ch_antismash_databases = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.database
-
-        // Supply antiSMASH directory
-        ch_antismash_directory = Channel
-            .fromPath( params.bgc_antismash_directory )
-            .first()
-
-    } else if ( !params.bgc_antismash_databases && !params.bgc_antismash_directory ) {
+        print "Warning: No antiSMASH database and/or directory supplied – they will be downloaded by the pipeline."
 
         // Supply databases
         ch_css_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/css.tar.gz"
