@@ -30,7 +30,7 @@ workflow ARG {
         ch_amrfinderplus_db = Channel
             .fromPath( params.arg_amrfinderplus_db )
             .first()
-    } else if ( !params.arg_skip_deeparg && !params.arg_amrfinderplus_db ) {
+    } else if ( !params.arg_skip_amrfinderplus && !params.arg_amrfinderplus_db ) {
         AMRFINDERPLUS_UPDATE( )
         ch_versions = ch_versions.mix(AMRFINDERPLUS_UPDATE.out.versions)
         ch_amrfinderplus_db = AMRFINDERPLUS_UPDATE.out.db
@@ -41,8 +41,7 @@ workflow ARG {
         ch_versions = ch_versions.mix(AMRFINDERPLUS_RUN.out.versions)
 
     // Reporting
-    // Note: currently hardcoding versions, TODO: has to be updated when amrfinderplus_run is updated to emit
-        HAMRONIZATION_AMRFINDERPLUS ( AMRFINDERPLUS_RUN.out.report, 'json', '3.10.30', '2022-05-26.1' )
+        HAMRONIZATION_AMRFINDERPLUS ( AMRFINDERPLUS_RUN.out.report, 'json', AMRFINDERPLUS_RUN.out.tool_version, AMRFINDERPLUS_RUN.out.db_version )
         ch_versions = ch_versions.mix(HAMRONIZATION_AMRFINDERPLUS.out.versions)
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_AMRFINDERPLUS.out.json)
 
