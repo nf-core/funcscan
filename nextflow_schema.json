@@ -326,13 +326,13 @@
                 },
                 "bgc_antismash_databases": {
                     "type": "string",
-                    "description": "Path to user-defined antiSMASH database",
+                    "description": "Path to user-defined local antiSMASH database",
                     "fa_icon": "fab fa-deezer",
                     "default": "None"
                 },
                 "bgc_antismash_directory": {
                     "type": "string",
-                    "description": "Path to user-defined antiSMASH directory",
+                    "description": "Path to user-defined local antiSMASH directory",
                     "fa_icon": "far fa-folder-open",
                     "default": "None"
                 }
