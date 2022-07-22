@@ -32,8 +32,6 @@ workflow BGC {
 
         } else {
 
-            log.warn "Warning: No antiSMASH database and/or directory supplied – they will be downloaded by the pipeline."
-
             ch_css_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/css.tar.gz"
             ch_detection_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/detection.tar.gz"
             ch_modules_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/modules.tar.gz"
