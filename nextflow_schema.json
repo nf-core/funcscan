@@ -337,7 +337,7 @@
                     "fa_icon": "fab fa-deezer",
                     "default": "None"
                 },
-                "bgc_antismash_directory": {
+                "bgc_antismash_installationdirectory": {
                     "type": "string",
                     "description": "Path to user-defined local antiSMASH directory",
                     "fa_icon": "far fa-folder-open",

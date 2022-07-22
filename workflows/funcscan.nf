@@ -116,7 +116,7 @@ workflow FUNCSCAN {
     */
 
     // Some tools require annotated FASTAs
-    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening ) ) {
+    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && !params.bgc_skip_antismash ) ) {
 
         if ( params.run_annotation_tool == "prodigal") {
             PRODIGAL ( ch_prepped_input, "gff" )
@@ -172,7 +172,7 @@ workflow FUNCSCAN {
         BGCs
     */
     if ( params.run_bgc_screening ) {
-        BGC ( fasta_prep.compressed, ch_annotation_gff )
+        BGC ( ch_prepped_input, ch_annotation_gff )
         ch_version = ch_versions.mix(BGC.out.versions)
     }
 
