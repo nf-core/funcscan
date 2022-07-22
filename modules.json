@@ -15,6 +15,12 @@
             "amrfinderplus/update": {
                 "git_sha": "f0800157544a82ae222931764483331a81812012"
             },
+            "antismash/antismashlite": {
+                "git_sha": "b3acfc54f58f9232037dc4f4c18de7bf5c2842e4"
+            },
+            "antismash/antismashlitedownloaddatabases": {
+                "git_sha": "8db0b754c0422cb80d06f47986d660f8aaf02c89"
+            },
             "custom/dumpsoftwareversions": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
@@ -59,6 +65,9 @@
             },
             "rgi/main": {
                 "git_sha": "f91abed951da2b22746d3d07b103bd9775ca6ca0"
+            },
+            "untar": {
+                "git_sha": "51be617b1ca9bff973655eb899d591ed6ab253b5"
             }
         }
     }

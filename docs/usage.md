@@ -98,6 +98,26 @@ You can then supply the path to resulting database directory with:
 Note that if you supply your own database that is not downloaded by the pipeline, make sure to also supply `--arg_deeparg_data_version` along
 with the version number so hAMRonization will correctly display the database version in the summary report.
 
+### AntiSMASH
+
+AntiSMASH requires several databases of potential biosynthetic gene cluster (BGC) sequences (ClusterBlast, MIBiG, Pfam, Resfams, TIGRFAMs).
+
+nf-core/funcscan can download these databases for you, however this is very slow and pipeline runtime will be improved if you download them separately and supply them to the pipeline.
+The same applies for the antiSMASH installation directory, which is also a required parameter for the pipeline, due to some slight incompatibility when using containers.
+
+To supply the database directories to the pipeline:
+
+1. Install antiSMASH from [bioconda](https://bioconda.github.io/recipes/antismash-lite/README.html)
+2. Run `download-antismash-databases`
+3. You can then supply the paths to the resulting databases and the whole installation directory with:
+
+```bash
+--bgc_antismash_databases '/<path>/<to>/<antismash>/<db>/'
+--bgc_antismash_installationdirectory '/<path>/<to>/<antismash>/<dir>/'
+```
+
+If these flags are not provided, the databases will be auto-downloaded upon each BGC screening run of the pipeline.
+
 ## Running the pipeline
 
 The typical command for running the pipeline is as follows:

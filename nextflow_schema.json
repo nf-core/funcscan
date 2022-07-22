@@ -58,6 +58,11 @@
                     "type": "boolean",
                     "description": "Activate antimicrobial resistance gene screening tools",
                     "fa_icon": "fas fa-check-circle"
+                },
+                "run_bgc_screening": {
+                    "type": "boolean",
+                    "description": "Activate biosynthetic gene cluster screening tools",
+                    "fa_icon": "fas fa-check-circle"
                 }
             },
             "fa_icon": "fas fa-network-wired"
@@ -74,13 +79,6 @@
                     "description": "Specify which annotation tool to run either prodigal or prokka",
                     "enum": ["prodigal", "prokka"],
                     "fa_icon": "fas fa-edit"
-                },
-                "prodigal_output_format": {
-                    "type": "string",
-                    "default": "gff",
-                    "description": "Specify annotation output format. Options: gff, gbk, sqn, sco",
-                    "fa_icon": "fas fa-file-import",
-                    "enum": ["gff", "gbk", "sqn", "sco"]
                 }
             },
             "fa_icon": "fas fa-file-signature"
@@ -318,6 +316,32 @@
                     "type": "boolean",
                     "description": "Skip RGI during the ARG-screening",
                     "fa_icon": "fas fa-ban"
+                }
+            },
+            "fa_icon": "fas fa-tools"
+        },
+        "bgc_antismash": {
+            "title": "BGC: antiSMASH",
+            "type": "object",
+            "description": "Biosynthetic gene cluster detection",
+            "default": "",
+            "properties": {
+                "bgc_skip_antismash": {
+                    "type": "boolean",
+                    "description": "Skip antiSMASH during the BGC screening",
+                    "fa_icon": "fas fa-ban"
+                },
+                "bgc_antismash_databases": {
+                    "type": "string",
+                    "description": "Path to user-defined local antiSMASH database",
+                    "fa_icon": "fab fa-deezer",
+                    "default": "None"
+                },
+                "bgc_antismash_installationdirectory": {
+                    "type": "string",
+                    "description": "Path to user-defined local antiSMASH directory",
+                    "fa_icon": "far fa-folder-open",
+                    "default": "None"
                 }
             },
             "fa_icon": "fas fa-tools"
@@ -582,6 +606,9 @@
         },
         {
             "$ref": "#/definitions/arg_rgi"
+        },
+        {
+            "$ref": "#/definitions/bgc_antismash"
         },
         {
             "$ref": "#/definitions/reporting"
