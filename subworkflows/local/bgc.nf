@@ -1,5 +1,5 @@
 /*
-    Run AMP screening tools
+    Run BGC screening tools
 */
 
 include { UNTAR as UNTAR_CSS                       } from '../../modules/nf-core/modules/untar/main'
