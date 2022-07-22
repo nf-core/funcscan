@@ -29,8 +29,8 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 1. Annotates prokaryotic input assembled contigs ([`Prodigal`](https://github.com/hyattpd/Prodigal) or [`PROKKA`](https://github.com/tseemann/prokka))
 2. Screens contigs for antimicrobial peptide-like sequences with: [ampir](https://cran.r-project.org/web/packages/ampir/index.html), [Macrel](https://github.com/BigDataBiology/macrel), [HMMER](http://hmmer.org/), [AMPlify](https://github.com/bcgsc/AMPlify)
-3. Screens contigs for antibiotic resistant gene-like sequences with:. [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi), [DEEPARG](https://bench.cs.vt.edu/deeparg)
-4. Screens contigs for biosynthetic gene cluster-like sequences with: <!-- [antiSMASH](https://antismash.secondarymetabolites.org/#!/start), [gecco](https://gecco.embl.de/), [HMMER](http://hmmer.org/) -->
+3. Screens contigs for antibiotic resistant gene-like sequences with: [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi), [DEEPARG](https://bench.cs.vt.edu/deeparg)
+4. Screens contigs for biosynthetic gene cluster-like sequences with: [antiSMASH](https://antismash.secondarymetabolites.org)<!--, [gecco](https://gecco.embl.de/), [HMMER](http://hmmer.org/) -->
 5. Software version reporting with ([`MultiQC`](http://multiqc.info/))
 
 ## Quick Start
@@ -55,7 +55,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
 4. Start running your own analysis!
 
    ```console
-   nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile <docker/singularity/podman/shifter/charliecloud/conda/institute> --run_amp_screening --run_arg_screening
+   nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile <docker/singularity/podman/shifter/charliecloud/conda/institute> --run_amp_screening --run_arg_screening --run_bgc_screening
    ```
 
 ## Documentation
