@@ -34,6 +34,10 @@
 
   > Berglund, Fanny, Tobias Österlund, Fredrik Boulund, Nachiket P. Marathe, D. G. Joakim Larsson, and Erik Kristiansson. 2019. "Identification and Reconstruction of Novel Antibiotic Resistance Genes from Metagenomes." Microbiome 7 (1): 52.
 
+- [GECCO](doi:10.1101/2021.05.03.442509)
+
+  > Laura M Carroll, Martin Larralde, Jonas Simon Fleck, Ruby Ponnudurai, Alessio Milanese, Elisa Cappio Barazzone, and Georg Zeller. 2021. "Accurate de novo identification of biosynthetic gene clusters with GECCO." bioRxiv 2021.05.03.442509.
+
 - [hAMRonization](https://github.com/pha4ge/hAMRonization)
 
 - [HMMER](https://doi.org/10.1371/journal.pcbi.1002195.)

@@ -346,6 +346,19 @@
             },
             "fa_icon": "fas fa-tools"
         },
+        "bgc_gecco": {
+            "title": "BGC: gecco",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "bgc_skip_gecco": {
+                    "type": "boolean",
+                    "description": "Skip GECCO during the BGC screening",
+                    "fa_icon": "fas fa-ban"
+                }
+            }
+        },
         "reporting": {
             "title": "Reporting",
             "type": "object",
@@ -609,6 +622,9 @@
         },
         {
             "$ref": "#/definitions/bgc_antismash"
+        },
+        {
+            "$ref": "#/definitions/bgc_gecco"
         },
         {
             "$ref": "#/definitions/reporting"
