@@ -103,7 +103,7 @@ with the version number so hAMRonization will correctly display the database ver
 AntiSMASH requires several databases of potential biosynthetic gene cluster (BGC) sequences (ClusterBlast, MIBiG, Pfam, Resfams, TIGRFAMs).
 
 nf-core/funcscan can download these databases for you, however this is very slow and pipeline runtime will be improved if you download them separately and supply them to the pipeline.
-The same applies for the antiSMASH installation directory, which is also a required parameter for the pipeline.
+The same applies for the antiSMASH installation directory, which is also a required parameter for the pipeline, due to some slight incompatibility when using containers.
 
 To supply the database directories to the pipeline:
 
@@ -113,7 +113,7 @@ To supply the database directories to the pipeline:
 
 ```bash
 --bgc_antismash_databases '/<path>/<to>/<antismash>/<db>/'
---bgc_antismash_directory '/<path>/<to>/<antismash>/<dir>/'
+--bgc_antismash_installationdirectory '/<path>/<to>/<antismash>/<dir>/'
 ```
 
 If these flags are not provided, the databases will be auto-downloaded upon each BGC screening run of the pipeline.
