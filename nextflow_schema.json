@@ -349,7 +349,7 @@
         "bgc_gecco": {
             "title": "BGC: gecco",
             "type": "object",
-            "description": "",
+            "description": "Biosynthetic gene cluster detection",
             "default": "",
             "properties": {
                 "bgc_skip_gecco": {

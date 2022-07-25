@@ -36,7 +36,7 @@
 
 - [GECCO](doi:10.1101/2021.05.03.442509)
 
-  > Laura M Carroll, Martin Larralde, Jonas Simon Fleck, Ruby Ponnudurai, Alessio Milanese, Elisa Cappio Barazzone, and Georg Zeller. 2021. "Accurate de novo identification of biosynthetic gene clusters with GECCO." bioRxiv 2021.05.03.442509.
+  > Carroll, Laura M , Martin Larralde, Jonas Simon Fleck, Ruby Ponnudurai, Alessio Milanese, Elisa Cappio Barazzone, and Georg Zeller. 2021. "Accurate de novo identification of biosynthetic gene clusters with GECCO." bioRxiv 2021.05.03.442509.
 
 - [hAMRonization](https://github.com/pha4ge/hAMRonization)
 
