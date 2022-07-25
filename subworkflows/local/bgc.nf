@@ -61,8 +61,12 @@ workflow BGC {
     }
 
     if ( !params.bgc_skip_gecco ) {
-        gecco_input = [fna, []]
-        GECCO_RUN ( gecco_input, [] )
+        ch_gecco_input = fna.groupTuple()
+                            .multiMap {
+                                fna: [ it[0], it[1], [] ]
+                            }
+
+        GECCO_RUN ( ch_gecco_input, [] )
         ch_versions = ch_versions.mix(GECCO_RUN.out.versions)
     }
 
