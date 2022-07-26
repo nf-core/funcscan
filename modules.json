@@ -33,6 +33,9 @@
             "fargene": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
+            "gecco/run": {
+                "git_sha": "9d7208504d1898757cfdbb3065718e6545940408"
+            },
             "gunzip": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },

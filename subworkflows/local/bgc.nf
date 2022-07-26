@@ -7,6 +7,7 @@ include { UNTAR as UNTAR_DETECTION                 } from '../../modules/nf-core
 include { UNTAR as UNTAR_MODULES                   } from '../../modules/nf-core/modules/untar/main'
 include { ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES } from '../../modules/nf-core/modules/antismash/antismashlitedownloaddatabases/main'
 include { ANTISMASH_ANTISMASHLITE                  } from '../../modules/nf-core/modules/antismash/antismashlite/main'
+include { GECCO_RUN                                } from '../../modules/nf-core/modules/gecco/run/main'
 
 workflow BGC {
 
@@ -58,6 +59,17 @@ workflow BGC {
         ANTISMASH_ANTISMASHLITE ( ch_antismash_input.fna, ch_antismash_databases, ch_antismash_directory, ch_antismash_input.gff )
         ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITE.out.versions)
     }
-        emit:
-        versions = ch_versions
+
+    if ( !params.bgc_skip_gecco ) {
+        ch_gecco_input = fna.groupTuple()
+                            .multiMap {
+                                fna: [ it[0], it[1], [] ]
+                            }
+
+        GECCO_RUN ( ch_gecco_input, [] )
+        ch_versions = ch_versions.mix(GECCO_RUN.out.versions)
+    }
+
+    emit:
+    versions = ch_versions
 }

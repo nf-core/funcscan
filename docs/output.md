@@ -422,6 +422,22 @@ The `*.ARG` output files contain the following fields:
 
 [antiSMASH](https://docs.antismash.secondarymetabolites.org) (antibiotics & Secondary Metabolite Analysis Shell) is a tool for rapid genome-wide identification, annotation and analysis of secondary metabolite biosynthesis gene clusters in bacterial and fungal genomes. It identifies biosynthetic loci covering the whole range of known secondary metabolite compound classes and aligns the identified regions at the gene cluster level to their nearest relatives from a database containing all other known gene clusters. It integrates or cross-links all previously available secondary-metabolite specific gene analysis methods in one interactive view.
 
+### GECCO
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `gecco/`
+  - `*.genes.tsv/`: TSV file containing detected/predicted genes with BGC probability scores
+  - `*.features.tsv`: TSV file containing identified domains
+  - `*.clusters.tsv`: TSV file containing coordinates of predicted clusters and BGC types
+  - `*_cluster_*.gbk`: GenBank file (if clusters were found) containing sequence with annotations; one file per GECCO hit.
+  - `*.json`: AntiSMASH v6 sideload JSON file (if `--antismash-sideload`) supplied
+
+</details>
+
+[GECCO](https://gecco.embl.de/) is a fast and scalable method for identifying putative novel Biosynthetic Gene Clusters (BGCs) in genomic and metagenomic data using Conditional Random Fields (CRFs).
+
 ### Pipeline information
 
 <details markdown="1">
