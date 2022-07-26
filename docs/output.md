@@ -35,12 +35,14 @@ work/
 
 ```bash
 outdir/
+├── abricate/
 ├── antismash/
 ├── amplify/
 ├── ampir/
 ├── amrfinder/
 ├── deeparg/
 ├── fargene/
+├── gecco/
 ├── hamronizer/
 ├── hmmsearch/
 ├── macrel/
@@ -58,6 +60,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 Antimicrobial Resistance Genes (ARGs):
 
+- [ABRicate](#abricate) - antimicrobial resistance gene detection, based on alignment to one of several databases
 - [AMRfinderPlus](#amrfinderplus) - antimicrobial resistance gene detection, using NCBI’s curated Reference Gene Database and curated collection of Hidden Markov Models
 - [DeepARG](#deeparg) - antimicrobial resistance gene detection, using a deep learning model
 - [fARGene](#fargene) - antimicrobial resistance gene detection, using a deep learning model
@@ -143,6 +146,18 @@ Output Summaries:
 
 [ComBGC](https://link-to-tool-page.org) xxx tool description here xxx SUMMARY of BGC tools' output
 -->
+
+### ABRicate
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `abricate/`
+  - `*.{csv,tsv}`: contains the search results in tabular format
+
+</details>
+
+[ABRicate](https://github.com/tseemann/abricate) screens contigs for antimicrobial resistance or virulence genes. It comes bundled with multiple databases: NCBI, CARD, ARG-ANNOT, Resfinder, MEGARES, EcOH, PlasmidFinder, Ecoli_VF and VFDB.
 
 ### AMRfinderPlus
 

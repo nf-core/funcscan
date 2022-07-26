@@ -10,7 +10,11 @@
 
 ## Pipeline tools
 
-- [ampir](https://doi.org/10.1093/bioinformatics/btaa653)
+- [ABRicate](https://github.com/tseemann/abricate)
+
+  > Seemann T. 2020. "ABRicate". Github https://github.com/tseemann/abricate.
+
+- [AMPir](https://doi.org/10.1093/bioinformatics/btaa653)
 
   > Fingerhut, Legana C. H. W., David J. Miller, Jan M. Strugnell, Norelle L. Daly, and Ira R. Cooke. 2021. “Ampir: An R Package for Fast Genome-Wide Prediction of Antimicrobial Peptides.” Bioinformatics 36 (21): 5262-63.
 

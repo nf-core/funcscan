@@ -320,6 +320,37 @@
             },
             "fa_icon": "fas fa-tools"
         },
+        "arg_abricate": {
+            "title": "ARG: ABRicate",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-tools",
+            "properties": {
+                "arg_skip_abricate": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-ban",
+                    "description": "Skip ABRicate during the ARG-screening"
+                },
+                "arg_abricate_db": {
+                    "type": "string",
+                    "default": "card",
+                    "fa_icon": "fab fa-deezer",
+                    "description": "Specify which of the provided public databases to use",
+                    "enum": [
+                        "argannot",
+                        "card",
+                        "ecoh",
+                        "ecoli_vf",
+                        "megares",
+                        "ncbi",
+                        "plasmidfinder",
+                        "resfinder",
+                        "vfdb"
+                    ]
+                }
+            }
+        },
         "bgc_antismash": {
             "title": "BGC: antiSMASH",
             "type": "object",
@@ -619,6 +650,9 @@
         },
         {
             "$ref": "#/definitions/arg_rgi"
+        },
+        {
+            "$ref": "#/definitions/arg_abricate"
         },
         {
             "$ref": "#/definitions/bgc_antismash"
