@@ -684,7 +684,7 @@
     ],
     "properties": {
         "bgc_skip_hmmsearch": {
-            "type": "string",
+            "type": "boolean",
             "default": "false"
         },
         "bgc_hmmsearch_models": {
@@ -692,15 +692,15 @@
             "default": null
         },
         "bgc_hmmsearch_savealignments": {
-            "type": "string",
+            "type": "boolean",
             "default": "false"
         },
         "bgc_hmmsearch_savetargets": {
-            "type": "string",
+            "type": "boolean",
             "default": "false"
         },
         "bgc_hmmsearch_savedomains": {
-            "type": "string",
+            "type": "boolean",
             "default": "false"
         }
     }
