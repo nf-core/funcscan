@@ -2,10 +2,10 @@
     Run AMP screening tools
 */
 
-include { MACREL_CONTIGS          } from '../../modules/nf-core/modules/macrel/contigs/main'
-include { HMMER_HMMSEARCH         } from '../../modules/nf-core/modules/hmmer/hmmsearch/main'
-include { AMPLIFY_PREDICT         } from '../../modules/nf-core/modules/amplify/predict/main'
-include { AMPIR                   } from '../../modules/nf-core/modules/ampir/main'
+include { MACREL_CONTIGS                                } from '../../modules/nf-core/modules/macrel/contigs/main'
+include { HMMER_HMMSEARCH as AMP_HMMER_HMMSEARCH        } from '../../modules/nf-core/modules/hmmer/hmmsearch/main'
+include { AMPLIFY_PREDICT                               } from '../../modules/nf-core/modules/amplify/predict/main'
+include { AMPIR                                         } from '../../modules/nf-core/modules/ampir/main'
 
 workflow AMP {
     take:
@@ -19,7 +19,7 @@ workflow AMP {
     // in funcscan.nf around annotation and AMP subworkflow execution
     // to ensure annotation is executed!
     ch_faa_for_amplify   = faa
-    ch_faa_for_hmmsearch = faa
+    ch_faa_for_amp_hmmsearch = faa
     ch_faa_for_ampir     = faa
 
     // AMPLIFY
@@ -42,7 +42,7 @@ workflow AMP {
 
     // HMMSEARCH
     if ( !params.amp_skip_hmmsearch ) {
-        if ( params.amp_hmmsearch_models ) { ch_amp_hmm_models = Channel.fromPath( params.amp_hmmsearch_models, checkIfExists: true ) } else { exit 1, '[nf-core/funscan] error: hmm model files not found for --amp_hmmsearch_models! Please check input.' }
+        if ( params.amp_hmmsearch_models ) { ch_amp_hmm_models = Channel.fromPath( params.amp_hmmsearch_models, checkIfExists: true ) } else { exit 1, '[nf-core/funcscan] error: hmm model files not found for --amp_hmmsearch_models! Please check input.' }
 
         ch_amp_hmm_models_meta = ch_amp_hmm_models
             .map {
@@ -53,7 +53,7 @@ workflow AMP {
                 [ meta, file ]
             }
 
-        ch_in_for_hmmsearch = ch_faa_for_hmmsearch.combine(ch_amp_hmm_models_meta)
+        ch_in_for_amp_hmmsearch = ch_faa_for_amp_hmmsearch.combine(ch_amp_hmm_models_meta)
             .map {
                 meta_faa, faa, meta_hmm, hmm ->
                     def meta_new = [:]
@@ -62,8 +62,8 @@ workflow AMP {
                 [ meta_new, hmm, faa, params.amp_hmmsearch_savealignments, params.amp_hmmsearch_savetargets, params.amp_hmmsearch_savedomains ]
             }
 
-        HMMER_HMMSEARCH ( ch_in_for_hmmsearch )
-        ch_versions = ch_versions.mix(HMMER_HMMSEARCH.out.versions)
+        AMP_HMMER_HMMSEARCH ( ch_in_for_amp_hmmsearch )
+        ch_versions = ch_versions.mix(AMP_HMMER_HMMSEARCH.out.versions)
     }
 
     emit:
