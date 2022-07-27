@@ -3,6 +3,9 @@
     "homePage": "https://github.com/nf-core/funcscan",
     "repos": {
         "nf-core/modules": {
+            "abricate/run": {
+                "git_sha": "f0800157544a82ae222931764483331a81812012"
+            },
             "ampir": {
                 "git_sha": "01d4a1fa3a0f6c87b02a50f450f5e85464eaa7e4"
             },
@@ -34,10 +37,13 @@
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
             "gecco/run": {
-                "git_sha": "9d7208504d1898757cfdbb3065718e6545940408"
+                "git_sha": "5644df8d43b226281e21c3973940b31d1d6b9ce6"
             },
             "gunzip": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "hamronization/abricate": {
+                "git_sha": "7f7f6bc913af85decaeba35827cea7943bf1042e"
             },
             "hamronization/amrfinderplus": {
                 "git_sha": "1368164eb5c108c5d2078fb6d22b97f0a76ab9b0"

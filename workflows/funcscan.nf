@@ -31,7 +31,7 @@ def fargene_classes_valid = fargene_user_classes.intersect( fargene_valid_classe
 def fargene_classes_missing = fargene_user_classes - fargene_classes_valid
 
 if ( fargene_classes_missing.size() > 0 ) exit 1, "[nf-core/funcscan] ERROR: invalid class present in --arg_fargene_hmmodel. Please check input. Invalid class: ${fargene_classes_missing.join(', ')}"
-if ( !params.bgc_antismash_databases || !params.bgc_antismash_installationdirectory ) log.warn "Warning: No antiSMASH database and/or directory supplied – they will be downloaded by the pipeline."
+if ( params.run_bgc_screening && ( !params.bgc_antismash_databases || !params.bgc_antismash_installationdirectory ) ) log.warn "Warning: No antiSMASH database and/or directory supplied – they will be downloaded by the pipeline."
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
