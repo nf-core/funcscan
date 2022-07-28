@@ -116,7 +116,9 @@ To supply the database directories to the pipeline:
 --bgc_antismash_installationdirectory '/<path>/<to>/<antismash>/<dir>/'
 ```
 
-If these flags are not provided, the databases will be auto-downloaded upon each BGC screening run of the pipeline.
+Note that the names of the supplied folders must differ from each other (e.g. `antismash_db` and `antismash_dir`). If they are not provided, the databases will be auto-downloaded upon each BGC screening run of the pipeline.
+
+Hint: The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
 
 > If installing with conda, the installation directory will be `lib/python3.8/site-packages/antismash` from the base directory of your conda install or conda environment directory.
 
