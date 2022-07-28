@@ -405,6 +405,44 @@
                 }
             }
         },
+        "bgc_hmmsearch": {
+            "title": "BCG: HMMSearch",
+            "type": "object",
+            "description": "Biosynthetic Gene Cluster detection based on predefined HMM models",
+            "default": "",
+            "properties": {
+                "bgc_skip_hmmsearch": {
+                    "type": "boolean",
+                    "description": "Skip HMMsearch during BGC-screening",
+                    "fa_icon": "fas fa-ban"
+                },
+                "bgc_hmmsearch_models": {
+                    "type": "string",
+                    "default": "None",
+                    "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter",
+                    "fa_icon": "fas fa-layer-group",
+                    "description": "Specify path (with wildcard) to BGC hmm models  to searching against"
+                },
+                "bgc_hmmsearch_savealignments": {
+                    "type": "boolean",
+                    "description": "Saves a multiple alignment of all significant hits to the file",
+                    "help_text": "Save a multiple alignment of all significant hits (those satisfying inclusion thresholds) to a file\n\n> Modifies HMMsearch parameter: `-A`",
+                    "fa_icon": "far fa-save"
+                },
+                "bgc_hmmsearch_savetargets": {
+                    "type": "boolean",
+                    "description": "Saves a simple tabular file summarising the per-target output",
+                    "help_text": "Save a simple tabular (space-delimited) file summarizing the per-target output, with one data line per homologous target sequence found.\n\n> Modifies HMMsearch parameter: `--tblout`",
+                    "fa_icon": "far fa-save"
+                },
+                "bgc_hmmsearch_savedomains": {
+                    "type": "boolean",
+                    "description": "Save a simple tabular file summarising the per-domain output",
+                    "help_text": "Save a simple tabular (space-delimited) file summarizing the per-domain output, with one data line per homologous domain detected in a query sequence for each homologous model.\n\n> Modifies HMMsearch parameter: `--domtblout`",
+                    "fa_icon": "far fa-save"
+                }
+            }
+        },
         "reporting": {
             "title": "Reporting",
             "type": "object",
@@ -677,6 +715,9 @@
         },
         {
             "$ref": "#/definitions/bgc_gecco"
+        },
+        {
+            "$ref": "#/definitions/bgc_hmmsearch"
         },
         {
             "$ref": "#/definitions/reporting"

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The output of nf-core/funcscan provides the output directories from each tool applied, as well as a summary of tool outputs for each of the functional groups: antibiotic resistance genes ([AMRfinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder/),[DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/), [fargene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi)), antimicrobial peptides ([macrel](https://github.com/BigDataBiology/macrel), [amplify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net/), [hmmsearch](http://hmmer.org)), biosynthetic gene clusters ([antiSMASH](https://docs.antismash.secondarymetabolites.org)) and functional annotation ([prokka](https://github.com/tseemann/prokka)) and ([prodigal](https://github.com/hyattpd/Prodigal)).
+The output of nf-core/funcscan provides the output directories from each tool applied, as well as a summary of tool outputs for each of the functional groups: antibiotic resistance genes ([AMRfinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder/),[DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/), [fargene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi)), antimicrobial peptides ([macrel](https://github.com/BigDataBiology/macrel), [amplify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net/), [hmmsearch](http://hmmer.org)), biosynthetic gene clusters ([antiSMASH](https://docs.antismash.secondarymetabolites.org), [hmmsearch](http://hmmer.org)) and functional annotation ([prokka](https://github.com/tseemann/prokka)) and ([prodigal](https://github.com/hyattpd/Prodigal)).
 
 Furthermore, for reproducibility, versions of all software used in the run is presented in a [MultiQC](http://multiqc.info) report.
 
@@ -35,22 +35,26 @@ work/
 
 ```bash
 outdir/
-├── abricate/
-├── antismash/
-├── amplify/
-├── ampir/
-├── amrfinder/
-├── deeparg/
-├── fargene/
-├── gecco/
-├── hamronizer/
-├── hmmsearch/
-├── macrel/
+├── amp/
+|   ├── amplify/
+|   ├── ampir/
+|   ├── hmmsearch/
+|   └── macrel/
+├── arg/
+|   ├── amrfinder/
+|   ├── deeparg/
+|   ├── fargene/
+|   ├── hamronizer/
+|   └── rgi/
+├── bgc/
+|   ├── antismash/
+|   ├── gecco/
+|   └── hmmsearch/
+├── databases/
 ├── multiqc/
 ├── pipeline_info/
 ├── prodigal/
-├── prokka/
-└── rgi/
+└── prokka/
 work/
 ```
 
@@ -75,6 +79,7 @@ Antimicrobial Peptides (AMPs) and peptide annotation:
 - [ampir](#ampir) - antimicrobial peptide detection
 - [amplify](#amplify) - antimicrobial peptide detection
   <!--* [EnsembleAMPPred](#ensembleamppred) - antimicrobial peptide detection-->
+- [hmmsearch](#hmmsearch) - antimicrobial peptide detection
 - [Macrel](#macrel) - antimicrobial peptide detection
 <!--* [neubi](#neubi) - antimicrobial peptide detection-->
 
