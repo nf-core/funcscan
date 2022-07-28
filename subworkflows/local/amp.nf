@@ -18,7 +18,7 @@ workflow AMP {
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
     // to ensure annotation is executed!
-    ch_faa_for_amplify   = faa
+    ch_faa_for_amplify        = faa
     ch_faa_for_amp_hmmsearch = faa
     ch_faa_for_ampir     = faa
 
