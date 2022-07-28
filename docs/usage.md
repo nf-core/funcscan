@@ -118,6 +118,8 @@ To supply the database directories to the pipeline:
 
 If these flags are not provided, the databases will be auto-downloaded upon each BGC screening run of the pipeline.
 
+> If installing with conda, the installation directory will be `lib/python3.8/site-packages/antismash` from the base directory of your conda install or conda environment directory.
+
 ## Running the pipeline
 
 The typical command for running the pipeline is as follows:
