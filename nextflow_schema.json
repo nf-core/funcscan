@@ -70,15 +70,20 @@
         "annotation": {
             "title": "Annotation",
             "type": "object",
-            "description": "These options influence the generation of annotation files required for downstream steps in ARG and AMP workflows.",
+            "description": "These options influence the generation of annotation files required for downstream steps in ARG, AMP and BGC workflows.",
             "default": "",
             "properties": {
                 "run_annotation_tool": {
                     "type": "string",
                     "default": "prodigal",
-                    "description": "Specify which annotation tool to run either prodigal or prokka",
+                    "description": "Specify which annotation tool to run: either prodigal or prokka",
                     "enum": ["prodigal", "prokka"],
                     "fa_icon": "fas fa-edit"
+                },
+                "save_annotations": {
+                    "type": "boolean",
+                    "description": "Specify whether to save gene annotations (from either prokka or prodigal) in the --outdir",
+                    "fa_icon": "fas fa-save"
                 }
             },
             "fa_icon": "fas fa-file-signature"
