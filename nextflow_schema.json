@@ -97,7 +97,7 @@
                 "save_databases": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
-                    "description": "Specify whether to save pipeline-downloaded databases in the --outdir",
+                    "description": "Specify whether to save pipeline-downloaded databases in <outdir>/databases. This applies to databases used by deepARG, AMRfinderPlus and antiSMASH.",
                     "help_text": "While nf-core/funcscan can download databases for you, often these are very large and can significantly slow-down pipeline runtime.\n\nSpecify `--save_databases` so pipeline-downloaded databases are saved in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.\n\nIf you do not specify these flags, the database files will remain in your `work/` directory and will be deleted if `cleanup = true` is specified in your config, or if you run `nextflow clean`.\n"
                 }
             },
