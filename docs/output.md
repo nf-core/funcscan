@@ -36,15 +36,15 @@ work/
 ```bash
 outdir/
 ├── amp/
-|   ├── amplify/
 |   ├── ampir/
+|   ├── amplify/
 |   ├── hmmsearch/
 |   └── macrel/
 ├── arg/
-|   ├── amrfinder/
+|   ├── amrfinderplus/
 |   ├── deeparg/
 |   ├── fargene/
-|   ├── hamronizer/
+|   ├── hamronization/
 |   └── rgi/
 ├── bgc/
 |   ├── antismash/
