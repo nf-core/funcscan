@@ -35,26 +35,29 @@ work/
 
 ```bash
 outdir/
+├── annotation/
+|   ├── prodigal/
+|   └── prokka/
 ├── amp/
-|   ├── amplify/
 |   ├── ampir/
+|   ├── amplify/
 |   ├── hmmsearch/
 |   └── macrel/
 ├── arg/
-|   ├── amrfinder/
+|   ├── amrfinderplus/
 |   ├── deeparg/
 |   ├── fargene/
-|   ├── hamronizer/
+|   ├── hamronization/
 |   └── rgi/
 ├── bgc/
 |   ├── antismash/
 |   ├── gecco/
 |   └── hmmsearch/
+├── reports/
+|   └── hamronization_summarize/
 ├── databases/
 ├── multiqc/
-├── pipeline_info/
-├── prodigal/
-└── prokka/
+└── pipeline_info/
 work/
 ```
 
