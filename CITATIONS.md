@@ -22,7 +22,7 @@
 
   > Chenkai Li, Darcy Sutherland, S. Austin Hammond, Chen Yang, Figali Taho, Lauren Bergman, Simon Houston, René L. Warren, Titus Wong, Linda M. N. Hoang, Caroline E. Cameron, Caren C. Helbing & Inanc Birol. 2022. "AMPlify: attentive deep learning model for discovery of novel antimicrobial peptides effective against WHO priority pathogens". BMC Genomics 23, 77.
 
-- [AMRfinderPlus](https://doi.org/10.1038/s41598-021-91456-0)
+- [AMRFinderPlus](https://doi.org/10.1038/s41598-021-91456-0)
 
   > Feldgarden, Michael, Vyacheslav Brover, Narjol Gonzalez-Escalona, Jonathan G. Frye, Julie Haendiges, Daniel H. Haft , Maria Hoffmann, James B. Pettengill, Arjun B. Prasad, Glenn E. Tillman, Gregory H. Tyson, William Klimke. 2021. AMRFinderPlus and the Reference Gene Catalog facilitate examination of the genomic links among antimicrobial resistance, stress response, and virulence. Sci Rep. 11(1): 12728.
 
@@ -38,7 +38,7 @@
 
   > Berglund, Fanny, Tobias Österlund, Fredrik Boulund, Nachiket P. Marathe, D. G. Joakim Larsson, and Erik Kristiansson. 2019. "Identification and Reconstruction of Novel Antibiotic Resistance Genes from Metagenomes." Microbiome 7 (1): 52.
 
-- [GECCO](doi:10.1101/2021.05.03.442509)
+- [GECCO](https://gecco.embl.de)
 
   > Carroll, Laura M , Martin Larralde, Jonas Simon Fleck, Ruby Ponnudurai, Alessio Milanese, Elisa Cappio Barazzone, and Georg Zeller. 2021. "Accurate de novo identification of biosynthetic gene clusters with GECCO." bioRxiv 2021.05.03.442509.
 
