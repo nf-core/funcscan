@@ -101,6 +101,7 @@ Antimicrobial Peptides (AMPs):
 
   <!--* [acep](#acep) – antimicrobial peptide detection-->
   <!--* [ai4amp](#ai4amp) – antimicrobial peptide detection-->
+
 - [ampir](#ampir) – antimicrobial peptide detection
 - [amplify](#amplify) – antimicrobial peptide detection
   <!--* [EnsembleAMPPred](#ensembleamppred) – antimicrobial peptide detection-->
@@ -219,6 +220,7 @@ Output Summaries:
 </details>
 
 [Macrel](https://github.com/BigDataBiology/macrel) is a tool that mines antimicrobial peptides (AMPs) from (meta)genomes by predicting peptides from genomes (provided as contigs) and outputs all the predicted anti-microbial peptides found.
+
 ### ABRicate
 
 <details markdown="1">
@@ -326,6 +328,7 @@ The `*.ARG` output files contain the following fields:
 - `tet_efflux`, `tet_rpg`, `tet_enzyme`: tetracycline resistance genes
 
 > Attention: fARGene output will not be included in the AMR summary report since its output statistics are hardly comparable with those of the other tools.
+
 ### hAMRonization
 
 <details markdown="1">
