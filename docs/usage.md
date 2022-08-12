@@ -12,13 +12,13 @@ nf-core/funcscan is a pipeline for efficient and parallelised screening of long 
 
 nf-core/funcscan takes FASTA files as input, typically contigs or whole genome sequences. To supply these to the pipeline, you will need to create a samplesheet with information about the samples you would like to analyses. Use this parameter to specify its location.
 
-```console
+```bash
 --input '[path to samplesheet file]'
 ```
 
 The input samplesheet has to be a comma-separated file (`.csv`) with 2 columns (`sample`, and `fasta`), and a header row as shown in the examples below.
 
-```console
+```bash
 sample,fasta
 sample_1,https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/wastewater_metagenome_contigs_1.fasta.gz
 sample_2,https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/wastewater_metagenome_contigs_2.fasta.gz
@@ -126,7 +126,7 @@ Hint: The flag `--save_databases` saves the pipeline-downloaded databases in you
 
 The typical command for running the pipeline is as follows:
 
-```console
+```bash
 nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile docker
 ```
 
@@ -145,7 +145,7 @@ By default, no screening workflows for any of the natural product types will be 
 
 For example, if you want to run AMP and ARG screening but you don't want to run the DeepARG tool of the ARG workflow and the Macrel tool of the AMP workflow, you would define this as follows:
 
-```console
+```bash
 nextflow run nf-core/funcscan --input <my_samplesheet>.csv --outdir <OUTDIR> -profile docker --run_arg_screening --arg_skip_deeparg --run_amp_screening --arg_skip_macrel
 ```
 
@@ -153,7 +153,7 @@ nextflow run nf-core/funcscan --input <my_samplesheet>.csv --outdir <OUTDIR> -pr
 
 When you run the above command, Nextflow automatically pulls the pipeline code from GitHub and stores it as a cached version. When running the pipeline after this, it will always use the cached version if available - even if the pipeline has been updated since. To make sure that you're running the latest version of the pipeline, make sure that you regularly update the cached version of the pipeline:
 
-```console
+```bash
 nextflow pull nf-core/funcscan
 ```
 
@@ -329,6 +329,6 @@ Some HPC setups also allow you to run nextflow within a cluster job submitted yo
 In some cases, the Nextflow Java virtual machines can start to request a large amount of memory.
 We recommend adding the following line to your environment to limit this (typically in `~/.bashrc` or `~./bash_profile`):
 
-```console
+```bash
 NXF_OPTS='-Xms1g -Xmx4g'
 ```
