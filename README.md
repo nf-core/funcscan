@@ -33,6 +33,8 @@ On release, automated continuous integration tests run the pipeline on a full-si
 4. Screens contigs for biosynthetic gene cluster-like sequences with: [antiSMASH](https://antismash.secondarymetabolites.org), [gecco](https://gecco.embl.de/)<!--, [HMMER](http://hmmer.org/) -->
 5. Software version reporting with ([`MultiQC`](http://multiqc.info/))
 
+![](docs/images/funcscan_metro_workflow.png)
+
 ## Quick Start
 
 1. Install [`Nextflow`](https://www.nextflow.io/docs/latest/getstarted.html#installation) (`>=21.10.3`)
