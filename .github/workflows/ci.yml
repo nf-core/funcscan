@@ -13,15 +13,95 @@ env:
 
 jobs:
   test:
-    name: Run pipeline with test data
+    name: Run pipeline with test data (AMP and ARG workflows)
     # Only run on push if this is the nf-core dev branch (merged PRs)
     if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        # Nextflow versions
         NXF_VER:
           - "21.10.3"
           - "latest-everything"
+        parameters:
+          - "--run_annotation_tool prodigal"
+          - "--run_annotation_tool prokka"
+
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v2
+
+      - name: Install Nextflow
+        env:
+          NXF_VER: ${{ matrix.NXF_VER }}
+          # Uncomment only if the edge release is more recent than the latest stable release
+          # See https://github.com/nextflow-io/nextflow/issues/2467
+          # NXF_EDGE: ${{ matrix.NXF_EDGE }}
+        run: |
+          wget -qO- get.nextflow.io | bash
+          sudo mv nextflow /usr/local/bin/
+
+      - name: Download required test data
+        run: |
+          mkdir -p databases/hmms/
+          for i in ABC_tran Pkinase; do wget https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/hmms/"$i".hmm -P databases/hmms/; done
+
+      - name: Run pipeline with test data (AMP and ARG workflows)
+        run: |
+          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results --amp_hmmsearch_models 'databases/hmms/*hmm' ${{ matrix.parameters }}
+
+  test_bgc:
+    name: Run pipeline with test data (BGC workflow)
+    # Only run on push if this is the nf-core dev branch (merged PRs)
+    if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Nextflow versions
+        NXF_VER:
+          - "21.10.3"
+          - "latest-everything"
+        parameters:
+          - "--run_annotation_tool prodigal"
+          - "--run_annotation_tool prokka"
+
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v2
+
+      - name: Install Nextflow
+        env:
+          NXF_VER: ${{ matrix.NXF_VER }}
+          # Uncomment only if the edge release is more recent than the latest stable release
+          # See https://github.com/nextflow-io/nextflow/issues/2467
+          # NXF_EDGE: ${{ matrix.NXF_EDGE }}
+        run: |
+          wget -qO- get.nextflow.io | bash
+          sudo mv nextflow /usr/local/bin/
+
+      - name: Run pipeline with test data (BGC workflow)
+        run: |
+          nextflow run ${GITHUB_WORKSPACE} -profile test_bgc,docker --outdir ./results ${{ matrix.parameters }}
+
+  test_deeparg:
+    name: Run pipeline with test data (DeepARG only workflow)
+    # Only run on push if this is the nf-core dev branch (merged PRs)
+    if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Nextflow versions
+        include:
+          # Test pipeline minimum Nextflow version
+          - NXF_VER: "21.10.3"
+            NXF_EDGE: ""
+          # Test latest edge release of Nextflow
+          - NXF_VER: ""
+            NXF_EDGE: "1"
+        parameters:
+          - "--run_annotation_tool prodigal"
+          - "--run_annotation_tool prokka"
+
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@v2
@@ -31,9 +111,6 @@ jobs:
         with:
           version: "${{ matrix.NXF_VER }}"
 
-      - name: Run pipeline with test data
-        # TODO nf-core: You can customise CI pipeline run tests as required
-        # For example: adding multiple test runs with different parameters
-        # Remember that you can parallelise this by using strategy.matrix
+      - name: Run pipeline with test data (DeepARG workflow)
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results
+          nextflow run ${GITHUB_WORKSPACE} -profile test_deeparg,docker --outdir ./results ${{ matrix.parameters }}
