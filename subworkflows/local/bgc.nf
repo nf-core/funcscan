@@ -18,8 +18,6 @@ workflow BGC {
     fna     // tuple val(meta), path(PROKKA.out.fna)
     gff     // tuple val(meta), path(PROKKA.out.gff)
     faa     // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
-    gbk     // tuple val(meta), path(PROKKA.out.gbk)
-    //contigs // tuple val(meta), path(contigs)
 
     main:
     ch_versions = Channel.empty()
@@ -83,11 +81,8 @@ workflow BGC {
             DEEPBGC_DOWNLOAD()
             ch_deepbgc_database = DEEPBGC_DOWNLOAD.out.db
         }
-    if ( params.run_annotation_tool == 'prokka'){
-        ch_deepbgc_input = gbk
-    } else {
-        ch_deepbgc_input = fna
-    }
+
+    ch_deepbgc_input = fna
 
     DEEPBGC_PIPELINE ( ch_deepbgc_input, ch_deepbgc_database)
     ch_versions = ch_versions.mix(DEEPBGC_PIPELINE.out.versions)
