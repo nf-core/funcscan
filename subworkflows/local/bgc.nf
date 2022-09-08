@@ -18,7 +18,7 @@ workflow BGC {
     fna     // tuple val(meta), path(PROKKA.out.fna)
     gff     // tuple val(meta), path(PROKKA.out.gff)
     faa     // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
-    gtf     // tuple val(meta), path(PROKKA.out.gtf)
+    gbk     // tuple val(meta), path(PROKKA.out.gbk)
     //contigs // tuple val(meta), path(contigs)
 
     main:
@@ -84,7 +84,7 @@ workflow BGC {
             ch_deepbgc_database = DEEPBGC_DOWNLOAD.out.db
         }
     if ( params.run_annotation_tool == 'prokka'){
-        ch_deepbgc_input = gtf
+        ch_deepbgc_input = gbk
     } else {
         ch_deepbgc_input = fna
     }
