@@ -33,6 +33,12 @@
             "deeparg/predict": {
                 "git_sha": "15c7190e2271de7ff347940460a484f69e27a106"
             },
+            "deepbgc/download": {
+                "git_sha": "eae945721d9ac32227b95350b0c6d39a00d8a14f"
+            },
+            "deepbgc/pipeline": {
+                "git_sha": "eae945721d9ac32227b95350b0c6d39a00d8a14f"
+            },
             "fargene": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },

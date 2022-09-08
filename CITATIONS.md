@@ -34,6 +34,10 @@
 
   > Arango-Argoty, Gustavo, Emily Garner, Amy Pruden, Lenwood S. Heath, Peter Vikesland, and Liqing Zhang. 2018. "DeepARG: A Deep Learning Approach for Predicting Antibiotic Resistance Genes from Metagenomic Data." Microbiome 6 (1): 23.
 
+- [DeepBGC](https://doi.org/10.1093/nar/gkz654)
+
+  > Hannigan, Geoffrey D, David Prihoda, Andrej Palicka, Jindrich Soukup, Ondrej Klempir, Lena Rampula, Jindrich Durcak, Michael Wurst, Jakub Kotowski, Dan Chang, Rurun Wang, Grazia Piizzi, Gergely Temesi, Daria J Hazuda, Christopher H Woelk, Danny A Bitton, A deep learning genome-mining strategy for biosynthetic gene cluster prediction, Nucleic Acids Research, Volume 47, Issue 18, 10 October 2019, Page e110
+
 - [fARGene](https://doi.org/10.1186/s40168-019-0670-1)
 
   > Berglund, Fanny, Tobias Österlund, Fredrik Boulund, Nachiket P. Marathe, D. G. Joakim Larsson, and Erik Kristiansson. 2019. "Identification and Reconstruction of Novel Antibiotic Resistance Genes from Metagenomes." Microbiome 7 (1): 52.

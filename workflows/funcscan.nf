@@ -125,7 +125,7 @@ workflow FUNCSCAN {
     */
 
     // Some tools require annotated FASTAs
-    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.amp_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
+    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.amp_skip_hmmsearch || !params.bgc_skip_antismash || (!params.bgc_skip_deepbgc && params.run_annotation_tool == "prokka") ) ) ) {
 
         if ( params.run_annotation_tool == "prodigal") {
             PRODIGAL ( ch_prepped_input, "gff" )
@@ -133,12 +133,14 @@ workflow FUNCSCAN {
             ch_annotation_faa        = PRODIGAL.out.amino_acid_fasta
             ch_annotation_fna        = PRODIGAL.out.nucleotide_fasta
             ch_annotation_gff        = PRODIGAL.out.gene_annotations
+            ch_annotation_gtf        = Channel.empty()
         }   else if ( params.run_annotation_tool == "prokka") {
             PROKKA ( ch_prepped_input, [], [] )
             ch_versions              = ch_versions.mix(PROKKA.out.versions)
             ch_annotation_faa        = PROKKA.out.faa
             ch_annotation_fna        = PROKKA.out.fna
             ch_annotation_gff        = PROKKA.out.gff
+            ch_annotation_gtf        = PROKKA.out.gtf
         }
 
     } else {
@@ -146,6 +148,7 @@ workflow FUNCSCAN {
         ch_annotation_faa        = Channel.empty()
         ch_annotation_fna        = Channel.empty()
         ch_annotation_gff        = Channel.empty()
+        ch_annotation_gtf        = Channel.empty()
 
     }
 
@@ -181,7 +184,7 @@ workflow FUNCSCAN {
         BGCs
     */
     if ( params.run_bgc_screening ) {
-        BGC ( ch_prepped_input, ch_annotation_gff, ch_annotation_faa )
+        BGC ( ch_prepped_input, ch_annotation_gff, ch_annotation_faa, ch_annotation_gtf )
         ch_version = ch_versions.mix(BGC.out.versions)
     }
 

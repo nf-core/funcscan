@@ -6,7 +6,7 @@ The output of nf-core/funcscan provides reports of each of the functional groups
 
 - antibiotic resistance genes ([ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi))
 - antimicrobial peptides ([macrel](https://github.com/BigDataBiology/macrel), [amplify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org))
-- biosynthetic gene clusters ([antiSMASH](https://docs.antismash.secondarymetabolites.org), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org))
+- biosynthetic gene clusters ([antiSMASH](https://docs.antismash.secondarymetabolites.org), [deepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org))
 
 Additionally to summary reports, the output directories from all applied tools are provided. This includes the functional annotation output from [prokka](https://github.com/tseemann/prokka) or [prodigal](https://github.com/hyattpd/Prodigal) if the `--save_annotations` flag was set. Similarly, all downloaded databases are saved (i.e. from [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder) and/or [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master)) if the `--save_databases` flag was set.
 
@@ -70,6 +70,7 @@ results/
 |   └── rgi/
 ├── bgc/
 |   ├── antismash/
+    ├── deepbgc/
 |   ├── gecco/
 |   └── hmmsearch/
 ├── reports/
@@ -112,6 +113,7 @@ Antimicrobial Peptides (AMPs):
 Biosynthetic Gene Clusters (BGCs):
 
 - [antiSMASH](#antismash) – biosythetic gene cluster detection
+- [deepBGC](#deepbgc) - biosynthetic gene cluster detection
 - [GECCO](#gecco) – biosynthetic gene cluster detection
 - [hmmsearch](#hmmsearch) – biosynthetic gene cluster detection
 
@@ -372,6 +374,30 @@ The `*.ARG` output files contain the following fields:
 </details>
 
 [antiSMASH](https://docs.antismash.secondarymetabolites.org) (**anti**biotics & **S**econdary **M**etabolite **A**nalysis **Sh**ell) is a tool for rapid genome-wide identification, annotation and analysis of secondary metabolite biosynthesis gene clusters in bacterial and fungal genomes. It identifies biosynthetic loci covering the whole range of known secondary metabolite compound classes and aligns the identified regions at the gene cluster level to their nearest relatives from a database containing all other known gene clusters. It integrates or cross-links all previously available secondary-metabolite specific gene analysis methods in one interactive view.
+
+### deepBGC
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `deepbgc/`
+  - `db/`: contains database modules in subfolders `classifier/`and `detector/`.
+  - `README.txt`: Summary of output files generated
+  - `LOG.txt`: Log output of DeepBGC
+  - `*.antismash.json`: AntiSMASH JSON file for sideloading.
+  - `*.bgc.gbk`: Sequences and features of all detected BGCs in GenBank format
+  - `*.bgc.tsv`: Table of detected BGCs and their properties
+  - `*.full.gbk`: Fully annotated input sequence with proteins, Pfam domains (PFAM_domain features) and BGCs (cluster features)
+  - `*.pfam.tsv`: Table of Pfam domains (pfam_id) from given sequence (sequence_id) in genomic order, with BGC detection scores
+  - `evaluation/`
+    - `*.bgc.png`: Detected BGCs plotted by their nucleotide coordinates
+    - `*.pr.png`: Precision-Recall curve based on predicted per-Pfam BGC scores
+    - `*.roc.png`: ROC curve based on predicted per-Pfam BGC scores
+    - `*.score.png`: BGC detection scores of each Pfam domain in genomic order
+
+</details>
+
+[deepBGC](https://github.com/Merck/deepbgc) detects BGCs in bacterial and fungal genomes using deep learning. DeepBGC employs a Bidirectional Long Short-Term Memory Recurrent Neural Network and a word2vec-like vector embedding of Pfam protein domains. Product class and activity of detected BGCs is predicted using a Random Forest classifier.
 
 ### GECCO
 
