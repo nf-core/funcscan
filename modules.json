@@ -15,7 +15,7 @@
                 },
                 "amplify/predict": {
                     "branch": "master",
-                    "git_sha": "233fa70811a03a4cecb2ece483b5c8396e2cee1d"
+                    "git_sha": "6c45773c0b7f4bdaa8c9716091b0e721a5ae96f3"
                 },
                 "amrfinderplus/run": {
                     "branch": "master",
@@ -23,7 +23,7 @@
                 },
                 "amrfinderplus/update": {
                     "branch": "master",
-                    "git_sha": "8002e373b5469b96985bf6f5c89e35f2454041b5"
+                    "git_sha": "f0800157544a82ae222931764483331a81812012"
                 },
                 "antismash/antismashlite": {
                     "branch": "master",
@@ -35,7 +35,7 @@
                 },
                 "custom/dumpsoftwareversions": {
                     "branch": "master",
-                    "git_sha": "5e7b1ef9a5a2d9258635bcbf70fcf37dacd1b247"
+                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
                 },
                 "deeparg/downloaddata": {
                     "branch": "master",
@@ -47,7 +47,7 @@
                 },
                 "fargene": {
                     "branch": "master",
-                    "git_sha": "233fa70811a03a4cecb2ece483b5c8396e2cee1d"
+                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
                 },
                 "gecco/run": {
                     "branch": "master",
@@ -55,7 +55,7 @@
                 },
                 "gunzip": {
                     "branch": "master",
-                    "git_sha": "fa37e0662690c4ec4260dae282fbce08777503e6"
+                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
                 },
                 "hamronization/abricate": {
                     "branch": "master",
@@ -87,7 +87,7 @@
                 },
                 "multiqc": {
                     "branch": "master",
-                    "git_sha": "5138acca0985ca01c38a1c4fba917d83772b1106"
+                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
                 },
                 "prodigal": {
                     "branch": "master",
