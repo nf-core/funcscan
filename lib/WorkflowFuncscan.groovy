@@ -41,9 +41,7 @@ class WorkflowFuncscan {
         yaml_file_text        += "data: |\n"
         yaml_file_text        += "${summary_section}"
         return yaml_file_text
-    }
-
-    //
+    }//
     // Exit pipeline if incorrect --genome key provided
     //
     private static void genomeExistsError(params, log) {
