@@ -46,11 +46,11 @@
                     "branch": "master"
                 },
                 "deepbgc/download": {
-                    "git_sha": "eae945721d9ac32227b95350b0c6d39a00d8a14f"
+                    "git_sha": "eae945721d9ac32227b95350b0c6d39a00d8a14f",
                     "branch": "master"
                 },
                 "deepbgc/pipeline": {
-                    "git_sha": "eae945721d9ac32227b95350b0c6d39a00d8a14f"
+                    "git_sha": "eae945721d9ac32227b95350b0c6d39a00d8a14f",
                     "branch": "master"
                 },
                 "fargene": {
