@@ -3,80 +3,108 @@
     "homePage": "https://github.com/nf-core/funcscan",
     "repos": {
         "nf-core/modules": {
-            "abricate/run": {
-                "git_sha": "f0800157544a82ae222931764483331a81812012"
-            },
-            "ampir": {
-                "git_sha": "01d4a1fa3a0f6c87b02a50f450f5e85464eaa7e4"
-            },
-            "amplify/predict": {
-                "git_sha": "6c45773c0b7f4bdaa8c9716091b0e721a5ae96f3"
-            },
-            "amrfinderplus/run": {
-                "git_sha": "839bc6b1ad3220f3ab212aeb8c1c1174aea0c126"
-            },
-            "amrfinderplus/update": {
-                "git_sha": "f0800157544a82ae222931764483331a81812012"
-            },
-            "antismash/antismashlite": {
-                "git_sha": "b3acfc54f58f9232037dc4f4c18de7bf5c2842e4"
-            },
-            "antismash/antismashlitedownloaddatabases": {
-                "git_sha": "8db0b754c0422cb80d06f47986d660f8aaf02c89"
-            },
-            "custom/dumpsoftwareversions": {
-                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-            },
-            "deeparg/downloaddata": {
-                "git_sha": "15c7190e2271de7ff347940460a484f69e27a106"
-            },
-            "deeparg/predict": {
-                "git_sha": "15c7190e2271de7ff347940460a484f69e27a106"
-            },
-            "fargene": {
-                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-            },
-            "gecco/run": {
-                "git_sha": "5644df8d43b226281e21c3973940b31d1d6b9ce6"
-            },
-            "gunzip": {
-                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-            },
-            "hamronization/abricate": {
-                "git_sha": "7f7f6bc913af85decaeba35827cea7943bf1042e"
-            },
-            "hamronization/amrfinderplus": {
-                "git_sha": "1368164eb5c108c5d2078fb6d22b97f0a76ab9b0"
-            },
-            "hamronization/deeparg": {
-                "git_sha": "f0800157544a82ae222931764483331a81812012"
-            },
-            "hamronization/rgi": {
-                "git_sha": "057a889d3b277e1e1dc7544dd312ca7801bed8f5"
-            },
-            "hamronization/summarize": {
-                "git_sha": "f0800157544a82ae222931764483331a81812012"
-            },
-            "hmmer/hmmsearch": {
-                "git_sha": "f0800157544a82ae222931764483331a81812012"
-            },
-            "macrel/contigs": {
-                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-            },
-            "multiqc": {
-                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-            },
-            "prodigal": {
-                "git_sha": "fcb1dce7b6f1563bdcdb70fdbe235cc2f9fed62e"
-            },
-            "prokka": {
-                "git_sha": "92c420e7d00090c29f9c2f5123bae0c3bb54947d"
-            },
-            "rgi/main": {
-                "git_sha": "f91abed951da2b22746d3d07b103bd9775ca6ca0"
-            },
-            "untar": {
-                "git_sha": "51be617b1ca9bff973655eb899d591ed6ab253b5"
+            "git_url": "https://github.com/nf-core/modules.git",
+            "modules": {
+                "abricate/run": {
+                    "git_sha": "f0800157544a82ae222931764483331a81812012",
+                    "branch": "master"
+                },
+                "ampir": {
+                    "git_sha": "01d4a1fa3a0f6c87b02a50f450f5e85464eaa7e4",
+                    "branch": "master"
+                },
+                "amplify/predict": {
+                    "git_sha": "6c45773c0b7f4bdaa8c9716091b0e721a5ae96f3",
+                    "branch": "master"
+                },
+                "amrfinderplus/run": {
+                    "git_sha": "839bc6b1ad3220f3ab212aeb8c1c1174aea0c126",
+                    "branch": "master"
+                },
+                "amrfinderplus/update": {
+                    "git_sha": "f0800157544a82ae222931764483331a81812012",
+                    "branch": "master"
+                },
+                "antismash/antismashlite": {
+                    "git_sha": "b3acfc54f58f9232037dc4f4c18de7bf5c2842e4",
+                    "branch": "master"
+                },
+                "antismash/antismashlitedownloaddatabases": {
+                    "git_sha": "8db0b754c0422cb80d06f47986d660f8aaf02c89",
+                    "branch": "master"
+                },
+                "custom/dumpsoftwareversions": {
+                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d",
+                    "branch": "master"
+                },
+                "deeparg/downloaddata": {
+                    "git_sha": "15c7190e2271de7ff347940460a484f69e27a106",
+                    "branch": "master"
+                },
+                "deeparg/predict": {
+                    "git_sha": "15c7190e2271de7ff347940460a484f69e27a106",
+                    "branch": "master"
+                },
+                "fargene": {
+                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d",
+                    "branch": "master"
+                },
+                "gecco/run": {
+                    "git_sha": "5644df8d43b226281e21c3973940b31d1d6b9ce6",
+                    "branch": "master"
+                },
+                "gunzip": {
+                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d",
+                    "branch": "master"
+                },
+                "hamronization/abricate": {
+                    "git_sha": "7f7f6bc913af85decaeba35827cea7943bf1042e",
+                    "branch": "master"
+                },
+                "hamronization/amrfinderplus": {
+                    "git_sha": "1368164eb5c108c5d2078fb6d22b97f0a76ab9b0",
+                    "branch": "master"
+                },
+                "hamronization/deeparg": {
+                    "git_sha": "f0800157544a82ae222931764483331a81812012",
+                    "branch": "master"
+                },
+                "hamronization/rgi": {
+                    "git_sha": "057a889d3b277e1e1dc7544dd312ca7801bed8f5",
+                    "branch": "master"
+                },
+                "hamronization/summarize": {
+                    "git_sha": "f0800157544a82ae222931764483331a81812012",
+                    "branch": "master"
+                },
+                "hmmer/hmmsearch": {
+                    "git_sha": "f0800157544a82ae222931764483331a81812012",
+                    "branch": "master"
+                },
+                "macrel/contigs": {
+                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d",
+                    "branch": "master"
+                },
+                "multiqc": {
+                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d",
+                    "branch": "master"
+                },
+                "prodigal": {
+                    "git_sha": "fcb1dce7b6f1563bdcdb70fdbe235cc2f9fed62e",
+                    "branch": "master"
+                },
+                "prokka": {
+                    "git_sha": "92c420e7d00090c29f9c2f5123bae0c3bb54947d",
+                    "branch": "master"
+                },
+                "rgi/main": {
+                    "git_sha": "f91abed951da2b22746d3d07b103bd9775ca6ca0",
+                    "branch": "master"
+                },
+                "untar": {
+                    "git_sha": "51be617b1ca9bff973655eb899d591ed6ab253b5",
+                    "branch": "master"
+                }
             }
         }
     }
