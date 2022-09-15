@@ -133,14 +133,12 @@ workflow FUNCSCAN {
             ch_annotation_faa        = PRODIGAL.out.amino_acid_fasta
             ch_annotation_fna        = PRODIGAL.out.nucleotide_fasta
             ch_annotation_gff        = PRODIGAL.out.gene_annotations
-            ch_annotation_gbk        = Channel.empty()
         }   else if ( params.run_annotation_tool == "prokka") {
             PROKKA ( ch_prepped_input, [], [] )
             ch_versions              = ch_versions.mix(PROKKA.out.versions)
             ch_annotation_faa        = PROKKA.out.faa
             ch_annotation_fna        = PROKKA.out.fna
             ch_annotation_gff        = PROKKA.out.gff
-            ch_annotation_gbk        = PROKKA.out.gbk
         }
 
     } else {
@@ -148,7 +146,6 @@ workflow FUNCSCAN {
         ch_annotation_faa        = Channel.empty()
         ch_annotation_fna        = Channel.empty()
         ch_annotation_gff        = Channel.empty()
-        ch_annotation_gbk        = Channel.empty()
 
     }
 

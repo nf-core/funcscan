@@ -381,10 +381,9 @@ The `*.ARG` output files contain the following fields:
 <summary>Output files</summary>
 
 - `deepbgc/`
-  - `db/`: contains database modules in subfolders `classifier/`and `detector/`.
   - `README.txt`: Summary of output files generated
   - `LOG.txt`: Log output of DeepBGC
-  - `*.antismash.json`: AntiSMASH JSON file for sideloading.
+  - `*.antismash.json`: AntiSMASH JSON file for sideloading
   - `*.bgc.gbk`: Sequences and features of all detected BGCs in GenBank format
   - `*.bgc.tsv`: Table of detected BGCs and their properties
   - `*.full.gbk`: Fully annotated input sequence with proteins, Pfam domains (PFAM_domain features) and BGCs (cluster features)
