@@ -36,7 +36,7 @@
 
 - [DeepBGC](https://doi.org/10.1093/nar/gkz654)
 
-  > Hannigan, Geoffrey D, David Prihoda, Andrej Palicka, Jindrich Soukup, Ondrej Klempir, Lena Rampula, Jindrich Durcak, Michael Wurst, Jakub Kotowski, Dan Chang, Rurun Wang, Grazia Piizzi, Gergely Temesi, Daria J Hazuda, Christopher H Woelk, Danny A Bitton, A deep learning genome-mining strategy for biosynthetic gene cluster prediction, Nucleic Acids Research, Volume 47, Issue 18, 10 October 2019, Page e110
+  > Geoffrey D Hannigan, David Prihoda, Andrej Palicka, Jindrich Soukup, Ondrej Klempir, Lena Rampula, Jindrich Durcak, Michael Wurst, Jakub Kotowski, Dan Chang, Rurun Wang, Grazia Piizzi, Gergely Temesi, Daria J Hazuda, Christopher H Woelk, Danny A Bitton. 2019. "A deep learning genome-mining strategy for biosynthetic gene cluster prediction". Nucleic Acids Research 47 (18): e110.
 
 - [fARGene](https://doi.org/10.1186/s40168-019-0670-1)
 
