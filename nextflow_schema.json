@@ -355,7 +355,7 @@
                 "arg_abricate_db": {
                     "type": "string",
                     "default": "card",
-                    "fa_icon": "fab fa-deezer",
+                    "fa_icon": "fas fa-layer-group",
                     "description": "Specify which of the provided public databases to use",
                     "enum": [
                         "argannot",
@@ -385,7 +385,7 @@
                 "bgc_antismash_databases": {
                     "type": "string",
                     "description": "Path to user-defined local antiSMASH database",
-                    "fa_icon": "fab fa-deezer",
+                    "fa_icon": "fas fa-layer-group",
                     "default": "None"
                 },
                 "bgc_antismash_installationdirectory": {
@@ -396,6 +396,25 @@
                 }
             },
             "fa_icon": "fas fa-tools"
+        },
+        "bgc_deepbgc": {
+            "title": "BGC: deepBGC",
+            "type": "object",
+            "description": "A deep learning genome-mining strategy for biosynthetic gene cluster prediction",
+            "default": "",
+            "properties": {
+                "bgc_skip_deepbgc": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-ban",
+                    "description": "Skip deepBGC during the BGC screening"
+                },
+                "bgc_deepbgc_database": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fas fa-layer-group",
+                    "description": "Path to local deepBGC database folder"
+                }
+            }
         },
         "bgc_gecco": {
             "title": "BGC: gecco",
@@ -717,6 +736,9 @@
         },
         {
             "$ref": "#/definitions/bgc_antismash"
+        },
+        {
+            "$ref": "#/definitions/bgc_deepbgc"
         },
         {
             "$ref": "#/definitions/bgc_gecco"

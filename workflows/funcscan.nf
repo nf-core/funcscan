@@ -181,7 +181,7 @@ workflow FUNCSCAN {
         BGCs
     */
     if ( params.run_bgc_screening ) {
-        BGC ( ch_prepped_input, ch_annotation_gff, ch_annotation_faa )
+        BGC ( ch_prepped_input, ch_annotation_gff, ch_annotation_faa)
         ch_version = ch_versions.mix(BGC.out.versions)
     }
 

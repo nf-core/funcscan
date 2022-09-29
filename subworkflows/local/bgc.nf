@@ -9,6 +9,8 @@ include { ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES } from '../../modules/nf-core
 include { ANTISMASH_ANTISMASHLITE                  } from '../../modules/nf-core/modules/antismash/antismashlite/main'
 include { GECCO_RUN                                } from '../../modules/nf-core/modules/gecco/run/main'
 include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH   } from '../../modules/nf-core/modules/hmmer/hmmsearch/main'
+include { DEEPBGC_DOWNLOAD                         } from '../../modules/nf-core/modules/deepbgc/download/main'
+include { DEEPBGC_PIPELINE                         } from '../../modules/nf-core/modules/deepbgc/pipeline/main'
 
 workflow BGC {
 
@@ -66,6 +68,24 @@ workflow BGC {
 
         ANTISMASH_ANTISMASHLITE ( ch_antismash_input.fna, ch_antismash_databases, ch_antismash_directory, ch_antismash_input.gff )
         ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITE.out.versions)
+    }
+
+    // DEEPBGC
+    if ( !params.bgc_skip_deepbgc ){
+        if ( params.bgc_deepbgc_database ) {
+
+            ch_deepbgc_database = Channel
+                .fromPath( params.bgc_deepbgc_database )
+                .first()
+        } else {
+            DEEPBGC_DOWNLOAD()
+            ch_deepbgc_database = DEEPBGC_DOWNLOAD.out.db
+        }
+
+    ch_deepbgc_input = fna
+
+    DEEPBGC_PIPELINE ( ch_deepbgc_input, ch_deepbgc_database)
+    ch_versions = ch_versions.mix(DEEPBGC_PIPELINE.out.versions)
     }
 
     // GECCO
