@@ -84,6 +84,11 @@
                     "type": "boolean",
                     "description": "Specify whether to save gene annotations (from either prokka or prodigal) in the --outdir",
                     "fa_icon": "fas fa-save"
+                },
+                "annotation_prodigal_singlemode": {
+                    "type": "boolean",
+                    "description": "Specify whether to use Prodigal's single-genome mode for long sequences",
+                    "help_text": "By default Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or more than be 20000 characters.\n\nHowever, more fragmented contigs from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter will allow you to override this and run in single genome mode again.\n\n> Modifies Prodigal parameter: `-p`"
                 }
             },
             "fa_icon": "fas fa-file-signature"
