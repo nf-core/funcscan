@@ -9,10 +9,11 @@ include { FARGENE                     }  from '../../modules/nf-core/modules/far
 include { DEEPARG_DOWNLOADDATA        }  from '../../modules/nf-core/modules/deeparg/downloaddata/main'
 include { DEEPARG_PREDICT             }  from '../../modules/nf-core/modules/deeparg/predict/main'
 include { RGI_MAIN                    }  from '../../modules/nf-core/modules/rgi/main/main'
-include { HAMRONIZATION_ABRICATE }  from '../../modules/nf-core/modules/hamronization/abricate/main'
+include { HAMRONIZATION_ABRICATE      }  from '../../modules/nf-core/modules/hamronization/abricate/main'
 include { HAMRONIZATION_RGI           }  from '../../modules/nf-core/modules/hamronization/rgi/main'
 include { HAMRONIZATION_DEEPARG       }  from '../../modules/nf-core/modules/hamronization/deeparg/main'
 include { HAMRONIZATION_AMRFINDERPLUS }  from '../../modules/nf-core/modules/hamronization/amrfinderplus/main'
+include { HAMRONIZATION_FARGENE       }  from '../../modules/nf-core/modules/hamronization/fargene/main'
 include { HAMRONIZATION_SUMMARIZE     }  from '../../modules/nf-core/modules/hamronization/summarize/main'
 
 workflow ARG {
@@ -46,7 +47,6 @@ workflow ARG {
         HAMRONIZATION_AMRFINDERPLUS ( AMRFINDERPLUS_RUN.out.report, 'json', AMRFINDERPLUS_RUN.out.tool_version, AMRFINDERPLUS_RUN.out.db_version )
         ch_versions = ch_versions.mix(HAMRONIZATION_AMRFINDERPLUS.out.versions)
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_AMRFINDERPLUS.out.json)
-
     }
 
     // fARGene run
@@ -55,16 +55,13 @@ workflow ARG {
         ch_fargene_classes = Channel.fromList( params.arg_fargene_hmmmodel.tokenize(',') )
 
         ch_fargene_input = contigs
-                            .dump(tag: "fargene_contigs_raw")
                             .combine(ch_fargene_classes)
-                            .dump(tag: "fargene_contigs_hmmclass")
                             .map {
                                 meta, contigs, hmm_class ->
                                     def meta_new = meta.clone()
                                     meta_new['hmm_class'] = hmm_class
                                 [ meta_new, contigs, hmm_class ]
                             }
-                            .dump(tag: "fargene_updated_meta")
                             .multiMap {
                                 contigs: [ it[0], it[1] ]
                                 hmmclass: it[2]
@@ -73,6 +70,11 @@ workflow ARG {
         FARGENE ( ch_fargene_input.contigs, ch_fargene_input.hmmclass )
         ch_versions = ch_versions.mix(FARGENE.out.versions)
 
+        // Reporting
+        // Note: currently hardcoding versions, has to be updated with every fARGene-update
+        HAMRONIZATION_FARGENE ( FARGENE.out.hmm.transpose(by: 1), 'json', '0.1', '0.1' )
+        ch_versions = ch_versions.mix(HAMRONIZATION_FARGENE.out.versions)
+        ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_FARGENE.out.json)
     }
 
     // RGI run
@@ -82,11 +84,9 @@ workflow ARG {
         ch_versions = ch_versions.mix(RGI_MAIN.out.versions)
 
     // Reporting
-    // Note: currently hardcoding versions, has to be updated with every RGI-Container-update
         HAMRONIZATION_RGI ( RGI_MAIN.out.tsv, 'json', RGI_MAIN.out.tool_version, RGI_MAIN.out.db_version )
         ch_versions = ch_versions.mix(HAMRONIZATION_RGI.out.versions)
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_RGI.out.json)
-
     }
 
     // DeepARG prepare download
