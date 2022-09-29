@@ -22,7 +22,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 ## Pipeline summary
 
-<!-- TODO nf-core: Mention aggregation tooks: hAMRonization/comBGC,AMPcombi -->
+<!-- TODO nf-core: Mention aggregation tools: hAMRonization/comBGC,AMPcombi -->
 
 1. Annotates prokaryotic input assembled contigs ([`Prodigal`](https://github.com/hyattpd/Prodigal) or [`PROKKA`](https://github.com/tseemann/prokka))
 2. Screens contigs for antimicrobial peptide-like sequences with: [ampir](https://cran.r-project.org/web/packages/ampir/index.html), [Macrel](https://github.com/BigDataBiology/macrel), [HMMER](http://hmmer.org/), [AMPlify](https://github.com/bcgsc/AMPlify)
