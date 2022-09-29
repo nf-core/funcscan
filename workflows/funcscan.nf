@@ -199,10 +199,10 @@ workflow FUNCSCAN {
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
 
     MULTIQC (
-        ch_multiqc_files.collect().dump(tag: "mqc_files"),
+        ch_multiqc_files.collect(),
         ch_multiqc_config,
         ch_multiqc_custom_config.ifEmpty([]),
-        ch_funcscan_logo.dump(tag: "mqc_logo")
+        ch_funcscan_logo
     )
     multiqc_report = MULTIQC.out.report.toList()
     ch_versions    = ch_versions.mix(MULTIQC.out.versions)

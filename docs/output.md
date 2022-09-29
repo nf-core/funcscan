@@ -341,7 +341,7 @@ The `*.ARG` output files contain the following fields:
 
 </details>
 
-[hAMRonization](https://github.com/pha4ge/hAMRonization) summarizes the outputs of the **antimicrobial resistance gene** detection tools (ABRicate, AMRFinderPlus, DeepARG, fARGene RGI) into a single unified format. It supports a variety of summary options including an interactive summary.
+[hAMRonization](https://github.com/pha4ge/hAMRonization) summarizes the outputs of the **antimicrobial resistance gene** detection tools (ABRicate, AMRFinderPlus, DeepARG, fARGene, RGI) into a single unified format. It supports a variety of summary options including an interactive summary.
 
 ### RGI
 
