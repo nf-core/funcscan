@@ -72,7 +72,7 @@ workflow ARG {
 
         // Reporting
         // Note: currently hardcoding versions, has to be updated with every fARGene-update
-        HAMRONIZATION_FARGENE ( FARGENE.out.hmm.transpose(by: 1), 'json', '0.1', '0.1' )
+        HAMRONIZATION_FARGENE ( FARGENE.out.hmm.dump(tag: "fargene_pretranspose").transpose().dump(tag: "fargene_posttranspose"), 'json', '0.1', '0.1' )
         ch_versions = ch_versions.mix(HAMRONIZATION_FARGENE.out.versions)
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_FARGENE.out.json)
     }
