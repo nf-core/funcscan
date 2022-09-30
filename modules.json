@@ -46,12 +46,12 @@
                     "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb"
                 },
                 "deepbgc/download": {
-                    "git_sha": "eae945721d9ac32227b95350b0c6d39a00d8a14f",
-                    "branch": "master"
+                    "branch": "master",
+                    "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb"
                 },
                 "deepbgc/pipeline": {
-                    "git_sha": "eae945721d9ac32227b95350b0c6d39a00d8a14f",
-                    "branch": "master"
+                    "branch": "master",
+                    "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb"
                 },
                 "fargene": {
                     "branch": "master",
