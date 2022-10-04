@@ -4,7 +4,8 @@
     nf-core/funcscan
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Github : https://github.com/nf-core/funcscan
-Website: https://nf-co.re/funcscan
+
+    Website: https://nf-co.re/funcscan
     Slack  : https://nfcore.slack.com/channels/funcscan
 ----------------------------------------------------------------------------------------
 */
