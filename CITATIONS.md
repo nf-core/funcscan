@@ -2,71 +2,73 @@
 
 ## [nf-core](https://pubmed.ncbi.nlm.nih.gov/32055031/)
 
-> Ewels PA, Peltzer A, Fillinger S, Patel H, Alneberg J, Wilm A, Garcia MU, Di Tommaso P, Nahnsen S. The nf-core framework for community-curated bioinformatics pipelines. Nat Biotechnol. 2020 Mar;38(3):276-278. doi: 10.1038/s41587-020-0439-x. PubMed PMID: 32055031.
+> Ewels, P. A., Peltzer, A., Fillinger, S., Patel, H., Alneberg, J., Wilm, A., Garcia, M. U., Di Tommaso, P., & Nahnsen, S. (2020). The nf-core framework for community-curated bioinformatics pipelines. Nature biotechnology, 38(3), 276–278. [DOI](https://doi.org/10.1038/s41587-020-0439-x)
 
 ## [Nextflow](https://pubmed.ncbi.nlm.nih.gov/28398311/)
 
-> Di Tommaso P, Chatzou M, Floden EW, Barja PP, Palumbo E, Notredame C. Nextflow enables reproducible computational workflows. Nat Biotechnol. 2017 Apr 11;35(4):316-319. doi: 10.1038/nbt.3820. PubMed PMID: 28398311.
+> Di Tommaso, P., Chatzou, M., Floden, E. W., Barja, P. P., Palumbo, E., & Notredame, C. (2017). Nextflow enables reproducible computational workflows. Nature biotechnology, 35(4), 316–319. [DOI](https://doi.org/10.1038/nbt.3820)
 
 ## Pipeline tools
 
 - [ABRicate](https://github.com/tseemann/abricate)
 
-  > Seemann T. 2020. "ABRicate". Github https://github.com/tseemann/abricate.
+  > Seemann T. 2020. "ABRicate". Github [https://github.com/tseemann/abricate].
 
 - [AMPir](https://doi.org/10.1093/bioinformatics/btaa653)
 
-  > Fingerhut, Legana C. H. W., David J. Miller, Jan M. Strugnell, Norelle L. Daly, and Ira R. Cooke. 2021. “Ampir: An R Package for Fast Genome-Wide Prediction of Antimicrobial Peptides.” Bioinformatics 36 (21): 5262-63.
+  > Fingerhut, L., Miller, D. J., Strugnell, J. M., Daly, N. L., & Cooke, I. R. (2021). ampir: an R package for fast genome-wide prediction of antimicrobial peptides. Bioinformatics (Oxford, England), 36(21), 5262–5263. [DOI](https://doi.org/10.1093/bioinformatics/btaa653)
 
 - [AMPlify](https://doi.org/10.1186/s12864-022-08310-4)
 
-  > Chenkai Li, Darcy Sutherland, S. Austin Hammond, Chen Yang, Figali Taho, Lauren Bergman, Simon Houston, René L. Warren, Titus Wong, Linda M. N. Hoang, Caroline E. Cameron, Caren C. Helbing & Inanc Birol. 2022. "AMPlify: attentive deep learning model for discovery of novel antimicrobial peptides effective against WHO priority pathogens". BMC Genomics 23, 77.
+  > CLi, C., Sutherland, D., Hammond, S. A., Yang, C., Taho, F., Bergman, L., Houston, S., Warren, R. L., Wong, T., Hoang, L., Cameron, C. E., Helbing, C. C., & Birol, I. (2022). AMPlify: attentive deep learning model for discovery of novel antimicrobial peptides effective against WHO priority pathogens. BMC genomics, 23(1), 77. [DOI](https://doi.org/10.1186/s12864-022-08310-4)
 
 - [AMRFinderPlus](https://doi.org/10.1038/s41598-021-91456-0)
 
-  > Feldgarden, Michael, Vyacheslav Brover, Narjol Gonzalez-Escalona, Jonathan G. Frye, Julie Haendiges, Daniel H. Haft , Maria Hoffmann, James B. Pettengill, Arjun B. Prasad, Glenn E. Tillman, Gregory H. Tyson, William Klimke. 2021. AMRFinderPlus and the Reference Gene Catalog facilitate examination of the genomic links among antimicrobial resistance, stress response, and virulence. Sci Rep. 11(1): 12728.
+  > Feldgarden, M., Brover, V., Gonzalez-Escalona, N., Frye, J. G., Haendiges, J., Haft, D. H., Hoffmann, M., Pettengill, J. B., Prasad, A. B., Tillman, G. E., Tyson, G. H., & Klimke, W. (2021). AMRFinderPlus and the Reference Gene Catalog facilitate examination of the genomic links among antimicrobial resistance, stress response, and virulence. Scientific reports, 11(1), 12728. [DOI](https://doi.org/10.1038/s41598-021-91456-0)
 
 - [AntiSMASH](https://doi.org/10.1093/nar/gkab335)
 
-  > Kai Blin, Simon Shaw, Alexander M Kloosterman, Zach Charlop-Powers, Gilles P van Wezel, Marnix H Medema, Tilmann Weber, antiSMASH 6.0: improving cluster detection and comparison capabilities, Nucleic Acids Research, Volume 49, Issue W1, 2 July 2021, Pages W29–W35.
+  > Blin, K., Shaw, S., Kloosterman, A. M., Charlop-Powers, Z., van Wezel, G. P., Medema, M. H., & Weber, T. (2021). antiSMASH 6.0: improving cluster detection and comparison capabilities. Nucleic acids research, 49(W1), W29–W35. [DOI](https://doi.org/10.1093/nar/gkab335)
 
 - [DeepARG](https://doi.org/10.1186/s40168-018-0401-z)
 
-  > Arango-Argoty, Gustavo, Emily Garner, Amy Pruden, Lenwood S. Heath, Peter Vikesland, and Liqing Zhang. 2018. "DeepARG: A Deep Learning Approach for Predicting Antibiotic Resistance Genes from Metagenomic Data." Microbiome 6 (1): 23.
+  > Arango-Argoty, G., Garner, E., Pruden, A., Heath, L. S., Vikesland, P., & Zhang, L. (2018). DeepARG: a deep learning approach for predicting antibiotic resistance genes from metagenomic data. Microbiome, 6(1), 23. [DOI](https://doi.org/10.1186/s40168-018-0401-z)
 
 - [DeepBGC](https://doi.org/10.1093/nar/gkz654)
 
-  > Geoffrey D Hannigan, David Prihoda, Andrej Palicka, Jindrich Soukup, Ondrej Klempir, Lena Rampula, Jindrich Durcak, Michael Wurst, Jakub Kotowski, Dan Chang, Rurun Wang, Grazia Piizzi, Gergely Temesi, Daria J Hazuda, Christopher H Woelk, Danny A Bitton. 2019. "A deep learning genome-mining strategy for biosynthetic gene cluster prediction". Nucleic Acids Research 47 (18): e110.
+  > Hannigan, G. D., Prihoda, D., Palicka, A., Soukup, J., Klempir, O., Rampula, L., Durcak, J., Wurst, M., Kotowski, J., Chang, D., Wang, R., Piizzi, G., Temesi, G., Hazuda, D. J., Woelk, C. H., & Bitton, D. A. (2019). A deep learning genome-mining strategy for biosynthetic gene cluster prediction. Nucleic acids research, 47(18), e110. [DOI](https://doi.org/10.1093/nar/gkz654)
 
 - [fARGene](https://doi.org/10.1186/s40168-019-0670-1)
 
-  > Berglund, Fanny, Tobias Österlund, Fredrik Boulund, Nachiket P. Marathe, D. G. Joakim Larsson, and Erik Kristiansson. 2019. "Identification and Reconstruction of Novel Antibiotic Resistance Genes from Metagenomes." Microbiome 7 (1): 52.
+  > Berglund, F., Österlund, T., Boulund, F., Marathe, N. P., Larsson, D., & Kristiansson, E. (2019). Identification and reconstruction of novel antibiotic resistance genes from metagenomes. Microbiome, 7(1), 52. [DOI](https://doi.org/10.1186/s40168-019-0670-1)
 
 - [GECCO](https://gecco.embl.de)
 
-  > Carroll, Laura M , Martin Larralde, Jonas Simon Fleck, Ruby Ponnudurai, Alessio Milanese, Elisa Cappio Barazzone, and Georg Zeller. 2021. "Accurate de novo identification of biosynthetic gene clusters with GECCO." bioRxiv 2021.05.03.442509.
+  > Carroll, L.M. , Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. [bioRxiv]( https://doi.org/10.1101/2021.05.03.442509)
 
 - [hAMRonization](https://github.com/pha4ge/hAMRonization)
 
+  > Parse multiple Antimicrobial Resistance Analysis Reports into a common data structure. (n.d.). Github. Retrieved October 5, 2022, from [https://github.com/pha4ge/hAMRonization]
+
 - [HMMER](https://doi.org/10.1371/journal.pcbi.1002195.)
 
-  > Eddy, Sean R. 2011. “Accelerated Profile HMM Searches.” PLoS Computational Biology 7 (10): e1002195.
+  > Eddy S. R. (2011). Accelerated Profile HMM Searches. PLoS computational biology, 7(10), e1002195. [DOI](https://doi.org/10.1371/journal.pcbi.1002195)
 
 - [Macrel](https://doi.org/10.7717/peerj.10555)
 
-  > Santos-Júnior CD, Pan S, Zhao X, Coelho LP. 2020. "Macrel: antimicrobial peptide screening in genomes and metagenomes." PeerJ 8:e10555.
+  > Santos-Júnior, C. D., Pan, S., Zhao, X. M., & Coelho, L. P. (2020). Macrel: antimicrobial peptide screening in genomes and metagenomes. PeerJ, 8, e10555. [DOI](https://doi.org/10.7717/peerj.10555)
 
 - [Prodigal](https://doi.org/10.1186/1471-2105-11-119)
 
-  > Hyatt, D., Chen, GL., LoCascio, P.F. et al. 2010. "Prodigal: prokaryotic gene recognition and translation initiation site identification". BMC Bioinformatics 11: 119.
+  > Hyatt, D., Chen, G. L., Locascio, P. F., Land, M. L., Larimer, F. W., & Hauser, L. J. (2010). Prodigal: prokaryotic gene recognition and translation initiation site identification. BMC bioinformatics, 11, 119. [DOI](https://doi.org/10.1186/1471-2105-11-119)
 
 - [PROKKA](https://doi.org/10.1093/bioinformatics/btu153)
 
-  > Seemann, Torsten. 2014. "Prokka: Rapid Prokaryotic Genome Annotation." Bioinformatics 30 (14): 2068-69.
+  > Seemann T. (2014). Prokka: rapid prokaryotic genome annotation. Bioinformatics (Oxford, England), 30(14), 2068–2069. [DOI](https://doi.org/10.1093/bioinformatics/btu153)
 
 - [RGI](https://doi.org/10.1093/nar/gkz935)
 
-  > Alcock BP, Raphenya AR, Lau TTY, Tsang KK, Bouchard M, Edalatmand A, Huynh W, Nguyen AV, Cheng AA, Liu S, Min SY, Miroshnichenko A, Tran HK, Werfalli RE, Nasir JA, Oloni M, Speicher DJ, Florescu A, Singh B, Faltyn M, Hernandez-Koutoucheva A, Sharma AN, Bordeleau E, Pawlowski AC, Zubyk HL, Dooley D, Griffiths E, Maguire F, Winsor GL, Beiko RG, Brinkman FSL, Hsiao WWL, Domselaar GV, McArthur AG. 2020. "CARD 2020: antibiotic resistome surveillance with the comprehensive antibiotic resistance database." Nucleic Acids Res. 48(D1):D517-D525.
+  > Alcock, B. P., Raphenya, A. R., Lau, T., Tsang, K. K., Bouchard, M., Edalatmand, A., Huynh, W., Nguyen, A. V., Cheng, A. A., Liu, S., Min, S. Y., Miroshnichenko, A., Tran, H. K., Werfalli, R. E., Nasir, J. A., Oloni, M., Speicher, D. J., Florescu, A., Singh, B., Faltyn, M., … McArthur, A. G. (2020). CARD 2020: antibiotic resistome surveillance with the comprehensive antibiotic resistance database. Nucleic acids research, 48(D1), D517–D525. [DOI](https://doi.org/10.1093/nar/gkz935)
 
 ## Software packaging/containerisation tools
 
@@ -76,13 +78,13 @@
 
 - [Bioconda](https://pubmed.ncbi.nlm.nih.gov/29967506/)
 
-  > Grüning B, Dale R, Sjödin A, Chapman BA, Rowe J, Tomkins-Tinch CH, Valieris R, Köster J; Bioconda Team. Bioconda: sustainable and comprehensive software distribution for the life sciences. Nat Methods. 2018 Jul;15(7):475-476. doi: 10.1038/s41592-018-0046-7. PubMed PMID: 29967506.
+  > Grüning, B., Dale, R., Sjödin, A., Chapman, B. A., Rowe, J., Tomkins-Tinch, C. H., Valieris, R., Köster, J., & Bioconda Team (2018). Bioconda: sustainable and comprehensive software distribution for the life sciences. Nature methods, 15(7), 475–476. [DOI](https://doi.org/10.1038/s41592-018-0046-7)
 
 - [BioContainers](https://pubmed.ncbi.nlm.nih.gov/28379341/)
 
-  > da Veiga Leprevost F, Grüning B, Aflitos SA, Röst HL, Uszkoreit J, Barsnes H, Vaudel M, Moreno P, Gatto L, Weber J, Bai M, Jimenez RC, Sachsenberg T, Pfeuffer J, Alvarez RV, Griss J, Nesvizhskii AI, Perez-Riverol Y. BioContainers: an open-source and community-driven framework for software standardization. Bioinformatics. 2017 Aug 15;33(16):2580-2582. doi: 10.1093/bioinformatics/btx192. PubMed PMID: 28379341; PubMed Central PMCID: PMC5870671.
+  > da Veiga Leprevost, F., Grüning, B. A., Alves Aflitos, S., Röst, H. L., Uszkoreit, J., Barsnes, H., Vaudel, M., Moreno, P., Gatto, L., Weber, J., Bai, M., Jimenez, R. C., Sachsenberg, T., Pfeuffer, J., Vera Alvarez, R., Griss, J., Nesvizhskii, A. I., & Perez-Riverol, Y. (2017). BioContainers: an open-source and community-driven framework for software standardization. Bioinformatics (Oxford, England), 33(16), 2580–2582. [DOI](https://doi.org/10.1093/bioinformatics/btx192)
 
 - [Docker](https://dl.acm.org/doi/10.5555/2600239.2600241)
 
 - [Singularity](https://pubmed.ncbi.nlm.nih.gov/28494014/)
-  > Kurtzer GM, Sochat V, Bauer MW. Singularity: Scientific containers for mobility of compute. PLoS One. 2017 May 11;12(5):e0177459. doi: 10.1371/journal.pone.0177459. eCollection 2017. PubMed PMID: 28494014; PubMed Central PMCID: PMC5426675.
+  > Kurtzer, G. M., Sochat, V., & Bauer, M. W. (2017). Singularity: Scientific containers for mobility of compute. PloS one, 12(5), e0177459. [DOI](https://doi.org/10.1371/journal.pone.0177459)
