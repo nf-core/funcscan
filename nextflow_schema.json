@@ -18,8 +18,8 @@
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
                     "schema": "assets/schema_input.json",
-                    "description": "Path to comma-separated file containing information about the samples in the experiment.",
-                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/funcscan/usage#samplesheet-input).",
+                    "description": "Path to comma-separated file containing information sample names and paths to corresponding FASTA files.",
+                    "help_text": "Before running the pipeline, you will need to create a design file with information about the samples to be scanned by `funcscan`, containing `sample name` and `path/to/your/contigs.fasta`. Use this parameter to specify its location. It has to be a comma-separated file with 2 columns, and a header row (`sample, fasta`). See [usage docs](https://nf-co.re/funcscan/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "outdir": {
@@ -40,7 +40,455 @@
                     "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
                     "fa_icon": "fas fa-file-signature"
                 }
+            },
+            "help_text": ""
+        },
+        "screening_type_activation": {
+            "title": "Screening Type Activation",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "run_amp_screening": {
+                    "type": "boolean",
+                    "description": "Activate antimicrobial peptide screening tools",
+                    "fa_icon": "fas fa-check-circle"
+                },
+                "run_arg_screening": {
+                    "type": "boolean",
+                    "description": "Activate antimicrobial resistance gene screening tools",
+                    "fa_icon": "fas fa-check-circle"
+                },
+                "run_bgc_screening": {
+                    "type": "boolean",
+                    "description": "Activate biosynthetic gene cluster screening tools",
+                    "fa_icon": "fas fa-check-circle"
+                }
+            },
+            "fa_icon": "fas fa-network-wired"
+        },
+        "annotation": {
+            "title": "Annotation",
+            "type": "object",
+            "description": "These options influence the generation of annotation files required for downstream steps in ARG, AMP and BGC workflows.",
+            "default": "",
+            "properties": {
+                "run_annotation_tool": {
+                    "type": "string",
+                    "default": "prodigal",
+                    "description": "Specify which annotation tool to run: either prodigal or prokka",
+                    "enum": ["prodigal", "prokka"],
+                    "fa_icon": "fas fa-edit"
+                },
+                "save_annotations": {
+                    "type": "boolean",
+                    "description": "Specify whether to save gene annotations (from either prokka or prodigal) in the --outdir",
+                    "fa_icon": "fas fa-save"
+                },
+                "annotation_prodigal_singlemode": {
+                    "type": "boolean",
+                    "description": "Specify whether to use Prodigal's single-genome mode for long sequences",
+                    "help_text": "By default Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or more than be 20000 characters.\n\nHowever, more fragmented contigs from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter will allow you to override this and run in single genome mode again.\n\n> Modifies Prodigal parameter: `-p`"
+                }
+            },
+            "fa_icon": "fas fa-file-signature"
+        },
+        "database_downloading_options": {
+            "title": "Database downloading options",
+            "type": "object",
+            "description": "Generic options for database downloading",
+            "default": "",
+            "properties": {
+                "save_databases": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Specify whether to save pipeline-downloaded databases in <outdir>/databases. This applies to databases used by deepARG, AMRfinderPlus and antiSMASH.",
+                    "help_text": "While nf-core/funcscan can download databases for you, often these are very large and can significantly slow-down pipeline runtime.\n\nSpecify `--save_databases` so pipeline-downloaded databases are saved in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.\n\nIf you do not specify these flags, the database files will remain in your `work/` directory and will be deleted if `cleanup = true` is specified in your config, or if you run `nextflow clean`.\n"
+                }
+            },
+            "fa_icon": "fas fa-database"
+        },
+        "amp_amplify": {
+            "title": "AMP: AMPlify",
+            "type": "object",
+            "description": "Antimicrobial Peptide detection using a deep learning model",
+            "default": "",
+            "properties": {
+                "amp_skip_amplify": {
+                    "type": "boolean",
+                    "description": "Skip AMPlify during AMP-screening",
+                    "fa_icon": "fas fa-ban"
+                }
+            },
+            "fa_icon": "fas fa-tools",
+            "help_text": "AMPlify is an attentive deep learning model for antimicrobial peptide prediction. It takes in annotated contigs (.faa) and classifies them as either AMP or non-AMP.\n\nDocumentation: https://github.com/bcgsc/AMPlify"
+        },
+        "amp_ampir": {
+            "title": "AMP: ampir",
+            "type": "object",
+            "description": "Antimicrobial Peptide detection using machine learning",
+            "default": "",
+            "properties": {
+                "amp_skip_ampir": {
+                    "type": "boolean",
+                    "description": "Skip AMPir during AMP-screening",
+                    "fa_icon": "fas fa-ban"
+                },
+                "amp_ampir_model": {
+                    "type": "string",
+                    "default": "precursor",
+                    "description": "Specify which machine learning classification model to use",
+                    "help_text": "AMPir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, \u201cprecursor\u201d and \u201cmature\u201d. The default model, \u201cprecursor\u201d is best suited for full length proteins and the \u201cmature\u201d model is best suited for small mature proteins (<60 amino acids). AMPpir also accepts custom (user trained) models based on the caret package.\n\n> Modifies AMPir parameter: `model =`",
+                    "enum": ["precursor", "mature"],
+                    "fa_icon": "fas fa-layer-group"
+                },
+                "amp_ampir_minlength": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Specify minimum protein length for prediction calculation",
+                    "help_text": "Filters result for minimum protein length.\nNote that amino acid sequences that are shorter than 10 amino acids long and/or contain anything other than the standard 20 amino acids are not evaluated and will contain an NA as their prob_AMP value\n\n> Modifies AMPir parameter: `min_length` in the `calculate_features()` function",
+                    "fa_icon": "fas fa-ruler-horizontal"
+                },
+                "amp_ampir_minprobability": {
+                    "type": "number",
+                    "default": 0.8,
+                    "description": "Specify predicted probability value to filter for",
+                    "help_text": "Filters results based on calculated probability stored in data frame columns `prob_AMP`.\nNote that amino acid sequences that are shorter than 10 amino acids long and/or contain anything other than the standard 20 amino acids are not evaluated and will contain an `NA` as their prob_AMP value.\n\n> Modifies AMPir parameter: `prob_AMP`",
+                    "fa_icon": "fas fa-dice"
+                }
+            },
+            "fa_icon": "fas fa-tools",
+            "help_text": "ampir (antimicrobial peptide prediction in r) is an r package designed to predict antimicrobial peptides (AMPs) from any given size protein dataset. ampir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, \u201cprecursor\u201d and \u201cmature\u201d that have been trained on publicly available antimicrobial peptide data.\n\nDocumentation: https://github.com/Legana/ampir"
+        },
+        "amp_hmmsearch": {
+            "title": "AMP: HMMSearch",
+            "type": "object",
+            "description": "Antimicrobial Peptide detection based on predefined HMM models",
+            "default": "",
+            "properties": {
+                "amp_skip_hmmsearch": {
+                    "type": "boolean",
+                    "description": "Skip HMMsearch during AMP-screening",
+                    "fa_icon": "fas fa-ban"
+                },
+                "amp_hmmsearch_models": {
+                    "type": "string",
+                    "default": "None",
+                    "description": "Specify path (with wildcard) to AMP hmm models  to searching against",
+                    "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--amp_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n",
+                    "fa_icon": "fas fa-layer-group"
+                },
+                "amp_hmmsearch_savealignments": {
+                    "type": "boolean",
+                    "help_text": "Save a multiple alignment of all significant hits (those satisfying inclusion thresholds) to a file\n\n> Modifies HMMsearch parameter: `-A`",
+                    "description": "Saves a multiple alignment of all significant hits to the file",
+                    "fa_icon": "far fa-save"
+                },
+                "amp_hmmsearch_savetargets": {
+                    "type": "boolean",
+                    "help_text": "Save a simple tabular (space-delimited) file summarizing the per-target output, with one data line per homologous target sequence found.\n\n> Modifies HMMsearch parameter: `--tblout`",
+                    "description": "Saves a simple tabular file summarising the per-target output",
+                    "fa_icon": "far fa-save"
+                },
+                "amp_hmmsearch_savedomains": {
+                    "type": "boolean",
+                    "help_text": "Save a simple tabular (space-delimited) file summarizing the per-domain output, with one data line per homologous domain detected in a query sequence for each homologous model.\n\n> Modifies HMMsearch parameter: `--domtblout`",
+                    "description": "Save a simple tabular file summarising the per-domain output",
+                    "fa_icon": "far fa-save"
+                }
+            },
+            "fa_icon": "fas fa-tools",
+            "help_text": "HMMER/hmmsearch is used for searching sequence databases for sequence homologs, and for making sequence alignments. It implements methods using probabilistic models called profile hidden Markov models (profile HMMs). `hmmsearch` is used to search one or more profiles against a sequence database.\n\nDocumentation: http://hmmer.org"
+        },
+        "amp_macrel": {
+            "title": "AMP: Macrel",
+            "type": "object",
+            "description": "Antimicrobial Peptide detection mining from metagenomes",
+            "default": "",
+            "properties": {
+                "amp_skip_macrel": {
+                    "type": "boolean",
+                    "description": "Skip Macrel during AMP-screening",
+                    "fa_icon": "fas fa-ban"
+                }
+            },
+            "fa_icon": "fas fa-tools",
+            "help_text": "Macrel is a tool that mines antimicrobial peptides (AMPs) from (meta)genomes by predicting peptides from genomes (provided as contigs) and outputs all the predicted anti-microbial peptides found.\n\nDocumentation: https://github.com/BigDataBiology/macrel"
+        },
+        "arg_amrfinderplus": {
+            "title": "ARG: AMRfinderPlus",
+            "type": "object",
+            "description": "Antimicrobial resistance gene detection based on NCBI\u2019s curated Reference Gene Database and curated collection of Hidden Markov Models",
+            "default": "",
+            "help_text": "NCBI has developed AMRFinderPlus, a tool that identifies AMR genes, resistance-associated point mutations, and select other classes of genes using protein annotations and/or assembled nucleotide sequence. AMRFinderPlus is used in the Pathogen Detection pipeline, and these data are displayed in NCBI\u2019s Isolate Browser. AMRFinderPlus relies on NCBI\u2019s curated Reference Gene Database and curated collection of Hidden Markov Models.",
+            "fa_icon": "fas fa-tools",
+            "properties": {
+                "arg_skip_amrfinderplus": {
+                    "type": "boolean",
+                    "description": "Skip AMRfinderPlus during the ARG-screening",
+                    "fa_icon": "fas fa-ban"
+                },
+                "arg_amrfinderplus_db": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fas fa-layer-group",
+                    "help_text": "Specify the path to a local version of the ARMfinderPlus database (see the pipelines' [usage documentation](https://nf-co.re/funcscan/usage)). If no input is given, the module ARMFINDERPLUS_UPDATE will download the database for you."
+                }
             }
+        },
+        "arg_deeparg": {
+            "title": "ARG: DeepARG",
+            "type": "object",
+            "description": "Antimicrobial resistance gene detection using a deep learning model",
+            "default": "",
+            "properties": {
+                "arg_skip_deeparg": {
+                    "type": "boolean",
+                    "description": "Skip DeepARG during the ARG-screening",
+                    "fa_icon": "fas fa-ban"
+                },
+                "arg_deeparg_data": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fab fa-deezer",
+                    "description": "Specify the path to the DeepARG database",
+                    "help_text": "Specify the path to a local version of the DeepARG database (see the pipelines' [usage documentation](https://nf-co.re/funcscan/usage)). If no input is given, the module will download the database for you, however this is not recommended, as the database is large and this will take time."
+                },
+                "arg_deeparg_data_version": {
+                    "type": "integer",
+                    "default": 2,
+                    "description": "Specify the numeric version number of a user supplied DeepaRG database",
+                    "fa_icon": "fas fa-code-branch",
+                    "help_text": "The DeepARG tool itself does not report explicit the database version it uses. We assume the latest version (as downloaded by the tool's database download module), however if you supply a different database, you must supply the version with this parameter for use with the downstream hAMRonization tool. \n\nThe version number must be without any leading `v` etc."
+                },
+                "arg_deeparg_model": {
+                    "type": "string",
+                    "default": "LS",
+                    "enum": ["LS", "SS"],
+                    "description": "Specify which model to use (short or long sequences). Options: SS, LS)",
+                    "help_text": "Specify which model to use: short sequences for reads (`SS`) | long sequences for genes (`LS`). In the vast majority of cases we recommend using the `LS` model when using funcscan\n\n> Modifies DeepARG parameter: `--model`",
+                    "fa_icon": "fas fa-layer-group"
+                },
+                "arg_deeparg_minprob": {
+                    "type": "number",
+                    "default": 0.8,
+                    "description": "Specify minimum probability cutoff",
+                    "help_text": "Sets the minimum probability cutoff below which hits are discarded, default is 0.8\n\n> Modifies DeepARG parameter: `--min-prob`\n\n",
+                    "fa_icon": "fas fa-dice"
+                },
+                "arg_deeparg_alignmentevalue": {
+                    "type": "number",
+                    "default": 1e-10,
+                    "description": "Specify Evalue cutoff",
+                    "help_text": "Sets the cutoff value for Evalue below which hits are discarded\n\n> Modifies DeepARG parameter: `--arg-alignment-evalue`",
+                    "fa_icon": "fas fa-align-center"
+                },
+                "arg_deeparg_alignmentidentity": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Specify percent identity cutoff for sequence alignment",
+                    "help_text": "Sets the value for Identity cutoff for sequence alignment\n\n> Modifies DeepARG parameter: `--arg-alignment-identity`",
+                    "fa_icon": "fas fa-align-center"
+                },
+                "arg_deeparg_alignmentoverlap": {
+                    "type": "number",
+                    "default": 0.8,
+                    "description": "Specify alignment read overlap",
+                    "help_text": "Sets the value for the allowed alignment read overlap.\n\n> Modifies DeepARG parameter: `--arg-alignment-overlap`",
+                    "fa_icon": "fas fa-align-center"
+                },
+                "arg_deeparg_numalignmentsperentry": {
+                    "type": "integer",
+                    "default": 1000,
+                    "description": "Specify minimum number of alignments per entry for DIAMOND step of DeepARG",
+                    "help_text": "Sets the value of minimum number of alignments per entry for Diamond.\n\n> Modifies DeepARG parameter: `--arg-num-alignments-per-entry`",
+                    "fa_icon": "far fa-gem"
+                }
+            },
+            "fa_icon": "fas fa-tools",
+            "help_text": "deepARG uses deep learning to characterize and annotate antibiotic resistance genes in metagenomes. It is composed of two models for two types of input: short sequence reads and gene-like sequences. In this pipeline we use the `ls` model, which is suitable for annotating full sequence genes and to discover novel antibiotic resistance genes from assembled samples. The tool `Diamond` is used as an aligner.\n\nDocumentation: https://bitbucket.org/gusphdproj/deeparg-ss/src/master/"
+        },
+        "arg_fargene": {
+            "title": "ARG: fARGene",
+            "type": "object",
+            "description": "Antimicrobial resistance gene detection using a deep learning model",
+            "default": "",
+            "help_text": "fARGene (Fragmented Antibiotic Resistance Gene Identifier) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimized models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes. \nDocumentation:  https://github.com/fannyhb/fargene",
+            "properties": {
+                "arg_skip_fargene": {
+                    "type": "boolean",
+                    "description": "Skip fARGene during the ARG-screening",
+                    "fa_icon": "fas fa-ban"
+                },
+                "arg_fargene_hmmmodel": {
+                    "type": "string",
+                    "default": "class_a,class_b_1_2,class_b_3,class_c,class_d_1,class_d_2,qnr,tet_efflux,tet_rpg,tet_enzyme",
+                    "description": "Specify comma-separated list of which pre-defined HMM models to screen against",
+                    "help_text": "Specify via a comma separated list any of the hmm-models of the pre-defined models:\n    - Class A beta-lactamases: `class_a`\n    - Subclass B1 and B2 beta-lactamases: `class_b_1_2`\n    - Subclass B3 beta-lactamases: `class_b_3`\n    - Class C beta-lactamases: `class_c\n    - Class D beta-lactamases: `class_d_1`, `class_d_2`\n    - qnr: `qnr`\n    - Tetracycline resistance genes `tet_efflux`, `tet_rpg`, `tet_enzyme`\n\n> Modifies fARGene parameter: `--hmm-model`",
+                    "fa_icon": "fas fa-layer-group"
+                }
+            },
+            "fa_icon": "fas fa-tools"
+        },
+        "arg_rgi": {
+            "title": "ARG: RGI",
+            "type": "object",
+            "description": "Antimicrobial resistance gene detection, based on alignment to the CARD database",
+            "default": "",
+            "help_text": "RGI (Resistance Gene Identifier) predicts resistome(s) from protein or nucleotide data based on homology and SNP models. It uses reference data from the Comprehensive Antibiotic Resistance Database (CARD).\n\nDocumentation: https://github.com/arpcard/rgi",
+            "properties": {
+                "arg_skip_rgi": {
+                    "type": "boolean",
+                    "description": "Skip RGI during the ARG-screening",
+                    "fa_icon": "fas fa-ban"
+                }
+            },
+            "fa_icon": "fas fa-tools"
+        },
+        "arg_abricate": {
+            "title": "ARG: ABRicate",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-tools",
+            "properties": {
+                "arg_skip_abricate": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-ban",
+                    "description": "Skip ABRicate during the ARG-screening"
+                },
+                "arg_abricate_db": {
+                    "type": "string",
+                    "default": "card",
+                    "fa_icon": "fas fa-layer-group",
+                    "description": "Specify which of the provided public databases to use",
+                    "enum": [
+                        "argannot",
+                        "card",
+                        "ecoh",
+                        "ecoli_vf",
+                        "megares",
+                        "ncbi",
+                        "plasmidfinder",
+                        "resfinder",
+                        "vfdb"
+                    ]
+                }
+            }
+        },
+        "bgc_antismash": {
+            "title": "BGC: antiSMASH",
+            "type": "object",
+            "description": "Biosynthetic gene cluster detection",
+            "default": "",
+            "properties": {
+                "bgc_skip_antismash": {
+                    "type": "boolean",
+                    "description": "Skip antiSMASH during the BGC screening",
+                    "fa_icon": "fas fa-ban"
+                },
+                "bgc_antismash_databases": {
+                    "type": "string",
+                    "description": "Path to user-defined local antiSMASH database",
+                    "fa_icon": "fas fa-layer-group",
+                    "default": "None"
+                },
+                "bgc_antismash_installationdirectory": {
+                    "type": "string",
+                    "description": "Path to user-defined local antiSMASH directory",
+                    "fa_icon": "far fa-folder-open",
+                    "default": "None"
+                }
+            },
+            "fa_icon": "fas fa-tools"
+        },
+        "bgc_deepbgc": {
+            "title": "BGC: deepBGC",
+            "type": "object",
+            "description": "A deep learning genome-mining strategy for biosynthetic gene cluster prediction",
+            "default": "",
+            "properties": {
+                "bgc_skip_deepbgc": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-ban",
+                    "description": "Skip deepBGC during the BGC screening"
+                },
+                "bgc_deepbgc_database": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fas fa-layer-group",
+                    "description": "Path to local deepBGC database folder"
+                }
+            }
+        },
+        "bgc_gecco": {
+            "title": "BGC: gecco",
+            "type": "object",
+            "description": "Biosynthetic gene cluster detection",
+            "default": "",
+            "properties": {
+                "bgc_skip_gecco": {
+                    "type": "boolean",
+                    "description": "Skip GECCO during the BGC screening",
+                    "fa_icon": "fas fa-ban"
+                }
+            }
+        },
+        "bgc_hmmsearch": {
+            "title": "BCG: HMMSearch",
+            "type": "object",
+            "description": "Biosynthetic Gene Cluster detection based on predefined HMM models",
+            "default": "",
+            "properties": {
+                "bgc_skip_hmmsearch": {
+                    "type": "boolean",
+                    "description": "Skip HMMsearch during BGC-screening",
+                    "fa_icon": "fas fa-ban"
+                },
+                "bgc_hmmsearch_models": {
+                    "type": "string",
+                    "default": "None",
+                    "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter",
+                    "fa_icon": "fas fa-layer-group",
+                    "description": "Specify path (with wildcard) to BGC hmm models  to searching against"
+                },
+                "bgc_hmmsearch_savealignments": {
+                    "type": "boolean",
+                    "description": "Saves a multiple alignment of all significant hits to the file",
+                    "help_text": "Save a multiple alignment of all significant hits (those satisfying inclusion thresholds) to a file\n\n> Modifies HMMsearch parameter: `-A`",
+                    "fa_icon": "far fa-save"
+                },
+                "bgc_hmmsearch_savetargets": {
+                    "type": "boolean",
+                    "description": "Saves a simple tabular file summarising the per-target output",
+                    "help_text": "Save a simple tabular (space-delimited) file summarizing the per-target output, with one data line per homologous target sequence found.\n\n> Modifies HMMsearch parameter: `--tblout`",
+                    "fa_icon": "far fa-save"
+                },
+                "bgc_hmmsearch_savedomains": {
+                    "type": "boolean",
+                    "description": "Save a simple tabular file summarising the per-domain output",
+                    "help_text": "Save a simple tabular (space-delimited) file summarizing the per-domain output, with one data line per homologous domain detected in a query sequence for each homologous model.\n\n> Modifies HMMsearch parameter: `--domtblout`",
+                    "fa_icon": "far fa-save"
+                }
+            }
+        },
+        "reporting": {
+            "title": "Reporting",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "arg_hamronization_summarizeformat": {
+                    "type": "string",
+                    "default": "interactive",
+                    "enum": ["interactive", "tsv", "json"],
+                    "help_text": "Specifies which summary report format to generate with `hamronize summarize`: tsv, json or interactive (html)\n\n> Modifies hAMRonization parameter: `-t`, `--summary_type`",
+                    "description": "Specifies summary output format",
+                    "fa_icon": "far fa-file-code"
+                }
+            },
+            "fa_icon": "fas fa-file-import",
+            "help_text": ""
         },
         "reference_genome_options": {
             "title": "Reference genome options",
@@ -52,7 +500,8 @@
                     "type": "string",
                     "description": "Name of iGenomes reference.",
                     "fa_icon": "fas fa-book",
-                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details."
+                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details.",
+                    "hidden": true
                 },
                 "fasta": {
                     "type": "string",
@@ -61,7 +510,8 @@
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
                     "description": "Path to FASTA genome file.",
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
-                    "fa_icon": "far fa-file-code"
+                    "fa_icon": "far fa-file-code",
+                    "hidden": true
                 },
                 "igenomes_base": {
                     "type": "string",
@@ -75,8 +525,8 @@
                     "type": "boolean",
                     "description": "Do not load the iGenomes reference config.",
                     "fa_icon": "fas fa-ban",
-                    "hidden": true,
-                    "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
+                    "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`.",
+                    "hidden": true
                 }
             }
         },
@@ -270,6 +720,57 @@
     "allOf": [
         {
             "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/screening_type_activation"
+        },
+        {
+            "$ref": "#/definitions/annotation"
+        },
+        {
+            "$ref": "#/definitions/database_downloading_options"
+        },
+        {
+            "$ref": "#/definitions/amp_amplify"
+        },
+        {
+            "$ref": "#/definitions/amp_ampir"
+        },
+        {
+            "$ref": "#/definitions/amp_hmmsearch"
+        },
+        {
+            "$ref": "#/definitions/amp_macrel"
+        },
+        {
+            "$ref": "#/definitions/arg_amrfinderplus"
+        },
+        {
+            "$ref": "#/definitions/arg_deeparg"
+        },
+        {
+            "$ref": "#/definitions/arg_fargene"
+        },
+        {
+            "$ref": "#/definitions/arg_rgi"
+        },
+        {
+            "$ref": "#/definitions/arg_abricate"
+        },
+        {
+            "$ref": "#/definitions/bgc_antismash"
+        },
+        {
+            "$ref": "#/definitions/bgc_deepbgc"
+        },
+        {
+            "$ref": "#/definitions/bgc_gecco"
+        },
+        {
+            "$ref": "#/definitions/bgc_hmmsearch"
+        },
+        {
+            "$ref": "#/definitions/reporting"
         },
         {
             "$ref": "#/definitions/reference_genome_options"
