@@ -2,19 +2,19 @@
     Run ARG screening tools
 */
 
-include { ABRICATE_RUN                } from '../../modules/nf-core/modules/abricate/run/main'
-include { AMRFINDERPLUS_UPDATE        }  from '../../modules/nf-core/modules/amrfinderplus/update/main'
-include { AMRFINDERPLUS_RUN           }  from '../../modules/nf-core/modules/amrfinderplus/run/main'
-include { FARGENE                     }  from '../../modules/nf-core/modules/fargene/main'
-include { DEEPARG_DOWNLOADDATA        }  from '../../modules/nf-core/modules/deeparg/downloaddata/main'
-include { DEEPARG_PREDICT             }  from '../../modules/nf-core/modules/deeparg/predict/main'
-include { RGI_MAIN                    }  from '../../modules/nf-core/modules/rgi/main/main'
-include { HAMRONIZATION_ABRICATE      }  from '../../modules/nf-core/modules/hamronization/abricate/main'
-include { HAMRONIZATION_RGI           }  from '../../modules/nf-core/modules/hamronization/rgi/main'
-include { HAMRONIZATION_DEEPARG       }  from '../../modules/nf-core/modules/hamronization/deeparg/main'
-include { HAMRONIZATION_AMRFINDERPLUS }  from '../../modules/nf-core/modules/hamronization/amrfinderplus/main'
-include { HAMRONIZATION_FARGENE       }  from '../../modules/nf-core/modules/hamronization/fargene/main'
-include { HAMRONIZATION_SUMMARIZE     }  from '../../modules/nf-core/modules/hamronization/summarize/main'
+include { ABRICATE_RUN                } from '../../modules/nf-core/abricate/run/main'
+include { AMRFINDERPLUS_UPDATE        }  from '../../modules/nf-core/amrfinderplus/update/main'
+include { AMRFINDERPLUS_RUN           }  from '../../modules/nf-core/amrfinderplus/run/main'
+include { FARGENE                     }  from '../../modules/nf-core/fargene/main'
+include { DEEPARG_DOWNLOADDATA        }  from '../../modules/nf-core/deeparg/downloaddata/main'
+include { DEEPARG_PREDICT             }  from '../../modules/nf-core/deeparg/predict/main'
+include { RGI_MAIN                    }  from '../../modules/nf-core/rgi/main/main'
+include { HAMRONIZATION_ABRICATE      }  from '../../modules/nf-core/hamronization/abricate/main'
+include { HAMRONIZATION_RGI           }  from '../../modules/nf-core/hamronization/rgi/main'
+include { HAMRONIZATION_DEEPARG       }  from '../../modules/nf-core/hamronization/deeparg/main'
+include { HAMRONIZATION_AMRFINDERPLUS }  from '../../modules/nf-core/hamronization/amrfinderplus/main'
+include { HAMRONIZATION_FARGENE       }  from '../../modules/nf-core/hamronization/fargene/main'
+include { HAMRONIZATION_SUMMARIZE     }  from '../../modules/nf-core/hamronization/summarize/main'
 
 workflow ARG {
     take:
@@ -72,7 +72,7 @@ workflow ARG {
 
         // Reporting
         // Note: currently hardcoding versions, has to be updated with every fARGene-update
-        HAMRONIZATION_FARGENE ( FARGENE.out.hmm.transpose(by: 1), 'json', '0.1', '0.1' )
+        HAMRONIZATION_FARGENE ( FARGENE.out.hmm.transpose(), 'json', '0.1', '0.1' )
         ch_versions = ch_versions.mix(HAMRONIZATION_FARGENE.out.versions)
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_FARGENE.out.json)
     }

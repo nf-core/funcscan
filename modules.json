@@ -2,120 +2,125 @@
     "name": "nf-core/funcscan",
     "homePage": "https://github.com/nf-core/funcscan",
     "repos": {
-        "nf-core/modules": {
-            "git_url": "https://github.com/nf-core/modules.git",
+        "https://github.com/nf-core/modules.git": {
             "modules": {
-                "abricate/run": {
-                    "branch": "master",
-                    "git_sha": "f0800157544a82ae222931764483331a81812012"
-                },
-                "ampir": {
-                    "branch": "master",
-                    "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb"
-                },
-                "amplify/predict": {
-                    "branch": "master",
-                    "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb"
-                },
-                "amrfinderplus/run": {
-                    "branch": "master",
-                    "git_sha": "839bc6b1ad3220f3ab212aeb8c1c1174aea0c126"
-                },
-                "amrfinderplus/update": {
-                    "branch": "master",
-                    "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb"
-                },
-                "antismash/antismashlite": {
-                    "branch": "master",
-                    "git_sha": "b3acfc54f58f9232037dc4f4c18de7bf5c2842e4"
-                },
-                "antismash/antismashlitedownloaddatabases": {
-                    "branch": "master",
-                    "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb"
-                },
-                "custom/dumpsoftwareversions": {
-                    "branch": "master",
-                    "git_sha": "82501fe6d0d12614db67751d30af98d16e63dc59"
-                },
-                "deeparg/downloaddata": {
-                    "branch": "master",
-                    "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb"
-                },
-                "deeparg/predict": {
-                    "branch": "master",
-                    "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb"
-                },
-                "deepbgc/download": {
-                    "git_sha": "eae945721d9ac32227b95350b0c6d39a00d8a14f",
-                    "branch": "master"
-                },
-                "deepbgc/pipeline": {
-                    "git_sha": "eae945721d9ac32227b95350b0c6d39a00d8a14f",
-                    "branch": "master"
-                },
-                "fargene": {
-                    "branch": "master",
-                    "git_sha": "daab0a77dd544b4946cacd55a9682cc3fd24afe5"
-                },
-                "gecco/run": {
-                    "branch": "master",
-                    "git_sha": "5644df8d43b226281e21c3973940b31d1d6b9ce6"
-                },
-                "gunzip": {
-                    "branch": "master",
-                    "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb"
-                },
-                "hamronization/abricate": {
-                    "branch": "master",
-                    "git_sha": "daab0a77dd544b4946cacd55a9682cc3fd24afe5"
-                },
-                "hamronization/amrfinderplus": {
-                    "branch": "master",
-                    "git_sha": "daab0a77dd544b4946cacd55a9682cc3fd24afe5"
-                },
-                "hamronization/deeparg": {
-                    "branch": "master",
-                    "git_sha": "daab0a77dd544b4946cacd55a9682cc3fd24afe5"
-                },
-                "hamronization/fargene": {
-                    "branch": "master",
-                    "git_sha": "daab0a77dd544b4946cacd55a9682cc3fd24afe5"
-                },
-                "hamronization/rgi": {
-                    "branch": "master",
-                    "git_sha": "daab0a77dd544b4946cacd55a9682cc3fd24afe5"
-                },
-                "hamronization/summarize": {
-                    "branch": "master",
-                    "git_sha": "daab0a77dd544b4946cacd55a9682cc3fd24afe5"
-                },
-                "hmmer/hmmsearch": {
-                    "branch": "master",
-                    "git_sha": "f0800157544a82ae222931764483331a81812012"
-                },
-                "macrel/contigs": {
-                    "branch": "master",
-                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-                },
-                "multiqc": {
-                    "branch": "master",
-                    "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb"
-                },
-                "prodigal": {
-                    "branch": "master",
-                    "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb"
-                },
-                "prokka": {
-                    "branch": "master",
-                    "git_sha": "ec22f9a9079bd93ff8ec152349ead5f684edeb9f"
-                },
-                "rgi/main": {
-                    "branch": "master",
-                    "git_sha": "f91abed951da2b22746d3d07b103bd9775ca6ca0"
-                },
-                "untar": {
-                    "branch": "master",
-                    "git_sha": "b63b9f752dc8e43fc70b0491aad5e0a270ab0e10"
+                "nf-core": {
+                    "abricate/run": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "ampir": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "amplify/predict": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "amrfinderplus/run": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "amrfinderplus/update": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "antismash/antismashlite": {
+                        "branch": "master",
+                        "git_sha": "7621cdd40bcafff5ef5b778759a6c8cf94c3d435"
+                    },
+                    "antismash/antismashlitedownloaddatabases": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "custom/dumpsoftwareversions": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "deeparg/downloaddata": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "deeparg/predict": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "deepbgc/download": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "deepbgc/pipeline": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "fargene": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "fastqc": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "gecco/run": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "gunzip": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "hamronization/abricate": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "hamronization/amrfinderplus": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "hamronization/deeparg": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "hamronization/fargene": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "hamronization/rgi": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "hamronization/summarize": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "hmmer/hmmsearch": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "macrel/contigs": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "multiqc": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "prodigal": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "prokka": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "rgi/main": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "untar": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    }
                 }
             }
         }
