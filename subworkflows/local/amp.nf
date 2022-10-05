@@ -2,10 +2,10 @@
     Run AMP screening tools
 */
 
-include { MACREL_CONTIGS                                } from '../../modules/nf-core/modules/macrel/contigs/main'
-include { HMMER_HMMSEARCH as AMP_HMMER_HMMSEARCH        } from '../../modules/nf-core/modules/hmmer/hmmsearch/main'
-include { AMPLIFY_PREDICT                               } from '../../modules/nf-core/modules/amplify/predict/main'
-include { AMPIR                                         } from '../../modules/nf-core/modules/ampir/main'
+include { MACREL_CONTIGS                                } from '../../modules/nf-core/macrel/contigs/main'
+include { HMMER_HMMSEARCH as AMP_HMMER_HMMSEARCH        } from '../../modules/nf-core/hmmer/hmmsearch/main'
+include { AMPLIFY_PREDICT                               } from '../../modules/nf-core/amplify/predict/main'
+include { AMPIR                                         } from '../../modules/nf-core/ampir/main'
 
 workflow AMP {
     take:

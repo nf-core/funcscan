@@ -2,15 +2,15 @@
     Run BGC screening tools
 */
 
-include { UNTAR as UNTAR_CSS                       } from '../../modules/nf-core/modules/untar/main'
-include { UNTAR as UNTAR_DETECTION                 } from '../../modules/nf-core/modules/untar/main'
-include { UNTAR as UNTAR_MODULES                   } from '../../modules/nf-core/modules/untar/main'
-include { ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES } from '../../modules/nf-core/modules/antismash/antismashlitedownloaddatabases/main'
-include { ANTISMASH_ANTISMASHLITE                  } from '../../modules/nf-core/modules/antismash/antismashlite/main'
-include { GECCO_RUN                                } from '../../modules/nf-core/modules/gecco/run/main'
-include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH   } from '../../modules/nf-core/modules/hmmer/hmmsearch/main'
-include { DEEPBGC_DOWNLOAD                         } from '../../modules/nf-core/modules/deepbgc/download/main'
-include { DEEPBGC_PIPELINE                         } from '../../modules/nf-core/modules/deepbgc/pipeline/main'
+include { UNTAR as UNTAR_CSS                       } from '../../modules/nf-core/untar/main'
+include { UNTAR as UNTAR_DETECTION                 } from '../../modules/nf-core/untar/main'
+include { UNTAR as UNTAR_MODULES                   } from '../../modules/nf-core/untar/main'
+include { ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES } from '../../modules/nf-core/antismash/antismashlitedownloaddatabases/main'
+include { ANTISMASH_ANTISMASHLITE                  } from '../../modules/nf-core/antismash/antismashlite/main'
+include { GECCO_RUN                                } from '../../modules/nf-core/gecco/run/main'
+include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH   } from '../../modules/nf-core/hmmer/hmmsearch/main'
+include { DEEPBGC_DOWNLOAD                         } from '../../modules/nf-core/deepbgc/download/main'
+include { DEEPBGC_PIPELINE                         } from '../../modules/nf-core/deepbgc/pipeline/main'
 
 workflow BGC {
 
