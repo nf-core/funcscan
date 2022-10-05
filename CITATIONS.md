@@ -44,7 +44,7 @@
 
 - [GECCO](https://gecco.embl.de)
 
-  > Carroll, L.M. , Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. [bioRxiv]( https://doi.org/10.1101/2021.05.03.442509)
+  > Carroll, L.M. , Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. [bioRxiv](https://doi.org/10.1101/2021.05.03.442509)
 
 - [hAMRonization](https://github.com/pha4ge/hAMRonization)
 
