@@ -79,9 +79,9 @@ include { BGC } from '../subworkflows/local/bgc'
 //
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
-include { GUNZIP                  } from '../modules/nf-core/gunzip/main'
-include { PROKKA                  } from '../modules/nf-core/prokka/main'
-include { PRODIGAL                } from '../modules/nf-core/prodigal/main'
+include { GUNZIP                      } from '../modules/nf-core/gunzip/main'
+include { PROKKA                      } from '../modules/nf-core/prokka/main'
+include { PRODIGAL                    } from '../modules/nf-core/prodigal/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
