@@ -81,7 +81,8 @@ include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 include { GUNZIP                      } from '../modules/nf-core/gunzip/main'
 include { PROKKA                      } from '../modules/nf-core/prokka/main'
-include { PRODIGAL                    } from '../modules/nf-core/prodigal/main'
+include { PRODIGAL as PRODIGAL_GFF    } from '../modules/nf-core/prodigal/main'
+include { PRODIGAL as PRODIGAL_GBK    } from '../modules/nf-core/prodigal/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -125,15 +126,19 @@ workflow FUNCSCAN {
         ANNOTATION
     */
 
-    // Some tools require annotated FASTAs
+    // Some tools require annotated FASTAs 
+    // For prodigal run twice, once for gff and once for gbk generation
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.amp_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
 
         if ( params.run_annotation_tool == "prodigal") {
-            PRODIGAL ( ch_prepped_input, "gff" )
-            ch_versions              = ch_versions.mix(PRODIGAL.out.versions)
-            ch_annotation_faa        = PRODIGAL.out.amino_acid_fasta
-            ch_annotation_fna        = PRODIGAL.out.nucleotide_fasta
-            ch_annotation_gff        = PRODIGAL.out.gene_annotations
+            PRODIGAL_GFF ( ch_prepped_input, "gff" )
+            ch_versions              = ch_versions.mix(PRODIGAL_GFF.out.versions)
+            ch_annotation_faa        = PRODIGAL_GFF.out.amino_acid_fasta
+            ch_annotation_fna        = PRODIGAL_GFF.out.nucleotide_fasta
+            ch_annotation_gff        = PRODIGAL_GFF.out.gene_annotations
+            PRODIGAL_GBK ( ch_prepped_input, "gbk" )
+            ch_versions              = ch_versions.mix(PRODIGAL_GBK.out.versions)
+            ch_annotation_gbk        = PRODIGAL_GBK.out.gene_annotations
         }   else if ( params.run_annotation_tool == "prokka") {
             PROKKA ( ch_prepped_input, [], [] )
             ch_versions              = ch_versions.mix(PROKKA.out.versions)
