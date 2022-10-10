@@ -132,12 +132,12 @@ Output Summaries:
 <details markdown="1">
 <summary>Output files</summary>
 
-- `prokka/`
+- `prodigal/`
   - `<samplename>/`:
     - `*.gff`: annotation in GFF3 format, containing both sequences and annotations
     - `*.fna`: nucleotide FASTA file of the input contig sequences
     - `*.faa`: protein FASTA file of the translated CDS sequences
-    - `*_all.txt`: text file containing all_gene_annotations
+    - `*.gbk`: annotation in GBK format, containing both sequences and annotations
 
 </details>
 
