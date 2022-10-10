@@ -122,6 +122,12 @@ Hint: The flag `--save_databases` saves the pipeline-downloaded databases in you
 
 > If installing with conda, the installation directory will be `lib/python3.8/site-packages/antismash` from the base directory of your conda install or conda environment directory.
 
+### DeepBGC
+
+DeepBGC relies on trained models and Pfam database to run its analysis. Nf-core/funcscan will download these databases for you. If the flag `--save_databases` is set, the downloaded files will be stored in the output directory under `databases/deepbgc/`.
+
+If you want to use your own trained model, the detector and classifier have to be given with `--detector path/to/myDetector.pkl` and  `--classifier path/to/myClassifier.pkl`.
+
 ## Running the pipeline
 
 The typical command for running the pipeline is as follows:
