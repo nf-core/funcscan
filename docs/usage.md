@@ -147,7 +147,7 @@ Hint: The flag `--save_databases` saves the pipeline-downloaded databases in you
 
 ### DeepBGC
 
-DeepBGC relies on trained models and Pfam database to run its analysis. Nf-core/funcscan will download these databases for you. If the flag `--save_databases` is set, the downloaded files will be stored in the output directory under `databases/deepbgc/`.
+DeepBGC relies on trained models and Pfam database to run its analysis. nf-core/funcscan will download these databases for you. If the flag `--save_databases` is set, the downloaded files will be stored in the output directory under `databases/deepbgc/`.
 
 Alternatively, if you already downloaded the database locally with `deepbgc download`, you can indicate the path to the database folder with `--bgc_deepbgc_database path/to/deepbgc_db/`. The folder has to contain the subfolders as in the database folder downloaded by `deepbgc download`:
 
