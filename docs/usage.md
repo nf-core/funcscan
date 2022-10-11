@@ -70,6 +70,28 @@ Or
 
 1. Download the files directly form the [NCBI FTP site](https://ftp.ncbi.nlm.nih.gov/pathogen/Antimicrobial_resistance/AMRFinderPlus/database/latest/)
 
+The downloaded database folder contains the AMR related files:
+```console
+<YYYY-MM-DD.v>[2022-08-09.1]/
+├── AMR.LIB.*
+├── AMRProt.*
+├── AMR_CDS.*
+├── AMR_DNA-Campylobacter.*
+├── AMR_DNA-Clostridioides_difficilie.*
+├── AMR_DNA-Enterococcus_faecalis.*
+├── AMR_DNA-Enterococcus_faecium.*
+├── AMR_DNA-Escherichia.*
+├── AMR_DNA-Neisseria.*
+├── AMR_DNA-Salmonella.*
+├── AMR_DNA-Staphylococcus_aureus.*
+├──AMR_DNA-Streptococcus_pneumoniae.*
+├── changes.txt
+├── database_format_version.txt
+├── fam.tab
+├── taxgroup.tab
+└── version.txt
+```
+
 The path to the resulting database directory can be supplied to the pipeline as described above.
 
 ### DeepARG
@@ -134,9 +156,9 @@ deepbgc_db/
   └── Pfam-hmm-models*.hmm.*
 └── <version-num>[0.1.0]
   ├── classifier
-  | └──_myClassifiers*.pkl
+  | └── myClassifiers*.pkl
   └── detector
-    └──myDetectors*.pkl
+    └── myDetectors*.pkl
 ```
 
 ## Running the pipeline
