@@ -127,7 +127,7 @@ workflow FUNCSCAN {
     */
 
     // Some tools require annotated FASTAs 
-    // For prodigal run twice, once for gff and once for gbk generation
+    // For prodigal run twice, once for gff and once for gbk generation, (for parity with PROKKA which produces both)
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.amp_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
 
         if ( params.run_annotation_tool == "prodigal") {
