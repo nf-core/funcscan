@@ -71,6 +71,7 @@ Or
 1. Download the files directly form the [NCBI FTP site](https://ftp.ncbi.nlm.nih.gov/pathogen/Antimicrobial_resistance/AMRFinderPlus/database/latest/)
 
 The downloaded database folder contains the AMR related files:
+
 ```console
 <YYYY-MM-DD.v>[2022-08-09.1]/
 ├── AMR.LIB.*
@@ -148,7 +149,7 @@ Hint: The flag `--save_databases` saves the pipeline-downloaded databases in you
 
 DeepBGC relies on trained models and Pfam database to run its analysis. Nf-core/funcscan will download these databases for you. If the flag `--save_databases` is set, the downloaded files will be stored in the output directory under `databases/deepbgc/`.
 
-Alternatively, if you already downloaded the database locally, you can indicate the path to the database folder with `--bgc_deepbgc_database path/to/deepbgc_db/`. The folder has to contain the subfolders as in the database folder downloaded by `deepbgc download`:
+Alternatively, if you already downloaded the database locally with `deepbgc download`, you can indicate the path to the database folder with `--bgc_deepbgc_database path/to/deepbgc_db/`. The folder has to contain the subfolders as in the database folder downloaded by `deepbgc download`:
 
 ```console
 deepbgc_db/
