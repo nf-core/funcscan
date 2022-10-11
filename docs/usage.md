@@ -70,6 +70,29 @@ Or
 
 1. Download the files directly form the [NCBI FTP site](https://ftp.ncbi.nlm.nih.gov/pathogen/Antimicrobial_resistance/AMRFinderPlus/database/latest/)
 
+The downloaded database folder contains the AMR related files:
+
+```console
+<YYYY-MM-DD.v>[2022-08-09.1]/
+├── AMR.LIB.*
+├── AMRProt.*
+├── AMR_CDS.*
+├── AMR_DNA-Campylobacter.*
+├── AMR_DNA-Clostridioides_difficilie.*
+├── AMR_DNA-Enterococcus_faecalis.*
+├── AMR_DNA-Enterococcus_faecium.*
+├── AMR_DNA-Escherichia.*
+├── AMR_DNA-Neisseria.*
+├── AMR_DNA-Salmonella.*
+├── AMR_DNA-Staphylococcus_aureus.*
+├──AMR_DNA-Streptococcus_pneumoniae.*
+├── changes.txt
+├── database_format_version.txt
+├── fam.tab
+├── taxgroup.tab
+└── version.txt
+```
+
 The path to the resulting database directory can be supplied to the pipeline as described above.
 
 ### DeepARG
@@ -121,6 +144,23 @@ Note that the names of the supplied folders must differ from each other (e.g. `a
 Hint: The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
 
 > If installing with conda, the installation directory will be `lib/python3.8/site-packages/antismash` from the base directory of your conda install or conda environment directory.
+
+### DeepBGC
+
+DeepBGC relies on trained models and Pfam database to run its analysis. nf-core/funcscan will download these databases for you. If the flag `--save_databases` is set, the downloaded files will be stored in the output directory under `databases/deepbgc/`.
+
+Alternatively, if you already downloaded the database locally with `deepbgc download`, you can indicate the path to the database folder with `--bgc_deepbgc_database path/to/deepbgc_db/`. The folder has to contain the subfolders as in the database folder downloaded by `deepbgc download`:
+
+```console
+deepbgc_db/
+├── common
+  └── Pfam-hmm-models*.hmm.*
+└── <version-num>[0.1.0]
+  ├── classifier
+  | └── myClassifiers*.pkl
+  └── detector
+    └── myDetectors*.pkl
+```
 
 ## Running the pipeline
 
