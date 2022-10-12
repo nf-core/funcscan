@@ -36,7 +36,7 @@ workflow AMP {
 
     // AMPIR
     if ( !params.amp_skip_ampir ) {
-        AMPIR ( ch_faa_for_ampir, params.amp_ampir_model, params.amp_ampir_minlength, params.amp_ampir_minprobability )
+        AMPIR ( ch_faa_for_ampir, params.amp_ampir_model, params.amp_ampir_minlength, 0.0 )
         ch_versions = ch_versions.mix(AMPIR.out.versions)
     }
 

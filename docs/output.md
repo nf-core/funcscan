@@ -2,13 +2,13 @@
 
 ## Introduction
 
-The output of nf-core/funcscan provides reports of each of the functional groups:
+The output of nf-core/funcscan provides reports for each of the functional groups:
 
 - antibiotic resistance genes ([ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi))
 - antimicrobial peptides ([macrel](https://github.com/BigDataBiology/macrel), [amplify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org))
 - biosynthetic gene clusters ([antiSMASH](https://docs.antismash.secondarymetabolites.org), [deepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org))
 
-Additionally to summary reports, the output directories from all applied tools are provided. This includes the functional annotation output from [prokka](https://github.com/tseemann/prokka) or [prodigal](https://github.com/hyattpd/Prodigal) if the `--save_annotations` flag was set. Similarly, all downloaded databases are saved (i.e. from [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder) and/or [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master)) if the `--save_databases` flag was set.
+Additional to summary reports, the output directories from all applied tools are provided. This includes the functional annotation output from [prokka](https://github.com/tseemann/prokka) or [prodigal](https://github.com/hyattpd/Prodigal) if the `--save_annotations` flag was set. Similarly, all downloaded databases are saved (i.e. from [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder) and/or [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master)) if the `--save_databases` flag was set.
 
 Furthermore, for reproducibility, versions of all software used in the run is presented in a [MultiQC](http://multiqc.info) report.
 
@@ -132,12 +132,12 @@ Output Summaries:
 <details markdown="1">
 <summary>Output files</summary>
 
-- `prokka/`
+- `prodigal/`
   - `<samplename>/`:
     - `*.gff`: annotation in GFF3 format, containing both sequences and annotations
     - `*.fna`: nucleotide FASTA file of the input contig sequences
     - `*.faa`: protein FASTA file of the translated CDS sequences
-    - `*_all.txt`: text file containing all_gene_annotations
+    - `*.gbk`: annotation in GBK format, containing both sequences and annotations
 
 </details>
 
@@ -215,7 +215,7 @@ Output Summaries:
 - `macrel_contigs/`
   - `*.smorfs.faa.gz`: zipped fasta file containing amino acid sequences of small peptides (<100 aa, small open reading frames) showing the general gene prediction information in the contigs
   - `*.all_orfs.faa.gz`: zipped fasta file containing amino acid sequences showing the general gene prediction information in the contigs
-  - `prediction.gz`: zipped file, with all predicted amps in a table format
+  - `prediction.gz`: zipped file, with all predicted and non-predicted amps in a table format
   - `*.md`: readme file containing tool specific information (e.g. citations, details about the output, etc.)
   - `*_log.txt`: log file containing the information pertaining to the run
 
