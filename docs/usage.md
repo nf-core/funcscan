@@ -31,6 +31,8 @@ sample_2,https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/wastew
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
+> ⚠️ We highly recommend performing quality control on input contigs before running the pipeline. You may not receive results for some tools if none of the contigs in a FASTA file reach certain thresholds. Check parameter documentation for relevent minimum contig parameters.
+
 ## Databases and reference files
 
 nf-core/funcscan utilises various tools that use databases and reference files to generate results. While nf-core/funcscan offers in some cases functionality to autodownload databases for you, these databases can be very large, and it is more efficient to store these files in a central place from where they can be reused across pipeline runs.
