@@ -6,6 +6,8 @@ include { MACREL_CONTIGS                                } from '../../modules/nf
 include { HMMER_HMMSEARCH as AMP_HMMER_HMMSEARCH        } from '../../modules/nf-core/hmmer/hmmsearch/main'
 include { AMPLIFY_PREDICT                               } from '../../modules/nf-core/amplify/predict/main'
 include { AMPIR                                         } from '../../modules/nf-core/ampir/main'
+include { AMPCOMBI                                      } from '../../modules/nf-core/ampcombi/main'
+include { GUNZIP                                        } from '../../modules/nf-core/gunzip/main'
 
 workflow AMP {
     take:
@@ -14,6 +16,7 @@ workflow AMP {
 
     main:
     ch_versions = Channel.empty()
+    ch_ampcombi_input = Channel.empty()
 
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
@@ -26,18 +29,21 @@ workflow AMP {
     if ( !params.amp_skip_amplify ) {
         AMPLIFY_PREDICT ( ch_faa_for_amplify, [] )
         ch_versions = ch_versions.mix(AMPLIFY_PREDICT.out.versions)
+        ch_ampcombi_input = ch_ampcombi_input.mix(AMPLIFY_PREDICT.out.tsv)
     }
 
     // MACREL
     if ( !params.amp_skip_macrel ) {
         MACREL_CONTIGS ( contigs )
         ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)
+        ch_ampcombi_input = ch_ampcombi_input.mix(MACREL_CONTIGS.out.prediction.gz)
     }
 
     // AMPIR
     if ( !params.amp_skip_ampir ) {
         AMPIR ( ch_faa_for_ampir, params.amp_ampir_model, params.amp_ampir_minlength, 0.0 )
         ch_versions = ch_versions.mix(AMPIR.out.versions)
+        ch_ampcombi_input = ch_ampcombi_input.mix(AMPIR.out.tsv)
     }
 
     // HMMSEARCH
@@ -64,7 +70,18 @@ workflow AMP {
 
         AMP_HMMER_HMMSEARCH ( ch_in_for_amp_hmmsearch )
         ch_versions = ch_versions.mix(AMP_HMMER_HMMSEARCH.out.versions)
+        ch_ampcombi_input = ch_ampcombi_input.mix(GUNZIP(AMP_HMMER_HMMSEARCH.out.txt.gz))
     }
+
+    //AMPCOMBI
+    ch_ampcombi_input
+        .map{
+            it[1]
+        }
+        .collect()
+        .dump(tag:'ampcombi_input')
+        //.set()
+    //AMPCOMBI(ch_ampcombi_input)
 
     emit:
     versions = ch_versions
