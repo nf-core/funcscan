@@ -73,11 +73,11 @@
             "description": "These options influence the generation of annotation files required for downstream steps in ARG, AMP and BGC workflows.",
             "default": "",
             "properties": {
-                "run_annotation_tool": {
+                "annotation_tool": {
                     "type": "string",
                     "default": "prodigal",
-                    "description": "Specify which annotation tool to run: either prodigal or prokka",
-                    "enum": ["prodigal", "prokka"],
+                    "description": "Specify which annotation tool to run: either prodigal, prokka, or bakta",
+                    "enum": ["prodigal", "prokka", "bakta"],
                     "fa_icon": "fas fa-edit"
                 },
                 "save_annotations": {

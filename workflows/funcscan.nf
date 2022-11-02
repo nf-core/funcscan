@@ -20,7 +20,7 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
 
 // Validate annotation settings
-if ( params.run_annotation_tool == 'bakta' && !params.annotation_bakta_db ) exit 1, "[nf-core/funcscan] ERROR: Annotation of input with bakta requires specifying a database with --annotation_bakta_db. Check input."
+if ( params.annotation_tool == 'bakta' && !params.annotation_bakta_db ) exit 1, "[nf-core/funcscan] ERROR: Annotation of input with bakta requires specifying a database with --annotation_bakta_db. Check input."
 
 // Validate fARGene inputs
 // Split input into array, find the union with our valid classes, extract only
@@ -137,7 +137,7 @@ workflow FUNCSCAN {
     // For prodigal run twice, once for gff and once for gbk generation, (for parity with PROKKA which produces both)
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.amp_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
 
-        if ( params.run_annotation_tool == "prodigal") {
+        if ( params.annotation_tool == "prodigal") {
             PRODIGAL_GFF ( ch_prepped_input, "gff" )
             ch_versions              = ch_versions.mix(PRODIGAL_GFF.out.versions)
             ch_annotation_faa        = PRODIGAL_GFF.out.amino_acid_fasta
@@ -146,18 +146,19 @@ workflow FUNCSCAN {
             PRODIGAL_GBK ( ch_prepped_input, "gbk" )
             ch_versions              = ch_versions.mix(PRODIGAL_GBK.out.versions)
             ch_annotation_gbk        = PRODIGAL_GBK.out.gene_annotations
-        }   else if ( params.run_annotation_tool == "prokka") {
+        }   else if ( params.annotation_tool == "prokka") {
             PROKKA ( ch_prepped_input, [], [] )
             ch_versions              = ch_versions.mix(PROKKA.out.versions)
             ch_annotation_faa        = PROKKA.out.faa
             ch_annotation_fna        = PROKKA.out.fna
             ch_annotation_gff        = PROKKA.out.gff
-        }   else if ( params.run_annotation_tool == "bakta" ) {
-            BAKTA ( ch_prepped_input, ch_bakta_db, [], [] )
+        }   else if ( params.annotation_tool == "bakta" ) {
+            bakta_db = file(params.annotation_bakta_db)
+            BAKTA ( ch_prepped_input, bakta_db, [], [] )
             ch_versions              = ch_versions.mix(BAKTA.out.versions)
-            ch_annotation_faa        = PROKKA.out.faa
-            ch_annotation_fna        = PROKKA.out.fna
-            ch_annotation_gff        = PROKKA.out.gff
+            ch_annotation_faa        = BAKTA.out.faa
+            ch_annotation_fna        = BAKTA.out.fna
+            ch_annotation_gff        = BAKTA.out.gff
         }
 
     } else {
