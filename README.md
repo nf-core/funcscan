@@ -24,7 +24,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 <!-- TODO nf-core: Mention aggregation tools: hAMRonization/comBGC,AMPcombi -->
 
-1. Annotates prokaryotic input assembled contigs ([`Prodigal`](https://github.com/hyattpd/Prodigal) or [`PROKKA`](https://github.com/tseemann/prokka))
+1. Annotates prokaryotic input assembled contigs ([`Prodigal`](https://github.com/hyattpd/Prodigal), [`PROKKA`](https://github.com/tseemann/prokka), or [Bakta](https://github.com/oschwengers/bakta))
 2. Screens contigs for antimicrobial peptide-like sequences with: [ampir](https://cran.r-project.org/web/packages/ampir/index.html), [Macrel](https://github.com/BigDataBiology/macrel), [HMMER](http://hmmer.org/), [AMPlify](https://github.com/bcgsc/AMPlify)
 3. Screens contigs for antibiotic resistant gene-like sequences with: [ABRicate](https://github.com/tseemann/abricate), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi), [DEEPARG](https://bench.cs.vt.edu/deeparg)
 4. Screens contigs for biosynthetic gene cluster-like sequences with: [antiSMASH](https://antismash.secondarymetabolites.org), [gecco](https://gecco.embl.de/)<!--, [HMMER](http://hmmer.org/) -->

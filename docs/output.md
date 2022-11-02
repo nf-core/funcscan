@@ -8,7 +8,7 @@ The output of nf-core/funcscan provides reports for each of the functional group
 - antimicrobial peptides ([macrel](https://github.com/BigDataBiology/macrel), [amplify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org))
 - biosynthetic gene clusters ([antiSMASH](https://docs.antismash.secondarymetabolites.org), [deepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org))
 
-Additional to summary reports, the output directories from all applied tools are provided. This includes the functional annotation output from [prokka](https://github.com/tseemann/prokka) or [prodigal](https://github.com/hyattpd/Prodigal) if the `--save_annotations` flag was set. Similarly, all downloaded databases are saved (i.e. from [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder) and/or [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master)) if the `--save_databases` flag was set.
+Additional to summary reports, the output directories from all applied tools are provided. This includes the functional annotation output from [prokka](https://github.com/tseemann/prokka), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set. Similarly, all downloaded databases are saved (i.e. from [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder) and/or [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master)) if the `--save_databases` flag was set.
 
 Furthermore, for reproducibility, versions of all software used in the run is presented in a [MultiQC](http://multiqc.info) report.
 
@@ -55,7 +55,8 @@ work/
 results/
 ├── annotation/
 |   ├── prodigal/
-|   └── prokka/
+|   ├── prokka/
+|   └── bakta/
 ├── amp/
 |   ├── ampir/
 |   ├── amplify/
@@ -89,6 +90,7 @@ DNA sequence annotation
 
 - [Prodigal](#prodigal) – for open reading frame annotation
 - [Prokka](#prokka) – (optional: alternative to prodigal) open reading frame and functional protein annotation
+- [Bakta](#bakta) – (optional: alternative to prokka) open reading frame and functional protein annotation
 
 Antimicrobial Resistance Genes (ARGs):
 

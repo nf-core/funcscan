@@ -30,6 +30,10 @@
 
   > Blin, K., Shaw, S., Kloosterman, A. M., Charlop-Powers, Z., van Wezel, G. P., Medema, M. H., & Weber, T. (2021). antiSMASH 6.0: improving cluster detection and comparison capabilities. Nucleic acids research, 49(W1), W29–W35. [DOI: 10.1093/nar/gkab335](https://doi.org/10.1093/nar/gkab335)
 
+- [Bakta] (https://doi.org/10.1099/mgen.0.000685)
+
+  > Schwengers, O., Jelonek, L., Dieckmann, M. A., Beyvers, S., Blom, J., & Goesmann, A. (2021). Bakta: rapid and standardized annotation of bacterial genomes via alignment-free sequence identification. Microbial Genomics, 7(11). [DOI: 10.1099/mgen.0.000685](https://doi.org/10.1099/mgen.0.000685)
+
 - [DeepARG](https://doi.org/10.1186/s40168-018-0401-z)
 
   > Arango-Argoty, G., Garner, E., Pruden, A., Heath, L. S., Vikesland, P., & Zhang, L. (2018). DeepARG: a deep learning approach for predicting antibiotic resistance genes from metagenomic data. Microbiome, 6(1), 23. [DOI: 10.1186/s40168-018-0401-z](https://doi.org/10.1186/s40168-018-0401-z)
