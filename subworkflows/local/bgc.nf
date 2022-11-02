@@ -116,7 +116,9 @@ workflow BGC {
             .map {
                 meta_faa, faa, meta_hmm, hmm ->
                     def meta_new = [:]
-                    meta_new['id'] = meta_faa['id'] + '_'  + meta_hmm['id']
+                    meta_new['id']     = meta_faa['id']
+                    meta_new['hmm_id'] = meta_hmm['id']
+                // TODO make optional outputs params?
                 [ meta_new, hmm, faa, params.bgc_hmmsearch_savealignments, params.bgc_hmmsearch_savetargets, params.bgc_hmmsearch_savedomains ]
             }
 
