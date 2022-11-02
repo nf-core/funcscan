@@ -167,8 +167,8 @@
                 "amp_hmmsearch_models": {
                     "type": "string",
                     "default": "None",
-                    "description": "Specify path (with wildcard) to AMP hmm models  to searching against",
-                    "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--amp_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n",
+                    "description": "Specify path (wrapped in quotes if using wildcard!) to the AMP hmm model files to search against.",
+                    "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--amp_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n\nYou must wrap the path in quotes if you use a wilcard!\n",
                     "fa_icon": "fas fa-layer-group"
                 },
                 "amp_hmmsearch_savealignments": {
@@ -441,9 +441,9 @@
                 "bgc_hmmsearch_models": {
                     "type": "string",
                     "default": "None",
-                    "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter",
+                    "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--bgc_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n\nYou must wrap the path in quotes if you use a wilcard!\n",
                     "fa_icon": "fas fa-layer-group",
-                    "description": "Specify path (with wildcard) to BGC hmm models  to searching against"
+                    "description": "Specify path (wrapped in quotes if using wildcard!) to the BGC hmm model files to search against."
                 },
                 "bgc_hmmsearch_savealignments": {
                     "type": "boolean",
