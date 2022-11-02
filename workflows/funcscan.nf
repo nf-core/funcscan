@@ -10,11 +10,17 @@ def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
 WorkflowFuncscan.initialise(params, log)
 
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.multiqc_config ]
+def checkPathParamList = [ params.input, params.multiqc_config, params.annotation_bakta_db,
+                            params.amp_hmmsearch_models, params.arg_amrfinderplus_db, params.arg_deeparg_data,
+                            params.bgc_antismash_databases, params.bgc_antismash_installationdirectory,
+                            params.bgc_deepbgc_database, params.bgc_hmmsearch_models ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
 if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
+
+// Validate annotation settings
+if ( params.run_annotation_tool == 'bakta' && !params.annotation_bakta_db ) exit 1, "[nf-core/funcscan] ERROR: Annotation of input with bakta requires specifying a database with --annotation_bakta_db. Check input."
 
 // Validate fARGene inputs
 // Split input into array, find the union with our valid classes, extract only
@@ -83,6 +89,7 @@ include { GUNZIP                      } from '../modules/nf-core/gunzip/main'
 include { PROKKA                      } from '../modules/nf-core/prokka/main'
 include { PRODIGAL as PRODIGAL_GFF    } from '../modules/nf-core/prodigal/main'
 include { PRODIGAL as PRODIGAL_GBK    } from '../modules/nf-core/prodigal/main'
+include { BAKTA                       } from '../modules/nf-core/bakta/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -126,7 +133,7 @@ workflow FUNCSCAN {
         ANNOTATION
     */
 
-    // Some tools require annotated FASTAs 
+    // Some tools require annotated FASTAs
     // For prodigal run twice, once for gff and once for gbk generation, (for parity with PROKKA which produces both)
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.amp_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
 
@@ -142,6 +149,12 @@ workflow FUNCSCAN {
         }   else if ( params.run_annotation_tool == "prokka") {
             PROKKA ( ch_prepped_input, [], [] )
             ch_versions              = ch_versions.mix(PROKKA.out.versions)
+            ch_annotation_faa        = PROKKA.out.faa
+            ch_annotation_fna        = PROKKA.out.fna
+            ch_annotation_gff        = PROKKA.out.gff
+        }   else if ( params.run_annotation_tool == "bakta" ) {
+            BAKTA ( ch_prepped_input, ch_bakta_db, [], [] )
+            ch_versions              = ch_versions.mix(BAKTA.out.versions)
             ch_annotation_faa        = PROKKA.out.faa
             ch_annotation_fna        = PROKKA.out.fna
             ch_annotation_gff        = PROKKA.out.gff
