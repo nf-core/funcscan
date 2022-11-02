@@ -6,8 +6,8 @@ include { MACREL_CONTIGS                                } from '../../modules/nf
 include { HMMER_HMMSEARCH as AMP_HMMER_HMMSEARCH        } from '../../modules/nf-core/hmmer/hmmsearch/main'
 include { AMPLIFY_PREDICT                               } from '../../modules/nf-core/amplify/predict/main'
 include { AMPIR                                         } from '../../modules/nf-core/ampir/main'
-include { AMPCOMBI                                      } from '../../modules/nf-core/ampcombi/main'
-include { GUNZIP                                        } from '../../modules/nf-core/gunzip/main'
+//include { AMPCOMBI                                      } from '../../modules/nf-core/ampcombi/main'
+include { GUNZIP as GUNZIP1 ; GUNZIP as GUNZIP2         } from '../../modules/nf-core/gunzip/main'
 
 workflow AMP {
     take:
@@ -21,9 +21,10 @@ workflow AMP {
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
     // to ensure annotation is executed!
-    ch_faa_for_amplify        = faa
-    ch_faa_for_amp_hmmsearch = faa
-    ch_faa_for_ampir     = faa
+    ch_faa_for_amplify          = faa
+    ch_faa_for_amp_hmmsearch    = faa
+    ch_faa_for_ampir            = faa
+    ch_faa_for_ampcombi         = faa
 
     // AMPLIFY
     if ( !params.amp_skip_amplify ) {
@@ -36,14 +37,15 @@ workflow AMP {
     if ( !params.amp_skip_macrel ) {
         MACREL_CONTIGS ( contigs )
         ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)
-        ch_ampcombi_input = ch_ampcombi_input.mix(MACREL_CONTIGS.out.prediction.gz)
+        GUNZIP1 ( MACREL_CONTIGS.out.amp_prediction )
+        ch_ampcombi_input = ch_ampcombi_input.mix(GUNZIP1.out.gunzip)
     }
 
     // AMPIR
     if ( !params.amp_skip_ampir ) {
         AMPIR ( ch_faa_for_ampir, params.amp_ampir_model, params.amp_ampir_minlength, 0.0 )
         ch_versions = ch_versions.mix(AMPIR.out.versions)
-        ch_ampcombi_input = ch_ampcombi_input.mix(AMPIR.out.tsv)
+        ch_ampcombi_input = ch_ampcombi_input.mix(AMPIR.out.amps_tsv)
     }
 
     // HMMSEARCH
@@ -71,18 +73,23 @@ workflow AMP {
 
         AMP_HMMER_HMMSEARCH ( ch_in_for_amp_hmmsearch )
         ch_versions = ch_versions.mix(AMP_HMMER_HMMSEARCH.out.versions)
-        ch_ampcombi_input = ch_ampcombi_input.mix(GUNZIP(AMP_HMMER_HMMSEARCH.out.txt.gz))
+        GUNZIP2 ( AMP_HMMER_HMMSEARCH.out.output )
+        ch_ampcombi_input = ch_ampcombi_input.mix(GUNZIP2.out.gunzip)
+        // TODO remove the hmm_id part of the meta 
+        //.map {
+        //def meta_new = meta.clone()}
     }
 
     //AMPCOMBI
     ch_ampcombi_input
-        .map{
-            it[1]
-        }
-        .collect()
+        //.map{
+        //    it[1] 
+        //}
+        .groupTuple()
+        //.set { contigs }
         .dump(tag:'ampcombi_input')
-        //.set()
-    //AMPCOMBI(ch_ampcombi_input)
+    
+    //AMPCOMBI( ch_ampcombi_input, ch_faa_for_ampcombi , [])
 
     emit:
     versions = ch_versions
