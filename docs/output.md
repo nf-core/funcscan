@@ -41,7 +41,7 @@ results/
 |   ├── gecco/
 |   └── hmmsearch/
 ├── reports/
-#|   ├── AMPcombi/
+|   ├── AMPcombi/
 #|   ├── BGCcombi/
 |   └── hamronization_summarize/
 ├── databases/
@@ -74,6 +74,7 @@ results/
 |   ├── gecco/
 |   └── hmmsearch/
 ├── reports/
+|   ├── AMPcombi/
 |   └── hamronization_summarize/
 ├── databases/
 ├── multiqc/
@@ -121,7 +122,7 @@ Output Summaries:
 
 - [MultiQC](#multiqc) – report of all software and versions used in the pipeline
 - [hAMRonization](#hamronization) – summary of resistance gene output from various detection tools
-  <!--* [combiAMP](#combiamp) – summarizes antimicrobial peptide detection output-->
+- [AMPcombi](#ampcombi) – summarizes antimicrobial peptide detection output-->
   <!--* [comBGC](#combgc) – PRELIMINARY TOOL NAME - summarizes biosynthetic gene cluster detection output-->
 - [Pipeline information](#pipeline-information) – report metrics generated during the workflow execution
 

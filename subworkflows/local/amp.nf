@@ -6,7 +6,7 @@ include { MACREL_CONTIGS                                } from '../../modules/nf
 include { HMMER_HMMSEARCH as AMP_HMMER_HMMSEARCH        } from '../../modules/nf-core/hmmer/hmmsearch/main'
 include { AMPLIFY_PREDICT                               } from '../../modules/nf-core/amplify/predict/main'
 include { AMPIR                                         } from '../../modules/nf-core/ampir/main'
-//include { AMPCOMBI                                      } from '../../modules/nf-core/ampcombi/main'
+include { AMPCOMBI                                      } from '../../modules/nf-core/ampcombi/main'
 include { GUNZIP as GUNZIP1 ; GUNZIP as GUNZIP2         } from '../../modules/nf-core/gunzip/main'
 
 workflow AMP {
@@ -88,9 +88,12 @@ workflow AMP {
     //AMPCOMBI
     ch_ampcombi_input
         .groupTuple()
-        //.dump(tag:'ampcombi_input')
+        .multiMap {
+            id: [it[0]]
+        }
+        .dump(tag:'ampcombi_input')
     
-    //AMPCOMBI( ch_ampcombi_input, ch_faa_for_ampcombi , [])
+    AMPCOMBI( ch_ampcombi_input, ch_faa_for_ampcombi , [])
 
     emit:
     versions = ch_versions
