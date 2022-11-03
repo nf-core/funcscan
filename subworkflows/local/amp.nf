@@ -74,7 +74,7 @@ workflow AMP {
         AMP_HMMER_HMMSEARCH ( ch_in_for_amp_hmmsearch )
         ch_versions = ch_versions.mix(AMP_HMMER_HMMSEARCH.out.versions)
         GUNZIP2 ( AMP_HMMER_HMMSEARCH.out.output )
-        ch_ampcombi_input = ch_ampcombi_input.mix(GUNZIP2.out.gunzip)
+        ch_hmmout = GUNZIP2.out.gunzip
                         //.dump(tag:'hmmsearch_before')
                         .map {
                             meta_id, meta_hmm ->
@@ -82,18 +82,24 @@ workflow AMP {
                             meta_hmmsearch['id'] = meta_id['id']
                             [meta_hmmsearch, meta_hmm]
                         }
-                        //.dump(tag:'hmmsearch_after')
+
+        ch_ampcombi_input = ch_ampcombi_input.mix(ch_hmmout)
+        //.dump(tag:'hmmsearch_after')
     }
 
     //AMPCOMBI
-    ch_ampcombi_input
+    ch_ampcombi_input_new = ch_ampcombi_input
         .groupTuple()
-        .multiMap {
-            id: [it[0]]
-        }
         .dump(tag:'ampcombi_input')
+        .join(ch_faa_for_ampcombi )
+        .multiMap{
+            input: [ it[0], it[1] ]
+            faa: it[2]
+        }
     
-    AMPCOMBI( ch_ampcombi_input, ch_faa_for_ampcombi , [])
+    // ch_faa_for_ampcombi.dump(tag:'ampcombi_faa_input')
+
+    AMPCOMBI( ch_ampcombi_input_new.input, ch_ampcombi_input_new.faa , [])
 
     emit:
     versions = ch_versions
