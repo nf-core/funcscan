@@ -15,8 +15,9 @@ workflow AMP {
     faa     // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
 
     main:
-    ch_versions = Channel.empty()
-    ch_ampcombi_input = Channel.empty()
+    ch_versions           = Channel.empty()
+    ch_ampcombi_input     = Channel.empty()
+    ch_ampcombi_summaries = Channel.empty()
 
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
@@ -75,7 +76,6 @@ workflow AMP {
         ch_versions = ch_versions.mix(AMP_HMMER_HMMSEARCH.out.versions)
         GUNZIP2 ( AMP_HMMER_HMMSEARCH.out.output )
         ch_hmmout = GUNZIP2.out.gunzip
-                        //.dump(tag:'hmmsearch_before')
                         .map {
                             meta_id, meta_hmm ->
                             def meta_hmmsearch = [:]
@@ -84,23 +84,28 @@ workflow AMP {
                         }
 
         ch_ampcombi_input = ch_ampcombi_input.mix(ch_hmmout)
-        //.dump(tag:'hmmsearch_after')
     }
 
     //AMPCOMBI
     ch_ampcombi_input_new = ch_ampcombi_input
         .groupTuple()
-        .dump(tag:'ampcombi_input')
         .join(ch_faa_for_ampcombi )
         .multiMap{
             input: [ it[0], it[1] ]
             faa: it[2]
         }
-    
-    // ch_faa_for_ampcombi.dump(tag:'ampcombi_faa_input')
 
     AMPCOMBI( ch_ampcombi_input_new.input, ch_ampcombi_input_new.faa , [])
+    ch_ampcombi_summaries = ch_ampcombi_summaries.mix(AMPCOMBI.out.csv)
 
+    //AMPCOMBI concatenation
+    ch_ampcombi_summaries_out = ch_ampcombi_summaries
+        .multiMap{
+                input: [ it[0] ]
+                summary: it[1]
+            }
+    ch_ampcombi_summaries_out.summary.collectFile(name: 'ampcombi_complete_summary.csv', storeDir: "${params.outdir}/reports/ampcombi", keepHeader:true)
+    
     emit:
     versions = ch_versions
 
