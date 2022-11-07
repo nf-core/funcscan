@@ -2,12 +2,12 @@
     Run AMP screening tools
 */
 
-include { MACREL_CONTIGS                                } from '../../modules/nf-core/macrel/contigs/main'
-include { HMMER_HMMSEARCH as AMP_HMMER_HMMSEARCH        } from '../../modules/nf-core/hmmer/hmmsearch/main'
-include { AMPLIFY_PREDICT                               } from '../../modules/nf-core/amplify/predict/main'
-include { AMPIR                                         } from '../../modules/nf-core/ampir/main'
-include { AMPCOMBI                                      } from '../../modules/nf-core/ampcombi/main'
-include { GUNZIP as GUNZIP1 ; GUNZIP as GUNZIP2         } from '../../modules/nf-core/gunzip/main'
+include { MACREL_CONTIGS                                            } from '../../modules/nf-core/macrel/contigs/main'
+include { HMMER_HMMSEARCH as AMP_HMMER_HMMSEARCH                    } from '../../modules/nf-core/hmmer/hmmsearch/main'
+include { AMPLIFY_PREDICT                                           } from '../../modules/nf-core/amplify/predict/main'
+include { AMPIR                                                     } from '../../modules/nf-core/ampir/main'
+include { AMPCOMBI                                                  } from '../../modules/nf-core/ampcombi/main'
+include { GUNZIP as GUNZIP_MACREL ; GUNZIP as GUNZIP_HMMER          } from '../../modules/nf-core/gunzip/main'
 
 workflow AMP {
     take:
@@ -38,8 +38,8 @@ workflow AMP {
     if ( !params.amp_skip_macrel ) {
         MACREL_CONTIGS ( contigs )
         ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)
-        GUNZIP1 ( MACREL_CONTIGS.out.amp_prediction )
-        ch_ampcombi_input = ch_ampcombi_input.mix(GUNZIP1.out.gunzip)
+        GUNZIP_MACREL ( MACREL_CONTIGS.out.amp_prediction )
+        ch_ampcombi_input = ch_ampcombi_input.mix(GUNZIP_MACREL.out.gunzip)
     }
 
     // AMPIR
@@ -74,8 +74,8 @@ workflow AMP {
 
         AMP_HMMER_HMMSEARCH ( ch_in_for_amp_hmmsearch )
         ch_versions = ch_versions.mix(AMP_HMMER_HMMSEARCH.out.versions)
-        GUNZIP2 ( AMP_HMMER_HMMSEARCH.out.output )
-        ch_hmmout = GUNZIP2.out.gunzip
+        GUNZIP_HMMER ( AMP_HMMER_HMMSEARCH.out.output )
+        ch_hmmout = GUNZIP_HMMER.out.gunzip
                         .map {
                             meta_id, meta_hmm ->
                             def meta_hmmsearch = [:]
@@ -94,8 +94,10 @@ workflow AMP {
             input: [ it[0], it[1] ]
             faa: it[2]
         }
+    // Checks if `--amp_database` is a user supplied path and if the path does not exist it goes to default, which downloads the DRAMP database once.
+    if ( params.amp_ampcombi_db ) { ch_ampcombi_input_db = Channel.fromPath( params.amp_ampcombi_db, checkIfExists: true ) } else { ch_ampcombi_input_db = [] }
 
-    AMPCOMBI( ch_ampcombi_input_new.input, ch_ampcombi_input_new.faa , [])
+    AMPCOMBI( ch_ampcombi_input_new.input, ch_ampcombi_input_new.faa, ch_ampcombi_input_db )
     ch_ampcombi_summaries = ch_ampcombi_summaries.mix(AMPCOMBI.out.csv)
 
     //AMPCOMBI concatenation

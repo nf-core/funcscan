@@ -165,11 +165,7 @@ workflow FUNCSCAN {
         AMPs
     */
     if ( params.run_amp_screening ) {
-        //if ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) {
-            AMP ( ch_prepped_input, ch_annotation_faa )
-        //}   else {
-        //    AMP ( ch_prepped_input, [] )
-        //}
+        AMP ( ch_prepped_input, ch_annotation_faa )
         ch_versions = ch_versions.mix(AMP.out.versions)
     }
 
