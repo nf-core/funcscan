@@ -12,8 +12,38 @@ env:
   NXF_ANSI_LOG: false
 
 jobs:
+
+  #Would this be possible instead of different workflow jobs, using profile: (see airrflow pipeline)
   test:
-    name: Run pipeline with test data (AMP and ARG workflows)
+    name: Run pipeline with test data (AMP workflow)
+    # Only run on push if this is the nf-core dev branch (merged PRs)
+    if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        NXF_VER:
+          - "21.10.3"
+          - "latest-everything"
+        profile: ["test_amp", "test_no_arg", "test_bgc", "test_deeparg"]
+        parameters:
+          - "--run_annotation_tool prodigal"
+          - "--run_annotation_tool prokka"
+
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v2
+
+      - name: Install Nextflow
+        uses: nf-core/setup-nextflow@v1
+        with:
+          version: "${{ matrix.NXF_VER }}"
+
+      - name: Run pipeline with test data (AMP workflow)
+        run: |
+          nextflow run ${GITHUB_WORKSPACE} -profile ${{ matrix.profile }} --outdir ./results ${{ matrix.parameters }}
+########################################################################
+  test_amp:
+    name: Run pipeline with test data (AMP workflow)
     # Only run on push if this is the nf-core dev branch (merged PRs)
     if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
     runs-on: ubuntu-latest
@@ -35,14 +65,44 @@ jobs:
         with:
           version: "${{ matrix.NXF_VER }}"
 
-      - name: Download required test data
-        run: |
-          mkdir -p databases/hmms/
-          for i in ABC_tran Pkinase; do wget https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/hmms/"$i".hmm -P databases/hmms/; done
+# Does the download has to happen here if the path is indicated in the test_amp.config?
+# Also, the .hmm file has changed and is not ABC_tran Pkinase any more
+      # - name: Download required test data
+      #   run: |
+      #     mkdir -p databases/hmms/
+      #     for i in ABC_tran Pkinase; do wget https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/hmms/"$i".hmm -P databases/hmms/; done
 
-      - name: Run pipeline with test data (AMP and ARG workflows)
+      - name: Run pipeline with test data (AMP workflow)
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results --amp_hmmsearch_models 'databases/hmms/*hmm' ${{ matrix.parameters }}
+          nextflow run ${GITHUB_WORKSPACE} -profile test_amp,docker --outdir ./results ${{ matrix.parameters }}
+    # OLD COMMAND: nextflow run ${GITHUB_WORKSPACE} -profile test_amp,docker --outdir ./results --amp_hmmsearch_models 'databases/hmms/*hmm' ${{ matrix.parameters }}
+
+  test_arg:
+    name: Run pipeline with test data (ARG workflow)
+    # Only run on push if this is the nf-core dev branch (merged PRs)
+    if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        NXF_VER:
+          - "21.10.3"
+          - "latest-everything"
+        parameters:
+          - "--run_annotation_tool prodigal"
+          - "--run_annotation_tool prokka"
+
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v2
+
+      - name: Install Nextflow
+        uses: nf-core/setup-nextflow@v1
+        with:
+          version: "${{ matrix.NXF_VER }}"
+
+      - name: Run pipeline with test data (ARG workflow)
+        run: |
+          nextflow run ${GITHUB_WORKSPACE} -profile test_arg,docker --outdir ./results ${{ matrix.parameters }}
 
   test_bgc:
     name: Run pipeline with test data (BGC workflow)
