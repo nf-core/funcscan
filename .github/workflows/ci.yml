@@ -25,6 +25,7 @@ jobs:
         parameters:
           - "--annotation_tool prodigal"
           - "--annotation_tool prokka"
+          ## Warning: we can't test Bakta as uses more memory than available on GHA CIs
 
     steps:
       - name: Check out pipeline code
