@@ -16,7 +16,7 @@ workflow AMP {
 
     main:
     ch_versions           = Channel.empty()
-    ch_ampcombi_input     = Channel.empty()
+    ch_ampresults_for_ampcombi     = Channel.empty()
     ch_ampcombi_summaries = Channel.empty()
 
     // When adding new tool that requires FAA, make sure to update conditions
@@ -31,7 +31,7 @@ workflow AMP {
     if ( !params.amp_skip_amplify ) {
         AMPLIFY_PREDICT ( ch_faa_for_amplify, [] )
         ch_versions = ch_versions.mix(AMPLIFY_PREDICT.out.versions)
-        ch_ampcombi_input = ch_ampcombi_input.mix(AMPLIFY_PREDICT.out.tsv)
+        ch_ampresults_for_ampcombi = ch_ampresults_for_ampcombi.mix(AMPLIFY_PREDICT.out.tsv)
     }
 
     // MACREL
@@ -39,14 +39,14 @@ workflow AMP {
         MACREL_CONTIGS ( contigs )
         ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)
         GUNZIP_MACREL ( MACREL_CONTIGS.out.amp_prediction )
-        ch_ampcombi_input = ch_ampcombi_input.mix(GUNZIP_MACREL.out.gunzip)
+        ch_ampresults_for_ampcombi = ch_ampresults_for_ampcombi.mix(GUNZIP_MACREL.out.gunzip)
     }
 
     // AMPIR
     if ( !params.amp_skip_ampir ) {
         AMPIR ( ch_faa_for_ampir, params.amp_ampir_model, params.amp_ampir_minlength, 0.0 )
         ch_versions = ch_versions.mix(AMPIR.out.versions)
-        ch_ampcombi_input = ch_ampcombi_input.mix(AMPIR.out.amps_tsv)
+        ch_ampresults_for_ampcombi = ch_ampresults_for_ampcombi.mix(AMPIR.out.amps_tsv)
     }
 
     // HMMSEARCH
@@ -74,7 +74,7 @@ workflow AMP {
 
         AMP_HMMER_HMMSEARCH ( ch_in_for_amp_hmmsearch )
         ch_versions = ch_versions.mix(AMP_HMMER_HMMSEARCH.out.versions)
-// This chunk of code can add the hmmer_hmmsearch channel in the ampcombi input channel `ch_ampcombi_input`. 
+// This chunk of code can add the hmmer_hmmsearch channel in the ampcombi input channel `ch_ampresults_for_ampcombi`. 
 //        GUNZIP_HMMER ( AMP_HMMER_HMMSEARCH.out.output )
 //        ch_hmmout = GUNZIP_HMMER.out.gunzip
 //                        .map {
@@ -84,11 +84,11 @@ workflow AMP {
 //                            [meta_hmmsearch, meta_hmm]
 //                        }
 //
-//        ch_ampcombi_input = ch_ampcombi_input.mix(ch_hmmout)
+//        ch_ampresults_for_ampcombi = ch_ampresults_for_ampcombi.mix(ch_hmmout)
     }
 
     //AMPCOMBI
-    ch_ampcombi_input_mapped = ch_ampcombi_input
+    ch_input_for_ampcombi = ch_ampresults_for_ampcombi
         .groupTuple()
         .join( ch_faa_for_ampcombi )
         .multiMap{
@@ -98,7 +98,7 @@ workflow AMP {
     // Checks if `--amp_database` is a user supplied path and if the path does not exist it goes to default, which downloads the DRAMP database once.
     if ( params.amp_ampcombi_db ) { ch_ampcombi_input_db = Channel.fromPath( params.amp_ampcombi_db, checkIfExists: true ) } else { ch_ampcombi_input_db = [] }
 
-    AMPCOMBI( ch_ampcombi_input_mapped.input, ch_ampcombi_input_mapped.faa, ch_ampcombi_input_db )
+    AMPCOMBI( ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_ampcombi_input_db )
     ch_ampcombi_summaries = ch_ampcombi_summaries.mix(AMPCOMBI.out.csv)
 
     //AMPCOMBI concatenation
