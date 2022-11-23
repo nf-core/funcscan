@@ -136,9 +136,11 @@ workflow FUNCSCAN {
             ch_annotation_faa        = PRODIGAL_GFF.out.amino_acid_fasta
             ch_annotation_fna        = PRODIGAL_GFF.out.nucleotide_fasta
             ch_annotation_gff        = PRODIGAL_GFF.out.gene_annotations
-            PRODIGAL_GBK ( ch_prepped_input, "gbk" )
-            ch_versions              = ch_versions.mix(PRODIGAL_GBK.out.versions)
-            ch_annotation_gbk        = PRODIGAL_GBK.out.gene_annotations
+            if ( params.save_annotations == true ) {
+                PRODIGAL_GBK ( ch_prepped_input, "gbk" )
+                ch_versions              = ch_versions.mix(PRODIGAL_GBK.out.versions)
+                ch_annotation_gbk        = PRODIGAL_GBK.out.gene_annotations
+                }
         }   else if ( params.run_annotation_tool == "prokka") {
             PROKKA ( ch_prepped_input, [], [] )
             ch_versions              = ch_versions.mix(PROKKA.out.versions)
@@ -163,11 +165,7 @@ workflow FUNCSCAN {
         AMPs
     */
     if ( params.run_amp_screening ) {
-        if ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) {
-            AMP ( ch_prepped_input, ch_annotation_faa )
-        }   else {
-            AMP ( ch_prepped_input, [] )
-        }
+        AMP ( ch_prepped_input, ch_annotation_faa )
         ch_versions = ch_versions.mix(AMP.out.versions)
     }
 

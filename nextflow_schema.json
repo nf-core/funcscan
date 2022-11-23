@@ -208,6 +208,28 @@
             "fa_icon": "fas fa-tools",
             "help_text": "Macrel is a tool that mines antimicrobial peptides (AMPs) from (meta)genomes by predicting peptides from genomes (provided as contigs) and outputs all the predicted anti-microbial peptides found.\n\nDocumentation: https://github.com/BigDataBiology/macrel"
         },
+        "amp_ampcombi": {
+            "title": "AMP: AMPcombi",
+            "type": "object",
+            "description": "AntiMicrobial Peptides parsing and functional classification tool",
+            "default": "",
+            "fa_icon": "fas fa-filter",
+            "properties": {
+                "amp_ampcombi_db": {
+                    "type": "string",
+                    "help_text": "Path to the folder containing the reference database files: (1) a fasta file with <.fasta> file extension and (2) the corresponding table with with functional and taxonomic classifications in <.tsv> file extension",
+                    "default": "None",
+                    "fa_icon": "fas fa-address-book"
+                },
+                "amp_ampcombi_cutoff": {
+                    "type": "number",
+                    "default": 0.4,
+                    "help_text": "Probability cutoff to filter AMPs",
+                    "fa_icon": "fas fa-sort-amount-up"
+                }
+            },
+            "help_text": "AMPcombi : AntiMicrobial Peptides parsing and functional classification tool"
+        },
         "arg_amrfinderplus": {
             "title": "ARG: AMRfinderPlus",
             "type": "object",
@@ -734,6 +756,9 @@
         },
         {
             "$ref": "#/definitions/amp_macrel"
+        },
+        {
+            "$ref": "#/definitions/amp_ampcombi"
         },
         {
             "$ref": "#/definitions/arg_amrfinderplus"
