@@ -238,7 +238,7 @@ Output Summaries:
 
 </details>
 
-[AMPcombi](https://github.com/Darcy220606/AMPcombi) summarizes parses the results of **antimicrobial peptide (AMP)** prediction tools (AMPIR, AMPLIFY, MACREL, HMMSEARCH and other non nf-core tools) into a single table and aligns the hits against a reference AMP database for functional and taxonomic classification.
+[AMPcombi](https://github.com/Darcy220606/AMPcombi) summarizes parses the results of **antimicrobial peptide (AMP)** prediction tools (AMPIR, AMPLIFY, MACREL, and other non nf-core tools) into a single table and aligns the hits against a reference AMP database for functional and taxonomic classification.
 
 ### ABRicate
 
