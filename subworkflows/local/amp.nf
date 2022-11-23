@@ -74,16 +74,16 @@ workflow AMP {
 
         AMP_HMMER_HMMSEARCH ( ch_in_for_amp_hmmsearch )
         ch_versions = ch_versions.mix(AMP_HMMER_HMMSEARCH.out.versions)
-        GUNZIP_HMMER ( AMP_HMMER_HMMSEARCH.out.output )
-        ch_hmmout = GUNZIP_HMMER.out.gunzip
-                        .map {
-                            meta_id, meta_hmm ->
-                            def meta_hmmsearch = [:]
-                            meta_hmmsearch['id'] = meta_id['id']
-                            [meta_hmmsearch, meta_hmm]
-                        }
-
-        ch_ampcombi_input = ch_ampcombi_input.mix(ch_hmmout)
+//        GUNZIP_HMMER ( AMP_HMMER_HMMSEARCH.out.output )
+//        ch_hmmout = GUNZIP_HMMER.out.gunzip
+//                        .map {
+//                            meta_id, meta_hmm ->
+//                            def meta_hmmsearch = [:]
+//                            meta_hmmsearch['id'] = meta_id['id']
+//                            [meta_hmmsearch, meta_hmm]
+//                        }
+//
+//        ch_ampcombi_input = ch_ampcombi_input.mix(ch_hmmout)
     }
 
     //AMPCOMBI
