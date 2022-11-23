@@ -169,6 +169,29 @@ Output Summaries:
 
 [Prokka](https://github.com/tseemann/prokka) does whole genome annotation to identify features of interest in a set of genomic DNA sequences, and labelling them with useful information. It can be applied to annotate bacterial, archaeal and viral genomes.
 
+### Bakta
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `bakta/`
+  - `<samplename>.gff3`: annotations & sequences in GFF3 format
+  - `<samplename>.gbff`: annotations & sequences in (multi) GenBank format
+  - `<samplename>.ffn`: feature nucleotide sequences as FASTA
+  - `<samplename>.fna`: replicon/contig DNA sequences as FASTA
+  - `<samplename>.embl`: annotations & sequences in (multi) EMBL format
+  - `<samplename>.faa`: CDS/sORF amino acid sequences as FASTA
+  - `<samplename>_hypothetical.faa`: further information on hypothetical protein CDS as simple human readble tab separated values
+  - `<samplename>_hypothetical.tsv`: hypothetical protein CDS amino acid sequences as FASTA
+  - `<samplename>.tsv`: annotations as simple human readble TSV
+  - `<samplename>.txt`: summary in TXT format
+
+> Descriptions directly from the [Bakta documentation](https://github.com/oschwengers/bakta#output).
+
+</details>
+
+[Bakta](https://github.com/oschwengers/bakta) is a tool for the rapid & standardized annotation of bacterial genomes and plasmids from both isolates and MAGs. It provides dbxref-rich, sORF-including and taxon-independent annotations in machine-readable JSON & bioinformatics standard file formats for automated downstream analysis.
+
 ### ampir
 
 <details markdown="1">

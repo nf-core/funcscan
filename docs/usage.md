@@ -43,7 +43,7 @@ Here we will describe where you can obtain databases and reference files for too
 
 nf-core/funcscan offers multiple tools for annotating input sequences.
 
-Bakta is a new tool touted as a successor to the well-established Prokka.
+Bakta is a new tool touted as a bacteria-only successor to the well-established Prokka.
 
 Bakta requires a database, supplied to the pipeline with `--annotation_bakta_db`.
 This must be downloaded from the Bakta Zenodo archive, the link of which can be found on the [Bakta github repository](https://github.com/oschwengers/bakta).
