@@ -74,7 +74,7 @@ workflow AMP {
 
         AMP_HMMER_HMMSEARCH ( ch_in_for_amp_hmmsearch )
         ch_versions = ch_versions.mix(AMP_HMMER_HMMSEARCH.out.versions)
-// This chunk of code can add the hmmer_hmmsearch channel in the ampcombi input channel `ch_ampresults_for_ampcombi`. 
+// This chunk of code can add the hmmer_hmmsearch channel in the ampcombi input channel `ch_ampcombi_input`. Currently deactivated as AMPcombi can only accept a single HMM file (whereas funcscan produces multiple, one per each input HMM).
 //        GUNZIP_HMMER ( AMP_HMMER_HMMSEARCH.out.output )
 //        ch_hmmout = GUNZIP_HMMER.out.gunzip
 //                        .map {
