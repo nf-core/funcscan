@@ -137,7 +137,7 @@ workflow FUNCSCAN {
     // For prodigal run twice, once for gff and once for gbk generation, (for parity with PROKKA which produces both)
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.amp_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
 
-        if ( params.annotation_tool == "prodigal") {
+        if ( params.annotation_tool == "prodigal" ) {
             PRODIGAL_GFF ( ch_prepped_input, "gff" )
             ch_versions              = ch_versions.mix(PRODIGAL_GFF.out.versions)
             ch_annotation_faa        = PRODIGAL_GFF.out.amino_acid_fasta
@@ -149,7 +149,7 @@ workflow FUNCSCAN {
                 ch_versions              = ch_versions.mix(PRODIGAL_GBK.out.versions)
                 ch_annotation_gbk        = PRODIGAL_GBK.out.gene_annotations
             }
-        }   else if ( params.run_annotation_tool == "prokka") {
+        }   else if ( params.annotation_tool == "prokka" ) {
             PROKKA ( ch_prepped_input, [], [] )
             ch_versions              = ch_versions.mix(PROKKA.out.versions)
             ch_annotation_faa        = PROKKA.out.faa
