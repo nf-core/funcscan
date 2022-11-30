@@ -9,6 +9,10 @@
                         "branch": "master",
                         "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
                     },
+                    "ampcombi": {
+                        "branch": "master",
+                        "git_sha": "97f2d1e6b22bbc90ba63a83f93b0cf89a995f017"
+                    },
                     "ampir": {
                         "branch": "master",
                         "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"

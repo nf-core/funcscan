@@ -54,6 +54,10 @@
 
   > Parse multiple Antimicrobial Resistance Analysis Reports into a common data structure. (n.d.). Github. Retrieved October 5, 2022, from [https://github.com/pha4ge/hAMRonization]
 
+- [AMPcpmbi](https://github.com/Darcy220606/AMPcombi)
+
+  > Parses the results of antimicrobial peptide (AMP) prediction tools into a single table and aligns the hits against a reference AMP database for functional classifications.
+
 - [HMMER](https://doi.org/10.1371/journal.pcbi.1002195.)
 
   > Eddy S. R. (2011). Accelerated Profile HMM Searches. PLoS computational biology, 7(10), e1002195. [DOI: 10.1371/journal.pcbi.1002195](https://doi.org/10.1371/journal.pcbi.1002195)
