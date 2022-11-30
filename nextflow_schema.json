@@ -501,7 +501,7 @@
             "properties": {
                 "arg_hamronization_summarizeformat": {
                     "type": "string",
-                    "default": "interactive",
+                    "default": "tsv",
                     "enum": ["interactive", "tsv", "json"],
                     "help_text": "Specifies which summary report format to generate with `hamronize summarize`: tsv, json or interactive (html)\n\n> Modifies hAMRonization parameter: `-t`, `--summary_type`",
                     "description": "Specifies summary output format",
