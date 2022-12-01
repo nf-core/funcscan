@@ -13,7 +13,7 @@ parser = argparse.ArgumentParser(prog = 'combgc', formatter_class=argparse.RawDe
     .............................................................................
                                     *comBGC*
     .............................................................................
-                This tool parses the results of BGC prediction tools 
+                This tool parses the results of BGC prediction tools
             For detailed usage documentation please refer to <github_repo>
     .............................................................................'''),
                                 epilog='''Your comBGC-summary file is in the output folder. Enjoy your day!''',
@@ -76,7 +76,7 @@ def walk_gecco_path(path):
 #     #append contig information to df
 #     for contig in fasta_seq:
 #         contig_id, sequence = contig.id, str(contig.seq)
-#         fasta_df = fasta_df.append({'contig_id':contig_id, 'sequence':sequence, 'length':len(sequence)}, ignore_index=True)    
+#         fasta_df = fasta_df.append({'contig_id':contig_id, 'sequence':sequence, 'length':len(sequence)}, ignore_index=True)
 #     return fasta_df
 
 # Function: Determine on which side of the contig the BGC stops. Region of 50 base pairs on each end counts as truncated
@@ -128,14 +128,14 @@ def gecco_workflow(gecco_path):
         # Add empty columns which have no output in GECCO
         gecco_df['BGC_complete'] = ''
         gecco_df['MIBiG_ID'] = ''
-        gecco_out = pd.concat([gecco_out, gecco_df])   
+        gecco_out = pd.concat([gecco_out, gecco_df])
     # sort columns in the specified order (summary_cols)
     gecco_out = gecco_out[summary_cols]
-    gecco_out.to_csv('comBGC_GECCO_summary.tsv', sep='\t')
+    gecco_out.to_csv('comBGC_GECCO_summary.tsv', sep='\t', index=False)
     return gecco_out
 
 ########################
-# MAIN 
+# MAIN
 ########################
 if __name__ == "__main__":
     gecco_workflow(input_gecco)
