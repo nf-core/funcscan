@@ -393,7 +393,8 @@ The `*.ARG` output files contain the following fields:
 - `rgi/`
   - `<samplename>.json`: hit results in json format
   - `<samplename>.txt`: hit results table separated by '#'
-  - `<samplename>.fasta.temp.*.json`: temporary json files, '\*' stands for 'homolog', 'overexpression', 'predictedGenes' and 'predictedGenes.protein'
+  - `temp/`:
+    - `<samplename>.fasta.temp.*.json`: temporary json files, '\*' stands for 'homolog', 'overexpression', 'predictedGenes' and 'predictedGenes.protein' (only if `--arg_rgi_savetmpfiles` supplied).
 
 </details>
 
