@@ -352,12 +352,12 @@ The `*.ARG` output files contain the following fields:
 - `fargene/`
   - `fargene_analysis.log`: logging output that Fargene produced during its run
   - `<sample_name>/`:
-    - `hmmsearchresults/`: output from hmmsearch
+    - `hmmsearchresults/`: output from hmmsearch (only if `--arg_fargene_savetmpfiles` supplied)
     - `predictedGenes/`:
       - `*-filtered.fasta`: nucleotide sequences of predicted ARGs
       - `*-filtered-peptides.fasta`: aminoacid sequences of predicted ARGs
     - `results_summary.txt`: text summary of results, listing predicted genes and ORFs for each input file
-    - `tmpdir/`: temporary output files and fasta files
+    - `tmpdir/`: temporary output files and fasta files (only if `--arg_fargene_savetmpfiles` supplied)
 
 </details>
 
@@ -370,8 +370,6 @@ The `*.ARG` output files contain the following fields:
 - `class_d_2`: class D beta-lactamases
 - `qnr`: quinolone resistance genes
 - `tet_efflux`, `tet_rpg`, `tet_enzyme`: tetracycline resistance genes
-
-> Attention: fARGene output will not be included in the AMR summary report since its output statistics are hardly comparable with those of the other tools.
 
 ### hAMRonization
 
