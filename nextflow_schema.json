@@ -73,11 +73,11 @@
             "description": "These options influence the generation of annotation files required for downstream steps in ARG, AMP and BGC workflows.",
             "default": "",
             "properties": {
-                "run_annotation_tool": {
+                "annotation_tool": {
                     "type": "string",
                     "default": "prodigal",
-                    "description": "Specify which annotation tool to run: either prodigal or prokka",
-                    "enum": ["prodigal", "prokka"],
+                    "description": "Specify which annotation tool to run: either prodigal, prokka, or bakta",
+                    "enum": ["prodigal", "prokka", "bakta"],
                     "fa_icon": "fas fa-edit"
                 },
                 "save_annotations": {
@@ -88,7 +88,13 @@
                 "annotation_prodigal_singlemode": {
                     "type": "boolean",
                     "description": "Specify whether to use Prodigal's single-genome mode for long sequences",
-                    "help_text": "By default Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or more than be 20000 characters.\n\nHowever, more fragmented contigs from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter will allow you to override this and run in single genome mode again.\n\n> Modifies Prodigal parameter: `-p`"
+                    "help_text": "By default Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or more than be 20000 characters.\n\nHowever, more fragmented contigs from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter will allow you to override this and run in single genome mode again.\n\n> Modifies Prodigal parameter: `-p`",
+                    "fa_icon": "far fa-circle"
+                },
+                "annotation_bakta_db": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fas fa-database"
                 }
             },
             "fa_icon": "fas fa-file-signature"

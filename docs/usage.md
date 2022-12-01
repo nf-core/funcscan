@@ -39,6 +39,27 @@ nf-core/funcscan utilises various tools that use databases and reference files t
 
 Here we will describe where you can obtain databases and reference files for tools included in the pipeline.
 
+### Bakta
+
+nf-core/funcscan offers multiple tools for annotating input sequences.
+
+Bakta is a new tool touted as a bacteria-only successor to the well-established Prokka.
+
+Bakta requires a database, supplied to the pipeline with `--annotation_bakta_db`.
+This must be downloaded from the Bakta Zenodo archive, the link of which can be found on the [Bakta github repository](https://github.com/oschwengers/bakta).
+
+Once downloaded this must be untarred
+
+```bash
+tar xvzf db.tar.gz
+```
+
+And then passed to the pipeline with
+
+```bash
+--annotation_bakta_db /<path>/<to>/db/
+```
+
 ### hmmsearch
 
 nf-core/funcscan allows screening of sequences for various natural product types via hidden markov models with HMMSearch.
