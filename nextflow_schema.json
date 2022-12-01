@@ -73,11 +73,11 @@
             "description": "These options influence the generation of annotation files required for downstream steps in ARG, AMP and BGC workflows.",
             "default": "",
             "properties": {
-                "run_annotation_tool": {
+                "annotation_tool": {
                     "type": "string",
                     "default": "prodigal",
-                    "description": "Specify which annotation tool to run: either prodigal or prokka",
-                    "enum": ["prodigal", "prokka"],
+                    "description": "Specify which annotation tool to run: either prodigal, prokka, or bakta",
+                    "enum": ["prodigal", "prokka", "bakta"],
                     "fa_icon": "fas fa-edit"
                 },
                 "save_annotations": {
@@ -88,7 +88,13 @@
                 "annotation_prodigal_singlemode": {
                     "type": "boolean",
                     "description": "Specify whether to use Prodigal's single-genome mode for long sequences",
-                    "help_text": "By default Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or more than be 20000 characters.\n\nHowever, more fragmented contigs from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter will allow you to override this and run in single genome mode again.\n\n> Modifies Prodigal parameter: `-p`"
+                    "help_text": "By default Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or more than be 20000 characters.\n\nHowever, more fragmented contigs from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter will allow you to override this and run in single genome mode again.\n\n> Modifies Prodigal parameter: `-p`",
+                    "fa_icon": "far fa-circle"
+                },
+                "annotation_bakta_db": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fas fa-database"
                 }
             },
             "fa_icon": "fas fa-file-signature"
@@ -341,6 +347,12 @@
                     "description": "Specify comma-separated list of which pre-defined HMM models to screen against",
                     "help_text": "Specify via a comma separated list any of the hmm-models of the pre-defined models:\n    - Class A beta-lactamases: `class_a`\n    - Subclass B1 and B2 beta-lactamases: `class_b_1_2`\n    - Subclass B3 beta-lactamases: `class_b_3`\n    - Class C beta-lactamases: `class_c\n    - Class D beta-lactamases: `class_d_1`, `class_d_2`\n    - qnr: `qnr`\n    - Tetracycline resistance genes `tet_efflux`, `tet_rpg`, `tet_enzyme`\n\n> Modifies fARGene parameter: `--hmm-model`",
                     "fa_icon": "fas fa-layer-group"
+                },
+                "arg_fargene_savetmpfiles": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Specify to save intermediate temporary files to --outdir",
+                    "help_text": "fARGene produces a lot of additional temporary files which in most cases won't be useful.\n\nBy specifying this parameter, the directories `tmpdir/`, `hmmsearchresults/` and `spades_assemblies/` will be also saved in the output directory for closer inspection by the user, if necessary."
                 }
             },
             "fa_icon": "fas fa-tools"
@@ -501,7 +513,7 @@
             "properties": {
                 "arg_hamronization_summarizeformat": {
                     "type": "string",
-                    "default": "interactive",
+                    "default": "tsv",
                     "enum": ["interactive", "tsv", "json"],
                     "help_text": "Specifies which summary report format to generate with `hamronize summarize`: tsv, json or interactive (html)\n\n> Modifies hAMRonization parameter: `-t`, `--summary_type`",
                     "description": "Specifies summary output format",
