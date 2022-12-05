@@ -19,9 +19,6 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 // Check mandatory parameters
 if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
 
-// Validate annotation settings
-if ( params.annotation_tool == 'bakta' && !params.annotation_bakta_db ) exit 1, "[nf-core/funcscan] ERROR: Annotation of input with bakta requires specifying a database with --annotation_bakta_db. Check input."
-
 // Validate fARGene inputs
 // Split input into array, find the union with our valid classes, extract only
 // invalid classes, and if they exist, exit. Note `tokenize` used here as this
@@ -89,7 +86,9 @@ include { GUNZIP                      } from '../modules/nf-core/gunzip/main'
 include { PROKKA                      } from '../modules/nf-core/prokka/main'
 include { PRODIGAL as PRODIGAL_GFF    } from '../modules/nf-core/prodigal/main'
 include { PRODIGAL as PRODIGAL_GBK    } from '../modules/nf-core/prodigal/main'
-include { BAKTA                       } from '../modules/nf-core/bakta/main'
+include { BAKTA_BAKTADBDOWNLOAD       } from '../modules/nf-core/bakta/baktadbdownload/main'
+include { UNTAR as BAKTA_UNTAR        } from '../modules/nf-core/untar/main'
+include { BAKTA_BAKTA                 } from '../modules/nf-core/bakta/bakta/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -156,12 +155,24 @@ workflow FUNCSCAN {
             ch_annotation_fna        = PROKKA.out.fna
             ch_annotation_gff        = PROKKA.out.gff
         }   else if ( params.annotation_tool == "bakta" ) {
-            bakta_db = file(params.annotation_bakta_db)
-            BAKTA ( ch_prepped_input, bakta_db, [], [] )
-            ch_versions              = ch_versions.mix(BAKTA.out.versions)
-            ch_annotation_faa        = BAKTA.out.faa
-            ch_annotation_fna        = BAKTA.out.fna
-            ch_annotation_gff        = BAKTA.out.gff
+
+            // BAKTA prepare download
+            if ( params.annotation_bakta_db ) {
+                ch_bakta_db = Channel
+                    .fromPath( params.annotation_bakta_db )
+                    .first()
+            } else {
+                BAKTA_BAKTADBDOWNLOAD ()
+                ch_versions = ch_versions.mix(BAKTA_BAKTADBDOWNLOAD.out.versions)
+                ch_bakta_db = BAKTA_UNTAR ( BAKTA_BAKTADBDOWNLOAD.out.db_tar_gz ).untar
+                ch_versions = ch_versions.mix(BAKTA_UNTAR.out.versions)
+            }
+
+            BAKTA_BAKTA ( ch_prepped_input, ch_bakta_db, [], [] )
+            ch_versions              = ch_versions.mix(BAKTA_BAKTA.out.versions)
+            ch_annotation_faa        = BAKTA_BAKTA.out.faa
+            ch_annotation_fna        = BAKTA_BAKTA.out.fna
+            ch_annotation_gff        = BAKTA_BAKTA.out.gff
         }
 
     } else {
