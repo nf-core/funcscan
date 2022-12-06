@@ -37,9 +37,13 @@
                         "branch": "master",
                         "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
                     },
-                    "bakta": {
+                    "bakta/bakta": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                        "git_sha": "00c846b77fdbb475921a1190dd2a9a6ef6d869e4"
+                    },
+                    "bakta/baktadbdownload": {
+                        "branch": "master",
+                        "git_sha": "00c846b77fdbb475921a1190dd2a9a6ef6d869e4"
                     },
                     "custom/dumpsoftwareversions": {
                         "branch": "master",
