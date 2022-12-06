@@ -59,7 +59,7 @@
                     },
                     "deepbgc/pipeline": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                        "git_sha": "793ff7a2e26ef8a7470b8f6e7c676fe5f411760a"
                     },
                     "fargene": {
                         "branch": "master",
