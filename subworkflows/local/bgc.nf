@@ -61,6 +61,11 @@ workflow BGC {
 
         ch_antismash_input = fna.mix(gff)
                                 .groupTuple()
+                                .filter {
+                                    meta, files ->
+                                        if ( meta.longest_contig < params.bgc_antismash_mincontiglength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold. Antismash will not be run for: ${meta.id}."
+                                        meta.longest_contig >= params.bgc_antismash_mincontiglength
+                                }
                                 .multiMap {
                                     fna: [ it[0], it[1][0] ]
                                     gff: it[1][1]
