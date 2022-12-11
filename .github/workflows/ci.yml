@@ -52,7 +52,7 @@ jobs:
     strategy:
       matrix:
         NXF_VER:
-          - "21.10.3"
+          - "22.10.1"
           - "latest-everything"
         parameters:
           - "--annotation_tool prodigal"
@@ -79,7 +79,7 @@ jobs:
     strategy:
       matrix:
         NXF_VER:
-          - "21.10.3"
+          - "22.10.1"
           - "latest-everything"
         parameters:
           - "--annotation_tool prodigal"
