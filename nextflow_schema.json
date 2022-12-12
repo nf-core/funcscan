@@ -431,6 +431,52 @@
                     "description": "Path to user-defined local antiSMASH directory",
                     "fa_icon": "far fa-folder-open",
                     "default": "None"
+                },
+                "bgc_antismash_cbgeneral": {
+                    "type": "boolean",
+                    "description": "Compare identified clusters against a database of antiSMASH-predicted clusters."
+                },
+                "bgc_antismash_cbknownclusters": {
+                    "type": "boolean",
+                    "description": "Compare identified clusters against known gene clusters from the MIBiG database.",
+                    "fa_icon": "fas fa-puzzle-piece"
+                },
+                "bgc_antismash_cbsubclusters": {
+                    "type": "boolean",
+                    "description": "Compare identified clusters against known subclusters responsible for synthesising precursors.",
+                    "fa_icon": "fas fa-adjust"
+                },
+                "bgc_antismash_smcogtrees": {
+                    "type": "boolean",
+                    "description": "Generate phylogenetic trees of sec. met. cluster orthologous groups.",
+                    "fa_icon": "fas fa-tree"
+                },
+                "bgc_antismash_ccmibig": {
+                    "type": "boolean",
+                    "description": "Run a comparison against the MIBiG dataset.",
+                    "fa_icon": "fab fa-affiliatetheme"
+                },
+                "bgc_antismash_minlength": {
+                    "type": "integer",
+                    "default": 1000,
+                    "description": "Only process sequences larger than <minlength> (default: 1000).",
+                    "fa_icon": "fas fa-align-center"
+                },
+                "bgc_antismash_hmmdetectionstrictness": {
+                    "type": "string",
+                    "default": "relaxed",
+                    "description": "Defines which level of strictness to use for HMM-based cluster detection",
+                    "help_text": "Defines which level of strictness to use for HMM-based cluster detection. Default is set at 'relaxed'. Other valid options can be 'strict' or 'loose'.",
+                    "fa_icon": "fas fa-search",
+                    "enum": ["relaxed", "strict", "loose"]
+                },
+                "bgc_antismash_taxon": {
+                    "type": "string",
+                    "default": "bacteria",
+                    "description": "Taxonomic classification of input sequence.",
+                    "help_text": "Taxonomic classification of input sequence. The default is set at 'bacteria'. Another valid option is 'fungi'.",
+                    "fa_icon": "fas fa-bacteria",
+                    "enum": ["bacteria", "fungi"]
                 }
             },
             "fa_icon": "fas fa-tools"
@@ -480,10 +526,10 @@
                 },
                 "bgc_hmmsearch_models": {
                     "type": "string",
-                    "default": "None",
                     "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--bgc_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n\nYou must wrap the path in quotes if you use a wilcard!\n",
                     "fa_icon": "fas fa-layer-group",
-                    "description": "Specify path (wrapped in quotes if using wildcard!) to the BGC hmm model files to search against."
+                    "description": "Specify path (wrapped in quotes if using wildcard!) to the BGC hmm model files to search against.",
+                    "default": "None"
                 },
                 "bgc_hmmsearch_savealignments": {
                     "type": "boolean",
