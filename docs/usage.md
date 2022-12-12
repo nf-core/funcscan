@@ -33,6 +33,18 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 
 > ⚠️ We highly recommend performing quality control on input contigs before running the pipeline. You may not receive results for some tools if none of the contigs in a FASTA file reach certain thresholds. Check parameter documentation for relevent minimum contig parameters.
 
+## Notes on screening tools
+
+The implementation of some tools in the pipeline may have some particular behaviours that you should be aware of before you run the pipeline.
+
+### antiSMASH
+
+AntiSMASH has a minimum contig parameter, in which only contigs of a certain length (or longer) will be screened. In cases where no hits are found in these, then the tool ends successfully. However if no contigs in an input file reach that minimum threshold, the tool will end with a 'failure' code, and cause the pipeline to crash.
+
+To prevent entire pipeline failures to due a single 'bad sample', nf-core/funcscan will filter out any input sample in which none of the contigs reach the minimum contig length specified with `--bgc_antismash_mincontiglength`.
+
+> ⚠️ If a sample does not reach this contig length threshold, you will recieve a warning in your console and `.nextflow.log` file, and no result files will exist for this sample in your results directory.
+
 ## Databases and reference files
 
 nf-core/funcscan utilises various tools that use databases and reference files to generate results. While nf-core/funcscan offers in some cases functionality to autodownload databases for you, these databases can be very large, and it is more efficient to store these files in a central place from where they can be reused across pipeline runs.
