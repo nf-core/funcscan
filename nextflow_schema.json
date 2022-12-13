@@ -434,7 +434,8 @@
                 },
                 "bgc_antismash_cbgeneral": {
                     "type": "boolean",
-                    "description": "Compare identified clusters against a database of antiSMASH-predicted clusters."
+                    "description": "Compare identified clusters against a database of antiSMASH-predicted clusters.",
+                    "fa_icon": "fab fa-affiliatetheme"
                 },
                 "bgc_antismash_cbknownclusters": {
                     "type": "boolean",
