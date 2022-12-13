@@ -464,6 +464,36 @@
                     "type": "boolean",
                     "description": "Skip GECCO during the BGC screening",
                     "fa_icon": "fas fa-ban"
+                },
+                "bgc_gecco_cds": {
+                    "type": "integer",
+                    "default": 3,
+                    "description": "The minimum number of coding sequences a valid cluster must contain. [default 3]",
+                    "fa_icon": "fas fa-align-right"
+                },
+                "bgc_gecco_threshold": {
+                    "type": "number",
+                    "default": 0.8,
+                    "description": "The probability threshold for cluster detection. [default 0.8]",
+                    "fa_icon": "fas fa-angle-double-up"
+                },
+                "bgc_gecco_pfilter": {
+                    "type": "number",
+                    "description": "The p-value cutoff for protein domains to be included. [default 1e-9]",
+                    "fa_icon": "fas fa-filter",
+                    "default": 1e-9
+                },
+                "bgc_gecco_edgedistance": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "The minimum number of annotated genes that must separate a cluster from the edge. [default 0]",
+                    "help_text": "The minimum number of annotated genes that must separate a cluster from the edge. Edge clusters will still be included if they are longer. A lower number will increase the number of false positives on small contigs. [default 0]",
+                    "fa_icon": "fas fa-ruler-horizontal"
+                },
+                "bgc_gecco_mask": {
+                    "type": "boolean",
+                    "description": "Enable unknown region masking to prevent genes from stretching across unknown nucleotides.",
+                    "fa_icon": "fas fa-mask"
                 }
             }
         },
