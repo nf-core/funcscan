@@ -474,7 +474,7 @@
                     "type": "string",
                     "default": "bacteria",
                     "description": "Taxonomic classification of input sequence.",
-                    "help_text": "Taxonomic classification of input sequence. The default is set at 'bacteria'. Another valid option is 'fungi'.",
+                    "help_text": "Taxonomic classification of input sequence. Valid options are 'bacteria' (default) and 'fungi'.",
                     "fa_icon": "fas fa-bacteria",
                     "enum": ["bacteria", "fungi"]
                 }
