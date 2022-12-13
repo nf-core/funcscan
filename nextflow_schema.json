@@ -466,7 +466,7 @@
                     "type": "string",
                     "default": "relaxed",
                     "description": "Defines which level of strictness to use for HMM-based cluster detection",
-                    "help_text": "Defines which level of strictness to use for HMM-based cluster detection. Default is set at 'relaxed'. Other valid options can be 'strict' or 'loose'.",
+                    "help_text": "Defines which level of strictness to use for HMM-based cluster detection. Default is set at 'relaxed'. Other valid options are 'strict' or 'loose'.",
                     "fa_icon": "fas fa-search",
                     "enum": ["relaxed", "strict", "loose"]
                 },
