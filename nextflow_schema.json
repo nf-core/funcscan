@@ -441,6 +441,7 @@
                 "bgc_antismash_cbgeneral": {
                     "type": "boolean",
                     "description": "Compare identified clusters against a database of antiSMASH-predicted clusters.",
+                    "help": "Compare identified clusters against a database of antiSMASH-predicted clusters.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s)\n> antiSMASH: `--cb-general`\n"
                     "fa_icon": "fab fa-affiliatetheme"
                 },
                 "bgc_antismash_cbknownclusters": {
