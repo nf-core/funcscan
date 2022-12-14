@@ -1,0 +1,24 @@
+Changes in module 'nf-core/bioawk'
+--- modules/nf-core/bioawk/main.nf
++++ modules/nf-core/bioawk/main.nf
+@@ -12,7 +12,8 @@
+ 
+     output:
+     tuple val(meta), path("*.gz"), emit: output
+-    path "versions.yml"             , emit: versions
++    tuple val(meta), env(LONGEST), emit: longest
++    path "versions.yml"          , emit: versions
+ 
+     when:
+     task.ext.when == null || task.ext.when
+@@ -30,6 +31,8 @@
+ 
+     gzip ${prefix}
+ 
++    LONGEST=\$(zcat ${prefix}.gz | | grep -v '>' | sort -n | tail -n 1)
++
+     cat <<-END_VERSIONS > versions.yml
+     "${task.process}":
+         bioawk: $VERSION
+
+************************************************************
