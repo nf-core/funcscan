@@ -41,7 +41,7 @@ The implementation of some tools in the pipeline may have some particular behavi
 
 AntiSMASH has a minimum contig parameter, in which only contigs of a certain length (or longer) will be screened. In cases where no hits are found in these, then the tool ends successfully. However if no contigs in an input file reach that minimum threshold, the tool will end with a 'failure' code, and cause the pipeline to crash.
 
-To prevent entire pipeline failures to due a single 'bad sample', nf-core/funcscan will filter out any input sample in which none of the contigs reach the minimum contig length specified with `--bgc_antismash_mincontiglength`.
+To prevent entire pipeline failures to due a single 'bad sample', nf-core/funcscan will filter out any input sample in which none of the contigs reach the minimum contig length specified with `--bgc_antismash_sampleminlength`.
 
 > ⚠️ If a sample does not reach this contig length threshold, you will recieve a warning in your console and `.nextflow.log` file, and no result files will exist for this sample in your results directory.
 
