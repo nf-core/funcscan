@@ -432,6 +432,12 @@
                     "fa_icon": "far fa-folder-open",
                     "default": "None"
                 },
+                "bgc_antismash_mincontiglength": {
+                    "type": "integer",
+                    "default": 1000,
+                    "description": "Minimum contig length a sample needs to have to be run",
+                    "fa_icon": "fas fa-ruler-horizontal"
+                },
                 "bgc_antismash_cbgeneral": {
                     "type": "boolean",
                     "description": "Compare identified clusters against a database of antiSMASH-predicted clusters.",
