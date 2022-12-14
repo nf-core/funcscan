@@ -83,6 +83,7 @@ include { BGC } from '../subworkflows/local/bgc'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 include { GUNZIP                      } from '../modules/nf-core/gunzip/main'
+include { BIOAWK                      } from '../modules/nf-core/bioawk/main'
 include { PROKKA                      } from '../modules/nf-core/prokka/main'
 include { PRODIGAL as PRODIGAL_GFF    } from '../modules/nf-core/prodigal/main'
 include { PRODIGAL as PRODIGAL_GBK    } from '../modules/nf-core/prodigal/main'
@@ -125,8 +126,20 @@ workflow FUNCSCAN {
 
     // Merge all the already uncompressed and newly compressed FASTAs here into
     // a single input channel for downstream
-    ch_prepped_input = GUNZIP.out.gunzip
+    ch_prepped_fastas = GUNZIP.out.gunzip
                         .mix(fasta_prep.uncompressed)
+
+    // Add to meta the length of longest contig for downstream filtering
+    BIOAWK ( ch_prepped_fastas )
+
+    ch_prepped_input = ch_prepped_fastas
+                        .join( BIOAWK.out.longest )
+                        .map{
+                            meta, fasta, length ->
+                                def meta_new = meta.clone()
+                                meta['longest_contig'] = Integer.parseInt(length)
+                            [ meta, fasta ]
+                        }
 
     /*
         ANNOTATION
