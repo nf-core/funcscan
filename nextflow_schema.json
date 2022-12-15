@@ -353,6 +353,32 @@
                     "fa_icon": "fas fa-save",
                     "description": "Specify to save intermediate temporary files to --outdir",
                     "help_text": "fARGene produces a lot of additional temporary files which in most cases won't be useful.\n\nBy specifying this parameter, the directories `tmpdir/`, `hmmsearchresults/` and `spades_assemblies/` will be also saved in the output directory for closer inspection by the user, if necessary."
+                },
+                "arg_fargene_score": {
+                    "type": "number",
+                    "help_text": "The threshold score for a sequence to be classified as a (almost) complete gene. If not pre-assigned, it is assigned by the hmm_model used based on the trade-off between sensitivity and specificity. For more details see [code documentation](https://github.com/fannyhb/fargene/blob/master/fargene_analysis/fargene_analysis.py)\n\n> Modifies tool parameter(s):\n> -  fARGene: `--score `",
+                    "description": "The threshold score for a sequence to be classified as a (almost) complete gene",
+                    "fa_icon": "fab fa-creative-commons-zero"
+                },
+                "arg_fargene_minorflength": {
+                    "type": "string",
+                    "default": "'90'",
+                    "help_text": "The minimum length of a predicted ORF retrieved from annotating the nucleotide sequences. By default the pipeline assignes this to 90% of the assigned hmm_model sequence length. \n\n> Modifies tool parameter(s):\n> -  fARGene: `--min-orf-length`",
+                    "description": "The minimum length of a predicted ORF retrieved from annotating the nucleotide sequences.",
+                    "fa_icon": "fas fa-caret-down"
+                },
+                "arg_fargene_orffinder": {
+                    "type": "boolean",
+                    "description": "Defines which ORF finding algorithm to use.",
+                    "help_text": "For ORF prediction, the pipeline uses prodigal for the prediction of ORFs from nucleotide sequences. Another valid option is: the NCBI ORFfinder that is activated by activating this flag.\n\n> Modifies tool parameter(s):\n> -  fARGene: `--orf-finder`",
+                    "fa_icon": "fab fa-adn"
+                },
+                "arg_fargene_translationformat": {
+                    "type": "string",
+                    "default": "pearson",
+                    "description": "The translation table/format to use for sequence annotation.",
+                    "help_text": "The translation format that transeq should use for amino acid annotation from the nucleotide sequences. More sequence formats can be found in [transeq 'input sequence formats'](https://emboss.sourceforge.net/docs/themes/SequenceFormats.html).\n\n> Modifies tool parameter(s):\n> -  fARGene: `--translation-format`",
+                    "fa_icon": "fas fa-border-none"
                 }
             },
             "fa_icon": "fas fa-tools"
