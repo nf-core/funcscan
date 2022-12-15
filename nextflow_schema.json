@@ -507,7 +507,7 @@
                     "type": "string",
                     "default": "bacteria",
                     "description": "Specify which taxonomic classification of input sequence to use",
-                    "help_text": "This species which set of secondary metabolites to screen for, based on the taxon type the secondary metabolites are from.\n\nThis will run different pipelines depending on whether the input sequences are from bacteria or fungi.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--taxon`",
+                    "help_text": "This specifies which set of secondary metabolites to screen for, based on the taxon type the secondary metabolites are from.\n\nThis will run different pipelines depending on whether the input sequences are from bacteria or fungi.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--taxon`",
                     "fa_icon": "fas fa-bacteria",
                     "enum": [
                         "bacteria",
