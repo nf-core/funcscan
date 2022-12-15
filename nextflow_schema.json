@@ -509,7 +509,7 @@
                     "default": 0.8,
                     "description": "The probability threshold for cluster detection",
                     "fa_icon": "fas fa-angle-double-up",
-                    "help_text": "Specify the minimum probability a predict gene must have to be considered to be a part of a BGC during BGC extraction.\n\nReducing this value may increase number and length of hits, but will reduce the accuracy of the predictions.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--threshold`"
+                    "help_text": "Specify the minimum probability a predicted gene must have to be considered a part of a BGC during BGC extraction.\n\nReducing this value may increase number and length of hits, but will reduce the accuracy of the predictions.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--threshold`"
                 },
                 "bgc_gecco_edgedistance": {
                     "type": "integer",
