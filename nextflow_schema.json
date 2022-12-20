@@ -85,12 +85,6 @@
                     "description": "Specify whether to save gene annotations (from either prokka or prodigal) in the --outdir",
                     "fa_icon": "fas fa-save"
                 },
-                "annotation_prodigal_singlemode": {
-                    "type": "boolean",
-                    "description": "Specify whether to use Prodigal's single-genome mode for long sequences",
-                    "help_text": "By default Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or more than be 20000 characters.\n\nHowever, more fragmented contigs from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter will allow you to override this and run in single genome mode again.\n\n> Modifies Prodigal parameter: `-p`",
-                    "fa_icon": "far fa-circle"
-                },
                 "annotation_bakta_db": {
                     "type": "string",
                     "default": "None",
@@ -98,6 +92,40 @@
                 }
             },
             "fa_icon": "fas fa-file-signature"
+        },
+        "annotation_prodigal": {
+            "title": "Annotation: PRODIGAL",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "annotation_prodigal_singlemode": {
+                    "type": "boolean",
+                    "description": "Specify whether to use Prodigal's single-genome mode for long sequences",
+                    "help_text": "By default Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or more than be 20000 characters.\n\nHowever, more fragmented contigs from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter will allow you to override this and run in single genome mode again.\n\n> Modifies Prodigal parameter: `-p`",
+                    "fa_icon": "far fa-circle"
+                },
+                "annotation_prodigal_closed": {
+                    "type": "boolean",
+                    "description": "Does not allow partial genes on contig edges.",
+                    "help_text": "Suppresses the partial genes from being on contig edge to result in closed ends.\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `--closed/-c`",
+                    "fa_icon": "fas fa-circle"
+                },
+                "annotation_prodigal_transtable": {
+                    "type": "integer",
+                    "default": 11,
+                    "description": "Specifies the translation table used for gene annotation.",
+                    "help_text": "Specifies which translation table should be used for seqeunce annotation. All possible genetic code translation table can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). The default is set at 11, which is used for standard Bacteria/Archeae.\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `--trans_table/-g`",
+                    "fa_icon": "fas fa-border-all"
+                },
+                "annotation_prodigal_forcenonsd": {
+                    "type": "boolean",
+                    "description": "Forces PRODIGAL to scan for motifs.",
+                    "help_text": "Forces PRODIGAL to a full scan for motifs rather than activating the Shine-Dalgarno RBS finder, the default scanner for PRODIGAL to train for motifs.\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `--force_nonsd/-n`",
+                    "fa_icon": "fas fa-barcode"
+                }
+            },
+            "fa_icon": "fas fa-tools"
         },
         "database_downloading_options": {
             "title": "Database downloading options",
@@ -771,6 +799,9 @@
         },
         {
             "$ref": "#/definitions/annotation"
+        },
+        {
+            "$ref": "#/definitions/annotation_prodigal"
         },
         {
             "$ref": "#/definitions/database_downloading_options"
