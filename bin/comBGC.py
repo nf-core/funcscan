@@ -10,25 +10,26 @@ import re
 # Initialize parser
 parser = argparse.ArgumentParser(prog = 'comBGC', formatter_class=argparse.RawDescriptionHelpFormatter,
                                 description=('''\
-    .............................................................................
+    ............................................................................
                                     *comBGC*
-    .............................................................................
-                This tool parses the results of BGC prediction tools
-            For detailed usage documentation please refer to <github_repo>
-    .............................................................................'''),
-                                epilog='''Your comBGC summary file is in the specified output folder. Enjoy your day!''',
+    ............................................................................
+            This tool aggregates the results of BGC prediction tools:
+                         antiSMASH, deepARG, and GECCO
+     For detailed usage documentation please refer to https://nf-co.re/funcscan
+    ............................................................................'''),
+                                epilog='''All input arguments are optional.''',
                                 add_help=True)
 # Input options
-parser.add_argument("--input_antismash", dest="antismash", nargs='?', help="Enter the path to the folder that contains the antiSMASH output in subfolders named by sample name.")
-parser.add_argument("--input_deepbgc", dest="deepbgc", nargs='?', help="Enter the path to the folder that contains the DeepBGC output files in subfolders named by sample name.",
+parser.add_argument("--input_antismash", dest="antismash", nargs='?', help="Path to the folder that contains the antiSMASH output in subfolders named by sample name.")
+parser.add_argument("--input_deepbgc", dest="deepbgc", nargs='?', help="Path to the folder that contains the DeepBGC output in subfolders named by sample name.",
                     type=str, default='./deepbgc/')
-parser.add_argument("--input_gecco", dest="gecco", nargs='?', help="Enter the path to the folder that contains the GECCO output files in subfolders named by sample name.",
+parser.add_argument("--input_gecco", dest="gecco", nargs='?', help="Path to the folder that contains the GECCO output in subfolders named by sample name.",
                     type=str, default='./gecco/')
 
-# get command line arguments
+# Get command line arguments
 args = parser.parse_args()
 
-# assign input arguments to variables
+# Assign input arguments to variables
 input_antismash = args.antismash
 input_gecco = args.gecco
 input_deepbgc = args.deepbgc
@@ -64,14 +65,10 @@ def antismash_workflow(antismash_path):
 
     if antismash_path:
         for sample in os.listdir(antismash_path):
-            print("  - " + sample)
-
             Sample_ID = sample # Assuming folder name equals sample name
-
             sample_path = "/".join([antismash_path.rstrip("/"), sample]) + "/"
             CDS_ID = []
             CDS_count = 0
-
             kcb_path = sample_path + "knownclusterblast/"
             kcb_files = []
 
@@ -117,6 +114,8 @@ def antismash_workflow(antismash_path):
                                 antismash_out_line = pd.DataFrame([antismash_out_line])
                                 antismash_out = pd.concat([antismash_out, antismash_out_line], ignore_index=True)
                                 antismash_out_line = {}
+
+                                # Reset variables per BGC
                                 CDS_ID = []
                                 CDS_count = 0
                                 PFAM_domains = []
@@ -173,7 +172,7 @@ def antismash_workflow(antismash_path):
                         antismash_out_line = pd.DataFrame([antismash_out_line])
                         antismash_out = pd.concat([antismash_out, antismash_out_line], ignore_index=True)
 
-                        # Reset counts and list per BGC
+                        # Reset variables per BGC
                         CDS_ID = []
                         CDS_count = 0
                         PFAM_domains = []
@@ -331,13 +330,40 @@ def gecco_workflow(gecco_path):
     return gecco_out
 
 ########################
+# ACCESSORY FUNCTIONS
+########################
+
+# In order to sort contigs numerically, crop the number from the ID and remove the string part
+def crop_contig_ids(contig_ids):
+    contig_ids_cropped = []
+    pattern = "(\d+).*$" # Check for numbers from the end of the contig ID
+    for contig_id in contig_ids:
+        contig_match = re.search(pattern, contig_id)
+        if contig_match != None:
+            contig_id = contig_match.group(1)
+        contig_ids_cropped.append(contig_id)
+    return contig_ids_cropped
+
+########################
 # MAIN
 ########################
 if __name__ == "__main__":
+
+    # Aggregate BGC information into data frame
     summary_antismash = antismash_workflow(input_antismash)
     summary_deepbgc = deepbgc_workflow(input_deepbgc)
     summary_gecco = gecco_workflow(input_gecco)
     summary_all = pd.concat([summary_antismash, summary_deepbgc, summary_gecco])
-    summary_all.sort_values(by=["Sample_ID", "Contig_ID", "BGC_start", "BGC_length", "Prediction_tool"], axis=0, inplace=True)
+
+    # Sort data frame
+    cropped_ids = pd.to_numeric(pd.Series(crop_contig_ids(summary_all.Contig_ID)))
+    print(summary_all.Contig_ID)
+    print(len(summary_all))
+    print(sorted(cropped_ids))
+    print(len(cropped_ids))
+    summary_all = summary_all.assign(Contig_ID_cropped = cropped_ids)
+    summary_all.sort_values(by=["Sample_ID", "Contig_ID_cropped", "BGC_start", "BGC_length", "Prediction_tool"], axis=0, inplace=True)
+#    summary_all.drop('Contig_ID_cropped', axis=1, inplace=True)
+
+    # Write results to TSV
     summary_all.to_csv('comBGC_summary.tsv', sep='\t', index=False)
-    print(summary_all.info())
