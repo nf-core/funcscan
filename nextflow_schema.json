@@ -363,7 +363,7 @@
                 "arg_fargene_minorflength": {
                     "type": "string",
                     "default": "'90'",
-                    "help_text": "The minimum length of a predicted ORF retrieved from annotating the nucleotide sequences. By default the pipeline assignes this to 90% of the assigned hmm_model sequence length. \n\n> Modifies tool parameter(s):\n> -  fARGene: `--min-orf-length`",
+                    "help_text": "The minimum length of a predicted ORF retrieved from annotating the nucleotide sequences. By default the pipeline assigns this to 90% of the assigned hmm_model sequence length. \n\n> Modifies tool parameter(s):\n> -  fARGene: `--min-orf-length`",
                     "description": "The minimum length of a predicted ORF retrieved from annotating the nucleotide sequences.",
                     "fa_icon": "fas fa-caret-down"
                 },
