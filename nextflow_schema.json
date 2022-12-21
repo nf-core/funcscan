@@ -144,7 +144,7 @@
                     "type": "string",
                     "default": "precursor",
                     "description": "Specify which machine learning classification model to use",
-                    "help_text": "AMPir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, \u201cprecursor\u201d and \u201cmature\u201d. The default model, \u201cprecursor\u201d is best suited for full length proteins and the \u201cmature\u201d model is best suited for small mature proteins (<60 amino acids). AMPpir also accepts custom (user trained) models based on the caret package.\n\n> Modifies AMPir parameter: `model =`",
+                    "help_text": "AMPir uses a supervised statistical machine learning approach to predict AMPs.  It incorporates two support vector machine classification models, \"precursor\" and \"mature\". \n\nThe precursor module is better for predicted proteins from a translated transcriptome or translated gene models. The alternative model (mature) is best suited for AMP sequences after post-translational processing, typically from direct proteomic sequencing.\n\nMore information can be found in the [AMPir documentation](https://ampir.marine-omics.net/).\n\n> Modifies tool parameter(s):\n> - AMPir: `model =`",
                     "enum": ["precursor", "mature"],
                     "fa_icon": "fas fa-layer-group"
                 },
