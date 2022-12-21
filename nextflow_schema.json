@@ -379,7 +379,7 @@
                     "type": "string",
                     "default": "BLAST",
                     "description": "Specifies the alignment tool to be used.",
-                    "help_text": "Specifies the alignment tool to be used. By default the tool used for alignment is `DIAMOND`. This flag activates `BLAST` instead.\n\n> Modifies tool parameter(s):\n> - RGI: `--alignment_tool`",
+                    "help_text": "Specifies the alignment tool to be used. By default `RGI` runs `BLAST` and this is also set as default in the `funcscan` pipeline. Using this flag the user can activate the alignment by`DIAMOND` again.\n\n> Modifies tool parameter(s):\n> - RGI: `--alignment_tool`",
                     "enum": ["BLAST", "DIAMOND"],
                     "fa_icon": "fas fa-align-justify"
                 },
