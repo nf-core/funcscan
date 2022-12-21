@@ -356,7 +356,7 @@
                 },
                 "arg_fargene_score": {
                     "type": "number",
-                    "help_text": "The threshold score for a sequence to be classified as a (almost) complete gene. If not pre-assigned, it is assigned by the hmm_model used based on the trade-off between sensitivity and specificity. For more details see [code documentation](https://github.com/fannyhb/fargene/blob/master/fargene_analysis/fargene_analysis.py)\n\n> Modifies tool parameter(s):\n> -  fARGene: `--score `",
+                    "help_text": "The threshold score for a sequence to be classified as a (almost) complete gene. If not pre-assigned, it is assigned by the hmm_model used based on the trade-off between sensitivity and specificity. For more details see [code documentation](https://github.com/fannyhb/fargene/blob/master/fargene_analysis/fargene_analysis.py)\n\n> Modifies tool parameter(s):\n> -  fARGene: `--score`",
                     "description": "The threshold score for a sequence to be classified as a (almost) complete gene",
                     "fa_icon": "fab fa-creative-commons-zero"
                 },
