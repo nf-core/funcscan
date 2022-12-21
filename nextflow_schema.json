@@ -115,7 +115,7 @@
                     "type": "integer",
                     "default": 11,
                     "description": "Specifies the translation table used for gene annotation.",
-                    "help_text": "Specifies which translation table should be used for seqeunce annotation. All possible genetic code translation table can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). The default is set at 11, which is used for standard Bacteria/Archeae.\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `--trans_table/-g`",
+                    "help_text": "Specifies which translation table should be used for seqeunce annotation. All possible genetic code translation tables can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). The default is set at 11, which is used for standard Bacteria/Archeae.\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `--trans_table/-g`",
                     "fa_icon": "fas fa-border-all"
                 },
                 "annotation_prodigal_forcenonsd": {
