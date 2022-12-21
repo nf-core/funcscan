@@ -577,6 +577,68 @@
                     "default": "None",
                     "fa_icon": "fas fa-layer-group",
                     "description": "Path to local deepBGC database folder"
+                },
+                "bgc_deepbgc_score": {
+                    "type": "number",
+                    "default": 0.5,
+                    "description": "Average protein-wise DeepBGC score threshold for extracting BGC regions from Pfam sequences",
+                    "fa_icon": "fas fa-list-ol",
+                    "help_text": "The DeepBGC score threshold for extracting BGC regions from Pfam sequences based on average protein-wise value. This is a prediction score that the domain is a part of a BGC.\n\nFor more information see the [DeepBGC documentation](https://github.com/Merck/deepbgc)\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--score`"
+                },
+                "bgc_deepbgc_prodigalmetamode": {
+                    "type": "boolean",
+                    "description": "Run Prodigal in '-p meta' mode to enable detecting genes in short contigs",
+                    "fa_icon": "fas fa-compress-alt",
+                    "default": true
+                },
+                "bgc_deepbgc_mergemaxproteingap": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Merge detected BGCs within given number of proteins",
+                    "fa_icon": "fas fa-angle-double-up",
+                    "help_text": "Merge detected BGCs within given number of proteins.\n\nFor more information see the [DeepBGC documentation](https://github.com/Merck/deepbgc)\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--merge-max-protein-gap`"
+                },
+                "bgc_deepbgc_mergemaxnuclgap": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Merge detected BGCs within given number of nucleotides.",
+                    "fa_icon": "fas fa-angle-double-up",
+                    "help_text": "Merge detected BGCs within given number of proteins.\n\nFor more information see the [DeepBGC documentation](https://github.com/Merck/deepbgc)\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--merge-max-nucl-gap`"
+                },
+                "bgc_deepbgc_minnucl": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Minimum BGC nucleotide length",
+                    "fa_icon": "fas fa-angle-double-down",
+                    "help_text": "Minimum length a BGC must have (in bp) to be reported as detected.\n\nFor more information see the [DeepBGC documentation](https://github.com/Merck/deepbgc)\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--min-nucl`"
+                },
+                "bgc_deepbgc_minproteins": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Minimum number of proteins in a BGC",
+                    "fa_icon": "fas fa-angle-double-down",
+                    "help_text": "Minimum number of proteins in a BGC must have to be reported as 'detected'.\n\nFor more information see the [DeepBGC documentation](https://github.com/Merck/deepbgc)\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--min-proteins`"
+                },
+                "bgc_deepbgc_mindomains": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Minimum number of protein domains in a BGC",
+                    "fa_icon": "fas fa-minus-square",
+                    "help_text": "Minimum number of domains a BGC must have to be reported as 'detected'.\n\nFor more information see the [DeepBGC documentation](https://github.com/Merck/deepbgc)\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--min-domains`"
+                },
+                "bgc_deepbgc_minbiodomains": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum number of known biosynthetic (as defined by antiSMASH) protein domains in a BGC",
+                    "fa_icon": "fas fa-minus-square",
+                    "help_text": "Minimum number of biosynthetic protein domains a BGC must have to be reported as 'detected'. This is based on antiSMASH definitions.\n\nFor more information see the [DeepBGC documentation](https://github.com/Merck/deepbgc)\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--min-bio-domains`"
+                },
+                "bgc_deepbgc_classifierscore": {
+                    "type": "number",
+                    "default": 0.5,
+                    "description": "DeepBGC classification score threshold for assigning classes to BGCs.",
+                    "fa_icon": "fas fa-sort-amount-down",
+                    "help_text": "DeepBGC classification score threshold for assigning classes to BGCs.\n\nFor more information see the [DeepBGC documentation](https://github.com/Merck/deepbgc)\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--classifier-score`"
                 }
             }
         },
@@ -628,7 +690,7 @@
             }
         },
         "bgc_hmmsearch": {
-            "title": "BCG: HMMSearch",
+            "title": "BGC: HMMSearch",
             "type": "object",
             "description": "Biosynthetic Gene Cluster detection based on predefined HMM models",
             "default": "",
