@@ -144,7 +144,7 @@
                     "type": "string",
                     "default": "precursor",
                     "description": "Specify which machine learning classification model to use",
-                    "help_text": "AMPir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, \u201cprecursor\u201d and \u201cmature\u201d. The default model, \u201cprecursor\u201d is best suited for full length proteins and the \u201cmature\u201d model is best suited for small mature proteins (<60 amino acids). AMPpir also accepts custom (user trained) models based on the caret package.\n\n> Modifies AMPir parameter: `model =`",
+                    "help_text": "AMPir uses a supervised statistical machine learning approach to predict AMPs.  It incorporates two support vector machine classification models, \"precursor\" and \"mature\". \n\nThe precursor module is better for predicted proteins from a translated transcriptome or translated gene models. The alternative model (mature) is best suited for AMP sequences after post-translational processing, typically from direct proteomic sequencing.\n\nMore information can be found in the [AMPir documentation](https://ampir.marine-omics.net/).\n\n> Modifies tool parameter(s):\n> - AMPir: `model =`",
                     "enum": ["precursor", "mature"],
                     "fa_icon": "fas fa-layer-group"
                 },
@@ -253,7 +253,45 @@
                     "type": "string",
                     "default": "None",
                     "fa_icon": "fas fa-layer-group",
-                    "help_text": "Specify the path to a local version of the ARMfinderPlus database (see the pipelines' [usage documentation](https://nf-co.re/funcscan/usage)). If no input is given, the module ARMFINDERPLUS_UPDATE will download the database for you."
+                    "help_text": "Specify the path to a local version of the ARMfinderPlus database (see the pipelines' [usage documentation](https://nf-co.re/funcscan/usage)). If no input is given, the module ARMFINDERPLUS_UPDATE will download the database for you.",
+                    "description": "Specify the path to a local version of the ARMfinderPlus database."
+                },
+                "arg_amrfinderplus_identmin": {
+                    "type": "number",
+                    "default": -1,
+                    "help_text": "Minimum percentage amino-acid identity to reference protein or nucleotide identity for nucleotide reference if a BLAST alignment (based on methods: BLAST or PARTIAL) was detected, otherwise NA.  <-1> means use a curated threshold if it exists and <0.9> otherwise. Setting this value to something other than <-1> will override any curated similarity cutoffs. (BLAST: alignment is > 90% of length and > 90% identity to a protein in the AMRFinderPlus database) or PARTIAL: alignment is > 50% of length, but < 90% of length and > 90% identity to the reference, and does not end at a contig boundary).\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--ident_min <-1>`",
+                    "description": "Minimum identity to reference sequence.",
+                    "fa_icon": "fas fa-angle-left"
+                },
+                "arg_amrfinderplus_coveragemin": {
+                    "type": "number",
+                    "default": 0.5,
+                    "description": "Minimum coverage of the reference protein.",
+                    "help_text": "Minimum proportion of reference gene covered for a BLAST-based hit analysis if a BLAST alignment was detected, otherwise NA. The BLAST-based hit analysis are (BLAST: alignment is > 90% of length and > 90% identity to a protein in the AMRFinderPlus database) or PARTIAL: alignment is > 50% of length, but < 90% of length and > 90% identity to the reference, and does not end at a contig boundary). For more details see [documentation](https://github.com/ncbi/amr/wiki/Running-AMRFinderPlus#--organism-option).\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--coverage_min <0.5>`",
+                    "fa_icon": "fas fa-arrow-alt-circle-down",
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "arg_amrfinderplus_translationtable": {
+                    "type": "integer",
+                    "default": 11,
+                    "description": "NCBI genetic code for translated BLAST.",
+                    "help_text": "NCBI genetic code for translated BLAST. Number from 1 to 33 to represent the translation table used for BLASTX. [default: 11]. See [translation table](https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi) for more details. \n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--translation_table <11>`",
+                    "fa_icon": "fas fa-border-all",
+                    "minimum": 1,
+                    "maximum": 33
+                },
+                "arg_amrfinderplus_plus": {
+                    "type": "boolean",
+                    "description": "Add the plus genes to the report.",
+                    "help_text": "Provide results from \"Plus\" genes. Mostly the `plus` genes are an expanded set of genes that are of interest in pathogens. This set includes stress response (biocide, metal, and heat resistance), virulence factors, some antigens, and porins. These \"plus\" proteins have primarily been added to the database with curated BLAST cutoffs, and are generally identified by BLAST searches. Some of these may not be acquired genes or mutations, but may be intrinsic in some organisms. See [AMRFinderPlus database](https://github.com/ncbi/amr/wiki/AMRFinderPlus-database#types-of-proteins-covered) for more details.\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--plus`",
+                    "fa_icon": "far fa-plus-square"
+                },
+                "arg_amrfinderplus_name": {
+                    "type": "boolean",
+                    "description": "Prepend a column containing an identifier for this run of AMRFinderPlus.",
+                    "help_text": "Prepend a column containing an identifier for this run of AMRFinderPlus. For example this can be used to add a sample name column to the AMRFinderPlus results. [default: false] If set to `true`, the --name <identifier> is the sample name. \n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--name <identifier>`",
+                    "fa_icon": "far fa-address-card"
                 }
             }
         },
@@ -353,6 +391,32 @@
                     "fa_icon": "fas fa-save",
                     "description": "Specify to save intermediate temporary files to --outdir",
                     "help_text": "fARGene produces a lot of additional temporary files which in most cases won't be useful.\n\nBy specifying this parameter, the directories `tmpdir/`, `hmmsearchresults/` and `spades_assemblies/` will be also saved in the output directory for closer inspection by the user, if necessary."
+                },
+                "arg_fargene_score": {
+                    "type": "number",
+                    "help_text": "The threshold score for a sequence to be classified as a (almost) complete gene. If not pre-assigned, it is assigned by the hmm_model used based on the trade-off between sensitivity and specificity. For more details see [code documentation](https://github.com/fannyhb/fargene/blob/master/fargene_analysis/fargene_analysis.py)\n\n> Modifies tool parameter(s):\n> -  fARGene: `--score`",
+                    "description": "The threshold score for a sequence to be classified as a (almost) complete gene",
+                    "fa_icon": "fab fa-creative-commons-zero"
+                },
+                "arg_fargene_minorflength": {
+                    "type": "string",
+                    "default": "'90'",
+                    "help_text": "The minimum length of a predicted ORF retrieved from annotating the nucleotide sequences. By default the pipeline assigns this to 90% of the assigned hmm_model sequence length. \n\n> Modifies tool parameter(s):\n> -  fARGene: `--min-orf-length`",
+                    "description": "The minimum length of a predicted ORF retrieved from annotating the nucleotide sequences.",
+                    "fa_icon": "fas fa-caret-down"
+                },
+                "arg_fargene_orffinder": {
+                    "type": "boolean",
+                    "description": "Defines which ORF finding algorithm to use.",
+                    "help_text": "The pipeline uses prodigal/prokka for the prediction of ORFs from nucleotide sequences. Another option is the NCBI ORFfinder which is activated by this flag.\n\n> Modifies tool parameter(s):\n> -  fARGene: `--orf-finder`",
+                    "fa_icon": "fab fa-adn"
+                },
+                "arg_fargene_translationformat": {
+                    "type": "string",
+                    "default": "pearson",
+                    "description": "The translation table/format to use for sequence annotation.",
+                    "help_text": "The translation format that transeq should use for amino acid annotation from the nucleotide sequences. More sequence formats can be found in [transeq 'input sequence formats'](https://emboss.sourceforge.net/docs/themes/SequenceFormats.html).\n\n> Modifies tool parameter(s):\n> -  fARGene: `--translation-format`",
+                    "fa_icon": "fas fa-border-none"
                 }
             },
             "fa_icon": "fas fa-tools"
@@ -426,9 +490,9 @@
                 },
                 "arg_abricate_db": {
                     "type": "string",
-                    "default": "card",
+                    "default": "ncbi",
                     "fa_icon": "fas fa-layer-group",
-                    "description": "Specify which of the provided public databases to use",
+                    "description": "Specify which of the provided public databases to use by ABRicate.",
                     "enum": [
                         "argannot",
                         "card",
@@ -438,8 +502,28 @@
                         "ncbi",
                         "plasmidfinder",
                         "resfinder",
-                        "vfdb"
-                    ]
+                        "vfdb",
+                        "megares",
+                        "ecoli_vf",
+                        "ecoh",
+                        "bacmet2",
+                        "victors"
+                    ],
+                    "help_text": "Specifies which database to use from dedicated list of databases available by ABRicate. \n\n> Modifies tool parameter(s):\n> - ABRicate: `--db`"
+                },
+                "arg_abricate_minid": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Minimum DNA percent identity.",
+                    "help_text": "Specifies the minimum percent identity used to classify an ARG hit using BLAST alignment.\n\n> Modifies tool parameter(s):\n> - ABRicate: `--minid`",
+                    "fa_icon": "far fa-arrow-alt-circle-down"
+                },
+                "arg_abricate_mincov": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Minimum DNA percent coverage.",
+                    "help_text": "Specifies the minimum coverage of the nucleotide sequence to be assigned an ARG hit using BLAST alignment. In the ABRicate matrix, an absent gene is assigned (.) and if present, it is assigned the estimated coverage (#). \n\n> Modifies tool parameter(s):\n> - ABRicate: `--mincov`",
+                    "fa_icon": "far fa-arrow-alt-circle-down"
                 }
             }
         },
@@ -504,6 +588,40 @@
                     "type": "boolean",
                     "description": "Skip GECCO during the BGC screening",
                     "fa_icon": "fas fa-ban"
+                },
+                "bgc_gecco_mask": {
+                    "type": "boolean",
+                    "description": "Enable unknown region masking to prevent genes from stretching across unknown nucleotides",
+                    "fa_icon": "fas fa-mask",
+                    "help_text": "Enable unknown region masking to prevent genes from stretching across unknown nucleotides during ORF detection based on P(y)rodigal.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--mask`"
+                },
+                "bgc_gecco_cds": {
+                    "type": "integer",
+                    "default": 3,
+                    "description": "The minimum number of coding sequences a valid cluster must contain",
+                    "fa_icon": "fas fa-align-right",
+                    "help_text": "Specify the number of consecutive genes a hit must have to be considered a part of a possible BGC region during BGC extraction.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--cds`"
+                },
+                "bgc_gecco_pfilter": {
+                    "type": "number",
+                    "description": "The p-value cutoff for protein domains to be included",
+                    "fa_icon": "fas fa-filter",
+                    "default": 1e-9,
+                    "help_text": "The p-value cutoff for protein domains to be included.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--pfilter`"
+                },
+                "bgc_gecco_threshold": {
+                    "type": "number",
+                    "default": 0.8,
+                    "description": "The probability threshold for cluster detection",
+                    "fa_icon": "fas fa-angle-double-up",
+                    "help_text": "Specify the minimum probability a predicted gene must have to be considered a part of a BGC during BGC extraction.\n\nReducing this value may increase number and length of hits, but will reduce the accuracy of the predictions.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--threshold`"
+                },
+                "bgc_gecco_edgedistance": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "The minimum number of annotated genes that must separate a cluster from the edge",
+                    "help_text": "The minimum number of annotated genes that must separate a possible BGC cluster from the edge. Edge clusters will still be included if they are longer. A lower number will increase the number of false positives on small contigs. Used during BGC extraction.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--edge-distance`",
+                    "fa_icon": "fas fa-ruler-horizontal"
                 }
             }
         },
