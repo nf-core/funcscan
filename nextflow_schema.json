@@ -404,7 +404,13 @@
                         "ncbi",
                         "plasmidfinder",
                         "resfinder",
-                        "vfdb"
+                        "vfdb",
+                        "megares",
+                        "ecoli_vf",
+                        "ecoh",
+                        "bacmet2",
+                        "victors"
+ 
                     ],
                     "help_text": "Specifies which database to use from dedicated list of databases available by ABRicate. \n\n> Modifies tool parameter(s):\n> - ABRicate: `--db`"
                 },
