@@ -158,7 +158,7 @@
                 },
                 "annotation_prokka_cdsrnaolap": {
                     "type": "boolean",
-                    "description": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS). Transfer RNAs are short streatches of nucleotide sequences that link mRNA and teh amino acid sequence of proteins. Their presence helps in the annotation of the sequences, because each trRNA can only be attached to one type of amino acid.",
+                    "description": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS). Transfer RNAs are short stretches of nucleotide sequences that link mRNA and the amino acid sequence of proteins. Their presence helps in the annotation of the sequences, because each trRNA can only be attached to one type of amino acid.",
                     "help_text": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--cdsrnaolap`",
                     "fa_icon": "fas fa-align-justify"
                 },
