@@ -386,7 +386,7 @@
                 "arg_rgi_includeloose": {
                     "type": "boolean",
                     "description": "Includes all of loose, strict and perfect hits (i.e. >=95% identity) found by rgi.",
-                    "help_text": "When activated it includes all of loose, strict and perfect hits (i.e. also those <=95% identity) found by rgi, and list those hits still as 'strict'.\n\n> Modifies tool parameter(s):\n> - RGI: `--include_loose`",
+                    "help_text": "When activated it includes loose hits (a.k.a. Discovery) in addition to strict and perfect hits. All Loose matches of 95% identity or better are automatically listed as Strict, regardless of alignment length (RGI v. <6.0.0). This behaviour can be overrun by using the --exclude_nudge flag. The Loose algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR  \n\n> Modifies tool parameter(s):\n> - RGI: `--include_loose`",
                     "fa_icon": "far fa-hand-scissors"
                 },
                 "arg_rgi_excludenudge": {
