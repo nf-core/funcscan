@@ -370,7 +370,7 @@
                 "arg_fargene_orffinder": {
                     "type": "boolean",
                     "description": "Defines which ORF finding algorithm to use.",
-                    "help_text": "For ORF prediction, the pipeline uses prodigal for the prediction of ORFs from nucleotide sequences. Another valid option is: the NCBI ORFfinder that is activated by activating this flag.\n\n> Modifies tool parameter(s):\n> -  fARGene: `--orf-finder`",
+                    "help_text": "The pipeline uses prodigal/prokka for the prediction of ORFs from nucleotide sequences. Another option is the NCBI ORFfinder which is activated by this flag.\n\n> Modifies tool parameter(s):\n> -  fARGene: `--orf-finder`",
                     "fa_icon": "fab fa-adn"
                 },
                 "arg_fargene_translationformat": {
