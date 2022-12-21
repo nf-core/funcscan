@@ -284,7 +284,7 @@
                 "arg_amrfinderplus_plus": {
                     "type": "boolean",
                     "description": "Add the plus genes to the report.",
-                    "help_text": "Provide results from \"Plus\" genes. Mostly the `plus` genes are an expanded set of genes that are of interest in pathogens. This set includes stress response (biocide, metal, and heat resistance), virulence factors, some antigens, and porins. These \"plus\" proteins have been primarily been added to the database with curated blast cutoffs, and are generally identified by blast searches. Some of these may not be acquired genes or mutations, but may be intrinsic in some organisms. See [AMRFinderPlus database](https://github.com/ncbi/amr/wiki/AMRFinderPlus-database#types-of-proteins-covered) for more details.\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--plus`",
+                    "help_text": "Provide results from \"Plus\" genes. Mostly the `plus` genes are an expanded set of genes that are of interest in pathogens. This set includes stress response (biocide, metal, and heat resistance), virulence factors, some antigens, and porins. These \"plus\" proteins have primarily been added to the database with curated BLAST cutoffs, and are generally identified by BLAST searches. Some of these may not be acquired genes or mutations, but may be intrinsic in some organisms. See [AMRFinderPlus database](https://github.com/ncbi/amr/wiki/AMRFinderPlus-database#types-of-proteins-covered) for more details.\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--plus`",
                     "fa_icon": "far fa-plus-square"
                 },
                 "arg_amrfinderplus_name": {
