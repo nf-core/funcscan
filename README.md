@@ -1,4 +1,4 @@
-# ![nf-core/funcscan](docs/images/nf-core-funcscan_logo_light.png#gh-light-mode-only) ![nf-core/funcscan](docs/images/nf-core-funcscan_logo_dark.png#gh-dark-mode-only)
+# ![nf-core/funscan](docs/images/nf-core-funcscan_logo_flat_light.png#gh-light-mode-only) ![nf-core/funscan](docs/images/nf-core-funcscan_logo_flat_dark.png#gh-dark-mode-only)
 
 [![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/funcscan/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)
 
@@ -12,9 +12,7 @@
 
 ## Introduction
 
-<!-- TODO nf-core: Write a 1-2 sentence summary of what data the pipeline is for and what it does -->
-
-**nf-core/funcscan** is a bioinformatics best-practice analysis pipeline for Pipeline for screening for functional components of assembled contigs.
+**nf-core/funcscan** is a bioinformatics best-practice analysis pipeline for the screening of functional components of nucleotide sequences such as assembled contigs. This includes mining for antimicrobial peptides, antibiotic resistance genes and biosynthetic gene clusters.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
@@ -24,10 +22,16 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 ## Pipeline summary
 
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
+<!-- TODO nf-core: Mention aggregation tools: hAMRonization/comBGC,AMPcombi -->
 
-1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+1. Annotates prokaryotic input assembled contigs ([`Prodigal`](https://github.com/hyattpd/Prodigal), [`PROKKA`](https://github.com/tseemann/prokka), or [Bakta](https://github.com/oschwengers/bakta) [bacteria only])
+2. Screens contigs for antimicrobial peptide-like sequences with: [ampir](https://cran.r-project.org/web/packages/ampir/index.html), [Macrel](https://github.com/BigDataBiology/macrel), [HMMER](http://hmmer.org/), [AMPlify](https://github.com/bcgsc/AMPlify)
+3. Screens contigs for antibiotic resistant gene-like sequences with: [ABRicate](https://github.com/tseemann/abricate), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi), [DEEPARG](https://bench.cs.vt.edu/deeparg)
+4. Screens contigs for biosynthetic gene cluster-like sequences with: [antiSMASH](https://antismash.secondarymetabolites.org), [gecco](https://gecco.embl.de/)<!--, [HMMER](http://hmmer.org/) -->
+5. Creates aggregated reports for all samples across the workflows with: [hAMRonization](https://github.com/pha4ge/hAMRonization) for ARGs, [AMPcombi](https://github.com/Darcy220606/AMPcombi) for AMPs
+6. Software version reporting with ([`MultiQC`](http://multiqc.info/))
+
+![funcscan metro workflow](docs/images/funcscan_metro_workflow.png)
 
 ## Quick Start
 
@@ -50,10 +54,8 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 4. Start running your own analysis!
 
-   <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
-
    ```bash
-   nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> --genome GRCh37 -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
+   nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile <docker/singularity/podman/shifter/charliecloud/conda/institute> --run_amp_screening --run_arg_screening --run_bgc_screening
    ```
 
 ## Documentation
@@ -62,11 +64,11 @@ The nf-core/funcscan pipeline comes with documentation about the pipeline [usage
 
 ## Credits
 
-nf-core/funcscan was originally written by Jasmin Frangenberg, Anan Ibrahim, James A. Fellows Yates.
+nf-core/funcscan was originally written by Jasmin Frangenberg, Anan Ibrahim, Louisa Perelo, Moritz E. Beber, James A. Fellows Yates.
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
+Rosa Herbst, Martin Klapper.
 
 ## Contributions and Support
 
@@ -78,8 +80,6 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 <!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
 <!-- If you use  nf-core/funcscan for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
-
-<!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
