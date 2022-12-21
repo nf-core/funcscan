@@ -394,7 +394,7 @@
                     "type": "string",
                     "default": "ncbi",
                     "fa_icon": "fas fa-layer-group",
-                    "description": "Specify which of the provided public databases to use.",
+                    "description": "Specify which of the provided public databases to use by ABRicate.",
                     "enum": [
                         "argannot",
                         "card",
