@@ -392,9 +392,9 @@
                 },
                 "arg_abricate_db": {
                     "type": "string",
-                    "default": "card",
+                    "default": "ncbi",
                     "fa_icon": "fas fa-layer-group",
-                    "description": "Specify which of the provided public databases to use",
+                    "description": "Specify which of the provided public databases to use by ABRicate.",
                     "enum": [
                         "argannot",
                         "card",
@@ -404,8 +404,28 @@
                         "ncbi",
                         "plasmidfinder",
                         "resfinder",
-                        "vfdb"
-                    ]
+                        "vfdb",
+                        "megares",
+                        "ecoli_vf",
+                        "ecoh",
+                        "bacmet2",
+                        "victors"
+                    ],
+                    "help_text": "Specifies which database to use from dedicated list of databases available by ABRicate. \n\n> Modifies tool parameter(s):\n> - ABRicate: `--db`"
+                },
+                "arg_abricate_minid": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Minimum DNA percent identity.",
+                    "help_text": "Specifies the minimum percent identity used to classify an ARG hit using BLAST alignment.\n\n> Modifies tool parameter(s):\n> - ABRicate: `--minid`",
+                    "fa_icon": "far fa-arrow-alt-circle-down"
+                },
+                "arg_abricate_mincov": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Minimum DNA percent coverage.",
+                    "help_text": "Specifies the minimum coverage of the nucleotide sequence to be assigned an ARG hit using BLAST alignment. In the ABRicate matrix, an absent gene is assigned (.) and if present, it is assigned the estimated coverage (#). \n\n> Modifies tool parameter(s):\n> - ABRicate: `--mincov`",
+                    "fa_icon": "far fa-arrow-alt-circle-down"
                 }
             }
         },
