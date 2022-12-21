@@ -144,7 +144,7 @@
                     "type": "string",
                     "default": "precursor",
                     "description": "Specify which machine learning classification model to use",
-                    "help_text": "AMPir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, \u201cprecursor\u201d and \u201cmature\u201d. The default model, \u201cprecursor\u201d is best suited for full length proteins and the \u201cmature\u201d model is best suited for small mature proteins (<60 amino acids). AMPpir also accepts custom (user trained) models based on the caret package.\n\n> Modifies AMPir parameter: `model =`",
+                    "help_text": "AMPir uses a supervised statistical machine learning approach to predict AMPs.  It incorporates two support vector machine classification models, \"precursor\" and \"mature\". \n\nThe precursor module is better for predicted proteins from a translated transcriptome or translated gene models. The alternative model (mature) is best suited for AMP sequences after post-translational processing, typically from direct proteomic sequencing.\n\nMore information can be found in the [AMPir documentation](https://ampir.marine-omics.net/).\n\n> Modifies tool parameter(s):\n> - AMPir: `model =`",
                     "enum": ["precursor", "mature"],
                     "fa_icon": "fas fa-layer-group"
                 },
@@ -418,9 +418,9 @@
                 },
                 "arg_abricate_db": {
                     "type": "string",
-                    "default": "card",
+                    "default": "ncbi",
                     "fa_icon": "fas fa-layer-group",
-                    "description": "Specify which of the provided public databases to use",
+                    "description": "Specify which of the provided public databases to use by ABRicate.",
                     "enum": [
                         "argannot",
                         "card",
@@ -430,8 +430,28 @@
                         "ncbi",
                         "plasmidfinder",
                         "resfinder",
-                        "vfdb"
-                    ]
+                        "vfdb",
+                        "megares",
+                        "ecoli_vf",
+                        "ecoh",
+                        "bacmet2",
+                        "victors"
+                    ],
+                    "help_text": "Specifies which database to use from dedicated list of databases available by ABRicate. \n\n> Modifies tool parameter(s):\n> - ABRicate: `--db`"
+                },
+                "arg_abricate_minid": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Minimum DNA percent identity.",
+                    "help_text": "Specifies the minimum percent identity used to classify an ARG hit using BLAST alignment.\n\n> Modifies tool parameter(s):\n> - ABRicate: `--minid`",
+                    "fa_icon": "far fa-arrow-alt-circle-down"
+                },
+                "arg_abricate_mincov": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Minimum DNA percent coverage.",
+                    "help_text": "Specifies the minimum coverage of the nucleotide sequence to be assigned an ARG hit using BLAST alignment. In the ABRicate matrix, an absent gene is assigned (.) and if present, it is assigned the estimated coverage (#). \n\n> Modifies tool parameter(s):\n> - ABRicate: `--mincov`",
+                    "fa_icon": "far fa-arrow-alt-circle-down"
                 }
             }
         },
@@ -496,6 +516,40 @@
                     "type": "boolean",
                     "description": "Skip GECCO during the BGC screening",
                     "fa_icon": "fas fa-ban"
+                },
+                "bgc_gecco_mask": {
+                    "type": "boolean",
+                    "description": "Enable unknown region masking to prevent genes from stretching across unknown nucleotides",
+                    "fa_icon": "fas fa-mask",
+                    "help_text": "Enable unknown region masking to prevent genes from stretching across unknown nucleotides during ORF detection based on P(y)rodigal.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--mask`"
+                },
+                "bgc_gecco_cds": {
+                    "type": "integer",
+                    "default": 3,
+                    "description": "The minimum number of coding sequences a valid cluster must contain",
+                    "fa_icon": "fas fa-align-right",
+                    "help_text": "Specify the number of consecutive genes a hit must have to be considered a part of a possible BGC region during BGC extraction.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--cds`"
+                },
+                "bgc_gecco_pfilter": {
+                    "type": "number",
+                    "description": "The p-value cutoff for protein domains to be included",
+                    "fa_icon": "fas fa-filter",
+                    "default": 1e-9,
+                    "help_text": "The p-value cutoff for protein domains to be included.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--pfilter`"
+                },
+                "bgc_gecco_threshold": {
+                    "type": "number",
+                    "default": 0.8,
+                    "description": "The probability threshold for cluster detection",
+                    "fa_icon": "fas fa-angle-double-up",
+                    "help_text": "Specify the minimum probability a predicted gene must have to be considered a part of a BGC during BGC extraction.\n\nReducing this value may increase number and length of hits, but will reduce the accuracy of the predictions.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--threshold`"
+                },
+                "bgc_gecco_edgedistance": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "The minimum number of annotated genes that must separate a cluster from the edge",
+                    "help_text": "The minimum number of annotated genes that must separate a possible BGC cluster from the edge. Edge clusters will still be included if they are longer. A lower number will increase the number of false positives on small contigs. Used during BGC extraction.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--edge-distance`",
+                    "fa_icon": "fas fa-ruler-horizontal"
                 }
             }
         },
