@@ -43,7 +43,8 @@
                     "antismash/antismashlitedownloaddatabases": {
                         "branch": "master",
                         "git_sha": "591bb22f9fe8564b46576091304cdb6cdfd8bdc7",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/antismash/antismashlitedownloaddatabases/antismash-antismashlitedownloaddatabases.diff"
                     },
                     "bakta/bakta": {
                         "branch": "master",
