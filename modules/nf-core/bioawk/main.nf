@@ -31,7 +31,7 @@ process BIOAWK {
 
     gzip ${prefix}
 
-    LONGEST=\$(zcat ${prefix}.gz | | grep -v '>' | sort -n | tail -n 1)
+    LONGEST=\$(zcat ${prefix}.gz | grep -v '>' | sort -n | tail -n 1)
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
