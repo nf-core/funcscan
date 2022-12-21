@@ -450,14 +450,16 @@
                 "arg_rgi_includeloose": {
                     "type": "boolean",
                     "description": "Includes all of loose, strict and perfect hits (i.e. >=95% identity) found by rgi.",
-                    "help_text": "When activated it includes loose hits (a.k.a. Discovery) in addition to strict and perfect hits. All Loose matches of 95% identity or better are automatically listed as Strict, regardless of alignment length (RGI v. <6.0.0). This behaviour can be overrun by using the --exclude_nudge flag. The Loose algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR  \n\n> Modifies tool parameter(s):\n> - RGI: `--include_loose`",
-                    "fa_icon": "far fa-hand-scissors"
+                    "help_text": "When activated it includes loose hits (a.k.a. Discovery) in addition to strict and perfect hits. All Loose matches of 95% identity or better are automatically listed as Strict, regardless of alignment length (RGI v. <6.0.0). This behaviour can be overrun by using the --exclude_nudge flag. The Loose algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR.  \n\n> Modifies tool parameter(s):\n> - RGI: `--include_loose`",
+                    "fa_icon": "far fa-hand-scissors",
+                    "default": true
                 },
                 "arg_rgi_excludenudge": {
                     "type": "boolean",
                     "description": "This flag suppresses the default behaviour of RGI with `--arg_rgi_includeloose`.",
-                    "help_text": "This flag suppresses the default behaviour of RGI with `--include_loose`, which lists all loose matches of >= 95% identity as Strict, regardless of alignment length. With this strict and perfect labels are added. This is discontinued in future versions. \n\n> Modifies tool parameter(s):\n> - RGI: `--exclude_nudge`",
-                    "fa_icon": "fas fa-hand-scissors"
+                    "help_text": "This flag suppresses the default behaviour of RGI with `--include_loose`, which lists all loose matches of >= 95% identity as Strict, regardless of alignment length. With this strict and perfect labels are added. This is discontinued in future versions of RGI. \n\n> Modifies tool parameter(s):\n> - RGI: `--exclude_nudge`",
+                    "fa_icon": "fas fa-hand-scissors",
+                    "default": true
                 },
                 "arg_rgi_lowquality": {
                     "type": "boolean",
