@@ -16,14 +16,13 @@ parser = argparse.ArgumentParser(prog = 'comBGC', formatter_class=argparse.RawDe
                          antiSMASH, deepBGC, and GECCO
      For detailed usage documentation please refer to https://nf-co.re/funcscan
     ............................................................................'''),
-                                epilog='''All input arguments are optional.''',
                                 add_help=True)
 # Input options
-parser.add_argument("--input_antismash", dest="antismash", nargs='?', help="Path to the folder that contains the antiSMASH output in subfolders named by sample name.")
-parser.add_argument("--input_deepbgc", dest="deepbgc", nargs='?', help="Path to the folder that contains the DeepBGC output in subfolders named by sample name.",
-                    type=str, default='./deepbgc/')
-parser.add_argument("--input_gecco", dest="gecco", nargs='?', help="Path to the folder that contains the GECCO output in subfolders named by sample name.",
-                    type=str, default='./gecco/')
+parser.add_argument("-a", "--antismash", dest="antismash", nargs='?', help="path to the folder that contains the antiSMASH output in subfolders named by sample name",  type=str, default="")
+parser.add_argument('-d', '--deepbgc', metavar='PATH', dest="deepbgc", nargs='?', help="path to the folder that contains the DeepBGC output in subfolders named by sample name", type=str, default="")
+parser.add_argument('-g', '--gecco', metavar='PATH', dest="gecco", nargs='?', help="path to the folder that contains the GECCO output in subfolders named by sample name", type=str, default="")
+parser.add_argument('-o', '--outdir', metavar='PATH', dest="outdir", nargs='?', help="directory for comBGC output. Default: current directory", type=str, default=".")
+#parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
 
 # Get command line arguments
 args = parser.parse_args()
@@ -32,7 +31,15 @@ args = parser.parse_args()
 input_antismash = args.antismash
 input_gecco = args.gecco
 input_deepbgc = args.deepbgc
+outdir = args.outdir
+if not outdir.endswith("/"):
+    outdir = outdir + "/"
 
+# Make sure that at least one input argument is given
+if not len(input_antismash + input_gecco + input_deepbgc):
+    exit("Please specify at least one input directory (--antismash, --deepbgc, --gecco) or see --help")
+if not outdir:
+    exit("Please specify an output directory (--outdir) or see --help")
 
 ########################
 # ANTISMASH FUNCTIONS
@@ -201,7 +208,7 @@ def antismash_workflow(antismash_path):
 
 def deepbgc_initiate(deepbgc_path):
     '''
-    Create dictionary with sample name and corresponding path to GECCO output TSV.
+    Create dictionary with sample name and corresponding path to deepBGC output TSV.
     '''
 
     # Go over every sample directory in deepbgc_path
@@ -272,7 +279,7 @@ def deepbgc_workflow(deepbgc_path):
 
 def getInterProID(gbk_path):
     '''
-    Retrieve InterPro IDs from GBK file.
+    Retrieve InterPro IDs from GECCO GBK file.
     '''
 
     with open(gbk_path) as gbk:
@@ -385,7 +392,6 @@ if __name__ == "__main__":
     summary_all.sort_values(by=["Sample_ID", "Contig_ID", "BGC_start", "BGC_length", "Prediction_tool"], axis=0, inplace=True)
 
     # Write results to TSV
-    outdir = "results/reports/combgc/"
     if not os.path.exists(outdir):
         os.makedirs(outdir)
     summary_all.to_csv(outdir + 'combgc_summary.tsv', sep='\t', index=False)

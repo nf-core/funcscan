@@ -11,6 +11,7 @@ include { GECCO_RUN                                } from '../../modules/nf-core
 include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH   } from '../../modules/nf-core/hmmer/hmmsearch/main'
 include { DEEPBGC_DOWNLOAD                         } from '../../modules/nf-core/deepbgc/download/main'
 include { DEEPBGC_PIPELINE                         } from '../../modules/nf-core/deepbgc/pipeline/main'
+include { COMBGC                                   } from '../../modules/local/combgc/main'
 
 workflow BGC {
 
@@ -125,6 +126,17 @@ workflow BGC {
         BGC_HMMER_HMMSEARCH ( ch_in_for_bgc_hmmsearch )
         ch_versions = ch_versions.mix(BGC_HMMER_HMMSEARCH.out.versions)
     }
+
+    // COMBGC
+    ch_combgc_input = Channel.of(
+        "${params.outdir}/bgc/antismash/",
+        "${params.outdir}/bgc/deepbgc/",
+        "${params.outdir}/bgc/gecco/",
+        "${params.outdir}/reports/combgc/"
+    )
+
+    COMBGC( ch_combgc_input )
+
     emit:
     versions = ch_versions
 }
