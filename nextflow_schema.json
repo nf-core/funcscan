@@ -410,7 +410,6 @@
                         "ecoh",
                         "bacmet2",
                         "victors"
- 
                     ],
                     "help_text": "Specifies which database to use from dedicated list of databases available by ABRicate. \n\n> Modifies tool parameter(s):\n> - ABRicate: `--db`"
                 },
@@ -424,7 +423,7 @@
                 "arg_abricate_mincov": {
                     "type": "integer",
                     "default": 80,
-                    "description": "Minimum DNA %coverage.",
+                    "description": "Minimum DNA percent coverage.",
                     "help_text": "Specifies the minimum coverage of the nucleotide sequence to be assigned an ARG hit using BLAST alignment. In the ABRicate matrix, an absent gene is assigned (.) and if present, it is assigned the estimated coverage (#). \n\n> Modifies tool parameter(s):\n> - ABRicate: `--mincov`",
                     "fa_icon": "far fa-arrow-alt-circle-down"
                 }
