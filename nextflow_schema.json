@@ -165,7 +165,7 @@
                 "annotation_prokka_rnammer": {
                     "type": "boolean",
                     "description": "Use RNAmmer for rRNA prediction.",
-                    "help_text": "Activates RNAmmer instead of the PROKKA default Barnap for rRNA prediction during teh annotation process. RNAmmer classifies ribosomal RNA genes in genome sequences by using two levels of Hidden Markov Models. Barnap uses nhmmer tool that includes HMMER 3.1 for HMM searching in RNA:DNA style. More info about 'Barnap' can be found [here](https://github.com/tseemann/barrnap).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--rnammer`",
+                    "help_text": "Activates RNAmmer instead of the PROKKA default Barnap for rRNA prediction during the annotation process. RNAmmer classifies ribosomal RNA genes in genome sequences by using two levels of Hidden Markov Models. Barnap uses the nhmmer tool that includes HMMER 3.1 for HMM searching in RNA:DNA style. More info about 'Barnap' can be found [here](https://github.com/tseemann/barrnap).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--rnammer`",
                     "fa_icon": "fas fa-adjust"
                 }
             },
