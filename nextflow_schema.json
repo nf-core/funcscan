@@ -108,7 +108,7 @@
                 "annotation_prodigal_closed": {
                     "type": "boolean",
                     "description": "Does not allow partial genes on contig edges.",
-                    "help_text": "Suppresses the partial genes from being on contig edge to result in closed ends.\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `--closed/-c`",
+                    "help_text": "Suppresses the partial genes from being on contig edge to result in closed ends. Should be activated for genomes where it is sure the first and last bases of the sequence(s) do not fall inside a gene. Run together with `-p normal` (former `-p single`) .\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `--closed/-c`",
                     "fa_icon": "fas fa-circle"
                 },
                 "annotation_prodigal_transtable": {
