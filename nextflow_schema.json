@@ -138,7 +138,7 @@
                 "annotation_prokka_mincontiglen": {
                     "type": "integer",
                     "default": 1,
-                    "description": "Limit the contigs lengths.",
+                    "description": "Limit the contig lengths.",
                     "help_text": "Limit the contig lengths to only carry out annotations on contigs >= the assigned length. This should not be >200 as NCBI can only process contigs >= 200.\n\n> Modifies tool parameter(s):\n> - PROKKA: `--mincontiglen`",
                     "fa_icon": "fas fa-ruler-horizontal"
                 },
