@@ -468,7 +468,8 @@
                 "bgc_deepbgc_prodigalmetamode": {
                     "type": "boolean",
                     "description": "Run Prodigal in '-p meta' mode to enable detecting genes in short contigs",
-                    "fa_icon": "fas fa-compress-alt"
+                    "fa_icon": "fas fa-compress-alt",
+                    "default": true
                 },
                 "bgc_deepbgc_mergemaxproteingap": {
                     "type": "integer",
