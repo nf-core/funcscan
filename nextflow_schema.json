@@ -490,6 +490,40 @@
                     "type": "boolean",
                     "description": "Skip GECCO during the BGC screening",
                     "fa_icon": "fas fa-ban"
+                },
+                "bgc_gecco_mask": {
+                    "type": "boolean",
+                    "description": "Enable unknown region masking to prevent genes from stretching across unknown nucleotides",
+                    "fa_icon": "fas fa-mask",
+                    "help_text": "Enable unknown region masking to prevent genes from stretching across unknown nucleotides during ORF detection based on P(y)rodigal.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--mask`"
+                },
+                "bgc_gecco_cds": {
+                    "type": "integer",
+                    "default": 3,
+                    "description": "The minimum number of coding sequences a valid cluster must contain",
+                    "fa_icon": "fas fa-align-right",
+                    "help_text": "Specify the number of consecutive genes a hit must have to be considered a part of a possible BGC region during BGC extraction.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--cds`"
+                },
+                "bgc_gecco_pfilter": {
+                    "type": "number",
+                    "description": "The p-value cutoff for protein domains to be included",
+                    "fa_icon": "fas fa-filter",
+                    "default": 1e-9,
+                    "help_text": "The p-value cutoff for protein domains to be included.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--pfilter`"
+                },
+                "bgc_gecco_threshold": {
+                    "type": "number",
+                    "default": 0.8,
+                    "description": "The probability threshold for cluster detection",
+                    "fa_icon": "fas fa-angle-double-up",
+                    "help_text": "Specify the minimum probability a predicted gene must have to be considered a part of a BGC during BGC extraction.\n\nReducing this value may increase number and length of hits, but will reduce the accuracy of the predictions.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--threshold`"
+                },
+                "bgc_gecco_edgedistance": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "The minimum number of annotated genes that must separate a cluster from the edge",
+                    "help_text": "The minimum number of annotated genes that must separate a possible BGC cluster from the edge. Edge clusters will still be included if they are longer. A lower number will increase the number of false positives on small contigs. Used during BGC extraction.\n\nFor more information see the [GECCO documentation](https://github.com/zellerlab/GECCO)\n\n> Modifies tool parameter(s):\n> - GECCO: `--edge-distance`",
+                    "fa_icon": "fas fa-ruler-horizontal"
                 }
             }
         },
