@@ -115,7 +115,7 @@
                 "annotation_prokka_rawproduct": {
                     "type": "boolean",
                     "description": "Suppresses the default clean-up of the gene annotations.",
-                    "help_text": "By default, annotation in PROKAA is done by allignment to other proteins in its database, or the databases the user provides via the tools `--proteins` flag. The result annotations are then cleaned up to standardise them to Genbank/ENA conventions.\n'Vague names' are set to 'hypothetical proteins', 'pssible/probable/predicted' are set to 'putative' and 'EC/CPG and locus tag ids' are removed. For info. please check PROKKA [documentation](https://github.com/tseemann/prokka).\nThis flag suppresses this default behavior of PROKKA.\n\n> Modifies tool parameter(s):\n> - PROKKA: `--rawproduct`",
+                    "help_text": "By default, annotation in PROKAA is done by alignment to other proteins in its database, or the databases the user provides via the tools `--proteins` flag. The resulting annotations are then cleaned up to standardise them to Genbank/ENA conventions.\n'Vague names' are set to 'hypothetical proteins', 'possible/probable/predicted' are set to 'putative' and 'EC/CPG and locus tag ids' are removed. For info. please check PROKKA [documentation](https://github.com/tseemann/prokka).\nThis flag suppresses this default behavior of PROKKA.\n\n> Modifies tool parameter(s):\n> - PROKKA: `--rawproduct`",
                     "fa_icon": "fab fa-product-hunt"
                 },
                 "annotation_prokka_kingdom": {
