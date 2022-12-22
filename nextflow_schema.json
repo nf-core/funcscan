@@ -109,7 +109,7 @@
                     "type": "integer",
                     "default": 1,
                     "description": "Limits the minimum contig size.",
-                    "help_text": "Limits the minimum contig size that would be annotated by BAKTA.\nIf run with '--compliant', the min contig length must be set to 200.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--min-contig-length`",
+                    "help_text": "Limits the minimum contig size that would be annotated by BAKTA.\nIf run with '--compliant', the minimum contig length must be set to 200.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--min-contig-length`",
                     "minimum": 1,
                     "maximum": 200,
                     "fa_icon": "fas fa-align-left"
