@@ -93,6 +93,78 @@
             },
             "fa_icon": "fas fa-file-signature"
         },
+        "annotation_prokka": {
+            "title": "Annotation: PROKKA",
+            "type": "object",
+            "description": "These parameters influence the annotation algorithm used by PROKKA.",
+            "default": "",
+            "properties": {
+                "annotation_prokka_metagenome": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Improves the gene prediction when the input genomes are highly fragmented.",
+                    "help_text": "Improves the gene prediction when the input provided consists of metagenomes with highly fragmented genomes.\n\n> Modifies tool parameter(s):\n> - PROKKA: `--metagenome`",
+                    "fa_icon": "fas fa-braille"
+                },
+                "annotation_prokka_rawproduct": {
+                    "type": "boolean",
+                    "description": "Suppresses the default clean-up of the gene annotations.",
+                    "help_text": "By default, annotation in PROKAA is done by alignment to other proteins in its database, or the databases the user provides via the tools `--proteins` flag. The resulting annotations are then cleaned up to standardise them to Genbank/ENA conventions.\n'Vague names' are set to 'hypothetical proteins', 'possible/probable/predicted' are set to 'putative' and 'EC/CPG and locus tag ids' are removed. For info. please check PROKKA [documentation](https://github.com/tseemann/prokka).\nThis flag suppresses this default behavior of PROKKA.\n\n> Modifies tool parameter(s):\n> - PROKKA: `--rawproduct`",
+                    "fa_icon": "fab fa-product-hunt"
+                },
+                "annotation_prokka_kingdom": {
+                    "type": "string",
+                    "default": "Bacteria",
+                    "fa_icon": "fab fa-accusoft",
+                    "description": "Specifies the kingdom that the input represents.",
+                    "help_text": "Specifies the kingdom that the input represents. Attention: PROKKA cannot annotate Eukaryotes.\n\n> Modifies tool parameter(s):\n> - PROKKA: `--kingdom`",
+                    "enum": ["Archaea", "Bacteria", "Mitochondria", "Viruses"]
+                },
+                "annotation_prokka_gcode": {
+                    "type": "integer",
+                    "default": 11,
+                    "minimum": 0,
+                    "maximum": 25,
+                    "description": "Specifies the translation table used to annotate the sequences.",
+                    "help_text": "Specifies the translation table used to annotate the sequences. All possible genetic codes (1-25) used for gene annotation can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). This flag is required if the flag `--kingdom` is assigned. \n\n> Modifies tool parameter(s):\n> - PROKKA: `--gcode`",
+                    "fa_icon": "fas fa-border-none"
+                },
+                "annotation_prokka_mincontiglen": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Limit the contig lengths.",
+                    "help_text": "Limit the contig lengths to only carry out annotations on contigs >= the assigned length. This should not be >200 as NCBI can only process contigs >= 200.\n\n> Modifies tool parameter(s):\n> - PROKKA: `--mincontiglen`",
+                    "fa_icon": "fas fa-ruler-horizontal"
+                },
+                "annotation_prokka_evalue": {
+                    "type": "number",
+                    "default": 1e-6,
+                    "description": "Minimum e-value cut-off.",
+                    "help_text": "Assigns the minimum e-value used for filtering the alignment hits.\n\n> Modifies tool parameter(s):\n> - PROKKA: `--evalue`",
+                    "fa_icon": "fas fa-sort-amount-down"
+                },
+                "annotation_prokka_coverage": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Set the assigned minimum coverage.",
+                    "help_text": "Specifies the minimum coverage of the annotated genome. This must be set between 0-100. \n\n> Modifies tool parameter(s):\n> - PROKKA: `--coverage`",
+                    "fa_icon": "fas fa-align-right"
+                },
+                "annotation_prokka_cdsrnaolap": {
+                    "type": "boolean",
+                    "description": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS). Transfer RNAs are short stretches of nucleotide sequences that link mRNA and the amino acid sequence of proteins. Their presence helps in the annotation of the sequences, because each trRNA can only be attached to one type of amino acid.",
+                    "help_text": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--cdsrnaolap`",
+                    "fa_icon": "fas fa-align-justify"
+                },
+                "annotation_prokka_rnammer": {
+                    "type": "boolean",
+                    "description": "Use RNAmmer for rRNA prediction.",
+                    "help_text": "Activates RNAmmer instead of the PROKKA default Barnap for rRNA prediction during the annotation process. RNAmmer classifies ribosomal RNA genes in genome sequences by using two levels of Hidden Markov Models. Barnap uses the nhmmer tool that includes HMMER 3.1 for HMM searching in RNA:DNA style. More info about 'Barnap' can be found [here](https://github.com/tseemann/barrnap).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--rnammer`",
+                    "fa_icon": "fas fa-adjust"
+                }
+            },
+            "fa_icon": "fas fa-tools"
+        },
         "annotation_prodigal": {
             "title": "Annotation: PRODIGAL",
             "type": "object",
@@ -1009,6 +1081,9 @@
         },
         {
             "$ref": "#/definitions/annotation"
+        },
+        {
+            "$ref": "#/definitions/annotation_prokka"
         },
         {
             "$ref": "#/definitions/annotation_prodigal"
