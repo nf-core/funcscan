@@ -96,7 +96,7 @@
         "annotation_bakta": {
             "title": "Annotation: BAKTA",
             "type": "object",
-            "description": "Annotates bacterial genomes.",
+            "description": "These parameters influence the annotation algorithm of Bacteria used by BAKTA.",
             "default": "",
             "properties": {
                 "annotation_bakta_mincontiglen": {
