@@ -153,7 +153,7 @@
                 "annotation_bakta_skiptrna": {
                     "type": "boolean",
                     "description": "Skips tRNA detection & annotation.",
-                    "help_text": "This flag skips [tRNAscan-SE 2.0]() that predicts tRNA genes.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-trna`",
+                    "help_text": "This flag skips [tRNAscan-SE 2.0](http://lowelab.ucsc.edu/tRNAscan-SE/) that predicts tRNA genes.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-trna`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skiptmrna": {
