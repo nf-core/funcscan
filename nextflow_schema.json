@@ -76,13 +76,13 @@
                 "annotation_tool": {
                     "type": "string",
                     "default": "prodigal",
-                    "description": "Specify which annotation tool to run: either prodigal, prokka, or bakta",
+                    "description": "Specify which annotation tool to use for some downstream tools.",
                     "enum": ["prodigal", "prokka", "bakta"],
                     "fa_icon": "fas fa-edit"
                 },
                 "save_annotations": {
                     "type": "boolean",
-                    "description": "Specify whether to save gene annotations (from either prokka or prodigal) in the --outdir",
+                    "description": "Specify whether to save gene annotations in the results directory.",
                     "fa_icon": "fas fa-save"
                 },
                 "annotation_bakta_db": {
@@ -99,17 +99,16 @@
             "description": "These parameters influence the annotation algorithm used by PROKKA.",
             "default": "",
             "properties": {
-                "annotation_prokka_metagenome": {
+                "annotation_prokka_singlemode": {
                     "type": "boolean",
-                    "default": true,
-                    "description": "Improves the gene prediction when the input genomes are highly fragmented.",
-                    "help_text": "Improves the gene prediction when the input provided consists of metagenomes with highly fragmented genomes.\n\n> Modifies tool parameter(s):\n> - PROKKA: `--metagenome`",
+                    "description": "Use the default genome-length optimised mode (rather than the metagenome mode).",
+                    "help_text": "By default, Prokka's --metagenome mode is used in the pipeline to improve the gene prediction of highly fragmented metagenomes.\n\nBy specifying this parameter Prokka will instead use it's default mode that is optimised for singular 'complete' genome sequences.\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--metagenome`",
                     "fa_icon": "fas fa-braille"
                 },
                 "annotation_prokka_rawproduct": {
                     "type": "boolean",
                     "description": "Suppresses the default clean-up of the gene annotations.",
-                    "help_text": "By default, annotation in PROKAA is done by alignment to other proteins in its database, or the databases the user provides via the tools `--proteins` flag. The resulting annotations are then cleaned up to standardise them to Genbank/ENA conventions.\n'Vague names' are set to 'hypothetical proteins', 'possible/probable/predicted' are set to 'putative' and 'EC/CPG and locus tag ids' are removed. For info. please check PROKKA [documentation](https://github.com/tseemann/prokka).\nThis flag suppresses this default behavior of PROKKA.\n\n> Modifies tool parameter(s):\n> - PROKKA: `--rawproduct`",
+                    "help_text": "By default, annotation in PROKKA is carried out by alignment to other proteins in its database, or the databases the user provides via the tools `--proteins` flag. The resulting annotations are then cleaned up to standardise them to Genbank/ENA conventions.\n'Vague names' are set to 'hypothetical proteins', 'possible/probable/predicted' are set to 'putative' and 'EC/CPG and locus tag ids' are removed.\n\nBy supplying this flag you stop such clean up leaving the original annotation names.\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\nThis flag suppresses this default behavior of PROKKA (which is to perform the cleaning).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--rawproduct`",
                     "fa_icon": "fab fa-product-hunt"
                 },
                 "annotation_prokka_kingdom": {
@@ -117,7 +116,7 @@
                     "default": "Bacteria",
                     "fa_icon": "fab fa-accusoft",
                     "description": "Specifies the kingdom that the input represents.",
-                    "help_text": "Specifies the kingdom that the input represents. Attention: PROKKA cannot annotate Eukaryotes.\n\n> Modifies tool parameter(s):\n> - PROKKA: `--kingdom`",
+                    "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n>\u26a0\ufe0f Warning: PROKKA cannot annotate Eukaryotes.\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--kingdom`",
                     "enum": ["Archaea", "Bacteria", "Mitochondria", "Viruses"]
                 },
                 "annotation_prokka_gcode": {
@@ -126,40 +125,42 @@
                     "minimum": 0,
                     "maximum": 25,
                     "description": "Specifies the translation table used to annotate the sequences.",
-                    "help_text": "Specifies the translation table used to annotate the sequences. All possible genetic codes (1-25) used for gene annotation can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). This flag is required if the flag `--kingdom` is assigned. \n\n> Modifies tool parameter(s):\n> - PROKKA: `--gcode`",
+                    "help_text": "Specifies the translation table used to annotate the sequences. All possible genetic codes (1-25) used for gene annotation can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). This flag is required if the flag `--kingdom` is assigned.\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--gcode`",
                     "fa_icon": "fas fa-border-none"
                 },
                 "annotation_prokka_mincontiglen": {
                     "type": "integer",
                     "default": 1,
-                    "description": "Limit the contig lengths.",
-                    "help_text": "Limit the contig lengths to only carry out annotations on contigs >= the assigned length. This should not be >200 as NCBI can only process contigs >= 200.\n\n> Modifies tool parameter(s):\n> - PROKKA: `--mincontiglen`",
+                    "description": "Minimum contig size required for annotation (bp).",
+                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend if you plan to submit such annotations to NCBI, this should be >= 200 bp.\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--mincontiglen`",
                     "fa_icon": "fas fa-ruler-horizontal"
                 },
                 "annotation_prokka_evalue": {
                     "type": "number",
                     "default": 1e-6,
                     "description": "Minimum e-value cut-off.",
-                    "help_text": "Assigns the minimum e-value used for filtering the alignment hits.\n\n> Modifies tool parameter(s):\n> - PROKKA: `--evalue`",
+                    "help_text": "Specifiy the minimum e-value used for filtering the alignment hits.\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--evalue`",
                     "fa_icon": "fas fa-sort-amount-down"
                 },
                 "annotation_prokka_coverage": {
                     "type": "integer",
                     "default": 80,
                     "description": "Set the assigned minimum coverage.",
-                    "help_text": "Specifies the minimum coverage of the annotated genome. This must be set between 0-100. \n\n> Modifies tool parameter(s):\n> - PROKKA: `--coverage`",
-                    "fa_icon": "fas fa-align-right"
+                    "help_text": "Specifies the minimum coverage percent of the annotated genome. This must be set between 0-100.\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--coverage`",
+                    "fa_icon": "fas fa-align-right",
+                    "minimum": 0,
+                    "maximum": 100
                 },
                 "annotation_prokka_cdsrnaolap": {
                     "type": "boolean",
-                    "description": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS). Transfer RNAs are short stretches of nucleotide sequences that link mRNA and the amino acid sequence of proteins. Their presence helps in the annotation of the sequences, because each trRNA can only be attached to one type of amino acid.",
-                    "help_text": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--cdsrnaolap`",
+                    "description": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS).",
+                    "help_text": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS). Transfer RNAs are short stretches of nucleotide sequences that link mRNA and the amino acid sequence of proteins. Their presence helps in the annotation of the sequences, because each trRNA can only be attached to one type of amino acid.\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--cdsrnaolap`",
                     "fa_icon": "fas fa-align-justify"
                 },
                 "annotation_prokka_rnammer": {
                     "type": "boolean",
                     "description": "Use RNAmmer for rRNA prediction.",
-                    "help_text": "Activates RNAmmer instead of the PROKKA default Barnap for rRNA prediction during the annotation process. RNAmmer classifies ribosomal RNA genes in genome sequences by using two levels of Hidden Markov Models. Barnap uses the nhmmer tool that includes HMMER 3.1 for HMM searching in RNA:DNA style. More info about 'Barnap' can be found [here](https://github.com/tseemann/barrnap).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--rnammer`",
+                    "help_text": "Activates RNAmmer instead of the PROKKA default Barnap for rRNA prediction during the annotation process. RNAmmer classifies ribosomal RNA genes in genome sequences by using two levels of Hidden Markov Models. Barnap uses the nhmmer tool that includes HMMER 3.1 for HMM searching in RNA:DNA style. More information about 'Barnap' can be found [here](https://github.com/tseemann/barrnap).\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--rnammer`",
                     "fa_icon": "fas fa-adjust"
                 }
             },
@@ -173,27 +174,27 @@
             "properties": {
                 "annotation_prodigal_singlemode": {
                     "type": "boolean",
-                    "description": "Specify whether to use Prodigal's single-genome mode for long sequences",
+                    "description": "Specify whether to use Prodigal's single-genome mode for long sequences.",
                     "help_text": "By default Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or longer than 20000 characters.\n\nHowever, more fragmented reads from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter allows to override this and run in single genome mode again.\n\n> Modifies Prodigal parameter: `-p`",
                     "fa_icon": "far fa-circle"
                 },
                 "annotation_prodigal_closed": {
                     "type": "boolean",
                     "description": "Does not allow partial genes on contig edges.",
-                    "help_text": "Suppresses the partial genes from being on contig edge to result in closed ends. Should be activated for genomes where it is sure the first and last bases of the sequence(s) do not fall inside a gene. Run together with `-p normal` (former `-p single`) .\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `--closed/-c`",
+                    "help_text": "Suppresses the partial genes from being on contig edge to result in closed ends. Should be activated for genomes where it is sure the first and last bases of the sequence(s) do not fall inside a gene. Run together with `-p normal` (former `-p single`) .\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `-c`",
                     "fa_icon": "fas fa-circle"
                 },
                 "annotation_prodigal_transtable": {
                     "type": "integer",
                     "default": 11,
                     "description": "Specifies the translation table used for gene annotation.",
-                    "help_text": "Specifies which translation table should be used for seqeunce annotation. All possible genetic code translation tables can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). The default is set at 11, which is used for standard Bacteria/Archeae.\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `--trans_table/-g`",
+                    "help_text": "Specifies which translation table should be used for seqeunce annotation. All possible genetic code translation tables can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). The default is set at 11, which is used for standard Bacteria/Archeae.\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `-g`",
                     "fa_icon": "fas fa-border-all"
                 },
                 "annotation_prodigal_forcenonsd": {
                     "type": "boolean",
                     "description": "Forces PRODIGAL to scan for motifs.",
-                    "help_text": "Forces PRODIGAL to a full scan for motifs rather than activating the Shine-Dalgarno RBS finder, the default scanner for PRODIGAL to train for motifs.\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `--force_nonsd/-n`",
+                    "help_text": "Forces PRODIGAL to a full scan for motifs rather than activating the Shine-Dalgarno RBS finder, the default scanner for PRODIGAL to train for motifs.\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `-n`",
                     "fa_icon": "fas fa-barcode"
                 }
             },
