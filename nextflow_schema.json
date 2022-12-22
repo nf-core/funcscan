@@ -159,7 +159,7 @@
                 "annotation_bakta_skiptmrna": {
                     "type": "boolean",
                     "description": "Skips tmRNA detection & annotation.",
-                    "help_text": "This flag skips [Aragorn]() that predicts tmrna genes.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-tmrna`\n`",
+                    "help_text": "This flag skips [Aragorn](http://www.ansikte.se/ARAGORN/) that predicts tmrna genes.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-tmrna`\n`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skiprrna": {
