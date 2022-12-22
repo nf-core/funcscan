@@ -195,7 +195,7 @@
                 "annotation_bakta_skippseudo": {
                     "type": "boolean",
                     "description": "Skip pseudogene detection & annotation.",
-                    "help_text": "Search for reference Phytochelatin synthase genes (PCSs) using hypothetical CDS as seed sequences, then aligns the translated PCSs against up-/downstream-elongated CDS regions.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-pseudo`",
+                    "help_text": "Searches for reference Phytochelatin Synthase genes (PCSs) using hypothetical CDS as seed sequences, then aligns the translated PCSs against up-/downstream-elongated CDS regions.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-pseudo`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skipsorf": {
