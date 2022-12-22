@@ -102,7 +102,7 @@
         "annotation_bakta": {
             "title": "Annotation: BAKTA",
             "type": "object",
-            "description": "Annotates Bacterial genomes.",
+            "description": "Annotates bacterial genomes.",
             "default": "",
             "properties": {
                 "annotation_bakta_mincontiglen": {
