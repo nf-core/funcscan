@@ -11,7 +11,7 @@ include { GECCO_RUN                                } from '../../modules/nf-core
 include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH   } from '../../modules/nf-core/hmmer/hmmsearch/main'
 include { DEEPBGC_DOWNLOAD                         } from '../../modules/nf-core/deepbgc/download/main'
 include { DEEPBGC_PIPELINE                         } from '../../modules/nf-core/deepbgc/pipeline/main'
-include { COMBGC                                   } from '../../modules/local/combgc/main'
+include { COMBGC                                   } from '../../modules/local/combgc'
 
 workflow BGC {
 
