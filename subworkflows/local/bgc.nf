@@ -128,14 +128,12 @@ workflow BGC {
     }
 
     // COMBGC
-    ch_combgc_input = Channel.of(
-        "${params.outdir}/bgc/antismash/",
-        "${params.outdir}/bgc/deepbgc/",
-        "${params.outdir}/bgc/gecco/",
-        "${params.outdir}/reports/combgc/"
-    )
+    ch_combgc_antismash = Channel.of(ANTISMASH_ANTISMASHLITE.out.?)
+    ch_combgc_deepbgc = Channel.of("${params.outdir}/bgc/deepbgc/")
+    ch_combgc_gecco = Channel.of("${params.outdir}/bgc/gecco/")
+    ch_combgc_outdir = Channel.of("${params.outdir}/reports/combgc/")
 
-    COMBGC( ch_combgc_input )
+    COMBGC( ch_combgc_antismash, ch_combgc_deepbgc, ch_combgc_gecco, ch_combgc_outdir )
 
     emit:
     versions = ch_versions
