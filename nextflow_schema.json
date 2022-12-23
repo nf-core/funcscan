@@ -108,7 +108,7 @@
                 "annotation_prokka_rawproduct": {
                     "type": "boolean",
                     "description": "Suppresses the default clean-up of the gene annotations.",
-                    "help_text": "By default, annotation in PROKKA is carried out by alignment to other proteins in its database, or the databases the user provides via the tools `--proteins` flag. The resulting annotations are then cleaned up to standardise them to Genbank/ENA conventions.\n'Vague names' are set to 'hypothetical proteins', 'possible/probable/predicted' are set to 'putative' and 'EC/CPG and locus tag ids' are removed.\n\nBy supplying this flag you stop such clean up leaving the original annotation names.\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\nThis flag suppresses this default behavior of PROKKA (which is to perform the cleaning).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--rawproduct`",
+                    "help_text": "By default, annotation in PROKKA is carried out by alignment to other proteins in its database, or the databases the user provides via the tools `--proteins` flag. The resulting annotations are then cleaned up to standardise them to Genbank/ENA conventions.\n'Vague names' are set to 'hypothetical proteins', 'possible/probable/predicted' are set to 'putative' and 'EC/CPG and locus tag ids' are removed.\n\nBy supplying this flag you stop such clean up leaving the original annotation names.\n\nFor more information please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\nThis flag suppresses this default behavior of PROKKA (which is to perform the cleaning).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--rawproduct`",
                     "fa_icon": "fab fa-product-hunt"
                 },
                 "annotation_prokka_kingdom": {
@@ -116,7 +116,7 @@
                     "default": "Bacteria",
                     "fa_icon": "fab fa-accusoft",
                     "description": "Specifies the kingdom that the input represents.",
-                    "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n>\u26a0\ufe0f Warning: PROKKA cannot annotate Eukaryotes.\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--kingdom`",
+                    "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n>\u26a0\ufe0f Warning: PROKKA cannot annotate Eukaryotes.\n\nFor more information please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--kingdom`",
                     "enum": ["Archaea", "Bacteria", "Mitochondria", "Viruses"]
                 },
                 "annotation_prokka_gcode": {
@@ -125,28 +125,28 @@
                     "minimum": 0,
                     "maximum": 25,
                     "description": "Specifies the translation table used to annotate the sequences.",
-                    "help_text": "Specifies the translation table used to annotate the sequences. All possible genetic codes (1-25) used for gene annotation can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). This flag is required if the flag `--kingdom` is assigned.\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--gcode`",
+                    "help_text": "Specifies the translation table used to annotate the sequences. All possible genetic codes (1-25) used for gene annotation can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). This flag is required if the flag `--kingdom` is assigned.\n\nFor more information please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--gcode`",
                     "fa_icon": "fas fa-border-none"
                 },
                 "annotation_prokka_mincontiglen": {
                     "type": "integer",
                     "default": 1,
                     "description": "Minimum contig size required for annotation (bp).",
-                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend if you plan to submit such annotations to NCBI, this should be >= 200 bp.\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--mincontiglen`",
+                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend that this should be >= 200 bp, if you plan to submit such annotations to NCBI.\n\nFor more information please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--mincontiglen`",
                     "fa_icon": "fas fa-ruler-horizontal"
                 },
                 "annotation_prokka_evalue": {
                     "type": "number",
                     "default": 1e-6,
                     "description": "Minimum e-value cut-off.",
-                    "help_text": "Specifiy the minimum e-value used for filtering the alignment hits.\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--evalue`",
+                    "help_text": "Specifiy the minimum e-value used for filtering the alignment hits.\n\nFor more information please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--evalue`",
                     "fa_icon": "fas fa-sort-amount-down"
                 },
                 "annotation_prokka_coverage": {
                     "type": "integer",
                     "default": 80,
                     "description": "Set the assigned minimum coverage.",
-                    "help_text": "Specifies the minimum coverage percent of the annotated genome. This must be set between 0-100.\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--coverage`",
+                    "help_text": "Specifies the minimum coverage percent of the annotated genome. This must be set between 0-100.\n\nFor more information please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--coverage`",
                     "fa_icon": "fas fa-align-right",
                     "minimum": 0,
                     "maximum": 100
@@ -154,13 +154,13 @@
                 "annotation_prokka_cdsrnaolap": {
                     "type": "boolean",
                     "description": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS).",
-                    "help_text": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS). Transfer RNAs are short stretches of nucleotide sequences that link mRNA and the amino acid sequence of proteins. Their presence helps in the annotation of the sequences, because each trRNA can only be attached to one type of amino acid.\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--cdsrnaolap`",
+                    "help_text": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS). Transfer RNAs are short stretches of nucleotide sequences that link mRNA and the amino acid sequence of proteins. Their presence helps in the annotation of the sequences, because each trRNA can only be attached to one type of amino acid.\n\nFor more information please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--cdsrnaolap`",
                     "fa_icon": "fas fa-align-justify"
                 },
                 "annotation_prokka_rnammer": {
                     "type": "boolean",
                     "description": "Use RNAmmer for rRNA prediction.",
-                    "help_text": "Activates RNAmmer instead of the PROKKA default Barnap for rRNA prediction during the annotation process. RNAmmer classifies ribosomal RNA genes in genome sequences by using two levels of Hidden Markov Models. Barnap uses the nhmmer tool that includes HMMER 3.1 for HMM searching in RNA:DNA style. More information about 'Barnap' can be found [here](https://github.com/tseemann/barrnap).\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--rnammer`",
+                    "help_text": "Activates [RNAmmer](https://services.healthtech.dtu.dk/service.php?RNAmmer-1.2) instead of the PROKKA default [Barrnap](https://github.com/tseemann/barrnap) for rRNA prediction during the annotation process. RNAmmer classifies ribosomal RNA genes in genome sequences by using two levels of Hidden Markov Models. Barrnap uses the nhmmer tool that includes HMMER 3.1 for HMM searching in RNA:DNA style.\n\nFor more information please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--rnammer`",
                     "fa_icon": "fas fa-adjust"
                 }
             },
