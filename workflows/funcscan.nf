@@ -10,7 +10,10 @@ def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
 WorkflowFuncscan.initialise(params, log)
 
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.multiqc_config ]
+def checkPathParamList = [ params.input, params.multiqc_config, params.annotation_bakta_db,
+                            params.amp_hmmsearch_models, params.arg_amrfinderplus_db, params.arg_deeparg_data,
+                            params.bgc_antismash_databases, params.bgc_antismash_installationdirectory,
+                            params.bgc_deepbgc_database, params.bgc_hmmsearch_models ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
@@ -80,9 +83,13 @@ include { BGC } from '../subworkflows/local/bgc'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 include { GUNZIP                      } from '../modules/nf-core/gunzip/main'
+include { BIOAWK                      } from '../modules/nf-core/bioawk/main'
 include { PROKKA                      } from '../modules/nf-core/prokka/main'
 include { PRODIGAL as PRODIGAL_GFF    } from '../modules/nf-core/prodigal/main'
 include { PRODIGAL as PRODIGAL_GBK    } from '../modules/nf-core/prodigal/main'
+include { BAKTA_BAKTADBDOWNLOAD       } from '../modules/nf-core/bakta/baktadbdownload/main'
+include { UNTAR as BAKTA_UNTAR        } from '../modules/nf-core/untar/main'
+include { BAKTA_BAKTA                 } from '../modules/nf-core/bakta/bakta/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -113,40 +120,72 @@ workflow FUNCSCAN {
             uncompressed: it[1]
         }
         .set { fasta_prep }
-
+        
     GUNZIP ( fasta_prep.compressed )
     ch_versions = ch_versions.mix(GUNZIP.out.versions)
 
     // Merge all the already uncompressed and newly compressed FASTAs here into
     // a single input channel for downstream
-    ch_prepped_input = GUNZIP.out.gunzip
+    ch_prepped_fastas = GUNZIP.out.gunzip
                         .mix(fasta_prep.uncompressed)
+
+    // Add to meta the length of longest contig for downstream filtering
+    BIOAWK ( ch_prepped_fastas )
+
+    ch_prepped_input = ch_prepped_fastas
+                        .join( BIOAWK.out.longest )
+                        .map{
+                            meta, fasta, length ->
+                                def meta_new = meta.clone()
+                                meta['longest_contig'] = Integer.parseInt(length)
+                            [ meta, fasta ]
+                        }
 
     /*
         ANNOTATION
     */
 
-    // Some tools require annotated FASTAs 
+    // Some tools require annotated FASTAs
     // For prodigal run twice, once for gff and once for gbk generation, (for parity with PROKKA which produces both)
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.amp_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
 
-        if ( params.run_annotation_tool == "prodigal") {
+        if ( params.annotation_tool == "prodigal" ) {
             PRODIGAL_GFF ( ch_prepped_input, "gff" )
             ch_versions              = ch_versions.mix(PRODIGAL_GFF.out.versions)
             ch_annotation_faa        = PRODIGAL_GFF.out.amino_acid_fasta
             ch_annotation_fna        = PRODIGAL_GFF.out.nucleotide_fasta
             ch_annotation_gff        = PRODIGAL_GFF.out.gene_annotations
+
             if ( params.save_annotations == true ) {
                 PRODIGAL_GBK ( ch_prepped_input, "gbk" )
                 ch_versions              = ch_versions.mix(PRODIGAL_GBK.out.versions)
                 ch_annotation_gbk        = PRODIGAL_GBK.out.gene_annotations
-                }
-        }   else if ( params.run_annotation_tool == "prokka") {
+            }
+        }   else if ( params.annotation_tool == "prokka" ) {
             PROKKA ( ch_prepped_input, [], [] )
             ch_versions              = ch_versions.mix(PROKKA.out.versions)
             ch_annotation_faa        = PROKKA.out.faa
             ch_annotation_fna        = PROKKA.out.fna
             ch_annotation_gff        = PROKKA.out.gff
+        }   else if ( params.annotation_tool == "bakta" ) {
+
+            // BAKTA prepare download
+            if ( params.annotation_bakta_db ) {
+                ch_bakta_db = Channel
+                    .fromPath( params.annotation_bakta_db )
+                    .first()
+            } else {
+                BAKTA_BAKTADBDOWNLOAD ()
+                ch_versions = ch_versions.mix(BAKTA_BAKTADBDOWNLOAD.out.versions)
+                ch_bakta_db = BAKTA_UNTAR ( BAKTA_BAKTADBDOWNLOAD.out.db_tar_gz ).untar
+                ch_versions = ch_versions.mix(BAKTA_UNTAR.out.versions)
+            }
+
+            BAKTA_BAKTA ( ch_prepped_input, ch_bakta_db, [], [] )
+            ch_versions              = ch_versions.mix(BAKTA_BAKTA.out.versions)
+            ch_annotation_faa        = BAKTA_BAKTA.out.faa
+            ch_annotation_fna        = BAKTA_BAKTA.out.fna
+            ch_annotation_gff        = BAKTA_BAKTA.out.gff
         }
 
     } else {
@@ -189,8 +228,9 @@ workflow FUNCSCAN {
         ch_version = ch_versions.mix(BGC.out.versions)
     }
 
-    // Cleaning up versions
-    CUSTOM_DUMPSOFTWAREVERSIONS ( ch_versions.unique().collectFile(name: 'collated_versions.yml') )
+    CUSTOM_DUMPSOFTWAREVERSIONS (
+        ch_versions.unique().collectFile(name: 'collated_versions.yml')
+    )
 
     //
     // MODULE: MultiQC
@@ -208,12 +248,11 @@ workflow FUNCSCAN {
 
     MULTIQC (
         ch_multiqc_files.collect(),
-        ch_multiqc_config.collect().ifEmpty([]),
-        ch_multiqc_custom_config.collect().ifEmpty([]),
-        ch_multiqc_logo.collect().ifEmpty([])
+        ch_multiqc_config.toList(),
+        ch_multiqc_custom_config.toList(),
+        ch_multiqc_logo.toList()
     )
     multiqc_report = MULTIQC.out.report.toList()
-    ch_versions    = ch_versions.mix(MULTIQC.out.versions)
 }
 
 /*
@@ -228,7 +267,7 @@ workflow.onComplete {
     }
     NfcoreTemplate.summary(workflow, params, log)
     if (params.hook_url) {
-        NfcoreTemplate.adaptivecard(workflow, params, summary_params, projectDir, log)
+        NfcoreTemplate.IM_notification(workflow, params, summary_params, projectDir, log)
     }
 }
 
