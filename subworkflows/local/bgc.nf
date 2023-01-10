@@ -133,7 +133,7 @@ workflow BGC {
     if ( !params.bgc_skip_gecco )     { ch_gecco     = Channel.fromPath("${params.outdir}/bgc/gecco/", type: 'dir') } else { ch_gecco = [] }
     ch_outdir = Channel.fromPath("${params.outdir}/reports/combgc/", type: 'dir')
 
-    COMBGC( ch_antismash, ch_deepbgc, ch_gecco, ch_outdir )
+    COMBGC ( ch_antismash, ch_deepbgc, ch_gecco, ch_outdir )
 
     emit:
     versions = ch_versions

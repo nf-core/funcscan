@@ -6,9 +6,7 @@ import argparse
 import os
 import re
 
-# Initialize parser
-parser = argparse.ArgumentParser(prog = 'comBGC', formatter_class=argparse.RawDescriptionHelpFormatter,
-                                description=('''\
+welcome = '''\
                 ........................
                     * comBGC v.0.5 *
                 ........................
@@ -16,7 +14,11 @@ parser = argparse.ArgumentParser(prog = 'comBGC', formatter_class=argparse.RawDe
                 antiSMASH, deepBGC, and GECCO
            For detailed usage documentation please
              refer to https://nf-co.re/funcscan
-    .........................................................'''),
+    .........................................................'''
+
+# Initialize parser
+parser = argparse.ArgumentParser(prog = 'comBGC', formatter_class=argparse.RawDescriptionHelpFormatter,
+                                description=(welcome),
                                 add_help=True)
 
 # Input options
@@ -24,7 +26,8 @@ parser.add_argument("-a", "--antismash", metavar='PATH', dest="antismash", nargs
 parser.add_argument('-d', '--deepbgc', metavar='PATH', dest="deepbgc", nargs='?', help="path to the folder that contains the DeepBGC output in subfolders named by sample name", type=str, default="")
 parser.add_argument('-g', '--gecco', metavar='PATH', dest="gecco", nargs='?', help="path to the folder that contains the GECCO output in subfolders named by sample name", type=str, default="")
 parser.add_argument('-o', '--outdir', metavar='PATH', dest="outdir", nargs='?', help="directory for comBGC output. Default: current directory", type=str, default=".")
-#parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
+parser.add_argument("-vv", "--verbose", help="increase output verbosity", action="store_true")
+parser.add_argument("-v", "--version", help="print version number and exit", action="store_true")
 
 # Get command line arguments
 args = parser.parse_args()
@@ -36,12 +39,18 @@ input_deepbgc = args.deepbgc
 outdir = args.outdir
 if not outdir.endswith("/"):
     outdir = outdir + "/"
+verbose = args.verbose
+version = args.version
+
+if version:
+    exit("comBGC 0.5")
 
 # Make sure that at least one input argument is given
-if not len(input_antismash + input_gecco + input_deepbgc):
+if not (input_antismash or input_gecco or input_deepbgc):
     exit("Please specify at least one input directory (--antismash, --deepbgc, --gecco) or see --help")
 if not outdir:
     exit("Please specify an output directory (--outdir) or see --help")
+
 
 ########################
 # ANTISMASH FUNCTIONS
@@ -76,6 +85,9 @@ def antismash_workflow(antismash_path):
     - Extract the knownclusterblast output from the antiSMASH folder (MIBiG annotations) if present.
     - Return data frame with aggregated info.
     """
+
+    if verbose:
+        print("Parsing antiSMASH files in " + input_antismash + "...")
 
     antismash_sum_cols = ['Sample_ID', 'Prediction_tool', 'Contig_ID', 'Product_class', 'BGC_probability', 'BGC_complete', 'BGC_start', 'BGC_end', 'BGC_length', 'CDS_ID', 'CDS_count', 'PFAM_domains', 'MIBiG_ID', 'InterPro_ID']
     antismash_out = pd.DataFrame(columns=antismash_sum_cols)
@@ -200,6 +212,9 @@ def antismash_workflow(antismash_path):
                         CDS_ID = []
                         CDS_count = 0
                         PFAM_domains = []
+
+    if verbose:
+        print("Done.")
     return antismash_out
 
 
@@ -236,6 +251,9 @@ def deepbgc_workflow(deepbgc_path):
     Create data frame with aggregated deepBGC output.
     '''
 
+    if verbose:
+        print("Parsing deepBGC files in " + input_deepbgc + "...")
+
     # Prepare input and output columns
     deepbgc_map_dict = {'sequence_id'  :'Contig_ID',
                         'nucl_start'   :'BGC_start',
@@ -271,6 +289,8 @@ def deepbgc_workflow(deepbgc_path):
 
     # Return data frame with ordered columns
     deepbgc_out = deepbgc_out[deepbgc_sum_cols]
+    if verbose:
+        print("Finished...")
     return deepbgc_out
 
 
@@ -330,6 +350,9 @@ def gecco_workflow(gecco_path):
     Create data frame with aggregated GECCO output.
     '''
 
+    if verbose:
+        print("Parsing GECCO files in " + input_gecco + "...")
+
     # GECCO output columns that can be mapped (comBGC:GECCO)
     map_dict = {'sequence_id':'Contig_ID',
                 'bgc_id'     :'bgc_id',
@@ -375,6 +398,10 @@ def gecco_workflow(gecco_path):
 
     # Return data frame with ordered columns
     gecco_out = gecco_out[summary_cols]
+
+    if verbose:
+        print("Finished...")
+
     return gecco_out
 
 
@@ -384,13 +411,34 @@ def gecco_workflow(gecco_path):
 
 if __name__ == "__main__":
 
-    # Aggregate BGC information into data frame
-    summary_antismash = antismash_workflow(input_antismash)
-    summary_deepbgc = deepbgc_workflow(input_deepbgc)
-    summary_gecco = gecco_workflow(input_gecco)
-    summary_all = pd.concat([summary_antismash, summary_deepbgc, summary_gecco])
+    tools = {"antiSMASH": input_antismash,
+            "deepBGC": input_deepbgc,
+            "GECCO": input_gecco}
+    tools_provided = {}
 
-    # Sort data frame
+    for tool in tools.keys():
+        if tools[tool] != "":
+            tools_provided[tool] = tools[tool]
+
+    if verbose:
+        print(welcome)
+        print("\nYou provided directories for: " + ",".join(tools_provided.keys()) + "\n")
+
+    # Aggregate BGC information into data frame
+    summary_antismash = pd.DataFrame()
+    summary_deepbgc = pd.DataFrame()
+    summary_gecco = pd.DataFrame()
+
+    for tool in tools_provided.keys():
+        if tool == "antiSMASH":
+            summary_antismash = antismash_workflow(input_antismash)
+        elif tool == "deepBGC":
+            summary_deepbgc = deepbgc_workflow(input_deepbgc)
+        elif tool == "GECCO":
+            summary_gecco = gecco_workflow(input_gecco)
+
+    # Summarize and sort data frame
+    summary_all = pd.concat([summary_antismash, summary_deepbgc, summary_gecco])
     summary_all.sort_values(by=["Sample_ID", "Contig_ID", "BGC_start", "BGC_length", "Prediction_tool"], axis=0, inplace=True)
 
     # Write results to TSV
