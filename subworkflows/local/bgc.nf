@@ -11,7 +11,7 @@ include { GECCO_RUN                                } from '../../modules/nf-core
 include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH   } from '../../modules/nf-core/hmmer/hmmsearch/main'
 include { DEEPBGC_DOWNLOAD                         } from '../../modules/nf-core/deepbgc/download/main'
 include { DEEPBGC_PIPELINE                         } from '../../modules/nf-core/deepbgc/pipeline/main'
-include { COMBGC                                   } from '../../modules/local/combgc/main'
+include { COMBGC                                   } from '../../modules/local/combgc'
 
 workflow BGC {
 
@@ -128,14 +128,12 @@ workflow BGC {
     }
 
     // COMBGC
-    ch_combgc_input = Channel.of(
-        "${params.outdir}/bgc/antismash/",
-        "${params.outdir}/bgc/deepbgc/",
-        "${params.outdir}/bgc/gecco/",
-        "${params.outdir}/reports/combgc/"
-    )
+    if ( !params.bgc_skip_antismash ) { ch_antismash = Channel.fromPath("${params.outdir}/bgc/antismash/", type: 'dir') } else { ch_antismash = [] }
+    if ( !params.bgc_skip_deepbgc )   { ch_deepbgc   = Channel.fromPath("${params.outdir}/bgc/deepbgc/", type: 'dir') } else { ch_deepbgc = [] }
+    if ( !params.bgc_skip_gecco )     { ch_gecco     = Channel.fromPath("${params.outdir}/bgc/gecco/", type: 'dir') } else { ch_gecco = [] }
+    ch_outdir = Channel.fromPath("${params.outdir}/reports/combgc/", type: 'dir')
 
-    COMBGC( ch_combgc_input )
+    COMBGC( ch_antismash, ch_deepbgc, ch_gecco, ch_outdir )
 
     emit:
     versions = ch_versions

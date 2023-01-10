@@ -9,16 +9,18 @@ import re
 # Initialize parser
 parser = argparse.ArgumentParser(prog = 'comBGC', formatter_class=argparse.RawDescriptionHelpFormatter,
                                 description=('''\
-    ............................................................................
-                                    * comBGC v.0.5 *
-    ............................................................................
-            This tool aggregates the results of BGC prediction tools:
-                         antiSMASH, deepBGC, and GECCO
-     For detailed usage documentation please refer to https://nf-co.re/funcscan
-    ............................................................................'''),
+                ........................
+                    * comBGC v.0.5 *
+                ........................
+    This tool aggregates the results of BGC prediction tools:
+                antiSMASH, deepBGC, and GECCO
+           For detailed usage documentation please
+             refer to https://nf-co.re/funcscan
+    .........................................................'''),
                                 add_help=True)
+
 # Input options
-parser.add_argument("-a", "--antismash", dest="antismash", nargs='?', help="path to the folder that contains the antiSMASH output in subfolders named by sample name",  type=str, default="")
+parser.add_argument("-a", "--antismash", metavar='PATH', dest="antismash", nargs='?', help="path to the folder that contains the antiSMASH output in subfolders named by sample name",  type=str, default="")
 parser.add_argument('-d', '--deepbgc', metavar='PATH', dest="deepbgc", nargs='?', help="path to the folder that contains the DeepBGC output in subfolders named by sample name", type=str, default="")
 parser.add_argument('-g', '--gecco', metavar='PATH', dest="gecco", nargs='?', help="path to the folder that contains the GECCO output in subfolders named by sample name", type=str, default="")
 parser.add_argument('-o', '--outdir', metavar='PATH', dest="outdir", nargs='?', help="directory for comBGC output. Default: current directory", type=str, default=".")
