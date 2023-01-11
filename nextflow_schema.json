@@ -102,8 +102,8 @@
                 "annotation_bakta_mincontiglen": {
                     "type": "integer",
                     "default": 1,
-                    "description": "Specifies the minimum contig size.",
-                    "help_text": "Specifies the minimum contig size that would be annotated by BAKTA.\nIf run with '--compliant', the minimum contig length must be set to 200.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--min-contig-length`",
+                    "description": "Specify the minimum contig size.",
+                    "help_text": "Specifies the minimum contig size that would be annotated by BAKTA.\nIf run with '--compliant', the minimum contig length must be set to 200. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--min-contig-length`",
                     "minimum": 1,
                     "maximum": 200,
                     "fa_icon": "fas fa-align-left"
@@ -111,8 +111,8 @@
                 "annotation_bakta_translationtable": {
                     "type": "integer",
                     "default": 11,
-                    "description": "Specifies the genetic code translation table.",
-                    "help_text": "Specifies the genetic code translation table used for translation of nucleotides to aminoacids. \nAll possible genetic codes (1-25) used for gene annotation can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--translation-table`",
+                    "description": "Specify the genetic code translation table.",
+                    "help_text": "Specifies the genetic code translation table used for translation of nucleotides to aminoacids. \nAll possible genetic codes (1-25) used for gene annotation can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--translation-table`",
                     "minimum": 1,
                     "maximum": 25,
                     "fa_icon": "fas fa-border-all"
@@ -121,68 +121,68 @@
                     "type": "string",
                     "default": "?",
                     "enum": ["+", "-", "?"],
-                    "description": "Specifies the type of bacteria to be annotated to detect signaling peptides.",
-                    "help_text": "Specifies the type of bacteria expected in the input dataset for correct annotation of the signal peptide predictions.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--gram`",
+                    "description": "Specify the type of bacteria to be annotated to detect signaling peptides.",
+                    "help_text": "Specifies the type of bacteria expected in the input dataset for correct annotation of the signal peptide predictions. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--gram`",
                     "fa_icon": "far fa-plus-square"
                 },
                 "annotation_bakta_complete": {
                     "type": "boolean",
-                    "description": "Specifies that all contigs are complete replicons.",
-                    "help_text": "This flag expects contigs that make up complete chromosomes and/or plasmids. By calling it the user ensured that the contigs are complete replicons.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--complete`",
+                    "description": "Specify that all contigs are complete replicons.",
+                    "help_text": "This flag expects contigs that make up complete chromosomes and/or plasmids. By calling it, the user ensured that the contigs are complete replicons. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--complete`",
                     "fa_icon": "far fa-circle"
                 },
                 "annotation_bakta_keepcontigheaders": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Keeps original contig headers.",
-                    "help_text": "This flag specifies that the contig headers should not be rewritten.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--keep-contig-headers`",
+                    "description": "Keep original contig headers.",
+                    "help_text": "This flag specifies that the contig headers should not be rewritten. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--keep-contig-headers`",
                     "fa_icon": "far fa-list-alt"
                 },
                 "annotation_bakta_compliant": {
                     "type": "boolean",
-                    "description": "Cleans the result annotations to standardise them to Genbank/ENA conventions.",
+                    "description": "Clean the result annotations to standardise them to Genbank/ENA conventions.",
                     "help_text": "Annotation in BAKTA is done by rapidly identifying known protein sequences with exact sequence matches and conducting comprehensive annotations using [PYRODIGAL](https://github.com/althonos/pyrodigal). BAKTA uses a compact read-only SQLite database consistig of protein sequence digests and pre-assigned annotations for millions of known protein sequences and clusters present in the database. More info can be found [here](https://github.com/oschwengers/bakta). The resulting annotations are cleaned up to standardise them to Genbank/ENA/DDJB conventions. CDS without any attributed hits and those without gene symbols or product descriptions different from hypothetical will be marked as 'hypothetical'.\nWhen activated the '--min-contig-length' must be set to 200.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--compliant`\n",
                     "fa_icon": "fas fa-check"
                 },
                 "annotation_bakta_skiptrna": {
                     "type": "boolean",
-                    "description": "Skips tRNA detection & annotation.",
-                    "help_text": "This flag skips [tRNAscan-SE 2.0](http://lowelab.ucsc.edu/tRNAscan-SE/) that predicts tRNA genes.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-trna`",
+                    "description": "Skip tRNA detection & annotation.",
+                    "help_text": "This flag skips [tRNAscan-SE 2.0](http://lowelab.ucsc.edu/tRNAscan-SE/) that predicts tRNA genes. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-trna`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skiptmrna": {
                     "type": "boolean",
-                    "description": "Skips tmRNA detection & annotation.",
-                    "help_text": "This flag skips [Aragorn](http://www.ansikte.se/ARAGORN/) that predicts tmrna genes.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-tmrna`\n`",
+                    "description": "Skip tmRNA detection & annotation.",
+                    "help_text": "This flag skips [Aragorn](http://www.ansikte.se/ARAGORN/) that predicts tmrna genes. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-tmrna`\n`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skiprrna": {
                     "type": "boolean",
-                    "description": "Skips rRNA detection & annotation.",
-                    "help_text": "This flag skips [Infernal vs. Rfam rRNA covariance models](http://eddylab.org/infernal/) that predicts rrna genes.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--rrna`",
+                    "description": "Skip rRNA detection & annotation.",
+                    "help_text": "This flag skips [Infernal vs. Rfam rRNA covariance models](http://eddylab.org/infernal/) that predicts rrna genes. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--rrna`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skipncrna": {
                     "type": "boolean",
-                    "description": "Skips ncRNA detection & annotation.",
-                    "help_text": "This flag skips [Infernal vs. Rfam ncRNA covariance models](http://eddylab.org/infernal/) that predicts ncrna genes.\nBAKTA distinguishes between ncRNA genes and (cis-regulatory) regions to enable the distinction of feature overlap detection.\nThis including distinguishing between ncrna gene types: sRNA, antisense, ribozyme and antitoxin.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--ncrna`",
+                    "description": "Skip ncRNA detection & annotation.",
+                    "help_text": "This flag skips [Infernal vs. Rfam ncRNA covariance models](http://eddylab.org/infernal/) that predicts ncrna genes.\nBAKTA distinguishes between ncRNA genes and (cis-regulatory) regions to enable the distinction of feature overlap detection.\nThis including distinguishing between ncrna gene types: sRNA, antisense, ribozyme and antitoxin. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--ncrna`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skipncrnaregion": {
                     "type": "boolean",
-                    "description": "Skips ncRNA region detection & annotation.",
-                    "help_text": "This flag skips [Infernal vs. Rfam ncRNA covariance models](http://eddylab.org/infernal/) that predicts ncRNA cis-regulatory regions.\nBAKTA distinguishes between ncRNA genes and (cis-regulatory) regions to enable the distinction of feature overlap detection.\nThis including distinguishing between ncRNA (cis-regulatory) region types: riboswitch, thermoregulator, leader and frameshift element.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-ncrna-region`",
+                    "description": "Skip ncRNA region detection & annotation.",
+                    "help_text": "This flag skips [Infernal vs. Rfam ncRNA covariance models](http://eddylab.org/infernal/) that predicts ncRNA cis-regulatory regions.\nBAKTA distinguishes between ncRNA genes and (cis-regulatory) regions to enable the distinction of feature overlap detection.\nThis including distinguishing between ncRNA (cis-regulatory) region types: riboswitch, thermoregulator, leader and frameshift element. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-ncrna-region`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skipcrispr": {
                     "type": "boolean",
-                    "description": "Skips CRISPR array detection & annotation.",
-                    "help_text": "This flag skips [PILER-CR](https://www.drive5.com/pilercr/) that predicts CRISPR arrays.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-crispr`",
+                    "description": "Skip CRISPR array detection & annotation.",
+                    "help_text": "This flag skips [PILER-CR](https://www.drive5.com/pilercr/) that predicts CRISPR arrays. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-crispr`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skipcds": {
                     "type": "boolean",
-                    "description": "Skips CDS detection & annotation.",
+                    "description": "Skip CDS detection & annotation.",
                     "help_text": "This flag skips CDS prediction that is done by [PYRODIGAL](https://github.com/althonos/pyrodigal) with which the distinct prediction for complete replicons and uncompleted contigs is done.\nFor more information on how BAKTA predicts CDS please refer to [BAKTA documentation](https://github.com/oschwengers/bakta).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-cds`",
                     "fa_icon": "fas fa-forward"
                 },
@@ -194,19 +194,19 @@
                 },
                 "annotation_bakta_skipsorf": {
                     "type": "boolean",
-                    "description": "Skips sORF detection & annotation.",
+                    "description": "Skip sORF detection & annotation.",
                     "help_text": "sORFs are predicted from amino acids stretches as less than 30aa. For more info. please refer to BAKTA [documentation](https://github.com/oschwengers/bakta).  All sORF without gene symbols or product descriptions different from hypothetical will be discarded, while only those identified hits exhibiting proper gene symbols or product descriptions different from hypothetical will still be included in the final annotation.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-sorf`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skipgap": {
                     "type": "boolean",
-                    "description": "Skips gap detection & annotation.",
+                    "description": "Skip gap detection & annotation.",
                     "help_text": "Skips any gene annotation found within contig assembly gaps.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-gap`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skipori": {
                     "type": "boolean",
-                    "description": "Skips oriC/oriT detection & annotation.",
+                    "description": "Skip oriC/oriT detection & annotation.",
                     "help_text": "By default BAKTA searches for oriC/oriT genes by comparing results from Blast+ (generated by cov=0.8, id=0.8) and the [MOB-suite](https://github.com/phac-nml/mob-suite) of oriT & [DoriC](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6323995/) oriC/oriV sequences. \n Annotations of ori regions take into account overlapping Blast+ hits and are conducted based on a majority vote heuristic. Region edges may be fuzzy. For more info. please refer to the [BAKTA documentation](https://github.com/oschwengers/bakta).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-ori`\n",
                     "fa_icon": "fas fa-forward"
                 }
