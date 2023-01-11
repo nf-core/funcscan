@@ -102,8 +102,8 @@
                 "annotation_bakta_mincontiglen": {
                     "type": "integer",
                     "default": 1,
-                    "description": "Limits the minimum contig size.",
-                    "help_text": "Limits the minimum contig size that would be annotated by BAKTA.\nIf run with '--compliant', the minimum contig length must be set to 200.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--min-contig-length`",
+                    "description": "Specifies the minimum contig size.",
+                    "help_text": "Specifies the minimum contig size that would be annotated by BAKTA.\nIf run with '--compliant', the minimum contig length must be set to 200.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--min-contig-length`",
                     "minimum": 1,
                     "maximum": 200,
                     "fa_icon": "fas fa-align-left"
@@ -127,15 +127,15 @@
                 },
                 "annotation_bakta_complete": {
                     "type": "boolean",
-                    "description": "All contigs are complete replicons.",
-                    "help_text": "This flag expects contigs that make up complete chromosomes and/or plasmids.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--complete`",
+                    "description": "Specifies that all contigs are complete replicons.",
+                    "help_text": "This flag expects contigs that make up complete chromosomes and/or plasmids. By calling it the user ensured that the contigs are complete replicons.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--complete`",
                     "fa_icon": "far fa-circle"
                 },
                 "annotation_bakta_keepcontigheaders": {
                     "type": "boolean",
                     "default": true,
                     "description": "Keeps original contig headers.",
-                    "help_text": "Does not rewrite the contig headers. \n\n>  Modifies tool parameter(s):\n> - BAKTA: `--keep-contig-headers`",
+                    "help_text": "This flag specifies that the contig headers should not be rewritten.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--keep-contig-headers`",
                     "fa_icon": "far fa-list-alt"
                 },
                 "annotation_bakta_compliant": {
@@ -252,8 +252,8 @@
                 "annotation_prokka_mincontiglen": {
                     "type": "integer",
                     "default": 1,
-                    "description": "Limit the contig lengths.",
-                    "help_text": "Limit the contig lengths to only carry out annotations on contigs >= the assigned length. This should not be >200 as NCBI can only process contigs >= 200.\n\n> Modifies tool parameter(s):\n> - PROKKA: `--mincontiglen`",
+                    "description": "Specifies the contig lengths.",
+                    "help_text": "Specifies the contig lengths to only carry out annotations on contigs >= the assigned length. This should not be >200 as NCBI can only process contigs >= 200.\n\n> Modifies tool parameter(s):\n> - PROKKA: `--mincontiglen`",
                     "fa_icon": "fas fa-ruler-horizontal"
                 },
                 "annotation_prokka_evalue": {
