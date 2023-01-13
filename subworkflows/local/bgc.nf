@@ -21,7 +21,9 @@ workflow BGC {
     faa     // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
 
     main:
-    ch_versions = Channel.empty()
+    ch_versions              = Channel.empty()
+    ch_bgcresults_for_combgc = Channel.empty()
+    ch_combgc_summaries      = Channel.empty()
 
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
@@ -74,6 +76,10 @@ workflow BGC {
 
         ANTISMASH_ANTISMASHLITE ( ch_antismash_input.fna, ch_antismash_databases, ch_antismash_directory, ch_antismash_input.gff )
         ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITE.out.versions)
+        // ANTISMASH_ANTISMASHLITE.out.view()
+        ch_antismash_combgc = Channel.fromPath("${params.outdir}/bgc/antismash/sample_1/")
+        // ch_antismash_combgc = Channel.of(ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir, ANTISMASH_ANTISMASHLITE.out.gbk_input)
+        ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(ch_antismash_combgc)
     }
 
     // DEEPBGC
@@ -92,6 +98,8 @@ workflow BGC {
 
     DEEPBGC_PIPELINE ( ch_deepbgc_input, ch_deepbgc_database)
     ch_versions = ch_versions.mix(DEEPBGC_PIPELINE.out.versions)
+    //ch_deepbgc_combgc = Channel.fromPath(  )
+    //ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(DEEPBGC_PIPELINE.out.bgc_tsv)
     }
 
     // GECCO
@@ -133,12 +141,33 @@ workflow BGC {
     }
 
     // COMBGC
-    if ( !params.bgc_skip_antismash ) { ch_antismash = Channel.fromPath("${params.outdir}/bgc/antismash/", type: 'dir') } else { ch_antismash = [] }
-    if ( !params.bgc_skip_deepbgc )   { ch_deepbgc   = Channel.fromPath("${params.outdir}/bgc/deepbgc/", type: 'dir') } else { ch_deepbgc = [] }
-    if ( !params.bgc_skip_gecco )     { ch_gecco     = Channel.fromPath("${params.outdir}/bgc/gecco/", type: 'dir') } else { ch_gecco = [] }
-    ch_outdir = Channel.fromPath("${params.outdir}/reports/combgc/", type: 'dir')
+    // if ( !params.bgc_skip_antismash ) {
+    //     ch_antismash = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
+    //             // Channel
+    //         // .fromPath("${params.outdir}/bgc/antismash/", type: 'dir', checkIfExists: true)
 
-    COMBGC ( ch_antismash, ch_deepbgc, ch_gecco, ch_outdir )
+    //         //.map { file -> tuple(file.baseName, file) }
+    // } else {
+    //     ch_antismash = []
+    // }
+
+    // if ( !params.bgc_skip_deepbgc ) {
+    //     ch_deepbgc = Channel
+    //         .fromPath("${params.outdir}/bgc/deepbgc/", type: 'dir', checkIfExists: true)
+    //         //.map { file -> tuple(file.baseName, file) }
+    // } else {
+    //     ch_deepbgc = []
+    // }
+
+    if ( !params.bgc_skip_gecco ) {
+        ch_gecco = Channel
+            .fromPath("${params.outdir}/bgc/gecco/sample_1", type: 'dir', checkIfExists: true)
+            //.map { file -> file }
+    } else {
+        ch_gecco = []
+    }
+
+    COMBGC ( [], [], ch_gecco, Channel.fromPath(".") )
 
     emit:
     versions = ch_versions

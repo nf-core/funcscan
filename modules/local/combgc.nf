@@ -1,10 +1,10 @@
 process COMBGC {
     tag "comBGC"
 
-    conda (params.enable_conda ? "conda-forge::python=3.10.2 conda-forge::biopython=1.79 conda-forge::pandas=1.5.2" : null)
+    conda "conda-forge::python=3.9.0 conda-forge::biopython=1.79 conda-forge::pandas=1.3.5" // Using versions from available mulled containers. Most recent would instead be: conda-forge::python=3.11.0 conda-forge::biopython=1.80 conda-forge::pandas=1.5.2
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/biopython:1.75' :
-        'quay.io/biocontainers/biopython:1.75' }"
+        'https://depot.galaxyproject.org/singularity/mulled-v2-27978155697a3671f3ef9aead4b5c823a02cc0b7:548df772fe13c0232a7eab1bc1deb98b495a05ab-0' :
+        'quay.io/biocontainers/mulled-v2-27978155697a3671f3ef9aead4b5c823a02cc0b7:548df772fe13c0232a7eab1bc1deb98b495a05ab-0' }"
 
     input:
     path antismash_dir
