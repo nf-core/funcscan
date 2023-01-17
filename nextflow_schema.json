@@ -481,7 +481,7 @@
                 },
                 "bgc_antismash_ccmibig": {
                     "type": "boolean",
-                    "description": "Turns on ClusterCompare comparison against known gene clusters from the MIBiG database.",
+                    "description": "Turn on ClusterCompare comparison against known gene clusters from the MIBiG database.",
                     "fa_icon": "fab fa-affiliatetheme",
                     "help_text": "Turns on comparison of detected genes against the MIBiG database using the ClusterCompare algorithm - an alternative to clusterblast.\n\nNote there will not be a dedicated ClusterCompare output in the antiSMASH results directory, but is present in the HTML.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cc-mibig`"
                 },
