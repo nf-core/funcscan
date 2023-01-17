@@ -463,7 +463,7 @@
                 },
                 "bgc_antismash_cbgeneral": {
                     "type": "boolean",
-                    "description": "Turns on clusterblast comparison against database of antiSMASH-predicted clusters.",
+                    "description": "Turn on clusterblast comparison against database of antiSMASH-predicted clusters.",
                     "help_text": "Compare identified clusters against a database of antiSMASH-predicted clusters using the cluster blast algorithm.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-general`\n",
                     "fa_icon": "fab fa-affiliatetheme"
                 },
