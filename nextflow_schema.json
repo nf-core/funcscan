@@ -475,7 +475,7 @@
                 },
                 "bgc_antismash_cbsubclusters": {
                     "type": "boolean",
-                    "description": "Turns on clusterblast comparison against known subclusters responsible for synthesising precursors.",
+                    "description": "Turn on clusterblast comparison against known subclusters responsible for synthesising precursors.",
                     "fa_icon": "fas fa-adjust",
                     "help_text": "Turns on additional screening for operons involved in the biosynthesis of early secondary metabolites components using the cluster blast algorithm.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-subclusters`"
                 },
