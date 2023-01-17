@@ -469,7 +469,7 @@
                 },
                 "bgc_antismash_cbknownclusters": {
                     "type": "boolean",
-                    "description": "Turns on clusterblast comparison against known gene clusters from the MIBiG database.",
+                    "description": "Turn on clusterblast comparison against known gene clusters from the MIBiG database.",
                     "fa_icon": "fas fa-puzzle-piece",
                     "help_text": "This will turn on comparing identified clusters against known gene clusters from the MIBiG database using the cluster blast algorithm.\n\n[MIBiG](https://mibig.secondarymetabolites.org/) is a curated datbase of experimentally characterised gene clusters and with rich associated metadata.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-knownclusters`\n"
                 },
