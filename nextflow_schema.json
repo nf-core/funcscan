@@ -46,22 +46,22 @@
         "screening_type_activation": {
             "title": "Screening Type Activation",
             "type": "object",
-            "description": "",
+            "description": "These parameters influence which workflow (ARG, AMP and/or BGC) to activate.",
             "default": "",
             "properties": {
                 "run_amp_screening": {
                     "type": "boolean",
-                    "description": "Activate antimicrobial peptide screening tools",
+                    "description": "Activate antimicrobial peptide screening tools.",
                     "fa_icon": "fas fa-check-circle"
                 },
                 "run_arg_screening": {
                     "type": "boolean",
-                    "description": "Activate antimicrobial resistance gene screening tools",
+                    "description": "Activate antimicrobial resistance gene screening tools.",
                     "fa_icon": "fas fa-check-circle"
                 },
                 "run_bgc_screening": {
                     "type": "boolean",
-                    "description": "Activate biosynthetic gene cluster screening tools",
+                    "description": "Activate biosynthetic gene cluster screening tools.",
                     "fa_icon": "fas fa-check-circle"
                 }
             },
@@ -84,11 +84,6 @@
                     "type": "boolean",
                     "description": "Specify whether to save gene annotations in the results directory.",
                     "fa_icon": "fas fa-save"
-                },
-                "annotation_bakta_db": {
-                    "type": "string",
-                    "default": "None",
-                    "fa_icon": "fas fa-database"
                 }
             },
             "fa_icon": "fas fa-file-signature"
@@ -99,6 +94,13 @@
             "description": "These parameters influence the annotation algorithm of Bacteria used by BAKTA.",
             "default": "",
             "properties": {
+                "annotation_bakta_db": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fas fa-database",
+                    "description": "Specify a path to BAKTA database.",
+                    "help_text": "Specify a path to a database that is prepared in a BAKTA format."
+                },
                 "annotation_bakta_mincontiglen": {
                     "type": "integer",
                     "default": 1,
@@ -132,7 +134,6 @@
                 },
                 "annotation_bakta_renamecontigheaders": {
                     "type": "boolean",
-                    "default": false,
                     "description": "Changes the original contig headers.",
                     "help_text": "This flag specifies that the contig headers should be rewritten. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--keep-contig-headers`",
                     "fa_icon": "far fa-list-alt"
@@ -188,7 +189,7 @@
                 "annotation_bakta_skippseudo": {
                     "type": "boolean",
                     "description": "Skip pseudogene detection & annotation.",
-                    "help_text": "Searches for reference Phytochelatin Synthase genes (PCSs) using hypothetical CDS as seed sequences, then aligns the translated PCSs against up-/downstream-elongated CDS regions.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-pseudo`",
+                    "help_text": "This flag searches for reference Phytochelatin Synthase genes (PCSs) using hypothetical CDS as seed sequences, then aligns the translated PCSs against up-/downstream-elongated CDS regions. For more info. refer to BAKTA [documentation](https://github.com/oschwengers/bakta). \n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-pseudo`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skipsorf": {
@@ -200,7 +201,7 @@
                 "annotation_bakta_skipgap": {
                     "type": "boolean",
                     "description": "Skip gap detection & annotation.",
-                    "help_text": "Skips any gene annotation found within contig assembly gaps.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-gap`",
+                    "help_text": "Skips any gene annotation found within contig assembly gaps. For more info. please refer to BAKTA [documentation](https://github.com/oschwengers/bakta). \n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-gap`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skipori": {
@@ -220,7 +221,6 @@
             "properties": {
                 "annotation_prokka_singlemode": {
                     "type": "boolean",
-                    "default": false,
                     "description": "Use the default genome-length optimised mode (rather than the metagenome mode).",
                     "help_text": "By default, Prokka's --metagenome mode is used in the pipeline to improve the gene prediction of highly fragmented metagenomes.\n\nBy specifying this parameter Prokka will instead use it's default mode that is optimised for singular 'complete' genome sequences.\n\nFor more information. please check PROKKA [documentation.](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--metagenome`",
                     "fa_icon": "fas fa-braille"
@@ -289,13 +289,13 @@
         "annotation_prodigal": {
             "title": "Annotation: PRODIGAL",
             "type": "object",
-            "description": "",
+            "description": "These parameters influence the annotation algorithm used by PRODIGAL.",
             "default": "",
             "properties": {
                 "annotation_prodigal_singlemode": {
                     "type": "boolean",
                     "description": "Specify whether to use Prodigal's single-genome mode for long sequences.",
-                    "help_text": "By default Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or longer than 20000 characters.\n\nHowever, more fragmented reads from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter allows to override this and run in single genome mode again.\n\nFor more information check Prodigal [documentation.](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies Prodigal parameter: `-p`",
+                    "help_text": "By default Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or longer than 20000 characters.\n\nHowever, more fragmented reads from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter allows to override this and run in single genome mode again.\n\nFor more information check Prodigal [documentation.](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s): \n> -PRODIGAL:`-p`",
                     "fa_icon": "far fa-circle"
                 },
                 "annotation_prodigal_closed": {
@@ -395,7 +395,7 @@
                     "type": "string",
                     "default": "None",
                     "description": "Specify path to the AMP hmm model file(s) to search against. Must have quotes if wildcard used.",
-                    "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--amp_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n\nYou must wrap the path in quotes if you use a wildcard, to ensure Nextflow expansion _not_ bash!\n\nFor more information check HMMER [documentation.](http://hmmer.org/).\n\n",
+                    "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--amp_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n\nYou must wrap the path in quotes if you use a wildcard, to ensure Nextflow expansion _not_ bash!\n\nFor more information check HMMER [documentation.](http://hmmer.org/).",
                     "fa_icon": "fas fa-layer-group"
                 },
                 "amp_hmmsearch_savealignments": {
@@ -412,7 +412,7 @@
                 },
                 "amp_hmmsearch_savedomains": {
                     "type": "boolean",
-                    "help_text": "Save a simple tabular (space-delimited) file summarizing the per-domain output, with one data line per homologous domain detected in a query sequence for each homologous model.\n\nFor more information check HMMER [documentation.](http://hmmer.org/).\n\n> Modifies HMMsearch parameter:\n\n> - `--domtblout`",
+                    "help_text": "Save a simple tabular (space-delimited) file summarizing the per-domain output, with one data line per homologous domain detected in a query sequence for each homologous model.\n\nFor more information check HMMER [documentation.](http://hmmer.org/).\n\n> Modifies tool parameter(s):\n> - HMMsearch: `--domtblout`",
                     "description": "Save a simple tabular file summarising the per-domain output.",
                     "fa_icon": "far fa-save"
                 }
@@ -445,7 +445,7 @@
                 "amp_ampcombi_db": {
                     "type": "string",
                     "description": "Path to AMPcombi reference database directory.",
-                    "help_text": "Path to the folder containing the reference database files:\n1. a fasta file with a `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nFor more information check AMPcombi [documentation.](https://github.com/Darcy220606/AMPcombi)\n",
+                    "help_text": "Path to the folder containing the reference database files:\n1. a fasta file with a `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nFor more information check AMPcombi [documentation.](https://github.com/Darcy220606/AMPcombi)",
                     "default": "None",
                     "fa_icon": "fas fa-address-book"
                 },
@@ -453,7 +453,7 @@
                     "type": "number",
                     "default": 0.4,
                     "description": "Specify probability cutoff to filter AMPs",
-                    "help_text": "Specify the minimum probability an AMP hit must have to be retained in the final output file. Anything below this threshold will be removed.\n\nFor more information check AMPcombi [documentation.](https://github.com/Darcy220606/AMPcombi)\n",
+                    "help_text": "Specify the minimum probability an AMP hit must have to be retained in the final output file. Anything below this threshold will be removed.\n\nFor more information check AMPcombi [documentation.](https://github.com/Darcy220606/AMPcombi)\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cutoff`",
                     "fa_icon": "fas fa-sort-amount-up"
                 }
             },
@@ -476,12 +476,12 @@
                     "type": "string",
                     "default": "None",
                     "fa_icon": "fas fa-layer-group",
-                    "help_text": "Specify the path to a local version of the ARMFinderPlus database. If no input is given, the pipeline will download the database for you.\n\n See the nf-core/funcscan [usage documentation.](https://nf-co.re/funcscan/usage) for more information.\n",
+                    "help_text": "Specify the path to a local version of the ARMFinderPlus database. If no input is given, the pipeline will download the database for you.\n\n See the nf-core/funcscan [usage documentation.](https://nf-co.re/funcscan/usage) for more information.",
                     "description": "Specify the path to a local version of the ARMfinderPlus database."
                 },
                 "arg_amrfinderplus_identmin": {
                     "type": "number",
-                    "default": -1.0,
+                    "default": -1,
                     "help_text": "Specify the minimum percentage amino-acid identity to reference protein or nucleotide identity for nucleotide reference must have if a BLAST alignment (based on methods: BLAST or PARTIAL) was detected, otherwise NA.\n\n If you specify `-1`, this means use a curated threshold if it exists and `0.9` otherwise.\n\nSetting this value to something other than `-1` will override any curated similarity cutoffs. For BLAST: alignment is > 90% of length and > 90% identity to a protein in the AMRFinderPlus database. For PARTIAL: alignment is > 50% of length, but < 90% of length and > 90% identity to the reference, and does not end at a contig boundary.\n\nFor more information check AMRFinderPlus [documentation.]()\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--ident_min`",
                     "description": "Minimum percent identity to reference sequence.",
                     "fa_icon": "fas fa-angle-left"
@@ -548,42 +548,42 @@
                     "default": "LS",
                     "enum": ["LS", "SS"],
                     "description": "Specify which model to use (short or long sequences).",
-                    "help_text": "Specify which model to use: short sequences for reads (`SS`) | long sequences for genes (`LS`). In the vast majority of cases we recommend using the `LS` model when using funcscan\n\nFor more information check DeepARG [documentation.](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/)\n\n> Modifies tool parameter(s):\n\n> - DeepARG: `--model`",
+                    "help_text": "Specify which model to use: short sequences for reads (`SS`) | long sequences for genes (`LS`). In the vast majority of cases we recommend using the `LS` model when using funcscan\n\nFor more information check DeepARG [documentation.](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/)\n\n> Modifies tool parameter(s):\n> - DeepARG: `--model`",
                     "fa_icon": "fas fa-layer-group"
                 },
                 "arg_deeparg_minprob": {
                     "type": "number",
                     "default": 0.8,
                     "description": "Specify minimum probability cutoff under which hits are discarded.",
-                    "help_text": "Sets the minimum probability cutoff below which hits are discarded.\n\nFor more information check DeepARG [documentation.](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/)\n\n> Modifies tool parameter(s):\n\n> - DeepARG: `--min-prob`\n\n",
+                    "help_text": "Sets the minimum probability cutoff below which hits are discarded.\n\nFor more information check DeepARG [documentation.](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/)\n\n> Modifies tool parameter(s):\n> - DeepARG: `--min-prob`",
                     "fa_icon": "fas fa-dice"
                 },
                 "arg_deeparg_alignmentevalue": {
                     "type": "number",
                     "default": 1e-10,
                     "description": "Specify E-value cutoff under which hits are discarded.",
-                    "help_text": "Sets the cutoff value for Evalue below which hits are discarded\n\nFor more information check DeepARG [documentation.](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/)\n\n> Modifies tool parameter(s):\n\n> - DeepARG: `--arg-alignment-evalue`",
+                    "help_text": "Sets the cutoff value for Evalue below which hits are discarded\n\nFor more information check DeepARG [documentation.](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/)\n\n> Modifies tool parameter(s):\n> - DeepARG: `--arg-alignment-evalue`",
                     "fa_icon": "fas fa-align-center"
                 },
                 "arg_deeparg_alignmentidentity": {
                     "type": "integer",
                     "default": 50,
                     "description": "Specify percent identity cutoff for sequence alignment under which hits are discarded.",
-                    "help_text": "Sets the value for Identity cutoff for sequence alignment\n\nFor more information check DeepARG [documentation.](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/)\n\n> Modifies tool parameter(s):\n\n> - DeepARG: `--arg-alignment-identity`",
+                    "help_text": "Sets the value for Identity cutoff for sequence alignment\n\nFor more information check DeepARG [documentation.](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/)\n\n> Modifies tool parameter(s):\n> - DeepARG: `--arg-alignment-identity`",
                     "fa_icon": "fas fa-align-center"
                 },
                 "arg_deeparg_alignmentoverlap": {
                     "type": "number",
                     "default": 0.8,
                     "description": "Specify alignment read overlap.",
-                    "help_text": "Sets the value for the allowed alignment read overlap.\n\nFor more information check DeepARG [documentation.](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/)\n\n> Modifies tool parameter(s):\n\n> - DeepARG: `--arg-alignment-overlap`",
+                    "help_text": "Sets the value for the allowed alignment read overlap.\n\nFor more information check DeepARG [documentation.](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/)\n\n> Modifies tool parameter(s):\n> - DeepARG: `--arg-alignment-overlap`",
                     "fa_icon": "fas fa-align-center"
                 },
                 "arg_deeparg_numalignmentsperentry": {
                     "type": "integer",
                     "default": 1000,
                     "description": "Specify minimum number of alignments per entry for DIAMOND step of DeepARG.",
-                    "help_text": "Sets the value of minimum number of alignments per entry for Diamond.\n\nFor more information check DeepARG [documentation.](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/)\n\n> Modifies tool parameter(s):\n\n> - DeepARG: `--arg-num-alignments-per-entry`",
+                    "help_text": "Sets the value of minimum number of alignments per entry for Diamond.\n\nFor more information check DeepARG [documentation.](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/)\n\n> Modifies tool parameter(s):\n> - DeepARG: `--arg-num-alignments-per-entry`",
                     "fa_icon": "far fa-gem"
                 }
             },
@@ -617,14 +617,14 @@
                 },
                 "arg_fargene_score": {
                     "type": "number",
-                    "help_text": "The threshold score for a sequence to be classified as a (almost) complete gene. If not pre-assigned, it is assigned by the hmm_model used based on the trade-off between sensitivity and specificity.\n\nFor more details see [code documentation.](https://github.com/fannyhb/fargene/blob/master/fargene_analysis/fargene_analysis.py)\n\n> Modifies tool parameter(s):\n\n> - fARGene: `--score`",
+                    "help_text": "The threshold score for a sequence to be classified as a (almost) complete gene. If not pre-assigned, it is assigned by the hmm_model used based on the trade-off between sensitivity and specificity.\n\nFor more details see [code documentation.](https://github.com/fannyhb/fargene/blob/master/fargene_analysis/fargene_analysis.py)\n\n> Modifies tool parameter(s):\n> - fARGene: `--score`",
                     "description": "The threshold score for a sequence to be classified as a (almost) complete gene.",
                     "fa_icon": "fab fa-creative-commons-zero"
                 },
                 "arg_fargene_minorflength": {
                     "type": "integer",
                     "default": 90,
-                    "help_text": "The minimum length of a predicted ORF retrieved from annotating the nucleotide sequences. By default the pipeline assigns this to 90% of the assigned hmm_model sequence length. \n\n> Modifies tool parameter(s):\nFor more information check fARGene [documentation.](https://github.com/fannyhb/fargene)\n\n> Modifies tool parameter(s):\n\n> - fARGene: `--min-orf-length`",
+                    "help_text": "The minimum length of a predicted ORF retrieved from annotating the nucleotide sequences. By default the pipeline assigns this to 90% of the assigned hmm_model sequence length. \n\nFor more information check fARGene [documentation.](https://github.com/fannyhb/fargene)\n\n> Modifies tool parameter(s):\n> - fARGene: `--min-orf-length`",
                     "description": "The minimum length of a predicted ORF retrieved from annotating the nucleotide sequences.",
                     "fa_icon": "fas fa-caret-down",
                     "minimum": 1,
@@ -633,14 +633,14 @@
                 "arg_fargene_orffinder": {
                     "type": "boolean",
                     "description": "Defines which ORF finding algorithm to use.",
-                    "help_text": "By default, pipeline uses prodigal/prokka for the prediction of ORFs from nucleotide sequences. Another option is the NCBI ORFfinder tool that is built into fARGene, the use of which is activated by this flag.\n\n> Modifies tool parameter(s):\n\nFor more information check fARGene [documentation.](https://github.com/fannyhb/fargene)\n\n> - fARGene: `--orf-finder`",
+                    "help_text": "By default, pipeline uses prodigal/prokka for the prediction of ORFs from nucleotide sequences. Another option is the NCBI ORFfinder tool that is built into fARGene, the use of which is activated by this flag.\n\nFor more information check fARGene [documentation.](https://github.com/fannyhb/fargene)\n\n> Modifies tool parameter(s):\n> - fARGene: `--orf-finder`",
                     "fa_icon": "fab fa-adn"
                 },
                 "arg_fargene_translationformat": {
                     "type": "string",
                     "default": "pearson",
                     "description": "The translation table/format to use for sequence annotation.",
-                    "help_text": "The translation format that transeq should use for amino acid annotation from the nucleotide sequences. More sequence formats can be found in [transeq 'input sequence formats'](https://emboss.sourceforge.net/docs/themes/SequenceFormats.html).\n\n> Modifies tool parameter(s):\n\nFor more information check fARGene [documentation.](https://github.com/fannyhb/fargene)\n\n> - fARGene: `--translation-format`",
+                    "help_text": "The translation format that transeq should use for amino acid annotation from the nucleotide sequences. More sequence formats can be found in [transeq 'input sequence formats'](https://emboss.sourceforge.net/docs/themes/SequenceFormats.html).\n\nFor more information check fARGene [documentation.](https://github.com/fannyhb/fargene)\n\n> Modifies tool parameter(s):\n> - fARGene: `--translation-format`",
                     "fa_icon": "fas fa-border-none"
                 }
             },
@@ -696,7 +696,7 @@
                     "type": "string",
                     "default": "NA",
                     "description": "Specify a more specific data-type of input (e.g. plasmid, chromosome)",
-                    "help_text": "This flag is used to specify the data type used as input to RGI. By default this is set as 'NA', which makes no assumptions on input data.\n\nFor more information check RGI [documentation.](https://github.com/arpcard/rgi)\n\n> Modifies tool parameter(s):\n> - RGI: `--data`\n",
+                    "help_text": "This flag is used to specify the data type used as input to RGI. By default this is set as 'NA', which makes no assumptions on input data.\n\nFor more information check RGI [documentation.](https://github.com/arpcard/rgi)\n\n> Modifies tool parameter(s):\n> - RGI: `--data`",
                     "enum": ["NA", "wgs", "plasmid", "chromosome"],
                     "fa_icon": "fas fa-database"
                 }
@@ -792,19 +792,19 @@
                     "default": 1000,
                     "description": "Minimum length a contig must have to be screened with antiSMASH.",
                     "fa_icon": "fas fa-align-center",
-                    "help_text": "This specifies the minimum length that a contig must have for the contig to be screened by antiSMASH.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\nThis will only apply to samples that are screened with antiSMASH (i.e., those samples that have not been removed by `--bgc_antismash_sampleminlength`).\n\nYou may wish to increase this value compared to that of `--bgc_antismash_sampleminlength`, in cases where you wish to screen higher-quality (i.e., longer) contigs, or speed up runs by not screening lower quality/less informative contigs.\n\n> Modifies tool parameter(s):\n> - --minlength"
+                    "help_text": "This specifies the minimum length that a contig must have for the contig to be screened by antiSMASH.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\nThis will only apply to samples that are screened with antiSMASH (i.e., those samples that have not been removed by `--bgc_antismash_sampleminlength`).\n\nYou may wish to increase this value compared to that of `--bgc_antismash_sampleminlength`, in cases where you wish to screen higher-quality (i.e., longer) contigs, or speed up runs by not screening lower quality/less informative contigs.\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--minlength`"
                 },
                 "bgc_antismash_cbgeneral": {
                     "type": "boolean",
                     "description": "Turn on clusterblast comparison against database of antiSMASH-predicted clusters.",
-                    "help_text": "Compare identified clusters against a database of antiSMASH-predicted clusters using the cluster blast algorithm.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-general`\n",
+                    "help_text": "Compare identified clusters against a database of antiSMASH-predicted clusters using the cluster blast algorithm.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-general`",
                     "fa_icon": "fab fa-affiliatetheme"
                 },
                 "bgc_antismash_cbknownclusters": {
                     "type": "boolean",
                     "description": "Turn on clusterblast comparison against known gene clusters from the MIBiG database.",
                     "fa_icon": "fas fa-puzzle-piece",
-                    "help_text": "This will turn on comparing identified clusters against known gene clusters from the MIBiG database using the cluster blast algorithm.\n\n[MIBiG](https://mibig.secondarymetabolites.org/) is a curated datbase of experimentally characterised gene clusters and with rich associated metadata.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-knownclusters`\n"
+                    "help_text": "This will turn on comparing identified clusters against known gene clusters from the MIBiG database using the cluster blast algorithm.\n\n[MIBiG](https://mibig.secondarymetabolites.org/) is a curated datbase of experimentally characterised gene clusters and with rich associated metadata.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-knownclusters`"
                 },
                 "bgc_antismash_cbsubclusters": {
                     "type": "boolean",
@@ -870,9 +870,8 @@
                 "bgc_deepbgc_prodigalsinglemode": {
                     "type": "boolean",
                     "description": "Run DeepBGC's internal Prodigal step in `single` mode to restrict detecting genes to long contigs",
-                    "help_text": "By default DeepBGC's Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or longer than 20000 characters.\n\nHowever, more fragmented reads from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter allows to override this and run in single genome mode again.\n\nFor more information check Prodigal [documentation.](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies DeepBGC parameter: `--prodigal-meta-mode`",
-                    "fa_icon": "fas fa-compress-alt",
-                    "default": false
+                    "help_text": "By default DeepBGC's Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or longer than 20000 characters.\n\nHowever, more fragmented reads from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter allows to override this and run in single genome mode again.\n\nFor more information check Prodigal [documentation.](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--prodigal-meta-mode`",
+                    "fa_icon": "fas fa-compress-alt"
                 },
                 "bgc_deepbgc_mergemaxproteingap": {
                     "type": "integer",
@@ -886,7 +885,7 @@
                     "default": 0,
                     "description": "Merge detected BGCs within given number of nucleotides.",
                     "fa_icon": "fas fa-angle-double-up",
-                    "help_text": "Merge detected BGCs within given number of proteins.\n\nFor more information see the [DeepBGC documentation.](https://github.com/Merck/deepbgc)\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--merge-max-nucl-gap`"
+                    "help_text": "Merge detected BGCs within given number of proteins.\n\nFor more information see the [DeepBGC documentation.](https://github.com/Merck/deepbgc)\n\n> Modifies tool parameter(s)\n> - DeepBGC: `--merge-max-nucl-gap`"
                 },
                 "bgc_deepbgc_minnucl": {
                     "type": "integer",
@@ -987,7 +986,7 @@
                     "type": "string",
                     "default": "None",
                     "description": "Specify path to the BGC hmm model file(s) to search against. Must have quotes if wildcard used.",
-                    "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--bgc_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n\nYou must wrap the path in quotes if you use a wildcard, to ensure Nextflow expansion _not_ bash!\n\nFor more information check HMMER [documentation.](http://hmmer.org/).\n\n",
+                    "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--bgc_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n\nYou must wrap the path in quotes if you use a wildcard, to ensure Nextflow expansion _not_ bash!\n\nFor more information check HMMER [documentation.](http://hmmer.org/).",
                     "fa_icon": "fas fa-layer-group"
                 },
                 "bgc_hmmsearch_savealignments": {
@@ -1004,7 +1003,7 @@
                 },
                 "bgc_hmmsearch_savedomains": {
                     "type": "boolean",
-                    "help_text": "Save a simple tabular (space-delimited) file summarizing the per-domain output, with one data line per homologous domain detected in a query sequence for each homologous model.\n\nFor more information check HMMER [documentation.](http://hmmer.org/).\n\n> Modifies HMMsearch parameter:\n\n> - `--domtblout`",
+                    "help_text": "Save a simple tabular (space-delimited) file summarizing the per-domain output, with one data line per homologous domain detected in a query sequence for each homologous model.\n\nFor more information check HMMER [documentation.](http://hmmer.org/).\n\n>  Modifies tool parameter(s)\n> - HMMsearch:`--domtblout`",
                     "description": "Save a simple tabular file summarising the per-domain output.",
                     "fa_icon": "far fa-save"
                 }
@@ -1020,7 +1019,7 @@
                     "type": "string",
                     "default": "tsv",
                     "enum": ["interactive", "tsv", "json"],
-                    "help_text": "Specifies which summary report format to generate with `hamronize summarize`: tsv, json or interactive (html)\n\n> Modifies hAMRonization parameter: `-t`, `--summary_type`",
+                    "help_text": "Specifies which summary report format to generate with `hamronize summarize`: tsv, json or interactive (html)\n\n>  Modifies tool parameter(s)\n> - HMMsearch: `-t`, `--summary_type`",
                     "description": "Specifies summary output format",
                     "fa_icon": "far fa-file-code"
                 }
