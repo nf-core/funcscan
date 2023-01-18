@@ -419,6 +419,7 @@ Output Summaries:
 [GECCO](https://gecco.embl.de) is a fast and scalable method for identifying putative novel Biosynthetic Gene Clusters (BGCs) in genomic and metagenomic data using Conditional Random Fields (CRFs).
 
 ### comBGC
+
 <details markdown="1">
 <summary>Output files</summary>
 
