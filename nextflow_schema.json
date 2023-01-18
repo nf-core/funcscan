@@ -103,7 +103,7 @@
                     "type": "integer",
                     "default": 1,
                     "description": "Specify the minimum contig size.",
-                    "help_text": "Specify the minimum contig size that would be annotated by BAKTA.\nIf run with '--compliant', the minimum contig length must be set to 200. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--min-contig-length`",
+                    "help_text": "Specify the minimum contig size that would be annotated by BAKTA.\nIf run with '--annotation_bakta_compliant', the minimum contig length must be set to 200. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--min-contig-length`",
                     "minimum": 1,
                     "fa_icon": "fas fa-align-left"
                 },
@@ -140,7 +140,7 @@
                 "annotation_bakta_compliant": {
                     "type": "boolean",
                     "description": "Clean the result annotations to standardise them to Genbank/ENA conventions.",
-                    "help_text": "The resulting annotations are cleaned up to standardise them to Genbank/ENA/DDJB conventions. CDS without any attributed hits and those without gene symbols or product descriptions different from hypothetical will be marked as 'hypothetical'.\nWhen activated the '--min-contig-length' must be set to 200. More info can be found [here](https://github.com/oschwengers/bakta).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--compliant`\n",
+                    "help_text": "The resulting annotations are cleaned up to standardise them to Genbank/ENA/DDJB conventions. CDS without any attributed hits and those without gene symbols or product descriptions different from hypothetical will be marked as 'hypothetical'.\nWhen activated the '--min-contig-length' will be set to 200. More info can be found [here](https://github.com/oschwengers/bakta).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--compliant`\n",
                     "fa_icon": "fas fa-check"
                 },
                 "annotation_bakta_skiptrna": {
