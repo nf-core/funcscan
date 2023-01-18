@@ -761,21 +761,77 @@
                 },
                 "bgc_antismash_databases": {
                     "type": "string",
-                    "description": "Path to user-defined local antiSMASH database",
+                    "description": "Path to user-defined local antiSMASH database.",
                     "fa_icon": "fas fa-layer-group",
-                    "default": "None"
+                    "default": "None",
+                    "help_text": "It is recommend to pre-download the antiSMASH databases to your machine and pass the path of it to this parameter, as this can take a long time to download - particularly when running lots of pipeline runs. \n\nSee the [pipeline documentation](https://nf-co.re/funcscan/usage#antismash) for details on how to download this. If running with docker or singularity, please also check `--bgc_antismash_installationdirectory` for important information."
                 },
                 "bgc_antismash_installationdirectory": {
                     "type": "string",
-                    "description": "Path to user-defined local antiSMASH directory",
+                    "description": "Path to user-defined local antiSMASH directory. Only required when running with docker/singularity.",
                     "fa_icon": "far fa-folder-open",
-                    "default": "None"
+                    "default": "None",
+                    "help_text": "This is required when running with **docker and singularity** (not required for conda), due to attempted 'modifications' of files during database checks in the installation directory, something that cannot be done in immutable docker/singularity containers.\n\nTherefore, a local installation directory needs to be mounted (including all modified files from the downloading step) to the container as a workaround."
                 },
-                "bgc_antismash_mincontiglength": {
+                "bgc_antismash_sampleminlength": {
                     "type": "integer",
                     "default": 1000,
-                    "description": "Minimum contig length a sample needs to have to be run",
-                    "fa_icon": "fas fa-ruler-horizontal"
+                    "description": "Minimum longest-contig length a sample must have to be screened with antiSMASH.",
+                    "fa_icon": "fas fa-ruler-horizontal",
+                    "help_text": "This specifies the minimum length that the longest contig must have for the entire sample to be screened by antiSMASH.\n\nAny samples that do not reach this length will be not be sent to antiSMASH, therefore you will not receive output for these samples in your `--outdir`.\n\n> \u26a0\ufe0f This is not the same as `--bgc_antismash_contigminlength`, which specifies to only analyse contigs above that threshold but _within_ a sample that has already passed `--bgc_antismash_sampleminlength` sample filter!"
+                },
+                "bgc_antismash_contigminlength": {
+                    "type": "integer",
+                    "default": 1000,
+                    "description": "Minimum length a contig must have to be screened with antiSMASH.",
+                    "fa_icon": "fas fa-align-center",
+                    "help_text": "This specifies the minimum length that a contig must have for the contig to be screened by antiSMASH.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\nThis will only apply to samples that are screened with antiSMASH (i.e., those samples that have not been removed by `--bgc_antismash_sampleminlength`).\n\nYou may wish to increase this value compared to that of `--bgc_antismash_sampleminlength`, in cases where you wish to screen higher-quality (i.e., longer) contigs, or speed up runs by not screening lower quality/less informative contigs.\n\n> Modifies tool parameter(s):\n> - --minlength"
+                },
+                "bgc_antismash_cbgeneral": {
+                    "type": "boolean",
+                    "description": "Turn on clusterblast comparison against database of antiSMASH-predicted clusters.",
+                    "help_text": "Compare identified clusters against a database of antiSMASH-predicted clusters using the cluster blast algorithm.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-general`\n",
+                    "fa_icon": "fab fa-affiliatetheme"
+                },
+                "bgc_antismash_cbknownclusters": {
+                    "type": "boolean",
+                    "description": "Turn on clusterblast comparison against known gene clusters from the MIBiG database.",
+                    "fa_icon": "fas fa-puzzle-piece",
+                    "help_text": "This will turn on comparing identified clusters against known gene clusters from the MIBiG database using the cluster blast algorithm.\n\n[MIBiG](https://mibig.secondarymetabolites.org/) is a curated datbase of experimentally characterised gene clusters and with rich associated metadata.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-knownclusters`\n"
+                },
+                "bgc_antismash_cbsubclusters": {
+                    "type": "boolean",
+                    "description": "Turn on clusterblast comparison against known subclusters responsible for synthesising precursors.",
+                    "fa_icon": "fas fa-adjust",
+                    "help_text": "Turn on additional screening for operons involved in the biosynthesis of early secondary metabolites components using the cluster blast algorithm.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-subclusters`"
+                },
+                "bgc_antismash_ccmibig": {
+                    "type": "boolean",
+                    "description": "Turn on ClusterCompare comparison against known gene clusters from the MIBiG database.",
+                    "fa_icon": "fab fa-affiliatetheme",
+                    "help_text": "Turn on comparison of detected genes against the MIBiG database using the ClusterCompare algorithm - an alternative to clusterblast.\n\nNote there will not be a dedicated ClusterCompare output in the antiSMASH results directory, but is present in the HTML.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cc-mibig`"
+                },
+                "bgc_antismash_smcogtrees": {
+                    "type": "boolean",
+                    "description": "Generate phylogenetic trees of secondary metabolite group orthologs.",
+                    "fa_icon": "fas fa-tree",
+                    "help_text": "Turning this on will activate the generation of additional functional and phyogenetic analysis of genes, via comparison against databases of protein orthologs.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-smcog-trees`"
+                },
+                "bgc_antismash_hmmdetectionstrictness": {
+                    "type": "string",
+                    "default": "relaxed",
+                    "description": "Defines which level of strictness to use for HMM-based cluster detection",
+                    "help_text": "Defines which level of strictness to use for HMM-based cluster detection. \n\nThese correspond to screening of different groups of 'how well-defined' clusters are. For example, `loose` will include screening for 'poorly defined' clusters (e.g. saccharides), `relaxed` for partially present clusters (e.g. certain types of NRPS), whereas `strict` will screen for well-defined clusters such as Ketosynthases.\n\nYou can see the rules for the levels of strictness [here](https://github.com/antismash/antismash/tree/master/antismash/detection/hmm_detection/cluster_rules).\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--hmmdetection-strictness`",
+                    "fa_icon": "fas fa-search",
+                    "enum": ["relaxed", "strict", "loose"]
+                },
+                "bgc_antismash_taxon": {
+                    "type": "string",
+                    "default": "bacteria",
+                    "description": "Specify which taxonomic classification of input sequence to use",
+                    "help_text": "This specifies which set of secondary metabolites to screen for, based on the taxon type the secondary metabolites are from.\n\nThis will run different pipelines depending on whether the input sequences are from bacteria or fungi.\n\nFor more information see the [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--taxon`",
+                    "fa_icon": "fas fa-bacteria",
+                    "enum": ["bacteria", "fungi"]
                 }
             },
             "fa_icon": "fas fa-tools"
@@ -921,10 +977,10 @@
                 },
                 "bgc_hmmsearch_models": {
                     "type": "string",
-                    "default": "None",
                     "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--bgc_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n\nYou must wrap the path in quotes if you use a wilcard!\n",
                     "fa_icon": "fas fa-layer-group",
-                    "description": "Specify path (wrapped in quotes if using wildcard!) to the BGC hmm model files to search against."
+                    "description": "Specify path (wrapped in quotes if using wildcard!) to the BGC hmm model files to search against.",
+                    "default": "None"
                 },
                 "bgc_hmmsearch_savealignments": {
                     "type": "boolean",
