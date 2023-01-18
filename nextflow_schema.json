@@ -125,7 +125,7 @@
                     "minimum": 0,
                     "maximum": 25,
                     "description": "Specifies the translation table used to annotate the sequences.",
-                    "help_text": "Specifies the translation table used to annotate the sequences. All possible genetic codes (1-25) used for gene annotation can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). This flag is required if the flag `--kingdom` is assigned.\n\nFor more information please check PROKKA [documentation.](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--gcode`",
+                    "help_text": "Specify the translation table used to annotate the sequences. All possible genetic codes (1-25) used for gene annotation can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). This flag is required if the flag `--kingdom` is assigned.\n\nFor more information please check PROKKA [documentation.](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--gcode`",
                     "fa_icon": "fas fa-border-none"
                 },
                 "annotation_prokka_mincontiglen": {
@@ -146,7 +146,7 @@
                     "type": "integer",
                     "default": 80,
                     "description": "Set the assigned minimum coverage.",
-                    "help_text": "Specifies the minimum coverage percent of the annotated genome. This must be set between 0-100.\n\nFor more information please check PROKKA [documentation.](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--coverage`",
+                    "help_text": "Specify the minimum coverage percent of the annotated genome. This must be set between 0-100.\n\nFor more information please check PROKKA [documentation.](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--coverage`",
                     "fa_icon": "fas fa-align-right",
                     "minimum": 0,
                     "maximum": 100
