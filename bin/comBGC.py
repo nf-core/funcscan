@@ -100,7 +100,8 @@ def antismash_workflow(antismash_path):
     if "knownclusterblast" in os.listdir(antismash_path):
         kcb_files = [file for file in os.listdir(kcb_path) if file.startswith("c") and file.endswith(".txt")]
 
-    gbk_path = os.path.join(antismash_path, ".".join([Sample_ID, "gbk"]))
+    gbk_file = [gbk for gbk in os.listdir(antismash_path) if gbk.endswith(".gbk") and not gbk.endswith("region001.gbk")][0]
+    gbk_path = os.path.join(antismash_path, gbk_file)
     with open(gbk_path) as gbk:
         for record in SeqIO.parse(gbk, "genbank"): # GBK records are contigs in this case
 

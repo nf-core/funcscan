@@ -159,15 +159,22 @@ workflow BGC {
     //     ch_deepbgc = []
     // }
 
-    if ( !params.bgc_skip_gecco ) {
-        ch_gecco = Channel
-            .fromPath("${params.outdir}/bgc/gecco/sample_1", type: 'dir', checkIfExists: true)
-            //.map { file -> file }
-    } else {
-        ch_gecco = []
-    }
+    ch_antismash_out = ANTISMASH_ANTISMASHLITE.out.gbk_input
+        .groupTuple(ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir, remainder:true)
+        .dump(tag:"ch_antismash_out")
 
-    COMBGC ( [], [], ch_gecco, Channel.fromPath(".") )
+    ch_input_for_combgc = ch_antismash_out
+        .join(Channel.empty(), remainder:true)
+        .join(GECCO_RUN.out.clusters, remainder:true)
+        .map{
+            meta, antismash, deepbgc, gecco ->
+                def antismash_new = antismash ? antismash : []
+                def deepbgc_new = deepbgc ? deepbgc : []
+                def gecco_new = gecco ? gecco : []
+            [ meta, antismash_new, deepbgc_new, gecco_new ]
+        }
+
+    COMBGC ( ch_input_for_combgc )
 
     emit:
     versions = ch_versions
