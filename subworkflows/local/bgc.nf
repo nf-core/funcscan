@@ -43,9 +43,10 @@ workflow BGC {
 
         } else {
 
-            ch_css_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/css.tar.gz"
-            ch_detection_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/detection.tar.gz"
-            ch_modules_for_antismash = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/antismash/modules.tar.gz"
+            // May need to update each version of antismash-lite due to changes to scripts inside these tars
+            ch_css_for_antismash = "https://github.com/nf-core/test-datasets/raw/91bb8781c576967e23d2c5315dd4d43213575033/data/delete_me/antismash/css.tar.gz"
+            ch_detection_for_antismash = "https://github.com/nf-core/test-datasets/raw/91bb8781c576967e23d2c5315dd4d43213575033/data/delete_me/antismash/detection.tar.gz"
+            ch_modules_for_antismash = "https://github.com/nf-core/test-datasets/raw/91bb8781c576967e23d2c5315dd4d43213575033/data/delete_me/antismash/modules.tar.gz"
 
             UNTAR_CSS ( [ [], ch_css_for_antismash ] )
             UNTAR_DETECTION ( [ [], ch_detection_for_antismash ] )
@@ -63,8 +64,8 @@ workflow BGC {
                                 .groupTuple()
                                 .filter {
                                     meta, files ->
-                                        if ( meta.longest_contig < params.bgc_antismash_mincontiglength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_mincontiglength ${params.bgc_antismash_mincontiglength}. Antismash will not be run for: ${meta.id}."
-                                        meta.longest_contig >= params.bgc_antismash_mincontiglength
+                                        if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. Antismash will not be run for sample: ${meta.id}."
+                                        meta.longest_contig >= params.bgc_antismash_sampleminlength
                                 }
                                 .multiMap {
                                     fna: [ it[0], it[1][0] ]
