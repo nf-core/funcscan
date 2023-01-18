@@ -211,7 +211,8 @@
                     "fa_icon": "fas fa-forward"
                 }
             },
-            "fa_icon": "fas fa-file-signature"
+            "fa_icon": "fas fa-file-signature",
+            "help_text": "BAKTA  is a tool developed to annotate bacterial genomes and plasmids from both isolates and MAGs. \n\nDocumentation: https://github.com/oschwengers/bakta"
         },
         "annotation_prokka": {
             "title": "Annotation: PROKKA",
@@ -284,7 +285,8 @@
                     "fa_icon": "fas fa-adjust"
                 }
             },
-            "fa_icon": "fas fa-tools"
+            "fa_icon": "fas fa-tools",
+            "help_text": "PROKKA annotates genomic sequences  belonging to bacterial, archaeal and viral genomes.\n\nDocumentation: https://github.com/tseemann/prokka"
         },
         "annotation_prodigal": {
             "title": "Annotation: PRODIGAL",
@@ -318,7 +320,8 @@
                     "fa_icon": "fas fa-barcode"
                 }
             },
-            "fa_icon": "fas fa-tools"
+            "fa_icon": "fas fa-tools",
+            "help_text": "Prodigal is a protein-coding gene prediction tool developed to run on bacterial and archaeal genomes.\n\nDocumentation: https://github.com/hyattpd/prodigal/wiki"
         },
         "database_downloading_options": {
             "title": "Database downloading options",
@@ -457,14 +460,14 @@
                     "fa_icon": "fas fa-sort-amount-up"
                 }
             },
-            "help_text": "AMPcombi : AntiMicrobial Peptides parsing and functional classification tool"
+            "help_text": "AMPcombi : AntiMicrobial Peptides parsing and functional classification tool.\n\nDocumentation: https://github.com/Darcy220606/AMPcombi"
         },
         "arg_amrfinderplus": {
             "title": "ARG: AMRFinderPlus",
             "type": "object",
             "description": "Antimicrobial resistance gene detection based on NCBI\u2019s curated Reference Gene Database and curated collection of Hidden Markov Models",
             "default": "",
-            "help_text": "NCBI has developed AMRFinderPlus, a tool that identifies AMR genes, resistance-associated point mutations, and select other classes of genes using protein annotations and/or assembled nucleotide sequence. AMRFinderPlus is used in the Pathogen Detection pipeline, and these data are displayed in NCBI\u2019s Isolate Browser. AMRFinderPlus relies on NCBI\u2019s curated Reference Gene Database and curated collection of Hidden Markov Models.",
+            "help_text": "NCBI has developed AMRFinderPlus, a tool that identifies AMR genes, resistance-associated point mutations, and select other classes of genes using protein annotations and/or assembled nucleotide sequence. AMRFinderPlus is used in the Pathogen Detection pipeline, and these data are displayed in NCBI\u2019s Isolate Browser. AMRFinderPlus relies on NCBI\u2019s curated Reference Gene Database and curated collection of Hidden Markov Models.\n\nDocumentation: https://github.com/ncbi/amr/wiki",
             "fa_icon": "fas fa-tools",
             "properties": {
                 "arg_skip_amrfinderplus": {
@@ -595,7 +598,7 @@
             "type": "object",
             "description": "Antimicrobial resistance gene detection using a deep learning model",
             "default": "",
-            "help_text": "fARGene (Fragmented Antibiotic Resistance Gene Identifier) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimized models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes. \nDocumentation:  https://github.com/fannyhb/fargene",
+            "help_text": "fARGene (Fragmented Antibiotic Resistance Gene Identifier) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimized models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes. \n\nDocumentation:  https://github.com/fannyhb/fargene",
             "properties": {
                 "arg_skip_fargene": {
                     "type": "boolean",
@@ -706,7 +709,7 @@
         "arg_abricate": {
             "title": "ARG: ABRicate",
             "type": "object",
-            "description": "",
+            "description": "Antimicrobial resistance gene detection, based on alignment to CBI, CARD, ARG-ANNOT, Resfinder, MEGARES, EcOH, PlasmidFinder, Ecoli_VF and VFDB.",
             "default": "",
             "fa_icon": "fas fa-tools",
             "properties": {
@@ -753,7 +756,8 @@
                     "minimum": 1,
                     "maximum": 100
                 }
-            }
+            },
+            "help_text": "ABRicate screens for antimicrobial resistance or virulence genes based on NCBI, CARD, ARG-ANNOT, Resfinder, MEGARES, EcOH, PlasmidFinder, Ecoli_VF and VFDB databases.\n\nDocumentation: https://github.com/tseemann/abricate"
         },
         "bgc_antismash": {
             "title": "BGC: antiSMASH",
@@ -841,7 +845,8 @@
                     "enum": ["bacteria", "fungi"]
                 }
             },
-            "fa_icon": "fas fa-tools"
+            "fa_icon": "fas fa-tools",
+            "help_text": "The antibiotics and Secondary Metabolite Analysis SHell  (antiSMASH) carries out a genome-wide screening, annotation and analysis of secondary metabolite biosynthesis gene clusters in bacterial and fungal genomes. \n\nDocumentation: https://antismash.secondarymetabolites.org/#!/about"
         },
         "bgc_deepbgc": {
             "title": "BGC: deepBGC",
@@ -922,7 +927,8 @@
                     "fa_icon": "fas fa-sort-amount-down",
                     "help_text": "DeepBGC classification score threshold for assigning classes to BGCs.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--classifier-score`"
                 }
-            }
+            },
+            "help_text": "DeepBGC screens for BGCs in bacterial and fungal genomes using deep learning.\n\nDocumentation: https://github.com/Merck/deepbgc/tree/master/deepbgc"
         },
         "bgc_gecco": {
             "title": "BGC: gecco",
@@ -1007,12 +1013,13 @@
                     "description": "Save a simple tabular file summarising the per-domain output.",
                     "fa_icon": "far fa-save"
                 }
-            }
+            },
+            "help_text": "HMMER/hmmsearch is used for searching sequence databases for sequence homologs, and for making sequence alignments. It implements methods using probabilistic models called profile hidden Markov models (profile HMMs). `hmmsearch` is used to search one or more profiles against a sequence database.\n\nFor more information check HMMER [documentation](http://hmmer.org/)."
         },
         "reporting": {
             "title": "Reporting",
             "type": "object",
-            "description": "",
+            "description": "Influences parameters required for the reporting workflow.",
             "default": "",
             "properties": {
                 "arg_hamronization_summarizeformat": {
