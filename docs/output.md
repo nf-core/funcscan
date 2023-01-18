@@ -73,11 +73,12 @@ results/
 |   └── rgi/
 ├── bgc/
 |   ├── antismash/
-    ├── deepbgc/
+|   ├── deepbgc/
 |   ├── gecco/
 |   └── hmmsearch/
 ├── reports/
 |   ├── ampcombi/
+|   ├── comBGC/
 |   └── hamronization_summarize/
 ├── databases/
 ├── multiqc/
@@ -87,48 +88,48 @@ work/
 
 ## Pipeline overview
 
-The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
+The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data through the following steps:
 
 DNA sequence annotation
 
-- [Prodigal](#prodigal) – for open reading frame annotation
-- [Prokka](#prokka) – (optional: alternative to prodigal) open reading frame and functional protein annotation
-- [Bakta](#bakta) – (optional: alternative to prokka) open reading frame and functional protein annotation
+- [Prodigal](#prodigal) – for open reading frame annotation.
+- [Prokka](#prokka) – (optional: alternative to prodigal) open reading frame and functional protein annotation.
+- [Bakta](#bakta) – (optional: alternative to prokka) open reading frame and functional protein annotation.
 
 Antimicrobial Resistance Genes (ARGs):
 
-- [ABRicate](#abricate) – antimicrobial resistance gene detection, based on alignment to one of several databases
-- [AMRFinderPlus](#amrfinderplus) – antimicrobial resistance gene detection, using NCBI’s curated Reference Gene Database and curated collection of Hidden Markov Models
-- [DeepARG](#deeparg) – antimicrobial resistance gene detection, using a deep learning model
-- [fARGene](#fargene) – antimicrobial resistance gene detection, using a deep learning model
-- [RGI](#rgi) – antimicrobial resistance gene detection, based on alignment to the CARD database
+- [ABRicate](#abricate) – antimicrobial resistance gene detection, based on alignment to one of several databases.
+- [AMRFinderPlus](#amrfinderplus) – antimicrobial resistance gene detection, using NCBI’s curated Reference Gene Database and curated collection of Hidden Markov Models.
+- [DeepARG](#deeparg) – antimicrobial resistance gene detection, using a deep learning model.
+- [fARGene](#fargene) – antimicrobial resistance gene detection, using a deep learning model.
+- [RGI](#rgi) – antimicrobial resistance gene detection, based on alignment to the CARD database.
 
 Antimicrobial Peptides (AMPs):
 
   <!--* [acep](#acep) – antimicrobial peptide detection-->
   <!--* [ai4amp](#ai4amp) – antimicrobial peptide detection-->
 
-- [ampir](#ampir) – antimicrobial peptide detection
-- [amplify](#amplify) – antimicrobial peptide detection
+- [ampir](#ampir) – antimicrobial peptide detection, based on a supervised statistical machine learning approach.
+- [amplify](#amplify) – antimicrobial peptide detection, using a deep learning model.
   <!--* [EnsembleAMPPred](#ensembleamppred) – antimicrobial peptide detection-->
-- [hmmsearch](#hmmsearch) – antimicrobial peptide detection
-- [Macrel](#macrel) – antimicrobial peptide detection
+- [hmmsearch](#hmmsearch) – antimicrobial peptide detection, based on hidden Markov models.
+- [Macrel](#macrel) – antimicrobial peptide detection, using a machine learning approach.
 <!--* [neubi](#neubi) – antimicrobial peptide detection-->
 
 Biosynthetic Gene Clusters (BGCs):
 
-- [antiSMASH](#antismash) – biosythetic gene cluster detection
-- [deepBGC](#deepbgc) - biosynthetic gene cluster detection
-- [GECCO](#gecco) – biosynthetic gene cluster detection
-- [hmmsearch](#hmmsearch) – biosynthetic gene cluster detection
+- [antiSMASH](#antismash) – biosythetic gene cluster detection.
+- [deepBGC](#deepbgc) - biosynthetic gene cluster detection, using a deep learning model.
+- [GECCO](#gecco) – biosynthetic gene cluster detection, using using Conditional Random Fields (CRFs).
+- [hmmsearch](#hmmsearch) – biosynthetic gene cluster detection, based on hidden Markov models.
 
 Output Summaries:
 
-- [MultiQC](#multiqc) – report of all software and versions used in the pipeline
-- [hAMRonization](#hamronization) – summary of resistance gene output from various detection tools
-- [AMPcombi](#ampcombi) – summarizes antimicrobial peptide detection output-->
-  <!--* [comBGC](#combgc) – PRELIMINARY TOOL NAME - summarizes biosynthetic gene cluster detection output-->
-- [Pipeline information](#pipeline-information) – report metrics generated during the workflow execution
+- [MultiQC](#multiqc) – report of all software and versions used in the pipeline.
+- [hAMRonization](#hamronization) – summary of resistance gene output from various detection tools.
+- [AMPcombi](#ampcombi) – summary of antimicrobial peptide output from various detection tools.
+- [comBGC](#combgc) – summary of biosynthetic gene cluster detection output
+- [Pipeline information](#pipeline-information) – report metrics generated during the workflow execution.
 
 ## Tool details
 
@@ -265,7 +266,7 @@ Output Summaries:
 
 </details>
 
-[AMPcombi](https://github.com/Darcy220606/AMPcombi) summarizes parses the results of **antimicrobial peptide (AMP)** prediction tools (AMPIR, AMPLIFY, MACREL, and other non nf-core tools) into a single table and aligns the hits against a reference AMP database for functional and taxonomic classification.
+[AMPcombi](https://github.com/Darcy220606/AMPcombi) summarizes the results of **antimicrobial peptide (AMP)** prediction tools (AMPIR, AMPLIFY, MACREL, and other non nf-core tools) into a single table and aligns the hits against a reference AMP database for functional and taxonomic classification.
 
 ### ABRicate
 
@@ -291,31 +292,6 @@ Output Summaries:
 
 [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder) relies on NCBI’s curated Reference Gene Database and curated collection of Hidden Markov Models. It identifies antimicrobial resistance genes, resistance-associated point mutations, and select other classes of genes using protein annotations and/or assembled nucleotide sequence.
 
-The `*.tsv` output files contain the following fields:
-
-- Protein identifier
-- Contig id
-- Start
-- Stop
-- Strand
-- Gene symbol
-- Sequence name
-- Scope
-- Element type
-- Element subtype
-- Class
-- Subclass
-- Method
-- Target length
-- Reference sequence length
-- % Coverage of reference sequence
-- % Identity to reference sequence
-- Alignment length
-- Accession of closest sequence
-- Name of closest sequence
-- HMM id
-- HMM description
-
 ### DeepARG
 
 <details markdown="1">
@@ -330,21 +306,6 @@ The `*.tsv` output files contain the following fields:
 </details>
 
 [deepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master) uses deep learning to characterize and annotate antibiotic resistance genes in metagenomes. It is composed of two models for two types of input: short sequence reads and gene-like sequences. In this pipeline we use the `ls` model, which is suitable for annotating full sequence genes and to discover novel antibiotic resistance genes from assembled samples. The tool `Diamond` is used as an aligner.
-
-The `*.ARG` output files contain the following fields:
-
-- ARG_NAME
-- QUERY_START
-- QUERY_END
-- QUERY_ID
-- PREDICTED_ARG_CLASS
-- BEST_HIT_FROM_DATABASE
-- PREDICTION_PROBABILITY
-- ALIGNMENT_BESTHIT_IDENTITY (%)
-- ALIGNMENT_BESTHIT_LENGTH
-- ALIGNMENT_BESTHIT_BITSCORE
-- ALIGNMENT_BESTHIT_EVALUE
-- COUNTS
 
 ### fARGene
 
@@ -363,7 +324,7 @@ The `*.ARG` output files contain the following fields:
 
 </details>
 
-[fARGene](https://github.com/fannyhb/fargene) (**F**ragmented **A**ntibiotic **R**esistance **G**ene Identifier) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antibiotic resistance genes as output. The tool includes developed and optimized models for a number of resistance gene types. The model to be used has to be specified for each run (`--hmm-model`). Available models are:
+[fARGene](https://github.com/fannyhb/fargene) (**F**ragmented **A**ntibiotic **R**esistance **G**ene Identifier) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antibiotic resistance genes as output. The tool includes developed and optimized models for a number of resistance gene types. By default the pipeline runs all models. If only a sub-list or single model is to be used this can be specified with the `--hmm-model` flag. Available models are:
 
 - `class_a`: class A beta-lactamases
 - `class_b_1_2`: subclass B1 and B2 beta-lactamases
@@ -372,20 +333,6 @@ The `*.ARG` output files contain the following fields:
 - `class_d_2`: class D beta-lactamases
 - `qnr`: quinolone resistance genes
 - `tet_efflux`, `tet_rpg`, `tet_enzyme`: tetracycline resistance genes
-
-### hAMRonization
-
-<details markdown="1">
-<summary>Output files</summary>
-
-- `hamronization/` one of the following:
-  - `hamronization_combined_report.json`: summarized output in .json format
-  - `hamronization_combined_report.tsv`: summarized output in .tsv format
-  - `hamronization_combined_report.html`: interactive output in .html format
-
-</details>
-
-[hAMRonization](https://github.com/pha4ge/hAMRonization) summarizes the outputs of the **antimicrobial resistance gene** detection tools (ABRicate, AMRFinderPlus, DeepARG, fARGene, RGI) into a single unified format. It supports a variety of summary options including an interactive summary.
 
 ### RGI
 
@@ -402,10 +349,24 @@ The `*.ARG` output files contain the following fields:
 
 [RGI](https://github.com/arpcard/rgi) (**R**esistance **G**ene **I**dentifier) predicts resistome(s) from protein or nucleotide data based on homology and SNP models. It uses reference data from the Comprehensive Antibiotic Resistance Database (CARD).
 
+### hAMRonization
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `hamronization/` one of the following:
+  - `hamronization_combined_report.json`: summarized output in .json format
+  - `hamronization_combined_report.tsv`: summarized output in .tsv format
+  - `hamronization_combined_report.html`: interactive output in .html format
+
+</details>
+
+[hAMRonization](https://github.com/pha4ge/hAMRonization) summarizes the outputs of the **antimicrobial resistance gene** detection tools (ABRicate, AMRFinderPlus, DeepARG, fARGene, RGI) into a single unified format. It supports a variety of summary options including an interactive summary.
+
 ### antiSMASH
 
 <details markdown="1">
-<summary>Most important output files</summary>
+<summary>Output files</summary>
 
 - `antismash/`
   - `knownclusterblast/`
@@ -456,6 +417,17 @@ The `*.ARG` output files contain the following fields:
 </details>
 
 [GECCO](https://gecco.embl.de) is a fast and scalable method for identifying putative novel Biosynthetic Gene Clusters (BGCs) in genomic and metagenomic data using Conditional Random Fields (CRFs).
+
+### comBGC
+<details markdown="1">
+<summary>Output files</summary>
+
+- `comBGC/`
+  - `bgc_summary.csv`: summary of the output of the pipelines' BGC detection tools used.
+
+</details>
+
+**comBGC** is a local module which summarizes the results of the **Biosynthetic Gene Cluster (BGC)** prediction tools (antiSMASH, deepBGC, GECCO) used in the pipeline into one comprehensive summary with standardized headers.
 
 ### MultiQC
 
