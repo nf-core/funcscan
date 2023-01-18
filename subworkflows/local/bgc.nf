@@ -77,10 +77,14 @@ workflow BGC {
 
         ANTISMASH_ANTISMASHLITE ( ch_antismash_input.fna, ch_antismash_databases, ch_antismash_directory, ch_antismash_input.gff )
         ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITE.out.versions)
-        // ANTISMASH_ANTISMASHLITE.out.view()
-        ch_antismash_combgc = Channel.fromPath("${params.outdir}/bgc/antismash/sample_1/")
-        // ch_antismash_combgc = Channel.of(ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir, ANTISMASH_ANTISMASHLITE.out.gbk_input)
-        ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(ch_antismash_combgc)
+        ch_antismashresults_for_combgc = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
+            .mix(ANTISMASH_ANTISMASHLITE.out.gbk_input)
+            .groupTuple()
+            .map{
+                meta, files ->
+                [meta, files.flatten()]
+            }
+        ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(ch_antismashresults_for_combgc)
     }
 
     // DEEPBGC
@@ -99,8 +103,7 @@ workflow BGC {
 
     DEEPBGC_PIPELINE ( ch_deepbgc_input, ch_deepbgc_database)
     ch_versions = ch_versions.mix(DEEPBGC_PIPELINE.out.versions)
-    //ch_deepbgc_combgc = Channel.fromPath(  )
-    //ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(DEEPBGC_PIPELINE.out.bgc_tsv)
+    ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(DEEPBGC_PIPELINE.out.bgc_tsv)
     }
 
     // GECCO
@@ -112,6 +115,14 @@ workflow BGC {
 
         GECCO_RUN ( ch_gecco_input, [] )
         ch_versions = ch_versions.mix(GECCO_RUN.out.versions)
+        ch_geccoresults_for_combgc = GECCO_RUN.out.gbk
+            .mix(GECCO_RUN.out.clusters)
+            .groupTuple()
+            .map{
+                meta, files ->
+                [meta, files.flatten()]
+            }
+        ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(ch_geccoresults_for_combgc)
     }
 
     // HMMSEARCH
@@ -142,40 +153,18 @@ workflow BGC {
     }
 
     // COMBGC
-    // if ( !params.bgc_skip_antismash ) {
-    //     ch_antismash = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
-    //             // Channel
-    //         // .fromPath("${params.outdir}/bgc/antismash/", type: 'dir', checkIfExists: true)
+    COMBGC ( ch_bgcresults_for_combgc )
 
-    //         //.map { file -> tuple(file.baseName, file) }
-    // } else {
-    //     ch_antismash = []
-    // }
+    // ch_combgc_summaries = ch_ampcombi_summaries.mix(COMBGC.out.tsv)
 
-    // if ( !params.bgc_skip_deepbgc ) {
-    //     ch_deepbgc = Channel
-    //         .fromPath("${params.outdir}/bgc/deepbgc/", type: 'dir', checkIfExists: true)
-    //         //.map { file -> tuple(file.baseName, file) }
-    // } else {
-    //     ch_deepbgc = []
-    // }
-
-    ch_antismash_out = ANTISMASH_ANTISMASHLITE.out.gbk_input
-        .groupTuple(ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir, remainder:true)
-        .dump(tag:"ch_antismash_out")
-
-    ch_input_for_combgc = ch_antismash_out
-        .join(Channel.empty(), remainder:true)
-        .join(GECCO_RUN.out.clusters, remainder:true)
-        .map{
-            meta, antismash, deepbgc, gecco ->
-                def antismash_new = antismash ? antismash : []
-                def deepbgc_new = deepbgc ? deepbgc : []
-                def gecco_new = gecco ? gecco : []
-            [ meta, antismash_new, deepbgc_new, gecco_new ]
-        }
-
-    COMBGC ( ch_input_for_combgc )
+    //COMBGC concatenation
+    // ch_ampcombi_summaries_out = ch_ampcombi_summaries
+    //     .multiMap{
+    //             input: [ it[0] ]
+    //             summary: it[1]
+    //         }
+    // ch_ampcombi_summaries_out.summary.collectFile(name: 'ampcombi_complete_summary.csv', storeDir: "${params.outdir}/reports/ampcombi", keepHeader:true)
+    
 
     emit:
     versions = ch_versions

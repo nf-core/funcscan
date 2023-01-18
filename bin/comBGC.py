@@ -22,9 +22,7 @@ parser = argparse.ArgumentParser(prog = 'comBGC', formatter_class=argparse.RawDe
                                 add_help=True)
 
 # Input options
-parser.add_argument("-a", "--antismash", metavar='PATH', dest="antismash", nargs='?', help="path to the folder that contains antiSMASH output",  type=str, default="")
-parser.add_argument('-d', '--deepbgc', metavar='PATH', dest="deepbgc", nargs='?', help="path to the folder that contains DeepBGC output", type=str, default="")
-parser.add_argument('-g', '--gecco', metavar='PATH', dest="gecco", nargs='?', help="path to the folder that contains GECCO output", type=str, default="")
+parser.add_argument("-i", "--input", metavar="PATH(s)", dest="input", nargs='*', help="path(s) to the required output file(s) of antiSMASH, DeepBGC and/or GECCO")
 parser.add_argument('-o', '--outdir', metavar='PATH', dest="outdir", nargs='?', help="directory for comBGC output. Default: current directory", type=str, default=".")
 parser.add_argument("-vv", "--verbose", help="increase output verbosity", action="store_true")
 parser.add_argument("-v", "--version", help="print version number and exit", action="store_true")
@@ -33,15 +31,30 @@ parser.add_argument("-v", "--version", help="print version number and exit", act
 args = parser.parse_args()
 
 # Assign input arguments to variables
-input_antismash = args.antismash
-input_deepbgc = args.deepbgc
-input_gecco = args.gecco
+input = args.input
 outdir = args.outdir
 verbose = args.verbose
 version = args.version
 
 if version:
     exit("comBGC 0.5")
+
+input_antismash = []
+input_deepbgc = []
+input_gecco = []
+
+for path in input:
+    if path.endswith(".gbk"):
+        if re.search(".*_cluster_.+\.gbk", path):
+            input_gecco.append(path)
+        else:
+            input_antismash.append(path)
+    elif path.endswith("bgc.tsv"):
+        input_deepbgc = path
+    elif path.endswith("clusters.tsv"):
+        input_gecco.append(path)
+    elif path.endswith("knownclusterblast/"):
+        input_antismash.append(path)
 
 # Make sure that at least one input argument is given
 if not (input_antismash or input_gecco or input_deepbgc):
@@ -75,7 +88,7 @@ def parse_knownclusterblast(kcb_file_path):
     return MIBiG_IDs
 
 
-def antismash_workflow(antismash_path):
+def antismash_workflow(antismash_paths):
     """
     Create data frame with aggregated antiSMASH output:
     - Iterate over list of sample folders with antiSMASH output.
@@ -85,23 +98,28 @@ def antismash_workflow(antismash_path):
     """
 
     if verbose:
-        print("\nParsing antiSMASH files in " + antismash_path + "\n... ", end="")
+        print("\nParsing antiSMASH files\n... ", end="")
 
     antismash_sum_cols = ['Sample_ID', 'Prediction_tool', 'Contig_ID', 'Product_class', 'BGC_probability', 'BGC_complete', 'BGC_start', 'BGC_end', 'BGC_length', 'CDS_ID', 'CDS_count', 'PFAM_domains', 'MIBiG_ID', 'InterPro_ID']
     antismash_out = pd.DataFrame(columns=antismash_sum_cols)
 
-    # Aggregate information
-    Sample_ID = antismash_path.rstrip("/").split("/")[-1] # Assuming folder name equals sample name
     CDS_ID = []
     CDS_count = 0
-    kcb_path = os.path.join(antismash_path, "knownclusterblast/")
-    kcb_files = []
 
-    if "knownclusterblast" in os.listdir(antismash_path):
+    # Distinguish input files (i.e. GBK file and "knownclusterblast" folder)
+    kcb_path = []
+    for path in antismash_paths:
+        if re.search("knownclusterblast", path):
+            kcb_path = re.search(".*knownclusterblast.*", path).group()
+        else:
+            gbk_path = path
+
+    kcb_files = []
+    if kcb_path:
         kcb_files = [file for file in os.listdir(kcb_path) if file.startswith("c") and file.endswith(".txt")]
 
-    gbk_file = [gbk for gbk in os.listdir(antismash_path) if gbk.endswith(".gbk") and not gbk.endswith("region001.gbk")][0]
-    gbk_path = os.path.join(antismash_path, gbk_file)
+    # Aggregate information
+    Sample_ID = gbk_path.split("/")[-1].split(".gbk")[-2] # Assuming file name equals sample name
     with open(gbk_path) as gbk:
         for record in SeqIO.parse(gbk, "genbank"): # GBK records are contigs in this case
 
@@ -164,6 +182,7 @@ def antismash_workflow(antismash_path):
 
                     # If there are knownclusterblast files for the BGC, get MIBiG IDs of their homologs
                     if kcb_files:
+                        print(kcb_files)
                         kcb_file = '{}_c{}.txt'.format(record.id, str(cluster_num)) # Check if this filename is among the knownclusterblast files
                         if kcb_file in kcb_files:
                             MIBiG_IDs = ";".join(parse_knownclusterblast(os.path.join(kcb_path, kcb_file)))
@@ -217,36 +236,13 @@ def antismash_workflow(antismash_path):
 # DEEPBGC FUNCTIONS
 ########################
 
-
-def deepbgc_initiate(deepbgc_path):
-    '''
-    Create dictionary with sample name and corresponding path to deepBGC output TSV.
-    '''
-
-    # Go over every sample directory in deepbgc_path
-    # Append all files ending with bgc.tsv in a list of lists
-    deepbgc_list = []
-    for file in os.listdir(deepbgc_path):
-        if file.endswith(".bgc.tsv"):
-            deepbgc_list.append(os.path.join(deepbgc_path, file))
-
-    # Grab sample names from the list of lists
-    sample_names = [os.path.basename(tsv).rsplit(".bgc", 1)[0] for tsv in deepbgc_list]
-
-    # Return dictionary with sample name and corresponding TSV
-    deepbgc_dict = {}
-    for i in range(0, len(deepbgc_list)):
-        deepbgc_dict[sample_names[i]] = [deepbgc_list[i]]
-    return deepbgc_dict
-
-
 def deepbgc_workflow(deepbgc_path):
     '''
     Create data frame with aggregated deepBGC output.
     '''
 
     if verbose:
-        print("\nParsing deepBGC files in " + input_deepbgc + "\n... ", end="")
+        print("\nParsing deepBGC file\n... ", end="")
 
     # Prepare input and output columns
     deepbgc_map_dict = {'sequence_id'  :'Contig_ID',
@@ -261,25 +257,22 @@ def deepbgc_workflow(deepbgc_path):
     deepbgc_sum_cols = ['Sample_ID', 'Prediction_tool', 'Contig_ID', 'Product_class', 'BGC_probability', 'BGC_complete', 'BGC_start', 'BGC_end', 'BGC_length', 'CDS_ID', 'CDS_count', 'PFAM_domains', 'MIBiG_ID', 'InterPro_ID']
     deepbgc_unused_cols = ['detector_version', 'detector_label', 'bgc_candidate_id', 'num_domains', 'num_bio_domains', 'product_activity', 'antibacterial', 'cytotoxic', 'inhibitor', 'antifungal', 'Alkaloid', 'NRP', 'Other', 'Polyketide', 'RiPP', 'Saccharide', 'Terpene', 'bio_pfam_ids']
 
-    # Grab deepBGC sample files and paths
-    dict = deepbgc_initiate(deepbgc_path)
+    # Grab deepBGC sample ID
+    sample = os.path.basename(deepbgc_path).rsplit(".bgc", 1)[0]
 
     # Initiate dataframe
     deepbgc_out = pd.DataFrame(columns=deepbgc_sum_cols)
 
-    # Add information by sample
-    for sample in dict.keys():
+    # Add relevant deepBGC output columns per BGC
+    deepbgc_df = pd.read_csv(deepbgc_path, sep='\t').drop(deepbgc_unused_cols, axis=1).rename(columns=deepbgc_map_dict)
+    deepbgc_df['Sample_ID']       = sample
+    deepbgc_df['Prediction_tool'] = "deepBGC"
+    deepbgc_df['BGC_complete']    = "NA"
+    deepbgc_df['MIBiG_ID']        = "NA"
+    deepbgc_df['InterPro_ID']     = "NA"
 
-        # Add relevant deepBGC output columns per BGC
-        deepbgc_df = pd.read_csv(dict[sample][0], sep='\t').drop(deepbgc_unused_cols, axis=1).rename(columns=deepbgc_map_dict)
-        deepbgc_df['Sample_ID']       = sample
-        deepbgc_df['Prediction_tool'] = "deepBGC"
-        deepbgc_df['BGC_complete']    = "NA"
-        deepbgc_df['MIBiG_ID']        = "NA"
-        deepbgc_df['InterPro_ID']     = "NA"
-
-        # Concatenate data frame to out w/o common index column (e.g. sample_id) due to duplicate row names
-        deepbgc_out = pd.concat([deepbgc_out, deepbgc_df], ignore_index=True, sort=False)
+    # Concatenate data frame to out w/o common index column (e.g. sample_id) due to duplicate row names
+    deepbgc_out = pd.concat([deepbgc_out, deepbgc_df], ignore_index=True, sort=False)
 
     # Return data frame with ordered columns
     deepbgc_out = deepbgc_out[deepbgc_sum_cols]
@@ -309,33 +302,13 @@ def getInterProID(gbk_path):
         ipids_str = ';'.join(map(str, ip_ids))
     return(ipids_str)
 
-
-def walk_gecco_path(gecco_path):
-    '''
-    Get list of GECCO GBK files (1 file per BGC).
-    '''
-
-    gbks = []
-    for file in os.listdir(gecco_path):
-        if (file.endswith(('.gbk'))):
-            gbks.append(os.path.join(gecco_path, file))
-        if (file.endswith(('clusters.tsv'))):
-            tsv = os.path.join(gecco_path, file)
-
-    sample_name = tsv.split('/')[-1].split('.')[0]
-
-    # Return dictionary of sample name (key) and [result.tsv and [contig.gbk]] (value)
-    bgc_dict = { sample_name: [tsv, gbks] }
-    return bgc_dict
-
-
-def gecco_workflow(gecco_path):
+def gecco_workflow(gecco_paths):
     '''
     Create data frame with aggregated GECCO output.
     '''
 
     if verbose:
-        print("\nParsing GECCO files in " + input_gecco + "\n... ", end="")
+        print("\nParsing GECCO files\n... ", end="")
 
     # GECCO output columns that can be mapped (comBGC:GECCO)
     map_dict = {'sequence_id':'Contig_ID',
@@ -349,36 +322,42 @@ def gecco_workflow(gecco_path):
     summary_cols = ['Sample_ID', 'Prediction_tool', 'Contig_ID', 'Product_class', 'BGC_probability', 'BGC_complete', 'BGC_start', 'BGC_end', 'BGC_length', 'CDS_ID', 'CDS_count', 'PFAM_domains', 'MIBiG_ID', 'InterPro_ID']
     unused_cols = ['max_p', 'alkaloid_probability', 'polyketide_probability', 'ripp_probability', 'saccharide_probability', 'terpene_probability', 'nrp_probability']
 
-    # Dict of Sample names (key) and paths to [tsv, [all contigs.gbk]]
-    gecco_dict = walk_gecco_path(gecco_path)
-
+    tsv_path = ""
+    gbk_paths = []
+    
+    for path in gecco_paths:
+        if path.endswith(".tsv"):
+            tsv_path = path
+        else:
+            gbk_paths.append(path)
+    
     # Initiate dataframe
     gecco_out = pd.DataFrame(columns=summary_cols)
 
-    # Add information by sample
-    for i in gecco_dict.keys():
-        gecco_df = pd.read_csv(gecco_dict[i][0], sep='\t').drop(unused_cols, axis=1).rename(columns=map_dict)
+    # Add sample information
+    sample = tsv_path.split('/')[-1].split('.')[0]
+    gecco_df = pd.read_csv(tsv_path, sep='\t').drop(unused_cols, axis=1).rename(columns=map_dict)
 
-        # Fill columns (1 row per BGC)
-        gecco_df['Sample_ID']       = i
-        gecco_df['BGC_length']      = gecco_df['BGC_end']-gecco_df['BGC_start']
-        gecco_df['CDS_count']       = [len(gecco_df['CDS_ID'].iloc[i].split(';')) for i in range(0, gecco_df.shape[0])] # Number of contigs in 'Annotation_ID'
-        gecco_df['Prediction_tool'] = 'GECCO'
+    # Fill columns (1 row per BGC)
+    gecco_df['Sample_ID']       = sample
+    gecco_df['BGC_length']      = gecco_df['BGC_end']-gecco_df['BGC_start']
+    gecco_df['CDS_count']       = [len(gecco_df['CDS_ID'].iloc[i].split(';')) for i in range(0, gecco_df.shape[0])] # Number of contigs in 'Annotation_ID'
+    gecco_df['Prediction_tool'] = 'GECCO'
 
-        # Add column 'InterPro_ID'
-        for gbk_path in gecco_dict[i][1]:
-            bgc_id = gbk_path.split('/')[-1][0:-4]
-            gecco_df.loc[gecco_df['bgc_id'] == bgc_id, 'InterPro_ID'] = getInterProID(gbk_path)
+    # Add column 'InterPro_ID'
+    for gbk_path in gbk_paths:
+        bgc_id = gbk_path.split('/')[-1][0:-4]
+        gecco_df.loc[gecco_df['bgc_id'] == bgc_id, 'InterPro_ID'] = getInterProID(gbk_path)
 
-        # Add empty columns with no output from GECCO
-        gecco_df['BGC_complete'] = 'NA'
-        gecco_df['MIBiG_ID'] = 'NA'
-        gecco_out = pd.concat([gecco_out, gecco_df])
+    # Add empty columns with no output from GECCO
+    gecco_df['BGC_complete'] = 'NA'
+    gecco_df['MIBiG_ID'] = 'NA'
+    gecco_out = pd.concat([gecco_out, gecco_df])
 
-        # Fill all empty cells with NA
-        for row in range(len(gecco_df['PFAM_domains'])):
-            if gecco_out['PFAM_domains'].isnull().values[row]:
-                gecco_out.loc[row, 'PFAM_domains'] = "NA"
+    # Fill all empty cells with NA
+    for row in range(len(gecco_df['PFAM_domains'])):
+        if gecco_out['PFAM_domains'].isnull().values[row]:
+            gecco_out.loc[row, 'PFAM_domains'] = "NA"
 
     # Return data frame with ordered columns
     gecco_out = gecco_out[summary_cols]
@@ -401,7 +380,7 @@ if __name__ == "__main__":
     tools_provided = {}
 
     for tool in tools.keys():
-        if tools[tool] != "":
+        if tools[tool]:
             tools_provided[tool] = tools[tool]
 
     if verbose:
