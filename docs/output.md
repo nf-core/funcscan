@@ -128,7 +128,7 @@ Output Summaries:
 - [MultiQC](#multiqc) – report of all software and versions used in the pipeline.
 - [hAMRonization](#hamronization) – summary of resistance gene output from various detection tools.
 - [AMPcombi](#ampcombi) – summary of antimicrobial peptide output from various detection tools.
-- [comBGC](#combgc) – summary of biosynthetic gene cluster detection output
+- [comBGC](#combgc) – summary of biosynthetic gene cluster output from various detection tools.
 - [Pipeline information](#pipeline-information) – report metrics generated during the workflow execution.
 
 ## Tool details
@@ -424,11 +424,13 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `comBGC/`
-  - `bgc_summary.csv`: summary of the output of the pipelines' BGC detection tools used.
+  - `combgc_complete_summary.csv`: summarized output from all BGC detection tools used in tsv format.
 
 </details>
 
 **comBGC** is a local module which summarizes the results of the **Biosynthetic Gene Cluster (BGC)** prediction tools (antiSMASH, deepBGC, GECCO) used in the pipeline into one comprehensive summary with standardized headers.
+
+**Note:** comBGC does not feature hmmer_hmmsearch at the moment.
 
 ### MultiQC
 
