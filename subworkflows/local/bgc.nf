@@ -155,16 +155,18 @@ workflow BGC {
     // COMBGC
     COMBGC ( ch_bgcresults_for_combgc )
 
-    // ch_combgc_summaries = ch_ampcombi_summaries.mix(COMBGC.out.tsv)
+    ch_combgc_summaries = ch_combgc_summaries.mix(COMBGC.out.tsv)
 
     //COMBGC concatenation
-    // ch_ampcombi_summaries_out = ch_ampcombi_summaries
-    //     .multiMap{
-    //             input: [ it[0] ]
-    //             summary: it[1]
-    //         }
-    // ch_ampcombi_summaries_out.summary.collectFile(name: 'ampcombi_complete_summary.csv', storeDir: "${params.outdir}/reports/ampcombi", keepHeader:true)
-    
+    ch_combgc_summaries_out = ch_combgc_summaries
+        .multiMap{
+                input: [ it[0] ]
+                summary: it[1]
+            }
+
+    ch_combgc_summaries_out
+        .summary
+        .collectFile(name: 'combgc_complete_summary.csv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true)
 
     emit:
     versions = ch_versions

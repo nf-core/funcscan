@@ -43,6 +43,7 @@ input_antismash = []
 input_deepbgc = []
 input_gecco = []
 
+# Assign input files to respective tools
 for path in input:
     if path.endswith(".gbk"):
         if re.search(".*_cluster_.+\.gbk", path):
@@ -141,6 +142,8 @@ def antismash_workflow(antismash_paths):
                 if feature.type == "protocluster":
 
                     if antismash_out_line: # If there is more than 1 BGC per contig, reset the output line for new BGC. Assuming that BGCs do not overlap.
+                        if not CDS_ID:
+                            CDS_ID = ["NA"]
                         antismash_out_line = { # Create dictionary of BGC info
                             'Sample_ID'      : Sample_ID,
                             'Prediction_tool': "antiSMASH",
@@ -193,7 +196,8 @@ def antismash_workflow(antismash_paths):
                 # Count functional CDSs (no pseudogenes) and get the PFAM annotation
                 elif feature.type == "CDS" and "translation" in feature.qualifiers.keys() and BGC_start != "": # Make sure not to count pseudogenes (which would have no "translation tag") and count no CDSs before first BGC
                     if feature.location.end <= BGC_end: # Make sure CDS is within the current BGC region
-                        CDS_ID.append(feature.qualifiers["locus_tag"][0])
+                        if "locus_tag" in feature.qualifiers:
+                            CDS_ID.append(feature.qualifiers["locus_tag"][0])
                         CDS_count += 1
                         if "sec_met_domain" in feature.qualifiers.keys():
                             for PFAM_domain in feature.qualifiers["sec_met_domain"]:
@@ -201,6 +205,8 @@ def antismash_workflow(antismash_paths):
                                 PFAM_domains.append(PFAM_domain_name)
 
             # Create dictionary of BGC info
+            if not CDS_ID:
+                CDS_ID = ["NA"]
             antismash_out_line = {
                 'Sample_ID'      : Sample_ID,
                 'Prediction_tool': "antiSMASH",
@@ -324,13 +330,13 @@ def gecco_workflow(gecco_paths):
 
     tsv_path = ""
     gbk_paths = []
-    
+
     for path in gecco_paths:
         if path.endswith(".tsv"):
             tsv_path = path
         else:
             gbk_paths.append(path)
-    
+
     # Initiate dataframe
     gecco_out = pd.DataFrame(columns=summary_cols)
 
