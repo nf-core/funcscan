@@ -155,17 +155,7 @@ workflow BGC {
     // COMBGC
     COMBGC ( ch_bgcresults_for_combgc )
 
-    ch_combgc_summaries = ch_combgc_summaries.mix(COMBGC.out.tsv)
-
-    //COMBGC concatenation
-    ch_combgc_summaries_out = ch_combgc_summaries
-        .multiMap{
-                input: [ it[0] ]
-                summary: it[1]
-            }
-
-    ch_combgc_summaries_out
-        .summary
+    ch_combgc_summaries = COMBGC.out.tsv
         .collectFile(name: 'combgc_complete_summary.csv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true)
 
     emit:
