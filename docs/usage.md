@@ -88,7 +88,7 @@ You should place all of these in a directory and supply them e.g. to AMP models
 
 ### ARMfinderPlus
 
-AMRfinderPlus relies on NCBI’s curated Reference Gene Database and curated collection of Hidden Markov Models.
+AMRFinderPlus relies on NCBI’s curated Reference Gene Database and curated collection of Hidden Markov Models.
 
 nf-core/funcscan will download this database for you, unless the path to a local version is given with:
 
@@ -98,7 +98,7 @@ nf-core/funcscan will download this database for you, unless the path to a local
 
 You can either:
 
-1. Install AMRfinderPlus from [bioconda](https://bioconda.github.io/recipes/ncbi-amrfinderplus/README.html?highlight=amrfinderplus)
+1. Install AMRFinderPlus from [bioconda](https://bioconda.github.io/recipes/ncbi-amrfinderplus/README.html?highlight=amrfinderplus)
 2. Run `amrfinder --update`, which will download the latest version of the AMRFinderPlus database to the default location (location of the AMRFinderPlus binaries/data). It creates a directory under data in the format YYYY-MM-DD.version (e.g., 2019-03-06.1).
 
 Or
@@ -133,6 +133,8 @@ The path to the resulting database directory can be supplied to the pipeline as 
 ### DeepARG
 
 DeepARG requires a database of potential antimicrobial resistence gene sequences, based on a consensus from UNIPROT, CARD and ARDB.
+
+> ⚠️ As of January 2023 the DeepARG database server is down! We have deactivated automated database downloading in the pipeline - you can try to download your own copy using the instructions below!
 
 nf-core/funcscan can download this database for you, however it is very slow and pipeline runtime will be improved if you download this separately and supply it to the pipeline.
 
