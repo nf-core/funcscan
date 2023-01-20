@@ -156,7 +156,7 @@ workflow BGC {
     COMBGC ( ch_bgcresults_for_combgc )
 
     ch_combgc_summaries = COMBGC.out.tsv
-        .collectFile(name: 'combgc_complete_summary.csv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true)
+        .collectFile(name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true)
 
     emit:
     versions = ch_versions
