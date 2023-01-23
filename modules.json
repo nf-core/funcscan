@@ -12,7 +12,7 @@
                     },
                     "ampcombi": {
                         "branch": "master",
-                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
+                        "git_sha": "37c5127d6c65a818677e5786587efcc2b64a11b7",
                         "installed_by": ["modules"]
                     },
                     "ampir": {
