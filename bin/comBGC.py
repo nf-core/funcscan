@@ -18,7 +18,10 @@ welcome = """\
 
 # Initialize parser
 parser = argparse.ArgumentParser(
-    prog="comBGC", formatter_class=argparse.RawTextHelpFormatter, description=(welcome), add_help=True,
+    prog="comBGC",
+    formatter_class=argparse.RawTextHelpFormatter,
+    description=(welcome),
+    add_help=True,
 )
 
 # Input options
