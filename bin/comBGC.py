@@ -18,7 +18,7 @@ welcome = """\
 
 # Initialize parser
 parser = argparse.ArgumentParser(
-    prog="comBGC", formatter_class=argparse.RawDescriptionHelpFormatter, description=(welcome), add_help=True
+    prog="comBGC", formatter_class=argparse.RawTextHelpFormatter, description=(welcome), add_help=True,
 )
 
 # Input options
@@ -28,7 +28,11 @@ parser.add_argument(
     metavar="PATH(s)",
     dest="input",
     nargs="*",
-    help="path(s) to the required output file(s) of antiSMASH, DeepBGC and/or GECCO",
+    help="""path(s) to the required output file(s) of antiSMASH, DeepBGC and/or GECCO
+these can be:
+- antiSMASH: <sample name>.gbk and (optional) knownclusterblast/ directory
+- DeepBGC:   <sample name>.bgc.tsv
+- GECCO:     <sample name>.clusters.tsv""",
 )
 parser.add_argument(
     "-o",
@@ -60,25 +64,27 @@ input_deepbgc = []
 input_gecco = []
 
 # Assign input files to respective tools
-for path in input:
-    if path.endswith(".gbk"):
-        if re.search(".*_cluster_.+\.gbk", path):
+if input:
+    for path in input:
+        if path.endswith(".gbk"):
+            with open(path) as infile:
+                for line in infile:
+                    if re.search("##GECCO-Data-START##", line):
+                        input_gecco.append(path)
+                        break
+                    elif re.search("##antiSMASH-Data-START##", line):
+                        input_antismash.append(path)
+                        break
+        elif path.endswith("bgc.tsv"):
+            input_deepbgc = path
+        elif path.endswith("clusters.tsv"):
             input_gecco.append(path)
-        else:
+        elif path.endswith("knownclusterblast/"):
             input_antismash.append(path)
-    elif path.endswith("bgc.tsv"):
-        input_deepbgc = path
-    elif path.endswith("clusters.tsv"):
-        input_gecco.append(path)
-    elif path.endswith("knownclusterblast/"):
-        input_antismash.append(path)
 
 # Make sure that at least one input argument is given
 if not (input_antismash or input_gecco or input_deepbgc):
     exit("Please specify at least one input directory (--antismash, --deepbgc, --gecco) or see --help")
-if not outdir:
-    exit("Please specify an output directory (--outdir) or see --help")
-
 
 ########################
 # ANTISMASH FUNCTIONS
@@ -108,7 +114,6 @@ def parse_knownclusterblast(kcb_file_path):
 def antismash_workflow(antismash_paths):
     """
     Create data frame with aggregated antiSMASH output:
-    - Iterate over list of sample folders with antiSMASH output.
     - Open summary GBK and grab relevant information.
     - Extract the knownclusterblast output from the antiSMASH folder (MIBiG annotations) if present.
     - Return data frame with aggregated info.
@@ -493,7 +498,7 @@ if __name__ == "__main__":
 
     if verbose:
         print(welcome)
-        print("\nYou provided directories for: " + ", ".join(tools_provided.keys()))
+        print("\nYou provided input for: " + ", ".join(tools_provided.keys()))
 
     # Aggregate BGC information into data frame
     summary_antismash = pd.DataFrame()

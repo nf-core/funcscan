@@ -23,7 +23,6 @@ workflow BGC {
     main:
     ch_versions              = Channel.empty()
     ch_bgcresults_for_combgc = Channel.empty()
-    ch_combgc_summaries      = Channel.empty()
 
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
@@ -155,8 +154,7 @@ workflow BGC {
     // COMBGC
     COMBGC ( ch_bgcresults_for_combgc )
 
-    ch_combgc_summaries = COMBGC.out.tsv
-        .collectFile(name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true)
+    ch_combgc_summaries = COMBGC.out.tsv.collectFile(name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true)
 
     emit:
     versions = ch_versions

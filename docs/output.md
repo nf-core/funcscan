@@ -424,7 +424,8 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `comBGC/`
-  - `combgc_complete_summary.csv`: summarized output from all BGC detection tools used in tsv format.
+  - `combgc_complete_summary.tsv`: summarized output from all BGC detection tools used in tsv format (all samples concatenated).
+  - `*/combgc_summary.tsv`: summarized output from all applied BGC detection tools in tsv format for each sample.
 
 </details>
 
