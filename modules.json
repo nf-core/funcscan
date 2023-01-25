@@ -37,7 +37,7 @@
                     },
                     "antismash/antismashlite": {
                         "branch": "master",
-                        "git_sha": "591bb22f9fe8564b46576091304cdb6cdfd8bdc7",
+                        "git_sha": "3a8d2761600b789cbde3a7780a211a8328604af0",
                         "installed_by": ["modules"]
                     },
                     "antismash/antismashlitedownloaddatabases": {
@@ -148,7 +148,7 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
+                        "git_sha": "ee80d14721e76e2e079103b8dcd5d57129e584ba",
                         "installed_by": ["modules"]
                     },
                     "prodigal": {
