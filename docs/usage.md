@@ -8,6 +8,33 @@
 
 nf-core/funcscan is a pipeline for efficient and parallelised screening of long nucleotide sequences such as contigs for possible natural products sequences. It targets antimicrobial peptides, antimicrobial resistance genes, and biosynthetic clusters.
 
+## Running the pipeline
+
+The typical command for running the pipeline is as follows:
+
+```bash
+nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile docker
+```
+
+This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
+
+Note that the pipeline will create the following files in your working directory:
+
+```bash
+work                # Directory containing the nextflow working files
+<OUTDIR>            # Finished results in specified location (defined with --outdir)
+.nextflow_log       # Log file from Nextflow
+# Other nextflow hidden files, eg. history of pipeline runs and old logs.
+```
+
+By default, no screening workflows for any of the natural product types will be executed. However, when activating a given screening workflow, all tools within the workflow will be activated. Therefore you must explicitly skip those tools you do not wish to run.
+
+For example, if you want to run AMP and ARG screening but you don't want to run the DeepARG tool of the ARG workflow and the Macrel tool of the AMP workflow, you would define this as follows:
+
+```bash
+nextflow run nf-core/funcscan --input <my_samplesheet>.csv --outdir <OUTDIR> -profile docker --run_arg_screening --arg_skip_deeparg --run_amp_screening --arg_skip_macrel
+```
+
 ## Samplesheet input
 
 nf-core/funcscan takes FASTA files as input, typically contigs or whole genome sequences. To supply these to the pipeline, you will need to create a samplesheet with information about the samples you would like to analyses. Use this parameter to specify its location.
@@ -199,32 +226,6 @@ deepbgc_db/
     └── myDetectors*.pkl
 ```
 
-## Running the pipeline
-
-The typical command for running the pipeline is as follows:
-
-```bash
-nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile docker
-```
-
-This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
-
-Note that the pipeline will create the following files in your working directory:
-
-```bash
-work                # Directory containing the nextflow working files
-<OUTDIR>            # Finished results in specified location (defined with --outdir)
-.nextflow_log       # Log file from Nextflow
-# Other nextflow hidden files, eg. history of pipeline runs and old logs.
-```
-
-By default, no screening workflows for any of the natural product types will be executed. However, when activating a given screening workflow, all tools within the workflow will be activated. Therefore you must explicitly skip those tools you do not wish to run.
-
-For example, if you want to run AMP and ARG screening but you don't want to run the DeepARG tool of the ARG workflow and the Macrel tool of the AMP workflow, you would define this as follows:
-
-```bash
-nextflow run nf-core/funcscan --input <my_samplesheet>.csv --outdir <OUTDIR> -profile docker --run_arg_screening --arg_skip_deeparg --run_amp_screening --arg_skip_macrel
-```
 
 ### Updating the pipeline
 

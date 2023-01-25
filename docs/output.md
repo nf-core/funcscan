@@ -4,11 +4,11 @@
 
 The output of nf-core/funcscan provides reports for each of the functional groups:
 
-- antibiotic resistance genes ([ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi))
-- antimicrobial peptides ([macrel](https://github.com/BigDataBiology/macrel), [amplify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org))
-- biosynthetic gene clusters ([antiSMASH](https://docs.antismash.secondarymetabolites.org), [deepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org))
+- antibiotic resistance genes (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) summarized by [hAMRonization](https://github.com/pha4ge/hAMRonization))
+- antimicrobial peptides (tools: [macrel](https://github.com/BigDataBiology/macrel), [amplify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) summarized by [AMPcombi](https://github.com/Darcy220606/AMPcombi))
+- biosynthetic gene clusters (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [deepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org) summarized by [comBGC](#combgc))
 
-Additional to summary reports, the output directories from all applied tools are provided. This includes the functional annotation output from either [prokka](https://github.com/tseemann/prokka), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set.
+Additional to summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), the output directories from all applied tools are provided. This includes the functional annotation output from either [prokka](https://github.com/tseemann/prokka), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set.
 
 Similarly, all downloaded databases are saved (i.e. from [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), and/or [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master)) into the output directory `<outdir>/downloads/` if the `--save_databases` flag was set.
 
@@ -132,7 +132,8 @@ Output Summaries:
 - [Pipeline information](#pipeline-information) – report metrics generated during the workflow execution.
 
 ## Tool details
-
+### Annotation tools:
+[Prodigal](#prodigal), [Prokka](#prokka), [Bakta](#bakta)
 ### Prodigal
 
 <details markdown="1">
@@ -196,6 +197,8 @@ Output Summaries:
 
 [Bakta](https://github.com/oschwengers/bakta) is a tool for the rapid & standardized annotation of bacterial genomes and plasmids from both isolates and MAGs. It provides dbxref-rich, sORF-including and taxon-independent annotations in machine-readable JSON & bioinformatics standard file formats for automated downstream analysis.
 
+### AMP detection tools:
+[ampir](#ampir), [AMPlify](#amplify), [hmmsearch](#hmmsearch), [Macrel](#macrel), summary: [AMPcombi](#ampcombi)
 ### ampir
 
 <details markdown="1">
@@ -268,6 +271,51 @@ Output Summaries:
 
 [AMPcombi](https://github.com/Darcy220606/AMPcombi) summarizes the results of **antimicrobial peptide (AMP)** prediction tools (AMPIR, AMPLIFY, MACREL, and other non nf-core tools) into a single table and aligns the hits against a reference AMP database for functional and taxonomic classification.
 
+<details markdown="1">
+<summary>AMP summary table headers</summary>
+
+- `name`
+- `contig_id`
+- `prob_macrel`
+- `prob_neubi`
+- `prob_ampir`
+- `prob_amplify`
+- `evalue_hmmer`
+- `aa_sequence`
+- `target_id`
+- `pident`
+- `evalue`
+- `Sequence`
+- `Sequence_length`
+- `Name`
+- `Swiss_Prot_Entry`
+- `Family`
+- `Gene`
+- `Source`
+- `Activity`
+- `Protein_existence`
+- `Structure`
+- `Structure_Description`
+- `PDB_ID`
+- `Comments`
+- `Target_Organism`
+- `Hemolytic_activity`
+- `Linear/Cyclic/Branched`
+- `N-terminal_Modification`
+- `C-termina_Modification`
+- `Other_Modifications`
+- `Stereochemistry`
+- `Cytotoxicity`
+- `Binding_Target`
+- `Pubmed_ID`
+- `Reference`
+- `Author`
+- `Title`
+
+</details>
+
+### *ARG detection tools:*
+[ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), [DeepARG](#deeparg), [fARGene](#fargene), [RGI](#rgi), summary: [hAMRonization](#hamronization)
 ### ABRicate
 
 <details markdown="1">
@@ -363,6 +411,50 @@ Output Summaries:
 
 [hAMRonization](https://github.com/pha4ge/hAMRonization) summarizes the outputs of the **antimicrobial resistance gene** detection tools (ABRicate, AMRFinderPlus, DeepARG, fARGene, RGI) into a single unified format. It supports a variety of summary options including an interactive summary.
 
+<details markdown="1">
+<summary>ARG summary table headers</summary>
+
+- `input_file_name`
+- `gene_symbol`
+- `gene_name`
+- `reference_database_name`
+- `reference_database_version`
+- `reference_accession`
+- `analysis_software_name`
+- `analysis_software_version`
+- `genetic_variation_type`
+- `antimicrobial_agent`
+- `coverage_percentage`
+- `coverage_depth`
+- `coverage_ratio`
+- `drug_class`
+- `input_gene_length`
+- `input_gene_start`
+- `input_gene_stop`
+- `input_protein_length`
+- `input_protein_start`
+- `input_protein_stop`
+- `input_sequence_id`
+- `nucleotide_mutation`
+- `nucleotide_mutation_interpretation`
+- `predicted_phenotype`
+- `predicted_phenotype_confidence_level`
+- `amino_acid_mutation`
+- `amino_acid_mutation_interpretation`
+- `reference_gene_length`
+- `reference_gene_start`
+- `reference_gene_stop`
+- `reference_protein_length`
+- `reference_protein_start`
+- `reference_protein_stop`
+- `resistance_mechanism`
+- `strand_orientation`
+- `sequence_identity`
+
+</details>
+
+### *BGC detection tools:*
+[antiSMASH](#antismash), [deepBGC](#deepbgc), [GECCO](#gecco), [hmmsearch](#hmmsearch), summary: [comBGC](#combgc)
 ### antiSMASH
 
 <details markdown="1">
@@ -429,6 +521,26 @@ Output Summaries:
 </details>
 
 **comBGC** is a local module which summarizes the results of the **Biosynthetic Gene Cluster (BGC)** prediction tools (antiSMASH, deepBGC, GECCO) used in the pipeline into one comprehensive summary with standardized headers.
+
+<details markdown="1">
+<summary>BGC summary table headers</summary>
+
+- `Sample_ID`
+- `Prediction_tool`
+- `Contig_ID`
+- `Product_class`
+- `BGC_probability`
+- `BGC_complete`
+- `BGC_start`
+- `BGC_end`
+- `BGC_length`
+- `CDS_ID`
+- `CDS_count`
+- `PFAM_domains`
+- `MIBiG_ID`
+- `InterPro_ID`
+
+</details>
 
 **Note:** comBGC does not feature hmmer_hmmsearch at the moment.
 
