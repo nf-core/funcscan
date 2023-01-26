@@ -8,7 +8,7 @@ The output of nf-core/funcscan provides reports for each of the functional group
 - antimicrobial peptides (tools: [macrel](https://github.com/BigDataBiology/macrel), [amplify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) summarized by [AMPcombi](https://github.com/Darcy220606/AMPcombi))
 - biosynthetic gene clusters (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [deepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org) summarized by [comBGC](#combgc))
 
-Additional to summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), the output directories from all applied tools are provided. This includes the functional annotation output from either [prokka](https://github.com/tseemann/prokka), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set.
+As a general workflow, we recommend to first look at the to summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories  of each tool to get more detailed information about each results. The tool-specific output directories, also includes the functional annotation output from either [prokka](https://github.com/tseemann/prokka), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set.
 
 Similarly, all downloaded databases are saved (i.e. from [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), and/or [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master)) into the output directory `<outdir>/downloads/` if the `--save_databases` flag was set.
 
@@ -137,7 +137,7 @@ Output Summaries:
 
 [Prodigal](#prodigal), [Prokka](#prokka), [Bakta](#bakta)
 
-### Prodigal
+#### Prodigal
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -319,7 +319,7 @@ Output Summaries:
 
 </details>
 
-### _ARG detection tools:_
+### ARG detection tools:
 
 [ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), [DeepARG](#deeparg), [fARGene](#fargene), [RGI](#rgi), summary: [hAMRonization](#hamronization)
 
@@ -460,7 +460,7 @@ Output Summaries:
 
 </details>
 
-### _BGC detection tools:_
+### BGC detection tools:
 
 [antiSMASH](#antismash), [deepBGC](#deepbgc), [GECCO](#gecco), [hmmsearch](#hmmsearch), summary: [comBGC](#combgc)
 
