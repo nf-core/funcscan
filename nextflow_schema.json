@@ -288,7 +288,7 @@
                     "type": "string",
                     "default": null,
                     "fa_icon": "fas fa-map-marker-alt",
-                    "help_text": "Add the sequencing center ID used in generating the raw sequences. This flag is typically requested in combination with the `--complaint` flag when contigs need to be renamed due to non-conforming contig headers. For more information please check PROKKA [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - PROKKA: `--centre`"
+                    "help_text": "Add the sequencing center ID used in generating the raw sequences. This flag is typically requested in combination with the `--compliant` flag when contigs need to be renamed due to non-conforming contig headers. For more information please check PROKKA [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - PROKKA: `--centre`"
                 },
                 "annotation_prokka_compliant": {
                     "type": "boolean",
