@@ -132,8 +132,11 @@ Output Summaries:
 - [Pipeline information](#pipeline-information) – report metrics generated during the workflow execution.
 
 ## Tool details
+
 ### Annotation tools:
+
 [Prodigal](#prodigal), [Prokka](#prokka), [Bakta](#bakta)
+
 ### Prodigal
 
 <details markdown="1">
@@ -198,7 +201,9 @@ Output Summaries:
 [Bakta](https://github.com/oschwengers/bakta) is a tool for the rapid & standardized annotation of bacterial genomes and plasmids from both isolates and MAGs. It provides dbxref-rich, sORF-including and taxon-independent annotations in machine-readable JSON & bioinformatics standard file formats for automated downstream analysis.
 
 ### AMP detection tools:
+
 [ampir](#ampir), [AMPlify](#amplify), [hmmsearch](#hmmsearch), [Macrel](#macrel), summary: [AMPcombi](#ampcombi)
+
 ### ampir
 
 <details markdown="1">
@@ -314,8 +319,10 @@ Output Summaries:
 
 </details>
 
-### *ARG detection tools:*
+### _ARG detection tools:_
+
 [ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), [DeepARG](#deeparg), [fARGene](#fargene), [RGI](#rgi), summary: [hAMRonization](#hamronization)
+
 ### ABRicate
 
 <details markdown="1">
@@ -453,8 +460,10 @@ Output Summaries:
 
 </details>
 
-### *BGC detection tools:*
+### _BGC detection tools:_
+
 [antiSMASH](#antismash), [deepBGC](#deepbgc), [GECCO](#gecco), [hmmsearch](#hmmsearch), summary: [comBGC](#combgc)
+
 ### antiSMASH
 
 <details markdown="1">
