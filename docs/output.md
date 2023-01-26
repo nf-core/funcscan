@@ -153,7 +153,7 @@ Output Summaries:
 
 [Prodigal](https://github.com/hyattpd/Prodigal) is an alternative for prokka that does whole genome annotation to identify CDS in a set of genomic DNA sequences. It can be applied to annotate bacterial, archaeal and viral genomes.
 
-### Prokka
+#### Prokka
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -177,7 +177,7 @@ Output Summaries:
 
 [Prokka](https://github.com/tseemann/prokka) does whole genome annotation to identify features of interest in a set of genomic DNA sequences, and labelling them with useful information. It can be applied to annotate bacterial, archaeal and viral genomes.
 
-### Bakta
+#### Bakta
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -204,7 +204,7 @@ Output Summaries:
 
 [ampir](#ampir), [AMPlify](#amplify), [hmmsearch](#hmmsearch), [Macrel](#macrel), summary: [AMPcombi](#ampcombi)
 
-### ampir
+#### ampir
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -217,7 +217,7 @@ Output Summaries:
 
 [ampir](https://github.com/Legana/ampir) (**a**nti**m**icrobial **p**eptide **p**rediction **i**n **r**) was designed to predict antimicrobial peptides (AMPs) from any given size protein dataset. ampir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, “precursor” and “mature” that have been trained on publicly available antimicrobial peptide data.
 
-### AMPlify
+#### AMPlify
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -229,7 +229,7 @@ Output Summaries:
 
 [AMPlify](https://github.com/bcgsc/AMPlify) is an attentive deep learning model for antimicrobial peptide prediction. It takes in annotated contigs (as protein sequences) and classifies them as either AMP or non-AMP.
 
-### hmmsearch
+#### hmmsearch
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -244,7 +244,7 @@ Output Summaries:
 
 [HMMER/hmmsearch](http://hmmer.org) is used for searching sequence databases for sequence homologs, and for making sequence alignments. It implements methods using probabilistic models called profile hidden Markov models (profile HMMs). `hmmsearch` is used to search one or more profiles against a sequence database.
 
-### Macrel
+#### Macrel
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -260,7 +260,7 @@ Output Summaries:
 
 [Macrel](https://github.com/BigDataBiology/macrel) is a tool that mines antimicrobial peptides (AMPs) from (meta)genomes by predicting peptides from genomes (provided as contigs) and outputs all the predicted anti-microbial peptides found.
 
-### AMPcombi
+#### AMPcombi
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -323,7 +323,7 @@ Output Summaries:
 
 [ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), [DeepARG](#deeparg), [fARGene](#fargene), [RGI](#rgi), summary: [hAMRonization](#hamronization)
 
-### ABRicate
+#### ABRicate
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -335,7 +335,7 @@ Output Summaries:
 
 [ABRicate](https://github.com/tseemann/abricate) screens contigs for antimicrobial resistance or virulence genes. It comes bundled with multiple databases: NCBI, CARD, ARG-ANNOT, Resfinder, MEGARES, EcOH, PlasmidFinder, Ecoli_VF and VFDB.
 
-### AMRFinderPlus
+#### AMRFinderPlus
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -347,7 +347,7 @@ Output Summaries:
 
 [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder) relies on NCBI’s curated Reference Gene Database and curated collection of Hidden Markov Models. It identifies antimicrobial resistance genes, resistance-associated point mutations, and select other classes of genes using protein annotations and/or assembled nucleotide sequence.
 
-### DeepARG
+#### DeepARG
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -362,7 +362,7 @@ Output Summaries:
 
 [deepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master) uses deep learning to characterize and annotate antibiotic resistance genes in metagenomes. It is composed of two models for two types of input: short sequence reads and gene-like sequences. In this pipeline we use the `ls` model, which is suitable for annotating full sequence genes and to discover novel antibiotic resistance genes from assembled samples. The tool `Diamond` is used as an aligner.
 
-### fARGene
+#### fARGene
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -389,7 +389,7 @@ Output Summaries:
 - `qnr`: quinolone resistance genes
 - `tet_efflux`, `tet_rpg`, `tet_enzyme`: tetracycline resistance genes
 
-### RGI
+#### RGI
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -404,7 +404,7 @@ Output Summaries:
 
 [RGI](https://github.com/arpcard/rgi) (**R**esistance **G**ene **I**dentifier) predicts resistome(s) from protein or nucleotide data based on homology and SNP models. It uses reference data from the Comprehensive Antibiotic Resistance Database (CARD).
 
-### hAMRonization
+#### hAMRonization
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -464,7 +464,7 @@ Output Summaries:
 
 [antiSMASH](#antismash), [deepBGC](#deepbgc), [GECCO](#gecco), [hmmsearch](#hmmsearch), summary: [comBGC](#combgc)
 
-### antiSMASH
+#### antiSMASH
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -480,7 +480,7 @@ Output Summaries:
 
 [antiSMASH](https://docs.antismash.secondarymetabolites.org) (**anti**biotics & **S**econdary **M**etabolite **A**nalysis **Sh**ell) is a tool for rapid genome-wide identification, annotation and analysis of secondary metabolite biosynthesis gene clusters in bacterial and fungal genomes. It identifies biosynthetic loci covering the whole range of known secondary metabolite compound classes and aligns the identified regions at the gene cluster level to their nearest relatives from a database containing all other known gene clusters. It integrates or cross-links all previously available secondary-metabolite specific gene analysis methods in one interactive view.
 
-### deepBGC
+#### deepBGC
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -503,7 +503,7 @@ Output Summaries:
 
 [deepBGC](https://github.com/Merck/deepbgc) detects BGCs in bacterial and fungal genomes using deep learning. DeepBGC employs a Bidirectional Long Short-Term Memory Recurrent Neural Network and a word2vec-like vector embedding of Pfam protein domains. Product class and activity of detected BGCs is predicted using a Random Forest classifier.
 
-### GECCO
+#### GECCO
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -519,7 +519,7 @@ Output Summaries:
 
 [GECCO](https://gecco.embl.de) is a fast and scalable method for identifying putative novel Biosynthetic Gene Clusters (BGCs) in genomic and metagenomic data using Conditional Random Fields (CRFs).
 
-### comBGC
+#### comBGC
 
 <details markdown="1">
 <summary>Output files</summary>
