@@ -133,7 +133,7 @@ Output Summaries:
 
 ## Tool details
 
-### Annotation tools:
+### Annotation tools
 
 [Prodigal](#prodigal), [Prokka](#prokka), [Bakta](#bakta)
 
@@ -200,7 +200,7 @@ Output Summaries:
 
 [Bakta](https://github.com/oschwengers/bakta) is a tool for the rapid & standardized annotation of bacterial genomes and plasmids from both isolates and MAGs. It provides dbxref-rich, sORF-including and taxon-independent annotations in machine-readable JSON & bioinformatics standard file formats for automated downstream analysis.
 
-### AMP detection tools:
+### AMP detection tools
 
 [ampir](#ampir), [AMPlify](#amplify), [hmmsearch](#hmmsearch), [Macrel](#macrel)
 
@@ -260,7 +260,7 @@ Output Summaries:
 
 [Macrel](https://github.com/BigDataBiology/macrel) is a tool that mines antimicrobial peptides (AMPs) from (meta)genomes by predicting peptides from genomes (provided as contigs) and outputs all the predicted anti-microbial peptides found.
 
-### ARG detection tools:
+### ARG detection tools
 
 [ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), [DeepARG](#deeparg), [fARGene](#fargene), [RGI](#rgi)
 
@@ -325,10 +325,19 @@ Output Summaries:
 - `class_a`: class A beta-lactamases
 - `class_b_1_2`: subclass B1 and B2 beta-lactamases
 - `class_b3`: subclass B3 beta-lactamases
-- `class_d_1`: class C beta-lactamases
-- `class_d_2`: class D beta-lactamases
+- `class_c`: class C beta-lactamases
+- `class_d_1, class_d_2`: class D beta-lactamases
 - `qnr`: quinolone resistance genes
 - `tet_efflux`, `tet_rpg`, `tet_enzyme`: tetracycline resistance genes
+<!-- Fargene has been updated on github bu not yet on bioconda (Issue #18). The new version includes additional hmm-models:
+- `erm_type_a, erm_type_f`: Erm 23S rRNA methyltransferases
+- `mph`: Mph macrolide 2'-phosphotransferases
+- `aminoglycosides_model_a`: AAC aminoglycoside acetyltransferases (aac(2')-type genes)
+- `aminoglycosides_model_<b, c>`: AAC aminoglycoside acetyltransferases (aac(3)-type genes)
+- `aminoglycosides_model_<d, e, f>`: AAC aminoglycoside acetyltransferases (aac(6')-type genes)
+- `aminoglycosides_model_g`: APH aminoglycoside phosphotransferases (aph(2'')-type genes)
+- `aminoglycosides_model_h`: APH aminoglycoside phosphotransferases (aph(3')/aph(3'')-type genes)
+- `aminoglycosides_model_i`: APH aminoglycoside phosphotransferases (aph(6)/aph(3')-type genes) -->
 
 #### RGI
 
@@ -345,7 +354,7 @@ Output Summaries:
 
 [RGI](https://github.com/arpcard/rgi) (**R**esistance **G**ene **I**dentifier) predicts resistome(s) from protein or nucleotide data based on homology and SNP models. It uses reference data from the Comprehensive Antibiotic Resistance Database (CARD).
 
-### BGC detection tools:
+### BGC detection tools
 
 [antiSMASH](#antismash), [deepBGC](#deepbgc), [GECCO](#gecco), [hmmsearch](#hmmsearch)
 
@@ -405,7 +414,9 @@ Output Summaries:
 [GECCO](https://gecco.embl.de) is a fast and scalable method for identifying putative novel Biosynthetic Gene Clusters (BGCs) in genomic and metagenomic data using Conditional Random Fields (CRFs).
 
 ### Summary tools
+
 [AMPcombi](#ampcombi), [hAMRonization](#hamronization), [comBGC](#combgc), [MultiQC](#multiqc), [pipeline information](#pipeline-information)
+
 #### AMPcombi
 
 <details markdown="1">
