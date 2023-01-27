@@ -338,7 +338,7 @@ Output Summaries:
 - `aminoglycosides_model_g`: APH aminoglycoside phosphotransferases (aph(2'')-type genes)
 - `aminoglycosides_model_h`: APH aminoglycoside phosphotransferases (aph(3')/aph(3'')-type genes)
 - `aminoglycosides_model_i`: APH aminoglycoside phosphotransferases (aph(6)/aph(3')-type genes)
--->
+  -->
 
 #### RGI
 
