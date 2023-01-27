@@ -11,6 +11,7 @@ include { GECCO_RUN                                } from '../../modules/nf-core
 include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH   } from '../../modules/nf-core/hmmer/hmmsearch/main'
 include { DEEPBGC_DOWNLOAD                         } from '../../modules/nf-core/deepbgc/download/main'
 include { DEEPBGC_PIPELINE                         } from '../../modules/nf-core/deepbgc/pipeline/main'
+include { COMBGC                                   } from '../../modules/local/combgc'
 
 workflow BGC {
 
@@ -20,7 +21,8 @@ workflow BGC {
     faa     // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
 
     main:
-    ch_versions = Channel.empty()
+    ch_versions              = Channel.empty()
+    ch_bgcresults_for_combgc = Channel.empty()
 
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
@@ -74,6 +76,14 @@ workflow BGC {
 
         ANTISMASH_ANTISMASHLITE ( ch_antismash_input.fna, ch_antismash_databases, ch_antismash_directory, ch_antismash_input.gff )
         ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITE.out.versions)
+        ch_antismashresults_for_combgc = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
+            .mix(ANTISMASH_ANTISMASHLITE.out.gbk_input)
+            .groupTuple()
+            .map{
+                meta, files ->
+                [meta, files.flatten()]
+            }
+        ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(ch_antismashresults_for_combgc)
     }
 
     // DEEPBGC
@@ -92,6 +102,7 @@ workflow BGC {
 
     DEEPBGC_PIPELINE ( ch_deepbgc_input, ch_deepbgc_database)
     ch_versions = ch_versions.mix(DEEPBGC_PIPELINE.out.versions)
+    ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(DEEPBGC_PIPELINE.out.bgc_tsv)
     }
 
     // GECCO
@@ -103,6 +114,14 @@ workflow BGC {
 
         GECCO_RUN ( ch_gecco_input, [] )
         ch_versions = ch_versions.mix(GECCO_RUN.out.versions)
+        ch_geccoresults_for_combgc = GECCO_RUN.out.gbk
+            .mix(GECCO_RUN.out.clusters)
+            .groupTuple()
+            .map{
+                meta, files ->
+                [meta, files.flatten()]
+            }
+        ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(ch_geccoresults_for_combgc)
     }
 
     // HMMSEARCH
@@ -124,13 +143,18 @@ workflow BGC {
                     def meta_new = [:]
                     meta_new['id']     = meta_faa['id']
                     meta_new['hmm_id'] = meta_hmm['id']
-                // TODO make optional outputs params?
                 [ meta_new, hmm, faa, params.bgc_hmmsearch_savealignments, params.bgc_hmmsearch_savetargets, params.bgc_hmmsearch_savedomains ]
             }
 
         BGC_HMMER_HMMSEARCH ( ch_in_for_bgc_hmmsearch )
         ch_versions = ch_versions.mix(BGC_HMMER_HMMSEARCH.out.versions)
     }
+
+    // COMBGC
+    COMBGC ( ch_bgcresults_for_combgc )
+
+    ch_combgc_summaries = COMBGC.out.tsv.collectFile(name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true)
+
     emit:
     versions = ch_versions
 }

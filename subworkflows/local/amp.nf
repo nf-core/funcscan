@@ -68,13 +68,13 @@ workflow AMP {
                     def meta_new = [:]
                     meta_new['id']     = meta_faa['id']
                     meta_new['hmm_id'] = meta_hmm['id']
-                // TODO make optional outputs params?
                 [ meta_new, hmm, faa, params.amp_hmmsearch_savealignments, params.amp_hmmsearch_savetargets, params.amp_hmmsearch_savedomains ]
             }
 
         AMP_HMMER_HMMSEARCH ( ch_in_for_amp_hmmsearch )
         ch_versions = ch_versions.mix(AMP_HMMER_HMMSEARCH.out.versions)
-// This chunk of code can add the hmmer_hmmsearch channel in the ampcombi input channel `ch_ampcombi_input`. Currently deactivated as AMPcombi can only accept a single HMM file (whereas funcscan produces multiple, one per each input HMM).
+// This chunk of code can add the hmmer_hmmsearch channel in the ampcombi input channel `ch_ampcombi_input`.
+// Currently deactivated as AMPcombi can only accept a single HMM file (whereas funcscan produces multiple, one per each input HMM).
 //        GUNZIP_HMMER ( AMP_HMMER_HMMSEARCH.out.output )
 //        ch_hmmout = GUNZIP_HMMER.out.gunzip
 //                        .map {
@@ -108,7 +108,7 @@ workflow AMP {
                 summary: it[1]
             }
     ch_ampcombi_summaries_out.summary.collectFile(name: 'ampcombi_complete_summary.csv', storeDir: "${params.outdir}/reports/ampcombi", keepHeader:true)
-    
+
     emit:
     versions = ch_versions
 
