@@ -37,8 +37,9 @@ When switched on, all tools of the given workflow will be run by default. If you
 
 Example: You want to run AMP and ARG screening but you don't need the DeepARG tool of the ARG workflow and the Macrel tool of the AMP workflow. Your command would be:
 
-````bash
+```bash
 nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile docker --run_arg_screening --arg_skip_deeparg --run_amp_screening --arg_skip_macrel
+```
 
 ## Samplesheet input
 
@@ -46,7 +47,7 @@ nf-core/funcscan takes FASTA files as input, typically contigs or whole genome s
 
 ```bash
 --input '[path to samplesheet file]'
-````
+```
 
 The input samplesheet has to be a comma-separated file (`.csv`) with 2 columns (`sample`, and `fasta`), and a header row as shown in the examples below.
 
