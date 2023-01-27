@@ -329,15 +329,6 @@ Output Summaries:
 - `class_d_1, class_d_2`: class D beta-lactamases
 - `qnr`: quinolone resistance genes
 - `tet_efflux`, `tet_rpg`, `tet_enzyme`: tetracycline resistance genes
-<!-- Fargene has been updated on github but not yet on bioconda (https://github.com/fannyhb/fargene/issues/18). The new version will includes additional HMM models:
-- `erm_type_a, erm_type_f`: Erm 23S rRNA methyltransferases
-- `mph`: Mph macrolide 2'-phosphotransferases
-- `aminoglycosides_model_a`: AAC aminoglycoside acetyltransferases (aac(2')-type genes)
-- `aminoglycosides_model_<b, c>`: AAC aminoglycoside acetyltransferases (aac(3)-type genes)
-- `aminoglycosides_model_<d, e, f>`: AAC aminoglycoside acetyltransferases (aac(6')-type genes)
-- `aminoglycosides_model_g`: APH aminoglycoside phosphotransferases (aph(2'')-type genes)
-- `aminoglycosides_model_h`: APH aminoglycoside phosphotransferases (aph(3')/aph(3'')-type genes)
-- `aminoglycosides_model_i`: APH aminoglycoside phosphotransferases (aph(6)/aph(3')-type genes) -->
 
 #### RGI
 
@@ -599,6 +590,17 @@ Output Summaries:
 </details>
 
 [Nextflow](https://www.nextflow.io/docs/latest/tracing.html) provides excellent functionality for generating various reports relevant to the running and execution of the pipeline. This will allow you to troubleshoot errors with the running of the pipeline, and also provide you with other information such as launch commands, run times and resource usage.
+
+<!-- Fargene has been updated on github bu not yet on bioconda (Issue #18). The new version includes additional hmm-models:
+- `erm_type_a, erm_type_f`: Erm 23S rRNA methyltransferases
+- `mph`: Mph macrolide 2'-phosphotransferases
+- `aminoglycosides_model_a`: AAC aminoglycoside acetyltransferases (aac(2')-type genes)
+- `aminoglycosides_model_<b, c>`: AAC aminoglycoside acetyltransferases (aac(3)-type genes)
+- `aminoglycosides_model_<d, e, f>`: AAC aminoglycoside acetyltransferases (aac(6')-type genes)
+- `aminoglycosides_model_g`: APH aminoglycoside phosphotransferases (aph(2'')-type genes)
+- `aminoglycosides_model_h`: APH aminoglycoside phosphotransferases (aph(3')/aph(3'')-type genes)
+- `aminoglycosides_model_i`: APH aminoglycoside phosphotransferases (aph(6)/aph(3')-type genes)
+-->
 
 <!--### Ensemble-AMPPred
 
