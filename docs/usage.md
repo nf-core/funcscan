@@ -6,7 +6,7 @@
 
 ## Introduction
 
-nf-core/funcscan is a pipeline for efficient and parallelised screening of long nucleotide sequences such as contigs for possible natural products sequences. It targets antimicrobial peptides, antimicrobial resistance genes, and biosynthetic clusters.
+nf-core/funcscan is a pipeline for efficient and parallelised screening of long nucleotide sequences such as contigs for antimicrobial peptides genes, antimicrobial resistance genes, and biosynthetic gene clusters.
 
 ## Running the pipeline
 
@@ -18,16 +18,7 @@ nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
 
-Note that the pipeline will create the following files in your working directory:
-
-```bash
-work                # Directory containing temporary files required for the run
-<OUTDIR>            # Final results (location specified with --outdir)
-.nextflow_log       # Log file from Nextflow
-# Other nextflow hidden files, eg. history of pipeline runs and old logs
-```
-
-To run any of the three screening workflows, switch them on:
+To run any of the three screening workflows (AMP, ARG, and/or BGC), switch them on by adding the respective flag(s) to the command:
 
 - `--run_amp_screening`
 - `--run_arg_screening`
@@ -38,12 +29,22 @@ When switched on, all tools of the given workflow will be run by default. If you
 Example: You want to run AMP and ARG screening but you don't need the DeepARG tool of the ARG workflow and the Macrel tool of the AMP workflow. Your command would be:
 
 ```bash
-nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile docker --run_arg_screening --arg_skip_deeparg --run_amp_screening --arg_skip_macrel
+nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile docker --run_arg_screening --arg_skip_deeparg --run_amp_screening --amg_skip_macrel
+
+```
+
+Note that the pipeline will create the following files in your working directory:
+
+```bash
+work            # Directory containing temporary files required for the run
+<OUTDIR>        # Final results (location specified with --outdir)
+.nextflow_log   # Log file from Nextflow
+# Other nextflow hidden files, eg. history of pipeline runs and old logs
 ```
 
 ## Samplesheet input
 
-nf-core/funcscan takes FASTA files as input, typically contigs or whole genome sequences. To supply these to the pipeline, you will need to create a samplesheet with information about the samples you would like to analyses. Use this parameter to specify its location.
+nf-core/funcscan takes FASTA files as input, typically contigs or whole genome sequences. To supply these to the pipeline, you will need to create a samplesheet with information about the samples you would like to analyse. Use this parameter to specify its location.
 
 ```bash
 --input '[path to samplesheet file]'
@@ -64,7 +65,7 @@ sample_2,https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/wastew
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
-> ⚠️ We highly recommend performing quality control on input contigs before running the pipeline. You may not receive results for some tools if none of the contigs in a FASTA file reach certain thresholds. Check parameter documentation for relevent minimum contig parameters.
+> ⚠️ We highly recommend performing quality control on input contigs before running the pipeline. You may not receive results for some tools if none of the contigs in a FASTA file reach certain thresholds. Check parameter documentation for relevant minimum contig parameters.
 
 ## Notes on screening tools
 
@@ -72,11 +73,11 @@ The implementation of some tools in the pipeline may have some particular behavi
 
 ### antiSMASH
 
-AntiSMASH has a minimum contig parameter, in which only contigs of a certain length (or longer) will be screened. In cases where no hits are found in these, then the tool ends successfully. However if no contigs in an input file reach that minimum threshold, the tool will end with a 'failure' code, and cause the pipeline to crash.
+antiSMASH has a minimum contig parameter, in which only contigs of a certain length (or longer) will be screened. In cases where no hits are found in these, then the tool ends successfully. However if no contigs in an input file reach that minimum threshold, the tool will end with a 'failure' code, and cause the pipeline to crash.
 
 To prevent entire pipeline failures to due a single 'bad sample', nf-core/funcscan will filter out any input sample in which none of the contigs reach the minimum contig length specified with `--bgc_antismash_sampleminlength`.
 
-> ⚠️ If a sample does not reach this contig length threshold, you will recieve a warning in your console and `.nextflow.log` file, and no result files will exist for this sample in your results directory.
+> ⚠️ If a sample does not reach this contig length threshold, you will receive a warning in your console and in the `.nextflow.log` file, and no result files will exist for this sample in your results directory.
 
 ## Databases and reference files
 
@@ -107,11 +108,11 @@ And then passed to the pipeline with
 
 ### hmmsearch
 
-nf-core/funcscan allows screening of sequences for various natural product types via hidden markov models with HMMSearch.
+nf-core/funcscan allows screening of sequences for functional genes associated with various natural product types via Hidden Markov Models (HMMs) using HMMSearch.
 
-This requires supplying a list of HMM model files ending in `.hmm`, that have models for the particular molecule(s) you are interested in.
+This requires supplying a list of HMM files ending in `.hmm`, that have models for the particular molecule(s) or BGCs you are interested in.
 
-You can download such files from places such as [https://pfam.xfam.org/](https://pfam.xfam.org/) for antimicrobial peptides (AMP), or the antiSMASH github repository for [biosynthetic gene cluster](https://github.com/antismash/antismash/tree/master/antismash/detection/hmm_detection/data) related HMM models
+You can download these files from places such as [PFAM](http://pfam-legacy.xfam.org/) for antimicrobial peptides (AMP), or the antiSMASH GitHub repository for [biosynthetic gene cluster](https://github.com/antismash/antismash/tree/master/antismash/detection/hmm_detection/data) related HMMs.
 
 You should place all of these in a directory and supply them e.g. to AMP models
 
@@ -119,7 +120,7 @@ You should place all of these in a directory and supply them e.g. to AMP models
 --amp_hmmsearch_models '/<path>/<to>/<amp>/*.hmm'
 ```
 
-### ARMfinderPlus
+### AMRFinderPlus
 
 AMRFinderPlus relies on NCBI’s curated Reference Gene Database and curated collection of Hidden Markov Models.
 
@@ -165,7 +166,7 @@ The path to the resulting database directory can be supplied to the pipeline as 
 
 ### DeepARG
 
-DeepARG requires a database of potential antimicrobial resistence gene sequences, based on a consensus from UNIPROT, CARD and ARDB.
+DeepARG requires a database of potential antimicrobial resistance gene sequences based on a consensus from UNIPROT, CARD, and ARDB.
 
 > ⚠️ As of January 2023 the DeepARG database server is down! We have deactivated automated database downloading in the pipeline - you can try to download your own copy using the instructions below!
 
@@ -191,9 +192,9 @@ You can then supply the path to resulting database directory with:
 Note that if you supply your own database that is not downloaded by the pipeline, make sure to also supply `--arg_deeparg_data_version` along
 with the version number so hAMRonization will correctly display the database version in the summary report.
 
-### AntiSMASH
+### antiSMASH
 
-AntiSMASH requires several databases of potential biosynthetic gene cluster (BGC) sequences (ClusterBlast, MIBiG, Pfam, Resfams, TIGRFAMs).
+antiSMASH requires several databases for the detection of potential biosynthetic gene cluster (BGC) sequences (ClusterBlast, MIBiG, Pfam, Resfams, TIGRFAMs).
 
 nf-core/funcscan can download these databases for you, however this is very slow and pipeline runtime will be improved if you download them separately and supply them to the pipeline.
 The same applies for the antiSMASH installation directory, which is also a required parameter for the pipeline, due to some slight incompatibility when using containers.
@@ -217,7 +218,7 @@ Hint: The flag `--save_databases` saves the pipeline-downloaded databases in you
 
 ### DeepBGC
 
-DeepBGC relies on trained models and Pfam database to run its analysis. nf-core/funcscan will download these databases for you. If the flag `--save_databases` is set, the downloaded files will be stored in the output directory under `databases/deepbgc/`.
+DeepBGC relies on trained models and Pfams to run its analysis. nf-core/funcscan will download these databases for you. If the flag `--save_databases` is set, the downloaded files will be stored in the output directory under `databases/deepbgc/`.
 
 Alternatively, if you already downloaded the database locally with `deepbgc download`, you can indicate the path to the database folder with `--bgc_deepbgc_database path/to/deepbgc_db/`. The folder has to contain the subfolders as in the database folder downloaded by `deepbgc download`:
 
@@ -332,16 +333,16 @@ Tip: you can replicate the issue by changing to the process work dir and enterin
 
 #### For beginners
 
-A first step to bypass this error, you could try to increase the amount of CPUs, memory, and time for the whole pipeline. Therefor you can try to increase the resource for the parameters `--max_cpus`, `--max_memory`, and `--max_time`. Based on the error above, you have to increase the amount of memory. Therefore you can go to the [parameter documentation of rnaseq](https://nf-co.re/rnaseq/3.9/parameters) and scroll down to the `show hidden parameter` button to get the default value for `--max_memory`. In this case 128GB, you than can try to run your pipeline again with `--max_memory 200GB -resume` to skip all process, that were already calculated. If you can not increase the resource of the complete pipeline, you can try to adapt the resource for a single process as mentioned below.
+A first step to bypass this error, you could try to increase the amount of CPUs, memory, and time for the whole pipeline by increasing the resource for the parameters `--max_cpus`, `--max_memory`, and `--max_time`. Based on the error above, you have to increase the amount of memory. Therefore, you can go to the [parameter documentation of funcscan](https://nf-co.re/funcscan/dev/parameters) and scroll down to the `show hidden parameter` button to get the default value for `--max_memory`. If the default is 128 GB, you can try to run your pipeline again with for example `--max_memory 200GB -resume` to skip all process, that were already calculated. If you can not increase the resource of the complete pipeline, you can try to adapt the resource for a single process as mentioned below.
 
 #### Advanced option on process level
 
 To bypass this error you would need to find exactly which resources are set by the `STAR_ALIGN` process. The quickest way is to search for `process STAR_ALIGN` in the [nf-core/rnaseq Github repo](https://github.com/nf-core/rnaseq/search?q=process+STAR_ALIGN).
 We have standardised the structure of Nextflow DSL2 pipelines such that all module files will be present in the `modules/` directory and so, based on the search results, the file we want is `modules/nf-core/star/align/main.nf`.
 If you click on the link to that file you will notice that there is a `label` directive at the top of the module that is set to [`label process_high`](https://github.com/nf-core/rnaseq/blob/4c27ef5610c87db00c3c5a3eed10b1d161abf575/modules/nf-core/software/star/align/main.nf#L9).
-The [Nextflow `label`](https://www.nextflow.io/docs/latest/process.html#label) directive allows us to organise workflow processes in separate groups which can be referenced in a configuration file to select and configure subset of processes having similar computing requirements.
+The [Nextflow `label`](https://www.nextflow.io/docs/latest/process.html#label) directive allows us to organise workflow processes in separate groups which can be referenced in a configuration file to select and configure subsets of processes having similar computing requirements.
 The default values for the `process_high` label are set in the pipeline's [`base.config`](https://github.com/nf-core/rnaseq/blob/4c27ef5610c87db00c3c5a3eed10b1d161abf575/conf/base.config#L33-L37) which in this case is defined as 72GB.
-Providing you haven't set any other standard nf-core parameters to **cap** the [maximum resources](https://nf-co.re/usage/configuration#max-resources) used by the pipeline then we can try and bypass the `STAR_ALIGN` process failure by creating a custom config file that sets at least 72GB of memory, in this case increased to 100GB.
+Providing you haven't set any other standard nf-core parameters to **cap** the [maximum resources](https://nf-co.re/usage/configuration#max-resources) used by the pipeline, then you can try to bypass the `STAR_ALIGN` process failure by creating a custom config file that sets at least 72GB of memory, in this case increased to 100GB.
 The custom config below can then be provided to the pipeline via the [`-c`](#-c) parameter as highlighted in previous sections.
 
 ```nextflow
@@ -398,7 +399,7 @@ The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementatio
 
 ### nf-core/configs
 
-In most cases, you will only need to create a custom config as a one-off but if you and others within your organisation are likely to be running nf-core pipelines regularly and need to use the same settings regularly it may be a good idea to request that your custom config file is uploaded to the `nf-core/configs` git repository. Before you do this please can you test that the config file works with your pipeline of choice using the `-c` parameter. You can then create a pull request to the `nf-core/configs` repository with the addition of your config file, associated documentation file (see examples in [`nf-core/configs/docs`](https://github.com/nf-core/configs/tree/master/docs)), and amending [`nfcore_custom.config`](https://github.com/nf-core/configs/blob/master/nfcore_custom.config) to include your custom profile.
+In most cases, you will only need to create a custom config as a one-off but if you and others within your organisation are likely to be running nf-core pipelines regularly and need to use the same settings regularly it may be a good idea to request that your custom config file is uploaded to the `nf-core/configs` git repository. Before you do this please test that the config file works with your pipeline of choice using the `-c` parameter. You can then create a pull request to the `nf-core/configs` repository with the addition of your config file, associated documentation file (see examples in [`nf-core/configs/docs`](https://github.com/nf-core/configs/tree/master/docs)), and amending [`nfcore_custom.config`](https://github.com/nf-core/configs/blob/master/nfcore_custom.config) to include your custom profile.
 
 See the main [Nextflow documentation](https://www.nextflow.io/docs/latest/config.html) for more information about creating your own configuration files.
 
@@ -419,7 +420,7 @@ Nextflow handles job submissions and supervises the running jobs. The Nextflow p
 The Nextflow `-bg` flag launches Nextflow in the background, detached from your terminal so that the workflow does not stop if you log out of your session. The logs are saved to a file.
 
 Alternatively, you can use `screen` / `tmux` or similar tool to create a detached session which you can log back into at a later time.
-Some HPC setups also allow you to run nextflow within a cluster job submitted your job scheduler (from where it submits more jobs).
+Some HPC setups also allow you to run nextflow within a cluster job submitted by your job scheduler (from where it submits more jobs).
 
 ## Nextflow memory requirements
 
