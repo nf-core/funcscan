@@ -274,7 +274,6 @@ Output Summaries:
 
 </details>
 
-[AMPcombi](https://github.com/Darcy220606/AMPcombi) summarizes the results of **antimicrobial peptide (AMP)** prediction tools (AMPIR, AMPLIFY, MACREL, and other non nf-core tools) into a single table and aligns the hits against a reference AMP database for functional and taxonomic classification.
 <details markdown="1">
 <summary>AMP summary table headers</summary>
 
@@ -320,48 +319,8 @@ more significant the hit. |
 | `Title` | the publication title if available. |
 
 </details>
-<details markdown="1">
-<summary>AMP summary table headers</summary>
 
-- `name`
-- `contig_id`
-- `prob_macrel`
-- `prob_neubi`
-- `prob_ampir`
-- `prob_amplify`
-- `evalue_hmmer`
-- `aa_sequence`
-- `target_id`
-- `pident`
-- `evalue`
-- `Sequence`
-- `Sequence_length`
-- `Name`
-- `Swiss_Prot_Entry`
-- `Family`
-- `Gene`
-- `Source`
-- `Activity`
-- `Protein_existence`
-- `Structure`
-- `Structure_Description`
-- `PDB_ID`
-- `Comments`
-- `Target_Organism`
-- `Hemolytic_activity`
-- `Linear/Cyclic/Branched`
-- `N-terminal_Modification`
-- `C-termina_Modification`
-- `Other_Modifications`
-- `Stereochemistry`
-- `Cytotoxicity`
-- `Binding_Target`
-- `Pubmed_ID`
-- `Reference`
-- `Author`
-- `Title`
-
-</details>
+[AMPcombi](https://github.com/Darcy220606/AMPcombi) summarizes the results of **antimicrobial peptide (AMP)** prediction tools (AMPIR, AMPLIFY, MACREL, and other non nf-core tools) into a single table and aligns the hits against a reference AMP database for functional and taxonomic classification.
 
 ### ARG detection tools:
 
@@ -459,50 +418,54 @@ more significant the hit. |
   - `hamronization_combined_report.html`: interactive output in .html format
 
 </details>
-
-[hAMRonization](https://github.com/pha4ge/hAMRonization) summarizes the outputs of the **antimicrobial resistance gene** detection tools (ABRicate, AMRFinderPlus, DeepARG, fARGene, RGI) into a single unified format. It supports a variety of summary options including an interactive summary.
-
 <details markdown="1">
 <summary>ARG summary table headers</summary>
 
-- `input_file_name`
-- `gene_symbol`
-- `gene_name`
-- `reference_database_name`
-- `reference_database_version`
-- `reference_accession`
-- `analysis_software_name`
-- `analysis_software_version`
-- `genetic_variation_type`
-- `antimicrobial_agent`
-- `coverage_percentage`
-- `coverage_depth`
-- `coverage_ratio`
-- `drug_class`
-- `input_gene_length`
-- `input_gene_start`
-- `input_gene_stop`
-- `input_protein_length`
-- `input_protein_start`
-- `input_protein_stop`
-- `input_sequence_id`
-- `nucleotide_mutation`
-- `nucleotide_mutation_interpretation`
-- `predicted_phenotype`
-- `predicted_phenotype_confidence_level`
-- `amino_acid_mutation`
-- `amino_acid_mutation_interpretation`
-- `reference_gene_length`
-- `reference_gene_start`
-- `reference_gene_stop`
-- `reference_protein_length`
-- `reference_protein_start`
-- `reference_protein_stop`
-- `resistance_mechanism`
-- `strand_orientation`
-- `sequence_identity`
+| Table column | Description |
+ |---|---|
+ | Required | |
+ | `input_file_name` | The name of the file containing the sequence data to be analysed |
+ | `gene_symbol` | The short name of a gene; a single word that does not contain white space characters. It is typically derived from the gene name |
+ | `gene_name` | The name of a gene |
+ | `reference_database_name` | An identifier of a biological or bioinformatics database |
+ | `reference_database_version` | The version of the database containing the reference sequences used for analysis |
+ | `reference_accession` | An identifier that specifies an individual sequence record in a public sequence repository |
+ | `analysis_software_name` | A name of a computer package, application, method or function used for the analysis of data |
+ | `analysis_software_version` | The version of software used to analyze data |
+ | `genetic_variation_type` | The class of genetic variation detected |
+ | Optional | |
+ | `antimicrobial_agent` | A substance that kills or slows the growth of microorganisms, including bacteria, viruses, fungi and protozoans |
+ | `coverage_percentage` | The percentage of the reference sequence covered by the sequence of interest |
+ | `coverage_depth` | The average number of reads representing a given nucleotide in the reconstructed sequence |
+ | `coverage_ratio` | The ratio of the reference sequence covered by the sequence of interest. |
+ | `drug_class` | Set of antibiotic molecules, with similar chemical structures, molecular targets, and/or modes and mechanisms of action |
+ | `input_gene_length` | The length (number of positions) of a target gene sequence submitted by a user |
+ | `input_gene_start` | The position of the first nucleotide in a gene sequence being analyzed (input gene sequence) |
+ | `input_gene_stop` | The position of the last nucleotide in a gene sequence being analyzed (input gene sequence) |
+ | `input_protein_length` | The length (number of positions) of a protein target sequence submitted by a user |
+ | `input_protein_start` | The position of the first amino acid in a protein sequence being analyzed (input protein sequence) |
+ | `input_protein_stop` | The position of the last amino acid in a protein sequence being analyzed (input protein sequence) |
+ | `input_sequence_id` | An identifier of molecular sequence(s) or entries from a molecular sequence database |
+ | `nucleotide_mutation` | The nucleotide sequence change(s) detected in the sequence being analyzed compared to a reference |
+ | `nucleotide_mutation_interpretation` | A description of identified nucleotide mutation(s) that facilitate clinical interpretation |
+ | `predicted_phenotype` | A characteristic of an organism that is predicted rather than directly measured or observed |
+ | `predicted_phenotype_confidence_level` | The level of confidence in a predicted phenotype |
+ | `amino_acid_mutation` | The amino acid sequence change(s) detected in the sequence being analyzed compared to a reference |
+ | `amino_acid_mutation_interpretation` | A description of identified amino acid mutation(s) that facilitate clinical interpretation. |
+ | `reference_gene_length` | The length (number of positions) of a gene reference sequence retrieved from a database |
+ | `reference_gene_start` | The position of the first nucleotide in a reference gene sequence |
+ | `reference_gene_stop` | The position of the last nucleotide in a reference sequence |
+ | `reference_protein_length` | The length (number of positions) of a protein reference sequence retrieved from a database |
+ | `reference_protein_start` | The position of the first amino acid in a reference protein sequence |
+ | `reference_protein_stop` | The position of the last amino acid in a reference protein sequence |
+ | `resistance_mechanism` | Antibiotic resistance mechanisms evolve naturally via natural selection through random mutation, but it could also be engineered by applying an evolutionary stress on a population |
+ | `strand_orientation` | The orientation of a genomic element on the double-stranded molecule |
+ | `sequence_identity` | Sequence identity is the number (%) of matches (identical characters) in positions from an alignment of two molecular sequences |
 
 </details>
+
+[hAMRonization](https://github.com/pha4ge/hAMRonization) summarizes the outputs of the **antimicrobial resistance gene** detection tools (ABRicate, AMRFinderPlus, DeepARG, fARGene, RGI) into a single unified format. It supports a variety of summary options including an interactive summary.
+
 
 ### BGC detection tools:
 
@@ -573,8 +536,6 @@ more significant the hit. |
 
 </details>
 
-**comBGC** is a local module which summarizes the results of the **Biosynthetic Gene Cluster (BGC)** prediction tools (antiSMASH, deepBGC, GECCO) used in the pipeline into one comprehensive summary with standardized headers.
-
 <details markdown="1">
 <summary>BGC summary table headers</summary>
 
@@ -596,6 +557,8 @@ more significant the hit. |
 | `InterPro_ID` | Inferred InterPro IDs if provided by the tool |
 
 </details>
+
+**comBGC** is a local module which summarizes the results of the **Biosynthetic Gene Cluster (BGC)** prediction tools (antiSMASH, deepBGC, GECCO) used in the pipeline into one comprehensive summary with standardized headers.
 
 **Note:** comBGC does not feature hmmer_hmmsearch at the moment.
 
