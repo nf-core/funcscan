@@ -64,7 +64,7 @@ workflow BGC {
         }
 
         ch_antismash_input = anno_fna.mix(gff)
-                                     .groupTuple()
+                             .groupTuple()
                                 .filter {
                                     meta, files ->
                                         if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. Antismash will not be run for sample: ${meta.id}."
