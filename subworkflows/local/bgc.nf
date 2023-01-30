@@ -16,9 +16,10 @@ include { COMBGC                                   } from '../../modules/local/c
 workflow BGC {
 
     take:
-    fna     // tuple val(meta), path(PROKKA.out.fna)
-    gff     // tuple val(meta), path(PROKKA.out.gff)
-    faa     // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
+    fna         // tuple val(meta), path(PREPPED_INPUT.out.fna)
+    gff         // tuple val(meta), path(PROKKA.out.gff)
+    faa         // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
+    anno_fna    // tuple val(meta), path(PROKKA.out.fna)
 
     main:
     ch_versions              = Channel.empty()
@@ -62,8 +63,7 @@ workflow BGC {
 
         }
 
-        ch_antismash_input = fna.mix(gff)
-                                .groupTuple()
+        ch_antismash_input = anno_fna.join(gff)
                                 .filter {
                                     meta, files ->
                                         if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. Antismash will not be run for sample: ${meta.id}."
