@@ -37,12 +37,12 @@
                     },
                     "antismash/antismashlite": {
                         "branch": "master",
-                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
+                        "git_sha": "3a8d2761600b789cbde3a7780a211a8328604af0",
                         "installed_by": ["modules"]
                     },
                     "antismash/antismashlitedownloaddatabases": {
                         "branch": "master",
-                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
+                        "git_sha": "ac07fba2543c5c9b6da9306c2d3ee58bdafb5262",
                         "installed_by": ["modules"]
                     },
                     "bakta/bakta": {
