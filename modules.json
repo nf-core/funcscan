@@ -37,22 +37,22 @@
                     },
                     "antismash/antismashlite": {
                         "branch": "master",
-                        "git_sha": "3a8d2761600b789cbde3a7780a211a8328604af0",
+                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
                         "installed_by": ["modules"]
                     },
                     "antismash/antismashlitedownloaddatabases": {
                         "branch": "master",
-                        "git_sha": "ac07fba2543c5c9b6da9306c2d3ee58bdafb5262",
+                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
                         "installed_by": ["modules"]
                     },
                     "bakta/bakta": {
                         "branch": "master",
-                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
+                        "git_sha": "eeb194e70c5acc713891a9eb21fdd397cca9dff8",
                         "installed_by": ["modules"]
                     },
                     "bakta/baktadbdownload": {
                         "branch": "master",
-                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
+                        "git_sha": "eeb194e70c5acc713891a9eb21fdd397cca9dff8",
                         "installed_by": ["modules"]
                     },
                     "bioawk": {
@@ -168,7 +168,7 @@
                     },
                     "untar": {
                         "branch": "master",
-                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
+                        "git_sha": "cc1f997fab6d8fde5dc0e6e2a310814df5b53ce7",
                         "installed_by": ["modules"]
                     }
                 }
