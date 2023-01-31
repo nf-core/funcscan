@@ -17,9 +17,9 @@ workflow BGC {
 
     take:
     fna         // tuple val(meta), path(PREPPED_INPUT.out.fna)
-    anno_fna    // tuple val(meta), path(PROKKA.out.fna)
     gff         // tuple val(meta), path(PROKKA.out.gff)
     faa         // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
+    gbk         // tuple val(meta), path(PROKKA.out.gbk)
 
     main:
     ch_versions              = Channel.empty()
@@ -63,19 +63,34 @@ workflow BGC {
 
         }
 
-        ch_antismash_input = anno_fna.mix(gff)
-                                .groupTuple(sort: true)
-                                .filter {
-                                    meta, files ->
-                                        if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. Antismash will not be run for sample: ${meta.id}."
-                                        meta.longest_contig >= params.bgc_antismash_sampleminlength
-                                }
-                                .multiMap {
-                                    fna: [ it[0], it[1][0] ]
-                                    gff: it[1][1]
-                                }
+        if ( params.annotation_tool == 'prodigal' ) {
 
-        ANTISMASH_ANTISMASHLITE ( ch_antismash_input.fna, ch_antismash_databases, ch_antismash_directory, ch_antismash_input.gff )
+            ch_antismash_input = fna.mix(gff)
+                                    .groupTuple(sort: true)
+                                    .filter {
+                                        meta, files ->
+                                            if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. Antismash will not be run for sample: ${meta.id}."
+                                            meta.longest_contig >= params.bgc_antismash_sampleminlength
+                                    }
+                                    .multiMap {
+                                        fna: [ it[0], it[1][0] ]
+                                        gff: it[1][1]
+                                    }
+
+            ANTISMASH_ANTISMASHLITE ( ch_antismash_input.fna, ch_antismash_databases, ch_antismash_directory, ch_antismash_input.gff )
+
+        } else if ( params.annotation_tool == 'prokka' ) {
+
+            ch_antismash_input = gbk.filter {
+                                        meta, files ->
+                                            if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. Antismash will not be run for sample: ${meta.id}."
+                                            meta.longest_contig >= params.bgc_antismash_sampleminlength
+                                    }
+
+            ANTISMASH_ANTISMASHLITE ( ch_antismash_input, ch_antismash_databases, ch_antismash_directory, [] )
+
+        }
+
         ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITE.out.versions)
         ch_antismashresults_for_combgc = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
             .mix(ANTISMASH_ANTISMASHLITE.out.gbk_input)
