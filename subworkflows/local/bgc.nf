@@ -65,16 +65,17 @@ workflow BGC {
 
         if ( params.annotation_tool == 'prodigal' ) {
 
-            ch_antismash_input = fna.mix(gff)
-                                    .groupTuple(sort: true)
+            ch_antismash_input = fna.join(gff, by: 0)
                                     .filter {
-                                        meta, files ->
+                                        meta, fna, gff ->
                                             if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. Antismash will not be run for sample: ${meta.id}."
                                             meta.longest_contig >= params.bgc_antismash_sampleminlength
                                     }
+                                    .dump(tag: "join")
                                     .multiMap {
-                                        fna: [ it[0], it[1][0] ]
-                                        gff: it[1][1]
+                                        meta, fna, gff ->
+                                        fna: [ meta, fna ]
+                                        gff: [ gff ]
                                     }
 
             ANTISMASH_ANTISMASHLITE ( ch_antismash_input.fna, ch_antismash_databases, ch_antismash_directory, ch_antismash_input.gff )
