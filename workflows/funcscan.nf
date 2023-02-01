@@ -197,6 +197,7 @@ workflow FUNCSCAN {
             ch_annotation_faa        = BAKTA_BAKTA.out.faa
             ch_annotation_fna        = BAKTA_BAKTA.out.fna
             ch_annotation_gff        = BAKTA_BAKTA.out.gff
+            ch_annotation_gbk        = BAKTA_BAKTA.out.gbff
         }
 
     } else {
@@ -204,7 +205,7 @@ workflow FUNCSCAN {
         ch_annotation_faa        = Channel.empty()
         ch_annotation_fna        = Channel.empty()
         ch_annotation_gff        = Channel.empty()
-        ch_annotation_gbk        = Channel.empty
+        ch_annotation_gbk        = Channel.empty()
 
     }
 
