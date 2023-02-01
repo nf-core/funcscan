@@ -164,6 +164,7 @@ workflow FUNCSCAN {
             ch_annotation_faa        = PRODIGAL_GFF.out.amino_acid_fasta
             ch_annotation_fna        = PRODIGAL_GFF.out.nucleotide_fasta
             ch_annotation_gff        = PRODIGAL_GFF.out.gene_annotations
+            ch_annotation_gbk        = Channel.empty() // Prodigal doesn't produce GBK
 
             if ( params.save_annotations == true ) {
                 PRODIGAL_GBK ( ch_prepped_input, "gbk" )
@@ -176,6 +177,7 @@ workflow FUNCSCAN {
             ch_annotation_faa        = PROKKA.out.faa
             ch_annotation_fna        = PROKKA.out.fna
             ch_annotation_gff        = PROKKA.out.gff
+            ch_annotation_gbk        = PROKKA.out.gbk
         }   else if ( params.annotation_tool == "bakta" ) {
 
             // BAKTA prepare download
@@ -202,6 +204,7 @@ workflow FUNCSCAN {
         ch_annotation_faa        = Channel.empty()
         ch_annotation_fna        = Channel.empty()
         ch_annotation_gff        = Channel.empty()
+        ch_annotation_gbk        = Channel.empty
 
     }
 
@@ -233,7 +236,7 @@ workflow FUNCSCAN {
         BGCs
     */
     if ( params.run_bgc_screening ) {
-        BGC ( ch_prepped_input, ch_annotation_gff, ch_annotation_faa)
+        BGC ( ch_prepped_input, ch_annotation_gff, ch_annotation_faa, ch_annotation_gbk )
         ch_version = ch_versions.mix(BGC.out.versions)
     }
 
