@@ -75,7 +75,7 @@
             "properties": {
                 "annotation_tool": {
                     "type": "string",
-                    "default": "prokka",
+                    "default": "prodigal",
                     "description": "Specify which annotation tool to use for some downstream tools.",
                     "enum": ["prodigal", "prokka", "bakta"],
                     "fa_icon": "fas fa-edit"
