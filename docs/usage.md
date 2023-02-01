@@ -78,9 +78,9 @@ To prevent entire pipeline failures to due a single 'bad sample', nf-core/funcsc
 
 > ⚠️ If a sample does not reach this contig length threshold, you will recieve a warning in your console and `.nextflow.log` file, and no result files will exist for this sample in your results directory.
 
-We also noticed that when annotation is run with Prokka, the `.gbk` file passed to AntiSMASH may produce the error _'translation longer than location allows'_ and end the pipeline run.
+When the annotation is run with Prokka, the resulting .gbk file passed to antiSMASH may produce the error 'translation longer than location allows' and end the pipeline run. This Prokka bug has been reported before (see https://github.com/antismash/antismash/discussions/450) and is not likely to be fixed soon.
 
-> ⚠️ If AntiSMASH is run for BGC detection it is recommended NOT to run PROKKA for annotation but instead leave the default annotation tool Prodigal or use BAKTA.
+> ⚠️ If AntiSMASH is run for BGC detection, we recommend to NOT run PROKKA for annotation but instead leave the default annotation tool Prodigal or switch to BAKTA.
 
 ## Databases and reference files
 
