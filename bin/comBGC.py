@@ -162,7 +162,6 @@ def antismash_workflow(antismash_paths):
     Sample_ID = gbk_path.split("/")[-1].split(".gbk")[-2]  # Assuming file name equals sample name
     with open(gbk_path) as gbk:
         for record in SeqIO.parse(gbk, "genbank"):  # GBK records are contigs in this case
-
             # Initiate variables per contig
             cluster_num = 1
             antismash_out_line = {}
@@ -176,10 +175,8 @@ def antismash_workflow(antismash_paths):
             MIBiG_ID = "NA"
 
             for feature in record.features:
-
                 # Extract relevant infos from the first protocluster feature from the contig record
                 if feature.type == "protocluster":
-
                     if (
                         antismash_out_line
                     ):  # If there is more than 1 BGC per contig, reset the output line for new BGC. Assuming that BGCs do not overlap.
@@ -491,7 +488,6 @@ def gecco_workflow(gecco_paths):
 ########################
 
 if __name__ == "__main__":
-
     tools = {"antiSMASH": input_antismash, "deepBGC": input_deepbgc, "GECCO": input_gecco}
     tools_provided = {}
 
