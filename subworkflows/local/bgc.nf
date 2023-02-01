@@ -89,6 +89,16 @@ workflow BGC {
 
             ANTISMASH_ANTISMASHLITE ( ch_antismash_input, ch_antismash_databases, ch_antismash_directory, [] )
 
+        } else if ( params.annotation_tool == 'bakta' ) {
+
+            ch_antismash_input = gbk.filter {
+                                        meta, files ->
+                                            if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. Antismash will not be run for sample: ${meta.id}."
+                                            meta.longest_contig >= params.bgc_antismash_sampleminlength
+                                    }
+
+            ANTISMASH_ANTISMASHLITE ( ch_antismash_input, ch_antismash_databases, ch_antismash_directory, [] )
+
         }
 
         ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITE.out.versions)
@@ -100,6 +110,7 @@ workflow BGC {
                 [meta, files.flatten()]
             }
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(ch_antismashresults_for_combgc)
+
     }
 
     // DEEPBGC
