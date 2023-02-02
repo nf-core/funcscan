@@ -6,7 +6,7 @@
 
 ## Introduction
 
-nf-core/funcscan is a pipeline for efficient and parallelised screening of long nucleotide sequences such as contigs for antimicrobial peptides genes, antimicrobial resistance genes, and biosynthetic gene clusters.
+nf-core/funcscan is a pipeline for efficient and parallelised screening of long nucleotide sequences such as contigs for antimicrobial peptide genes, antimicrobial resistance genes, and biosynthetic gene clusters.
 
 ## Running the pipeline
 
@@ -38,7 +38,8 @@ Note that the pipeline will create the following files in your working directory
 ```bash
 work            # Directory containing temporary files required for the run
 <OUTDIR>        # Final results (location specified with --outdir)
-.nextflow_log   # Log file from Nextflow
+.nextflow_log   # Log file from nextflow
+
 # Other nextflow hidden files, eg. history of pipeline runs and old logs
 ```
 

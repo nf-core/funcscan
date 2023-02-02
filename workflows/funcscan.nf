@@ -97,7 +97,6 @@ include { PROKKA                      } from '../modules/nf-core/prokka/main'
 include { PRODIGAL as PRODIGAL_GFF    } from '../modules/nf-core/prodigal/main'
 include { PRODIGAL as PRODIGAL_GBK    } from '../modules/nf-core/prodigal/main'
 include { BAKTA_BAKTADBDOWNLOAD       } from '../modules/nf-core/bakta/baktadbdownload/main'
-include { UNTAR as BAKTA_UNTAR        } from '../modules/nf-core/untar/main'
 include { BAKTA_BAKTA                 } from '../modules/nf-core/bakta/bakta/main'
 
 /*
@@ -187,9 +186,8 @@ workflow FUNCSCAN {
                     .first()
             } else {
                 BAKTA_BAKTADBDOWNLOAD ()
-                ch_versions = ch_versions.mix(BAKTA_BAKTADBDOWNLOAD.out.versions)
-                ch_bakta_db = BAKTA_UNTAR ( BAKTA_BAKTADBDOWNLOAD.out.db_tar_gz ).untar
-                ch_versions = ch_versions.mix(BAKTA_UNTAR.out.versions)
+                ch_versions = ch_versions.mix( BAKTA_BAKTADBDOWNLOAD.out.versions )
+                ch_bakta_db = ( BAKTA_BAKTADBDOWNLOAD.out.db )
             }
 
             BAKTA_BAKTA ( ch_prepped_input, ch_bakta_db, [], [] )

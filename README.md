@@ -12,19 +12,15 @@
 
 ## Introduction
 
-**nf-core/funcscan** is a bioinformatics best-practice analysis pipeline to screen nucleotide sequences such as assembled contigs for functional genes. It currently features mining for antimicrobial peptides, antibiotic resistance genes and biosynthetic gene clusters.
+**nf-core/funcscan** is a bioinformatics best-practice analysis pipeline for the screening of nucleotide sequences such as assembled contigs for functional genes. It currently features mining for antimicrobial peptides, antibiotic resistance genes and biosynthetic gene clusters.
 
-The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers and supports conda package manager making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per tool which makes it much easier to maintain and update software dependencies. Where possible, these tools have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community.
-
-<!-- TODO nf-core: Add full-sized test dataset and amend the paragraph below if applicable -->
+The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
 On release, automated continuous integration tests run the pipeline on a full-sized dataset on the AWS cloud infrastructure. This ensures that the pipeline runs on AWS, has sensible resource allocation defaults set to run on real-world datasets, and permits the persistent storage of results to benchmark between pipeline releases and other analysis sources. The results obtained from the full-sized test can be viewed on the [nf-core website](https://nf-co.re/funcscan/results).
 
 ## Pipeline summary
 
-<!-- TODO nf-core: Mention aggregation tools: hAMRonization/comBGC,AMPcombi -->
-
-1. Annotates assembled prokaryotic contigs with [`Prodigal`](https://github.com/hyattpd/Prodigal), [`PROKKA`](https://github.com/tseemann/prokka), or [Bakta](https://github.com/oschwengers/bakta)
+1. Annotates assembled prokaryotic contigs with [`Prodigal`](https://github.com/hyattpd/Prodigal), [`Prokka`](https://github.com/tseemann/prokka), or [Bakta](https://github.com/oschwengers/bakta)
 2. Screens contigs for antimicrobial peptide-like sequences with [ampir](https://cran.r-project.org/web/packages/ampir/index.html), [Macrel](https://github.com/BigDataBiology/macrel), [HMMER](http://hmmer.org/), [AMPlify](https://github.com/bcgsc/AMPlify)
 3. Screens contigs for antibiotic resistant gene-like sequences with [ABRicate](https://github.com/tseemann/abricate), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi), [DeepARG](https://bench.cs.vt.edu/deeparg)
 4. Screens contigs for biosynthetic gene cluster-like sequences with [antiSMASH](https://antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de/), [HMMER](http://hmmer.org/)
