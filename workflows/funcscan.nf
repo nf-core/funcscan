@@ -97,7 +97,6 @@ include { PROKKA                      } from '../modules/nf-core/prokka/main'
 include { PRODIGAL as PRODIGAL_GFF    } from '../modules/nf-core/prodigal/main'
 include { PRODIGAL as PRODIGAL_GBK    } from '../modules/nf-core/prodigal/main'
 include { BAKTA_BAKTADBDOWNLOAD       } from '../modules/nf-core/bakta/baktadbdownload/main'
-include { UNTAR as BAKTA_UNTAR        } from '../modules/nf-core/untar/main'
 include { BAKTA_BAKTA                 } from '../modules/nf-core/bakta/bakta/main'
 
 /*
@@ -156,7 +155,7 @@ workflow FUNCSCAN {
 
     // Some tools require annotated FASTAs
     // For prodigal run twice, once for gff and once for gbk generation, (for parity with PROKKA which produces both)
-    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.amp_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
+    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.bgc_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
 
         if ( params.annotation_tool == "prodigal" ) {
             PRODIGAL_GFF ( ch_prepped_input, "gff" )
@@ -187,9 +186,8 @@ workflow FUNCSCAN {
                     .first()
             } else {
                 BAKTA_BAKTADBDOWNLOAD ()
-                ch_versions = ch_versions.mix(BAKTA_BAKTADBDOWNLOAD.out.versions)
-                ch_bakta_db = BAKTA_UNTAR ( BAKTA_BAKTADBDOWNLOAD.out.db_tar_gz ).untar
-                ch_versions = ch_versions.mix(BAKTA_UNTAR.out.versions)
+                ch_versions = ch_versions.mix( BAKTA_BAKTADBDOWNLOAD.out.versions )
+                ch_bakta_db = ( BAKTA_BAKTADBDOWNLOAD.out.db )
             }
 
             BAKTA_BAKTA ( ch_prepped_input, ch_bakta_db, [], [] )
