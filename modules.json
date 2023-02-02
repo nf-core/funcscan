@@ -47,12 +47,12 @@
                     },
                     "bakta/bakta": {
                         "branch": "master",
-                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
+                        "git_sha": "eeb194e70c5acc713891a9eb21fdd397cca9dff8",
                         "installed_by": ["modules"]
                     },
                     "bakta/baktadbdownload": {
                         "branch": "master",
-                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
+                        "git_sha": "eeb194e70c5acc713891a9eb21fdd397cca9dff8",
                         "installed_by": ["modules"]
                     },
                     "bioawk": {
@@ -168,7 +168,7 @@
                     },
                     "untar": {
                         "branch": "master",
-                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
+                        "git_sha": "cc1f997fab6d8fde5dc0e6e2a310814df5b53ce7",
                         "installed_by": ["modules"]
                     }
                 }
