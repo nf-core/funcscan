@@ -26,7 +26,7 @@ To run any of the three screening workflows (AMP, ARG, and/or BGC), switch them 
 
 When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them.
 
-Example: You want to run AMP and ARG screening but you don't need the DeepARG tool of the ARG workflow and the Macrel tool of the AMP workflow. Your command would be:
+**Example:** You want to run AMP and ARG screening but you don't need the DeepARG tool of the ARG workflow and the Macrel tool of the AMP workflow. Your command would be:
 
 ```bash
 nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile docker --run_arg_screening --arg_skip_deeparg --run_amp_screening --amg_skip_macrel
@@ -74,9 +74,9 @@ The implementation of some tools in the pipeline may have some particular behavi
 
 ### antiSMASH
 
-antiSMASH has a minimum contig parameter, in which only contigs of a certain length (or longer) will be screened. In cases where no hits are found in these, then the tool ends successfully. However if no contigs in an input file reach that minimum threshold, the tool will end with a 'failure' code, and cause the pipeline to crash.
+antiSMASH has a minimum contig parameter, in which only contigs of a certain length (or longer) will be screened. In cases where no hits are found in these, the tool ends successfully without hits. However if no contigs in an input file reach that minimum threshold, the tool will end with a 'failure' code, and cause the pipeline to crash.
 
-To prevent entire pipeline failures to due a single 'bad sample', nf-core/funcscan will filter out any input sample in which none of the contigs reach the minimum contig length specified with `--bgc_antismash_sampleminlength`.
+To prevent entire pipeline failures due to a single 'bad sample', nf-core/funcscan will filter out any input sample in which none of the contigs reach the minimum contig length in bp specified with `--bgc_antismash_sampleminlength` (default: 1000).
 
 > ⚠️ If a sample does not reach this contig length threshold, you will receive a warning in your console and in the `.nextflow.log` file, and no result files will exist for this sample in your results directory.
 
@@ -86,40 +86,37 @@ When the annotation is run with Prokka, the resulting `.gbk` file passed to anti
 
 ## Databases and reference files
 
-nf-core/funcscan utilises various tools that use databases and reference files to generate results. While nf-core/funcscan offers in some cases functionality to autodownload databases for you, these databases can be very large, and it is more efficient to store these files in a central place from where they can be reused across pipeline runs.
+Various tools of nf-core/funcscan use databases and reference files to operate. While nf-core/funcscan offers the functionality to autodownload databases for you, these databases can be very large, and it is more efficient to store these files in a central place from where you can reuse them across pipeline runs.
 
 Here we will describe where you can obtain databases and reference files for tools included in the pipeline.
 
 ### Bakta
 
-nf-core/funcscan offers multiple tools for annotating input sequences.
+nf-core/funcscan offers multiple tools for annotating input sequences. Bakta is a new tool touted as a bacteria-only successor to the well-established Prokka.
 
-Bakta is a new tool touted as a bacteria-only successor to the well-established Prokka.
+To supply the required Bakta database (and not have the pipeline do that at every new run), add the flag `--annotation_bakta_db`. It must be downloaded from the Bakta Zenodo archive, the link of which can be found on the [Bakta GitHub repository](https://github.com/oschwengers/bakta#database-download).
 
-Bakta requires a database, supplied to the pipeline with `--annotation_bakta_db`.
-This must be downloaded from the Bakta Zenodo archive, the link of which can be found on the [Bakta github repository](https://github.com/oschwengers/bakta).
-
-Once downloaded this must be untarred
+Once downloaded this must be untarred:
 
 ```bash
 tar xvzf db.tar.gz
 ```
 
-And then passed to the pipeline with
+And then passed to the pipeline with:
 
 ```bash
 --annotation_bakta_db /<path>/<to>/db/
 ```
 
+Hint: The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+
 ### hmmsearch
 
-nf-core/funcscan allows screening of sequences for functional genes associated with various natural product types via Hidden Markov Models (HMMs) using HMMSearch.
+nf-core/funcscan allows screening of sequences for functional genes associated with various natural product types via Hidden Markov Models (HMMs) using hmmsearch.
 
-This requires supplying a list of HMM files ending in `.hmm`, that have models for the particular molecule(s) or BGCs you are interested in.
+This requires supplying a list of HMM files ending in `.hmm`, that have models for the particular molecule(s) or BGCs you are interested in. You can download these files from places such as [PFAM](https://www.ebi.ac.uk/interpro/download/Pfam/) for antimicrobial peptides (AMP), or the antiSMASH GitHub repository for [biosynthetic gene cluster](https://github.com/antismash/antismash/tree/master/antismash/detection/hmm_detection/data) related HMMs, or create them yourself.
 
-You can download these files from places such as [PFAM](https://www.ebi.ac.uk/interpro/download/Pfam/) for antimicrobial peptides (AMP), or the antiSMASH GitHub repository for [biosynthetic gene cluster](https://github.com/antismash/antismash/tree/master/antismash/detection/hmm_detection/data) related HMMs.
-
-You should place all of these in a directory and supply them e.g. to AMP models
+You should place all HMMs in a directory and supply them e.g. to AMP models:
 
 ```bash
 --amp_hmmsearch_models '/<path>/<to>/<amp>/*.hmm'
@@ -138,28 +135,28 @@ nf-core/funcscan will download this database for you, unless the path to a local
 You can either:
 
 1. Install AMRFinderPlus from [bioconda](https://bioconda.github.io/recipes/ncbi-amrfinderplus/README.html?highlight=amrfinderplus)
-2. Run `amrfinder --update`, which will download the latest version of the AMRFinderPlus database to the default location (location of the AMRFinderPlus binaries/data). It creates a directory under data in the format YYYY-MM-DD.version (e.g., 2019-03-06.1).
+2. Run `amrfinder --update`, which will download the latest version of the AMRFinderPlus database to the default location (location of the AMRFinderPlus binaries/data). It creates a directory in the format YYYY-MM-DD.version (e.g., `<installation>/<path>/data/2022-12-19.1/`).
 
-Or
+Or:
 
-1. Download the files directly form the [NCBI FTP site](https://ftp.ncbi.nlm.nih.gov/pathogen/Antimicrobial_resistance/AMRFinderPlus/database/latest/)
+1. Download the files directly from the [NCBI FTP site](https://ftp.ncbi.nlm.nih.gov/pathogen/Antimicrobial_resistance/AMRFinderPlus/database/latest/)
 
 The downloaded database folder contains the AMR related files:
 
 ```console
-<YYYY-MM-DD.v>[2022-08-09.1]/
-├── AMR.LIB.*
-├── AMRProt.*
+<YYYY-MM-DD.v>/
 ├── AMR_CDS.*
 ├── AMR_DNA-Campylobacter.*
-├── AMR_DNA-Clostridioides_difficilie.*
+├── AMR_DNA-Clostridioides_difficile.*
 ├── AMR_DNA-Enterococcus_faecalis.*
 ├── AMR_DNA-Enterococcus_faecium.*
 ├── AMR_DNA-Escherichia.*
 ├── AMR_DNA-Neisseria.*
 ├── AMR_DNA-Salmonella.*
 ├── AMR_DNA-Staphylococcus_aureus.*
-├──AMR_DNA-Streptococcus_pneumoniae.*
+├── AMR_DNA-Streptococcus_pneumoniae.*
+├── AMR.LIB.*
+├── AMRProt.*
 ├── changes.txt
 ├── database_format_version.txt
 ├── fam.tab
@@ -167,7 +164,9 @@ The downloaded database folder contains the AMR related files:
 └── version.txt
 ```
 
-The path to the resulting database directory can be supplied to the pipeline as described above.
+2. Supply the database directory path to the pipeline as described above.
+
+Hint: The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
 
 ### DeepARG
 
@@ -197,6 +196,8 @@ You can then supply the path to resulting database directory with:
 Note that if you supply your own database that is not downloaded by the pipeline, make sure to also supply `--arg_deeparg_data_version` along
 with the version number so hAMRonization will correctly display the database version in the summary report.
 
+Hint: The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+
 ### antiSMASH
 
 antiSMASH requires several databases for the detection of potential biosynthetic gene cluster (BGC) sequences (ClusterBlast, MIBiG, Pfam, Resfams, TIGRFAMs).
@@ -225,7 +226,7 @@ Hint: The flag `--save_databases` saves the pipeline-downloaded databases in you
 
 DeepBGC relies on trained models and Pfams to run its analysis. nf-core/funcscan will download these databases for you. If the flag `--save_databases` is set, the downloaded files will be stored in the output directory under `databases/deepbgc/`.
 
-Alternatively, if you already downloaded the database locally with `deepbgc download`, you can indicate the path to the database folder with `--bgc_deepbgc_database path/to/deepbgc_db/`. The folder has to contain the subfolders as in the database folder downloaded by `deepbgc download`:
+Alternatively, if you already downloaded the database locally with `deepbgc download`, you can indicate the path to the database folder with `--bgc_deepbgc_database <path>/<to>/<deepbgc_db>/`. The folder has to contain the subfolders as in the database folder downloaded by `deepbgc download`:
 
 ```console
 deepbgc_db/
@@ -238,7 +239,7 @@ deepbgc_db/
     └── myDetectors*.pkl
 ```
 
-### Updating the pipeline
+## Updating the pipeline
 
 When you run the above command, Nextflow automatically pulls the pipeline code from GitHub and stores it as a cached version. When running the pipeline after this, it will always use the cached version if available - even if the pipeline has been updated since. To make sure that you're running the latest version of the pipeline, make sure that you regularly update the cached version of the pipeline:
 
@@ -246,7 +247,7 @@ When you run the above command, Nextflow automatically pulls the pipeline code f
 nextflow pull nf-core/funcscan
 ```
 
-### Reproducibility
+## Reproducibility
 
 It is a good idea to specify a pipeline version when running the pipeline on your data. This ensures that a specific version of the pipeline code and software are used when you run your pipeline. If you keep using the same tag, you'll be running the same version of the pipeline, even if there have been changes to the code since.
 

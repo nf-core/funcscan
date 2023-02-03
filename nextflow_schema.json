@@ -358,7 +358,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Specify whether to save pipeline-downloaded databases in your results directory.",
-                    "help_text": "While nf-core/funcscan can download databases for you, often these are very large and can significantly slow-down pipeline runtime if the databases have to be downloaded every run.\n\nSpecifying `--save_databases` while save the pipeline-downloaded databases in your results directory. This applies to: BAKTA, deepBGC, deepARG, AMRFinderPlus and antiSMASH.\n\nYou can then move the resulting directories/files to a central cache directory of your choice for re-use in the future.\n\nIf you do not specify these flags, the database files will remain in your `work/` directory and will be deleted if `cleanup = true` is specified in your config, or if you run `nextflow clean`.\n"
+                    "help_text": "While nf-core/funcscan can download databases for you, often these are very large and can significantly slow-down pipeline runtime if the databases have to be downloaded every run.\n\nSpecifying `--save_databases` while save the pipeline-downloaded databases in your results directory. This applies to: BAKTA, DeepBGC, DeepARG, AMRFinderPlus and antiSMASH.\n\nYou can then move the resulting directories/files to a central cache directory of your choice for re-use in the future.\n\nIf you do not specify these flags, the database files will remain in your `work/` directory and will be deleted if `cleanup = true` is specified in your config, or if you run `nextflow clean`.\n"
                 }
             },
             "fa_icon": "fas fa-database"
