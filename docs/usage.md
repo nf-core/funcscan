@@ -26,7 +26,7 @@ To run any of the three screening workflows (AMP, ARG, and/or BGC), switch them 
 
 When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them.
 
-Example: You want to run AMP and ARG screening but you don't need the DeepARG tool of the ARG workflow and the Macrel tool of the AMP workflow. Your command would be:
+**Example:** You want to run AMP and ARG screening but you don't need the DeepARG tool of the ARG workflow and the Macrel tool of the AMP workflow. Your command would be:
 
 ```bash
 nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile docker --run_arg_screening --arg_skip_deeparg --run_amp_screening --amg_skip_macrel
