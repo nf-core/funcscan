@@ -41,14 +41,13 @@ welcome = """\
                 antiSMASH, deepBGC, and GECCO
            For detailed usage documentation please
              refer to https://nf-co.re/funcscan
-    .........................................................""".format(version=tool_version)
+    .........................................................""".format(
+    version=tool_version
+)
 
 # Initialize parser
 parser = argparse.ArgumentParser(
-    prog="comBGC",
-    formatter_class=argparse.RawTextHelpFormatter,
-    description=(welcome),
-    add_help=True,
+    prog="comBGC", formatter_class=argparse.RawTextHelpFormatter, description=(welcome), add_help=True
 )
 
 # Input options
