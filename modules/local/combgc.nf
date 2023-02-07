@@ -18,5 +18,10 @@ process COMBGC {
     comBGC.py \\
         -i $input_paths \\
         -o $prefix
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        comBGC: \$(comBGC.py --version | sed 's/comBGC //g')
+    END_VERSIONS
     """
 }

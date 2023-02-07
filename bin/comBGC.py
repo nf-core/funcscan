@@ -6,15 +6,42 @@ import argparse
 import os
 import re
 
+"""
+===============================================================================
+MIT License
+===============================================================================
+
+Copyright (c) 2023 Jasmin Frangenberg
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
+tool_version = "0.5"
 welcome = """\
                 ........................
-                    * comBGC v.0.5 *
+                    * comBGC v.{version} *
                 ........................
     This tool aggregates the results of BGC prediction tools:
                 antiSMASH, deepBGC, and GECCO
            For detailed usage documentation please
              refer to https://nf-co.re/funcscan
-    ........................................................."""
+    .........................................................""".format(version=tool_version)
 
 # Initialize parser
 parser = argparse.ArgumentParser(
@@ -48,7 +75,7 @@ parser.add_argument(
     default=".",
 )
 parser.add_argument("-vv", "--verbose", help="increase output verbosity", action="store_true")
-parser.add_argument("-v", "--version", help="print version number and exit", action="store_true")
+parser.add_argument("-v", "--version", help="show version number and exit", action="store_true")
 
 # Get command line arguments
 args = parser.parse_args()
@@ -60,7 +87,7 @@ verbose = args.verbose
 version = args.version
 
 if version:
-    exit("comBGC 0.5")
+    exit("comBGC {version}".format(version=tool_version))
 
 input_antismash = []
 input_deepbgc = []
