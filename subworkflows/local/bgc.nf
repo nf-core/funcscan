@@ -180,7 +180,7 @@ workflow BGC {
     // COMBGC
     COMBGC ( ch_bgcresults_for_combgc )
 
-    ch_combgc_summaries = COMBGC.out.tsv.collectFile(name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true)
+    ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile(name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true)
 
     emit:
     versions = ch_versions

@@ -11,8 +11,8 @@ process COMBGC {
     tuple val(meta), path(input_paths)
 
     output:
-    tuple val(meta), path "${prefix}/combgc_summary.tsv" , emit: tsv
-    path "versions.yml"                                  , emit: versions
+    tuple val(meta), path("${prefix}/combgc_summary.tsv") , emit: tsv
+    path "versions.yml"                                   , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
