@@ -15,9 +15,9 @@ workflow AMP {
     faa     // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
 
     main:
-    ch_versions           = Channel.empty()
+    ch_versions                    = Channel.empty()
     ch_ampresults_for_ampcombi     = Channel.empty()
-    ch_ampcombi_summaries = Channel.empty()
+    ch_ampcombi_summaries          = Channel.empty()
 
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution

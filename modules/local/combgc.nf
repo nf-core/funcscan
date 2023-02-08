@@ -1,5 +1,6 @@
 process COMBGC {
     tag "$meta.id"
+    label 'process_low'
 
     conda "conda-forge::python=3.11.0 conda-forge::biopython=1.80 conda-forge::pandas=1.5.2"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
@@ -10,7 +11,11 @@ process COMBGC {
     tuple val(meta), path(input_paths)
 
     output:
-    path "${prefix}/combgc_summary.tsv" , emit: tsv
+    tuple val(meta), path("${prefix}/combgc_summary.tsv") , emit: tsv
+    path "versions.yml"                                   , emit: versions
+
+    when:
+    task.ext.when == null || task.ext.when
 
     script: // This script is bundled with the pipeline, in nf-core/funcscan/bin/
     prefix = task.ext.prefix ?: "${meta.id}"

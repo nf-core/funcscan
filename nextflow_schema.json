@@ -286,6 +286,7 @@
                 },
                 "annotation_prokka_centre": {
                     "type": "string",
+                    "description": "Sequencing centre ID.",
                     "default": null,
                     "fa_icon": "fas fa-map-marker-alt",
                     "help_text": "Add the sequencing center ID used in generating the raw sequences. This flag is typically requested in combination with the `--compliant` flag when contigs need to be renamed due to non-conforming contig headers. For more information please check PROKKA [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - PROKKA: `--centre`"
@@ -366,7 +367,7 @@
         "amp_amplify": {
             "title": "AMP: AMPlify",
             "type": "object",
-            "description": "Antimicrobial Peptide detection using a deep learning model",
+            "description": "Antimicrobial Peptide detection using a deep learning model.",
             "default": "",
             "properties": {
                 "amp_skip_amplify": {
