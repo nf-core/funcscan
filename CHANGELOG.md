@@ -9,6 +9,12 @@ Initial release of nf-core/funcscan, created with the [nf-core](https://nf-co.re
 
 ### `Added`
 
+- Added annotation tools (Prokka, Prodigal, Bakta)
+- Added ARG screening workflow (tools: ABTicate, AMRFinderPlus, DeepARG, fARGene)
+- Added AMP screening workflow (tools: Macrel, AMPlify, Ampir, hmmsearch)
+- Added BGC screening workflow (tools: antiSMASH, DeepBGC, GECCO, hmmsearch)
+- Added workflow summary tools (hAMRonization, AMPcombi, comBGC)
+
 ### `Fixed`
 
 ### `Dependencies`
