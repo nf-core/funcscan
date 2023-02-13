@@ -165,7 +165,7 @@
                 "annotation_bakta_skipncrna": {
                     "type": "boolean",
                     "description": "Skip ncRNA detection & annotation.",
-                    "help_text": "This flag skips [Infernal vs. Rfam ncRNA covariance models](http://eddylab.org/infernal/) that predicts ncrna genes.\nBAKTA distinguishes between ncRNA genes and (cis-regulatory) regions to enable the distinction of feature overlap detection.\nThis including distinguishing between ncrna gene types: sRNA, antisense, ribozyme and antitoxin. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--ncrna`",
+                    "help_text": "This flag skips [Infernal vs. Rfam ncRNA covariance models](http://eddylab.org/infernal/) that predicts ncRNA genes.\nBAKTA distinguishes between ncRNA genes and (cis-regulatory) regions to enable the distinction of feature overlap detection.\nThis including distinguishing between ncRNA gene types: sRNA, antisense, ribozyme and antitoxin. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--ncrna`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skipncrnaregion": {
@@ -212,24 +212,24 @@
                 }
             },
             "fa_icon": "fas fa-file-signature",
-            "help_text": "BAKTA  is a tool developed to annotate bacterial genomes and plasmids from both isolates and MAGs. \n\nDocumentation: https://github.com/oschwengers/bakta"
+            "help_text": "BAKTA is a tool developed to annotate bacterial genomes and plasmids from both isolates and MAGs. \n\nDocumentation: [https://github.com/oschwengers/bakta](https://github.com/oschwengers/bakta)"
         },
         "annotation_prokka": {
-            "title": "Annotation: PROKKA",
+            "title": "Annotation: Prokka",
             "type": "object",
-            "description": "These parameters influence the annotation algorithm used by PROKKA.",
+            "description": "These parameters influence the annotation algorithm used by Prokka.",
             "default": "",
             "properties": {
                 "annotation_prokka_singlemode": {
                     "type": "boolean",
                     "description": "Use the default genome-length optimised mode (rather than the metagenome mode).",
-                    "help_text": "By default, Prokka's --metagenome mode is used in the pipeline to improve the gene prediction of highly fragmented metagenomes.\n\nBy specifying this parameter Prokka will instead use it's default mode that is optimised for singular 'complete' genome sequences.\n\nFor more information. please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--metagenome`",
+                    "help_text": "By default, Prokka's --metagenome mode is used in the pipeline to improve the gene prediction of highly fragmented metagenomes.\n\nBy specifying this parameter Prokka will instead use it's default mode that is optimised for singular 'complete' genome sequences.\n\nFor more information, please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--metagenome`",
                     "fa_icon": "fas fa-braille"
                 },
                 "annotation_prokka_rawproduct": {
                     "type": "boolean",
                     "description": "Suppress the default clean-up of the gene annotations.",
-                    "help_text": "By default, annotation in PROKKA is carried out by alignment to other proteins in its database, or the databases the user provides via the tools `--proteins` flag. The resulting annotations are then cleaned up to standardise them to Genbank/ENA conventions.\n'Vague names' are set to 'hypothetical proteins', 'possible/probable/predicted' are set to 'putative' and 'EC/CPG and locus tag ids' are removed.\n\nBy supplying this flag you stop such clean up leaving the original annotation names.\n\nFor more information please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\nThis flag suppresses this default behavior of PROKKA (which is to perform the cleaning).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--rawproduct`",
+                    "help_text": "By default, annotation in Prokka is carried out by alignment to other proteins in its database, or the databases the user provides via the tools `--proteins` flag. The resulting annotations are then cleaned up to standardise them to Genbank/ENA conventions.\n'Vague names' are set to 'hypothetical proteins', 'possible/probable/predicted' are set to 'putative' and 'EC/CPG and locus tag ids' are removed.\n\nBy supplying this flag you stop such clean up leaving the original annotation names.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\nThis flag suppresses this default behavior of Prokka (which is to perform the cleaning).\n\n> Modifies tool parameter(s):\n> - Prokka: `--rawproduct`",
                     "fa_icon": "fab fa-product-hunt"
                 },
                 "annotation_prokka_kingdom": {
@@ -237,7 +237,7 @@
                     "default": "Bacteria",
                     "fa_icon": "fab fa-accusoft",
                     "description": "Specify the kingdom that the input represents.",
-                    "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n>\u26a0\ufe0f Warning: PROKKA cannot annotate Eukaryotes.\n\nFor more information please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--kingdom`",
+                    "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n>\u26a0\ufe0f Warning: Prokka cannot annotate Eukaryotes.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--kingdom`",
                     "enum": ["Archaea", "Bacteria", "Mitochondria", "Viruses"]
                 },
                 "annotation_prokka_gcode": {
@@ -246,28 +246,28 @@
                     "minimum": 0,
                     "maximum": 25,
                     "description": "Specify the translation table used to annotate the sequences.",
-                    "help_text": "Specify the translation table used to annotate the sequences. All possible genetic codes (1-25) used for gene annotation can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). This flag is required if the flag `--kingdom` is assigned.\n\nFor more information please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--gcode`",
+                    "help_text": "Specify the translation table used to annotate the sequences. All possible genetic codes (1-25) used for gene annotation can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). This flag is required if the flag `--kingdom` is assigned.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--gcode`",
                     "fa_icon": "fas fa-border-none"
                 },
                 "annotation_prokka_mincontiglen": {
                     "type": "integer",
                     "default": 1,
                     "description": "Minimum contig size required for annotation (bp).",
-                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend that this should be >= 200 bp, if you plan to submit such annotations to NCBI.\n\nFor more information please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--mincontiglen`",
+                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend that this should be >= 200 bp, if you plan to submit such annotations to NCBI.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--mincontiglen`",
                     "fa_icon": "fas fa-ruler-horizontal"
                 },
                 "annotation_prokka_evalue": {
                     "type": "number",
                     "default": 1e-6,
                     "description": "Minimum e-value cut-off.",
-                    "help_text": "Specifiy the minimum e-value used for filtering the alignment hits.\n\nFor more information please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--evalue`",
+                    "help_text": "Specifiy the minimum e-value used for filtering the alignment hits.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--evalue`",
                     "fa_icon": "fas fa-sort-amount-down"
                 },
                 "annotation_prokka_coverage": {
                     "type": "integer",
                     "default": 80,
                     "description": "Set the assigned minimum coverage.",
-                    "help_text": "Specify the minimum coverage percent of the annotated genome. This must be set between 0-100.\n\nFor more information please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--coverage`",
+                    "help_text": "Specify the minimum coverage percent of the annotated genome. This must be set between 0-100.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--coverage`",
                     "fa_icon": "fas fa-align-right",
                     "minimum": 0,
                     "maximum": 100
@@ -275,13 +275,13 @@
                 "annotation_prokka_cdsrnaolap": {
                     "type": "boolean",
                     "description": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS).",
-                    "help_text": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS). Transfer RNAs are short stretches of nucleotide sequences that link mRNA and the amino acid sequence of proteins. Their presence helps in the annotation of the sequences, because each trRNA can only be attached to one type of amino acid.\n\nFor more information please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--cdsrnaolap`",
+                    "help_text": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS). Transfer RNAs are short stretches of nucleotide sequences that link mRNA and the amino acid sequence of proteins. Their presence helps in the annotation of the sequences, because each trRNA can only be attached to one type of amino acid.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--cdsrnaolap`",
                     "fa_icon": "fas fa-align-justify"
                 },
                 "annotation_prokka_rnammer": {
                     "type": "boolean",
                     "description": "Use RNAmmer for rRNA prediction.",
-                    "help_text": "Activates [RNAmmer](https://services.healthtech.dtu.dk/service.php?RNAmmer-1.2) instead of the PROKKA default [Barrnap](https://github.com/tseemann/barrnap) for rRNA prediction during the annotation process. RNAmmer classifies ribosomal RNA genes in genome sequences by using two levels of Hidden Markov Models. Barrnap uses the nhmmer tool that includes HMMER 3.1 for HMM searching in RNA:DNA style.\n\nFor more information please check PROKKA [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - PROKKA: `--rnammer`",
+                    "help_text": "Activates [RNAmmer](https://services.healthtech.dtu.dk/service.php?RNAmmer-1.2) instead of the Prokka default [Barrnap](https://github.com/tseemann/barrnap) for rRNA prediction during the annotation process. RNAmmer classifies ribosomal RNA genes in genome sequences by using two levels of Hidden Markov Models. Barrnap uses the nhmmer tool that includes HMMER 3.1 for HMM searching in RNA:DNA style.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--rnammer`",
                     "fa_icon": "fas fa-adjust"
                 },
                 "annotation_prokka_centre": {
@@ -289,30 +289,30 @@
                     "description": "Sequencing centre ID.",
                     "default": null,
                     "fa_icon": "fas fa-map-marker-alt",
-                    "help_text": "Add the sequencing center ID used in generating the raw sequences. This flag is typically requested in combination with the `--compliant` flag when contigs need to be renamed due to non-conforming contig headers. For more information please check PROKKA [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - PROKKA: `--centre`"
+                    "help_text": "Add the sequencing center ID used in generating the raw sequences. This flag is typically requested in combination with the `--compliant` flag when contigs need to be renamed due to non-conforming contig headers. For more information please check Prokka [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - Prokka: `--centre`"
                 },
                 "annotation_prokka_compliant": {
                     "type": "boolean",
                     "fa_icon": "far fa-check-circle",
                     "description": "Force contig name to Genbank/ENA/DDJB naming rules.",
-                    "help_text": "Force the contig headers to conform to the Genbank/ENA/DDJB contig header standards. This is activated in combination with `--centre [X]` when contig headers supplied by the user are non-conforming and therefore need to be renamed before Prokka can start annotation. This flag activates  `--genes --mincontiglen 200`. For more information please check PROKKA [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - PROKKA: `--compliant`"
+                    "help_text": "Force the contig headers to conform to the Genbank/ENA/DDJB contig header standards. This is activated in combination with `--centre [X]` when contig headers supplied by the user are non-conforming and therefore need to be renamed before Prokka can start annotation. This flag activates  `--genes --mincontiglen 200`. For more information please check Prokka [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - Prokka: `--compliant`"
                 },
                 "annotation_prokka_locustag": {
                     "type": "string",
-                    "default": "PROKKA",
+                    "default": "Prokka",
                     "fa_icon": "fas fa-tags",
                     "description": "Assign the locus tag for the contig header.",
-                    "help_text": "Assign a special name to the contig. This is used when a specific group of samples are run in a batch. For more information please check PROKKA [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - PROKKA: `--locustag`"
+                    "help_text": "Assign a special name to the contig. This is used when a specific group of samples are run in a batch. For more information please check Prokka [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - Prokka: `--locustag`"
                 },
                 "annotation_prokka_addgenes": {
                     "type": "boolean",
                     "fa_icon": "fas fa-dna",
                     "description": "Add the gene features for each CDS hit.",
-                    "help_text": "For every CDS annotated, this flag adds the gene that encodes for that CDS region. For more information please check PROKKA [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - PROKKA: `--addgenes`"
+                    "help_text": "For every CDS annotated, this flag adds the gene that encodes for that CDS region. For more information please check Prokka [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - Prokka: `--addgenes`"
                 }
             },
             "fa_icon": "fas fa-tools",
-            "help_text": "PROKKA annotates genomic sequences  belonging to bacterial, archaeal and viral genomes.\n\nDocumentation: https://github.com/tseemann/prokka"
+            "help_text": "Prokka annotates genomic sequences belonging to bacterial, archaeal and viral genomes.\n\nDocumentation: https://github.com/tseemann/prokka"
         },
         "annotation_prodigal": {
             "title": "Annotation: PRODIGAL",
@@ -394,7 +394,7 @@
                     "type": "string",
                     "default": "precursor",
                     "description": "Specify which machine learning classification model to use.",
-                    "help_text": "AMPir uses a supervised statistical machine learning approach to predict AMPs.  It incorporates two support vector machine classification models, \"precursor\" and \"mature\". \n\nThe precursor module is better for predicted proteins from a translated transcriptome or translated gene models. The alternative model (mature) is best suited for AMP sequences after post-translational processing, typically from direct proteomic sequencing.\n\nMore information can be found in the AMPir [documentation](https://ampir.marine-omics.net/).\n\n> Modifies tool parameter(s):\n> - AMPir: `model =`",
+                    "help_text": "AMPir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, \"precursor\" and \"mature\". \n\nThe precursor module is better for predicted proteins from a translated transcriptome or translated gene models. The alternative model (mature) is best suited for AMP sequences after post-translational processing, typically from direct proteomic sequencing.\n\nMore information can be found in the AMPir [documentation](https://ampir.marine-omics.net/).\n\n> Modifies tool parameter(s):\n> - AMPir: `model =`",
                     "enum": ["precursor", "mature"],
                     "fa_icon": "fas fa-layer-group"
                 },
@@ -407,7 +407,7 @@
                 }
             },
             "fa_icon": "fas fa-tools",
-            "help_text": "ampir (antimicrobial peptide prediction in r) is an r package designed to predict antimicrobial peptides (AMPs) from any given size protein dataset. ampir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, \u201cprecursor\u201d and \u201cmature\u201d that have been trained on publicly available antimicrobial peptide data.\n\nDocumentation: https://github.com/Legana/ampir"
+            "help_text": "ampir (antimicrobial peptide prediction in r) is an r package designed to predict antimicrobial peptides (AMPs) from any given size protein dataset. ampir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, 'precursor' and 'mature' that have been trained on publicly available antimicrobial peptide data.\n\nDocumentation: https://github.com/Legana/ampir"
         },
         "amp_hmmsearch": {
             "title": "AMP: HMMSearch",
@@ -493,7 +493,7 @@
             "type": "object",
             "description": "Antimicrobial resistance gene detection based on NCBI\u2019s curated Reference Gene Database and curated collection of Hidden Markov Models",
             "default": "",
-            "help_text": "NCBI has developed AMRFinderPlus, a tool that identifies AMR genes, resistance-associated point mutations, and select other classes of genes using protein annotations and/or assembled nucleotide sequence. AMRFinderPlus is used in the Pathogen Detection pipeline, and these data are displayed in NCBI\u2019s Isolate Browser. AMRFinderPlus relies on NCBI\u2019s curated Reference Gene Database and curated collection of Hidden Markov Models.\n\nDocumentation: https://github.com/ncbi/amr/wiki",
+            "help_text": "NCBI has developed AMRFinderPlus, a tool that identifies AMR genes, resistance-associated point mutations, and select other classes of genes using protein annotations and/or assembled nucleotide sequence. AMRFinderPlus is used in the Pathogen Detection pipeline, and these data are displayed in NCBI's Isolate Browser. AMRFinderPlus relies on NCBI's curated Reference Gene Database and curated collection of Hidden Markov Models.\n\nDocumentation: https://github.com/ncbi/amr/wiki",
             "fa_icon": "fas fa-tools",
             "properties": {
                 "arg_skip_amrfinderplus": {

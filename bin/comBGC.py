@@ -113,7 +113,7 @@ if input:
 
 # Make sure that at least one input argument is given
 if not (input_antismash or input_gecco or input_deepbgc):
-    exit("Please specify at least one input directory (--antismash, --deepbgc, --gecco) or see --help")
+    exit("Please specify at least one input file (i.e. output from antismash, deepbgc, or gecco) or see --help")
 
 ########################
 # ANTISMASH FUNCTIONS

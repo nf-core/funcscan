@@ -12,7 +12,7 @@
 
 - [ABRicate](https://github.com/tseemann/abricate)
 
-  > Seemann T. 2020. "ABRicate". Github [https://github.com/tseemann/abricate].
+  > Seemann T. (2020). ABRicate. Github [https://github.com/tseemann/abricate](https://github.com/tseemann/abricate).
 
 - [AMPir](https://doi.org/10.1093/bioinformatics/btaa653)
 
@@ -30,7 +30,7 @@
 
   > Blin, K., Shaw, S., Kloosterman, A. M., Charlop-Powers, Z., van Wezel, G. P., Medema, M. H., & Weber, T. (2021). antiSMASH 6.0: improving cluster detection and comparison capabilities. Nucleic acids research, 49(W1), W29–W35. [DOI: 10.1093/nar/gkab335](https://doi.org/10.1093/nar/gkab335)
 
-- [Bakta] (https://doi.org/10.1099/mgen.0.000685)
+- [Bakta](https://doi.org/10.1099/mgen.0.000685)
 
   > Schwengers, O., Jelonek, L., Dieckmann, M. A., Beyvers, S., Blom, J., & Goesmann, A. (2021). Bakta: rapid and standardized annotation of bacterial genomes via alignment-free sequence identification. Microbial Genomics, 7(11). [DOI: 10.1099/mgen.0.000685](https://doi.org/10.1099/mgen.0.000685)
 
@@ -52,9 +52,9 @@
 
 - [hAMRonization](https://github.com/pha4ge/hAMRonization)
 
-  > Parse multiple Antimicrobial Resistance Analysis Reports into a common data structure. (n.d.). Github. Retrieved October 5, 2022, from [https://github.com/pha4ge/hAMRonization]
+  > Public Health Alliance for Genomic Epidemiology (pha4ge). (2022). Parse multiple Antimicrobial Resistance Analysis Reports into a common data structure. Github. Retrieved October 5, 2022, from [https://github.com/pha4ge/hAMRonization](https://github.com/pha4ge/hAMRonization)
 
-- [AMPcpmbi](https://github.com/Darcy220606/AMPcombi)
+- [AMPcombi](https://github.com/Darcy220606/AMPcombi)
 
   > Parses the results of antimicrobial peptide (AMP) prediction tools into a single table and aligns the hits against a reference AMP database for functional classifications.
 
