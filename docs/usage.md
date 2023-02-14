@@ -62,7 +62,7 @@ sample_2,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gz
 | Column   | Description                                                                                                                                                |
 | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sample` | Custom sample name. This will be used to name all output files from the pipeline. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fasta`  | Path or URL to a gzipped or uncompressed FASTA file. Accepted file suffixes are: `.fasta`, `.fna`, or `.fa`, or any of these with `.gz`, e.g. `.fa.gz`.      |
+| `fasta`  | Path or URL to a gzipped or uncompressed FASTA file. Accepted file suffixes are: `.fasta`, `.fna`, or `.fa`, or any of these with `.gz`, e.g. `.fa.gz`.    |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
