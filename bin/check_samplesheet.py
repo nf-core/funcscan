@@ -108,7 +108,7 @@ def sniff_format(handle):
     Detect the tabular format.
 
     Args:
-        handle (text file): A handle to a `text file`_ object. The read position is
+        handle (text file): A handle to a `text file` object. The read position is
         expected to be at the beginning (index 0).
 
     Returns:

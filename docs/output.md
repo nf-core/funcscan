@@ -4,11 +4,11 @@
 
 The output of nf-core/funcscan provides reports for each of the functional groups:
 
-- antibiotic resistance genes (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) summarized by [hAMRonization](https://github.com/pha4ge/hAMRonization))
-- antimicrobial peptides (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) summarized by [AMPcombi](https://github.com/Darcy220606/AMPcombi))
-- biosynthetic gene clusters (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org) summarized by [comBGC](#combgc))
+- antibiotic resistance genes (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) – summarized by [hAMRonization](https://github.com/pha4ge/hAMRonization))
+- antimicrobial peptides (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) – summarized by [AMPcombi](https://github.com/Darcy220606/AMPcombi))
+- biosynthetic gene clusters (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org) – summarized by [comBGC](#combgc))
 
-As a general workflow, we recommend to first look at the to summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each results. The tool-specific output directories, also includes the functional annotation output from either [prokka](https://github.com/tseemann/prokka), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set.
+As a general workflow, we recommend to first look at the summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each result. The tool-specific output directories also includes the output from the functional annotation steps of either [prokka](https://github.com/tseemann/prokka), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set.
 
 Similarly, all downloaded databases are saved (i.e. from [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), and/or [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master)) into the output directory `<outdir>/downloads/` if the `--save_databases` flag was set.
 
@@ -53,7 +53,7 @@ work/
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes prokaryotic sequence data through the following steps:
 
-ORF prediction and annotation with either of:
+ORF prediction and annotation with any of:
 
 - [Prodigal](#prodigal) (default) – for open reading frame prediction.
 - [Prokka](#prokka) – open reading frame prediction and functional protein annotation.
@@ -64,20 +64,15 @@ Antimicrobial Resistance Genes (ARGs):
 - [ABRicate](#abricate) – antimicrobial resistance gene detection, based on alignment to one of several databases.
 - [AMRFinderPlus](#amrfinderplus) – antimicrobial resistance gene detection, using NCBI’s curated Reference Gene Database and curated collection of Hidden Markov Models.
 - [DeepARG](#deeparg) – antimicrobial resistance gene detection, using a deep learning model.
-- [fARGene](#fargene) – antimicrobial resistance gene detection, using a deep learning model.
+- [fARGene](#fargene) – antimicrobial resistance gene detection, using Hidden Markov Models.
 - [RGI](#rgi) – antimicrobial resistance gene detection, based on alignment to the CARD database.
 
 Antimicrobial Peptides (AMPs):
 
-  <!--* [acep](#acep) – antimicrobial peptide detection-->
-  <!--* [ai4amp](#ai4amp) – antimicrobial peptide detection-->
-
 - [ampir](#ampir) – antimicrobial peptide detection, based on a supervised statistical machine learning approach.
 - [amplify](#amplify) – antimicrobial peptide detection, using a deep learning model.
-  <!--* [EnsembleAMPPred](#ensembleamppred) – antimicrobial peptide detection-->
 - [hmmsearch](#hmmsearch) – antimicrobial peptide detection, based on hidden Markov models.
 - [Macrel](#macrel) – antimicrobial peptide detection, using a machine learning approach.
-<!--* [neubi](#neubi) – antimicrobial peptide detection-->
 
 Biosynthetic Gene Clusters (BGCs):
 
@@ -89,7 +84,7 @@ Biosynthetic Gene Clusters (BGCs):
 Output Summaries:
 
 - [AMPcombi](#ampcombi) – summary of antimicrobial peptide gene output from various detection tools.
-- [hAMRonization](#hamronization) – summary of resistance gene output from various detection tools.
+- [hAMRonization](#hamronization) – summary of antmicrobial resistance gene output from various detection tools.
 - [comBGC](#combgc) – summary of biosynthetic gene cluster output from various detection tools.
 - [MultiQC](#multiqc) – report of all software and versions used in the pipeline.
 - [Pipeline information](#pipeline-information) – report metrics generated during the workflow execution.
@@ -112,9 +107,11 @@ Output Summaries:
     - `*.faa`: protein FASTA file of the translated CDS sequences
     - `*.gbk`: annotation in GBK format, containing both sequences and annotations
 
+> Descriptions taken from the [Prodigal documentation](https://github.com/hyattpd/prodigal/wiki)
+
 </details>
 
-[Prodigal](https://github.com/hyattpd/Prodigal) annotates whole (meta-)genomes by identifying ORFs in a set of genomic DNA sequences.
+[Prodigal](https://github.com/hyattpd/Prodigal) annotates whole (meta-)genomes by identifying ORFs in a set of genomic DNA sequences. The output is used by some of the functional screening tools.
 
 #### Prokka
 
@@ -136,9 +133,11 @@ Output Summaries:
     - `*.txt`: statistics relating to the annotated features found
     - `*.tsv`: tab-separated file of all features
 
+> Descriptions directly from the [Prokka documentation](https://github.com/tseemann/prokka#output-files)
+
 </details>
 
-[Prokka](https://github.com/tseemann/prokka) does whole genome annotation to identify features of interest in a set of (meta-)genomic DNA sequences.
+[Prokka](https://github.com/tseemann/prokka) performs whole genome annotation to identify features of interest in a set of (meta-)genomic DNA sequences. The output is used by some of the functional screening tools.
 
 #### Bakta
 
@@ -161,7 +160,7 @@ Output Summaries:
 
 </details>
 
-[Bakta](https://github.com/oschwengers/bakta) is a tool for the rapid & standardized annotation of bacterial genomes and plasmids from both isolates and MAGs. It provides dbxref-rich, sORF-including and taxon-independent annotations in machine-readable JSON & bioinformatics standard file formats for automated downstream analysis.
+[Bakta](https://github.com/oschwengers/bakta) is a tool for the rapid & standardized annotation of bacterial genomes and plasmids from both isolates and MAGs. It provides dbxref-rich, sORF-including and taxon-independent annotations in machine-readable JSON & bioinformatics standard file formats for automated downstream analysis. The output is used by some of the functional screening tools.
 
 ### AMP detection tools
 
@@ -186,7 +185,7 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `amplify/`
-  - `*_results.tsv`: contig amino-acid sequences with prediction result (AMP or non-AMP) and information on sequence length, charge, probability score, AMPlify log-scaled score)
+  - `*_results.tsv`: table of contig amino-acid sequences with prediction result (AMP or non-AMP) and information on sequence length, charge, probability score, AMPlify log-scaled score)
 
 </details>
 
@@ -215,7 +214,7 @@ Output Summaries:
 - `macrel_contigs/`
   - `*.smorfs.faa.gz`: zipped fasta file containing amino acid sequences of small peptides (<100 aa, small open reading frames) showing the general gene prediction information in the contigs
   - `*.all_orfs.faa.gz`: zipped fasta file containing amino acid sequences showing the general gene prediction information in the contigs
-  - `prediction.gz`: zipped file, with all predicted and non-predicted amps in a table format
+  - `prediction.gz`: zipped file, with all predicted and non-predicted AMPs in a table format
   - `*.md`: readme file containing tool specific information (e.g. citations, details about the output, etc.)
   - `*_log.txt`: log file containing the information pertaining to the run
 
@@ -257,14 +256,14 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `deeparg/`
-  - `*.align.daa*`: Diamond alignment output
-  - `*.align.daa.tsv`: Diamond alignment output as .tsv
+  - `*.align.daa*`: Intermediate DIAMOND alignment output
+  - `*.align.daa.tsv`: DIAMOND alignment output as .tsv
   - `*.mapping.ARG`: ARG predictions with a probability >= --prob (0.8 default).
   - `*.mapping.potential.ARG`: ARG predictions with a probability < --prob (0.8 default)
 
 </details>
 
-[deepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master) uses deep learning to characterize and annotate antibiotic resistance genes in metagenomes. It is composed of two models for two types of input: short sequence reads and gene-like sequences. In this pipeline we use the `ls` model, which is suitable for annotating full sequence genes and to discover novel antibiotic resistance genes from assembled samples. The tool `Diamond` is used as an aligner.
+[deepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master) uses deep learning to characterize and annotate antibiotic resistance genes in metagenomes. It is composed of two models for two types of input: short sequence reads and gene-like sequences. In this pipeline we use the `ls` model, which is suitable for annotating full sequence genes and to discover novel antibiotic resistance genes from assembled samples. The tool `DIAMOND` is used as an aligner.
 
 #### fARGene
 
@@ -272,18 +271,18 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `fargene/`
-  - `fargene_analysis.log`: logging output that Fargene produced during its run
+  - `fargene_analysis.log`: logging output that fARGene produced during its run
   - `<sample_name>/`:
-    - `hmmsearchresults/`: output from hmmsearch (only if `--arg_fargene_savetmpfiles` supplied)
+    - `hmmsearchresults/`: output from intermediate hmmsearch step (only if `--arg_fargene_savetmpfiles` supplied)
     - `predictedGenes/`:
       - `*-filtered.fasta`: nucleotide sequences of predicted ARGs
-      - `*-filtered-peptides.fasta`: aminoacid sequences of predicted ARGs
+      - `*-filtered-peptides.fasta`: amino acid sequences of predicted ARGs
     - `results_summary.txt`: text summary of results, listing predicted genes and ORFs for each input file
     - `tmpdir/`: temporary output files and fasta files (only if `--arg_fargene_savetmpfiles` supplied)
 
 </details>
 
-[fARGene](https://github.com/fannyhb/fargene) (**F**ragmented **A**ntibiotic **R**esistance **Gene** Identifier) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antibiotic resistance genes as output. The tool includes developed and optimized models for a number of resistance gene types. By default the pipeline runs all models. If only a sub-list or single model is to be used this can be specified with the `--hmm-model` flag. Available models are:
+[fARGene](https://github.com/fannyhb/fargene) (**F**ragmented **A**ntibiotic **R**esistance **Gene** Identifier) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antibiotic resistance genes as output. The tool includes developed and optimized models for a number of resistance gene types. By default the pipeline runs all models, thus you will receive output for all models. If only a sub-list or single model is required, this can be specified with the `--hmm-model` flag. Available models are:
 
 - `class_a`: class A beta-lactamases
 - `class_b_1_2`: subclass B1 and B2 beta-lactamases
@@ -318,15 +317,24 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `antismash/`
-  - `knownclusterblast/`
+  - `css`: accessory files for the HTML output
+  - `clusterblastoutput.txt` (optional): raw BLAST output of known clusters previously predicted by antiSMASH using the built-in ClusterBlast algorithm
+  - `images`: accessory files for the HTML output
+  - `index.html`: interactive web view of results in HTML format
+  - `js`: accessory files for the HTML output
+  - `knownclusterblast/`: directory with MIBiG hits (optional)
     - `*_c*.txt`: tables with MIBiG hits
-  - `clusterblastoutput.txt`: raw BLAST output of known clusters previously predicted by antiSMASH using the built-in ClusterBlast algorithm
-  - `knownclusterblastoutput.txt`: raw BLAST output of known clusters of the MIBiG database.
+  - `knownclusterblastoutput.txt` (optional): raw BLAST output of known clusters of the MIBiG database.
+  - `regions.js`: sideloaded annotations of protoclusters and/or subregions
   - `*region*.gbk`: nucleotide sequence + annotations in GenBank file format; one file per antiSMASH hit.
+  - `<sample name>.gbk`: nucleotide sequence and annotations in GenBank format; converted from input file
+  - `<sample name>.json`: nucleotide sequence and annotations in JSON format; converted from GenBank file
+  - `<sample name>.log`: logging output that antiSMASH produced during its run
+  - `<sample name>.zip`: compressed version of the output folder in zip format
 
 </details>
 
-[antiSMASH](https://docs.antismash.secondarymetabolites.org) (**anti**biotics & **S**econdary **M**etabolite **A**nalysis **SH**ell) is a tool for rapid genome-wide identification, annotation and analysis of secondary metabolite biosynthesis gene clusters in bacterial genomes. It identifies biosynthetic loci covering all currently known secondary metabolite compound classes in a rule-based fashion using profile HMMs and aligns the identified regions at the gene cluster level to their nearest relatives from a database containing experimentally verified gene clusters (MIBiG). It integrates or cross-links all previously available secondary-metabolite specific gene analysis methods in one interactive view.
+[antiSMASH](https://docs.antismash.secondarymetabolites.org) (**anti**biotics & **S**econdary **M**etabolite **A**nalysis **SH**ell) is a tool for rapid genome-wide identification, annotation and analysis of secondary metabolite biosynthesis gene clusters in bacterial genomes. It identifies biosynthetic loci covering all currently known secondary metabolite compound classes in a rule-based fashion using profile HMMs and aligns the identified regions at the gene cluster level to their nearest relatives from a database containing experimentally verified gene clusters (MIBiG).
 
 #### deepBGC
 
@@ -361,7 +369,6 @@ Output Summaries:
   - `*.features.tsv`: TSV file containing identified domains
   - `*.clusters.tsv`: TSV file containing coordinates of predicted clusters and BGC types
   - `*_cluster_*.gbk`: GenBank file (if clusters were found) containing sequence with annotations; one file per GECCO hit
-  - `*.json`: antiSMASH v6 sideload JSON file (if `--antismash-sideload`) supplied
 
 </details>
 
@@ -377,7 +384,7 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `ampcombi/`
-  - `ampcombi_complete_summary.csv`: summarized output from all AMP workflow tools (except hmmer_hmmsearch) in csv
+  - `ampcombi_complete_summary.csv`: summarized output from all AMP workflow tools (except hmmer_hmmsearch) in csv format
   - `ampcombi.log`: a log file generated by ampcombi
   - `*_ampcombi.csv`: summarized output in csv for each sample
   - `*_amp.faa*`: fasta file containing the amino acid sequences for all AMP hits for each sample
@@ -386,7 +393,7 @@ Output Summaries:
 </details>
 
 <details markdown="1">
-<summary>AMP summary table headers</summary>
+<summary>AMP summary table header descriptions</summary>
 
 | Table column              | Description                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -396,8 +403,8 @@ Output Summaries:
 | `prob_neubi`              | Probability associated with the AMP prediction using `NEUBI`                                                                                                                                                                                                                                                                                                                                                                       |
 | `prob_ampir`              | Probability associated with the AMP prediction using `AMPIR`                                                                                                                                                                                                                                                                                                                                                                       |
 | `prob_amplify`            | Probability associated with the AMP prediction using `AMPLIFY`                                                                                                                                                                                                                                                                                                                                                                     |
-| `evalue_hmmer`            | Expected number of false positives (nonhomologous sequences) with a similar of higher score. This stands for how significant te hit is, the lower the evalue, the more significant the hit                                                                                                                                                                                                                                         |
-| `aa_sequence`             | Amino acid sequence that forms part of teh contig and is AMP encoding                                                                                                                                                                                                                                                                                                                                                              |
+| `evalue_hmmer`            | Expected number of false positives (nonhomologous sequences) with a similar of higher score. This stands for how significant the hit is, the lower the evalue, the more significant the hit                                                                                                                                                                                                                                         |
+| `aa_sequence`             | Amino acid sequence that forms part of the contig and is AMP encoding                                                                                                                                                                                                                                                                                                                                                              |
 | `target_id`               | [DRAMP](http://dramp.cpu-bioinfor.org/) ID within the database found to be similar to the predicted AMP by `DIAMOND` alignment                                                                                                                                                                                                                                                                                                     |
 | `pident`                  | Percentage identity of amino acid residues that fully aligned between the `DRAMP` sequence and the predicted AMP sequence                                                                                                                                                                                                                                                                                                          |
 | `evalue`                  | Number of alignments of similar or better qualities that can be expected when searching a database of similar size with a random sequence distribution. This is generated by `DIAMOND` alignments using the [DRAMP](http://dramp.cpu-bioinfor.org/) AMP database. The lower the value the more significant that the hit is positive. An e-value of < 0.001 means that the this hit will be found by chance once per 1,0000 queries |
@@ -405,7 +412,7 @@ Output Summaries:
 | `Sequence_length`         | Number of amino acid residues in the `DRAMP` sequence                                                                                                                                                                                                                                                                                                                                                                              |
 | `Name`                    | Full name of the peptide copied from the database it was uploaded to                                                                                                                                                                                                                                                                                                                                                               |
 | `Swiss_Prot_Entry`        | Entry name of the peptide within the [UniProtKB/Swiss-Prot](https://www.uniprot.org/help/entry_name) database                                                                                                                                                                                                                                                                                                                      |
-| `Family`                  | Name of teh family, group or class of AMPs this peptide belongs to. For e.g. bacteriocins                                                                                                                                                                                                                                                                                                                                          |
+| `Family`                  | Name of the family, group or class of AMPs this peptide belongs to, e.g. bacteriocins                                                                                                                                                                                                                                                                                                                                          |
 | `Gene`                    | Name of the gene (if available in the database) that encodes the peptide                                                                                                                                                                                                                                                                                                                                                           |
 | `Source`                  | Name of the source organism (if available in the database) from which the peptide was extracted                                                                                                                                                                                                                                                                                                                                    |
 | `Activity`                | Peptide activity, e.g. Antimicrobial, Antibacterial, Anti-Gram+, Anti-Gram-, Insecticidal or Antifungal                                                                                                                                                                                                                                                                                                                            |
@@ -413,8 +420,8 @@ Output Summaries:
 | `Structure`               | Type of peptide structure, e.g. alpha helix, bridge, etc.                                                                                                                                                                                                                                                                                                                                                                          |
 | `Structure_Description`   | Further description of the structure if available                                                                                                                                                                                                                                                                                                                                                                                  |
 | `PDB_ID`                  | The ID of an equivalent peptide found in the protein data bank [PDB](https://www.rcsb.org/docs/general-help/organization-of-3d-structures-in-the-protein-data-bank)                                                                                                                                                                                                                                                                |
-| `Comments`                | Further details found in the databse regarding the peptide                                                                                                                                                                                                                                                                                                                                                                         |
-| `Target_Organism`         | Name of the target organsim to which the peptide is effective against                                                                                                                                                                                                                                                                                                                                                              |
+| `Comments`                | Further details found in the database regarding the peptide                                                                                                                                                                                                                                                                                                                                                                         |
+| `Target_Organism`         | Name of the target organism to which the peptide is effective against                                                                                                                                                                                                                                                                                                                                                              |
 | `Hemolytic_activity`      | Type of hemolytic activity if any                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `Linear/Cyclic/Branched`  | Whether the hit is a linear, cyclic or branched peptide                                                                                                                                                                                                                                                                                                                                                                            |
 | `N-terminal_Modification` | Whether it contains N-terminal_Modification                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -422,7 +429,7 @@ Output Summaries:
 | `Other_Modifications`     | Whether there are any other modifications found in the peptide structure                                                                                                                                                                                                                                                                                                                                                           |
 | `Stereochemistry`         | Type of peptide stereochemistry if available                                                                                                                                                                                                                                                                                                                                                                                       |
 | `Cytotoxicity`            | Cytotoxicity mechanism of the peptide if available                                                                                                                                                                                                                                                                                                                                                                                 |
-| `Binding_Target`          | Peptide binding target, e.g. lipid, cell membran or chitin binding                                                                                                                                                                                                                                                                                                                                                                 |
+| `Binding_Target`          | Peptide binding target, e.g. lipid, cell membrane or chitin binding                                                                                                                                                                                                                                                                                                                                                                 |
 | `Pubmed_ID`               | Pubmed ID if a publication is associated with the peptide                                                                                                                                                                                                                                                                                                                                                                          |
 | `Reference`               | Citation of the associated publication if available                                                                                                                                                                                                                                                                                                                                                                                |
 | `Author`                  | Authors' names associated with the publication or who have uploaded the peptide                                                                                                                                                                                                                                                                                                                                                    |
@@ -505,7 +512,7 @@ Output Summaries:
 
 | Table column      | Description                                                                                                 |
 | ----------------- | ----------------------------------------------------------------------------------------------------------- |
-| `Sample_ID`       | IDs of your samples                                                                                         |
+| `Sample_ID`       | ID of the sample                                                                                         |
 | `Prediction_tool` | BGC prediction tool (antiSMASH, DeepBGC, and/or GECCO)                                                      |
 | `Contig_ID`       | ID of the contig containing the candidate BGC                                                               |
 | `Product_class`   | Predicted BGC type/class                                                                                    |
@@ -522,9 +529,9 @@ Output Summaries:
 
 </details>
 
-**comBGC** is a local module which summarizes the results of the **Biosynthetic Gene Cluster (BGC)** prediction tools (antiSMASH, deepBGC, GECCO) used in the pipeline into one comprehensive tabular summary with standardized headers.
+**comBGC** is a tool built for nf-core/funcscan which summarizes the results of the **Biosynthetic Gene Cluster (BGC)** prediction tools (antiSMASH, deepBGC, GECCO) used in the pipeline into one comprehensive tabular summary with standardized headers.
 
-**Note:** comBGC does not feature hmmer_hmmsearch at the moment.
+> ℹ️ comBGC does not feature `hmmer_hmmsearch` support. Please check the hmmsearch results directory.
 
 #### MultiQC
 
@@ -538,7 +545,7 @@ Output Summaries:
 
 </details>
 
-[MultiQC](http://multiqc.info) is used in nf-core/funcscan to report the versions of all software used in the given pipeline run. This allows for reproducible analysis and transparency in method reporting in publications.
+[MultiQC](http://multiqc.info) is used in nf-core/funcscan to report the versions of all software used in the given pipeline run, and provides a suggested methods text. This allows for reproducible analysis and transparency in method reporting in publications.
 
 #### Pipeline information
 
@@ -553,98 +560,3 @@ Output Summaries:
 </details>
 
 [Nextflow](https://www.nextflow.io/docs/latest/tracing.html) provides excellent functionality for generating various reports relevant to the running and execution of the pipeline. This will allow you to troubleshoot errors with the running of the pipeline, and also provide you with other information such as launch commands, run times and resource usage.
-
-<!-- Fargene has been updated on github bu not yet on bioconda (Issue #18). The new version includes additional hmm-models:
-- `erm_type_a, erm_type_f`: Erm 23S rRNA methyltransferases
-- `mph`: Mph macrolide 2'-phosphotransferases
-- `aminoglycosides_model_a`: AAC aminoglycoside acetyltransferases (aac(2')-type genes)
-- `aminoglycosides_model_<b, c>`: AAC aminoglycoside acetyltransferases (aac(3)-type genes)
-- `aminoglycosides_model_<d, e, f>`: AAC aminoglycoside acetyltransferases (aac(6')-type genes)
-- `aminoglycosides_model_g`: APH aminoglycoside phosphotransferases (aph(2'')-type genes)
-- `aminoglycosides_model_h`: APH aminoglycoside phosphotransferases (aph(3')/aph(3'')-type genes)
-- `aminoglycosides_model_i`: APH aminoglycoside phosphotransferases (aph(6)/aph(3')-type genes)
--->
-
-<!--### Ensemble-AMPPred
-
-<details markdown="1">
-<summary>Output files</summary>
-
-* `ensembleamppred/`
-    * `output1`: xxx
-    * `output2/`: xxx
-
-</details>
-
-[Ensemble-AMPPred](no link to source code found ...) xxx tool description here xxx
--->
-
-<!--### CombiAMP
-
-<details markdown="1">
-<summary>Output files</summary>
-
-* `combiamp/`
-    * `output1`: xxx
-    * `output2/`: xxx
-
-</details>
-
-[CombiAMP](https://link-to-tool-page.org) xxx tool description here xxx SUMMARY of AMP tools' output
--->
-
-<!--### ComBGC
-
-<details markdown="1">
-<summary>Output files</summary>
-
-* `combiamp/`
-    * `output1`: xxx
-    * `output2/`: xxx
-
-</details>
-
-[ComBGC](https://link-to-tool-page.org) xxx tool description here xxx SUMMARY of BGC tools' output
--->
-
-<!--### Acep
-
-<details markdown="1">
-<summary>Output files</summary>
-
-* `acep/`
-    * `output1`: xxx
-    * `output2/`: xxx
-
-</details>
-
-[Acep](no page with source code found ...) xxx tool description here xxx
--->
-
-<!--### AI4AMP
-
-<details markdown="1">
-<summary>Output files</summary>
-
-* `ai4amp/`
-    * `output1`: xxx
-    * `output2/`: xxx
-
-</details>
-
-[AI4AMP](https://github.com/LinTzuTang/AI4AMP_predictor) is a sequence-based antimicrobial peptides (AMP) predictor based on PC6 protein encoding method and deep learning.
--->
-
-<!--### NeuBI
-
-<details markdown="1">
-<summary>Output files</summary>
-
-* `neubi/`
-    * `output1`: xxx
-    * `output2/`: xxx
-
-</details>
-
-[NeuBI](https://github.com/nafizh/NeuBI) (Neural Bacteriocin Identifier) is a recurrent neural network based software to predict bacteriocins from protein sequences. Unlike traditional alignment based approaches such as BLAST or HMMER used by BAGEL or BACTIBASE, this is an alignment free approach towards finding novel bacteriocins.
--->

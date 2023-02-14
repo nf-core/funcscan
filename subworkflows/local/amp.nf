@@ -39,6 +39,7 @@ workflow AMP {
         MACREL_CONTIGS ( contigs )
         ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)
         GUNZIP_MACREL ( MACREL_CONTIGS.out.amp_prediction )
+        ch_versions = ch_versions.mix(GUNZIP_MACREL.out.versions)
         ch_ampresults_for_ampcombi = ch_ampresults_for_ampcombi.mix(GUNZIP_MACREL.out.gunzip)
     }
 
@@ -73,18 +74,6 @@ workflow AMP {
 
         AMP_HMMER_HMMSEARCH ( ch_in_for_amp_hmmsearch )
         ch_versions = ch_versions.mix(AMP_HMMER_HMMSEARCH.out.versions)
-// This chunk of code can add the hmmer_hmmsearch channel in the ampcombi input channel `ch_ampcombi_input`.
-// Currently deactivated as AMPcombi can only accept a single HMM file (whereas funcscan produces multiple, one per each input HMM).
-//        GUNZIP_HMMER ( AMP_HMMER_HMMSEARCH.out.output )
-//        ch_hmmout = GUNZIP_HMMER.out.gunzip
-//                        .map {
-//                            meta_id, meta_hmm ->
-//                            def meta_hmmsearch = [:]
-//                            meta_hmmsearch['id'] = meta_id['id']
-//                            [meta_hmmsearch, meta_hmm]
-//                        }
-//
-//        ch_ampresults_for_ampcombi = ch_ampresults_for_ampcombi.mix(ch_hmmout)
     }
 
     //AMPCOMBI

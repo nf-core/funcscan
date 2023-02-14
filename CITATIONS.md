@@ -56,7 +56,7 @@
 
 - [AMPcombi](https://github.com/Darcy220606/AMPcombi)
 
-  > Parses the results of antimicrobial peptide (AMP) prediction tools into a single table and aligns the hits against a reference AMP database for functional classifications.
+  > Anan Ibrahim, & Louisa Perelo. (2023). Darcy220606/AMPcombi. [DOI: 10.5281/zenodo.7639121](https://doi.org/10.5281/zenodo.7639121).
 
 - [HMMER](https://doi.org/10.1371/journal.pcbi.1002195.)
 

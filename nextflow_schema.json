@@ -19,7 +19,7 @@
                     "pattern": "^\\S+\\.csv$",
                     "schema": "assets/schema_input.json",
                     "description": "Path to comma-separated file containing information sample names and paths to corresponding FASTA files.",
-                    "help_text": "Before running the pipeline, you will need to create a design file with information about the samples to be scanned by `funcscan`, containing `sample name` and `path/to/your/contigs.fasta`. Use this parameter to specify its location. It has to be a comma-separated file with 2 columns, and a header row (`sample, fasta`). See [usage docs](https://nf-co.re/funcscan/usage#samplesheet-input).",
+                    "help_text": "Before running the pipeline, you will need to create a design file with information about the samples to be scanned by nf-core/funcscan, containing `sample name` and `path/to/your/contigs.fasta`. Use this parameter to specify its location. It has to be a comma-separated file with 2 columns, and a header row (`sample, fasta`). See [usage docs](https://nf-co.re/funcscan/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "outdir": {
@@ -70,7 +70,7 @@
         "annotation": {
             "title": "Annotation",
             "type": "object",
-            "description": "These options influence the generation of annotation files required for downstream steps in ARG, AMP and BGC workflows.",
+            "description": "These options influence the generation of annotation files required for downstream steps in ARG, AMP, and BGC workflows.",
             "default": "",
             "properties": {
                 "annotation_tool": {
@@ -153,13 +153,13 @@
                 "annotation_bakta_skiptmrna": {
                     "type": "boolean",
                     "description": "Skip tmRNA detection & annotation.",
-                    "help_text": "This flag skips [Aragorn](http://www.ansikte.se/ARAGORN/) that predicts tmrna genes. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-tmrna`\n`",
+                    "help_text": "This flag skips [Aragorn](http://www.ansikte.se/ARAGORN/) that predicts tmRNA genes. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-tmrna`\n`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skiprrna": {
                     "type": "boolean",
                     "description": "Skip rRNA detection & annotation.",
-                    "help_text": "This flag skips [Infernal vs. Rfam rRNA covariance models](http://eddylab.org/infernal/) that predicts rrna genes. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--rrna`",
+                    "help_text": "This flag skips [Infernal vs. Rfam rRNA covariance models](http://eddylab.org/infernal/) that predicts rRNA genes. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--rrna`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skipncrna": {
@@ -577,7 +577,7 @@
                     "default": "LS",
                     "enum": ["LS", "SS"],
                     "description": "Specify which model to use (short or long sequences).",
-                    "help_text": "Specify which model to use: short sequences for reads (`SS`) | long sequences for genes (`LS`). In the vast majority of cases we recommend using the `LS` model when using funcscan\n\nFor more information check DeepARG [documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/).\n\n> Modifies tool parameter(s):\n> - DeepARG: `--model`",
+                    "help_text": "Specify which model to use: short sequences for reads (`SS`), or long sequences for genes (`LS`). In the vast majority of cases we recommend using the `LS` model when using funcscan\n\nFor more information check DeepARG [documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/).\n\n> Modifies tool parameter(s):\n> - DeepARG: `--model`",
                     "fa_icon": "fas fa-layer-group"
                 },
                 "arg_deeparg_minprob": {
@@ -612,7 +612,7 @@
                     "type": "integer",
                     "default": 1000,
                     "description": "Specify minimum number of alignments per entry for DIAMOND step of DeepARG.",
-                    "help_text": "Sets the value of minimum number of alignments per entry for Diamond.\n\nFor more information check DeepARG [documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/).\n\n> Modifies tool parameter(s):\n> - DeepARG: `--arg-num-alignments-per-entry`",
+                    "help_text": "Sets the value of minimum number of alignments per entry for DIAMOND.\n\nFor more information check DeepARG [documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/).\n\n> Modifies tool parameter(s):\n> - DeepARG: `--arg-num-alignments-per-entry`",
                     "fa_icon": "far fa-gem"
                 }
             },
@@ -624,7 +624,7 @@
             "type": "object",
             "description": "Antimicrobial resistance gene detection using a deep learning model",
             "default": "",
-            "help_text": "fARGene (Fragmented Antibiotic Resistance Gene Identifier) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimized models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes. \n\nDocumentation:  https://github.com/fannyhb/fargene",
+            "help_text": "fARGene (Fragmented Antibiotic Resistance Gene Identifier) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimized models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes. \n\nDocumentation: [https://github.com/fannyhb/fargene](https://github.com/fannyhb/fargene)",
             "properties": {
                 "arg_skip_fargene": {
                     "type": "boolean",
@@ -691,27 +691,27 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Specify to save intermediate temporary files the results directory.",
-                    "help_text": "RGI generates many additional temporary files which in most cases won't be useful.\n\nBy specifying this parameter, the files including `temp` in the name will be also saved in the output directory for closer inspection by the user, if necessary."
+                    "help_text": "RGI generates many additional temporary files which in most cases won't be useful so by default are not saved.\n\nBy specifying this parameter, the files including `temp` in the name will be also saved in the output directory for closer inspection by the user, if necessary."
                 },
                 "arg_rgi_alignmenttool": {
                     "type": "string",
                     "default": "BLAST",
                     "description": "Specify the alignment tool to be used.",
-                    "help_text": "Specifies the alignment tool to be used. By default `RGI` runs `BLAST` and this is also set as default in the `funcscan` pipeline. Using this flag the user can activate the alignment by`DIAMOND` again.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--alignment_tool`",
+                    "help_text": "Specifies the alignment tool to be used. By default RGI runs BLAST and this is also set as default in the nf-core/funcscan pipeline. Using this flag the user can activate the alignment by DIAMOND again.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--alignment_tool`",
                     "enum": ["BLAST", "DIAMOND"],
                     "fa_icon": "fas fa-align-justify"
                 },
                 "arg_rgi_includeloose": {
                     "type": "boolean",
-                    "description": "Include all of loose, strict and perfect hits (i.e. >=95% identity) found by rgi.",
-                    "help_text": "When activated it includes loose hits (a.k.a. Discovery) in addition to strict and perfect hits. All Loose matches of 95% identity or better are automatically listed as Strict, regardless of alignment length (RGI v. <6.0.0). This behaviour can be overrun by using the --exclude_nudge flag. The Loose algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--include_loose`",
+                    "description": "Include all of loose, strict and perfect hits (i.e. >=95% identity) found by RGI.",
+                    "help_text": "When activated it includes 'Loose' hits (a.k.a. Discovery) in addition to strict and perfect hits. All 'Loose' matches of 95% identity or better are automatically listed as 'Strict', regardless of alignment length (RGI v. <6.0.0). This behaviour can be overrun by using the --exclude_nudge flag. The 'Loose' algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--include_loose`",
                     "fa_icon": "far fa-hand-scissors",
                     "default": true
                 },
                 "arg_rgi_excludenudge": {
                     "type": "boolean",
                     "description": "Suppresses the default behaviour of RGI with `--arg_rgi_includeloose`.",
-                    "help_text": "This flag suppresses the default behaviour of RGI with `--include_loose`, which lists all loose matches of >= 95% identity as Strict, regardless of alignment length. With this strict and perfect labels are added. This is discontinued in future versions of RGI.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--exclude_nudge`",
+                    "help_text": "This flag suppresses the default behaviour of RGI with `--include_loose`, which lists all 'Loose' matches of >= 95% identity as 'Strict', regardless of alignment length. With this strict and perfect labels are added. This is discontinued in future versions of RGI.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--exclude_nudge`",
                     "fa_icon": "fas fa-hand-scissors",
                     "default": true
                 },
@@ -815,7 +815,7 @@
                     "default": 1000,
                     "description": "Minimum longest-contig length a sample must have to be screened with antiSMASH.",
                     "fa_icon": "fas fa-ruler-horizontal",
-                    "help_text": "This specifies the minimum length that the longest contig must have for the entire sample to be screened by antiSMASH.\n\nAny samples that do not reach this length will be not be sent to antiSMASH, therefore you will not receive output for these samples in your `--outdir`.\n\n> \u26a0\ufe0f This is not the same as `--bgc_antismash_contigminlength`, which specifies to only analyse contigs above that threshold but _within_ a sample that has already passed `--bgc_antismash_sampleminlength` sample filter!"
+                    "help_text": "This specifies the minimum length that the longest contig must have for the entire sample to be screened by antiSMASH.\n\nAny samples that do not reach this length will be not be sent to antiSMASH, therefore you will not receive output for these samples in your `--outdir`.\n\n> ⚠️ This is not the same as `--bgc_antismash_contigminlength`, which specifies to only analyse contigs above that threshold but _within_ a sample that has already passed `--bgc_antismash_sampleminlength` sample filter!"
                 },
                 "bgc_antismash_contigminlength": {
                     "type": "integer",
@@ -827,20 +827,20 @@
                 "bgc_antismash_cbgeneral": {
                     "type": "boolean",
                     "description": "Turn on clusterblast comparison against database of antiSMASH-predicted clusters.",
-                    "help_text": "Compare identified clusters against a database of antiSMASH-predicted clusters using the cluster blast algorithm.\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-general`",
+                    "help_text": "Compare identified clusters against a database of antiSMASH-predicted clusters using the clusterblast algorithm.\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-general`",
                     "fa_icon": "fab fa-affiliatetheme"
                 },
                 "bgc_antismash_cbknownclusters": {
                     "type": "boolean",
                     "description": "Turn on clusterblast comparison against known gene clusters from the MIBiG database.",
                     "fa_icon": "fas fa-puzzle-piece",
-                    "help_text": "This will turn on comparing identified clusters against known gene clusters from the MIBiG database using the cluster blast algorithm.\n\n[MIBiG](https://mibig.secondarymetabolites.org/) is a curated datbase of experimentally characterised gene clusters and with rich associated metadata.\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-knownclusters`"
+                    "help_text": "This will turn on comparing identified clusters against known gene clusters from the MIBiG database using the clusterblast algorithm.\n\n[MIBiG](https://mibig.secondarymetabolites.org/) is a curated datbase of experimentally characterised gene clusters and with rich associated metadata.\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-knownclusters`"
                 },
                 "bgc_antismash_cbsubclusters": {
                     "type": "boolean",
                     "description": "Turn on clusterblast comparison against known subclusters responsible for synthesising precursors.",
                     "fa_icon": "fas fa-adjust",
-                    "help_text": "Turn on additional screening for operons involved in the biosynthesis of early secondary metabolites components using the cluster blast algorithm.\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-subclusters`"
+                    "help_text": "Turn on additional screening for operons involved in the biosynthesis of early secondary metabolites components using the clusterblast algorithm.\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-subclusters`"
                 },
                 "bgc_antismash_ccmibig": {
                     "type": "boolean",
@@ -964,25 +964,25 @@
             "properties": {
                 "bgc_skip_gecco": {
                     "type": "boolean",
-                    "description": "Skip GECCO during the BGC screening",
+                    "description": "Skip GECCO during the BGC screening.",
                     "fa_icon": "fas fa-ban"
                 },
                 "bgc_gecco_mask": {
                     "type": "boolean",
-                    "description": "Enable unknown region masking to prevent genes from stretching across unknown nucleotides",
+                    "description": "Enable unknown region masking to prevent genes from stretching across unknown nucleotides.",
                     "fa_icon": "fas fa-mask",
                     "help_text": "Enable unknown region masking to prevent genes from stretching across unknown nucleotides during ORF detection based on P(y)rodigal.\n\nFor more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--mask`"
                 },
                 "bgc_gecco_cds": {
                     "type": "integer",
                     "default": 3,
-                    "description": "The minimum number of coding sequences a valid cluster must contain",
+                    "description": "The minimum number of coding sequences a valid cluster must contain.",
                     "fa_icon": "fas fa-align-right",
                     "help_text": "Specify the number of consecutive genes a hit must have to be considered a part of a possible BGC region during BGC extraction.\n\nFor more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--cds`"
                 },
                 "bgc_gecco_pfilter": {
                     "type": "number",
-                    "description": "The p-value cutoff for protein domains to be included",
+                    "description": "The p-value cutoff for protein domains to be included.",
                     "fa_icon": "fas fa-filter",
                     "default": 1e-9,
                     "help_text": "The p-value cutoff for protein domains to be included.\n\nFor more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--pfilter`"
@@ -990,14 +990,14 @@
                 "bgc_gecco_threshold": {
                     "type": "number",
                     "default": 0.8,
-                    "description": "The probability threshold for cluster detection",
+                    "description": "The probability threshold for cluster detection.",
                     "fa_icon": "fas fa-angle-double-up",
                     "help_text": "Specify the minimum probability a predicted gene must have to be considered a part of a BGC during BGC extraction.\n\nReducing this value may increase number and length of hits, but will reduce the accuracy of the predictions.\n\nFor more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--threshold`"
                 },
                 "bgc_gecco_edgedistance": {
                     "type": "integer",
                     "default": 0,
-                    "description": "The minimum number of annotated genes that must separate a cluster from the edge",
+                    "description": "The minimum number of annotated genes that must separate a cluster from the edge.",
                     "help_text": "The minimum number of annotated genes that must separate a possible BGC cluster from the edge. Edge clusters will still be included if they are longer. A lower number will increase the number of false positives on small contigs. Used during BGC extraction.\n\nFor more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--edge-distance`",
                     "fa_icon": "fas fa-ruler-horizontal"
                 }
