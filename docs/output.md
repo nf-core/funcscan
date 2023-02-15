@@ -160,7 +160,7 @@ Output Summaries:
 
 </details>
 
-[Bakta](https://github.com/oschwengers/bakta) is a tool for the rapid & standardized annotation of bacterial genomes and plasmids from both isolates and MAGs. It provides dbxref-rich, sORF-including and taxon-independent annotations in machine-readable JSON & bioinformatics standard file formats for automated downstream analysis. The output is used by some of the functional screening tools.
+[Bakta](https://github.com/oschwengers/bakta) is a tool for the rapid & standardised annotation of bacterial genomes and plasmids from both isolates and MAGs. It provides dbxref-rich, sORF-including and taxon-independent annotations in machine-readable JSON & bioinformatics standard file formats for automated downstream analysis. The output is used by some of the functional screening tools.
 
 ### AMP detection tools
 
@@ -445,8 +445,8 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `hamronization/` one of the following:
-  - `hamronization_combined_report.json`: summarized output in .json format
-  - `hamronization_combined_report.tsv`: summarized output in .tsv format
+  - `hamronization_combined_report.json`: summarised output in .json format
+  - `hamronization_combined_report.tsv`: summarised output in .tsv format
   - `hamronization_combined_report.html`: interactive output in .html format
 
 </details>
@@ -470,17 +470,17 @@ Output Summaries:
 | `coverage_ratio` (optional)                       | Ratio of the reference sequence covered by the sequence of interest.                                                                                                                |
 | `drug_class` (optional)                           | Set of antibiotic molecules, with similar chemical structures, molecular targets, and/or modes and mechanisms of action                                                             |
 | `input_gene_length` (optional)                    | Length (number of positions) of a target gene sequence submitted by a user                                                                                                          |
-| `input_gene_start` (optional)                     | Position of the first nucleotide in a gene sequence being analyzed (input gene sequence)                                                                                            |
-| `input_gene_stop` (optional)                      | Position of the last nucleotide in a gene sequence being analyzed (input gene sequence)                                                                                             |
+| `input_gene_start` (optional)                     | Position of the first nucleotide in a gene sequence being analysed (input gene sequence)                                                                                            |
+| `input_gene_stop` (optional)                      | Position of the last nucleotide in a gene sequence being analysed (input gene sequence)                                                                                             |
 | `input_protein_length` (optional)                 | Length (number of positions) of a protein target sequence submitted by a user                                                                                                       |
-| `input_protein_start` (optional)                  | Position of the first amino acid in a protein sequence being analyzed (input protein sequence)                                                                                      |
-| `input_protein_stop` (optional)                   | Position of the last amino acid in a protein sequence being analyzed (input protein sequence)                                                                                       |
+| `input_protein_start` (optional)                  | Position of the first amino acid in a protein sequence being analysed (input protein sequence)                                                                                      |
+| `input_protein_stop` (optional)                   | Position of the last amino acid in a protein sequence being analysed (input protein sequence)                                                                                       |
 | `input_sequence_id` (optional)                    | Identifier of molecular sequence(s) or entries from a molecular sequence database                                                                                                   |
-| `nucleotide_mutation` (optional)                  | Nucleotide sequence change(s) detected in the sequence being analyzed compared to a reference                                                                                       |
+| `nucleotide_mutation` (optional)                  | Nucleotide sequence change(s) detected in the sequence being analysed compared to a reference                                                                                       |
 | `nucleotide_mutation_interpretation` (optional)   | Description of identified nucleotide mutation(s) that facilitate clinical interpretation                                                                                            |
 | `predicted_phenotype` (optional)                  | Characteristic of an organism that is predicted rather than directly measured or observed                                                                                           |
 | `predicted_phenotype_confidence_level` (optional) | Confidence level in a predicted phenotype                                                                                                                                           |
-| `amino_acid_mutation` (optional)                  | Amino acid sequence change(s) detected in the sequence being analyzed compared to a reference                                                                                       |
+| `amino_acid_mutation` (optional)                  | Amino acid sequence change(s) detected in the sequence being analysed compared to a reference                                                                                       |
 | `amino_acid_mutation_interpretation` (optional)   | Description of identified amino acid mutation(s) that facilitate clinical interpretation.                                                                                           |
 | `reference_gene_length` (optional)                | Length (number of positions) of a gene reference sequence retrieved from a database                                                                                                 |
 | `reference_gene_start` (optional)                 | Position of the first nucleotide in a reference gene sequence                                                                                                                       |
@@ -502,8 +502,8 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `comBGC/`
-  - `combgc_complete_summary.tsv`: summarized output from all BGC detection tools used in tsv format (all samples concatenated).
-  - `*/combgc_summary.tsv`: summarized output from all applied BGC detection tools in tsv format for each sample.
+  - `combgc_complete_summary.tsv`: summarised output from all BGC detection tools used in tsv format (all samples concatenated).
+  - `*/combgc_summary.tsv`: summarised output from all applied BGC detection tools in tsv format for each sample.
 
 </details>
 
@@ -529,7 +529,7 @@ Output Summaries:
 
 </details>
 
-**comBGC** is a tool built for nf-core/funcscan which summarizes the results of the **Biosynthetic Gene Cluster (BGC)** prediction tools (antiSMASH, deepBGC, GECCO) used in the pipeline into one comprehensive tabular summary with standardized headers.
+**comBGC** is a tool built for nf-core/funcscan which summarizes the results of the **Biosynthetic Gene Cluster (BGC)** prediction tools (antiSMASH, deepBGC, GECCO) used in the pipeline into one comprehensive tabular summary with standardised headers.
 
 > ℹ️ comBGC does not feature `hmmer_hmmsearch` support. Please check the hmmsearch results directory.
 

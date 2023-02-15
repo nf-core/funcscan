@@ -624,7 +624,7 @@
             "type": "object",
             "description": "Antimicrobial resistance gene detection using a deep learning model",
             "default": "",
-            "help_text": "fARGene (Fragmented Antibiotic Resistance Gene Identifier) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimized models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes. \n\nDocumentation: [https://github.com/fannyhb/fargene](https://github.com/fannyhb/fargene)",
+            "help_text": "fARGene (Fragmented Antibiotic Resistance Gene Identifier) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimised models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes. \n\nDocumentation: [https://github.com/fannyhb/fargene](https://github.com/fannyhb/fargene)",
             "properties": {
                 "arg_skip_fargene": {
                     "type": "boolean",
