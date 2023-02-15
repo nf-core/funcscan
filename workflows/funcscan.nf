@@ -11,7 +11,8 @@ WorkflowFuncscan.initialise(params, log)
 
 // Check input path parameters to see if they exist
 def checkPathParamList = [ params.input, params.multiqc_config, params.annotation_bakta_db,
-                            params.amp_hmmsearch_models, params.arg_amrfinderplus_db, params.arg_deeparg_data,
+                            params.amp_hmmsearch_models, params.amp_ampcombi_db,
+                            params.arg_amrfinderplus_db, params.arg_deeparg_data,
                             params.bgc_antismash_databases, params.bgc_antismash_installationdirectory,
                             params.bgc_deepbgc_database, params.bgc_hmmsearch_models ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
@@ -37,7 +38,7 @@ if ( fargene_classes_missing.size() > 0 ) exit 1, "[nf-core/funcscan] ERROR: inv
 
 // Validate DeepARG inputs
 
-if ( params.run_arg_screening && !params.arg_skip_deeparg && !params.arg_deeparg_data ) exit 1, "[nf-core/funcscan] ERROR: DeepARG database server is currently broken. Automated download is not possible. Please see https://nf-co.re/funcscan/usage#deeparg for instructions on trying to download manually."
+if ( params.run_arg_screening && !params.arg_skip_deeparg && !params.arg_deeparg_data ) exit 1, "[nf-core/funcscan] ERROR: DeepARG database server is currently broken. Automated download is not possible. Please see https://nf-co.re/funcscan/usage#deeparg for instructions on trying to download manually, or run with `--arg_skip_deeparg`."
 
 // Validate antiSMASH inputs
 // 1. Make sure that either both or none of the antiSMASH directories are supplied
@@ -122,12 +123,11 @@ workflow FUNCSCAN {
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
     // Some tools require uncompressed input
-    INPUT_CHECK.out.contigs
+    fasta_prep = INPUT_CHECK.out.contigs
         .branch {
             compressed: it[1].toString().endsWith('.gz')
             uncompressed: it[1]
         }
-        .set { fasta_prep }
 
     GUNZIP ( fasta_prep.compressed )
     ch_versions = ch_versions.mix(GUNZIP.out.versions)
@@ -139,6 +139,7 @@ workflow FUNCSCAN {
 
     // Add to meta the length of longest contig for downstream filtering
     BIOAWK ( ch_prepped_fastas )
+    ch_versions = ch_versions.mix(BIOAWK.out.versions)
 
     ch_prepped_input = ch_prepped_fastas
                         .join( BIOAWK.out.longest )

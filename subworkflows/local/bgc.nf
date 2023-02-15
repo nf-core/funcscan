@@ -17,9 +17,9 @@ workflow BGC {
 
     take:
     fna         // tuple val(meta), path(PREPPED_INPUT.out.fna)
-    gff         // tuple val(meta), path(PROKKA.out.gff)
-    faa         // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
-    gbk         // tuple val(meta), path(PROKKA.out.gbk)
+    gff         // tuple val(meta), path(<ANNO_TOOL>.out.gff)
+    faa         // tuple val(meta), path(<ANNO_TOOL>.out.faa)
+    gbk         // tuple val(meta), path(<ANNO_TOOL>.out.gbk)
 
     main:
     ch_versions              = Channel.empty()
@@ -46,14 +46,19 @@ workflow BGC {
 
         } else {
 
-            // May need to update each version of antismash-lite due to changes to scripts inside these tars
+            // May need to update on each new version of antismash-lite due to changes to scripts inside these tars
             ch_css_for_antismash = "https://github.com/nf-core/test-datasets/raw/91bb8781c576967e23d2c5315dd4d43213575033/data/delete_me/antismash/css.tar.gz"
             ch_detection_for_antismash = "https://github.com/nf-core/test-datasets/raw/91bb8781c576967e23d2c5315dd4d43213575033/data/delete_me/antismash/detection.tar.gz"
             ch_modules_for_antismash = "https://github.com/nf-core/test-datasets/raw/91bb8781c576967e23d2c5315dd4d43213575033/data/delete_me/antismash/modules.tar.gz"
 
             UNTAR_CSS ( [ [], ch_css_for_antismash ] )
+            ch_versions = ch_versions.mix(UNTAR_CSS.out.versions)
+
             UNTAR_DETECTION ( [ [], ch_detection_for_antismash ] )
+            ch_versions = ch_versions.mix(UNTAR_DETECTION.out.versions)
+
             UNTAR_MODULES ( [ [], ch_modules_for_antismash ] )
+            ch_versions = ch_versions.mix(UNTAR_MODULES.out.versions)
 
             ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES ( UNTAR_CSS.out.untar.map{ it[1] }, UNTAR_DETECTION.out.untar.map{ it[1] }, UNTAR_MODULES.out.untar.map{ it[1] } )
             ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.versions)
@@ -110,11 +115,10 @@ workflow BGC {
                 [meta, files.flatten()]
             }
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(ch_antismashresults_for_combgc)
-
     }
 
     // DEEPBGC
-    if ( !params.bgc_skip_deepbgc ){
+    if ( !params.bgc_skip_deepbgc ) {
         if ( params.bgc_deepbgc_database ) {
 
             ch_deepbgc_database = Channel
@@ -123,13 +127,12 @@ workflow BGC {
         } else {
             DEEPBGC_DOWNLOAD()
             ch_deepbgc_database = DEEPBGC_DOWNLOAD.out.db
+            ch_versions = ch_versions.mix(DEEPBGC_DOWNLOAD.out.versions)
         }
 
-    ch_deepbgc_input = fna
-
-    DEEPBGC_PIPELINE ( ch_deepbgc_input, ch_deepbgc_database)
-    ch_versions = ch_versions.mix(DEEPBGC_PIPELINE.out.versions)
-    ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(DEEPBGC_PIPELINE.out.bgc_tsv)
+        DEEPBGC_PIPELINE ( fna, ch_deepbgc_database)
+        ch_versions = ch_versions.mix(DEEPBGC_PIPELINE.out.versions)
+        ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(DEEPBGC_PIPELINE.out.bgc_tsv)
     }
 
     // GECCO

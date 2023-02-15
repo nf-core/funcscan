@@ -2,7 +2,7 @@
     Run ARG screening tools
 */
 
-include { ABRICATE_RUN                } from '../../modules/nf-core/abricate/run/main'
+include { ABRICATE_RUN                }  from '../../modules/nf-core/abricate/run/main'
 include { AMRFINDERPLUS_UPDATE        }  from '../../modules/nf-core/amrfinderplus/update/main'
 include { AMRFINDERPLUS_RUN           }  from '../../modules/nf-core/amrfinderplus/run/main'
 include { FARGENE                     }  from '../../modules/nf-core/fargene/main'
@@ -83,7 +83,7 @@ workflow ARG {
         RGI_MAIN ( contigs )
         ch_versions = ch_versions.mix(RGI_MAIN.out.versions)
 
-    // Reporting
+        // Reporting
         HAMRONIZATION_RGI ( RGI_MAIN.out.tsv, 'json', RGI_MAIN.out.tool_version, RGI_MAIN.out.db_version )
         ch_versions = ch_versions.mix(HAMRONIZATION_RGI.out.versions)
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_RGI.out.json)

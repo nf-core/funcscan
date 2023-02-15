@@ -13,7 +13,7 @@ nf-core/funcscan is a pipeline for efficient and parallelised screening of long 
 The typical command for running the pipeline is as follows:
 
 ```bash
-nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile docker
+nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile docker --run_<amp/arg/bgc>_screening
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
@@ -55,14 +55,14 @@ The input samplesheet has to be a comma-separated file (`.csv`) with 2 columns (
 
 ```bash
 sample,fasta
-sample_1,https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/wastewater_metagenome_contigs_1.fasta.gz
-sample_2,https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/wastewater_metagenome_contigs_2.fasta.gz
+sample_1,/<path>/<to>/wastewater_metagenome_contigs_1.fasta.gz
+sample_2,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gz
 ```
 
 | Column   | Description                                                                                                                                                |
 | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sample` | Custom sample name. This will be used to name all output files from the pipeline. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fasta`  | Full path to a gzipped or uncompressed FASTA file. Accepted file suffixes are: `.fasta`, `.fna`, or `.fa`, or any of these with `.gz`, e.g. `.fa.gz`.      |
+| `fasta`  | Path or URL to a gzipped or uncompressed FASTA file. Accepted file suffixes are: `.fasta`, `.fna`, or `.fa`, or any of these with `.gz`, e.g. `.fa.gz`.    |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -78,7 +78,7 @@ antiSMASH has a minimum contig parameter, in which only contigs of a certain len
 
 To prevent entire pipeline failures due to a single 'bad sample', nf-core/funcscan will filter out any input sample in which none of the contigs reach the minimum contig length in bp specified with `--bgc_antismash_sampleminlength` (default: 1000).
 
-> ⚠️ If a sample does not reach this contig length threshold, you will receive a warning in your console and in the `.nextflow.log` file, and no result files will exist for this sample in your results directory.
+> ⚠️ If a sample does not reach this contig length threshold, you will receive a warning in your console and in the `.nextflow.log` file, and no result files will exist for this sample in your results directory for this tool.
 
 When the annotation is run with Prokka, the resulting `.gbk` file passed to antiSMASH may produce the error `translation longer than location allows` and end the pipeline run. This Prokka bug has been reported before (see [discussion on GitHub](https://github.com/antismash/antismash/discussions/450)) and is not likely to be fixed soon.
 
@@ -94,7 +94,7 @@ Here we will describe where you can obtain databases and reference files for too
 
 nf-core/funcscan offers multiple tools for annotating input sequences. Bakta is a new tool touted as a bacteria-only successor to the well-established Prokka.
 
-To supply the required Bakta database (and not have the pipeline do that at every new run), add the flag `--annotation_bakta_db`. It must be downloaded from the Bakta Zenodo archive, the link of which can be found on the [Bakta GitHub repository](https://github.com/oschwengers/bakta#database-download).
+To supply the required Bakta database (and not have the pipeline do that at every new run), use the flag `--annotation_bakta_db`. It must be downloaded from the Bakta Zenodo archive, the link of which can be found on the [Bakta GitHub repository](https://github.com/oschwengers/bakta#database-download).
 
 Once downloaded this must be untarred:
 
@@ -108,7 +108,7 @@ And then passed to the pipeline with:
 --annotation_bakta_db /<path>/<to>/db/
 ```
 
-Hint: The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+> ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
 
 ### hmmsearch
 
@@ -166,7 +166,7 @@ The downloaded database folder contains the AMR related files:
 
 2. Supply the database directory path to the pipeline as described above.
 
-Hint: The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+> ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
 
 ### DeepARG
 
@@ -196,14 +196,15 @@ You can then supply the path to resulting database directory with:
 Note that if you supply your own database that is not downloaded by the pipeline, make sure to also supply `--arg_deeparg_data_version` along
 with the version number so hAMRonization will correctly display the database version in the summary report.
 
-Hint: The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+> ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
 
 ### antiSMASH
 
 antiSMASH requires several databases for the detection of potential biosynthetic gene cluster (BGC) sequences (ClusterBlast, MIBiG, Pfam, Resfams, TIGRFAMs).
 
 nf-core/funcscan can download these databases for you, however this is very slow and pipeline runtime will be improved if you download them separately and supply them to the pipeline.
-The same applies for the antiSMASH installation directory, which is also a required parameter for the pipeline, due to some slight incompatibility when using containers.
+
+The same applies for the antiSMASH installation directory, which is also a required parameter for the pipeline when using containers, due to some slight incompatibility when using such engines.
 
 To supply the database directories to the pipeline:
 
@@ -218,9 +219,9 @@ To supply the database directories to the pipeline:
 
 Note that the names of the supplied folders must differ from each other (e.g. `antismash_db` and `antismash_dir`). If they are not provided, the databases will be auto-downloaded upon each BGC screening run of the pipeline.
 
-Hint: The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+> ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
 
-> If installing with conda, the installation directory will be `lib/python3.8/site-packages/antismash` from the base directory of your conda install or conda environment directory.
+> ℹ️ If installing with conda, the installation directory will be `lib/python3.8/site-packages/antismash` from the base directory of your conda install or conda environment directory.
 
 ### DeepBGC
 
