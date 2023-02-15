@@ -11,7 +11,8 @@ WorkflowFuncscan.initialise(params, log)
 
 // Check input path parameters to see if they exist
 def checkPathParamList = [ params.input, params.multiqc_config, params.annotation_bakta_db,
-                            params.amp_hmmsearch_models, params.arg_amrfinderplus_db, params.arg_deeparg_data,
+                            params.amp_hmmsearch_models, params.amp_ampcombi_db,
+                            params.arg_amrfinderplus_db, params.arg_deeparg_data,
                             params.bgc_antismash_databases, params.bgc_antismash_installationdirectory,
                             params.bgc_deepbgc_database, params.bgc_hmmsearch_models ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }

@@ -17,9 +17,9 @@ workflow BGC {
 
     take:
     fna         // tuple val(meta), path(PREPPED_INPUT.out.fna)
-    gff         // tuple val(meta), path(PROKKA.out.gff)
-    faa         // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
-    gbk         // tuple val(meta), path(PROKKA.out.gbk)
+    gff         // tuple val(meta), path(<ANNO_TOOL>.out.gff)
+    faa         // tuple val(meta), path(<ANNO_TOOL>.out.faa)
+    gbk         // tuple val(meta), path(<ANNO_TOOL>.out.gbk)
 
     main:
     ch_versions              = Channel.empty()
