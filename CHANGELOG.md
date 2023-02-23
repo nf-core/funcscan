@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- Removed a header check in the `check_samplesheet.py` script that was producing false negatives. Presence of required columns is still validated.
+
 ### `Dependencies`
 
 ### `Deprecated`
