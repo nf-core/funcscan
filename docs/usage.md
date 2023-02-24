@@ -86,9 +86,15 @@ When the annotation is run with Prokka, the resulting `.gbk` file passed to anti
 
 ## Databases and reference files
 
-Various tools of nf-core/funcscan use databases and reference files to operate. While nf-core/funcscan offers the functionality to autodownload databases for you, these databases can be very large, and it is more efficient to store these files in a central place from where you can reuse them across pipeline runs.
+Various tools of nf-core/funcscan use databases and reference files to operate.
 
-Here we will describe where you can obtain databases and reference files for tools included in the pipeline.
+nf-core/funcscan offers the functionality to auto-download databases for you, and as these databases can be very large, and we suggest to store these files in a central place from where you can reuse them across pipeline runs.
+
+We **highly recommend** allowing the pipeline to download these databases for you on a first run, saving these to your results directory with `--save_databases`, then moving these to a different location (in case you wish to delete the results directory of this first run). An exception to this is HMM files where no auto-downloading functionality is possible.
+
+> ⚠️ We generally do not recommend downloading the databases yourself, as this can often be non-trivial to do!
+
+As a reference, we will describe below where and how you can obtain databases and reference files used for tools included in the pipeline.
 
 ### Bakta
 

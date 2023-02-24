@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- Removed a header check in the `check_samplesheet.py` script that was producing false negatives. Presence of required columns is still validated.
+- Removed a header check in the `check_samplesheet.py` script that was producing false negatives. Presence of required columns is still validated. (by @Midnighter)
+- Improved database downloading guidance to emphasise it is recommended to let nf-core/funcscan do the downloading on a first run, rather than manually downloading yourself (reported by @alexhbnr, fixed by @jfy133)
 
 ### `Dependencies`
 
