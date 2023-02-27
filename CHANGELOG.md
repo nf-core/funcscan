@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- Added pipeline citation DOI to `WorkflowMain.groovy` to display it when executing the pipeline
+
 ### `Fixed`
 
 - Removed a header check in the `check_samplesheet.py` script that was producing false negatives. Presence of required columns is still validated. (by @Midnighter)
