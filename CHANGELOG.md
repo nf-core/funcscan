@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [#229](https://github.com/nf-core/funcscan/pull/229) Added pipeline citation DOI to `WorkflowMain.groovy` to display it when executing the pipeline. (by @jasmezz)
+- [#229](https://github.com/nf-core/funcscan/pull/229) Added pipeline DOI to `WorkflowMain.groovy` to display citation info when executing the pipeline. (by @jasmezz)
 
 ### `Fixed`
 
