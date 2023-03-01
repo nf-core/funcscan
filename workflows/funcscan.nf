@@ -186,7 +186,7 @@ workflow FUNCSCAN {
                     .fromPath( params.annotation_bakta_db )
                     .first()
             } else {
-                BAKTA_BAKTADBDOWNLOAD ()
+                BAKTA_BAKTADBDOWNLOAD ( params.annotation_bakta_db_type )
                 ch_versions = ch_versions.mix( BAKTA_BAKTADBDOWNLOAD.out.versions )
                 ch_bakta_db = ( BAKTA_BAKTADBDOWNLOAD.out.db )
             }
