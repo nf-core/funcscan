@@ -7,16 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [#233](https://github.com/nf-core/funcscan/pull/233) Added parameter `annotation_bakta_db_light` to be able to switch between downloading either light (1.3 GB) or full (33.1 GB) versions of the Bakta database.
+- [#235](https://github.com/nf-core/funcscan/pull/235) Added parameter `annotation_bakta_db_light` to be able to switch between downloading either light (1.3 GB) or full (33.1 GB) versions of the Bakta database.
 
 ### `Fixed`
 
-- [#233](https://github.com/nf-core/funcscan/pull/233) Improved annotation speed by switching off Bakta annotation steps by default which are irrelevant for the three pipeline workflows.
+- [#235](https://github.com/nf-core/funcscan/pull/235) Improved annotation speed by switching off Bakta annotation steps by default which are irrelevant for the three pipeline workflows.
 
 ### `Dependencies`
 
-- [#233](https://github.com/nf-core/funcscan/pull/233) Bumped bakta/bakta 1.6.1 -> 1.7.0
-- [#233](https://github.com/nf-core/funcscan/pull/233) Bumped bakta/baktadbdownload 1.6.1 -> 1.7.0
+- [#235](https://github.com/nf-core/funcscan/pull/235) Bumped bakta/bakta 1.6.1 -> 1.7.0
+- [#235](https://github.com/nf-core/funcscan/pull/235) Bumped bakta/baktadbdownload 1.6.1 -> 1.7.0
 
 ### `Deprecated`
 
