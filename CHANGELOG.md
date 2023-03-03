@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- Added parameter `annotation_bakta_db_light` to be able to switch between downloading either light (1.3 GB) or full (33.1 GB) versions of the Bakta database.
+
 ### `Fixed`
 
+- Improved annotation speed by switching off Bakta annotation steps by default which are irrelevant for the three pipeline workflows.
+
 ### `Dependencies`
+
+- Update Bakta to version 1.7.0
 
 ### `Deprecated`
 
