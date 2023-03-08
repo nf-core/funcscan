@@ -11,8 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#237](https://github.com/nf-core/funcscan/pull/237) Reactivate DeepARG automatic database downloading and CI tests as server is now back up. (by @jfy133)
 - [#235](https://github.com/nf-core/funcscan/pull/235) Improved annotation speed by switching off Bakta annotation steps by default which are irrelevant for the three pipeline workflows. (by @jasmezz)
-- Renamed parameter `annotation_bakta_db` to `annotation_bakta_db_local` and updated all occurrences in all files (to disambiguate the difference to `annotation_bakta_db_light`). (by @jasmezz)
+- [#235](https://github.com/nf-core/funcscan/pull/235) Renamed parameter `annotation_bakta_db` to `annotation_bakta_db_local` and updated all occurrences in all files (to disambiguate the difference to `annotation_bakta_db_light`). (by @jasmezz)
 
 ### `Dependencies`
 
