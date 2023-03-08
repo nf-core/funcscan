@@ -79,11 +79,8 @@ workflow AMP {
 
     //AMPCOMBI
     ch_input_for_ampcombi = ch_ampresults_for_ampcombi
-        .dump(tag: "ampcombi_raw")
         .groupTuple()
-        .dump(tag: "ampcombi_group")
-        .join( ch_faa_for_ampcombi.dump(tag: "faa") )
-        .dump(tag: "ampcombi_join")
+        .join( ch_faa_for_ampcombi )
         .multiMap{
             input: [ it[0], it[1] ]
             faa: it[2]
