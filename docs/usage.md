@@ -178,8 +178,6 @@ The downloaded database folder contains the AMR related files:
 
 DeepARG requires a database of potential antimicrobial resistance gene sequences based on a consensus from UNIPROT, CARD, and ARDB.
 
-> ⚠️ As of January 2023 the DeepARG database server is down! We have deactivated automated database downloading in the pipeline - you can try to download your own copy using the instructions below!
-
 nf-core/funcscan can download this database for you, however it is very slow and pipeline runtime will be improved if you download this separately and supply it to the pipeline.
 
 You can either:
