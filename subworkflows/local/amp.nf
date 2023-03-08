@@ -6,6 +6,7 @@ include { MACREL_CONTIGS                                            } from '../.
 include { HMMER_HMMSEARCH as AMP_HMMER_HMMSEARCH                    } from '../../modules/nf-core/hmmer/hmmsearch/main'
 include { AMPLIFY_PREDICT                                           } from '../../modules/nf-core/amplify/predict/main'
 include { AMPIR                                                     } from '../../modules/nf-core/ampir/main'
+include { DRAMP_DOWNLOAD                                            } from '../../modules/local/dramp_download'
 include { AMPCOMBI                                                  } from '../../modules/nf-core/ampcombi/main'
 include { GUNZIP as GUNZIP_MACREL ; GUNZIP as GUNZIP_HMMER          } from '../../modules/nf-core/gunzip/main'
 
@@ -78,14 +79,23 @@ workflow AMP {
 
     //AMPCOMBI
     ch_input_for_ampcombi = ch_ampresults_for_ampcombi
+        .dump(tag: "ampcombi_raw")
         .groupTuple()
-        .join( ch_faa_for_ampcombi )
+        .dump(tag: "ampcombi_group")
+        .join( ch_faa_for_ampcombi.dump(tag: "faa") )
+        .dump(tag: "ampcombi_join")
         .multiMap{
             input: [ it[0], it[1] ]
             faa: it[2]
         }
     // Checks if `--amp_database` is a user supplied path and if the path does not exist it goes to default, which downloads the DRAMP database once.
-    if ( params.amp_ampcombi_db ) { ch_ampcombi_input_db = Channel.fromPath( params.amp_ampcombi_db, checkIfExists: true ) } else { ch_ampcombi_input_db = [] }
+    if ( params.amp_ampcombi_db ) {
+        ch_ampcombi_input_db = Channel
+                                    .fromPath( params.amp_ampcombi_db, checkIfExists: true ) }
+    else {
+        DRAMP_DOWNLOAD()
+        ch_ampcombi_input_db = DRAMP_DOWNLOAD.out.db
+    }
 
     AMPCOMBI( ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_ampcombi_input_db )
     ch_ampcombi_summaries = ch_ampcombi_summaries.mix(AMPCOMBI.out.csv)
