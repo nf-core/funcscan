@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#237](https://github.com/nf-core/funcscan/pull/237) Reactivate DeepARG automatic database downloading and CI tests as server is now back up. (by @jfy133)
+- [#242](https://github.com/nf-core/funcscan/pull/242) Fixed MACREL '.faa' issue that was generated when it was run on its own. (by @Darcy220606)
 
 ### `Dependencies`
 
