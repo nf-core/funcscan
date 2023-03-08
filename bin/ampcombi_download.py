@@ -20,6 +20,7 @@ from Bio import SeqIO
 import tempfile
 import shutil
 
+
 ########################################
 #  FUNCTION: DOWNLOAD DRAMP DATABASE AND CLEAN IT
 #########################################
