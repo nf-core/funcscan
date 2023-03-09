@@ -36,10 +36,6 @@ def fargene_classes_missing = fargene_user_classes - fargene_classes_valid
 
 if ( fargene_classes_missing.size() > 0 ) exit 1, "[nf-core/funcscan] ERROR: invalid class present in --arg_fargene_hmmodel. Please check input. Invalid class: ${fargene_classes_missing.join(', ')}"
 
-// Validate DeepARG inputs
-
-if ( params.run_arg_screening && !params.arg_skip_deeparg && !params.arg_deeparg_data ) exit 1, "[nf-core/funcscan] ERROR: DeepARG database server is currently broken. Automated download is not possible. Please see https://nf-co.re/funcscan/usage#deeparg for instructions on trying to download manually, or run with `--arg_skip_deeparg`."
-
 // Validate antiSMASH inputs
 // 1. Make sure that either both or none of the antiSMASH directories are supplied
 if ( ( params.run_bgc_screening && !params.bgc_antismash_databases && params.bgc_antismash_installationdirectory && !params.bgc_skip_antismash) || ( params.run_bgc_screening && params.bgc_antismash_databases && !params.bgc_antismash_installationdirectory && !params.bgc_skip_antismash ) ) exit 1, "[nf-core/funcscan] ERROR: You supplied either the antiSMASH database or its installation directory, but not both. Please either supply both directories or none (letting the pipeline download them instead)."
