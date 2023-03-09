@@ -98,13 +98,10 @@ workflow AMP {
                 input: [ it[0] ]
                 summary: it[1]
             }
-    //ch_ampcombi_summaries_out.summary.collectFile(name: 'ampcombi_complete_summary.csv', storeDir: "${params.outdir}/reports/ampcombi", keepHeader:true)
-    ch_ampcombi_complete_summary = ch_ampcombi_summaries_out.summary.collectFile(name: 'ampcombi_complete_summary.csv', keepHeader:true)
-    //ch_summary_id = Channel.of(['id':'ampcombi_complete_summary'])
-    //ch_summary_id.dump(tag:'summary_id')
-    //ch_tabix_input = ch_summary_id.join(ch_ampcombi_complete_summary)
-    ch_tabix_input = Channel.of(['id':'ampcombi_complete_summary']).combine(ch_ampcombi_complete_summary)
-    ch_tabix_input.dump(tag:'ampsummary')
+    
+    ch_tabix_input = Channel.of(['id':'ampcombi_complete_summary'])
+        .combine(ch_ampcombi_summaries_out.summary.collectFile(name: 'ampcombi_complete_summary.csv', keepHeader:true))
+    
     TABIX_BGZIP(ch_tabix_input)
 
     emit:
