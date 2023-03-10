@@ -100,7 +100,7 @@ As a reference, we will describe below where and how you can obtain databases an
 
 nf-core/funcscan offers multiple tools for annotating input sequences. Bakta is a new tool touted as a bacteria-only successor to the well-established Prokka.
 
-To supply the preferred Bakta database (and not have the pipeline do that at every new run), use the flag `--annotation_bakta_db_localpath`. The full or light Bakta database must be downloaded from the Bakta Zenodo archive, the link of which can be found on the [Bakta GitHub repository](https://github.com/oschwengers/bakta#database-download).
+To supply the preferred Bakta database (and not have the pipeline download at every new run), use the flag `--annotation_bakta_db_localpath`. The full or light Bakta database must be downloaded from the Bakta Zenodo archive, the link of which can be found on the [Bakta GitHub repository](https://github.com/oschwengers/bakta#database-download).
 
 Once downloaded this must be untarred:
 
