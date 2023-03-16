@@ -10,7 +10,7 @@ def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
 WorkflowFuncscan.initialise(params, log)
 
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.multiqc_config, params.annotation_bakta_db,
+def checkPathParamList = [ params.input, params.multiqc_config, params.annotation_bakta_db_localpath,
                             params.amp_hmmsearch_models, params.amp_ampcombi_db,
                             params.arg_amrfinderplus_db, params.arg_deeparg_data,
                             params.bgc_antismash_databases, params.bgc_antismash_installationdirectory,
@@ -35,10 +35,6 @@ def fargene_classes_valid = fargene_user_classes.intersect( fargene_valid_classe
 def fargene_classes_missing = fargene_user_classes - fargene_classes_valid
 
 if ( fargene_classes_missing.size() > 0 ) exit 1, "[nf-core/funcscan] ERROR: invalid class present in --arg_fargene_hmmodel. Please check input. Invalid class: ${fargene_classes_missing.join(', ')}"
-
-// Validate DeepARG inputs
-
-if ( params.run_arg_screening && !params.arg_skip_deeparg && !params.arg_deeparg_data ) exit 1, "[nf-core/funcscan] ERROR: DeepARG database server is currently broken. Automated download is not possible. Please see https://nf-co.re/funcscan/usage#deeparg for instructions on trying to download manually, or run with `--arg_skip_deeparg`."
 
 // Validate antiSMASH inputs
 // 1. Make sure that either both or none of the antiSMASH directories are supplied
@@ -181,12 +177,12 @@ workflow FUNCSCAN {
         }   else if ( params.annotation_tool == "bakta" ) {
 
             // BAKTA prepare download
-            if ( params.annotation_bakta_db ) {
+            if ( params.annotation_bakta_db_localpath ) {
                 ch_bakta_db = Channel
-                    .fromPath( params.annotation_bakta_db )
+                    .fromPath( params.annotation_bakta_db_localpath )
                     .first()
             } else {
-                BAKTA_BAKTADBDOWNLOAD ()
+                BAKTA_BAKTADBDOWNLOAD ( )
                 ch_versions = ch_versions.mix( BAKTA_BAKTADBDOWNLOAD.out.versions )
                 ch_bakta_db = ( BAKTA_BAKTADBDOWNLOAD.out.db )
             }
