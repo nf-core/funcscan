@@ -9,6 +9,8 @@ include { AMPIR                                                     } from '../.
 include { DRAMP_DOWNLOAD                                            } from '../../modules/local/dramp_download'
 include { AMPCOMBI                                                  } from '../../modules/nf-core/ampcombi/main'
 include { GUNZIP as GUNZIP_MACREL ; GUNZIP as GUNZIP_HMMER          } from '../../modules/nf-core/gunzip/main'
+include { TABIX_BGZIP                                               } from '../../modules/nf-core/tabix/bgzip/main'
+
 
 workflow AMP {
     take:
@@ -103,7 +105,11 @@ workflow AMP {
                 input: [ it[0] ]
                 summary: it[1]
             }
-    ch_ampcombi_summaries_out.summary.collectFile(name: 'ampcombi_complete_summary.csv', storeDir: "${params.outdir}/reports/ampcombi", keepHeader:true)
+    
+    ch_tabix_input = Channel.of(['id':'ampcombi_complete_summary'])
+        .combine(ch_ampcombi_summaries_out.summary.collectFile(name: 'ampcombi_complete_summary.csv', keepHeader:true))
+    
+    TABIX_BGZIP(ch_tabix_input)
 
     emit:
     versions = ch_versions
