@@ -169,7 +169,7 @@ workflow FUNCSCAN {
                 ch_annotation_gbk        = PRODIGAL_GBK.out.gene_annotations
             }
         } else if ( params.annotation_tool == "pyrodigal" ) {
-            PYRODIGAL ( ch_prepped_input, "gff" )
+            PYRODIGAL ( ch_prepped_input )
             ch_versions              = ch_versions.mix(PYRODIGAL.out.versions)
             ch_annotation_faa        = PYRODIGAL.out.faa
             ch_annotation_fna        = PYRODIGAL.out.fna

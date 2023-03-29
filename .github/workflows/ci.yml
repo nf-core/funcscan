@@ -84,6 +84,7 @@ jobs:
         parameters:
           - "--annotation_tool prodigal"
           - "--annotation_tool prokka"
+          - "--annotation_tool pyrodigal"
 
     steps:
       - name: Check out pipeline code
