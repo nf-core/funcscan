@@ -342,7 +342,7 @@
                 "annotation_prodigal_closed": {
                     "type": "boolean",
                     "description": "Does not allow partial genes on contig edges.",
-                    "help_text": "Suppresses the partial genes from being on contig edge to result in closed ends. Should be activated for genomes where it is sure the first and last bases of the sequence(s) do not fall inside a gene. Run together with `-p normal` (former `-p single`) .\n\nFor more information check Prodigal [documentation](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `-c`",
+                    "help_text": "Suppresses partial genes from being on contig edge, resulting in closed ends. Should only be activated for genomes where it is sure the first and last bases of the sequence(s) do not fall inside a gene. Run together with `-p normal` (former `-p single`) .\n\nFor more information check Prodigal [documentation](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `-c`",
                     "fa_icon": "fas fa-circle"
                 },
                 "annotation_prodigal_transtable": {
@@ -378,7 +378,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-circle",
                     "description": "Does not allow partial genes on contig edges.",
-                    "help_text": "Suppresses the partial genes from being on contig edge to result in closed ends. Should be activated for genomes where it is sure the first and last bases of the sequence(s) do not fall inside a gene. Run together with `-p single` .\n\nFor more information check Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `-c`"
+                    "help_text": "Suppresses partial genes from being on contig edge, resulting in closed ends. Should only be activated for genomes where it is sure the first and last bases of the sequence(s) do not fall inside a gene. Run together with `-p single` .\n\nFor more information check Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `-c`"
                 },
                 "annotation_pyrodigal_transtable": {
                     "type": "integer",
