@@ -156,7 +156,7 @@ workflow BGC {
 
     // HMMSEARCH
     if ( !params.bgc_skip_hmmsearch ) {
-        if ( params.bgc_hmmsearch_models ) { ch_bgc_hmm_models = Channel.fromPath( params.bgc_hmmsearch_models, checkIfExists: true ) } else { exit 1, '[nf-core/funcscan] error: hmm model files not found for --bgc_hmmsearch_models! Please check input.' }
+        if ( params.bgc_hmmsearch_models ) { ch_bgc_hmm_models = Channel.fromPath( params.bgc_hmmsearch_models, checkIfExists: true ) } else { error('[nf-core/funcscan] error: hmm model files not found for --bgc_hmmsearch_models! Please check input.') }
 
         ch_bgc_hmm_models_meta = ch_bgc_hmm_models
             .map {

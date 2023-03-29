@@ -9,6 +9,7 @@ include { AMPIR                                                     } from '../.
 include { DRAMP_DOWNLOAD                                            } from '../../modules/local/dramp_download'
 include { AMPCOMBI                                                  } from '../../modules/nf-core/ampcombi/main'
 include { GUNZIP as GUNZIP_MACREL_PRED ; GUNZIP as GUNZIP_HMMER  ; GUNZIP as GUNZIP_MACREL_ORFS } from '../../modules/nf-core/gunzip/main'
+include { TABIX_BGZIP                                               } from '../../modules/nf-core/tabix/bgzip/main'
 
 workflow AMP {
     take:
@@ -58,7 +59,7 @@ workflow AMP {
 
     // HMMSEARCH
     if ( !params.amp_skip_hmmsearch ) {
-        if ( params.amp_hmmsearch_models ) { ch_amp_hmm_models = Channel.fromPath( params.amp_hmmsearch_models, checkIfExists: true ) } else { exit 1, '[nf-core/funcscan] error: hmm model files not found for --amp_hmmsearch_models! Please check input.' }
+        if ( params.amp_hmmsearch_models ) { ch_amp_hmm_models = Channel.fromPath( params.amp_hmmsearch_models, checkIfExists: true ) } else { error('[nf-core/funcscan] error: hmm model files not found for --amp_hmmsearch_models! Please check input.') }
 
         ch_amp_hmm_models_meta = ch_amp_hmm_models
             .map {
@@ -107,8 +108,12 @@ workflow AMP {
         .multiMap{
                 input: [ it[0] ]
                 summary: it[1]
-            }
-    ch_ampcombi_summaries_out.summary.collectFile(name: 'ampcombi_complete_summary.csv', storeDir: "${params.outdir}/reports/ampcombi", keepHeader:true)
+        }
+    
+    ch_tabix_input = Channel.of(['id':'ampcombi_complete_summary'])
+        .combine(ch_ampcombi_summaries_out.summary.collectFile(name: 'ampcombi_complete_summary.csv', keepHeader:true))
+    
+    TABIX_BGZIP(ch_tabix_input)
 
     emit:
     versions = ch_versions
