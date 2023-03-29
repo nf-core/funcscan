@@ -153,7 +153,7 @@
                     },
                     "prodigal": {
                         "branch": "master",
-                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
+                        "git_sha": "8c4f2d2ceeb5e9cc4a49a91c0e9a675b6724c043",
                         "installed_by": ["modules"]
                     },
                     "prokka": {

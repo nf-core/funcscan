@@ -88,7 +88,11 @@ include { BGC } from '../subworkflows/local/bgc'
 //
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
-include { GUNZIP                      } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_FASTA_PREP } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_FNA        } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_FAA        } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_GFF        } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_GBK        } from '../modules/nf-core/gunzip/main'
 include { BIOAWK                      } from '../modules/nf-core/bioawk/main'
 include { PROKKA                      } from '../modules/nf-core/prokka/main'
 include { PRODIGAL as PRODIGAL_GFF    } from '../modules/nf-core/prodigal/main'
@@ -125,12 +129,12 @@ workflow FUNCSCAN {
             uncompressed: it[1]
         }
 
-    GUNZIP ( fasta_prep.compressed )
-    ch_versions = ch_versions.mix(GUNZIP.out.versions)
+    GUNZIP_FASTA_PREP ( fasta_prep.compressed )
+    ch_versions = ch_versions.mix(GUNZIP_FASTA_PREP.out.versions)
 
     // Merge all the already uncompressed and newly compressed FASTAs here into
     // a single input channel for downstream
-    ch_prepped_fastas = GUNZIP.out.gunzip
+    ch_prepped_fastas = GUNZIP_FASTA_PREP.out.gunzip
                         .mix(fasta_prep.uncompressed)
 
     // Add to meta the length of longest contig for downstream filtering
@@ -156,16 +160,20 @@ workflow FUNCSCAN {
 
         if ( params.annotation_tool == "prodigal" ) {
             PRODIGAL_GFF ( ch_prepped_input, "gff" )
+            GUNZIP_FAA ( PRODIGAL_GFF.out.amino_acid_fasta )
+            GUNZIP_FNA ( PRODIGAL_GFF.out.nucleotide_fasta)
+            GUNZIP_GFF ( PRODIGAL_GFF.out.gene_annotations )
             ch_versions              = ch_versions.mix(PRODIGAL_GFF.out.versions)
-            ch_annotation_faa        = PRODIGAL_GFF.out.amino_acid_fasta
-            ch_annotation_fna        = PRODIGAL_GFF.out.nucleotide_fasta
-            ch_annotation_gff        = PRODIGAL_GFF.out.gene_annotations
+            ch_annotation_faa        = GUNZIP_FAA.out.gunzip
+            ch_annotation_fna        = GUNZIP_FNA.out.gunzip
+            ch_annotation_gff        = GUNZIP_GFF.out.gunzip
             ch_annotation_gbk        = Channel.empty() // Prodigal doesn't produce GBK
 
             if ( params.save_annotations == true ) {
                 PRODIGAL_GBK ( ch_prepped_input, "gbk" )
+                GUNZIP_GBK ( PRODIGAL_GBK.out.gene_annotations)
                 ch_versions              = ch_versions.mix(PRODIGAL_GBK.out.versions)
-                ch_annotation_gbk        = PRODIGAL_GBK.out.gene_annotations
+                ch_annotation_gbk        = GUNZIP_GBK.out.gunzip
             }
         }   else if ( params.annotation_tool == "prokka" ) {
             PROKKA ( ch_prepped_input, [], [] )
