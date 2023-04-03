@@ -7,14 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [#238](https://github.com/nf-core/funcscan/pull/238) Added dedicated DRAMP database downloading step for AMPcombi to prevent parallel downloads when no database provided by user (by @jfy133)
+- [#238](https://github.com/nf-core/funcscan/pull/238) Added dedicated DRAMP database downloading step for AMPcombi to prevent parallel downloads when no database provided by user. (by @jfy133)
 - [#235](https://github.com/nf-core/funcscan/pull/235) Added parameter `annotation_bakta_db_downloadtype` to be able to switch between downloading either full (33.1 GB) or light (1.3 GB excluding UPS, IPS, PSC, see parameter description) versions of the Bakta database. (by @jasmezz)
 - [#249](https://github.com/nf-core/funcscan/pull/249) Added bakta annotation to CI tests. (by @jasmezz)
 - [#251](https://github.com/nf-core/funcscan/pull/251) Added annotation tool: Pyrodigal. (by @jasmezz)
+- [#253](https://github.com/nf-core/funcscan/pull/253) Updated Prodigal to have compressed output files. (by @jasmezz)
 
 ### `Fixed`
 
-- [#243](https://github.com/nf-core/funcscan/pull/243) Compress the ampcombi_complete_summary.csv in the output directory (by @louperelo)
+- [#243](https://github.com/nf-core/funcscan/pull/243) Compress the ampcombi_complete_summary.csv in the output directory. (by @louperelo)
 - [#237](https://github.com/nf-core/funcscan/pull/237) Reactivate DeepARG automatic database downloading and CI tests as server is now back up. (by @jfy133)
 - [#235](https://github.com/nf-core/funcscan/pull/235) Improved annotation speed by switching off pipeline-irrelevant Bakta annotation steps by default. (by @jasmezz)
 - [#235](https://github.com/nf-core/funcscan/pull/235) Renamed parameter `annotation_bakta_db` to `annotation_bakta_db_localpath`. (by @jasmezz)
