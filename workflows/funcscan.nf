@@ -173,7 +173,7 @@ workflow FUNCSCAN {
                 PRODIGAL_GBK ( ch_prepped_input, "gbk" )
                 GUNZIP_GBK ( PRODIGAL_GBK.out.gene_annotations)
                 ch_versions              = ch_versions.mix(PRODIGAL_GBK.out.versions)
-                ch_annotation_gbk        = GUNZIP_GBK.out.gunzip
+                ch_annotation_gbk        = PRODIGAL_GBK.out.gene_annotations // Prodigal GBK output stays zipped because it is currently not used by any downstream subworkflow.
             }
         }   else if ( params.annotation_tool == "prokka" ) {
             PROKKA ( ch_prepped_input, [], [] )
