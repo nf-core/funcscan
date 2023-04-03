@@ -75,9 +75,9 @@
             "properties": {
                 "annotation_tool": {
                     "type": "string",
-                    "default": "prodigal",
+                    "default": "pyrodigal",
                     "description": "Specify which annotation tool to use for some downstream tools.",
-                    "enum": ["prodigal", "prokka", "bakta"],
+                    "enum": ["prodigal", "pyrodigal", "prokka", "bakta"],
                     "fa_icon": "fas fa-edit"
                 },
                 "save_annotations": {
@@ -250,7 +250,7 @@
                     "default": "Bacteria",
                     "fa_icon": "fab fa-accusoft",
                     "description": "Specify the kingdom that the input represents.",
-                    "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n> ⚠️ Prokka cannot annotate Eukaryotes.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--kingdom`",
+                    "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n> \u26a0\ufe0f Prokka cannot annotate Eukaryotes.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--kingdom`",
                     "enum": ["Archaea", "Bacteria", "Mitochondria", "Viruses"]
                 },
                 "annotation_prokka_gcode": {
@@ -328,21 +328,21 @@
             "help_text": "Prokka annotates genomic sequences belonging to bacterial, archaeal and viral genomes.\n\nDocumentation: https://github.com/tseemann/prokka"
         },
         "annotation_prodigal": {
-            "title": "Annotation: PRODIGAL",
+            "title": "Annotation: Prodigal",
             "type": "object",
-            "description": "These parameters influence the annotation algorithm used by PRODIGAL.",
+            "description": "These parameters influence the annotation algorithm used by Prodigal.",
             "default": "",
             "properties": {
                 "annotation_prodigal_singlemode": {
                     "type": "boolean",
                     "description": "Specify whether to use Prodigal's single-genome mode for long sequences.",
-                    "help_text": "By default Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or longer than 20000 characters.\n\nHowever, more fragmented reads from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter allows to override this and run in single genome mode again.\n\nFor more information check Prodigal [documentation](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s): \n> -PRODIGAL:`-p`",
+                    "help_text": "By default Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or longer than 20000 characters.\n\nHowever, more fragmented reads from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter allows to override this and run in single genome mode again.\n\nFor more information check Prodigal [documentation](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s): \n> -PRODIGAL: `-p`",
                     "fa_icon": "far fa-circle"
                 },
                 "annotation_prodigal_closed": {
                     "type": "boolean",
                     "description": "Does not allow partial genes on contig edges.",
-                    "help_text": "Suppresses the partial genes from being on contig edge to result in closed ends. Should be activated for genomes where it is sure the first and last bases of the sequence(s) do not fall inside a gene. Run together with `-p normal` (former `-p single`) .\n\nFor more information check Prodigal [documentation](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `-c`",
+                    "help_text": "Suppresses partial genes from being on contig edge, resulting in closed ends. Should only be activated for genomes where it is sure the first and last bases of the sequence(s) do not fall inside a gene. Run together with `-p normal` (former `-p single`) .\n\nFor more information check Prodigal [documentation](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `-c`",
                     "fa_icon": "fas fa-circle"
                 },
                 "annotation_prodigal_transtable": {
@@ -354,13 +354,48 @@
                 },
                 "annotation_prodigal_forcenonsd": {
                     "type": "boolean",
-                    "description": "Forces PRODIGAL to scan for motifs.",
+                    "description": "Forces Prodigal to scan for motifs.",
                     "help_text": "Forces PRODIGAL to a full scan for motifs rather than activating the Shine-Dalgarno RBS finder, the default scanner for PRODIGAL to train for motifs.\n\nFor more information check Prodigal [documentation](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `-n`",
                     "fa_icon": "fas fa-barcode"
                 }
             },
             "fa_icon": "fas fa-tools",
             "help_text": "Prodigal is a protein-coding gene prediction tool developed to run on bacterial and archaeal genomes.\n\nDocumentation: https://github.com/hyattpd/prodigal/wiki"
+        },
+        "annotation_pyrodigal": {
+            "title": "Annotation: Pyrodigal",
+            "type": "object",
+            "description": "These parameters influence the annotation algorithm used by Pyrodigal.",
+            "default": "",
+            "properties": {
+                "annotation_pyrodigal_singlemode": {
+                    "type": "boolean",
+                    "fa_icon": "far fa-circle",
+                    "description": "Specify whether to use Pyrodigal's single-genome mode for long sequences.",
+                    "help_text": "By default Pyrodigal runs in 'single genome' mode that requires sequence lengths to be equal or longer than 20000 characters.\n\nHowever, more fragmented reads from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter allows to override this and run in single genome mode again.\n\nFor more information check Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s): \n> -PYRODIGAL: `-p`"
+                },
+                "annotation_pyrodigal_closed": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-circle",
+                    "description": "Does not allow partial genes on contig edges.",
+                    "help_text": "Suppresses partial genes from being on contig edge, resulting in closed ends. Should only be activated for genomes where it is sure the first and last bases of the sequence(s) do not fall inside a gene. Run together with `-p single` .\n\nFor more information check Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `-c`"
+                },
+                "annotation_pyrodigal_transtable": {
+                    "type": "integer",
+                    "default": 11,
+                    "fa_icon": "fas fa-border-all",
+                    "description": "Specifies the translation table used for gene annotation.",
+                    "help_text": "Specifies which translation table should be used for seqeunce annotation. All possible genetic code translation tables can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). The default is set at 11, which is used for standard Bacteria/Archeae.\n\nFor more information check Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `-g`"
+                },
+                "annotation_pyrodigal_forcenonsd": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-barcode",
+                    "description": "Forces Pyrodigal to scan for motifs.",
+                    "help_text": "Forces Pyrodigal to a full scan for motifs rather than activating the Shine-Dalgarno RBS finder, the default scanner for Pyrodigal to train for motifs.\n\nFor more information check Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `-n`"
+                }
+            },
+            "fa_icon": "fas fa-tools",
+            "help_text": "Pyrodigal produces protein-coding gene predictions of bacterial and archaeal genomes, based on the tool Prodigal being resource-optimized. Read more at the [Pyrodigal GitHub](https://github.com/althonos/pyrodigal)\n\nDocumentation: https://pyrodigal.readthedocs.io"
         },
         "database_downloading_options": {
             "title": "Database downloading options",
@@ -828,7 +863,7 @@
                     "default": 1000,
                     "description": "Minimum longest-contig length a sample must have to be screened with antiSMASH.",
                     "fa_icon": "fas fa-ruler-horizontal",
-                    "help_text": "This specifies the minimum length that the longest contig must have for the entire sample to be screened by antiSMASH.\n\nAny samples that do not reach this length will be not be sent to antiSMASH, therefore you will not receive output for these samples in your `--outdir`.\n\n> ⚠️ This is not the same as `--bgc_antismash_contigminlength`, which specifies to only analyse contigs above that threshold but _within_ a sample that has already passed `--bgc_antismash_sampleminlength` sample filter!"
+                    "help_text": "This specifies the minimum length that the longest contig must have for the entire sample to be screened by antiSMASH.\n\nAny samples that do not reach this length will be not be sent to antiSMASH, therefore you will not receive output for these samples in your `--outdir`.\n\n> \u26a0\ufe0f This is not the same as `--bgc_antismash_contigminlength`, which specifies to only analyse contigs above that threshold but _within_ a sample that has already passed `--bgc_antismash_sampleminlength` sample filter!"
                 },
                 "bgc_antismash_contigminlength": {
                     "type": "integer",
@@ -1301,6 +1336,9 @@
         }
     },
     "allOf": [
+        {
+            "$ref": "#/definitions/annotation_pyrodigal"
+        },
         {
             "$ref": "#/definitions/input_output_options"
         },
