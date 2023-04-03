@@ -82,7 +82,7 @@ To prevent entire pipeline failures due to a single 'bad sample', nf-core/funcsc
 
 When the annotation is run with Prokka, the resulting `.gbk` file passed to antiSMASH may produce the error `translation longer than location allows` and end the pipeline run. This Prokka bug has been reported before (see [discussion on GitHub](https://github.com/antismash/antismash/discussions/450)) and is not likely to be fixed soon.
 
-> ⚠️ If antiSMASH is run for BGC detection, we recommend to **not** run Prokka for annotation but instead leave the default annotation tool Prodigal or switch to Bakta (for bacteria only!).
+> ⚠️ If antiSMASH is run for BGC detection, we recommend to **not** run Prokka for annotation but instead use the default annotation tool (Pyrodigal) or switch to Prodigal, or Bakta (the latter to bacteria only!).
 
 ## Databases and reference files
 
