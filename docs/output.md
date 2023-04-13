@@ -298,8 +298,8 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `rgi/`
-  - `<samplename>.json`: hit results in json format
   - `<samplename>.txt`: hit results table separated by '#'
+  - `<samplename>.json`: hit results in json format (only if `--arg_rgi_savejson` supplied)
   - `temp/`:
     - `<samplename>.fasta.temp.*.json`: temporary json files, '\*' stands for 'homolog', 'overexpression', 'predictedGenes' and 'predictedGenes.protein' (only if `--arg_rgi_savetmpfiles` supplied).
 
