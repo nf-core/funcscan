@@ -68,7 +68,7 @@ workflow BGC {
 
         }
 
-        if ( params.annotation_tool == 'prodigal' ) {
+        if ( params.annotation_tool == 'prodigal' || params.annotation_tool == "pyrodigal" ) {
 
             ch_antismash_input = fna.join(gff, by: 0)
                                     .filter {

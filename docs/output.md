@@ -8,7 +8,7 @@ The output of nf-core/funcscan provides reports for each of the functional group
 - antimicrobial peptides (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) – summarised by [AMPcombi](https://github.com/Darcy220606/AMPcombi))
 - biosynthetic gene clusters (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org) – summarised by [comBGC](#combgc))
 
-As a general workflow, we recommend to first look at the summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each result. The tool-specific output directories also includes the output from the functional annotation steps of either [prokka](https://github.com/tseemann/prokka), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set.
+As a general workflow, we recommend to first look at the summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each result. The tool-specific output directories also includes the output from the functional annotation steps of either [prokka](https://github.com/tseemann/prokka), [pyrodigal](https://github.com/althonos/pyrodigal), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set.
 
 Similarly, all downloaded databases are saved (i.e. from [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), and/or [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master)) into the output directory `<outdir>/downloads/` if the `--save_databases` flag was set.
 
@@ -19,9 +19,10 @@ The directories listed below will be created in the results directory (specified
 ```console
 results/
 ├── annotation/
-|   ├── prodigal/
+|   ├── bakta/
+|   ├── prodigal
 |   ├── prokka/
-|   └── bakta/
+|   └── pyrodigal/
 ├── amp/
 |   ├── ampir/
 |   ├── amplify/
@@ -55,7 +56,8 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes p
 
 ORF prediction and annotation with any of:
 
-- [Prodigal](#prodigal) (default) – for open reading frame prediction.
+- [Pyrodigal](#pyrodigal) (default) – for open reading frame prediction.
+- [Prodigal](#prodigal) – for open reading frame prediction.
 - [Prokka](#prokka) – open reading frame prediction and functional protein annotation.
 - [Bakta](#bakta) – open reading frame prediction and functional protein annotation.
 
@@ -93,7 +95,7 @@ Output Summaries:
 
 ### Annotation tools
 
-[Prodigal](#prodigal), [Prokka](#prokka), [Bakta](#bakta)
+[Pyrodigal](#pyrodigal), [Prodigal](#prodigal), [Prokka](#prokka), [Bakta](#bakta)
 
 #### Prodigal
 
@@ -112,6 +114,23 @@ Output Summaries:
 </details>
 
 [Prodigal](https://github.com/hyattpd/Prodigal) annotates whole (meta-)genomes by identifying ORFs in a set of genomic DNA sequences. The output is used by some of the functional screening tools.
+
+#### Pyrodigal
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `pyrodigal/`
+  - `<samplename>/`:
+    - `*.gff`: annotation in GFF3 format, containing both sequences and annotations
+    - `*.fna`: nucleotide FASTA file of the input contig sequences
+    - `*.faa`: protein FASTA file of the translated CDS sequences
+
+> Descriptions taken from the [Pyrodigal documentation](https://pyrodigal.readthedocs.io/)
+
+</details>
+
+[Pyrodigal](https://github.com/althonos/pyrodigal) annotates whole (meta-)genomes by identifying ORFs in a set of genomic DNA sequences. It produces the same results as [Prodigal](#prodigal) while being more resource-optimized, thus faster. Other than Prodigal, Pyrodigal cannot produce output in GenBank format. The output is used by some of the functional screening tools.
 
 #### Prokka
 
