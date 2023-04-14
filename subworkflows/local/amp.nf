@@ -8,9 +8,8 @@ include { AMPLIFY_PREDICT                                           } from '../.
 include { AMPIR                                                     } from '../../modules/nf-core/ampir/main'
 include { DRAMP_DOWNLOAD                                            } from '../../modules/local/dramp_download'
 include { AMPCOMBI                                                  } from '../../modules/nf-core/ampcombi/main'
-include { GUNZIP as GUNZIP_MACREL ; GUNZIP as GUNZIP_HMMER          } from '../../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_MACREL_PRED ; GUNZIP as GUNZIP_HMMER  ; GUNZIP as GUNZIP_MACREL_ORFS } from '../../modules/nf-core/gunzip/main'
 include { TABIX_BGZIP                                               } from '../../modules/nf-core/tabix/bgzip/main'
-
 
 workflow AMP {
     take:
@@ -21,6 +20,7 @@ workflow AMP {
     ch_versions                    = Channel.empty()
     ch_ampresults_for_ampcombi     = Channel.empty()
     ch_ampcombi_summaries          = Channel.empty()
+    ch_macrel_faa                  = Channel.empty()
 
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
@@ -33,24 +33,28 @@ workflow AMP {
     // AMPLIFY
     if ( !params.amp_skip_amplify ) {
         AMPLIFY_PREDICT ( ch_faa_for_amplify, [] )
-        ch_versions = ch_versions.mix(AMPLIFY_PREDICT.out.versions)
-        ch_ampresults_for_ampcombi = ch_ampresults_for_ampcombi.mix(AMPLIFY_PREDICT.out.tsv)
+        ch_versions                 = ch_versions.mix(AMPLIFY_PREDICT.out.versions)
+        ch_ampresults_for_ampcombi  = ch_ampresults_for_ampcombi.mix(AMPLIFY_PREDICT.out.tsv)
     }
 
     // MACREL
     if ( !params.amp_skip_macrel ) {
         MACREL_CONTIGS ( contigs )
-        ch_versions = ch_versions.mix(MACREL_CONTIGS.out.versions)
-        GUNZIP_MACREL ( MACREL_CONTIGS.out.amp_prediction )
-        ch_versions = ch_versions.mix(GUNZIP_MACREL.out.versions)
-        ch_ampresults_for_ampcombi = ch_ampresults_for_ampcombi.mix(GUNZIP_MACREL.out.gunzip)
+        ch_versions                 = ch_versions.mix(MACREL_CONTIGS.out.versions)
+        GUNZIP_MACREL_PRED ( MACREL_CONTIGS.out.amp_prediction )
+        GUNZIP_MACREL_ORFS ( MACREL_CONTIGS.out.all_orfs )
+        ch_versions                 = ch_versions.mix(GUNZIP_MACREL_PRED.out.versions)
+        ch_versions                 = ch_versions.mix(GUNZIP_MACREL_ORFS.out.versions)
+        ch_ampresults_for_ampcombi  = ch_ampresults_for_ampcombi.mix(GUNZIP_MACREL_PRED.out.gunzip)
+        ch_macrel_faa               = ch_macrel_faa.mix(GUNZIP_MACREL_ORFS.out.gunzip)
+        ch_faa_for_ampcombi         = ch_faa_for_ampcombi.mix(ch_macrel_faa)
     }
 
     // AMPIR
     if ( !params.amp_skip_ampir ) {
         AMPIR ( ch_faa_for_ampir, params.amp_ampir_model, params.amp_ampir_minlength, 0.0 )
-        ch_versions = ch_versions.mix(AMPIR.out.versions)
-        ch_ampresults_for_ampcombi = ch_ampresults_for_ampcombi.mix(AMPIR.out.amps_tsv)
+        ch_versions                 = ch_versions.mix(AMPIR.out.versions)
+        ch_ampresults_for_ampcombi  = ch_ampresults_for_ampcombi.mix(AMPIR.out.amps_tsv)
     }
 
     // HMMSEARCH
