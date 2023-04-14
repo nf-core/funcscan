@@ -735,6 +735,12 @@
                     "description": "Skip RGI during the ARG-screening.",
                     "fa_icon": "fas fa-ban"
                 },
+                "arg_rgi_savejson": {
+                    "type": "boolean",
+                    "description": "Save RGI output .json file.",
+                    "help_text": "When activated, this flag saves the `.json` file in the RGI output directory. The `.json` file contains the ARG predictions in a format that can be can be uploaded to the CARD website for visualization. See [RGI documentation](https://github.com/arpcard/rgi) for more details. By default, the `.json` file is generated in the working directory but not saved in the results directory to save disk space (`.json` file is quite large and not required downstream in the pipeline). ",
+                    "fa_icon": "fas fa-ad"
+                },
                 "arg_rgi_savetmpfiles": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
