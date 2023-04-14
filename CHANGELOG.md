@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#235](https://github.com/nf-core/funcscan/pull/235) Added parameter `annotation_bakta_db_downloadtype` to be able to switch between downloading either full (33.1 GB) or light (1.3 GB excluding UPS, IPS, PSC, see parameter description) versions of the Bakta database. (by @jasmezz)
 - [#249](https://github.com/nf-core/funcscan/pull/249) Added bakta annotation to CI tests. (by @jasmezz)
 - [#251](https://github.com/nf-core/funcscan/pull/251) Added annotation tool: Pyrodigal. (by @jasmezz)
-- [#252](https://github.com/nf-core/funcscan/pull/252) Added a new parameter `-arg_rgi_savejson` that saves the file `samplename.json` in the RGI directory. The default ouput for RGI is now only `samplename.txt`. (by @darcy220606)
+- [#252](https://github.com/nf-core/funcscan/pull/252) Added a new parameter `-arg_rgi_savejson` that saves the file `<samplename>.json` in the RGI directory. The default ouput for RGI is now only `<samplename>.txt`. (by @darcy220606)
 - [#253](https://github.com/nf-core/funcscan/pull/253) Updated Prodigal to have compressed output files. (by @jasmezz)
 
 ### `Fixed`
