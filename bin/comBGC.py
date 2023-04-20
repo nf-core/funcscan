@@ -63,7 +63,7 @@ these can be:
 - DeepBGC:   <sample name>.bgc.tsv
 - GECCO:     <sample name>.clusters.tsv
 Note: Please provide files from a single sample only. If you would like to
-summarize multiple samples, please see the --antismash_dir flag.""",
+summarize multiple samples, please see the --antismash_multiple_samples flag.""",
 )
 parser.add_argument(
     "-o",
@@ -77,9 +77,9 @@ parser.add_argument(
 )
 parser.add_argument(
     "-a",
-    "--antismash_dir",
+    "--antismash_multiple_samples",
     metavar="PATH",
-    dest="antismash_dir",
+    dest="antismash_multiple_samples",
     nargs="?",
     help="""directory of antiSMASH output. Should contain subfolders (one per
 sample). Can only be used if --input is not specified.""",
@@ -93,7 +93,7 @@ args = parser.parse_args()
 
 # Assign input arguments to variables
 input = args.input
-dir_antismash = args.antismash_dir
+dir_antismash = args.antismash_multiple_samples
 outdir = args.outdir
 verbose = args.verbose
 version = args.version
@@ -126,7 +126,7 @@ if input:
 
 if input and dir_antismash:
     exit(
-        "The flags --input and --antismash_dir are mutually exclusive.\nPlease use only one of them (or see --help for how to use)."
+        "The flags --input and --antismash_multiple_samples are mutually exclusive.\nPlease use only one of them (or see --help for how to use)."
     )
 
 # Make sure that at least one input argument is given
@@ -553,7 +553,7 @@ if __name__ == "__main__":
     if input_antismash:
         tools = {"antiSMASH": input_antismash, "deepBGC": input_deepbgc, "GECCO": input_gecco}
     elif dir_antismash:
-        tools = {"antiSMASH": dir_antismash, "deepBGC": input_deepbgc, "GECCO": input_gecco}
+        tools = {"antiSMASH": dir_antismash}
 
     tools_provided = {}
 
