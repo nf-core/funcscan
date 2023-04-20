@@ -554,6 +554,9 @@ if __name__ == "__main__":
         tools = {"antiSMASH": input_antismash, "deepBGC": input_deepbgc, "GECCO": input_gecco}
     elif dir_antismash:
         tools = {"antiSMASH": dir_antismash}
+    else:
+        tools = {"deepBGC": input_deepbgc, "GECCO": input_gecco}
+
 
     tools_provided = {}
 
