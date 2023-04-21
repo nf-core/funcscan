@@ -557,7 +557,6 @@ if __name__ == "__main__":
     else:
         tools = {"deepBGC": input_deepbgc, "GECCO": input_gecco}
 
-
     tools_provided = {}
 
     for tool in tools.keys():
