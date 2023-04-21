@@ -32,7 +32,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-tool_version = "0.6.0"
+tool_version = "0.5"
 welcome = """\
                 ........................
                     * comBGC v.{version} *
@@ -61,9 +61,7 @@ parser.add_argument(
 these can be:
 - antiSMASH: <sample name>.gbk and (optional) knownclusterblast/ directory
 - DeepBGC:   <sample name>.bgc.tsv
-- GECCO:     <sample name>.clusters.tsv
-Note: Please provide files from a single sample only. If you would like to
-summarize multiple samples, please see the --antismash_multiple_samples flag.""",
+- GECCO:     <sample name>.clusters.tsv""",
 )
 parser.add_argument(
     "-o",
@@ -75,16 +73,6 @@ parser.add_argument(
     type=str,
     default=".",
 )
-parser.add_argument(
-    "-a",
-    "--antismash_multiple_samples",
-    metavar="PATH",
-    dest="antismash_multiple_samples",
-    nargs="?",
-    help="""directory of antiSMASH output. Should contain subfolders (one per
-sample). Can only be used if --input is not specified.""",
-    type=str,
-)
 parser.add_argument("-vv", "--verbose", help="increase output verbosity", action="store_true")
 parser.add_argument("-v", "--version", help="show version number and exit", action="store_true")
 
@@ -93,7 +81,6 @@ args = parser.parse_args()
 
 # Assign input arguments to variables
 input = args.input
-dir_antismash = args.antismash_multiple_samples
 outdir = args.outdir
 verbose = args.verbose
 version = args.version
@@ -124,36 +111,13 @@ if input:
         elif path.endswith("knownclusterblast/"):
             input_antismash.append(path)
 
-if input and dir_antismash:
-    exit(
-        "The flags --input and --antismash_multiple_samples are mutually exclusive.\nPlease use only one of them (or see --help for how to use)."
-    )
-
 # Make sure that at least one input argument is given
-if not (input_antismash or input_gecco or input_deepbgc or dir_antismash):
+if not (input_antismash or input_gecco or input_deepbgc):
     exit("Please specify at least one input file (i.e. output from antismash, deepbgc, or gecco) or see --help")
 
 ########################
 # ANTISMASH FUNCTIONS
 ########################
-
-
-def prepare_multisample_input_antismash(antismash_dir):
-    """
-    Prepare string of input paths of a given antiSMASH output folder (with sample subdirectories)
-    """
-    sample_paths = []
-    for root, subdirs, files in os.walk(antismash_dir):
-        antismash_file = "/".join([root, "index.html"])
-        if os.path.exists(antismash_file):
-            sample = root.split("/")[-1]
-            gbk_path = "/".join([root, sample]) + ".gbk"
-            kkb_path = "/".join([root, "knownclusterblast"])
-            if os.path.exists(kkb_path):
-                sample_paths.append([gbk_path, kkb_path])
-            else:
-                sample_paths.append([gbk_path])
-    return sample_paths
 
 
 def parse_knownclusterblast(kcb_file_path):
@@ -183,6 +147,9 @@ def antismash_workflow(antismash_paths):
     - Extract the knownclusterblast output from the antiSMASH folder (MIBiG annotations) if present.
     - Return data frame with aggregated info.
     """
+
+    if verbose:
+        print("\nParsing antiSMASH files\n... ", end="")
 
     antismash_sum_cols = [
         "Sample_ID",
@@ -219,9 +186,6 @@ def antismash_workflow(antismash_paths):
 
     # Aggregate information
     Sample_ID = gbk_path.split("/")[-1].split(".gbk")[-2]  # Assuming file name equals sample name
-    if verbose:
-        print("\nParsing antiSMASH file(s): " + Sample_ID + "\n... ", end="")
-
     with open(gbk_path) as gbk:
         for record in SeqIO.parse(gbk, "genbank"):  # GBK records are contigs in this case
             # Initiate variables per contig
@@ -550,13 +514,7 @@ def gecco_workflow(gecco_paths):
 ########################
 
 if __name__ == "__main__":
-    if input_antismash:
-        tools = {"antiSMASH": input_antismash, "deepBGC": input_deepbgc, "GECCO": input_gecco}
-    elif dir_antismash:
-        tools = {"antiSMASH": dir_antismash}
-    else:
-        tools = {"deepBGC": input_deepbgc, "GECCO": input_gecco}
-
+    tools = {"antiSMASH": input_antismash, "deepBGC": input_deepbgc, "GECCO": input_gecco}
     tools_provided = {}
 
     for tool in tools.keys():
@@ -574,13 +532,7 @@ if __name__ == "__main__":
 
     for tool in tools_provided.keys():
         if tool == "antiSMASH":
-            if dir_antismash:
-                antismash_paths = prepare_multisample_input_antismash(dir_antismash)
-                for input_antismash in antismash_paths:
-                    summary_antismash_temp = antismash_workflow(input_antismash)
-                    summary_antismash = pd.concat([summary_antismash, summary_antismash_temp])
-            else:
-                summary_antismash = antismash_workflow(input_antismash)
+            summary_antismash = antismash_workflow(input_antismash)
         elif tool == "deepBGC":
             summary_deepbgc = deepbgc_workflow(input_deepbgc)
         elif tool == "GECCO":
