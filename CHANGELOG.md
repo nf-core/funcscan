@@ -13,7 +13,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#251](https://github.com/nf-core/funcscan/pull/251) Added annotation tool: Pyrodigal. (by @jasmezz)
 - [#252](https://github.com/nf-core/funcscan/pull/252) Added a new parameter `-arg_rgi_savejson` that saves the file `<samplename>.json` in the RGI directory. The default ouput for RGI is now only `<samplename>.txt`. (by @darcy220606)
 - [#253](https://github.com/nf-core/funcscan/pull/253) Updated Prodigal to have compressed output files. (by @jasmezz)
-- [#258](https://github.com/nf-core/funcscan/pull/258) Added comBGC function to screen whole directory of antiSMASH output (one subfolder per sample). (by @jasmezz)
 
 ### `Fixed`
 
