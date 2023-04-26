@@ -33,10 +33,23 @@ class RowChecker:
         ".fasta.gz",
     )
 
+    VALID_PROTEIN_FORMATS = (
+        ".faa",
+        ".fasta",
+        ".fa"
+    )
+
+    VALID_FEATURE_FORMATS = (
+        ".gbk",
+        ".gff"
+    )
+
     def __init__(
         self,
         sample_col="sample",
         contig_col="fasta",
+        protein_col="protein"
+        feature_col="feature"
         **kwargs,
     ):
         """
@@ -46,18 +59,23 @@ class RowChecker:
             sample_col (str): The name of the column that contains a contig's
                 identifier (default "sample").
             contig_col (str): The name of the column that contains the contig's
-                FASTA file path (default "fastqa").
-
+                FASTA file path (default "fasta").
+            protein_col (str): The name of the column that contains the contig's
+                amino acid FASTA file path (default "faa").
+            feature_col (str): The name of the column that contains the contig's
+                feature file path (default "gbk").
         """
         super().__init__(**kwargs)
         self._sample_col = sample_col
         self._contig_col = contig_col
+        self._protein_col = protein_col
+        self._feature_col = feature_col
         self._seen = set()
         self.modified = []
 
     def validate_and_transform(self, row):
         """
-        Perform all validations on the given row and insert the read pairing status.
+        Perform all validations on the given row
 
         Args:
             row (dict): A mapping from column headers (keys) to elements of that row
@@ -67,7 +85,11 @@ class RowChecker:
         self._validate_sample(row)
         self._validate_fasta(row)
         self._validate_fasta_format(row)
-        self._seen.add((row[self._sample_col], row[self._contig_col]))
+        self._validate_protein(row)
+        self._validate_protein_format(row)
+        self._validate_feature(row)
+        self._validate_feature_format(row)
+        self._seen.add((row[self._sample_col], row[self._contig_col], row[self._protein_col], row[self._feature_col]))
         self.modified.append(row)
 
     def _validate_sample(self, row):
@@ -85,13 +107,41 @@ class RowChecker:
         ), f"The FASTA filename may not contain any spaces '{row[self._contig_col]}'."
 
     def _validate_fasta_format(self, row):
-        """Assert that a given filename has one of the expected FASTQ extensions."""
+        """Assert that a given filename has one of the expected FASTA extensions."""
         filename = Path(row[self._contig_col]).name
         assert any(filename.endswith(extension) for extension in self.VALID_FORMATS), (
             f"The FASTA file has an unrecognized extension: {filename}\n"
             f"It should be one of: {', '.join(self.VALID_FORMATS)}"
         )
 
+    def _validate_protein(self, row):
+        """Assert that the amino acid FASTA entry has the right format."""
+        assert len(row[self._contig_col]) > 0 and (
+            " " not in Path(row[self._protein_col]).name
+        ), f"The FASTA filename may not contain any spaces '{row[self._protein_col]}'."
+
+    def _validate_protein_format(self, row):
+        """Assert that a given filename has one of the expected amino acid FASTA extensions."""
+        filename = Path(row[self._contig_col]).name
+        assert any(filename.endswith(extension) for extension in self.VALID_PROTEIN_FORMATS), (
+            f"The protein FASTA file has an unrecognized extension: {filename}\n"
+            f"It should be one of: {', '.join(self.VALID_PROTEIN_FORMATS)}"
+        )
+
+    def _validate_feature(self, row):
+        """Assert that the feature file entry has the right format."""
+        assert len(row[self._contig_col]) > 0 and (
+            " " not in Path(row[self._feature_col]).name
+        ), f"The feature GBK/GFF filename may not contain any spaces '{row[self._feature_col]}'."
+
+
+    def _validate_feature_format(self, row):
+        """Assert that a given filename has one of the expected feature extensions."""
+        filename = Path(row[self._contig_col]).name
+        assert any(filename.endswith(extension) for extension in self.VALID_FEATURE_FORMATS), (
+            f"The FASTA file has an unrecognized extension: {filename}\n"
+            f"It should be one of: {', '.join(self.VALID_FEATURE_FORMATS)}"
+        )
 
 def read_head(handle, num_lines=10):
     """Read the specified number of lines from the current position in the file."""
@@ -141,8 +191,8 @@ def check_samplesheet(file_in, file_out):
     Example:
         This function checks that the samplesheet follows the following structure::
 
-            sample,fasta
-            contig_1,https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/bacteroides_fragilis/genome/genome.fna.gz
+            sample,fasta,protein,feature
+            contig_1,https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/bacteroides_fragilis/genome/genome.fna.gz,genome.faa.gz,genome.gbk
 
     """
     required_columns = {"sample", "fasta"}
