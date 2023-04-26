@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#242](https://github.com/nf-core/funcscan/pull/242) Fixed MACREL '.faa' issue that was generated when it was run on its own and upgraded MACREL from version `1.1.0` to `1.2.0` (by @Darcy220606)
 - [#248](https://github.com/nf-core/funcscan/pull/248) Applied best-practice `error("message")` to all (sub)workflow files. (by @jasmezz)
 - [#254](https://github.com/nf-core/funcscan/pull/254) Further resource optimisation based on feedback from 'real world' datasets. (ongoing, reported by @alexhbnr and @Darcy220606, fix by @jfy133)
+- [#266](https://github.com/nf-core/funcscan/pull/266) Fixed wrong process name in base.config. (reported by @Darcy220606, fix by @jasmezz)
 
 ### `Dependencies`
 
