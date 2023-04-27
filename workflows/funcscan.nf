@@ -10,7 +10,7 @@ def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
 WorkflowFuncscan.initialise(params, log)
 
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.multiqc_config, params.annotation_bakta_db,
+def checkPathParamList = [ params.input, params.multiqc_config, params.annotation_bakta_db_localpath,
                             params.amp_hmmsearch_models, params.amp_ampcombi_db,
                             params.arg_amrfinderplus_db, params.arg_deeparg_data,
                             params.bgc_antismash_databases, params.bgc_antismash_installationdirectory,
@@ -18,7 +18,7 @@ def checkPathParamList = [ params.input, params.multiqc_config, params.annotatio
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
-if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
+if (params.input) { ch_input = file(params.input) } else { error("Input samplesheet not specified!") }
 
 // Validate fARGene inputs
 // Split input into array, find the union with our valid classes, extract only
@@ -34,21 +34,17 @@ def fargene_user_classes = fargene_classes.tokenize(',')
 def fargene_classes_valid = fargene_user_classes.intersect( fargene_valid_classes )
 def fargene_classes_missing = fargene_user_classes - fargene_classes_valid
 
-if ( fargene_classes_missing.size() > 0 ) exit 1, "[nf-core/funcscan] ERROR: invalid class present in --arg_fargene_hmmodel. Please check input. Invalid class: ${fargene_classes_missing.join(', ')}"
-
-// Validate DeepARG inputs
-
-if ( params.run_arg_screening && !params.arg_skip_deeparg && !params.arg_deeparg_data ) exit 1, "[nf-core/funcscan] ERROR: DeepARG database server is currently broken. Automated download is not possible. Please see https://nf-co.re/funcscan/usage#deeparg for instructions on trying to download manually, or run with `--arg_skip_deeparg`."
+if ( fargene_classes_missing.size() > 0 ) error("[nf-core/funcscan] ERROR: invalid class present in --arg_fargene_hmmodel. Please check input. Invalid class: ${fargene_classes_missing.join(', ')}")
 
 // Validate antiSMASH inputs
 // 1. Make sure that either both or none of the antiSMASH directories are supplied
-if ( ( params.run_bgc_screening && !params.bgc_antismash_databases && params.bgc_antismash_installationdirectory && !params.bgc_skip_antismash) || ( params.run_bgc_screening && params.bgc_antismash_databases && !params.bgc_antismash_installationdirectory && !params.bgc_skip_antismash ) ) exit 1, "[nf-core/funcscan] ERROR: You supplied either the antiSMASH database or its installation directory, but not both. Please either supply both directories or none (letting the pipeline download them instead)."
+if ( ( params.run_bgc_screening && !params.bgc_antismash_databases && params.bgc_antismash_installationdirectory && !params.bgc_skip_antismash) || ( params.run_bgc_screening && params.bgc_antismash_databases && !params.bgc_antismash_installationdirectory && !params.bgc_skip_antismash ) ) error("[nf-core/funcscan] ERROR: You supplied either the antiSMASH database or its installation directory, but not both. Please either supply both directories or none (letting the pipeline download them instead).")
 
 // 2. If both are supplied: Exit if we have a name collision error
 else if ( params.run_bgc_screening && params.bgc_antismash_databases && params.bgc_antismash_installationdirectory && !params.bgc_skip_antismash ) {
     antismash_database_dir = new File(params.bgc_antismash_databases)
     antismash_install_dir = new File(params.bgc_antismash_installationdirectory)
-    if ( antismash_database_dir.name == antismash_install_dir.name ) exit 1, "[nf-core/funcscan] ERROR: Your supplied antiSMASH database and installation directories have identical names: \"" + antismash_install_dir.name + "\".\nPlease make sure to name them differently, for example:\n - Database directory:      "+ antismash_database_dir.parent + "/antismash_db\n - Installation directory:  " + antismash_install_dir.parent + "/antismash_dir"
+    if ( antismash_database_dir.name == antismash_install_dir.name ) error("[nf-core/funcscan] ERROR: Your supplied antiSMASH database and installation directories have identical names: \"" + antismash_install_dir.name + "\".\nPlease make sure to name them differently, for example:\n - Database directory:      "+ antismash_database_dir.parent + "/antismash_db\n - Installation directory:  " + antismash_install_dir.parent + "/antismash_dir")
 }
 
 // 3. Give warning if not using container system assuming conda
@@ -92,11 +88,16 @@ include { BGC } from '../subworkflows/local/bgc'
 //
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
-include { GUNZIP                      } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_FASTA_PREP } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_FNA        } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_FAA        } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_GFF        } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_GBK        } from '../modules/nf-core/gunzip/main'
 include { BIOAWK                      } from '../modules/nf-core/bioawk/main'
 include { PROKKA                      } from '../modules/nf-core/prokka/main'
 include { PRODIGAL as PRODIGAL_GFF    } from '../modules/nf-core/prodigal/main'
 include { PRODIGAL as PRODIGAL_GBK    } from '../modules/nf-core/prodigal/main'
+include { PYRODIGAL                   } from '../modules/nf-core/pyrodigal/main'
 include { BAKTA_BAKTADBDOWNLOAD       } from '../modules/nf-core/bakta/baktadbdownload/main'
 include { BAKTA_BAKTA                 } from '../modules/nf-core/bakta/bakta/main'
 
@@ -129,12 +130,12 @@ workflow FUNCSCAN {
             uncompressed: it[1]
         }
 
-    GUNZIP ( fasta_prep.compressed )
-    ch_versions = ch_versions.mix(GUNZIP.out.versions)
+    GUNZIP_FASTA_PREP ( fasta_prep.compressed )
+    ch_versions = ch_versions.mix(GUNZIP_FASTA_PREP.out.versions)
 
     // Merge all the already uncompressed and newly compressed FASTAs here into
     // a single input channel for downstream
-    ch_prepped_fastas = GUNZIP.out.gunzip
+    ch_prepped_fastas = GUNZIP_FASTA_PREP.out.gunzip
                         .mix(fasta_prep.uncompressed)
 
     // Add to meta the length of longest contig for downstream filtering
@@ -155,23 +156,34 @@ workflow FUNCSCAN {
     */
 
     // Some tools require annotated FASTAs
-    // For prodigal run twice, once for gff and once for gbk generation, (for parity with PROKKA which produces both)
+    // For prodigal: run twice, once for gff and once for gbk generation, (for parity with PROKKA which produces both)
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.bgc_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
 
         if ( params.annotation_tool == "prodigal" ) {
             PRODIGAL_GFF ( ch_prepped_input, "gff" )
+            GUNZIP_FAA ( PRODIGAL_GFF.out.amino_acid_fasta )
+            GUNZIP_FNA ( PRODIGAL_GFF.out.nucleotide_fasta)
+            GUNZIP_GFF ( PRODIGAL_GFF.out.gene_annotations )
             ch_versions              = ch_versions.mix(PRODIGAL_GFF.out.versions)
-            ch_annotation_faa        = PRODIGAL_GFF.out.amino_acid_fasta
-            ch_annotation_fna        = PRODIGAL_GFF.out.nucleotide_fasta
-            ch_annotation_gff        = PRODIGAL_GFF.out.gene_annotations
-            ch_annotation_gbk        = Channel.empty() // Prodigal doesn't produce GBK
+            ch_annotation_faa        = GUNZIP_FAA.out.gunzip
+            ch_annotation_fna        = GUNZIP_FNA.out.gunzip
+            ch_annotation_gff        = GUNZIP_GFF.out.gunzip
+            ch_annotation_gbk        = Channel.empty() // Prodigal GBK and GFF output are mutually exclusive
 
             if ( params.save_annotations == true ) {
                 PRODIGAL_GBK ( ch_prepped_input, "gbk" )
+                GUNZIP_GBK ( PRODIGAL_GBK.out.gene_annotations)
                 ch_versions              = ch_versions.mix(PRODIGAL_GBK.out.versions)
-                ch_annotation_gbk        = PRODIGAL_GBK.out.gene_annotations
+                ch_annotation_gbk        = PRODIGAL_GBK.out.gene_annotations // Prodigal GBK output stays zipped because it is currently not used by any downstream subworkflow.
             }
-        }   else if ( params.annotation_tool == "prokka" ) {
+        } else if ( params.annotation_tool == "pyrodigal" ) {
+            PYRODIGAL ( ch_prepped_input )
+            ch_versions              = ch_versions.mix(PYRODIGAL.out.versions)
+            ch_annotation_faa        = PYRODIGAL.out.faa
+            ch_annotation_fna        = PYRODIGAL.out.fna
+            ch_annotation_gff        = PYRODIGAL.out.gff
+            ch_annotation_gbk        = Channel.empty() // Pyrodigal doesn't produce GBK
+        }  else if ( params.annotation_tool == "prokka" ) {
             PROKKA ( ch_prepped_input, [], [] )
             ch_versions              = ch_versions.mix(PROKKA.out.versions)
             ch_annotation_faa        = PROKKA.out.faa
@@ -181,12 +193,12 @@ workflow FUNCSCAN {
         }   else if ( params.annotation_tool == "bakta" ) {
 
             // BAKTA prepare download
-            if ( params.annotation_bakta_db ) {
+            if ( params.annotation_bakta_db_localpath ) {
                 ch_bakta_db = Channel
-                    .fromPath( params.annotation_bakta_db )
+                    .fromPath( params.annotation_bakta_db_localpath )
                     .first()
             } else {
-                BAKTA_BAKTADBDOWNLOAD ()
+                BAKTA_BAKTADBDOWNLOAD ( )
                 ch_versions = ch_versions.mix( BAKTA_BAKTADBDOWNLOAD.out.versions )
                 ch_bakta_db = ( BAKTA_BAKTADBDOWNLOAD.out.db )
             }

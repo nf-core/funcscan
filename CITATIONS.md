@@ -12,7 +12,7 @@
 
 - [ABRicate](https://github.com/tseemann/abricate)
 
-  > Seemann T. (2020). ABRicate. Github [https://github.com/tseemann/abricate](https://github.com/tseemann/abricate).
+  > Seemann, T. (2020). ABRicate. Github [https://github.com/tseemann/abricate](https://github.com/tseemann/abricate).
 
 - [AMPir](https://doi.org/10.1093/bioinformatics/btaa653)
 
@@ -48,7 +48,7 @@
 
 - [GECCO](https://gecco.embl.de)
 
-  > Carroll, L.M. , Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. bioRxiv [DOI: 10.1101/2021.05.03.442509](https://doi.org/10.1101/2021.05.03.442509)
+  > Carroll, L. M. , Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. bioRxiv [DOI: 10.1101/2021.05.03.442509](https://doi.org/10.1101/2021.05.03.442509)
 
 - [hAMRonization](https://github.com/pha4ge/hAMRonization)
 
@@ -56,7 +56,7 @@
 
 - [AMPcombi](https://github.com/Darcy220606/AMPcombi)
 
-  > Anan Ibrahim, & Louisa Perelo. (2023). Darcy220606/AMPcombi. [DOI: 10.5281/zenodo.7639121](https://doi.org/10.5281/zenodo.7639121).
+  > Ibrahim, A. & Perelo, L. (2023). Darcy220606/AMPcombi. [DOI: 10.5281/zenodo.7639121](https://doi.org/10.5281/zenodo.7639121).
 
 - [HMMER](https://doi.org/10.1371/journal.pcbi.1002195.)
 
@@ -72,7 +72,11 @@
 
 - [PROKKA](https://doi.org/10.1093/bioinformatics/btu153)
 
-  > Seemann T. (2014). Prokka: rapid prokaryotic genome annotation. Bioinformatics (Oxford, England), 30(14), 2068–2069. [DOI: 10.1093/bioinformatics/btu153](https://doi.org/10.1093/bioinformatics/btu153)
+  > Seemann, T. (2014). Prokka: rapid prokaryotic genome annotation. Bioinformatics (Oxford, England), 30(14), 2068–2069. [DOI: 10.1093/bioinformatics/btu153](https://doi.org/10.1093/bioinformatics/btu153)
+
+- [Pyrodigal](https://doi.org/10.1186/1471-2105-11-119)
+
+  > Larralde, M. (2022). Pyrodigal: Python bindings and interface to Prodigal, an efficient method for gene prediction in prokaryotes. Journal of Open Source Software, 7(72), 4296. [DOI: 10.21105/joss.04296](https://doi.org/10.21105/joss.04296)
 
 - [RGI](https://doi.org/10.1093/nar/gkz935)
 

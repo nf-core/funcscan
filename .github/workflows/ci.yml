@@ -29,7 +29,7 @@ jobs:
         parameters:
           - "--annotation_tool prodigal"
           - "--annotation_tool prokka"
-          ## Warning: we can't test Bakta as uses more memory than available on GHA CIs
+          - "--annotation_tool bakta --annotation_bakta_db_downloadtype light"
 
     steps:
       - name: Check out pipeline code
@@ -57,6 +57,7 @@ jobs:
         parameters:
           - "--annotation_tool prodigal"
           - "--annotation_tool prokka"
+          - "--annotation_tool bakta --annotation_bakta_db_downloadtype light"
 
     steps:
       - name: Check out pipeline code
@@ -71,31 +72,31 @@ jobs:
         run: |
           nextflow run ${GITHUB_WORKSPACE} -profile test_bgc,docker --outdir ./results ${{ matrix.parameters }}
 
-  ## DEACTIVATE CURRENTLY DUE TO EXTENDED DATABASE SERVER FAILURE
-  ## CAN REACTIVATE ONCE WORKING AGAIN
-  # test_deeparg:
-  #   name: Run pipeline with test data (DeepARG only workflow)
-  #   # Only run on push if this is the nf-core dev branch (merged PRs)
-  #   if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       NXF_VER:
-  #         - "22.10.1"
-  #         - "latest-everything"
-  #       parameters:
-  #         - "--annotation_tool prodigal"
-  #         - "--annotation_tool prokka"
+  test_deeparg:
+    name: Run pipeline with test data (DeepARG only workflow)
+    # Only run on push if this is the nf-core dev branch (merged PRs)
+    if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        NXF_VER:
+          - "22.10.1"
+          - "latest-everything"
+        parameters:
+          - "--annotation_tool bakta --annotation_bakta_db_downloadtype light"
+          - "--annotation_tool prodigal"
+          - "--annotation_tool prokka"
+          - "--annotation_tool pyrodigal"
 
-  #   steps:
-  #     - name: Check out pipeline code
-  #       uses: actions/checkout@v2
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v2
 
-  #     - name: Install Nextflow
-  #       uses: nf-core/setup-nextflow@v1
-  #       with:
-  #         version: "${{ matrix.NXF_VER }}"
+      - name: Install Nextflow
+        uses: nf-core/setup-nextflow@v1
+        with:
+          version: "${{ matrix.NXF_VER }}"
 
-  #     - name: Run pipeline with test data (DeepARG workflow)
-  #       run: |
-  #         nextflow run ${GITHUB_WORKSPACE} -profile test_deeparg,docker --outdir ./results ${{ matrix.parameters }}
+      - name: Run pipeline with test data (DeepARG workflow)
+        run: |
+          nextflow run ${GITHUB_WORKSPACE} -profile test_deeparg,docker --outdir ./results ${{ matrix.parameters }}
