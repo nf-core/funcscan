@@ -130,7 +130,7 @@ Output Summaries:
 
 </details>
 
-[Pyrodigal](https://github.com/althonos/pyrodigal) annotates whole (meta-)genomes by identifying ORFs in a set of genomic DNA sequences. It produces the same results as [Prodigal](#prodigal) while being more resource-optimized, thus faster. Other than Prodigal, Pyrodigal cannot produce output in GenBank format. The output is used by some of the functional screening tools.
+[Pyrodigal](https://github.com/althonos/pyrodigal) annotates whole (meta-)genomes by identifying ORFs in a set of genomic DNA sequences. It produces the same results as [Prodigal](#prodigal) while being more resource-optimized, thus faster. Unlike Prodigal, Pyrodigal cannot produce output in GenBank format. The output is used by some of the functional screening tools.
 
 #### Prokka
 

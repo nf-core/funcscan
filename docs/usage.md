@@ -82,7 +82,7 @@ To prevent entire pipeline failures due to a single 'bad sample', nf-core/funcsc
 
 When the annotation is run with Prokka, the resulting `.gbk` file passed to antiSMASH may produce the error `translation longer than location allows` and end the pipeline run. This Prokka bug has been reported before (see [discussion on GitHub](https://github.com/antismash/antismash/discussions/450)) and is not likely to be fixed soon.
 
-> ⚠️ If antiSMASH is run for BGC detection, we recommend to **not** run Prokka for annotation but instead use the default annotation tool (Pyrodigal) or switch to Prodigal, or Bakta (the latter to bacteria only!).
+> ⚠️ If antiSMASH is run for BGC detection, we recommend to **not** run Prokka for annotation but instead use the default annotation tool (Pyrodigal) or switch to Prodigal, or (for bacteria only!) Bakta.
 
 ## Databases and reference files
 
@@ -100,7 +100,7 @@ As a reference, we will describe below where and how you can obtain databases an
 
 nf-core/funcscan offers multiple tools for annotating input sequences. Bakta is a new tool touted as a bacteria-only successor to the well-established Prokka.
 
-To supply the preferred Bakta database (and not have the pipeline download at every new run), use the flag `--annotation_bakta_db_localpath`. The full or light Bakta database must be downloaded from the Bakta Zenodo archive, the link of which can be found on the [Bakta GitHub repository](https://github.com/oschwengers/bakta#database-download).
+To supply the preferred Bakta database (and not have the pipeline download it for every new run), use the flag `--annotation_bakta_db_localpath`. The full or light Bakta database must be downloaded from the Bakta Zenodo archive, the link of which can be found on the [Bakta GitHub repository](https://github.com/oschwengers/bakta#database-download).
 
 Once downloaded this must be untarred:
 
