@@ -68,7 +68,7 @@ def download_DRAMP(db):
                 "T",
                 "V",
                 "W",
-                "Y"
+                "Y",
             ]
             new = "".join(i for i in sequence if i in letters)
             f.write(">" + id + "\n" + new + "\n")
