@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## v1.1.1dev - [unreleased]
 
 ### `Added`
+- [#270](https://github.com/nf-core/funcscan/pull/270) Merged pipeline template of nf-core/tools version 2.8 and updated modules accordingly. (by @jasmezz, @jfy133)
 
 ### `Fixed`
 
