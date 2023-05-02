@@ -17,7 +17,7 @@
                     },
                     "ampir": {
                         "branch": "master",
-                        "git_sha": "76cc4938c1f6ea5c7d83fed1eeffc146787f9543",
+                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
                         "installed_by": ["modules"]
                     },
                     "amplify/predict": {
@@ -63,7 +63,7 @@
                     },
                     "custom/dumpsoftwareversions": {
                         "branch": "master",
-                        "git_sha": "b6d4d476aee074311c89d82a69c1921bd70c8180",
+                        "git_sha": "76cc4938c1f6ea5c7d83fed1eeffc146787f9543",
                         "installed_by": ["modules"]
                     },
                     "deeparg/downloaddata": {
@@ -113,7 +113,7 @@
                     },
                     "hamronization/amrfinderplus": {
                         "branch": "master",
-                        "git_sha": "f2d63bd5b68925f98f572eed70993d205cc694b7",
+                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
                         "installed_by": ["modules"]
                     },
                     "hamronization/deeparg": {
@@ -148,7 +148,7 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "ee80d14721e76e2e079103b8dcd5d57129e584ba",
+                        "git_sha": "f2d63bd5b68925f98f572eed70993d205cc694b7",
                         "installed_by": ["modules"]
                     },
                     "prodigal": {
