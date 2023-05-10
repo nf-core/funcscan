@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#272](https://github.com/nf-core/funcscan/pull/272) Fix typo in Prokka output path in modules.config. (by @jasmezz)
+- [#237](https://github.com/nf-core/funcscan/pull/273) Update Ampir module after input bugfix in module (reported by @mathavanpu, fix by @louperelo)
 
 ### `Dependencies`
 
