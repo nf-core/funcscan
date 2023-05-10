@@ -17,7 +17,7 @@
                     },
                     "ampir": {
                         "branch": "master",
-                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
+                        "git_sha": "6ac776f62fad7360685a87680c5f57f74c3682dc",
                         "installed_by": ["modules"]
                     },
                     "amplify/predict": {
