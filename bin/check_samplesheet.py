@@ -48,8 +48,8 @@ class RowChecker:
         self,
         sample_col="sample",
         contig_col="fasta",
-        protein_col="protein"
-        feature_col="feature"
+        protein_col="protein",
+        feature_col="feature",
         **kwargs,
     ):
         """
@@ -116,17 +116,19 @@ class RowChecker:
 
     def _validate_protein(self, row):
         """Assert that the amino acid FASTA entry has the right format."""
-        assert len(row[self._contig_col]) > 0 and (
+        if len(row[self._protein_col]) > 0:
+            assert (
             " " not in Path(row[self._protein_col]).name
-        ), f"The FASTA filename may not contain any spaces '{row[self._protein_col]}'."
+            ), f"The protein FASTA filename may not contain any spaces '{row[self._protein_col]}'."
 
     def _validate_protein_format(self, row):
         """Assert that a given filename has one of the expected amino acid FASTA extensions."""
-        filename = Path(row[self._contig_col]).name
-        assert any(filename.endswith(extension) for extension in self.VALID_PROTEIN_FORMATS), (
-            f"The protein FASTA file has an unrecognized extension: {filename}\n"
-            f"It should be one of: {', '.join(self.VALID_PROTEIN_FORMATS)}"
-        )
+        filename = Path(row[self._protein_col]).name
+        if len(row[self._protein_col]) > 0:
+            assert any(filename.endswith(extension) for extension in self.VALID_PROTEIN_FORMATS), (
+                f"The protein FASTA file has an unrecognized extension: {filename}\n"
+                f"It should be one of: {', '.join(self.VALID_PROTEIN_FORMATS)}"
+            )
 
     def _validate_feature(self, row):
         """Assert that the feature file entry has the right format."""
@@ -138,10 +140,11 @@ class RowChecker:
     def _validate_feature_format(self, row):
         """Assert that a given filename has one of the expected feature extensions."""
         filename = Path(row[self._contig_col]).name
-        assert any(filename.endswith(extension) for extension in self.VALID_FEATURE_FORMATS), (
-            f"The FASTA file has an unrecognized extension: {filename}\n"
-            f"It should be one of: {', '.join(self.VALID_FEATURE_FORMATS)}"
-        )
+        if len(row[self._feature_col]) > 0:
+            assert any(filename.endswith(extension) for extension in self.VALID_FEATURE_FORMATS), (
+                f"The feature file has an unrecognized extension: {filename}\n"
+                f"It should be one of: {', '.join(self.VALID_FEATURE_FORMATS)}"
+            )
 
 def read_head(handle, num_lines=10):
     """Read the specified number of lines from the current position in the file."""
@@ -212,6 +215,7 @@ def check_samplesheet(file_in, file_out):
             except AssertionError as error:
                 logger.critical(f"{str(error)} On line {i + 2}.")
                 sys.exit(1)
+        ## TODO: Update `validate_and_transform()` to not parse protein/gff if not presnet in file
     header = list(reader.fieldnames)
     header.insert(1, "single_end")
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
