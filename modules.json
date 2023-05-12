@@ -163,7 +163,7 @@
                     },
                     "pyrodigal": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "git_sha": "1b91efd7ff7b2fb5fe0d78f0d2f6c728afc5e552",
                         "installed_by": ["modules"]
                     },
                     "rgi/main": {
