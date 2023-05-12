@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - [#270](https://github.com/nf-core/funcscan/pull/270) Merged pipeline template of nf-core/tools version 2.8 and updated modules accordingly. (by @jasmezz, @jfy133)
+- [#275](https://github.com/nf-core/funcscan/pull/275) Save DRAMP database in the common database directory if `--save_databases` is supplied. (by @jasmezz)
 
 ### `Fixed`
 
