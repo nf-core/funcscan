@@ -8,11 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - [#270](https://github.com/nf-core/funcscan/pull/270) Merged pipeline template of nf-core/tools version 2.8 and updated modules accordingly. (by @jasmezz, @jfy133)
+- [#274](https://github.com/nf-core/funcscan/pull/274) Update all modules: changed docker links according to the change of quay.io as default repository. (by @jasmezz)
 
 ### `Fixed`
 
 - [#272](https://github.com/nf-core/funcscan/pull/272) Fix typo in Prokka output path in modules.config. (by @jasmezz)
-- [#237](https://github.com/nf-core/funcscan/pull/273) Update Ampir module after input bugfix in module (reported by @mathavanpu, fix by @louperelo)
+- [#237](https://github.com/nf-core/funcscan/pull/273) Update Ampir module after input bugfix in module. (reported by @mathavanpu, fix by @louperelo)
 
 ### `Dependencies`
 
