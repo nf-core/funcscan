@@ -54,17 +54,21 @@ nf-core/funcscan takes FASTA files as input, typically contigs or whole genome s
 The input samplesheet has to be a comma-separated file (`.csv`) with 2 columns (`sample`, and `fasta`), and a header row as shown in the examples below.
 
 ```bash
-sample,fasta
-sample_1,/<path>/<to>/wastewater_metagenome_contigs_1.fasta.gz
-sample_2,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gz
+sample,fasta,protein,feature
+sample_1,/<path>/<to>/wastewater_metagenome_contigs_1.fasta.gz,,
+sample_2,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gz,/<path>/<to>/wastewater_metagenome_contigs_2.faa,
 ```
 
-| Column   | Description                                                                                                                                                |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample` | Custom sample name. This will be used to name all output files from the pipeline. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fasta`  | Path or URL to a gzipped or uncompressed FASTA file. Accepted file suffixes are: `.fasta`, `.fna`, or `.fa`, or any of these with `.gz`, e.g. `.fa.gz`.    |
+| Column    | Description                                                                                                                                                |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sample`  | Custom sample name. This will be used to name all output files from the pipeline. Spaces in sample names are automatically converted to underscores (`_`). |
+| `fasta`   | Path or URL to a gzipped or uncompressed FASTA file. Accepted file suffixes are: `.fasta`, `.fna`, or `.fa`, or any of these with `.gz`, e.g. `.fa.gz`.    |
+| `protein` | Optional path to a pre-generated amino acid FASTA file (`.faa`) containing protein annotations of `fasta`. Leave empty if not available.                   |
+| `feature` | Optional path to a pre-generated annotation file (`.gbk` or `.gff`) containing annotations information of `fasta`. Leave empty if not available.           |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
+
+If you already have annotated contigs, you can supply these to the pipeline using optional `protein` and `feature` columns. If either of the two columns are supplied, pipeline annotation will not be performed for the corresponding FASTA file.
 
 > ⚠️ We highly recommend performing quality control on input contigs before running the pipeline. You may not receive results for some tools if none of the contigs in a FASTA file reach certain thresholds. Check parameter documentation for relevant minimum contig parameters.
 

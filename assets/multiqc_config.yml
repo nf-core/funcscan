@@ -10,6 +10,16 @@ report_section_order:
   "nf-core-funcscan-summary":
     order: -1002
 
+run_modules:
+  - prokka
+  - custom_content
+
+prokka_fn_snames: True
+
+table_columns_visible:
+  Prokka:
+    organism: False
+
 export_plots: true
 
 custom_logo: "nf-core-funcscan_logo_flat_light.png"

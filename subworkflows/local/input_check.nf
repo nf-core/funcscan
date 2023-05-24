@@ -13,7 +13,6 @@ workflow INPUT_CHECK {
                 .csv
                 .splitCsv ( header:true, sep:',' )
                 .map { create_input_channels(it) }
-                .dump(tag: "output")
 
     emit:
     contigs                                   // channel: [ val(meta), [ fasta ] ]
@@ -32,8 +31,9 @@ def create_input_channels(LinkedHashMap row) {
         array = [
             meta,
             file(row.fasta),
-            file(row.protein, checkIfExists: true),
-            file(row.feature, checkIfExists: true) ]
+            row.protein ? file(row.protein, checkIfExists: true) : null,
+            row.feature ? file(row.feature, checkIfExists: true) : null
+        ]
     }
 
     return array

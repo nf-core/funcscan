@@ -33,16 +33,9 @@ class RowChecker:
         ".fasta.gz",
     )
 
-    VALID_PROTEIN_FORMATS = (
-        ".faa",
-        ".fasta",
-        ".fa"
-    )
+    VALID_PROTEIN_FORMATS = (".faa", ".fasta", ".fa")
 
-    VALID_FEATURE_FORMATS = (
-        ".gbk",
-        ".gff"
-    )
+    VALID_FEATURE_FORMATS = (".gbk", ".gff")
 
     def __init__(
         self,
@@ -115,14 +108,14 @@ class RowChecker:
         )
 
     def _validate_protein(self, row):
-        """Assert that the amino acid FASTA entry has the right format."""
+        """Assert that the optional amino acid FASTA entry has the right format."""
         if self._protein_col in row and len(row[self._protein_col]) > 0:
             assert (
-            " " not in Path(row[self._protein_col]).name
+                " " not in Path(row[self._protein_col]).name
             ), f"The protein FASTA filename may not contain any spaces '{row[self._protein_col]}'."
 
     def _validate_protein_format(self, row):
-        """Assert that a given filename has one of the expected amino acid FASTA extensions."""
+        """Assert that a given filename has one of the expected (if supplied) amino acid FASTA extensions."""
         filename = Path(row[self._protein_col]).name
         if len(row[self._protein_col]) > 0:
             assert any(filename.endswith(extension) for extension in self.VALID_PROTEIN_FORMATS), (
@@ -131,21 +124,22 @@ class RowChecker:
             )
 
     def _validate_feature(self, row):
-        """Assert that the feature file entry has the right format."""
-        if self._feature_col in row:
-            assert len(row[self._feature_col]) > 0 and (
-            " " not in Path(row[self._feature_col]).name
-        ), f"The feature GBK/GFF filename may not contain any spaces '{row[self._feature_col]}'."
-
+        """Assert that the optional feature file entry has the right format."""
+        if self._feature_col in row and len(row[self._feature_col]) > 0:
+            assert (
+                " " not in Path(row[self._feature_col]).name
+            ), f"The feature GBK/GFF filename may not contain any spaces '{row[self._feature_col]}'."
 
     def _validate_feature_format(self, row):
-        """Assert that a given filename has one of the expected feature extensions."""
-        filename = Path(row[self._feature_col]).name
-        if len(row[self._feature_col]) > 0:
-            assert any(filename.endswith(extension) for extension in self.VALID_FEATURE_FORMATS), (
-                f"The feature file has an unrecognized extension: {filename}\n"
-                f"It should be one of: {', '.join(self.VALID_FEATURE_FORMATS)}"
-            )
+        """Assert that a given filename has one of the expected (if supplied) feature extensions."""
+        if self._feature_col in row:
+            filename = Path(row[self._feature_col]).name
+            if len(row[self._feature_col]) > 0:
+                assert any(filename.endswith(extension) for extension in self.VALID_FEATURE_FORMATS), (
+                    f"The feature file has an unrecognized extension: {filename}\n"
+                    f"It should be one of: {', '.join(self.VALID_FEATURE_FORMATS)}"
+                )
+
 
 def read_head(handle, num_lines=10):
     """Read the specified number of lines from the current position in the file."""

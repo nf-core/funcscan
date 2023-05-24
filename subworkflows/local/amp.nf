@@ -27,7 +27,7 @@ workflow AMP {
     // to ensure annotation is executed!
     ch_faa_for_amplify          = faa
     ch_faa_for_amp_hmmsearch    = faa
-    ch_faa_for_ampir            = faa
+    ch_faa_for_ampir            = faa.dump(tag: "amp_faa")
     ch_faa_for_ampcombi         = faa
 
     // AMPLIFY
@@ -109,10 +109,10 @@ workflow AMP {
                 input: [ it[0] ]
                 summary: it[1]
         }
-    
+
     ch_tabix_input = Channel.of(['id':'ampcombi_complete_summary'])
         .combine(ch_ampcombi_summaries_out.summary.collectFile(name: 'ampcombi_complete_summary.csv', keepHeader:true))
-    
+
     TABIX_BGZIP(ch_tabix_input)
 
     emit:
