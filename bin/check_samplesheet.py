@@ -116,7 +116,7 @@ class RowChecker:
 
     def _validate_protein(self, row):
         """Assert that the amino acid FASTA entry has the right format."""
-        if len(row[self._protein_col]) > 0:
+        if self._protein_col in row and len(row[self._protein_col]) > 0:
             assert (
             " " not in Path(row[self._protein_col]).name
             ), f"The protein FASTA filename may not contain any spaces '{row[self._protein_col]}'."
@@ -132,7 +132,8 @@ class RowChecker:
 
     def _validate_feature(self, row):
         """Assert that the feature file entry has the right format."""
-        assert len(row[self._feature_col]) > 0 and (
+        if self._feature_col in row:
+            assert len(row[self._feature_col]) > 0 and (
             " " not in Path(row[self._feature_col]).name
         ), f"The feature GBK/GFF filename may not contain any spaces '{row[self._feature_col]}'."
 
