@@ -3,28 +3,49 @@
     VALIDATE INPUTS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+include { validateParameters; paramsHelp; paramsSummaryLog; paramsSummaryMap; fromSamplesheet } from 'plugin/nf-validation'
 
-def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
+def logo = NfcoreTemplate.logo(workflow, params.monochrome_logs)
+def citation = '\n' + WorkflowMain.citation(workflow) + '\n'
+def summary_params = paramsSummaryMap(workflow)
+
+// Print help message if needed
+if (params.help) {
+    def String command = "nextflow run ${workflow.manifest.name} --input samplesheet.csv --genome GRCh37 -profile docker"
+    log.info logo + paramsHelp(command) + citation + NfcoreTemplate.dashedLine(params.monochrome_logs)
+    System.exit(0)
+}
+
+// Validate input parameters
+if (params.validate_params) {
+    validateParameters()
+}
+
+// Print parameter summary log to screen
+log.info logo + paramsSummaryLog(workflow) + citation
 
 // Validate input parameters
 WorkflowFuncscan.initialise(params, log)
 
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.multiqc_config, params.annotation_bakta_db_localpath,
+/*def checkPathParamList = [ params.input, params.multiqc_config, params.annotation_bakta_db_localpath,
                             params.amp_hmmsearch_models, params.amp_ampcombi_db,
                             params.arg_amrfinderplus_db, params.arg_deeparg_data,
                             params.bgc_antismash_databases, params.bgc_antismash_installationdirectory,
                             params.bgc_deepbgc_database, params.bgc_hmmsearch_models ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
+
 // Check mandatory parameters
 if (params.input) { ch_input = file(params.input) } else { error("Input samplesheet not specified!") }
+*/
 
 // Validate fARGene inputs
 // Split input into array, find the union with our valid classes, extract only
 // invalid classes, and if they exist, exit. Note `tokenize` used here as this
 // works for `interesect` and other groovy functions, but require `split` for
 // `Channel.of` creation. See `arg.nf` for latter.
+/*
 def fargene_classes = params.arg_fargene_hmmmodel
 def fargene_valid_classes = [ "class_a", "class_b_1_2", "class_b_3",
                             "class_c", "class_d_1", "class_d_2",
@@ -35,6 +56,7 @@ def fargene_classes_valid = fargene_user_classes.intersect( fargene_valid_classe
 def fargene_classes_missing = fargene_user_classes - fargene_classes_valid
 
 if ( fargene_classes_missing.size() > 0 ) error("[nf-core/funcscan] ERROR: invalid class present in --arg_fargene_hmmodel. Please check input. Invalid class: ${fargene_classes_missing.join(', ')}")
+*/
 
 // Validate antiSMASH inputs
 // 1. Make sure that either both or none of the antiSMASH directories are supplied
@@ -71,8 +93,6 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { INPUT_CHECK } from '../subworkflows/local/input_check'
-
 include { AMP } from '../subworkflows/local/amp'
 include { ARG } from '../subworkflows/local/arg'
 include { BGC } from '../subworkflows/local/bgc'
@@ -117,16 +137,18 @@ workflow FUNCSCAN {
     ch_versions = Channel.empty()
     ch_multiqc_logo = Channel.fromPath("$projectDir/docs/images/nf-core-funcscan_logo_flat_light.png")
 
-    //
+    /*
     // SUBWORKFLOW: Read in samplesheet, validate and stage input files
     //
     INPUT_CHECK (
         ch_input
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
+*/
+    ch_input = Channel.fromSamplesheet("input")
 
     // Some tools require uncompressed input
-    fasta_prep = INPUT_CHECK.out.contigs
+    fasta_prep = ch_input
         .branch {
             compressed: it[1].toString().endsWith('.gz')
             uncompressed: it[1]
