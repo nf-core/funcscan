@@ -27,7 +27,7 @@ workflow AMP {
     // to ensure annotation is executed!
     ch_faa_for_amplify          = faa
     ch_faa_for_amp_hmmsearch    = faa
-    ch_faa_for_ampir            = faa.dump(tag: "amp_faa")
+    ch_faa_for_ampir            = faa
     ch_faa_for_ampcombi         = faa
 
     // AMPLIFY

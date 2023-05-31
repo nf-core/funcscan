@@ -150,7 +150,6 @@ workflow FUNCSCAN {
                                 meta['longest_contig'] = Integer.parseInt(length)
                             [ meta, fasta ]
                         }
-                        //.dump(tag: "prepped_input")
 
     /*
         ANNOTATION
@@ -159,7 +158,6 @@ workflow FUNCSCAN {
     // Then we make specific channels for each context
     ch_input_for_annotation = ch_prepped_fastas
                                 .join(ch_preannotated_files)
-                                .dump(tag: "joined")
                                 .branch {
                                     meta, fasta, protein, feature ->
                                         annotated_protein: protein != null
@@ -171,10 +169,9 @@ workflow FUNCSCAN {
     // For prodigal: run twice, once for gff and once for gbk generation, (for parity with PROKKA which produces both)
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.bgc_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
 
-        ANNOTATION( ch_input_for_annotation.unannotated.map{meta, fasta, protein, feature -> [meta, fasta]}.dump(tag: "unannotated") )
+        ANNOTATION( ch_input_for_annotation.unannotated.map{meta, fasta, protein, feature -> [meta, fasta]})
 
-        ch_new_annotation_faa        = ANNOTATION.out.faa.dump(tag: "faa")
-        ch_new_annotation_fna        = ANNOTATION.out.fna
+        ch_new_annotation_faa        = ANNOTATION.out.faa
         ch_new_annotation_gff        = ANNOTATION.out.gff
         ch_new_annotation_gbk        = ANNOTATION.out.gbk
 

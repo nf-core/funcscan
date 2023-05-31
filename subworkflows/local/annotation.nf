@@ -24,8 +24,6 @@ workflow ANNOTATION {
     ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
-    <!-- TODO sync with latest `-r dev`r -->
-
     if ( params.annotation_tool == "prodigal" ) {
         PRODIGAL_GFF ( fasta, "gff" )
         GUNZIP_PRODIGAL_FAA ( PRODIGAL_GFF.out.amino_acid_fasta )
@@ -42,7 +40,7 @@ workflow ANNOTATION {
 
         if ( params.save_annotations == true ) {
             PRODIGAL_GBK ( fasta, "gbk" )
-            GUNZIP_GBK ( PRODIGAL_GBK.out.gene_annotations)
+            GUNZIP_PRODIGAL_GBK ( PRODIGAL_GBK.out.gene_annotations)
             ch_versions              = ch_versions.mix(PRODIGAL_GBK.out.versions)
             ch_annotation_gbk        = PRODIGAL_GBK.out.gene_annotations // Prodigal GBK output stays zipped because it is currently not used by any downstream subworkflow.
         }
