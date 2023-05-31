@@ -2,16 +2,19 @@
     Run annotation tools
 */
 
-include { PROKKA                      } from '../../modules/nf-core/prokka/main'
-include { PRODIGAL as PRODIGAL_GFF    } from '../../modules/nf-core/prodigal/main'
-include { PRODIGAL as PRODIGAL_GBK    } from '../../modules/nf-core/prodigal/main'
-include { PYRODIGAL                   } from '../../modules/nf-core/pyrodigal/main'
-include { BAKTA_BAKTADBDOWNLOAD       } from '../../modules/nf-core/bakta/baktadbdownload/main'
-include { BAKTA_BAKTA                 } from '../../modules/nf-core/bakta/bakta/main'
-include { GUNZIP as GUNZIP_FNA        } from '../../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_FAA        } from '../../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_GFF        } from '../../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_GBK        } from '../../modules/nf-core/gunzip/main'
+include { PROKKA                         } from '../../modules/nf-core/prokka/main'
+include { PRODIGAL as PRODIGAL_GFF       } from '../../modules/nf-core/prodigal/main'
+include { PRODIGAL as PRODIGAL_GBK       } from '../../modules/nf-core/prodigal/main'
+include { PYRODIGAL                      } from '../../modules/nf-core/pyrodigal/main'
+include { BAKTA_BAKTADBDOWNLOAD          } from '../../modules/nf-core/bakta/baktadbdownload/main'
+include { BAKTA_BAKTA                    } from '../../modules/nf-core/bakta/bakta/main'
+include { GUNZIP as GUNZIP_PRODIGAL_FNA  } from '../../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_PRODIGAL_FAA  } from '../../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_PRODIGAL_GFF  } from '../../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_PRODIGAL_GBK  } from '../../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_PYRODIGAL_FNA } from '../../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_PYRODIGAL_FAA } from '../../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_PYRODIGAL_GFF } from '../../modules/nf-core/gunzip/main'
 
 workflow ANNOTATION {
     take:
@@ -21,16 +24,21 @@ workflow ANNOTATION {
     ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
+    <!-- TODO sync with latest `-r dev`r -->
+
     if ( params.annotation_tool == "prodigal" ) {
         PRODIGAL_GFF ( fasta, "gff" )
-        GUNZIP_FAA ( PRODIGAL_GFF.out.amino_acid_fasta )
-        GUNZIP_FNA ( PRODIGAL_GFF.out.nucleotide_fasta)
-        GUNZIP_GFF ( PRODIGAL_GFF.out.gene_annotations )
-        ch_versions              = ch_versions.mix(PRODIGAL_GFF.out.versions)
-        ch_annotation_faa        = GUNZIP_FAA.out.gunzip
-        ch_annotation_fna        = GUNZIP_FNA.out.gunzip
-        ch_annotation_gff        = GUNZIP_GFF.out.gunzip
-        ch_annotation_gbk        = Channel.empty() // Prodigal GBK and GFF output are mutually exclusive
+        GUNZIP_PRODIGAL_FAA ( PRODIGAL_GFF.out.amino_acid_fasta )
+        GUNZIP_PRODIGAL_FNA ( PRODIGAL_GFF.out.nucleotide_fasta)
+        GUNZIP_PRODIGAL_GFF ( PRODIGAL_GFF.out.gene_annotations )
+        ch_versions       = ch_versions.mix(PRODIGAL_GFF.out.versions)
+        ch_versions       = ch_versions.mix(GUNZIP_PRODIGAL_FAA.out.versions)
+        ch_versions       = ch_versions.mix(GUNZIP_PRODIGAL_FNA.out.versions)
+        ch_versions       = ch_versions.mix(GUNZIP_PRODIGAL_GFF.out.versions)
+        ch_annotation_faa = GUNZIP_PRODIGAL_FAA.out.gunzip
+        ch_annotation_fna = GUNZIP_PRODIGAL_FNA.out.gunzip
+        ch_annotation_gff = GUNZIP_PRODIGAL_GFF.out.gunzip
+        ch_annotation_gbk = Channel.empty() // Prodigal GBK and GFF output are mutually exclusive
 
         if ( params.save_annotations == true ) {
             PRODIGAL_GBK ( fasta, "gbk" )
@@ -42,11 +50,17 @@ workflow ANNOTATION {
     } else if ( params.annotation_tool == "pyrodigal" ) {
 
         PYRODIGAL ( fasta )
-        ch_versions              = ch_versions.mix(PYRODIGAL.out.versions)
-        ch_annotation_faa        = PYRODIGAL.out.faa
-        ch_annotation_fna        = PYRODIGAL.out.fna
-        ch_annotation_gff        = PYRODIGAL.out.gff
-        ch_annotation_gbk        = Channel.empty() // Pyrodigal doesn't produce GBK
+        GUNZIP_PYRODIGAL_FAA ( PYRODIGAL.out.faa )
+        GUNZIP_PYRODIGAL_FNA ( PYRODIGAL.out.fna)
+        GUNZIP_PYRODIGAL_GFF ( PYRODIGAL.out.gff )
+        ch_versions       = ch_versions.mix(PYRODIGAL.out.versions)
+        ch_versions       = ch_versions.mix(GUNZIP_PYRODIGAL_FAA.out.versions)
+        ch_versions       = ch_versions.mix(GUNZIP_PYRODIGAL_FNA.out.versions)
+        ch_versions       = ch_versions.mix(GUNZIP_PYRODIGAL_GFF.out.versions)
+        ch_annotation_faa = GUNZIP_PYRODIGAL_FAA.out.gunzip
+        ch_annotation_fna = GUNZIP_PYRODIGAL_FAA.out.gunzip
+        ch_annotation_gff = GUNZIP_PYRODIGAL_FAA.out.gunzip
+        ch_annotation_gbk = Channel.empty() // Pyrodigal doesn't produce GBK
 
     }  else if ( params.annotation_tool == "prokka" ) {
 
