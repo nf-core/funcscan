@@ -3,7 +3,35 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.1.0dev - [unreleased]
+## v1.1.2dev - [unreleased]
+
+### `Added`
+
+### `Fixed`
+
+### `Dependencies`
+
+### `Deprecated`
+
+## v1.1.1 - [2023-05-24]
+
+### `Added`
+
+- [#270](https://github.com/nf-core/funcscan/pull/270) Merged pipeline template of nf-core/tools version 2.8 and updated modules accordingly. (by @jasmezz, @jfy133)
+- [#274](https://github.com/nf-core/funcscan/pull/274) Update all modules: changed docker links according to the change of quay.io as default repository and Pyrodigal annotation output now zipped. (by @jasmezz)
+- [#275](https://github.com/nf-core/funcscan/pull/275) Save DRAMP database in the common database directory if `--save_databases` is supplied. (by @jasmezz)
+
+### `Fixed`
+
+- [#272](https://github.com/nf-core/funcscan/pull/272) Fix typo in Prokka output path in modules.config. (by @jasmezz)
+- [#273](https://github.com/nf-core/funcscan/pull/273) Update Ampir module after input bugfix in module. (reported by @mathavanpu, fix by @louperelo)
+- [#276](https://github.com/nf-core/funcscan/pull/276) Fix Pyrodigal parameters in modules.config. (by @jasmezz)
+
+### `Dependencies`
+
+### `Deprecated`
+
+## v1.1.0 - British Beans on Toast - [2023-04-27]
 
 ### `Added`
 
@@ -15,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#253](https://github.com/nf-core/funcscan/pull/253) Updated Prodigal to have compressed output files. (by @jasmezz)
 - [#262](https://github.com/nf-core/funcscan/pull/262) Added comBGC function to screen whole directory of antiSMASH output (one subfolder per sample). (by @jasmezz)
 - [#263](https://github.com/nf-core/funcscan/pull/263) Removed `AMPlify` from test_full.config. (by @jasmezz)
+- [#266](https://github.com/nf-core/funcscan/pull/266) Updated README.md with Pyrodigal. (by @jasmezz)
 
 ### `Fixed`
 
@@ -25,6 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#242](https://github.com/nf-core/funcscan/pull/242) Fixed MACREL '.faa' issue that was generated when it was run on its own and upgraded MACREL from version `1.1.0` to `1.2.0` (by @Darcy220606)
 - [#248](https://github.com/nf-core/funcscan/pull/248) Applied best-practice `error("message")` to all (sub)workflow files. (by @jasmezz)
 - [#254](https://github.com/nf-core/funcscan/pull/254) Further resource optimisation based on feedback from 'real world' datasets. (ongoing, reported by @alexhbnr and @Darcy220606, fix by @jfy133)
+- [#266](https://github.com/nf-core/funcscan/pull/266) Fixed wrong process name in base.config. (reported by @Darcy220606, fix by @jasmezz)
 
 ### `Dependencies`
 

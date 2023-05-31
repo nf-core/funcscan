@@ -87,10 +87,23 @@ include { BGC        } from '../subworkflows/local/bgc'
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
-include { BIOAWK                      } from '../modules/nf-core/bioawk/main'
-include { GUNZIP as GUNZIP_FASTA_PREP } from '../modules/nf-core/gunzip/main'
+
+include { MULTIQC                           } from '../modules/nf-core/multiqc/main'
+include { CUSTOM_DUMPSOFTWAREVERSIONS       } from '../modules/nf-core/custom/dumpsoftwareversions/main'
+include { GUNZIP as GUNZIP_FASTA_PREP       } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_PRODIGAL_FNA     } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_PRODIGAL_FAA     } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_PRODIGAL_GFF     } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_PYRODIGAL_FNA    } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_PYRODIGAL_FAA    } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_PYRODIGAL_GFF    } from '../modules/nf-core/gunzip/main'
+include { BIOAWK                            } from '../modules/nf-core/bioawk/main'
+include { PROKKA                            } from '../modules/nf-core/prokka/main'
+include { PRODIGAL as PRODIGAL_GFF          } from '../modules/nf-core/prodigal/main'
+include { PRODIGAL as PRODIGAL_GBK          } from '../modules/nf-core/prodigal/main'
+include { PYRODIGAL                         } from '../modules/nf-core/pyrodigal/main'
+include { BAKTA_BAKTADBDOWNLOAD             } from '../modules/nf-core/bakta/baktadbdownload/main'
+include { BAKTA_BAKTA                       } from '../modules/nf-core/bakta/bakta/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
