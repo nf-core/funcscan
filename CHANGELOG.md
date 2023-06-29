@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#279](https://github.com/nf-core/funcscan/pull/279) Fix docker/podman registry definition for tower compatibility (fix by @adamrtalbot)
+- [#279](https://github.com/nf-core/funcscan/pull/279) Fix docker/podman registry definition for tower compatibility. (fix by @adamrtalbot)
 
 ### `Dependencies`
 
