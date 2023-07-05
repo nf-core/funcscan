@@ -1130,7 +1130,7 @@
                 "fasta": {
                     "type": "string",
                     "format": "file-path",
-                    "exists": true,
+                    "exists": false,
                     "mimetype": "text/plain",
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
                     "description": "Path to FASTA genome file.",
