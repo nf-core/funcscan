@@ -18,8 +18,8 @@
                     "exists": true,
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
-                    "description": "Path to comma-separated file containing information about the samples in the experiment.",
-                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/funcscan/usage#samplesheet-input).",
+                    "description": "Path to comma-separated file containing information sample names and paths to corresponding FASTA files.",
+                    "help_text": "Before running the pipeline, you will need to create a design file with information about the samples to be scanned by nf-core/funcscan, containing `sample name` and `path/to/your/contigs.fasta`. Use this parameter to specify its location. It has to be a comma-separated file with 2 columns, and a header row (`sample, fasta`). See [usage docs](https://nf-co.re/funcscan/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "outdir": {
@@ -40,7 +40,1079 @@
                     "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
                     "fa_icon": "fas fa-file-signature"
                 }
+            },
+            "help_text": ""
+        },
+        "screening_type_activation": {
+            "title": "Screening Type Activation",
+            "type": "object",
+            "description": "These parameters influence which workflow (ARG, AMP and/or BGC) to activate.",
+            "default": "",
+            "properties": {
+                "run_amp_screening": {
+                    "type": "boolean",
+                    "description": "Activate antimicrobial peptide screening tools.",
+                    "fa_icon": "fas fa-check-circle"
+                },
+                "run_arg_screening": {
+                    "type": "boolean",
+                    "description": "Activate antimicrobial resistance gene screening tools.",
+                    "fa_icon": "fas fa-check-circle"
+                },
+                "run_bgc_screening": {
+                    "type": "boolean",
+                    "description": "Activate biosynthetic gene cluster screening tools.",
+                    "fa_icon": "fas fa-check-circle"
+                }
+            },
+            "fa_icon": "fas fa-network-wired"
+        },
+        "annotation": {
+            "title": "Annotation",
+            "type": "object",
+            "description": "These options influence the generation of annotation files required for downstream steps in ARG, AMP, and BGC workflows.",
+            "default": "",
+            "properties": {
+                "annotation_tool": {
+                    "type": "string",
+                    "default": "pyrodigal",
+                    "description": "Specify which annotation tool to use for some downstream tools.",
+                    "enum": ["prodigal", "pyrodigal", "prokka", "bakta"],
+                    "fa_icon": "fas fa-edit"
+                },
+                "save_annotations": {
+                    "type": "boolean",
+                    "description": "Specify whether to save gene annotations in the results directory.",
+                    "fa_icon": "fas fa-save"
+                }
+            },
+            "fa_icon": "fas fa-file-signature"
+        },
+        "annotation_bakta": {
+            "title": "Annotation: BAKTA",
+            "type": "object",
+            "description": "These parameters influence the annotation algorithm of Bacteria used by BAKTA.",
+            "default": "",
+            "properties": {
+                "annotation_bakta_db_localpath": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fas fa-database",
+                    "description": "Specify a path to BAKTA database.",
+                    "help_text": "Specify a path to a database that is prepared in a BAKTA format."
+                },
+                "annotation_bakta_db_downloadtype": {
+                    "type": "string",
+                    "description": "Download full or light version of the Bakta database if not supplying own database.",
+                    "help_text": "If you want the pipeline to download the Bakta database for you, you can choose between the full (33.1 GB) and light (1.3 GB) version. The full version is generally recommended for best annotation results, because it contains all of these:\n\n- UPS: unique protein sequences identified via length and MD5 hash digests (100% coverage & 100% sequence identity)\n- IPS: identical protein sequences comprising seeds of UniProt's UniRef100 protein sequence clusters\n- PSC: protein sequences clusters comprising seeds of UniProt's UniRef90 protein sequence clusters\n- PSCC: protein sequences clusters of clusters comprising annotations of UniProt's UniRef50 protein sequence clusters\n\nIf download bandwidth, storage, memory, or run duration requirements become an issue, go for the light version (which only contains PSCCs) by modifying the `annotation_bakta_db_downloadtype` flag.\nMore details can be found in the [documentation](https://github.com/oschwengers/bakta#database)\n\n>  Modifies tool parameter(s):\n> - BAKTA_DBDOWNLOAD: `--type`",
+                    "fa_icon": "fas fa-database",
+                    "enum": ["full", "light"]
+                },
+                "annotation_bakta_mincontiglen": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Specify the minimum contig size.",
+                    "help_text": "Specify the minimum contig size that would be annotated by BAKTA.\nIf run with '--annotation_bakta_compliant', the minimum contig length must be set to 200. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--min-contig-length`",
+                    "minimum": 1,
+                    "fa_icon": "fas fa-align-left"
+                },
+                "annotation_bakta_translationtable": {
+                    "type": "integer",
+                    "default": 11,
+                    "description": "Specify the genetic code translation table.",
+                    "help_text": "Specify the genetic code translation table used for translation of nucleotides to amino acids. \nAll possible genetic codes (1-25) used for gene annotation can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--translation-table`",
+                    "minimum": 1,
+                    "maximum": 25,
+                    "fa_icon": "fas fa-border-all"
+                },
+                "annotation_bakta_gram": {
+                    "type": "string",
+                    "default": "?",
+                    "enum": ["+", "-", "?"],
+                    "description": "Specify the type of bacteria to be annotated to detect signaling peptides.",
+                    "help_text": "Specify the type of bacteria expected in the input dataset for correct annotation of the signal peptide predictions. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--gram`",
+                    "fa_icon": "far fa-plus-square"
+                },
+                "annotation_bakta_complete": {
+                    "type": "boolean",
+                    "description": "Specify that all contigs are complete replicons.",
+                    "help_text": "This flag expects contigs that make up complete chromosomes and/or plasmids. By calling it, the user ensured that the contigs are complete replicons. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--complete`",
+                    "fa_icon": "far fa-circle"
+                },
+                "annotation_bakta_renamecontigheaders": {
+                    "type": "boolean",
+                    "description": "Changes the original contig headers.",
+                    "help_text": "This flag specifies that the contig headers should be rewritten. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--keep-contig-headers`",
+                    "fa_icon": "far fa-list-alt"
+                },
+                "annotation_bakta_compliant": {
+                    "type": "boolean",
+                    "description": "Clean the result annotations to standardise them to Genbank/ENA conventions.",
+                    "help_text": "The resulting annotations are cleaned up to standardise them to Genbank/ENA/DDJB conventions. CDS without any attributed hits and those without gene symbols or product descriptions different from hypothetical will be marked as 'hypothetical'.\nWhen activated the '--min-contig-length' will be set to 200. More info can be found [here](https://github.com/oschwengers/bakta).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--compliant`",
+                    "fa_icon": "fas fa-check"
+                },
+                "annotation_bakta_trna": {
+                    "type": "boolean",
+                    "description": "Activate tRNA detection & annotation.",
+                    "help_text": "This flag activates [tRNAscan-SE 2.0](http://lowelab.ucsc.edu/tRNAscan-SE/) that predicts tRNA genes. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-trna`",
+                    "fa_icon": "fas fa-forward"
+                },
+                "annotation_bakta_tmrna": {
+                    "type": "boolean",
+                    "description": "Activate tmRNA detection & annotation.",
+                    "help_text": "This flag activates [Aragorn](http://www.ansikte.se/ARAGORN/) that predicts tmRNA genes. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-tmrna`\n`",
+                    "fa_icon": "fas fa-forward"
+                },
+                "annotation_bakta_rrna": {
+                    "type": "boolean",
+                    "description": "Activate rRNA detection & annotation.",
+                    "help_text": "This flag activates [Infernal vs. Rfam rRNA covariance models](http://eddylab.org/infernal/) that predicts rRNA genes. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--rrna`",
+                    "fa_icon": "fas fa-forward"
+                },
+                "annotation_bakta_ncrna": {
+                    "type": "boolean",
+                    "description": "Activate ncRNA detection & annotation.",
+                    "help_text": "This flag activates [Infernal vs. Rfam ncRNA covariance models](http://eddylab.org/infernal/) that predicts ncRNA genes.\nBAKTA distinguishes between ncRNA genes and (cis-regulatory) regions to enable the distinction of feature overlap detection.\nThis including distinguishing between ncRNA gene types: sRNA, antisense, ribozyme and antitoxin. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--ncrna`",
+                    "fa_icon": "fas fa-forward"
+                },
+                "annotation_bakta_ncrnaregion": {
+                    "type": "boolean",
+                    "description": "Activate ncRNA region detection & annotation.",
+                    "help_text": "This flag activates [Infernal vs. Rfam ncRNA covariance models](http://eddylab.org/infernal/) that predicts ncRNA cis-regulatory regions.\nBAKTA distinguishes between ncRNA genes and (cis-regulatory) regions to enable the distinction of feature overlap detection.\nThis including distinguishing between ncRNA (cis-regulatory) region types: riboswitch, thermoregulator, leader and frameshift element. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-ncrna-region`",
+                    "fa_icon": "fas fa-forward"
+                },
+                "annotation_bakta_crispr": {
+                    "type": "boolean",
+                    "description": "Activate CRISPR array detection & annotation.",
+                    "help_text": "This flag activates [PILER-CR](https://www.drive5.com/pilercr/) that predicts CRISPR arrays. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-crispr`",
+                    "fa_icon": "fas fa-forward"
+                },
+                "annotation_bakta_skipcds": {
+                    "type": "boolean",
+                    "description": "Skip CDS detection & annotation.",
+                    "help_text": "This flag skips CDS prediction that is done by [PYRODIGAL](https://github.com/althonos/pyrodigal) with which the distinct prediction for complete replicons and uncompleted contigs is done.\nFor more information on how BAKTA predicts CDS please refer to BAKTA [documentation](https://github.com/oschwengers/bakta).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-cds`",
+                    "fa_icon": "fas fa-forward"
+                },
+                "annotation_bakta_pseudo": {
+                    "type": "boolean",
+                    "description": "Activate pseudogene detection & annotation.",
+                    "help_text": "This flag activates the search for reference Phytochelatin Synthase genes (PCSs) using hypothetical CDS as seed sequences, then aligns the translated PCSs against up-/downstream-elongated CDS regions. For more info refer to BAKTA [documentation](https://github.com/oschwengers/bakta). \n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-pseudo`",
+                    "fa_icon": "fas fa-forward"
+                },
+                "annotation_bakta_skipsorf": {
+                    "type": "boolean",
+                    "description": "Skip sORF detection & annotation.",
+                    "help_text": "Skip the prediction of sORFs from amino acids stretches as less than 30aa. For more info please refer to BAKTA [documentation](https://github.com/oschwengers/bakta).  All sORF without gene symbols or product descriptions different from hypothetical will be discarded, while only those identified hits exhibiting proper gene symbols or product descriptions different from hypothetical will still be included in the final annotation.\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-sorf`",
+                    "fa_icon": "fas fa-forward"
+                },
+                "annotation_bakta_gap": {
+                    "type": "boolean",
+                    "description": "Activate gap detection & annotation.",
+                    "help_text": "Activates any gene annotation found within contig assembly gaps. For more info. please refer to BAKTA [documentation](https://github.com/oschwengers/bakta). \n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-gap`",
+                    "fa_icon": "fas fa-forward"
+                },
+                "annotation_bakta_ori": {
+                    "type": "boolean",
+                    "description": "Activate oriC/oriT detection & annotation.",
+                    "help_text": "Activates the BAKTA search for oriC/oriT genes by comparing results from Blast+ (generated by cov=0.8, id=0.8) and the [MOB-suite](https://github.com/phac-nml/mob-suite) of oriT & [DoriC](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6323995/) oriC/oriV sequences. Annotations of ori regions take into account overlapping Blast+ hits and are conducted based on a majority vote heuristic. Region edges may be fuzzy. For more info please refer to the BAKTA [documentation](https://github.com/oschwengers/bakta).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-ori`",
+                    "fa_icon": "fas fa-forward"
+                },
+                "annotation_bakta_activate_plot": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-chart-pie",
+                    "description": "Activate generation of circular genome plots.",
+                    "help_text": "Activate this flag to generate genome plots (might be memory-intensive).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-plot`"
+                }
+            },
+            "fa_icon": "fas fa-file-signature",
+            "help_text": "BAKTA is a tool developed to annotate bacterial genomes and plasmids from both isolates and MAGs. \n\nDocumentation: [https://github.com/oschwengers/bakta](https://github.com/oschwengers/bakta)"
+        },
+        "annotation_prokka": {
+            "title": "Annotation: Prokka",
+            "type": "object",
+            "description": "These parameters influence the annotation algorithm used by Prokka.",
+            "default": "",
+            "properties": {
+                "annotation_prokka_singlemode": {
+                    "type": "boolean",
+                    "description": "Use the default genome-length optimised mode (rather than the metagenome mode).",
+                    "help_text": "By default, Prokka's --metagenome mode is used in the pipeline to improve the gene prediction of highly fragmented metagenomes.\n\nBy specifying this parameter Prokka will instead use it's default mode that is optimised for singular 'complete' genome sequences.\n\nFor more information, please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--metagenome`",
+                    "fa_icon": "fas fa-braille"
+                },
+                "annotation_prokka_rawproduct": {
+                    "type": "boolean",
+                    "description": "Suppress the default clean-up of the gene annotations.",
+                    "help_text": "By default, annotation in Prokka is carried out by alignment to other proteins in its database, or the databases the user provides via the tools `--proteins` flag. The resulting annotations are then cleaned up to standardise them to Genbank/ENA conventions.\n'Vague names' are set to 'hypothetical proteins', 'possible/probable/predicted' are set to 'putative' and 'EC/CPG and locus tag ids' are removed.\n\nBy supplying this flag you stop such clean up leaving the original annotation names.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\nThis flag suppresses this default behavior of Prokka (which is to perform the cleaning).\n\n> Modifies tool parameter(s):\n> - Prokka: `--rawproduct`",
+                    "fa_icon": "fab fa-product-hunt"
+                },
+                "annotation_prokka_kingdom": {
+                    "type": "string",
+                    "default": "Bacteria",
+                    "fa_icon": "fab fa-accusoft",
+                    "description": "Specify the kingdom that the input represents.",
+                    "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n> \u26a0\ufe0f Prokka cannot annotate Eukaryotes.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--kingdom`",
+                    "enum": ["Archaea", "Bacteria", "Mitochondria", "Viruses"]
+                },
+                "annotation_prokka_gcode": {
+                    "type": "integer",
+                    "default": 11,
+                    "minimum": 0,
+                    "maximum": 25,
+                    "description": "Specify the translation table used to annotate the sequences.",
+                    "help_text": "Specify the translation table used to annotate the sequences. All possible genetic codes (1-25) used for gene annotation can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). This flag is required if the flag `--kingdom` is assigned.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--gcode`",
+                    "fa_icon": "fas fa-border-none"
+                },
+                "annotation_prokka_mincontiglen": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Minimum contig size required for annotation (bp).",
+                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend that this should be >= 200 bp, if you plan to submit such annotations to NCBI.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--mincontiglen`",
+                    "fa_icon": "fas fa-ruler-horizontal"
+                },
+                "annotation_prokka_evalue": {
+                    "type": "number",
+                    "default": 1e-6,
+                    "description": "Minimum e-value cut-off.",
+                    "help_text": "Specifiy the minimum e-value used for filtering the alignment hits.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--evalue`",
+                    "fa_icon": "fas fa-sort-amount-down"
+                },
+                "annotation_prokka_coverage": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Set the assigned minimum coverage.",
+                    "help_text": "Specify the minimum coverage percent of the annotated genome. This must be set between 0-100.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--coverage`",
+                    "fa_icon": "fas fa-align-right",
+                    "minimum": 0,
+                    "maximum": 100
+                },
+                "annotation_prokka_cdsrnaolap": {
+                    "type": "boolean",
+                    "description": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS).",
+                    "help_text": "Allow transfer RNA (trRNA) to overlap coding sequences (CDS). Transfer RNAs are short stretches of nucleotide sequences that link mRNA and the amino acid sequence of proteins. Their presence helps in the annotation of the sequences, because each trRNA can only be attached to one type of amino acid.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--cdsrnaolap`",
+                    "fa_icon": "fas fa-align-justify"
+                },
+                "annotation_prokka_rnammer": {
+                    "type": "boolean",
+                    "description": "Use RNAmmer for rRNA prediction.",
+                    "help_text": "Activates [RNAmmer](https://services.healthtech.dtu.dk/service.php?RNAmmer-1.2) instead of the Prokka default [Barrnap](https://github.com/tseemann/barrnap) for rRNA prediction during the annotation process. RNAmmer classifies ribosomal RNA genes in genome sequences by using two levels of Hidden Markov Models. Barrnap uses the nhmmer tool that includes HMMER 3.1 for HMM searching in RNA:DNA style.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--rnammer`",
+                    "fa_icon": "fas fa-adjust"
+                },
+                "annotation_prokka_centre": {
+                    "type": "string",
+                    "description": "Sequencing centre ID.",
+                    "default": "None",
+                    "fa_icon": "fas fa-map-marker-alt",
+                    "help_text": "Add the sequencing center ID used in generating the raw sequences. This flag is typically requested in combination with the `--compliant` flag when contigs need to be renamed due to non-conforming contig headers. For more information please check Prokka [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - Prokka: `--centre`"
+                },
+                "annotation_prokka_compliant": {
+                    "type": "boolean",
+                    "fa_icon": "far fa-check-circle",
+                    "description": "Force contig name to Genbank/ENA/DDJB naming rules.",
+                    "help_text": "Force the contig headers to conform to the Genbank/ENA/DDJB contig header standards. This is activated in combination with `--centre [X]` when contig headers supplied by the user are non-conforming and therefore need to be renamed before Prokka can start annotation. This flag activates  `--genes --mincontiglen 200`. For more information please check Prokka [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - Prokka: `--compliant`"
+                },
+                "annotation_prokka_locustag": {
+                    "type": "string",
+                    "default": "Prokka",
+                    "fa_icon": "fas fa-tags",
+                    "description": "Assign the locus tag for the contig header.",
+                    "help_text": "Assign a special name to the contig. This is used when a specific group of samples are run in a batch. For more information please check Prokka [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - Prokka: `--locustag`"
+                },
+                "annotation_prokka_addgenes": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-dna",
+                    "description": "Add the gene features for each CDS hit.",
+                    "help_text": "For every CDS annotated, this flag adds the gene that encodes for that CDS region. For more information please check Prokka [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - Prokka: `--addgenes`"
+                }
+            },
+            "fa_icon": "fas fa-tools",
+            "help_text": "Prokka annotates genomic sequences belonging to bacterial, archaeal and viral genomes.\n\nDocumentation: https://github.com/tseemann/prokka"
+        },
+        "annotation_prodigal": {
+            "title": "Annotation: Prodigal",
+            "type": "object",
+            "description": "These parameters influence the annotation algorithm used by Prodigal.",
+            "default": "",
+            "properties": {
+                "annotation_prodigal_singlemode": {
+                    "type": "boolean",
+                    "description": "Specify whether to use Prodigal's single-genome mode for long sequences.",
+                    "help_text": "By default Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or longer than 20000 characters.\n\nHowever, more fragmented reads from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter allows to override this and run in single genome mode again.\n\nFor more information check Prodigal [documentation](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s): \n> -PRODIGAL: `-p`",
+                    "fa_icon": "far fa-circle"
+                },
+                "annotation_prodigal_closed": {
+                    "type": "boolean",
+                    "description": "Does not allow partial genes on contig edges.",
+                    "help_text": "Suppresses partial genes from being on contig edge, resulting in closed ends. Should only be activated for genomes where it is sure the first and last bases of the sequence(s) do not fall inside a gene. Run together with `-p normal` (former `-p single`) .\n\nFor more information check Prodigal [documentation](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `-c`",
+                    "fa_icon": "fas fa-circle"
+                },
+                "annotation_prodigal_transtable": {
+                    "type": "integer",
+                    "default": 11,
+                    "description": "Specifies the translation table used for gene annotation.",
+                    "help_text": "Specifies which translation table should be used for seqeunce annotation. All possible genetic code translation tables can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). The default is set at 11, which is used for standard Bacteria/Archeae.\n\nFor more information check Prodigal [documentation](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `-g`",
+                    "fa_icon": "fas fa-border-all"
+                },
+                "annotation_prodigal_forcenonsd": {
+                    "type": "boolean",
+                    "description": "Forces Prodigal to scan for motifs.",
+                    "help_text": "Forces PRODIGAL to a full scan for motifs rather than activating the Shine-Dalgarno RBS finder, the default scanner for PRODIGAL to train for motifs.\n\nFor more information check Prodigal [documentation](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `-n`",
+                    "fa_icon": "fas fa-barcode"
+                }
+            },
+            "fa_icon": "fas fa-tools",
+            "help_text": "Prodigal is a protein-coding gene prediction tool developed to run on bacterial and archaeal genomes.\n\nDocumentation: https://github.com/hyattpd/prodigal/wiki"
+        },
+        "annotation_pyrodigal": {
+            "title": "Annotation: Pyrodigal",
+            "type": "object",
+            "description": "These parameters influence the annotation algorithm used by Pyrodigal.",
+            "default": "",
+            "properties": {
+                "annotation_pyrodigal_singlemode": {
+                    "type": "boolean",
+                    "fa_icon": "far fa-circle",
+                    "description": "Specify whether to use Pyrodigal's single-genome mode for long sequences.",
+                    "help_text": "By default Pyrodigal runs in 'single genome' mode that requires sequence lengths to be equal or longer than 20000 characters.\n\nHowever, more fragmented reads from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter allows to override this and run in single genome mode again.\n\nFor more information check Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s): \n> -PYRODIGAL: `-p`"
+                },
+                "annotation_pyrodigal_closed": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-circle",
+                    "description": "Does not allow partial genes on contig edges.",
+                    "help_text": "Suppresses partial genes from being on contig edge, resulting in closed ends. Should only be activated for genomes where it is sure the first and last bases of the sequence(s) do not fall inside a gene. Run together with `-p single` .\n\nFor more information check Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `-c`"
+                },
+                "annotation_pyrodigal_transtable": {
+                    "type": "integer",
+                    "default": 11,
+                    "fa_icon": "fas fa-border-all",
+                    "description": "Specifies the translation table used for gene annotation.",
+                    "help_text": "Specifies which translation table should be used for seqeunce annotation. All possible genetic code translation tables can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). The default is set at 11, which is used for standard Bacteria/Archeae.\n\nFor more information check Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `-g`"
+                },
+                "annotation_pyrodigal_forcenonsd": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-barcode",
+                    "description": "Forces Pyrodigal to scan for motifs.",
+                    "help_text": "Forces Pyrodigal to a full scan for motifs rather than activating the Shine-Dalgarno RBS finder, the default scanner for Pyrodigal to train for motifs.\n\nFor more information check Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `-n`"
+                }
+            },
+            "fa_icon": "fas fa-tools",
+            "help_text": "Pyrodigal produces protein-coding gene predictions of bacterial and archaeal genomes, based on the tool Prodigal being resource-optimized. Read more at the [Pyrodigal GitHub](https://github.com/althonos/pyrodigal)\n\nDocumentation: https://pyrodigal.readthedocs.io"
+        },
+        "database_downloading_options": {
+            "title": "Database downloading options",
+            "type": "object",
+            "description": "Generic options for database downloading",
+            "default": "",
+            "properties": {
+                "save_databases": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Specify whether to save pipeline-downloaded databases in your results directory.",
+                    "help_text": "While nf-core/funcscan can download databases for you, often these are very large and can significantly slow-down pipeline runtime if the databases have to be downloaded every run.\n\nSpecifying `--save_databases` while save the pipeline-downloaded databases in your results directory. This applies to: BAKTA, DeepBGC, DeepARG, AMRFinderPlus, antiSMASH, and DRAMP.\n\nYou can then move the resulting directories/files to a central cache directory of your choice for re-use in the future.\n\nIf you do not specify these flags, the database files will remain in your `work/` directory and will be deleted if `cleanup = true` is specified in your config, or if you run `nextflow clean`.\n"
+                }
+            },
+            "fa_icon": "fas fa-database"
+        },
+        "amp_amplify": {
+            "title": "AMP: AMPlify",
+            "type": "object",
+            "description": "Antimicrobial Peptide detection using a deep learning model.",
+            "default": "",
+            "properties": {
+                "amp_skip_amplify": {
+                    "type": "boolean",
+                    "description": "Skip AMPlify during AMP-screening.",
+                    "fa_icon": "fas fa-ban"
+                }
+            },
+            "fa_icon": "fas fa-tools",
+            "help_text": "AMPlify is an attentive deep learning model for antimicrobial peptide prediction. It takes in annotated contigs (.faa) and classifies them as either AMP or non-AMP.\n\nDocumentation: https://github.com/bcgsc/AMPlify"
+        },
+        "amp_ampir": {
+            "title": "AMP: ampir",
+            "type": "object",
+            "description": "Antimicrobial Peptide detection using machine learning",
+            "default": "",
+            "properties": {
+                "amp_skip_ampir": {
+                    "type": "boolean",
+                    "description": "Skip AMPir during AMP-screening.",
+                    "fa_icon": "fas fa-ban"
+                },
+                "amp_ampir_model": {
+                    "type": "string",
+                    "default": "precursor",
+                    "description": "Specify which machine learning classification model to use.",
+                    "help_text": "AMPir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, \"precursor\" and \"mature\". \n\nThe precursor module is better for predicted proteins from a translated transcriptome or translated gene models. The alternative model (mature) is best suited for AMP sequences after post-translational processing, typically from direct proteomic sequencing.\n\nMore information can be found in the AMPir [documentation](https://ampir.marine-omics.net/).\n\n> Modifies tool parameter(s):\n> - AMPir: `model =`",
+                    "enum": ["precursor", "mature"],
+                    "fa_icon": "fas fa-layer-group"
+                },
+                "amp_ampir_minlength": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Specify minimum protein length for prediction calculation.",
+                    "help_text": "Filters result for minimum protein length.\nNote that amino acid sequences that are shorter than 10 amino acids long and/or contain anything other than the standard 20 amino acids are not evaluated and will contain an NA as their prob_AMP value\n\nMore information can be found in the AMPir [documentation](https://ampir.marine-omics.net/).\n\n> Modifies tool parameter(s):\n> - AMPir parameter: `min_length` in the `calculate_features()` function",
+                    "fa_icon": "fas fa-ruler-horizontal"
+                }
+            },
+            "fa_icon": "fas fa-tools",
+            "help_text": "ampir (antimicrobial peptide prediction in r) is an r package designed to predict antimicrobial peptides (AMPs) from any given size protein dataset. ampir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, 'precursor' and 'mature' that have been trained on publicly available antimicrobial peptide data.\n\nDocumentation: https://github.com/Legana/ampir"
+        },
+        "amp_hmmsearch": {
+            "title": "AMP: HMMSearch",
+            "type": "object",
+            "description": "Antimicrobial Peptide detection based on predefined HMM models",
+            "default": "",
+            "properties": {
+                "amp_skip_hmmsearch": {
+                    "type": "boolean",
+                    "description": "Skip HMMsearch during AMP-screening.",
+                    "fa_icon": "fas fa-ban"
+                },
+                "amp_hmmsearch_models": {
+                    "type": "string",
+                    "default": "None",
+                    "description": "Specify path to the AMP hmm model file(s) to search against. Must have quotes if wildcard used.",
+                    "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--amp_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n\nYou must wrap the path in quotes if you use a wildcard, to ensure Nextflow expansion _not_ bash!\n\nFor more information check HMMER [documentation](http://hmmer.org/).",
+                    "fa_icon": "fas fa-layer-group"
+                },
+                "amp_hmmsearch_savealignments": {
+                    "type": "boolean",
+                    "help_text": "Save a multiple alignment of all significant hits (those satisfying inclusion thresholds) to a file\n\nFor more information check HMMER [documentation](http://hmmer.org/).\n\n>  Modifies tool parameter(s):\n> - HMMsearch: `-A`",
+                    "description": "Saves a multiple alignment of all significant hits to a file.",
+                    "fa_icon": "far fa-save"
+                },
+                "amp_hmmsearch_savetargets": {
+                    "type": "boolean",
+                    "help_text": "Save a simple tabular (space-delimited) file summarizing the per-target output, with one data line per homologous target sequence found.\n\nFor more information check HMMER [documentation](http://hmmer.org/).\n\n>  Modifies tool parameter(s)\n> - HMMsearch: `--tblout`",
+                    "description": "Save a simple tabular file summarising the per-target output.",
+                    "fa_icon": "far fa-save"
+                },
+                "amp_hmmsearch_savedomains": {
+                    "type": "boolean",
+                    "help_text": "Save a simple tabular (space-delimited) file summarizing the per-domain output, with one data line per homologous domain detected in a query sequence for each homologous model.\n\nFor more information check HMMER [documentation](http://hmmer.org/).\n\n> Modifies tool parameter(s):\n> - HMMsearch: `--domtblout`",
+                    "description": "Save a simple tabular file summarising the per-domain output.",
+                    "fa_icon": "far fa-save"
+                }
+            },
+            "fa_icon": "fas fa-tools",
+            "help_text": "HMMER/hmmsearch is used for searching sequence databases for sequence homologs, and for making sequence alignments. It implements methods using probabilistic models called profile hidden Markov models (profile HMMs). `hmmsearch` is used to search one or more profiles against a sequence database.\n\nFor more information check HMMER [documentation](http://hmmer.org/).\n\n"
+        },
+        "amp_macrel": {
+            "title": "AMP: Macrel",
+            "type": "object",
+            "description": "Antimicrobial Peptide detection mining from metagenomes",
+            "default": "",
+            "properties": {
+                "amp_skip_macrel": {
+                    "type": "boolean",
+                    "description": "Skip Macrel during AMP-screening.",
+                    "fa_icon": "fas fa-ban"
+                }
+            },
+            "fa_icon": "fas fa-tools",
+            "help_text": "Macrel is a tool that mines antimicrobial peptides (AMPs) from (meta)genomes by predicting peptides from genomes (provided as contigs) and outputs all the predicted anti-microbial peptides found.\n\nDocumentation: https://github.com/BigDataBiology/macrel"
+        },
+        "amp_ampcombi": {
+            "title": "AMP: AMPcombi",
+            "type": "object",
+            "description": "AntiMicrobial Peptides parsing and functional classification tool",
+            "default": "",
+            "fa_icon": "fas fa-filter",
+            "properties": {
+                "amp_ampcombi_db": {
+                    "type": "string",
+                    "description": "Path to AMPcombi reference database directory.",
+                    "help_text": "Path to the folder containing the reference database files:\n1. a fasta file with a `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nFor more information check AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).",
+                    "default": "None",
+                    "fa_icon": "fas fa-address-book"
+                },
+                "amp_ampcombi_cutoff": {
+                    "type": "number",
+                    "default": 0.4,
+                    "description": "Specify probability cutoff to filter AMPs",
+                    "help_text": "Specify the minimum probability an AMP hit must have to be retained in the final output file. Anything below this threshold will be removed.\n\nFor more information check AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cutoff`",
+                    "fa_icon": "fas fa-sort-amount-up"
+                }
+            },
+            "help_text": "AMPcombi : AntiMicrobial Peptides parsing and functional classification tool.\n\nDocumentation: https://github.com/Darcy220606/AMPcombi"
+        },
+        "arg_amrfinderplus": {
+            "title": "ARG: AMRFinderPlus",
+            "type": "object",
+            "description": "Antimicrobial resistance gene detection based on NCBI's curated Reference Gene Database and curated collection of Hidden Markov Models",
+            "default": "",
+            "help_text": "NCBI has developed AMRFinderPlus, a tool that identifies AMR genes, resistance-associated point mutations, and select other classes of genes using protein annotations and/or assembled nucleotide sequence. AMRFinderPlus is used in the Pathogen Detection pipeline, and these data are displayed in NCBI's Isolate Browser. AMRFinderPlus relies on NCBI's curated Reference Gene Database and curated collection of Hidden Markov Models.\n\nDocumentation: https://github.com/ncbi/amr/wiki",
+            "fa_icon": "fas fa-tools",
+            "properties": {
+                "arg_skip_amrfinderplus": {
+                    "type": "boolean",
+                    "description": "Skip AMRFinderPlus during the ARG-screening.",
+                    "fa_icon": "fas fa-ban"
+                },
+                "arg_amrfinderplus_db": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fas fa-layer-group",
+                    "help_text": "Specify the path to a local version of the ARMFinderPlus database. If no input is given, the pipeline will download the database for you.\n\n See the nf-core/funcscan usage [documentation](https://nf-co.re/funcscan/usage) for more information.",
+                    "description": "Specify the path to a local version of the ARMfinderPlus database."
+                },
+                "arg_amrfinderplus_identmin": {
+                    "type": "number",
+                    "default": -1,
+                    "help_text": "Specify the minimum percentage amino-acid identity to reference protein or nucleotide identity for nucleotide reference must have if a BLAST alignment (based on methods: BLAST or PARTIAL) was detected, otherwise NA.\n\n If you specify `-1`, this means use a curated threshold if it exists and `0.9` otherwise.\n\nSetting this value to something other than `-1` will override any curated similarity cutoffs. For BLAST: alignment is > 90% of length and > 90% identity to a protein in the AMRFinderPlus database. For PARTIAL: alignment is > 50% of length, but < 90% of length and > 90% identity to the reference, and does not end at a contig boundary.\n\nFor more information check AMRFinderPlus [documentation](https://github.com/ncbi/amr/wiki/Running-AMRFinderPlus#--organism-option).\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--ident_min`",
+                    "description": "Minimum percent identity to reference sequence.",
+                    "fa_icon": "fas fa-angle-left"
+                },
+                "arg_amrfinderplus_coveragemin": {
+                    "type": "number",
+                    "default": 0.5,
+                    "description": "Minimum coverage of the reference protein.",
+                    "help_text": "Minimum proportion of reference gene covered for a BLAST-based hit analysis if a BLAST alignment was detected, otherwise NA.\n\nFor BLAST-based hit analysis: alignment is > 90% of length and > 90% identity to a protein in the AMRFinderPlus database or for PARTIAL: alignment is > 50% of length, but < 90% of length and > 90% identity to the reference, and does not end at a contig boundary.\n\nFor more information check AMRFinderPlus [documentation](https://github.com/ncbi/amr/wiki/Running-AMRFinderPlus#--organism-option).\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--coverage_min`",
+                    "fa_icon": "fas fa-arrow-alt-circle-down",
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "arg_amrfinderplus_translationtable": {
+                    "type": "integer",
+                    "default": 11,
+                    "description": "Specify which NCBI genetic code to use for translated BLAST.",
+                    "help_text": "NCBI genetic code for translated BLAST. Number from 1 to 33 to represent the translation table used for BLASTX.\n\nSee [translation table](https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi) for more details on which table to use. \n\nFor more information check AMRFinderPlus [documentation](https://github.com/ncbi/amr/wiki/Running-AMRFinderPlus#--organism-option).\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--translation_table`",
+                    "fa_icon": "fas fa-border-all",
+                    "minimum": 1,
+                    "maximum": 33
+                },
+                "arg_amrfinderplus_plus": {
+                    "type": "boolean",
+                    "description": "Add the plus genes to the report.",
+                    "help_text": "Provide results from \"Plus\" genes in the output files.\n\nMostly the `plus` genes are an expanded set of genes that are of interest in pathogens. This set includes stress response (biocide, metal, and heat resistance), virulence factors, some antigens, and porins. These \"plus\" proteins have primarily been added to the database with curated BLAST cutoffs, and are generally identified by BLAST searches. Some of these may not be acquired genes or mutations, but may be intrinsic in some organisms. See [AMRFinderPlus database](https://github.com/ncbi/amr/wiki/AMRFinderPlus-database#types-of-proteins-covered) for more details.\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--plus`",
+                    "fa_icon": "far fa-plus-square"
+                },
+                "arg_amrfinderplus_name": {
+                    "type": "boolean",
+                    "description": "Add identified column to AMRFinderPlus output.",
+                    "help_text": "Prepend a column containing an identifier for this run of AMRFinderPlus. For example this can be used to add a sample name column to the AMRFinderPlus results. If set to `true`, the `--name <identifier>` is the sample name. \n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--name`",
+                    "fa_icon": "far fa-address-card"
+                }
             }
+        },
+        "arg_deeparg": {
+            "title": "ARG: DeepARG",
+            "type": "object",
+            "description": "Antimicrobial resistance gene detection using a deep learning model",
+            "default": "",
+            "properties": {
+                "arg_skip_deeparg": {
+                    "type": "boolean",
+                    "description": "Skip DeepARG during the ARG-screening.",
+                    "fa_icon": "fas fa-ban"
+                },
+                "arg_deeparg_data": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fab fa-deezer",
+                    "description": "Specify the path to the DeepARG database.",
+                    "help_text": "Specify the path to a local version of the DeepARG database (see the pipelines' usage [documentation](https://nf-co.re/funcscan/usage)). If no input is given, the module will download the database for you, however this is not recommended, as the database is large and this will take time."
+                },
+                "arg_deeparg_data_version": {
+                    "type": "integer",
+                    "default": 2,
+                    "description": "Specify the numeric version number of a user supplied DeepaRG database.",
+                    "fa_icon": "fas fa-code-branch",
+                    "help_text": "The DeepARG tool itself does not report explicit the database version it uses. We assume the latest version (as downloaded by the tool's database download module), however if you supply a different database, you must supply the version with this parameter for use with the downstream hAMRonization tool.\n\nThe version number must be without any leading `v` etc."
+                },
+                "arg_deeparg_model": {
+                    "type": "string",
+                    "default": "LS",
+                    "enum": ["LS", "SS"],
+                    "description": "Specify which model to use (short or long sequences).",
+                    "help_text": "Specify which model to use: short sequences for reads (`SS`), or long sequences for genes (`LS`). In the vast majority of cases we recommend using the `LS` model when using funcscan\n\nFor more information check DeepARG [documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/).\n\n> Modifies tool parameter(s):\n> - DeepARG: `--model`",
+                    "fa_icon": "fas fa-layer-group"
+                },
+                "arg_deeparg_minprob": {
+                    "type": "number",
+                    "default": 0.8,
+                    "description": "Specify minimum probability cutoff under which hits are discarded.",
+                    "help_text": "Sets the minimum probability cutoff below which hits are discarded.\n\nFor more information check DeepARG [documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/).\n\n> Modifies tool parameter(s):\n> - DeepARG: `--min-prob`",
+                    "fa_icon": "fas fa-dice"
+                },
+                "arg_deeparg_alignmentevalue": {
+                    "type": "number",
+                    "default": 1e-10,
+                    "description": "Specify E-value cutoff under which hits are discarded.",
+                    "help_text": "Sets the cutoff value for Evalue below which hits are discarded\n\nFor more information check DeepARG [documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/).\n\n> Modifies tool parameter(s):\n> - DeepARG: `--arg-alignment-evalue`",
+                    "fa_icon": "fas fa-align-center"
+                },
+                "arg_deeparg_alignmentidentity": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Specify percent identity cutoff for sequence alignment under which hits are discarded.",
+                    "help_text": "Sets the value for Identity cutoff for sequence alignment\n\nFor more information check DeepARG [documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/).\n\n> Modifies tool parameter(s):\n> - DeepARG: `--arg-alignment-identity`",
+                    "fa_icon": "fas fa-align-center"
+                },
+                "arg_deeparg_alignmentoverlap": {
+                    "type": "number",
+                    "default": 0.8,
+                    "description": "Specify alignment read overlap.",
+                    "help_text": "Sets the value for the allowed alignment read overlap.\n\nFor more information check DeepARG [documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/).\n\n> Modifies tool parameter(s):\n> - DeepARG: `--arg-alignment-overlap`",
+                    "fa_icon": "fas fa-align-center"
+                },
+                "arg_deeparg_numalignmentsperentry": {
+                    "type": "integer",
+                    "default": 1000,
+                    "description": "Specify minimum number of alignments per entry for DIAMOND step of DeepARG.",
+                    "help_text": "Sets the value of minimum number of alignments per entry for DIAMOND.\n\nFor more information check DeepARG [documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/).\n\n> Modifies tool parameter(s):\n> - DeepARG: `--arg-num-alignments-per-entry`",
+                    "fa_icon": "far fa-gem"
+                }
+            },
+            "fa_icon": "fas fa-tools",
+            "help_text": "deepARG uses deep learning to characterize and annotate antibiotic resistance genes in metagenomes. It is composed of two models for two types of input: short sequence reads and gene-like sequences. In this pipeline we use the `ls` model, which is suitable for annotating full sequence genes and to discover novel antibiotic resistance genes from assembled samples. The tool `Diamond` is used as an aligner.\n\nDocumentation: https://bitbucket.org/gusphdproj/deeparg-ss/src/master/"
+        },
+        "arg_fargene": {
+            "title": "ARG: fARGene",
+            "type": "object",
+            "description": "Antimicrobial resistance gene detection using a deep learning model",
+            "default": "",
+            "help_text": "fARGene (Fragmented Antibiotic Resistance Gene Identifier) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimised models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes. \n\nDocumentation: [https://github.com/fannyhb/fargene](https://github.com/fannyhb/fargene)",
+            "properties": {
+                "arg_skip_fargene": {
+                    "type": "boolean",
+                    "description": "Skip fARGene during the ARG-screening.",
+                    "fa_icon": "fas fa-ban"
+                },
+                "arg_fargene_hmmmodel": {
+                    "type": "string",
+                    "default": "class_a,class_b_1_2,class_b_3,class_c,class_d_1,class_d_2,qnr,tet_efflux,tet_rpg,tet_enzyme",
+                    "description": "Specify comma-separated list of which pre-defined HMM models to screen against",
+                    "help_text": "Specify via a comma separated list any of the hmm-models of the pre-defined models:\n    - Class A beta-lactamases: `class_a`\n    - Subclass B1 and B2 beta-lactamases: `class_b_1_2`\n    - Subclass B3 beta-lactamases: `class_b_3`\n    - Class C beta-lactamases: `class_c\n    - Class D beta-lactamases: `class_d_1`, `class_d_2`\n    - qnr: `qnr`\n    - Tetracycline resistance genes `tet_efflux`, `tet_rpg`, `tet_enzyme`\n\nFor more information check fARGene [documentation](https://github.com/fannyhb/fargene).\n\n For example: `--arg_fargenemodel 'class_a,qnr,tet_enzyme'`\n\n> Modifies tool parameter(s):\n\n> - fARGene: `--hmm-model`",
+                    "fa_icon": "fas fa-layer-group"
+                },
+                "arg_fargene_savetmpfiles": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Specify to save intermediate temporary files to results directory.",
+                    "help_text": "fARGene generates many additional temporary files which in most cases won't be useful and thus by default are not saved to the pipeline's result directory.\n\nBy specifying this parameter, the directories `tmpdir/`, `hmmsearchresults/` and `spades_assemblies/` will be also saved in the output directory for closer inspection by the user, if necessary."
+                },
+                "arg_fargene_score": {
+                    "type": "number",
+                    "help_text": "The threshold score for a sequence to be classified as a (almost) complete gene. If not pre-assigned, it is assigned by the hmm_model used based on the trade-off between sensitivity and specificity.\n\nFor more details see code [documentation](https://github.com/fannyhb/fargene/blob/master/fargene_analysis/fargene_analysis.py).\n\n> Modifies tool parameter(s):\n> - fARGene: `--score`",
+                    "description": "The threshold score for a sequence to be classified as a (almost) complete gene.",
+                    "fa_icon": "fab fa-creative-commons-zero"
+                },
+                "arg_fargene_minorflength": {
+                    "type": "integer",
+                    "default": 90,
+                    "help_text": "The minimum length of a predicted ORF retrieved from annotating the nucleotide sequences. By default the pipeline assigns this to 90% of the assigned hmm_model sequence length. \n\nFor more information check fARGene [documentation](https://github.com/fannyhb/fargene).\n\n> Modifies tool parameter(s):\n> - fARGene: `--min-orf-length`",
+                    "description": "The minimum length of a predicted ORF retrieved from annotating the nucleotide sequences.",
+                    "fa_icon": "fas fa-caret-down",
+                    "minimum": 1,
+                    "maximum": 100
+                },
+                "arg_fargene_orffinder": {
+                    "type": "boolean",
+                    "description": "Defines which ORF finding algorithm to use.",
+                    "help_text": "By default, pipeline uses prodigal/prokka for the prediction of ORFs from nucleotide sequences. Another option is the NCBI ORFfinder tool that is built into fARGene, the use of which is activated by this flag.\n\nFor more information check fARGene [documentation](https://github.com/fannyhb/fargene).\n\n> Modifies tool parameter(s):\n> - fARGene: `--orf-finder`",
+                    "fa_icon": "fab fa-adn"
+                },
+                "arg_fargene_translationformat": {
+                    "type": "string",
+                    "default": "pearson",
+                    "description": "The translation table/format to use for sequence annotation.",
+                    "help_text": "The translation format that transeq should use for amino acid annotation from the nucleotide sequences. More sequence formats can be found in [transeq 'input sequence formats'](https://emboss.sourceforge.net/docs/themes/SequenceFormats.html).\n\nFor more information check fARGene [documentation](https://github.com/fannyhb/fargene).\n\n> Modifies tool parameter(s):\n> - fARGene: `--translation-format`",
+                    "fa_icon": "fas fa-border-none"
+                }
+            },
+            "fa_icon": "fas fa-tools"
+        },
+        "arg_rgi": {
+            "title": "ARG: RGI",
+            "type": "object",
+            "description": "Antimicrobial resistance gene detection, based on alignment to the CARD database",
+            "default": "",
+            "help_text": "RGI (Resistance Gene Identifier) predicts resistome(s) from protein or nucleotide data based on homology and SNP models. It uses reference data from the Comprehensive Antibiotic Resistance Database (CARD).\n\nDocumentation: https://github.com/arpcard/rgi",
+            "properties": {
+                "arg_skip_rgi": {
+                    "type": "boolean",
+                    "description": "Skip RGI during the ARG-screening.",
+                    "fa_icon": "fas fa-ban"
+                },
+                "arg_rgi_savejson": {
+                    "type": "boolean",
+                    "description": "Save RGI output .json file.",
+                    "help_text": "When activated, this flag saves the `.json` file in the RGI output directory. The `.json` file contains the ARG predictions in a format that can be can be uploaded to the CARD website for visualization. See [RGI documentation](https://github.com/arpcard/rgi) for more details. By default, the `.json` file is generated in the working directory but not saved in the results directory to save disk space (`.json` file is quite large and not required downstream in the pipeline). ",
+                    "fa_icon": "fas fa-ad"
+                },
+                "arg_rgi_savetmpfiles": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Specify to save intermediate temporary files the results directory.",
+                    "help_text": "RGI generates many additional temporary files which in most cases won't be useful so by default are not saved.\n\nBy specifying this parameter, the files including `temp` in the name will be also saved in the output directory for closer inspection by the user, if necessary."
+                },
+                "arg_rgi_alignmenttool": {
+                    "type": "string",
+                    "default": "BLAST",
+                    "description": "Specify the alignment tool to be used.",
+                    "help_text": "Specifies the alignment tool to be used. By default RGI runs BLAST and this is also set as default in the nf-core/funcscan pipeline. Using this flag the user can activate the alignment by DIAMOND again.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--alignment_tool`",
+                    "enum": ["BLAST", "DIAMOND"],
+                    "fa_icon": "fas fa-align-justify"
+                },
+                "arg_rgi_includeloose": {
+                    "type": "boolean",
+                    "description": "Include all of loose, strict and perfect hits (i.e. >=95% identity) found by RGI.",
+                    "help_text": "When activated it includes 'Loose' hits (a.k.a. Discovery) in addition to strict and perfect hits. All 'Loose' matches of 95% identity or better are automatically listed as 'Strict', regardless of alignment length (RGI v. <6.0.0). This behaviour can be overrun by using the --exclude_nudge flag. The 'Loose' algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--include_loose`",
+                    "fa_icon": "far fa-hand-scissors",
+                    "default": true
+                },
+                "arg_rgi_excludenudge": {
+                    "type": "boolean",
+                    "description": "Suppresses the default behaviour of RGI with `--arg_rgi_includeloose`.",
+                    "help_text": "This flag suppresses the default behaviour of RGI with `--include_loose`, which lists all 'Loose' matches of >= 95% identity as 'Strict', regardless of alignment length. With this strict and perfect labels are added. This is discontinued in future versions of RGI.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--exclude_nudge`",
+                    "fa_icon": "fas fa-hand-scissors",
+                    "default": true
+                },
+                "arg_rgi_lowquality": {
+                    "type": "boolean",
+                    "description": "Include screening of low quality contigs for partial genes.",
+                    "help_text": "This flag should be used only when the contigs are of poor quality (e.g. short) to predict partial genes.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--low_quality`",
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "arg_rgi_data": {
+                    "type": "string",
+                    "default": "NA",
+                    "description": "Specify a more specific data-type of input (e.g. plasmid, chromosome)",
+                    "help_text": "This flag is used to specify the data type used as input to RGI. By default this is set as 'NA', which makes no assumptions on input data.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--data`",
+                    "enum": ["NA", "wgs", "plasmid", "chromosome"],
+                    "fa_icon": "fas fa-database"
+                }
+            },
+            "fa_icon": "fas fa-tools"
+        },
+        "arg_abricate": {
+            "title": "ARG: ABRicate",
+            "type": "object",
+            "description": "Antimicrobial resistance gene detection, based on alignment to CBI, CARD, ARG-ANNOT, Resfinder, MEGARES, EcOH, PlasmidFinder, Ecoli_VF and VFDB.",
+            "default": "",
+            "fa_icon": "fas fa-tools",
+            "properties": {
+                "arg_skip_abricate": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-ban",
+                    "description": "Skip ABRicate during the ARG-screening."
+                },
+                "arg_abricate_db": {
+                    "type": "string",
+                    "default": "ncbi",
+                    "fa_icon": "fas fa-layer-group",
+                    "description": "Specify which of the provided public databases to use by ABRicate.",
+                    "enum": [
+                        "argannot",
+                        "card",
+                        "ecoh",
+                        "ecoli_vf",
+                        "megares",
+                        "ncbi",
+                        "plasmidfinder",
+                        "resfinder",
+                        "vfdb",
+                        "bacmet2",
+                        "victors"
+                    ],
+                    "help_text": "Specifies which database to use from dedicated list of databases available by ABRicate. \n\nFor more information check ABRicate [documentation](https://github.com/tseemann/abricate).\n\n> Modifies tool parameter(s):\n> - ABRicate: `--db`"
+                },
+                "arg_abricate_minid": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Minimum percent identity of alignment required for a hit to be considered.",
+                    "help_text": "Specifies the minimum percent identity used to classify an ARG hit using BLAST alignment.\n\nFor more information check ABRicate [documentation](https://github.com/tseemann/abricate).\n\n> Modifies tool parameter(s):\n> - ABRicate: `--minid`",
+                    "fa_icon": "far fa-arrow-alt-circle-down",
+                    "minimum": 1,
+                    "maximum": 100
+                },
+                "arg_abricate_mincov": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Minimum percent coverage of alignment required for a hit to be considered.",
+                    "help_text": "Specifies the minimum coverage of the nucleotide sequence to be assigned an ARG hit using BLAST alignment. In the ABRicate matrix, an absent gene is assigned (`.`) and if present, it is assigned the estimated coverage (`#`).\n\nFor more information check ABRicate [documentation](https://github.com/tseemann/abricate).\n\n> Modifies tool parameter(s):\n> - ABRicate: `--mincov`",
+                    "fa_icon": "far fa-arrow-alt-circle-down",
+                    "minimum": 1,
+                    "maximum": 100
+                }
+            },
+            "help_text": "ABRicate screens for antimicrobial resistance or virulence genes based on NCBI, CARD, ARG-ANNOT, Resfinder, MEGARES, EcOH, PlasmidFinder, Ecoli_VF and VFDB databases.\n\nDocumentation: https://github.com/tseemann/abricate"
+        },
+        "bgc_antismash": {
+            "title": "BGC: antiSMASH",
+            "type": "object",
+            "description": "Biosynthetic gene cluster detection",
+            "default": "",
+            "properties": {
+                "bgc_skip_antismash": {
+                    "type": "boolean",
+                    "description": "Skip antiSMASH during the BGC screening",
+                    "fa_icon": "fas fa-ban"
+                },
+                "bgc_antismash_databases": {
+                    "type": "string",
+                    "description": "Path to user-defined local antiSMASH database.",
+                    "fa_icon": "fas fa-layer-group",
+                    "default": "None",
+                    "help_text": "It is recommend to pre-download the antiSMASH databases to your machine and pass the path of it to this parameter, as this can take a long time to download - particularly when running lots of pipeline runs. \n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#antismash) for details on how to download this. If running with docker or singularity, please also check `--bgc_antismash_installationdirectory` for important information."
+                },
+                "bgc_antismash_installationdirectory": {
+                    "type": "string",
+                    "description": "Path to user-defined local antiSMASH directory. Only required when running with docker/singularity.",
+                    "fa_icon": "far fa-folder-open",
+                    "default": "None",
+                    "help_text": "This is required when running with **docker and singularity** (not required for conda), due to attempted 'modifications' of files during database checks in the installation directory, something that cannot be done in immutable docker/singularity containers.\n\nTherefore, a local installation directory needs to be mounted (including all modified files from the downloading step) to the container as a workaround."
+                },
+                "bgc_antismash_sampleminlength": {
+                    "type": "integer",
+                    "default": 1000,
+                    "description": "Minimum longest-contig length a sample must have to be screened with antiSMASH.",
+                    "fa_icon": "fas fa-ruler-horizontal",
+                    "help_text": "This specifies the minimum length that the longest contig must have for the entire sample to be screened by antiSMASH.\n\nAny samples that do not reach this length will be not be sent to antiSMASH, therefore you will not receive output for these samples in your `--outdir`.\n\n> \u26a0\ufe0f This is not the same as `--bgc_antismash_contigminlength`, which specifies to only analyse contigs above that threshold but _within_ a sample that has already passed `--bgc_antismash_sampleminlength` sample filter!"
+                },
+                "bgc_antismash_contigminlength": {
+                    "type": "integer",
+                    "default": 1000,
+                    "description": "Minimum length a contig must have to be screened with antiSMASH.",
+                    "fa_icon": "fas fa-align-center",
+                    "help_text": "This specifies the minimum length that a contig must have for the contig to be screened by antiSMASH.\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\nThis will only apply to samples that are screened with antiSMASH (i.e., those samples that have not been removed by `--bgc_antismash_sampleminlength`).\n\nYou may wish to increase this value compared to that of `--bgc_antismash_sampleminlength`, in cases where you wish to screen higher-quality (i.e., longer) contigs, or speed up runs by not screening lower quality/less informative contigs.\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--minlength`"
+                },
+                "bgc_antismash_cbgeneral": {
+                    "type": "boolean",
+                    "description": "Turn on clusterblast comparison against database of antiSMASH-predicted clusters.",
+                    "help_text": "Compare identified clusters against a database of antiSMASH-predicted clusters using the clusterblast algorithm.\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-general`",
+                    "fa_icon": "fab fa-affiliatetheme"
+                },
+                "bgc_antismash_cbknownclusters": {
+                    "type": "boolean",
+                    "description": "Turn on clusterblast comparison against known gene clusters from the MIBiG database.",
+                    "fa_icon": "fas fa-puzzle-piece",
+                    "help_text": "This will turn on comparing identified clusters against known gene clusters from the MIBiG database using the clusterblast algorithm.\n\n[MIBiG](https://mibig.secondarymetabolites.org/) is a curated datbase of experimentally characterised gene clusters and with rich associated metadata.\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-knownclusters`"
+                },
+                "bgc_antismash_cbsubclusters": {
+                    "type": "boolean",
+                    "description": "Turn on clusterblast comparison against known subclusters responsible for synthesising precursors.",
+                    "fa_icon": "fas fa-adjust",
+                    "help_text": "Turn on additional screening for operons involved in the biosynthesis of early secondary metabolites components using the clusterblast algorithm.\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-subclusters`"
+                },
+                "bgc_antismash_ccmibig": {
+                    "type": "boolean",
+                    "description": "Turn on ClusterCompare comparison against known gene clusters from the MIBiG database.",
+                    "fa_icon": "fab fa-affiliatetheme",
+                    "help_text": "Turn on comparison of detected genes against the MIBiG database using the ClusterCompare algorithm - an alternative to clusterblast.\n\nNote there will not be a dedicated ClusterCompare output in the antiSMASH results directory, but is present in the HTML.\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cc-mibig`"
+                },
+                "bgc_antismash_smcogtrees": {
+                    "type": "boolean",
+                    "description": "Generate phylogenetic trees of secondary metabolite group orthologs.",
+                    "fa_icon": "fas fa-tree",
+                    "help_text": "Turning this on will activate the generation of additional functional and phyogenetic analysis of genes, via comparison against databases of protein orthologs.\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--cb-smcog-trees`"
+                },
+                "bgc_antismash_hmmdetectionstrictness": {
+                    "type": "string",
+                    "default": "relaxed",
+                    "description": "Defines which level of strictness to use for HMM-based cluster detection",
+                    "help_text": "Defines which level of strictness to use for HMM-based cluster detection. \n\nThese correspond to screening of different groups of 'how well-defined' clusters are. For example, `loose` will include screening for 'poorly defined' clusters (e.g. saccharides), `relaxed` for partially present clusters (e.g. certain types of NRPS), whereas `strict` will screen for well-defined clusters such as Ketosynthases.\n\nYou can see the rules for the levels of strictness [here](https://github.com/antismash/antismash/tree/master/antismash/detection/hmm_detection/cluster_rules).\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--hmmdetection-strictness`",
+                    "fa_icon": "fas fa-search",
+                    "enum": ["relaxed", "strict", "loose"]
+                },
+                "bgc_antismash_taxon": {
+                    "type": "string",
+                    "default": "bacteria",
+                    "description": "Specify which taxonomic classification of input sequence to use",
+                    "help_text": "This specifies which set of secondary metabolites to screen for, based on the taxon type the secondary metabolites are from.\n\nThis will run different pipelines depending on whether the input sequences are from bacteria or fungi.\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--taxon`",
+                    "fa_icon": "fas fa-bacteria",
+                    "enum": ["bacteria", "fungi"]
+                }
+            },
+            "fa_icon": "fas fa-tools",
+            "help_text": "The antibiotics and Secondary Metabolite Analysis SHell  (antiSMASH) carries out a genome-wide screening, annotation and analysis of secondary metabolite biosynthesis gene clusters in bacterial and fungal genomes. \n\nDocumentation: https://antismash.secondarymetabolites.org/#!/about"
+        },
+        "bgc_deepbgc": {
+            "title": "BGC: deepBGC",
+            "type": "object",
+            "description": "A deep learning genome-mining strategy for biosynthetic gene cluster prediction",
+            "default": "",
+            "properties": {
+                "bgc_skip_deepbgc": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-ban",
+                    "description": "Skip deepBGC during the BGC screening."
+                },
+                "bgc_deepbgc_database": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fas fa-layer-group",
+                    "description": "Path to local deepBGC database folder."
+                },
+                "bgc_deepbgc_score": {
+                    "type": "number",
+                    "default": 0.5,
+                    "description": "Average protein-wise DeepBGC score threshold for extracting BGC regions from Pfam sequences.",
+                    "fa_icon": "fas fa-list-ol",
+                    "help_text": "The DeepBGC score threshold for extracting BGC regions from Pfam sequences based on average protein-wise value. This is a prediction score that the domain is a part of a BGC.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--score`"
+                },
+                "bgc_deepbgc_prodigalsinglemode": {
+                    "type": "boolean",
+                    "description": "Run DeepBGC's internal Prodigal step in `single` mode to restrict detecting genes to long contigs",
+                    "help_text": "By default DeepBGC's Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or longer than 20000 characters.\n\nHowever, more fragmented reads from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter allows to override this and run in single genome mode again.\n\nFor more information check Prodigal [documentation](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--prodigal-meta-mode`",
+                    "fa_icon": "fas fa-compress-alt"
+                },
+                "bgc_deepbgc_mergemaxproteingap": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Merge detected BGCs within given number of proteins.",
+                    "fa_icon": "fas fa-angle-double-up",
+                    "help_text": "Merge detected BGCs within given number of proteins.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--merge-max-protein-gap`"
+                },
+                "bgc_deepbgc_mergemaxnuclgap": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Merge detected BGCs within given number of nucleotides.",
+                    "fa_icon": "fas fa-angle-double-up",
+                    "help_text": "Merge detected BGCs within given number of proteins.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> - DeepBGC: `--merge-max-nucl-gap`"
+                },
+                "bgc_deepbgc_minnucl": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Minimum BGC nucleotide length.",
+                    "fa_icon": "fas fa-angle-double-down",
+                    "help_text": "Minimum length a BGC must have (in bp) to be reported as detected.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--min-nucl`"
+                },
+                "bgc_deepbgc_minproteins": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Minimum number of proteins in a BGC.",
+                    "fa_icon": "fas fa-angle-double-down",
+                    "help_text": "Minimum number of proteins in a BGC must have to be reported as 'detected'.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--min-proteins`"
+                },
+                "bgc_deepbgc_mindomains": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Minimum number of protein domains in a BGC.",
+                    "fa_icon": "fas fa-minus-square",
+                    "help_text": "Minimum number of domains a BGC must have to be reported as 'detected'.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--min-domains`"
+                },
+                "bgc_deepbgc_minbiodomains": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Minimum number of known biosynthetic (as defined by antiSMASH) protein domains in a BGC.",
+                    "fa_icon": "fas fa-minus-square",
+                    "help_text": "Minimum number of biosynthetic protein domains a BGC must have to be reported as 'detected'. This is based on antiSMASH definitions.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--min-bio-domains`"
+                },
+                "bgc_deepbgc_classifierscore": {
+                    "type": "number",
+                    "default": 0.5,
+                    "description": "DeepBGC classification score threshold for assigning classes to BGCs.",
+                    "fa_icon": "fas fa-sort-amount-down",
+                    "help_text": "DeepBGC classification score threshold for assigning classes to BGCs.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--classifier-score`"
+                }
+            },
+            "help_text": "DeepBGC screens for BGCs in bacterial and fungal genomes using deep learning.\n\nDocumentation: https://github.com/Merck/deepbgc/tree/master/deepbgc"
+        },
+        "bgc_gecco": {
+            "title": "BGC: gecco",
+            "type": "object",
+            "description": "Biosynthetic gene cluster detection",
+            "default": "",
+            "properties": {
+                "bgc_skip_gecco": {
+                    "type": "boolean",
+                    "description": "Skip GECCO during the BGC screening.",
+                    "fa_icon": "fas fa-ban"
+                },
+                "bgc_gecco_mask": {
+                    "type": "boolean",
+                    "description": "Enable unknown region masking to prevent genes from stretching across unknown nucleotides.",
+                    "fa_icon": "fas fa-mask",
+                    "help_text": "Enable unknown region masking to prevent genes from stretching across unknown nucleotides during ORF detection based on P(y)rodigal.\n\nFor more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--mask`"
+                },
+                "bgc_gecco_cds": {
+                    "type": "integer",
+                    "default": 3,
+                    "description": "The minimum number of coding sequences a valid cluster must contain.",
+                    "fa_icon": "fas fa-align-right",
+                    "help_text": "Specify the number of consecutive genes a hit must have to be considered a part of a possible BGC region during BGC extraction.\n\nFor more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--cds`"
+                },
+                "bgc_gecco_pfilter": {
+                    "type": "number",
+                    "description": "The p-value cutoff for protein domains to be included.",
+                    "fa_icon": "fas fa-filter",
+                    "default": 1e-9,
+                    "help_text": "The p-value cutoff for protein domains to be included.\n\nFor more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--pfilter`"
+                },
+                "bgc_gecco_threshold": {
+                    "type": "number",
+                    "default": 0.8,
+                    "description": "The probability threshold for cluster detection.",
+                    "fa_icon": "fas fa-angle-double-up",
+                    "help_text": "Specify the minimum probability a predicted gene must have to be considered a part of a BGC during BGC extraction.\n\nReducing this value may increase number and length of hits, but will reduce the accuracy of the predictions.\n\nFor more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--threshold`"
+                },
+                "bgc_gecco_edgedistance": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "The minimum number of annotated genes that must separate a cluster from the edge.",
+                    "help_text": "The minimum number of annotated genes that must separate a possible BGC cluster from the edge. Edge clusters will still be included if they are longer. A lower number will increase the number of false positives on small contigs. Used during BGC extraction.\n\nFor more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--edge-distance`",
+                    "fa_icon": "fas fa-ruler-horizontal"
+                }
+            }
+        },
+        "bgc_hmmsearch": {
+            "title": "BGC: HMMSearch",
+            "type": "object",
+            "description": "Biosynthetic Gene Cluster detection based on predefined HMM models",
+            "default": "",
+            "properties": {
+                "bgc_skip_hmmsearch": {
+                    "type": "boolean",
+                    "description": "Skip HMMsearch during BGC-screening.",
+                    "fa_icon": "fas fa-ban"
+                },
+                "bgc_hmmsearch_models": {
+                    "type": "string",
+                    "default": "None",
+                    "description": "Specify path to the BGC hmm model file(s) to search against. Must have quotes if wildcard used.",
+                    "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--bgc_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n\nYou must wrap the path in quotes if you use a wildcard, to ensure Nextflow expansion _not_ bash!\n\nFor more information check HMMER [documentation](http://hmmer.org/).",
+                    "fa_icon": "fas fa-layer-group"
+                },
+                "bgc_hmmsearch_savealignments": {
+                    "type": "boolean",
+                    "help_text": "Save a multiple alignment of all significant hits (those satisfying inclusion thresholds) to a file\n\nFor more information check HMMER [documentation](http://hmmer.org/).\n\n>  Modifies tool parameter(s):\n> - HMMsearch: `-A`",
+                    "description": "Saves a multiple alignment of all significant hits to a file.",
+                    "fa_icon": "far fa-save"
+                },
+                "bgc_hmmsearch_savetargets": {
+                    "type": "boolean",
+                    "help_text": "Save a simple tabular (space-delimited) file summarizing the per-target output, with one data line per homologous target sequence found.\n\nFor more information check HMMER [documentation](http://hmmer.org/).\n\n>  Modifies tool parameter(s)\n> - HMMsearch: `--tblout`",
+                    "description": "Save a simple tabular file summarising the per-target output.",
+                    "fa_icon": "far fa-save"
+                },
+                "bgc_hmmsearch_savedomains": {
+                    "type": "boolean",
+                    "help_text": "Save a simple tabular (space-delimited) file summarizing the per-domain output, with one data line per homologous domain detected in a query sequence for each homologous model.\n\nFor more information check HMMER [documentation](http://hmmer.org/).\n\n>  Modifies tool parameter(s)\n> - HMMsearch:`--domtblout`",
+                    "description": "Save a simple tabular file summarising the per-domain output.",
+                    "fa_icon": "far fa-save"
+                }
+            },
+            "help_text": "HMMER/hmmsearch is used for searching sequence databases for sequence homologs, and for making sequence alignments. It implements methods using probabilistic models called profile hidden Markov models (profile HMMs). `hmmsearch` is used to search one or more profiles against a sequence database.\n\nFor more information check HMMER [documentation](http://hmmer.org/)."
+        },
+        "reporting": {
+            "title": "Reporting",
+            "type": "object",
+            "description": "Influences parameters required for the reporting workflow.",
+            "default": "",
+            "properties": {
+                "arg_hamronization_summarizeformat": {
+                    "type": "string",
+                    "default": "tsv",
+                    "enum": ["interactive", "tsv", "json"],
+                    "help_text": "Specifies which summary report format to generate with `hamronize summarize`: tsv, json or interactive (html)\n\n>  Modifies tool parameter(s)\n> - HMMsearch: `-t`, `--summary_type`",
+                    "description": "Specifies summary output format",
+                    "fa_icon": "far fa-file-code"
+                }
+            },
+            "fa_icon": "fas fa-file-import",
+            "help_text": ""
         },
         "reference_genome_options": {
             "title": "Reference genome options",
@@ -52,7 +1124,8 @@
                     "type": "string",
                     "description": "Name of iGenomes reference.",
                     "fa_icon": "fas fa-book",
-                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details."
+                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details.",
+                    "hidden": true
                 },
                 "fasta": {
                     "type": "string",
@@ -62,7 +1135,8 @@
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
                     "description": "Path to FASTA genome file.",
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
-                    "fa_icon": "far fa-file-code"
+                    "fa_icon": "far fa-file-code",
+                    "hidden": true
                 },
                 "igenomes_base": {
                     "type": "string",
@@ -76,8 +1150,8 @@
                     "type": "boolean",
                     "description": "Do not load the iGenomes reference config.",
                     "fa_icon": "fas fa-ban",
-                    "hidden": true,
-                    "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
+                    "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`.",
+                    "hidden": true
                 }
             }
         },
@@ -285,7 +1359,73 @@
     },
     "allOf": [
         {
+            "$ref": "#/definitions/annotation_pyrodigal"
+        },
+        {
             "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/screening_type_activation"
+        },
+        {
+            "$ref": "#/definitions/annotation"
+        },
+        {
+            "$ref": "#/definitions/annotation_bakta"
+        },
+        {
+            "$ref": "#/definitions/annotation_prokka"
+        },
+        {
+            "$ref": "#/definitions/annotation_prodigal"
+        },
+        {
+            "$ref": "#/definitions/database_downloading_options"
+        },
+        {
+            "$ref": "#/definitions/amp_amplify"
+        },
+        {
+            "$ref": "#/definitions/amp_ampir"
+        },
+        {
+            "$ref": "#/definitions/amp_hmmsearch"
+        },
+        {
+            "$ref": "#/definitions/amp_macrel"
+        },
+        {
+            "$ref": "#/definitions/amp_ampcombi"
+        },
+        {
+            "$ref": "#/definitions/arg_amrfinderplus"
+        },
+        {
+            "$ref": "#/definitions/arg_deeparg"
+        },
+        {
+            "$ref": "#/definitions/arg_fargene"
+        },
+        {
+            "$ref": "#/definitions/arg_rgi"
+        },
+        {
+            "$ref": "#/definitions/arg_abricate"
+        },
+        {
+            "$ref": "#/definitions/bgc_antismash"
+        },
+        {
+            "$ref": "#/definitions/bgc_deepbgc"
+        },
+        {
+            "$ref": "#/definitions/bgc_gecco"
+        },
+        {
+            "$ref": "#/definitions/bgc_hmmsearch"
+        },
+        {
+            "$ref": "#/definitions/reporting"
         },
         {
             "$ref": "#/definitions/reference_genome_options"
