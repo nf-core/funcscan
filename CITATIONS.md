@@ -40,7 +40,7 @@
 
 - [comBGC](https://github.com/nf-core/funcscan)
 
-  > Frangenberg, J. Fellows Yates, J. A., Ibrahim, A., Perelo, L., & Beber, M. E. (2023). nf-core/funcscan: 1.0.0 - German Rollmops - 2023-02-15. https://doi.org/10.5281/zenodo.7643100
+  > Frangenberg, J., Fellows Yates, J. A., Ibrahim, A., Perelo, L., & Beber, M. E. (2023). nf-core/funcscan: 1.0.0 - German Rollmops - 2023-02-15. https://doi.org/10.5281/zenodo.7643100
 
 - [DeepARG](https://doi.org/10.1186/s40168-018-0401-z)
 
