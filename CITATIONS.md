@@ -20,7 +20,7 @@
 
 - [AMPlify](https://doi.org/10.1186/s12864-022-08310-4)
 
-  > CLi, C., Sutherland, D., Hammond, S. A., Yang, C., Taho, F., Bergman, L., Houston, S., Warren, R. L., Wong, T., Hoang, L., Cameron, C. E., Helbing, C. C., & Birol, I. (2022). AMPlify: attentive deep learning model for discovery of novel antimicrobial peptides effective against WHO priority pathogens. BMC genomics, 23(1), 77. [DOI: 10.1186/s12864-022-08310-4](https://doi.org/10.1186/s12864-022-08310-4)
+  > Li, C., Sutherland, D., Hammond, S. A., Yang, C., Taho, F., Bergman, L., Houston, S., Warren, R. L., Wong, T., Hoang, L., Cameron, C. E., Helbing, C. C., & Birol, I. (2022). AMPlify: attentive deep learning model for discovery of novel antimicrobial peptides effective against WHO priority pathogens. BMC genomics, 23(1), 77. [DOI: 10.1186/s12864-022-08310-4](https://doi.org/10.1186/s12864-022-08310-4)
 
 - [AMRFinderPlus](https://doi.org/10.1038/s41598-021-91456-0)
 
@@ -33,6 +33,14 @@
 - [Bakta](https://doi.org/10.1099/mgen.0.000685)
 
   > Schwengers, O., Jelonek, L., Dieckmann, M. A., Beyvers, S., Blom, J., & Goesmann, A. (2021). Bakta: rapid and standardized annotation of bacterial genomes via alignment-free sequence identification. Microbial Genomics, 7(11). [DOI: 10.1099/mgen.0.000685](https://doi.org/10.1099/mgen.0.000685)
+
+- [bioawk](https://github.com/lh3/bioawk)
+
+  > Li, H. (2023). bioawk: BWK awk modified for biological data. Github. Retrieved July 12, 2023, from https://github.com/lh3/bioawk
+
+- [comBGC](https://github.com/nf-core/funcscan)
+
+  > Frangenberg, J., Fellows Yates, J. A., Ibrahim, A., Perelo, L., & Beber, M. E. (2023). nf-core/funcscan: 1.0.0 - German Rollmops - 2023-02-15. https://doi.org/10.5281/zenodo.7643100
 
 - [DeepARG](https://doi.org/10.1186/s40168-018-0401-z)
 
@@ -57,6 +65,10 @@
 - [AMPcombi](https://github.com/Darcy220606/AMPcombi)
 
   > Ibrahim, A. & Perelo, L. (2023). Darcy220606/AMPcombi. [DOI: 10.5281/zenodo.7639121](https://doi.org/10.5281/zenodo.7639121).
+
+- [hAMRonization](https://github.com/pha4ge/hAMRonization)
+
+  > Maguire, F., Fornika, D., Mendes, I., Phelan, J., Underwood, A., Witney, A., pvanheus, Manuele, A., Lee, T., amos, & imendes. (2023). pha4ge/hAMRonization: Zenodo Release. Zenodo. https://doi.org/10.5281/ZENODO.8131134
 
 - [HMMER](https://doi.org/10.1371/journal.pcbi.1002195.)
 
@@ -98,5 +110,8 @@
 
 - [Docker](https://dl.acm.org/doi/10.5555/2600239.2600241)
 
+  > Merkel, D. (2014). Docker: lightweight linux containers for consistent development and deployment. Linux Journal, 2014(239), 2. doi: 10.5555/2600239.2600241.
+
 - [Singularity](https://pubmed.ncbi.nlm.nih.gov/28494014/)
-  > Kurtzer, G. M., Sochat, V., & Bauer, M. W. (2017). Singularity: Scientific containers for mobility of compute. PloS one, 12(5), e0177459. [DOI: 10.1371/journal.pone.0177459](https://doi.org/10.1371/journal.pone.0177459)
+
+  > Kurtzer GM, Sochat V, Bauer MW. Singularity: Scientific containers for mobility of compute. PLoS One. 2017 May 11;12(5):e0177459. doi: 10.1371/journal.pone.0177459. eCollection 2017. PubMed PMID: 28494014; PubMed Central PMCID: PMC5426675.
