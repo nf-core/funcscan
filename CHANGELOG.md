@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [#294](https://github.com/nf-core/funcscan/pull/294) Add new hAMRonization Zenodo archive to references. (by @jasmezz)
+- [#290](https://github.com/nf-core/funcscan/pull/290) Merged pipeline template of nf-core/tools version 2.9, updated references. (by @jfy133)
 
 ### `Fixed`
 
