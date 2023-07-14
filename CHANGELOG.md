@@ -3,6 +3,21 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.1.3dev - [unreleased]
+
+### `Added`
+
+- [#290](https://github.com/nf-core/funcscan/pull/290) Merged pipeline template of nf-core/tools version 2.9, updated references. (by @jfy133)
+- [#295](https://github.com/nf-core/funcscan/pull/295) Add Prokka to MultiQC output (by @louperelo)
+
+ ### `Fixed`
+
+ - [#296](https://github.com/nf-core/funcscan/pull/296) Fixed empty output when saving prodigal annotations. (reported by @louperelo, fix by @jasmezz)
+
+ ### `Dependencies`
+
+ ### `Deprecated`
+
 ## v1.1.2 - [2023-06-30]
 
 ### `Added`
