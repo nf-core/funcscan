@@ -18,4 +18,3 @@ custom_logo_title: "nf-core/funcscan"
 
 ## Tool specific configuration
 prokka_fn_snames: True
-
