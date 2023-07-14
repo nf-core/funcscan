@@ -11,13 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#295](https://github.com/nf-core/funcscan/pull/295) Add Prokka to MultiQC output (by @louperelo)
 
- ### `Fixed`
+### `Fixed`
 
- - [#296](https://github.com/nf-core/funcscan/pull/296) Fixed empty output when saving prodigal annotations. (reported by @louperelo, fix by @jasmezz)
+- [#296](https://github.com/nf-core/funcscan/pull/296) Fixed empty output when saving prodigal annotations. (reported by @louperelo, fix by @jasmezz)
 
- ### `Dependencies`
+### `Dependencies`
 
- ### `Deprecated`
+### `Deprecated`
 
 ## v1.1.2 - [2023-06-30]
 
