@@ -11,12 +11,16 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
-                "meta": ["id"]
+                "meta": ["id"],
+                "unique": true
             },
             "fasta": {
                 "type": "string",
-                "pattern": "^\\S+\\.f(ast)?a\\.gz$",
-                "errorMessage": "Fasta file for reads 1 must be provided, cannot contain spaces and must have extension '.fa.gz' or '.fasta.gz'"
+                "format": "file-path",
+                "exists": true,
+                "pattern": "^\\S+\\.f(ast|n)?a\\.gz$",
+                "errorMessage": "Fasta file for reads 1 must be provided, cannot contain spaces and must have extension '.fa.gz', '.fna.gz' or '.fasta.gz'",
+                "unique": true
             }
         },
         "required": ["sample", "fasta"]
