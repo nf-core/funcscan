@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#290](https://github.com/nf-core/funcscan/pull/290) Merged pipeline template of nf-core/tools version 2.9, updated references. (by @jfy133)
 
+- [#295](https://github.com/nf-core/funcscan/pull/295) Add Prokka to MultiQC output (by @louperelo)
+
 ### `Fixed`
+
+- [#296](https://github.com/nf-core/funcscan/pull/296) Fixed empty output when saving prodigal annotations. (reported by @louperelo, fix by @jasmezz)
 
 ### `Dependencies`
 
