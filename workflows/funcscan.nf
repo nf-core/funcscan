@@ -246,7 +246,7 @@ workflow FUNCSCAN {
             ch_annotation_faa
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("The following sample produced no annotations (empty FAA file) and will not be sent to AMP screening: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 }
         )
@@ -265,7 +265,7 @@ workflow FUNCSCAN {
                 ch_annotation_faa
                     .filter {
                         meta, file ->
-                            if ( file.isEmpty() ) log.warn("The following sample produced no annotations (empty FAA file) and will not be sent to ARG screening: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                             !file.isEmpty()
                     }
             )
@@ -282,19 +282,19 @@ workflow FUNCSCAN {
             ch_annotation_gff
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("The following sample produced no annotations (empty GFF file) and will not be sent to BGC screening: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GFF file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
             ch_annotation_faa
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("The following sample produced no annotations (empty FAA file) and will not be sent to BGC screening: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
             ch_annotation_gbk
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("The following sample produced no annotations (empty GBK file) and will not be sent to BGC screening: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 }
         )
