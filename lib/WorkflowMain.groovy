@@ -19,7 +19,6 @@ class WorkflowMain {
             "  https://github.com/${workflow.manifest.name}/blob/master/CITATIONS.md"
     }
 
-
     //
     // Validate parameters and print summary to screen
     //
