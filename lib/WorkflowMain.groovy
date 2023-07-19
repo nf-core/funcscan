@@ -20,7 +20,6 @@ class WorkflowMain {
     }
 
     //
-
     // Validate parameters and print summary to screen
     //
     public static void initialise(workflow, params, log) {

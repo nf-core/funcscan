@@ -3,11 +3,25 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.1.2dev - [unreleased]
+## v1.1.3dev - [unreleased]
+
+### `Added`
+
+- [#290](https://github.com/nf-core/funcscan/pull/290) Merged pipeline template of nf-core/tools version 2.9, updated references. (by @jfy133)
+
+### `Fixed`
+
+### `Dependencies`
+
+### `Deprecated`
+
+## v1.1.2 - [2023-06-30]
 
 ### `Added`
 
 ### `Fixed`
+
+- [#279](https://github.com/nf-core/funcscan/pull/279) Fix docker/podman registry definition for tower compatibility. (♥️ to sunitj for reporting, fix by @adamrtalbot)
 
 ### `Dependencies`
 
