@@ -9,12 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#290](https://github.com/nf-core/funcscan/pull/290) Merged pipeline template of nf-core/tools version 2.9, updated references. (by @jfy133)
 - [#285](https://github.com/nf-core/funcscan/pull/285) Use nf-validation for samplesheet checking and added support for `fna.gz` input FASTA files (by @louperelo, @mirpedrol, @jfy133)
-
 - [#295](https://github.com/nf-core/funcscan/pull/295) Add Prokka to MultiQC output (by @louperelo)
 
 ### `Fixed`
 
 - [#296](https://github.com/nf-core/funcscan/pull/296) Fixed empty output when saving prodigal annotations. (reported by @louperelo, fix by @jasmezz)
+- [#297](https://github.com/nf-core/funcscan/pull/297) Added check for empty annotation files prior going into screening. (❤️ to @alexhbnr for requesting, added by @jfy133)
 
 ### `Dependencies`
 
