@@ -21,6 +21,22 @@
                 "pattern": "^\\S+\\.f(ast|n)?a\\.gz$",
                 "errorMessage": "Fasta file for reads must be provided, cannot contain spaces and must have extension '.fa.gz', '.fna.gz' or '.fasta.gz'",
                 "unique": true
+            },
+            "protein": {
+                "type": "string",
+                "format": "file-path",
+                "exists": true,
+                "pattern": "^\\S+\\.f(ast|a)?a$",
+                "errorMessage": "Input file for peptide annotations has incorrect file format. File must end in .fasta, .faa, or .fa",
+                "unique": true
+            },
+            "feature": {
+                "type": "string",
+                "format": "file-path",
+                "exists": true,
+                "pattern": "^\\S+\\.g(bk|ff)$",
+                "errorMessage": "Input file for feature annotations has incorrect file format. File must end in .gbk or .gff",
+                "unique": true
             }
         },
         "required": ["sample", "fasta"]
