@@ -19,9 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool  | Previous version | New version |
-| ----- | ---------------- | ----------- |
-| GECCO | 0.9.2            | 0.9.8       |
+| Tool   | Previous version | New version |
+| ------ | ---------------- | ----------- |
+| comBGC | 0.6.0            | 0.6.1       |
+| GECCO  | 0.9.2            | 0.9.8       |
 
 ### `Deprecated`
 
