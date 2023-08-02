@@ -93,17 +93,17 @@
                     },
                     "fastqc": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "git_sha": "bd8092b67b5103bdd52e300f75889442275c3117",
                         "installed_by": ["modules"]
                     },
                     "gecco/run": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "git_sha": "8c029dd8e67754d937fb6b6814e568f1decb2fea",
                         "installed_by": ["modules"]
                     },
                     "gunzip": {
                         "branch": "master",
-                        "git_sha": "5c460c5a4736974abde2843294f35307ee2b0e5e",
+                        "git_sha": "e06548bfa36ee31869b81041879dd6b3a83b1d57",
                         "installed_by": ["modules"]
                     },
                     "hamronization/abricate": {
@@ -163,7 +163,7 @@
                     },
                     "pyrodigal": {
                         "branch": "master",
-                        "git_sha": "1b91efd7ff7b2fb5fe0d78f0d2f6c728afc5e552",
+                        "git_sha": "dd3ed02ddb21363b1892e4705c164aa4cf945435",
                         "installed_by": ["modules"]
                     },
                     "rgi/main": {
@@ -178,7 +178,7 @@
                     },
                     "untar": {
                         "branch": "master",
-                        "git_sha": "5c460c5a4736974abde2843294f35307ee2b0e5e",
+                        "git_sha": "d0b4fc03af52a1cc8c6fb4493b921b57352b1dd8",
                         "installed_by": ["modules"]
                     }
                 }
