@@ -522,8 +522,8 @@
             "properties": {
                 "amp_ampcombi_db": {
                     "type": "string",
-                    "description": "Path to AMPcombi reference database directory.",
-                    "help_text": "Path to the folder containing the reference database files:\n1. a fasta file with a `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nFor more information check AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).",
+                    "description": "Path to AMPcombi reference database directory (DRAMP).",
+                    "help_text": "AMPcombi uses the 'general AMPs' dataset of the (DRAMP database)[http://dramp.cpu-bioinfor.org/downloads/] for taxonomic classification. If you have a local version of it, you can provide the path to the folder containing the reference database files:\n1. a fasta file with a `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nFor more information check AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).",
                     "default": "None",
                     "fa_icon": "fas fa-address-book"
                 },

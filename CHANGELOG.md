@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#296](https://github.com/nf-core/funcscan/pull/296) Fixed empty output when saving prodigal annotations. (reported by @louperelo, fix by @jasmezz)
 - [#297](https://github.com/nf-core/funcscan/pull/297) Added check for empty annotation files prior going into screening. (❤️ to @alexhbnr for requesting, added by @jfy133)
 - [#299](https://github.com/nf-core/funcscan/pull/299) Fixed pigz error with symlinks in Pyrodigal. (by @jasmezz)
+- [#300](https://github.com/nf-core/funcscan/pull/300) Fixed wrong Pyrodigal channels being submitted to antiSMASH. (reported by Till Bayer, fix by @jasmezz)
 
 ### `Dependencies`
 
