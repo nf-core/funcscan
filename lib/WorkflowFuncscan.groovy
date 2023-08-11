@@ -108,8 +108,6 @@ class WorkflowFuncscan {
 
         def preprocessing_text = "<li>Li, H. (2023). bioawk: BWK awk modified for biological data. Github. Retrieved July 12, 2023, from <a href=\"https://github.com/lh3/bioawk\">https://github.com/lh3/bioawk</a></li>"
 
-
-        // TODO DUPLCIATED HMMSEARCH
         def annotation_text    = [
                 params.annotation_tool == 'prodigal'  ? "<li>Hyatt, D., Chen, G. L., Locascio, P. F., Land, M. L., Larimer, F. W., & Hauser, L. J. (2010). Prodigal: prokaryotic gene recognition and translation initiation site identification. BMC bioinformatics, 11, 119. DOI: <a href=\"https://doi.org/10.1186/1471-2105-11-119\">10.1186/1471-2105-11-119</a>" : "",
                 params.annotation_tool == 'pyrodigal' ? "<li>Larralde, M. (2022). Pyrodigal: Python bindings and interface to Prodigal, an efficient method for gene prediction in prokaryotes. Journal of Open Source Software, 7(72), 4296. DOI: <a href=\"https://doi.org/10.21105/joss.04296\">10.21105/joss.04296</a></li>" : "",
