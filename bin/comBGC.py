@@ -32,7 +32,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-tool_version = "0.6.0"
+tool_version = "0.6.1"
 welcome = """\
                 ........................
                     * comBGC v.{version} *
@@ -463,7 +463,7 @@ def gecco_workflow(gecco_paths):
     # GECCO output columns that can be mapped (comBGC:GECCO)
     map_dict = {
         "sequence_id": "Contig_ID",
-        "bgc_id": "bgc_id",
+        "bgc_id": "cluster_id",
         "type": "Product_class",
         "average_p": "BGC_probability",
         "start": "BGC_start",
@@ -524,7 +524,7 @@ def gecco_workflow(gecco_paths):
     # Add column 'InterPro_ID'
     for gbk_path in gbk_paths:
         bgc_id = gbk_path.split("/")[-1][0:-4]
-        gecco_df.loc[gecco_df["bgc_id"] == bgc_id, "InterPro_ID"] = getInterProID(gbk_path)
+        gecco_df.loc[gecco_df["cluster_id"] == bgc_id, "InterPro_ID"] = getInterProID(gbk_path)
 
     # Add empty columns with no output from GECCO
     gecco_df["BGC_complete"] = "NA"

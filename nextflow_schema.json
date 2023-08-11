@@ -15,6 +15,7 @@
                 "input": {
                     "type": "string",
                     "format": "file-path",
+                    "exists": true,
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
                     "schema": "assets/schema_input.json",
@@ -96,7 +97,6 @@
             "properties": {
                 "annotation_bakta_db_localpath": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-database",
                     "description": "Specify a path to BAKTA database.",
                     "help_text": "Specify a path to a database that is prepared in a BAKTA format."
@@ -250,7 +250,7 @@
                     "default": "Bacteria",
                     "fa_icon": "fab fa-accusoft",
                     "description": "Specify the kingdom that the input represents.",
-                    "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n> \u26a0\ufe0f Prokka cannot annotate Eukaryotes.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--kingdom`",
+                    "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n> ⚠️ Prokka cannot annotate Eukaryotes.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--kingdom`",
                     "enum": ["Archaea", "Bacteria", "Mitochondria", "Viruses"]
                 },
                 "annotation_prokka_gcode": {
@@ -271,7 +271,7 @@
                 },
                 "annotation_prokka_evalue": {
                     "type": "number",
-                    "default": 1e-6,
+                    "default": 0.000001,
                     "description": "Minimum e-value cut-off.",
                     "help_text": "Specifiy the minimum e-value used for filtering the alignment hits.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--evalue`",
                     "fa_icon": "fas fa-sort-amount-down"
@@ -300,7 +300,6 @@
                 "annotation_prokka_centre": {
                     "type": "string",
                     "description": "Sequencing centre ID.",
-                    "default": "None",
                     "fa_icon": "fas fa-map-marker-alt",
                     "help_text": "Add the sequencing center ID used in generating the raw sequences. This flag is typically requested in combination with the `--compliant` flag when contigs need to be renamed due to non-conforming contig headers. For more information please check Prokka [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - Prokka: `--centre`"
                 },
@@ -470,7 +469,6 @@
                 },
                 "amp_hmmsearch_models": {
                     "type": "string",
-                    "default": "None",
                     "description": "Specify path to the AMP hmm model file(s) to search against. Must have quotes if wildcard used.",
                     "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--amp_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n\nYou must wrap the path in quotes if you use a wildcard, to ensure Nextflow expansion _not_ bash!\n\nFor more information check HMMER [documentation](http://hmmer.org/).",
                     "fa_icon": "fas fa-layer-group"
@@ -521,9 +519,8 @@
             "properties": {
                 "amp_ampcombi_db": {
                     "type": "string",
-                    "description": "Path to AMPcombi reference database directory.",
-                    "help_text": "Path to the folder containing the reference database files:\n1. a fasta file with a `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nFor more information check AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).",
-                    "default": "None",
+                    "description": "Path to AMPcombi reference database directory (DRAMP).",
+                    "help_text": "AMPcombi uses the 'general AMPs' dataset of the (DRAMP database)[http://dramp.cpu-bioinfor.org/downloads/] for taxonomic classification. If you have a local version of it, you can provide the path to the folder containing the reference database files:\n1. a fasta file with a `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nFor more information check AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).",
                     "fa_icon": "fas fa-address-book"
                 },
                 "amp_ampcombi_cutoff": {
@@ -551,7 +548,6 @@
                 },
                 "arg_amrfinderplus_db": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-layer-group",
                     "help_text": "Specify the path to a local version of the ARMFinderPlus database. If no input is given, the pipeline will download the database for you.\n\n See the nf-core/funcscan usage [documentation](https://nf-co.re/funcscan/usage) for more information.",
                     "description": "Specify the path to a local version of the ARMfinderPlus database."
@@ -608,7 +604,6 @@
                 },
                 "arg_deeparg_data": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fab fa-deezer",
                     "description": "Specify the path to the DeepARG database.",
                     "help_text": "Specify the path to a local version of the DeepARG database (see the pipelines' usage [documentation](https://nf-co.re/funcscan/usage)). If no input is given, the module will download the database for you, however this is not recommended, as the database is large and this will take time."
@@ -854,14 +849,12 @@
                     "type": "string",
                     "description": "Path to user-defined local antiSMASH database.",
                     "fa_icon": "fas fa-layer-group",
-                    "default": "None",
                     "help_text": "It is recommend to pre-download the antiSMASH databases to your machine and pass the path of it to this parameter, as this can take a long time to download - particularly when running lots of pipeline runs. \n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#antismash) for details on how to download this. If running with docker or singularity, please also check `--bgc_antismash_installationdirectory` for important information."
                 },
                 "bgc_antismash_installationdirectory": {
                     "type": "string",
                     "description": "Path to user-defined local antiSMASH directory. Only required when running with docker/singularity.",
                     "fa_icon": "far fa-folder-open",
-                    "default": "None",
                     "help_text": "This is required when running with **docker and singularity** (not required for conda), due to attempted 'modifications' of files during database checks in the installation directory, something that cannot be done in immutable docker/singularity containers.\n\nTherefore, a local installation directory needs to be mounted (including all modified files from the downloading step) to the container as a workaround."
                 },
                 "bgc_antismash_sampleminlength": {
@@ -869,7 +862,7 @@
                     "default": 1000,
                     "description": "Minimum longest-contig length a sample must have to be screened with antiSMASH.",
                     "fa_icon": "fas fa-ruler-horizontal",
-                    "help_text": "This specifies the minimum length that the longest contig must have for the entire sample to be screened by antiSMASH.\n\nAny samples that do not reach this length will be not be sent to antiSMASH, therefore you will not receive output for these samples in your `--outdir`.\n\n> \u26a0\ufe0f This is not the same as `--bgc_antismash_contigminlength`, which specifies to only analyse contigs above that threshold but _within_ a sample that has already passed `--bgc_antismash_sampleminlength` sample filter!"
+                    "help_text": "This specifies the minimum length that the longest contig must have for the entire sample to be screened by antiSMASH.\n\nAny samples that do not reach this length will be not be sent to antiSMASH, therefore you will not receive output for these samples in your `--outdir`.\n\n> ⚠️ This is not the same as `--bgc_antismash_contigminlength`, which specifies to only analyse contigs above that threshold but _within_ a sample that has already passed `--bgc_antismash_sampleminlength` sample filter!"
                 },
                 "bgc_antismash_contigminlength": {
                     "type": "integer",
@@ -941,7 +934,6 @@
                 },
                 "bgc_deepbgc_database": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-layer-group",
                     "description": "Path to local deepBGC database folder."
                 },
@@ -1070,7 +1062,6 @@
                 },
                 "bgc_hmmsearch_models": {
                     "type": "string",
-                    "default": "None",
                     "description": "Specify path to the BGC hmm model file(s) to search against. Must have quotes if wildcard used.",
                     "help_text": "HMMSearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--bgc_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n\nYou must wrap the path in quotes if you use a wildcard, to ensure Nextflow expansion _not_ bash!\n\nFor more information check HMMER [documentation](http://hmmer.org/).",
                     "fa_icon": "fas fa-layer-group"
@@ -1130,6 +1121,7 @@
                 "fasta": {
                     "type": "string",
                     "format": "file-path",
+                    "exists": false,
                     "mimetype": "text/plain",
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
                     "description": "Path to FASTA genome file.",
@@ -1231,7 +1223,7 @@
                     "description": "Maximum amount of time that can be requested for any single job.",
                     "default": "240.h",
                     "fa_icon": "far fa-clock",
-                    "pattern": "^(\\d+\\.?\\s*(s|m|h|day)\\s*)+$",
+                    "pattern": "^(\\d+\\.?\\s*(s|m|h|d|day)\\s*)+$",
                     "hidden": true,
                     "help_text": "Use to set an upper-limit for the time requirement for each process. Should be a string in the format integer-unit e.g. `--max_time '2.h'`"
                 }
@@ -1302,6 +1294,7 @@
                 },
                 "multiqc_config": {
                     "type": "string",
+                    "format": "file-path",
                     "description": "Custom config file to supply to MultiQC.",
                     "fa_icon": "fas fa-cog",
                     "hidden": true
@@ -1317,13 +1310,6 @@
                     "description": "Custom MultiQC yaml file containing HTML including a methods description.",
                     "fa_icon": "fas fa-cog"
                 },
-                "tracedir": {
-                    "type": "string",
-                    "description": "Directory to keep pipeline Nextflow logs and reports.",
-                    "default": "${params.outdir}/pipeline_info",
-                    "fa_icon": "fas fa-cogs",
-                    "hidden": true
-                },
                 "validate_params": {
                     "type": "boolean",
                     "description": "Boolean whether to validate parameters against the schema at runtime",
@@ -1331,12 +1317,26 @@
                     "fa_icon": "fas fa-check-square",
                     "hidden": true
                 },
-                "show_hidden_params": {
+                "validationShowHiddenParams": {
                     "type": "boolean",
                     "fa_icon": "far fa-eye-slash",
                     "description": "Show all params when using `--help`",
                     "hidden": true,
                     "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters."
+                },
+                "validationFailUnrecognisedParams": {
+                    "type": "boolean",
+                    "fa_icon": "far fa-check-circle",
+                    "description": "Validation of parameters fails when an unrecognised parameter is found.",
+                    "hidden": true,
+                    "help_text": "By default, when an unrecognised parameter is found, it returns a warinig."
+                },
+                "validationLenientMode": {
+                    "type": "boolean",
+                    "fa_icon": "far fa-check-circle",
+                    "description": "Validation of parameters in lenient more.",
+                    "hidden": true,
+                    "help_text": "Allows string values that are parseable as numbers or booleans. For further information see [JSONSchema docs](https://github.com/everit-org/json-schema#lenient-mode)."
                 }
             }
         }

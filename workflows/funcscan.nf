@@ -1,40 +1,33 @@
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    VALIDATE INPUTS
+    PRINT PARAMS SUMMARY
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+include { validateParameters; paramsHelp; paramsSummaryLog; paramsSummaryMap; fromSamplesheet } from 'plugin/nf-validation'
 
-def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
+include { paramsSummaryLog; paramsSummaryMap; fromSamplesheet } from 'plugin/nf-validation'
 
-// Validate input parameters
+def logo = NfcoreTemplate.logo(workflow, params.monochrome_logs)
+def citation = '\n' + WorkflowMain.citation(workflow) + '\n'
+def summary_params = paramsSummaryMap(workflow)
+
+// Print parameter summary log to screen
+log.info logo + paramsSummaryLog(workflow) + citation
+
 WorkflowFuncscan.initialise(params, log)
 
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.multiqc_config, params.annotation_bakta_db_localpath,
+/*def checkPathParamList = [ params.input, params.multiqc_config, params.annotation_bakta_db_localpath,
                             params.amp_hmmsearch_models, params.amp_ampcombi_db,
                             params.arg_amrfinderplus_db, params.arg_deeparg_data,
                             params.bgc_antismash_databases, params.bgc_antismash_installationdirectory,
                             params.bgc_deepbgc_database, params.bgc_hmmsearch_models ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
+
 // Check mandatory parameters
 if (params.input) { ch_input = file(params.input) } else { error("Input samplesheet not specified!") }
-
-// Validate fARGene inputs
-// Split input into array, find the union with our valid classes, extract only
-// invalid classes, and if they exist, exit. Note `tokenize` used here as this
-// works for `interesect` and other groovy functions, but require `split` for
-// `Channel.of` creation. See `arg.nf` for latter.
-def fargene_classes = params.arg_fargene_hmmmodel
-def fargene_valid_classes = [ "class_a", "class_b_1_2", "class_b_3",
-                            "class_c", "class_d_1", "class_d_2",
-                            "qnr", "tet_efflux", "tet_rpg", "tet_enzyme"
-                            ]
-def fargene_user_classes = fargene_classes.tokenize(',')
-def fargene_classes_valid = fargene_user_classes.intersect( fargene_valid_classes )
-def fargene_classes_missing = fargene_user_classes - fargene_classes_valid
-
-if ( fargene_classes_missing.size() > 0 ) error("[nf-core/funcscan] ERROR: invalid class present in --arg_fargene_hmmodel. Please check input. Invalid class: ${fargene_classes_missing.join(', ')}")
+*/
 
 // Validate antiSMASH inputs
 // 1. Make sure that either both or none of the antiSMASH directories are supplied
@@ -71,8 +64,6 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { INPUT_CHECK } from '../subworkflows/local/input_check'
-
 include { AMP } from '../subworkflows/local/amp'
 include { ARG } from '../subworkflows/local/arg'
 include { BGC } from '../subworkflows/local/bgc'
@@ -117,16 +108,10 @@ workflow FUNCSCAN {
     ch_versions = Channel.empty()
     ch_multiqc_logo = Channel.fromPath("$projectDir/docs/images/nf-core-funcscan_logo_flat_light.png")
 
-    //
-    // SUBWORKFLOW: Read in samplesheet, validate and stage input files
-    //
-    INPUT_CHECK (
-        ch_input
-    )
-    ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
+    ch_input = Channel.fromSamplesheet("input")
 
     // Some tools require uncompressed input
-    fasta_prep = INPUT_CHECK.out.contigs
+    fasta_prep = ch_input
         .branch {
             compressed: it[1].toString().endsWith('.gz')
             uncompressed: it[1]
@@ -184,8 +169,8 @@ workflow FUNCSCAN {
             GUNZIP_PYRODIGAL_GFF ( PYRODIGAL.out.gff )
             ch_versions              = ch_versions.mix(PYRODIGAL.out.versions)
             ch_annotation_faa        = GUNZIP_PYRODIGAL_FAA.out.gunzip
-            ch_annotation_fna        = GUNZIP_PYRODIGAL_FAA.out.gunzip
-            ch_annotation_gff        = GUNZIP_PYRODIGAL_FAA.out.gunzip
+            ch_annotation_fna        = GUNZIP_PYRODIGAL_FNA.out.gunzip
+            ch_annotation_gff        = GUNZIP_PYRODIGAL_GFF.out.gunzip
             ch_annotation_gbk        = Channel.empty() // Pyrodigal doesn't produce GBK
         }  else if ( params.annotation_tool == "prokka" ) {
             PROKKA ( ch_prepped_input, [], [] )
@@ -232,7 +217,15 @@ workflow FUNCSCAN {
         AMPs
     */
     if ( params.run_amp_screening ) {
-        AMP ( ch_prepped_input, ch_annotation_faa )
+        AMP (
+            ch_prepped_input,
+            ch_annotation_faa
+                .filter {
+                    meta, file ->
+                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        !file.isEmpty()
+                }
+        )
         ch_versions = ch_versions.mix(AMP.out.versions)
     }
 
@@ -243,7 +236,15 @@ workflow FUNCSCAN {
         if (params.arg_skip_deeparg) {
             ARG ( ch_prepped_input, [] )
         } else {
-            ARG ( ch_prepped_input, ch_annotation_faa )
+            ARG (
+                ch_prepped_input,
+                ch_annotation_faa
+                    .filter {
+                        meta, file ->
+                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                            !file.isEmpty()
+                    }
+            )
         }
         ch_versions = ch_versions.mix(ARG.out.versions)
     }
@@ -252,7 +253,27 @@ workflow FUNCSCAN {
         BGCs
     */
     if ( params.run_bgc_screening ) {
-        BGC ( ch_prepped_input, ch_annotation_gff, ch_annotation_faa, ch_annotation_gbk )
+        BGC (
+            ch_prepped_input,
+            ch_annotation_gff
+                .filter {
+                    meta, file ->
+                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GFF file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        !file.isEmpty()
+                },
+            ch_annotation_faa
+                .filter {
+                    meta, file ->
+                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        !file.isEmpty()
+                },
+            ch_annotation_gbk
+                .filter {
+                    meta, file ->
+                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        !file.isEmpty()
+                }
+        )
         ch_versions = ch_versions.mix(BGC.out.versions)
     }
 
@@ -266,13 +287,14 @@ workflow FUNCSCAN {
     workflow_summary    = WorkflowFuncscan.paramsSummaryMultiqc(workflow, summary_params)
     ch_workflow_summary = Channel.value(workflow_summary)
 
-    methods_description    = WorkflowFuncscan.methodsDescriptionText(workflow, ch_multiqc_custom_methods_description)
+    methods_description    = WorkflowFuncscan.methodsDescriptionText(workflow, ch_multiqc_custom_methods_description, params)
     ch_methods_description = Channel.value(methods_description)
 
     ch_multiqc_files = Channel.empty()
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
+    if(params.annotation_tool=='prokka'){ch_multiqc_files = ch_multiqc_files.mix( PROKKA.out.txt.collect{it[1]}.ifEmpty([])) }
 
     MULTIQC (
         ch_multiqc_files.collect(),

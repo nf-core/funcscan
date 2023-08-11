@@ -3,6 +3,31 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.1.3 - [2023-08-11]
+
+### `Added`
+
+- [#290](https://github.com/nf-core/funcscan/pull/290) Merged pipeline template of nf-core/tools version 2.9, updated references. (by @jfy133)
+- [#285](https://github.com/nf-core/funcscan/pull/285) Use nf-validation for samplesheet checking and added support for `fna.gz` input FASTA files. (by @louperelo, @mirpedrol, @jfy133)
+- [#295](https://github.com/nf-core/funcscan/pull/295) Add Prokka to MultiQC output. (by @louperelo)
+
+### `Fixed`
+
+- [#296](https://github.com/nf-core/funcscan/pull/296) Fixed empty output when saving prodigal annotations. (reported by @louperelo, fix by @jasmezz)
+- [#297](https://github.com/nf-core/funcscan/pull/297) Added check for empty annotation files prior going into screening. (❤️ to @alexhbnr for requesting, added by @jfy133)
+- [#299](https://github.com/nf-core/funcscan/pull/299) Fixed pigz error with symlinks in Pyrodigal. (by @jasmezz)
+- [#300](https://github.com/nf-core/funcscan/pull/300) Fixed wrong Pyrodigal channels being submitted to antiSMASH. (reported by Till Bayer, fix by @jasmezz)
+- [#302](https://github.com/nf-core/funcscan/pull/302) Removed trouble-causing default parameters in json schema. (by @robsyme)
+
+### `Dependencies`
+
+| Tool   | Previous version | New version |
+| ------ | ---------------- | ----------- |
+| comBGC | 0.6.0            | 0.6.1       |
+| GECCO  | 0.9.2            | 0.9.8       |
+
+### `Deprecated`
+
 ## v1.1.2 - [2023-06-30]
 
 ### `Added`
