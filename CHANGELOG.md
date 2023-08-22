@@ -3,6 +3,17 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.1.4dev - [unreleased]
+
+### `Added`
+
+### `Fixed`
+- [###]() Added new parameter `annotation_prokka_renamecontigs` to allow prokka to retain the original contig headers/locus tag by default (fix by @darcy220606)
+
+### `Dependencies`
+
+### `Deprecated`
+
 ## v1.1.3 - [2023-08-11]
 
 ### `Added`
