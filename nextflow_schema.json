@@ -309,10 +309,10 @@
                     "description": "Add the gene features for each CDS hit.",
                     "help_text": "For every CDS annotated, this flag adds the gene that encodes for that CDS region. For more information please check Prokka [documentation](https://github.com/tseemann/prokka). \n\n> Modifies tool parameter(s):\n> - Prokka: `--addgenes`"
                 },
-                "annotation_prokka_renamecontigs": {
+                "annotation_prokka_retaincontigheaders": {
                     "type": "boolean",
-                    "help_text": "This parameter retains the original contig names by activating `PROKKA`'s  `--force` flag. If this parameter is set to `true` it activates `PROKKA`'s flags `--locus-tag PROKKA --centre CENTER`  so the locus tags (contig names) will be PROKKA_# and the center tag will be CENTER.  \n\n> Modifies tool parameter(s):\n> - Prokka: `--locus-tag PROKKA --centre CENTER`\n> - Prokka: `--force`",
-                    "description": "Renames contig names."
+                    "help_text": "This parameter allows prokka to retain the original contig names by activating `PROKKA`'s  `--force` flag. If this parameter is set to `false` it activates `PROKKA`'s flags `--locus-tag PROKKA --centre CENTER` so the locus tags (contig names) will be PROKKA_# and the center tag will be CENTER. By default `PROKKA` changes contig headers to avoid errors that might rise due to long contig headers, so this must be turned on if the user has short contig names that should be retained by `PROKKA`. \n\n> Modifies tool parameter(s):\n> - Prokka: `--locus-tag PROKKA --centre CENTER`\n> - Prokka: `--force`",
+                    "description": "Retains contig names."
                 }
             },
             "fa_icon": "fas fa-tools",

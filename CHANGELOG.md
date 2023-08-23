@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [###]() Added new parameter `annotation_prokka_renamecontigs` to allow prokka to retain the original contig headers/locus tag by default (fix by @darcy220606)
+- [###]() Added new parameter `annotation_prokka_retaincontigheaders` to allow prokka to retain the original contig headers/locus tag. (by @darcy220606)
 
 ### `Dependencies`
 
