@@ -185,9 +185,10 @@ You can either:
 1. Install DeepARG from [bioconda](https://bioconda.github.io/recipes/deeparg/README.html?highlight=deeparg)
 2. Run `deeparg download_data -o /<path>/<to>/<database_location>/`
 
-Or
+Or download the files directly from
 
-1. Download the files directly from the [DeepARG FTP site](https://bench.cs.vt.edu/ftp/data/gustavo1/deeparg/database/)
+1. the [DeepARG FTP site](https://bench.cs.vt.edu/ftp/data/gustavo1/deeparg/database/)
+2. the [DeepARG database Zenodo archive](https://zenodo.org/record/8280582)
 
 Note that more recent database versions maybe available from the [ARGMiner service](https://bench.cs.vt.edu/argminer/#/home).
 

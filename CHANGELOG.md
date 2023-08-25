@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#307](https://github.com/nf-core/funcscan/pull/307) Fixed stability of deepARG tests by using Zenodo copy of database (❤️ to Gustavo Arango and Liqing Zhang for uploading, fix by @jfy133)
+
 ### `Dependencies`
 
 ### `Deprecated`
