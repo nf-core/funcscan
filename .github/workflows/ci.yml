@@ -99,4 +99,4 @@ jobs:
         run: |
           wget https://zenodo.org/record/8280582/files/deeparg.zip ## download from zenodo due to instability of deepARG server
           unzip deeparg.zip
-          nextflow run ${GITHUB_WORKSPACE} -profile test_deeparg,docker --outdir ./results ${{ matrix.parameters }} --arg_deeparg_data 'deeparg/deeparg/'
+          nextflow run ${GITHUB_WORKSPACE} -profile test_deeparg,docker --outdir ./results ${{ matrix.parameters }} --arg_deeparg_data 'deeparg/'
