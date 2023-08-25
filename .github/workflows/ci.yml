@@ -84,8 +84,6 @@ jobs:
           - "latest-everything"
         parameters:
           - "--annotation_tool bakta --annotation_bakta_db_downloadtype light"
-          - "--annotation_tool prodigal"
-          - "--annotation_tool prokka"
           - "--annotation_tool pyrodigal"
 
     steps:
