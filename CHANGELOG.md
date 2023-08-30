@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#306](https://github.com/nf-core/funcscan/pull/306) Added new parameter `annotation_prokka_retaincontigheaders` to allow prokka to retain the original contig headers/locus tag. (by @darcy220606)
+- [#307](https://github.com/nf-core/funcscan/pull/307) Fixed stability of deepARG tests by using Zenodo copy of database (❤️ to Gustavo Arango and Liqing Zhang for uploading, fix by @jfy133)
 
 ### `Dependencies`
 

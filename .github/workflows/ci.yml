@@ -72,31 +72,31 @@ jobs:
         run: |
           nextflow run ${GITHUB_WORKSPACE} -profile test_bgc,docker --outdir ./results ${{ matrix.parameters }}
 
-  # test_deeparg: #Tests switched off as long as DeepARG servers are unavaiable for database download.
-  #   name: Run pipeline with test data (DeepARG only workflow)
-  #   # Only run on push if this is the nf-core dev branch (merged PRs)
-  #   if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       NXF_VER:
-  #         - "23.04.0"
-  #         - "latest-everything"
-  #       parameters:
-  #         - "--annotation_tool bakta --annotation_bakta_db_downloadtype light"
-  #         - "--annotation_tool prodigal"
-  #         - "--annotation_tool prokka"
-  #         - "--annotation_tool pyrodigal"
+  test_deeparg:
+    name: Run pipeline with test data (DeepARG only workflow)
+    # Only run on push if this is the nf-core dev branch (merged PRs)
+    if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        NXF_VER:
+          - "23.04.0"
+          - "latest-everything"
+        parameters:
+          - "--annotation_tool bakta --annotation_bakta_db_downloadtype light"
+          - "--annotation_tool pyrodigal"
 
-  #   steps:
-  #     - name: Check out pipeline code
-  #       uses: actions/checkout@v2
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v2
 
-  #     - name: Install Nextflow
-  #       uses: nf-core/setup-nextflow@v1
-  #       with:
-  #         version: "${{ matrix.NXF_VER }}"
+      - name: Install Nextflow
+        uses: nf-core/setup-nextflow@v1
+        with:
+          version: "${{ matrix.NXF_VER }}"
 
-  #     - name: Run pipeline with test data (DeepARG workflow)
-  #       run: |
-  #         nextflow run ${GITHUB_WORKSPACE} -profile test_deeparg,docker --outdir ./results ${{ matrix.parameters }}
+      - name: Run pipeline with test data (DeepARG workflow)
+        run: |
+          wget https://zenodo.org/record/8280582/files/deeparg.zip ## download from zenodo due to instability of deepARG server
+          unzip deeparg.zip
+          nextflow run ${GITHUB_WORKSPACE} -profile test_deeparg,docker --outdir ./results ${{ matrix.parameters }} --arg_deeparg_data 'deeparg/'
