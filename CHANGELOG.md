@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
+| Tool          | Previous version | New version |
+| ------------- | ---------------- | ----------- |
+| AMRFinderPlus | 3.10.42          | 3.11.18     |
+| Bakta         | 1.7.0            | 1.8.2       |
+| MultiQC       | 1.1.4            | 1.1.5       |
+
 ### `Deprecated`
 
 ## v1.1.3 - [2023-08-11]
