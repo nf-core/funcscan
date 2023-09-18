@@ -18,8 +18,8 @@
                 "type": "string",
                 "format": "file-path",
                 "exists": true,
-                "pattern": "^\\S+\\.f(ast|n)?a\\.gz$",
-                "errorMessage": "Fasta file for reads must be provided, cannot contain spaces and must have extension '.fa.gz', '.fna.gz' or '.fasta.gz'",
+                "pattern": "^\\S+\\.(fasta|fas|fa|fna)(\\.gz)?$",
+                "errorMessage": "Fasta file for reads must be provided, cannot contain spaces and must have extension '.fasta', '.fas', '.fa' or '.fna' (any of these can be optionally compressed as '.gz')",
                 "unique": true
             }
         },
