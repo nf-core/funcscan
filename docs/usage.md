@@ -230,6 +230,8 @@ Note that the names of the supplied folders must differ from each other (e.g. `a
 
 ### DeepBGC
 
+> ⚠️ The dependencies for the deepBGC database download are currently broken. Until deeBGC gets fixed, users need to provide the database files themselves or just skip the tool (`--bgc_skip_deepbgc`). To provide tje files yourself: The links for the database files can be found in [this script](https://github.com/Merck/deepbgc/blob/476934b61521d23c1122a1cfada176ee5e402741/deepbgc/data.py) from the deepBGC GitHub repository. The command `deepbgc download` as described below will not work at the moment.
+
 DeepBGC relies on trained models and Pfams to run its analysis. nf-core/funcscan will download these databases for you. If the flag `--save_databases` is set, the downloaded files will be stored in the output directory under `databases/deepbgc/`.
 
 Alternatively, if you already downloaded the database locally with `deepbgc download`, you can indicate the path to the database folder with `--bgc_deepbgc_database <path>/<to>/<deepbgc_db>/`. The folder has to contain the subfolders as in the database folder downloaded by `deepbgc download`:
