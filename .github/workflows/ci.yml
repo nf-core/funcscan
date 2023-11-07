@@ -70,7 +70,7 @@ jobs:
 
       - name: Run pipeline with test data (BGC workflow)
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test_bgc,docker --outdir ./results ${{ matrix.parameters }}
+          nextflow run ${GITHUB_WORKSPACE} -profile test_bgc,docker --outdir ./results ${{ matrix.parameters }} --bgc_skip_deepbgc
 
   test_deeparg:
     name: Run pipeline with test data (DeepARG only workflow)

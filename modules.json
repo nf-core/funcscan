@@ -63,7 +63,7 @@
                     },
                     "custom/dumpsoftwareversions": {
                         "branch": "master",
-                        "git_sha": "05c280924b6c768d484c7c443dad5e605c4ff4b4",
+                        "git_sha": "1b372269755a5c4a13c23bc130ebada8cb9d4cd0",
                         "installed_by": ["modules"]
                     },
                     "deeparg/downloaddata": {
