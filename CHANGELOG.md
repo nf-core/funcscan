@@ -24,6 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Deprecated`
 
+- FastQC
+
 ## v1.1.3 - [2023-08-11]
 
 ### `Added`
