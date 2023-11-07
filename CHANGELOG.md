@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | ------------- | ---------------- | ----------- |
 | AMRFinderPlus | 3.10.42          | 3.11.18     |
 | Bakta         | 1.7.0            | 1.8.2       |
-| MultiQC       | 1.14            | 1.15       |
+| MultiQC       | 1.14             | 1.15        |
 
 ### `Deprecated`
 
