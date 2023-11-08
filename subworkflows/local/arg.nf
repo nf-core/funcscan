@@ -6,6 +6,7 @@ include { ABRICATE_RUN                }  from '../../modules/nf-core/abricate/ru
 include { AMRFINDERPLUS_UPDATE        }  from '../../modules/nf-core/amrfinderplus/update/main'
 include { AMRFINDERPLUS_RUN           }  from '../../modules/nf-core/amrfinderplus/run/main'
 include { FARGENE                     }  from '../../modules/nf-core/fargene/main'
+include { UNZIP                       }  from '../../modules/nf-core/unzip/main'
 include { DEEPARG_DOWNLOADDATA        }  from '../../modules/nf-core/deeparg/downloaddata/main'
 include { DEEPARG_PREDICT             }  from '../../modules/nf-core/deeparg/predict/main'
 include { RGI_MAIN                    }  from '../../modules/nf-core/rgi/main/main'
@@ -91,9 +92,16 @@ workflow ARG {
 
     // DeepARG prepare download
     if ( !params.arg_skip_deeparg && params.arg_deeparg_data ) {
-        ch_deeparg_db = Channel
-            .fromPath( params.arg_deeparg_data )
-            .first()
+
+        if ( file(params.arg_deeparg_data).getExtension() == "zip") {
+            UNZIP( [ [id: "deepargdb"], params.arg_deeparg_data ] )
+            ch_deeparg_db = UNZIP.out.unzipped_archive.map{meta, db -> [db]}
+        } else {
+            ch_deeparg_db = Channel
+                .fromPath( params.arg_deeparg_data )
+                .first()
+        }
+
     } else if ( !params.arg_skip_deeparg && !params.arg_deeparg_data ) {
         DEEPARG_DOWNLOADDATA( )
         ch_versions = ch_versions.mix(DEEPARG_DOWNLOADDATA.out.versions)

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#xxx]() Add support for supplying gzipped DeepARG database files as input (by @jfy133)
+
 ### `Fixed`
 
 ### `Dependencies`
