@@ -178,7 +178,7 @@ The downloaded database folder contains the AMR related files:
 
 DeepARG requires a database of potential antimicrobial resistance gene sequences based on a consensus from UNIPROT, CARD, and ARDB.
 
-nf-core/funcscan can download this database for you, however it is very slow and pipeline runtime will be improved if you download this separately and supply it to the pipeline. Furthermore, if you have problems downloading this from within the pipeline, we highly recommend using the Zenodo archive of the database (see below).
+nf-core/funcscan can download this database for you, however it is very slow and pipeline runtime will be improved if you download this separately and supply it to the pipeline. Furthermore, if you have problems downloading this from within the pipeline, we highly recommend using the Zenodo archive of the database (see direct download below).
 
 You can either:
 
