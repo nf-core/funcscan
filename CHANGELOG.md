@@ -13,9 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool          | Previous version | New version |
-| ------------- | ---------------- | ----------- |
-| MultiQC       | 1.15             | 1.17        |
+| Tool    | Previous version | New version |
+| ------- | ---------------- | ----------- |
+| MultiQC | 1.15             | 1.17        |
 
 ### `Deprecated`
 
