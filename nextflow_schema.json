@@ -599,7 +599,7 @@
                     "type": "string",
                     "fa_icon": "fab fa-deezer",
                     "description": "Specify the path to a directory or Zip archive of the DeepARG database.",
-                    "help_text": "Specify the path to a local version of the DeepARG database (see the pipelines' usage [documentation](https://nf-co.re/funcscan/usage)). If no input is given, the module will download the database for you, however this is not recommended, as the database is large and this will take time. The input can be either a uncompressed directory, or a Zip file."
+                    "help_text": "Specify the path to a local version of the DeepARG database (see the pipelines' usage [documentation](https://nf-co.re/funcscan/usage)). If no input is given, the module will download the database for you, however this is not recommended, as the database is large and this will take time. The input can be either an uncompressed directory, or a Zip file."
                 },
                 "arg_deeparg_data_version": {
                     "type": "integer",
