@@ -1,0 +1,62 @@
+nextflow_pipeline {
+
+    name "Test Workflow main.nf"
+    script "main.nf"
+    tag "test"
+    tag "pipeline"
+
+    test("AMP and ARG workflow") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(UTILS.removeNextflowVersion("$outputDir")).match("software_versions") },
+                { assert snapshot(path("$outputDir/amp/ampir/").list()).match("amp_ampir") },
+                { assert snapshot(path("$outputDir/amp/amplify/").list()).match("amp_amplify") },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_1/sample_1_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_2/sample_2_mybacteriocin.txt.gz").exists() },
+                { assert snapshot(path("$outputDir/amp/macrel/sample_1/sample_1.all_orfs.faa.gz"),
+                                path("$outputDir/amp/macrel/sample_1/sample_1.all_orfs.faa.gz"),
+                                path("$outputDir/amp/macrel/sample_1/sample_1_log.txt"),
+                                path("$outputDir/amp/macrel/sample_1/README.md"),
+                                path("$outputDir/amp/macrel/sample_2/sample_2.all_orfs.faa.gz"),
+                                path("$outputDir/amp/macrel/sample_2/sample_2.all_orfs.faa.gz"),
+                                path("$outputDir/amp/macrel/sample_2/sample_2_log.txt"),
+                                path("$outputDir/amp/macrel/sample_2/README.md")).match("amp_macrel") },
+                { assert snapshot(path("$outputDir/arg/abricate/").list()).match("arg_abricate") },
+                { assert snapshot(path("$outputDir/arg/amrfinderplus/").list()).match("arg_amrfinderplus") },
+                { assert snapshot(path("$outputDir/arg/fargene/sample_1/class_a/predictedGenes/wastewater_metagenome_contigs_1-class_A-filtered-peptides.fasta"),
+                                path("$outputDir/arg/fargene/sample_1/class_a/predictedGenes/wastewater_metagenome_contigs_1-class_A-filtered.fasta"),
+                                path("$outputDir/arg/fargene/sample_1/class_a/results_summary.txt"),
+                                path("$outputDir/arg/fargene/sample_1/class_b_1_2/predictedGenes/wastewater_metagenome_contigs_1-class_B_1_2-filtered-peptides.fasta"),
+                                path("$outputDir/arg/fargene/sample_1/class_b_1_2/predictedGenes/wastewater_metagenome_contigs_1-class_B_1_2-filtered.fasta"),
+                                path("$outputDir/arg/fargene/sample_1/class_b_1_2/results_summary.txt"),
+                                path("$outputDir/arg/fargene/sample_2/class_a/predictedGenes/wastewater_metagenome_contigs_2-class_A-filtered-peptides.fasta"),
+                                path("$outputDir/arg/fargene/sample_2/class_a/predictedGenes/wastewater_metagenome_contigs_2-class_A-filtered.fasta"),
+                                path("$outputDir/arg/fargene/sample_2/class_a/results_summary.txt"),
+                                path("$outputDir/arg/fargene/sample_2/class_b_1_2/predictedGenes/wastewater_metagenome_contigs_2-class_B_1_2-filtered-peptides.fasta"),
+                                path("$outputDir/arg/fargene/sample_2/class_b_1_2/predictedGenes/wastewater_metagenome_contigs_2-class_B_1_2-filtered.fasta"),
+                                path("$outputDir/arg/fargene/sample_2/class_b_1_2/results_summary.txt")).match("arg_fargene") },
+                { assert snapshot(path("$outputDir/arg/hamronization/").list()).match("arg_hamronization") },
+                { assert snapshot(path("$outputDir/multiqc/multiqc_data/multiqc_citations.txt"),
+                                path("$outputDir/multiqc/multiqc_data/multiqc_sources.txt")).match("multiqc") },
+                { assert new File("$outputDir/reports/ampcombi/ampcombi.log").exists() },
+                { assert new File("$outputDir/reports/ampcombi/sample_1/sample_1_amp.faa").exists() },
+                { assert new File("$outputDir/reports/ampcombi/sample_1/sample_1_ampcombi.csv").exists() },
+                { assert new File("$outputDir/reports/ampcombi/sample_1/sample_1_diamond_matches.txt").exists() },
+                { assert new File("$outputDir/reports/ampcombi/sample_2/sample_2_amp.faa").exists() },
+                { assert new File("$outputDir/reports/ampcombi/sample_2/sample_2_ampcombi.csv").exists() },
+                { assert new File("$outputDir/reports/ampcombi/sample_2/sample_2_diamond_matches.txt").exists() },
+                { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv")).match("summary_hamronization") }               
+            )
+        }
+
+    }
+
+}
