@@ -40,6 +40,12 @@
         ],
         "timestamp": "2023-11-17T09:45:44.489030004"
     },
+    "software_versions": {
+        "content": [
+            "{ABRICATE_RUN={abricate=1.0.1}, AMPIR={ampir=1.1.0}, AMPLIFY_PREDICT={AMPlify=1.1.0}, AMP_HMMER_HMMSEARCH={hmmer=3.3.2}, AMRFINDERPLUS_RUN={amrfinderplus=3.11.18, amrfinderplus-database=2023-11-15.1}, AMRFINDERPLUS_UPDATE={amrfinderplus=3.11.18}, BIOAWK={bioawk=1.0}, CUSTOM_DUMPSOFTWAREVERSIONS={python=3.11.4, yaml=6.0}, FARGENE={fargene=0.1}, GUNZIP_FASTA_PREP={gunzip=1.10}, GUNZIP_MACREL_ORFS={gunzip=1.10}, GUNZIP_MACREL_PRED={gunzip=1.10}, HAMRONIZATION_ABRICATE={hamronization=1.1.1}, HAMRONIZATION_AMRFINDERPLUS={hamronization=1.1.1}, HAMRONIZATION_FARGENE={hamronization=1.1.1}, HAMRONIZATION_RGI={hamronization=1.1.1}, HAMRONIZATION_SUMMARIZE={hamronization=1.1.1}, MACREL_CONTIGS={macrel=1.2.0}, PRODIGAL_GFF={pigz=2.6, prodigal=2.6.3}, RGI_MAIN={rgi=5.2.1, rgi-database=3.1.4}, Workflow={nf-core/funcscan=1.1.5dev}}"
+        ],
+        "timestamp": "2023-11-17T12:26:24.217761567"
+    },
     "amp_ampir": {
         "content": [
             [
