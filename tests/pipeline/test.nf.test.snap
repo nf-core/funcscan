@@ -1,4 +1,11 @@
 {
+    "amp_macrel_sample_2": {
+        "content": [
+            "sample_2_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb"
+        ],
+        "timestamp": "2023-11-17T09:45:44.507792541"
+    },
     "arg_hamronization": {
         "content": [
             [
@@ -6,8 +13,8 @@
                 "sample_2.txt.abricate.json:md5,248ede666c7d658b2ff1b11c7aa05215"
             ],
             [
-                "sample_1.tsv.amrfinderplus.json:md5,e0a41d184dd3918e646335b29df3365d",
-                "sample_2.tsv.amrfinderplus.json:md5,5ce24668929e91607cf9445f204b3384"
+                "sample_1.tsv.amrfinderplus.json:md5,2276b9280cf4d976bbf3417f7f3cf6cd",
+                "sample_2.tsv.amrfinderplus.json:md5,1abe9f30fd9856f66bab8afc01ac3640"
             ],
             [
                 "sample_1_retrieved-genes-class_A-hmmsearched.out.fargene.json:md5,fa57ddf8c4d0e97311cfbc26c4cb32da",
@@ -24,20 +31,14 @@
                 "sample_2.txt.rgi.json:md5,604620d2d22b2b18f6208247daf6928c"
             ]
         ],
-        "timestamp": "2023-11-14T11:01:47.876748297"
+        "timestamp": "2023-11-17T09:45:44.599511516"
     },
-    "amp_macrel": {
+    "amp_macrel_sample_1": {
         "content": [
-            "sample_1.all_orfs.faa.gz:md5,19f1515f4a5631cb0529edd4f47186ee",
-            "sample_1.all_orfs.faa.gz:md5,19f1515f4a5631cb0529edd4f47186ee",
             "sample_1_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
-            "sample_2.all_orfs.faa.gz:md5,4eb55aefc1d25331f93e48f1969f8eea",
-            "sample_2.all_orfs.faa.gz:md5,4eb55aefc1d25331f93e48f1969f8eea",
-            "sample_2_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
             "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb"
         ],
-        "timestamp": "2023-11-14T11:01:47.774953914"
+        "timestamp": "2023-11-17T09:45:44.489030004"
     },
     "amp_ampir": {
         "content": [
@@ -50,7 +51,7 @@
                 "sample_2.ampir.tsv:md5,2dbbf8b83bba7703aefbdb43515c8896"
             ]
         ],
-        "timestamp": "2023-11-14T11:01:47.721305656"
+        "timestamp": "2023-11-17T09:45:44.433598026"
     },
     "arg_abricate": {
         "content": [
@@ -61,7 +62,7 @@
                 "sample_2.txt:md5,4c140c932a48a22bcd8ae911bda8f4c7"
             ]
         ],
-        "timestamp": "2023-11-14T11:01:47.797328322"
+        "timestamp": "2023-11-17T09:45:44.526839168"
     },
     "arg_amrfinderplus": {
         "content": [
@@ -72,20 +73,20 @@
                 "sample_2.tsv:md5,d9b6565167d603a1f07cff2374db8eb2"
             ]
         ],
-        "timestamp": "2023-11-14T11:01:47.819909419"
+        "timestamp": "2023-11-17T09:45:44.55438353"
     },
     "summary_hamronization": {
         "content": [
-            "hamronization_combined_report.tsv:md5,7a5f5bda8cac76db66221d36e8f73e90"
+            "hamronization_combined_report.tsv:md5,0562e05ff0dcc9d241386503e507cd1a"
         ],
-        "timestamp": "2023-11-14T11:01:47.966449918"
+        "timestamp": "2023-11-17T09:45:44.685378463"
     },
     "multiqc": {
         "content": [
             "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
             "multiqc_sources.txt:md5,d2a044df39ce3c6abe5cdc2d67473490"
         ],
-        "timestamp": "2023-11-14T11:01:47.92338902"
+        "timestamp": "2023-11-17T09:45:44.643748638"
     },
     "amp_amplify": {
         "content": [
@@ -96,7 +97,7 @@
                 "sample_2.tsv:md5,071c6e2d2365d828c583fc14be5da724"
             ]
         ],
-        "timestamp": "2023-11-14T11:01:47.752368147"
+        "timestamp": "2023-11-17T09:45:44.466130494"
     },
     "arg_fargene": {
         "content": [
@@ -113,6 +114,6 @@
             "wastewater_metagenome_contigs_2-class_B_1_2-filtered.fasta:md5,8b1240dc4240a45e9e9dff6b12e24941",
             "results_summary.txt:md5,59f2e69c670d72f0c0a401e0dc90cbeb"
         ],
-        "timestamp": "2023-11-14T11:01:47.843019377"
+        "timestamp": "2023-11-17T09:45:44.575224104"
     }
 }
