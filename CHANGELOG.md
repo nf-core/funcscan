@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#323](https://github.com/nf-core/funcscan/pull/323) Add nf-test files and snapshots (by @louperelo)
+
 ### `Fixed`
 
 ### `Dependencies`
