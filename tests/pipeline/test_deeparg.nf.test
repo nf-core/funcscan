@@ -1,0 +1,32 @@
+nextflow_pipeline {
+
+    name "Test Workflow main.nf"
+    script "main.nf"
+    tag "test_deeparg"
+    tag "pipeline"
+
+    test("ARG deepARG only workflow") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(UTILS.removeNextflowVersion("$outputDir")).match("software_versions") },
+                { assert snapshot(path("$outputDir/arg/deeparg/sample_1/sample_1.align.daa.tsv"),
+                                path("$outputDir/arg/deeparg/sample_1/sample_1.mapping.ARG"),
+                                path("$outputDir/arg/deeparg/sample_1/sample_1.mapping.potential.ARG"),
+                                path("$outputDir/arg/deeparg/sample_2/sample_2.align.daa.tsv"),
+                                path("$outputDir/arg/deeparg/sample_2/sample_2.mapping.ARG"),
+                                path("$outputDir/arg/deeparg/sample_2/sample_2.mapping.potential.ARG")).match("arg_deeparg") },
+                { assert snapshot(path("$outputDir/arg/hamronization/deeparg").list()).match("hamronization_deeparg") }               
+            )
+        }
+
+    }
+
+}
