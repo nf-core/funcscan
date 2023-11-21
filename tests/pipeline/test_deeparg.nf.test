@@ -23,10 +23,8 @@ nextflow_pipeline {
                                 path("$outputDir/arg/deeparg/sample_2/sample_2.align.daa.tsv"),
                                 path("$outputDir/arg/deeparg/sample_2/sample_2.mapping.ARG"),
                                 path("$outputDir/arg/deeparg/sample_2/sample_2.mapping.potential.ARG")).match("arg_deeparg") },
-                { assert snapshot(path("$outputDir/arg/hamronization/deeparg").list()).match("hamronization_deeparg") }               
+                { assert snapshot(path("$outputDir/arg/hamronization/deeparg").list()).match("hamronization_deeparg") }
             )
         }
-
     }
-
 }

@@ -27,7 +27,7 @@ nextflow_pipeline {
                 { assert new File("$outputDir/amp/macrel/sample_1/sample_1.prediction.gz").exists() },
                 { assert snapshot(path("$outputDir/amp/macrel/sample_2/sample_2_log.txt"),
                                 path("$outputDir/amp/macrel/sample_2/README.md")).match("amp_macrel_sample_2") },
-                { assert new File("$outputDir/amp/macrel/sample_2/sample_2.all_orfs.faa.gz").exists() },               
+                { assert new File("$outputDir/amp/macrel/sample_2/sample_2.all_orfs.faa.gz").exists() },
                 { assert new File("$outputDir/amp/macrel/sample_2/sample_2.prediction.gz").exists() },
                 { assert snapshot(path("$outputDir/arg/abricate/").list()).match("arg_abricate") },
                 { assert snapshot(path("$outputDir/arg/amrfinderplus/").list()).match("arg_amrfinderplus") },
