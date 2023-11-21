@@ -22,7 +22,7 @@ nextflow_pipeline {
                 run_bgc_screening       = true
                 input                = 'https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/samplesheet.csv'
             }
-            
+
         }
 
         then {
@@ -39,7 +39,7 @@ nextflow_pipeline {
                 { assert new File("$outputDir/amp/macrel/sample_1/sample_1.prediction.gz").exists() },
                 { assert snapshot(path("$outputDir/amp/macrel/sample_2/sample_2_log.txt"),
                                 path("$outputDir/amp/macrel/sample_2/README.md")).match("amp_macrel_sample_2") },
-                 { assert new File("$outputDir/amp/macrel/sample_2/sample_2.all_orfs.faa.gz").exists() },               
+                { assert new File("$outputDir/amp/macrel/sample_2/sample_2.all_orfs.faa.gz").exists() },               
                 { assert new File("$outputDir/amp/macrel/sample_2/sample_2.prediction.gz").exists() },
                 { assert snapshot(path("$outputDir/arg/abricate/").list()).match("arg_abricate") },
                 { assert snapshot(path("$outputDir/arg/amrfinderplus/").list()).match("arg_amrfinderplus") },
@@ -79,21 +79,21 @@ nextflow_pipeline {
                 { assert snapshot(path("$outputDir/bgc/antismash/sample_2/css").list()).match("bgc_antismash_css") },
                 { assert snapshot(path("$outputDir/bgc/antismash/sample_2/images").list()).match("bgc_antismash_images") },
                 { assert snapshot(path("$outputDir/bgc/deepbgc/sample_1/README.txt"),
-                                  path("$outputDir/bgc/deepbgc/sample_1/wastewater_metagenome_contigs_1.bgc.gbk"),
-                                  path("$outputDir/bgc/deepbgc/sample_1/wastewater_metagenome_contigs_1.pfam.tsv"),
-                                  path("$outputDir/bgc/deepbgc/sample_1/evaluation/wastewater_metagenome_contigs_1.bgc.png"),
-                                  path("$outputDir/bgc/deepbgc/sample_1/evaluation/wastewater_metagenome_contigs_1.score.png"),
-                                  path("$outputDir/bgc/deepbgc/sample_2/README.txt"),
-                                  path("$outputDir/bgc/deepbgc/sample_2/wastewater_metagenome_contigs_2.bgc.gbk"),
-                                  path("$outputDir/bgc/deepbgc/sample_2/wastewater_metagenome_contigs_2.pfam.tsv"),
-                                  path("$outputDir/bgc/deepbgc/sample_2/evaluation/wastewater_metagenome_contigs_2.bgc.png"),
-                                  path("$outputDir/bgc/deepbgc/sample_2/evaluation/wastewater_metagenome_contigs_2.score.png")).match("bgc_deepbgc") },
+                                path("$outputDir/bgc/deepbgc/sample_1/wastewater_metagenome_contigs_1.bgc.gbk"),
+                                path("$outputDir/bgc/deepbgc/sample_1/wastewater_metagenome_contigs_1.pfam.tsv"),
+                                path("$outputDir/bgc/deepbgc/sample_1/evaluation/wastewater_metagenome_contigs_1.bgc.png"),
+                                path("$outputDir/bgc/deepbgc/sample_1/evaluation/wastewater_metagenome_contigs_1.score.png"),
+                                path("$outputDir/bgc/deepbgc/sample_2/README.txt"),
+                                path("$outputDir/bgc/deepbgc/sample_2/wastewater_metagenome_contigs_2.bgc.gbk"),
+                                path("$outputDir/bgc/deepbgc/sample_2/wastewater_metagenome_contigs_2.pfam.tsv"),
+                                path("$outputDir/bgc/deepbgc/sample_2/evaluation/wastewater_metagenome_contigs_2.bgc.png"),
+                                path("$outputDir/bgc/deepbgc/sample_2/evaluation/wastewater_metagenome_contigs_2.score.png")).match("bgc_deepbgc") },
                 { assert snapshot(path("$outputDir/bgc/gecco/sample_1/wastewater_metagenome_contigs_1.clusters.tsv"),
-                                  path("$outputDir/bgc/gecco/sample_1/wastewater_metagenome_contigs_1.features.tsv"),
-                                  path("$outputDir/bgc/gecco/sample_1/wastewater_metagenome_contigs_1.genes.tsv"),
-                                  path("$outputDir/bgc/gecco/sample_2/wastewater_metagenome_contigs_2.clusters.tsv"),
-                                  path("$outputDir/bgc/gecco/sample_2/wastewater_metagenome_contigs_2.features.tsv"),
-                                  path("$outputDir/bgc/gecco/sample_2/wastewater_metagenome_contigs_2.genes.tsv"),).match("bgc_gecco") },
+                                path("$outputDir/bgc/gecco/sample_1/wastewater_metagenome_contigs_1.features.tsv"),
+                                path("$outputDir/bgc/gecco/sample_1/wastewater_metagenome_contigs_1.genes.tsv"),
+                                path("$outputDir/bgc/gecco/sample_2/wastewater_metagenome_contigs_2.clusters.tsv"),
+                                path("$outputDir/bgc/gecco/sample_2/wastewater_metagenome_contigs_2.features.tsv"),
+                                path("$outputDir/bgc/gecco/sample_2/wastewater_metagenome_contigs_2.genes.tsv"),).match("bgc_gecco") },
                 { assert snapshot(path("$outputDir/arg/hamronization/").list()).match("arg_hamronization") },
                 { assert snapshot(path("$outputDir/multiqc/multiqc_data/multiqc_citations.txt"),
                                 path("$outputDir/multiqc/multiqc_data/multiqc_sources.txt")).match("multiqc") },
@@ -105,7 +105,7 @@ nextflow_pipeline {
                 { assert new File("$outputDir/reports/ampcombi/sample_2/sample_2_ampcombi.csv").exists() },
                 { assert new File("$outputDir/reports/ampcombi/sample_2/sample_2_diamond_matches.txt").exists() },
                 { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv")).match("summary_hamronization") },
-                { assert new File("$outputDir/reports/combgc/combgc_complete_summary.tsv").exists() }          
+                { assert new File("$outputDir/reports/combgc/combgc_complete_summary.tsv").exists() }
             )
         }
 
