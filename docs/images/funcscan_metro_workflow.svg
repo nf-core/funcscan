@@ -7,7 +7,7 @@
    viewBox="0 0 301.625 142.875"
    version="1.1"
    id="svg6205"
-   inkscape:version="1.2.2 (1:1.2.2+202212051552+b0a8486541)"
+   inkscape:version="1.3 (1:1.3+202307231459+0e150ed6c4)"
    sodipodi:docname="funcscan_metro_workflow.svg"
    xml:space="preserve"
    inkscape:export-filename="funcscan_metro_workflow.png"
@@ -1848,7 +1848,7 @@
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';stroke-width:0.264583"
            x="50.215805"
            y="118.76516"
-           id="tspan12297">modules</tspan></text><text
+           id="tspan12297">Modules</tspan></text><text
          xml:space="preserve"
          style="font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';letter-spacing:0px;stroke-width:0.264583"
          x="22.424347"
@@ -1858,7 +1858,7 @@
            id="tspan23127-4-0-6-0-3"
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';stroke-width:0.264583"
            x="22.424347"
-           y="149.3224">Antimicrobial Peptides (AMPs)</tspan></text><text
+           y="149.3224">Antimicrobial Peptide Genes (AMPs)</tspan></text><text
          xml:space="preserve"
          style="font-size:4.3119px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';letter-spacing:0px;stroke-width:0.269494"
          x="22.013718"
@@ -1995,7 +1995,7 @@
            id="tspan2437"
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333px;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';stroke-width:0.264583"
            x="192.23363"
-           y="156.68042">v1.1.0</tspan></text><g
+           y="156.68042">v1.1.4</tspan></text><g
          id="g11243-3"
          transform="matrix(1,0,0,-1,-26.590624,140.52337)"><g
            id="g45542-67"

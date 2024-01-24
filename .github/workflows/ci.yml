@@ -70,7 +70,7 @@ jobs:
 
       - name: Run pipeline with test data (BGC workflow)
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test_bgc,docker --outdir ./results ${{ matrix.parameters }}
+          nextflow run ${GITHUB_WORKSPACE} -profile test_bgc,docker --outdir ./results ${{ matrix.parameters }} --bgc_skip_deepbgc
 
   test_deeparg:
     name: Run pipeline with test data (DeepARG only workflow)
@@ -84,8 +84,6 @@ jobs:
           - "latest-everything"
         parameters:
           - "--annotation_tool bakta --annotation_bakta_db_downloadtype light"
-          - "--annotation_tool prodigal"
-          - "--annotation_tool prokka"
           - "--annotation_tool pyrodigal"
 
     steps:
@@ -99,4 +97,6 @@ jobs:
 
       - name: Run pipeline with test data (DeepARG workflow)
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test_deeparg,docker --outdir ./results ${{ matrix.parameters }}
+          wget https://zenodo.org/record/8280582/files/deeparg.zip ## download from zenodo due to instability of deepARG server
+          unzip deeparg.zip
+          nextflow run ${GITHUB_WORKSPACE} -profile test_deeparg,docker --outdir ./results ${{ matrix.parameters }} --arg_deeparg_data 'deeparg/'

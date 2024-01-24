@@ -3,20 +3,70 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.1.3dev - [unreleased]
+## v1.1.5dev - [unreleased]
+
+### `Added`
+
+- [#322](https://github.com/nf-core/funcscan/pull/322) Updated all modules: introduce environment.yml files. (by @jasmezz)
+- [#324](https://github.com/nf-core/funcscan/pull/324) Removed separate DeepARG test profile because database download is now stable. (by @jasmezz)
+
+### `Fixed`
+
+### `Dependencies`
+
+| Tool    | Previous version | New version |
+| ------- | ---------------- | ----------- |
+| DeepARG | 1.0.2            | 1.0.4       |
+| DeepBGC | 0.1.30           | 0.1.31      |
+| MultiQC | 1.15             | 1.18        |
+
+### `Deprecated`
+
+## v1.1.4 - [2023-11-07]
+
+### `Added`
+
+### `Fixed`
+
+- [#306](https://github.com/nf-core/funcscan/pull/306) Added new parameter `annotation_prokka_retaincontigheaders` to allow prokka to retain the original contig headers/locus tag. (by @darcy220606)
+- [#307](https://github.com/nf-core/funcscan/pull/307) Fixed stability of deepARG tests by using Zenodo copy of database (❤️ to Gustavo Arango and Liqing Zhang for uploading, fix by @jfy133)
+- [#310](https://github.com/nf-core/funcscan/pull/310) Fixed error when supplying uncompressed input; added "fas" file extension for FASTA files. (by @tavareshugo)
+- [#311](https://github.com/nf-core/funcscan/pull/311) Merged pipeline template of nf-core/tools version 2.10. (by @jasmezz)
+
+### `Dependencies`
+
+| Tool          | Previous version | New version |
+| ------------- | ---------------- | ----------- |
+| AMRFinderPlus | 3.10.42          | 3.11.18     |
+| Bakta         | 1.7.0            | 1.8.2       |
+| MultiQC       | 1.14             | 1.15        |
+
+### `Deprecated`
+
+- FastQC
+
+## v1.1.3 - [2023-08-11]
 
 ### `Added`
 
 - [#290](https://github.com/nf-core/funcscan/pull/290) Merged pipeline template of nf-core/tools version 2.9, updated references. (by @jfy133)
-- [#285](https://github.com/nf-core/funcscan/pull/285) Use nf-validation for samplesheet checking and added support for `fna.gz` input FASTA files (by @louperelo, @mirpedrol, @jfy133)
-- [#295](https://github.com/nf-core/funcscan/pull/295) Add Prokka to MultiQC output (by @louperelo)
+- [#285](https://github.com/nf-core/funcscan/pull/285) Use nf-validation for samplesheet checking and added support for `fna.gz` input FASTA files. (by @louperelo, @mirpedrol, @jfy133)
+- [#295](https://github.com/nf-core/funcscan/pull/295) Add Prokka to MultiQC output. (by @louperelo)
 
 ### `Fixed`
 
 - [#296](https://github.com/nf-core/funcscan/pull/296) Fixed empty output when saving prodigal annotations. (reported by @louperelo, fix by @jasmezz)
 - [#297](https://github.com/nf-core/funcscan/pull/297) Added check for empty annotation files prior going into screening. (❤️ to @alexhbnr for requesting, added by @jfy133)
+- [#299](https://github.com/nf-core/funcscan/pull/299) Fixed pigz error with symlinks in Pyrodigal. (by @jasmezz)
+- [#300](https://github.com/nf-core/funcscan/pull/300) Fixed wrong Pyrodigal channels being submitted to antiSMASH. (reported by Till Bayer, fix by @jasmezz)
+- [#302](https://github.com/nf-core/funcscan/pull/302) Removed trouble-causing default parameters in json schema. (by @robsyme)
 
 ### `Dependencies`
+
+| Tool   | Previous version | New version |
+| ------ | ---------------- | ----------- |
+| comBGC | 0.6.0            | 0.6.1       |
+| GECCO  | 0.9.2            | 0.9.8       |
 
 ### `Deprecated`
 
