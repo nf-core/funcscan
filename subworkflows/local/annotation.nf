@@ -49,8 +49,8 @@ workflow ANNOTATION {
             GUNZIP_PYRODIGAL_GFF ( PYRODIGAL.out.gff )
             ch_versions              = ch_versions.mix(PYRODIGAL.out.versions)
             ch_annotation_faa        = GUNZIP_PYRODIGAL_FAA.out.gunzip
-            ch_annotation_fna        = GUNZIP_PYRODIGAL_FAA.out.gunzip
-            ch_annotation_gff        = GUNZIP_PYRODIGAL_FAA.out.gunzip
+            ch_annotation_fna        = GUNZIP_PYRODIGAL_FNA.out.gunzip
+            ch_annotation_gff        = GUNZIP_PYRODIGAL_GFF.out.gunzip
             ch_annotation_gbk        = Channel.empty() // Pyrodigal doesn't produce GBK
         }  else if ( params.annotation_tool == "prokka" ) {
             PROKKA ( ch_prepped_input, [], [] )
