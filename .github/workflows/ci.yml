@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   test:
-    name: Run pipeline with test data
+    name: Run pipeline with test data (AMP and ARG workflows)
     # Only run on push if this is the nf-core dev branch (merged PRs)
     if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
     runs-on: ubuntu-latest
@@ -26,6 +26,11 @@ jobs:
         NXF_VER:
           - "23.04.0"
           - "latest-everything"
+        parameters:
+          - "--annotation_tool prodigal"
+          - "--annotation_tool prokka"
+          - "--annotation_tool bakta --annotation_bakta_db_downloadtype light"
+
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@v4
@@ -35,9 +40,63 @@ jobs:
         with:
           version: "${{ matrix.NXF_VER }}"
 
-      - name: Run pipeline with test data
-        # TODO nf-core: You can customise CI pipeline run tests as required
-        # For example: adding multiple test runs with different parameters
-        # Remember that you can parallelise this by using strategy.matrix
+      - name: Run pipeline with test data (AMP and ARG workflows)
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results
+          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results ${{ matrix.parameters }}
+
+  test_bgc:
+    name: Run pipeline with test data (BGC workflow)
+    # Only run on push if this is the nf-core dev branch (merged PRs)
+    if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        NXF_VER:
+          - "23.04.0"
+          - "latest-everything"
+        parameters:
+          - "--annotation_tool prodigal"
+          - "--annotation_tool prokka"
+          - "--annotation_tool bakta --annotation_bakta_db_downloadtype light"
+
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v2
+
+      - name: Install Nextflow
+        uses: nf-core/setup-nextflow@v1
+        with:
+          version: "${{ matrix.NXF_VER }}"
+
+      - name: Run pipeline with test data (BGC workflow)
+        run: |
+          nextflow run ${GITHUB_WORKSPACE} -profile test_bgc,docker --outdir ./results ${{ matrix.parameters }} --bgc_skip_deepbgc
+
+  test_deeparg:
+    name: Run pipeline with test data (DeepARG only workflow)
+    # Only run on push if this is the nf-core dev branch (merged PRs)
+    if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        NXF_VER:
+          - "23.04.0"
+          - "latest-everything"
+        parameters:
+          - "--annotation_tool bakta --annotation_bakta_db_downloadtype light"
+          - "--annotation_tool pyrodigal"
+
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v2
+
+      - name: Install Nextflow
+        uses: nf-core/setup-nextflow@v1
+        with:
+          version: "${{ matrix.NXF_VER }}"
+
+      - name: Run pipeline with test data (DeepARG workflow)
+        run: |
+          wget https://zenodo.org/record/8280582/files/deeparg.zip ## download from zenodo due to instability of deepARG server
+          unzip deeparg.zip
+          nextflow run ${GITHUB_WORKSPACE} -profile test_deeparg,docker --outdir ./results ${{ matrix.parameters }} --arg_deeparg_data 'deeparg/'
