@@ -1,0 +1,75 @@
+{
+    "software_versions": {
+        "content": [
+            "{ANTISMASH_ANTISMASHLITE={antismash-lite=6.1.1}, ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES={antismash-lite=6.1.1}, BGC_HMMER_HMMSEARCH={hmmer=3.3.2}, BIOAWK={bioawk=1.0}, CUSTOM_DUMPSOFTWAREVERSIONS={python=3.11.4, yaml=6.0}, DEEPBGC_DOWNLOAD={deepbgc=0.1.30}, DEEPBGC_PIPELINE={deepbgc=0.1.30, prodigal=2.6.3}, GECCO_RUN={gecco=0.9.8}, GUNZIP_FASTA_PREP={gunzip=1.10}, PRODIGAL_GFF={pigz=2.6, prodigal=2.6.3}, UNTAR_CSS={untar=1.30}, UNTAR_DETECTION={untar=1.30}, UNTAR_MODULES={untar=1.30}, Workflow={nf-core/funcscan=1.1.5dev}}"
+        ],
+        "timestamp": "2023-11-17T17:43:25.495005544"
+    },
+    "bgc_antismash_css": {
+        "content": [
+            "bacteria.css:md5,d9c34889e2a676442ad5301d88b1b425"
+        ],
+        "timestamp": "2023-11-17T17:43:25.503864273"
+    },
+    "bgc_deepbgc": {
+        "content": [
+            "README.txt:md5,f3be0a1ed506ad388681952ae7c7fc85",
+            "wastewater_metagenome_contigs_1.bgc.gbk:md5,d7d056fd4111cf4c06a72d8442c2f9a2",
+            "wastewater_metagenome_contigs_1.pfam.tsv:md5,bd2abc3abee4638e5c8e7289fa09b2df",
+            "wastewater_metagenome_contigs_1.bgc.png:md5,61287b7c9dca86a613539b0d2e91e712",
+            "wastewater_metagenome_contigs_1.score.png:md5,d3e8677352f12e0d75d60a6abcc2b5f5",
+            "README.txt:md5,c4b0bdec4d97da921a9f4ad29659e793",
+            "wastewater_metagenome_contigs_2.bgc.gbk:md5,9cf9de023a24aba7ae1751d114dfa440",
+            "wastewater_metagenome_contigs_2.pfam.tsv:md5,a9be30ba0be0ea282265f6a4ff4a5157",
+            "wastewater_metagenome_contigs_2.bgc.png:md5,61287b7c9dca86a613539b0d2e91e712",
+            "wastewater_metagenome_contigs_2.score.png:md5,d3e8677352f12e0d75d60a6abcc2b5f5"
+        ],
+        "timestamp": "2023-11-17T17:43:25.543302611"
+    },
+    "bgc_gecco": {
+        "content": [
+            "wastewater_metagenome_contigs_1.clusters.tsv:md5,200bc03c02230d654fbec61c7ca00ff7",
+            "wastewater_metagenome_contigs_1.features.tsv:md5,a9d16920b1485afc8913d28eb56567b2",
+            "wastewater_metagenome_contigs_1.genes.tsv:md5,7184907900039cde515d68bfbf7e7b36",
+            "wastewater_metagenome_contigs_2.clusters.tsv:md5,cface6ef49a161f5398b557475cbc37b",
+            "wastewater_metagenome_contigs_2.features.tsv:md5,db7fe68b0f94db2b9f7abb0e6e5f2dba",
+            "wastewater_metagenome_contigs_2.genes.tsv:md5,78c54b645fdb77deba5aac9669606f49"
+        ],
+        "timestamp": "2023-11-17T17:43:25.593857506"
+    },
+    "bgc_antismash_images": {
+        "content": [
+            "about.svg:md5,2573f954dd506e2d0878daed04f5420a",
+            "bacteria_about.png:md5,99cdc2aa09aee37553b10ca86b172170",
+            "bacteria_antismash_icon.svg:md5,23a265b0e1cf293a4743fe13030b636f",
+            "bacteria_antismash_logo.svg:md5,f80f639969ee6506571ffda2e197df93",
+            "bacteria_antismash_white.svg:md5,2c9da15cc168d8f796269d037b5e7f60",
+            "bacteria_download.png:md5,c3428df1cf17cb97e2897ca6daa93d48",
+            "bacteria_help.png:md5,359b68f90c73208eb389759c0f5c1091",
+            "bacteria_home.png:md5,6595d97ee49d251fe038207f82012eff",
+            "bacteria_logo.png:md5,013f84d6dd93cde96f07084ff63d855c",
+            "contact.svg:md5,53b878c2af4f8a80a647ac30f61e6bf6",
+            "download.svg:md5,722038156f4ece46747cbf6908501974",
+            "expand-arrows-alt-solid.svg:md5,21b37749f54320135a455ed266a7fc3a",
+            "external-link-alt-solid.svg:md5,ca337694c74e57f73d15ca9db30081ba",
+            "fungi_about.png:md5,4d55bf14df0340dca01a286487fa8448",
+            "fungi_antismash_icon.svg:md5,2acc19cc91d5d7285a72f0b3912e108a",
+            "fungi_antismash_icon_white.svg:md5,961f1c41e25036a625f115f209a961c7",
+            "fungi_antismash_logo.svg:md5,36560983a36f46786c98a05125b15724",
+            "fungi_download.png:md5,782580852674aab0b69b2b94a94c7615",
+            "fungi_help.png:md5,0ac06748f3177d150ab90997117c4f64",
+            "fungi_home.png:md5,880071898062d6dafe989ac73bb7bbea",
+            "fungi_logo.png:md5,29294392a3953fd1ba12d1a39cebaeeb",
+            "help.svg:md5,e7565a3cd74893422f2886a0af748df2",
+            "mail.png:md5,049f51233b29663e4e4e4c8097c2d096",
+            "minus-circle.svg:md5,b523305570d06b6e34cd7099bed22015",
+            "nostructure_icon.png:md5,fc982a5b84a1a99db607731625a87f88",
+            "plant_antismash_icon.svg:md5,e031de9570ef2809e52502481a5e77ea",
+            "plant_antismash_icon_white.svg:md5,10d25996b023dbdaed4a382471ab4877",
+            "plus-circle.svg:md5,cba2cdd9ef893274f572228b354718cf",
+            "question-circle-solid.svg:md5,6dbc83547e29ecedc7f2a5b81354353b",
+            "search-solid.svg:md5,aeab848c26357f3d120f3e58f1efa8f5"
+        ],
+        "timestamp": "2023-11-17T17:43:25.51295304"
+    }
+}

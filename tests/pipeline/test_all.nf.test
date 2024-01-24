@@ -1,0 +1,113 @@
+nextflow_pipeline {
+
+    name "Test Workflow main.nf"
+    script "main.nf"
+    tag "test_all"
+    tag "pipeline"
+
+    test("funcscan workflow with prodigal") {
+
+        when {
+            params {
+                outdir                  = "$outputDir"
+                run_arg_screening       = true
+                amp_hmmsearch_models    = 'https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/hmms/mybacteriocin.hmm'
+                annotation_tool         = 'prodigal'
+                run_arg_screening       = true
+                arg_fargene_hmmmodel    = 'class_a,class_b_1_2'
+                arg_deeparg_data       = 'https://zenodo.org/records/8280582/files/deeparg.zip?download=1'
+                bgc_hmmsearch_models    = 'https://raw.githubusercontent.com/antismash/antismash/fd61de057e082fbf071732ac64b8b2e8883de32f/antismash/detection/hmm_detection/data/ToyB.hmm'
+                run_arg_screening       = true
+                run_amp_screening       = true
+                run_bgc_screening       = true
+                input                = 'https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/samplesheet.csv'
+            }
+
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(UTILS.removeNextflowVersion("$outputDir")).match("software_versions") },
+                { assert snapshot(path("$outputDir/amp/ampir/").list()).match("amp_ampir") },
+                { assert snapshot(path("$outputDir/amp/amplify/").list()).match("amp_amplify") },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_1/sample_1_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_2/sample_2_mybacteriocin.txt.gz").exists() },
+                { assert snapshot(path("$outputDir/amp/macrel/sample_1/sample_1_log.txt"),
+                                path("$outputDir/amp/macrel/sample_1/README.md")).match("amp_macrel_sample_1") },
+                { assert new File("$outputDir/amp/macrel/sample_1/sample_1.all_orfs.faa.gz").exists() },
+                { assert new File("$outputDir/amp/macrel/sample_1/sample_1.prediction.gz").exists() },
+                { assert snapshot(path("$outputDir/amp/macrel/sample_2/sample_2_log.txt"),
+                                path("$outputDir/amp/macrel/sample_2/README.md")).match("amp_macrel_sample_2") },
+                { assert new File("$outputDir/amp/macrel/sample_2/sample_2.all_orfs.faa.gz").exists() },
+                { assert new File("$outputDir/amp/macrel/sample_2/sample_2.prediction.gz").exists() },
+                { assert snapshot(path("$outputDir/arg/abricate/").list()).match("arg_abricate") },
+                { assert snapshot(path("$outputDir/arg/amrfinderplus/").list()).match("arg_amrfinderplus") },
+                { assert snapshot(path("$outputDir/arg/fargene/sample_1/class_a/predictedGenes/wastewater_metagenome_contigs_1-class_A-filtered-peptides.fasta"),
+                                path("$outputDir/arg/fargene/sample_1/class_a/predictedGenes/wastewater_metagenome_contigs_1-class_A-filtered.fasta"),
+                                path("$outputDir/arg/fargene/sample_1/class_a/results_summary.txt"),
+                                path("$outputDir/arg/fargene/sample_1/class_b_1_2/predictedGenes/wastewater_metagenome_contigs_1-class_B_1_2-filtered-peptides.fasta"),
+                                path("$outputDir/arg/fargene/sample_1/class_b_1_2/predictedGenes/wastewater_metagenome_contigs_1-class_B_1_2-filtered.fasta"),
+                                path("$outputDir/arg/fargene/sample_1/class_b_1_2/results_summary.txt"),
+                                path("$outputDir/arg/fargene/sample_2/class_a/predictedGenes/wastewater_metagenome_contigs_2-class_A-filtered-peptides.fasta"),
+                                path("$outputDir/arg/fargene/sample_2/class_a/predictedGenes/wastewater_metagenome_contigs_2-class_A-filtered.fasta"),
+                                path("$outputDir/arg/fargene/sample_2/class_a/results_summary.txt"),
+                                path("$outputDir/arg/fargene/sample_2/class_b_1_2/predictedGenes/wastewater_metagenome_contigs_2-class_B_1_2-filtered-peptides.fasta"),
+                                path("$outputDir/arg/fargene/sample_2/class_b_1_2/predictedGenes/wastewater_metagenome_contigs_2-class_B_1_2-filtered.fasta"),
+                                path("$outputDir/arg/fargene/sample_2/class_b_1_2/results_summary.txt")).match("arg_fargene") },
+                { assert snapshot(path("$outputDir/arg/deeparg/sample_1/sample_1.align.daa.tsv"),
+                                path("$outputDir/arg/deeparg/sample_1/sample_1.mapping.ARG"),
+                                path("$outputDir/arg/deeparg/sample_1/sample_1.mapping.potential.ARG"),
+                                path("$outputDir/arg/deeparg/sample_2/sample_2.align.daa.tsv"),
+                                path("$outputDir/arg/deeparg/sample_2/sample_2.mapping.ARG"),
+                                path("$outputDir/arg/deeparg/sample_2/sample_2.mapping.potential.ARG")).match("arg_deeparg") },
+                { assert new File("$outputDir/bgc/antismash/sample_1/NODE_6_length_23263_cov_4.891675.region001.gbk").exists() },
+                { assert new File("$outputDir/bgc/antismash/sample_1/NODE_5841_length_1799_cov_3.696101.region001.gbk").exists() },
+                { assert new File("$outputDir/bgc/antismash/sample_1/NODE_21026_length_1024_cov_1.925697.region001.gbk").exists() },
+                { assert new File("$outputDir/bgc/antismash/sample_1/sample_1.log").exists() },
+                { assert new File("$outputDir/bgc/antismash/sample_1/wastewater_metagenome_contigs_1.gbk").exists() },
+                { assert new File("$outputDir/bgc/antismash/sample_1/wastewater_metagenome_contigs_1.json").exists() },
+                { assert snapshot(path("$outputDir/bgc/antismash/sample_1/css").list()).match("bgc_antismash_css") },
+                { assert snapshot(path("$outputDir/bgc/antismash/sample_1/images").list()).match("bgc_antismash_images") },
+                { assert new File("$outputDir/bgc/antismash/sample_2/NODE_6_length_23263_cov_4.891675.region001.gbk").exists() },
+                { assert new File("$outputDir/bgc/antismash/sample_2/NODE_5815_length_1804_cov_1.983419.region001.gbk").exists() },
+                { assert new File("$outputDir/bgc/antismash/sample_2/NODE_21026_length_1024_cov_1.925697.region001.gbk").exists() },
+                { assert new File("$outputDir/bgc/antismash/sample_2/sample_2.log").exists() },
+                { assert new File("$outputDir/bgc/antismash/sample_2/wastewater_metagenome_contigs_2.gbk").exists() },
+                { assert new File("$outputDir/bgc/antismash/sample_2/wastewater_metagenome_contigs_2.json").exists() },
+                { assert snapshot(path("$outputDir/bgc/antismash/sample_2/css").list()).match("bgc_antismash_css") },
+                { assert snapshot(path("$outputDir/bgc/antismash/sample_2/images").list()).match("bgc_antismash_images") },
+                { assert snapshot(path("$outputDir/bgc/deepbgc/sample_1/README.txt"),
+                                path("$outputDir/bgc/deepbgc/sample_1/wastewater_metagenome_contigs_1.bgc.gbk"),
+                                path("$outputDir/bgc/deepbgc/sample_1/wastewater_metagenome_contigs_1.pfam.tsv"),
+                                path("$outputDir/bgc/deepbgc/sample_1/evaluation/wastewater_metagenome_contigs_1.bgc.png"),
+                                path("$outputDir/bgc/deepbgc/sample_1/evaluation/wastewater_metagenome_contigs_1.score.png"),
+                                path("$outputDir/bgc/deepbgc/sample_2/README.txt"),
+                                path("$outputDir/bgc/deepbgc/sample_2/wastewater_metagenome_contigs_2.bgc.gbk"),
+                                path("$outputDir/bgc/deepbgc/sample_2/wastewater_metagenome_contigs_2.pfam.tsv"),
+                                path("$outputDir/bgc/deepbgc/sample_2/evaluation/wastewater_metagenome_contigs_2.bgc.png"),
+                                path("$outputDir/bgc/deepbgc/sample_2/evaluation/wastewater_metagenome_contigs_2.score.png")).match("bgc_deepbgc") },
+                { assert snapshot(path("$outputDir/bgc/gecco/sample_1/wastewater_metagenome_contigs_1.clusters.tsv"),
+                                path("$outputDir/bgc/gecco/sample_1/wastewater_metagenome_contigs_1.features.tsv"),
+                                path("$outputDir/bgc/gecco/sample_1/wastewater_metagenome_contigs_1.genes.tsv"),
+                                path("$outputDir/bgc/gecco/sample_2/wastewater_metagenome_contigs_2.clusters.tsv"),
+                                path("$outputDir/bgc/gecco/sample_2/wastewater_metagenome_contigs_2.features.tsv"),
+                                path("$outputDir/bgc/gecco/sample_2/wastewater_metagenome_contigs_2.genes.tsv"),).match("bgc_gecco") },
+                { assert snapshot(path("$outputDir/arg/hamronization/").list()).match("arg_hamronization") },
+                { assert snapshot(path("$outputDir/multiqc/multiqc_data/multiqc_citations.txt"),
+                                path("$outputDir/multiqc/multiqc_data/multiqc_sources.txt")).match("multiqc") },
+                { assert new File("$outputDir/reports/ampcombi/ampcombi.log").exists() },
+                { assert new File("$outputDir/reports/ampcombi/sample_1/sample_1_amp.faa").exists() },
+                { assert new File("$outputDir/reports/ampcombi/sample_1/sample_1_ampcombi.csv").exists() },
+                { assert new File("$outputDir/reports/ampcombi/sample_1/sample_1_diamond_matches.txt").exists() },
+                { assert new File("$outputDir/reports/ampcombi/sample_2/sample_2_amp.faa").exists() },
+                { assert new File("$outputDir/reports/ampcombi/sample_2/sample_2_ampcombi.csv").exists() },
+                { assert new File("$outputDir/reports/ampcombi/sample_2/sample_2_diamond_matches.txt").exists() },
+                { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv")).match("summary_hamronization") },
+                { assert new File("$outputDir/reports/combgc/combgc_complete_summary.tsv").exists() }
+            )
+        }
+
+    }
+
+}
