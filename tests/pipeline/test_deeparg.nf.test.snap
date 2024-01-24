@@ -1,0 +1,28 @@
+{
+    "arg_deeparg": {
+        "content": [
+            "sample_1.align.daa.tsv:md5,29c8e67804629fe24f18c63d309729ae",
+            "sample_1.mapping.ARG:md5,cf2c0d2db13bc56de1f525ab437d0522",
+            "sample_1.mapping.potential.ARG:md5,d619b37affc093e9b525e2f907b96dd0",
+            "sample_2.align.daa.tsv:md5,87cabbf8772db652640ebd0d14067f29",
+            "sample_2.mapping.ARG:md5,608e35e8ecc70061c6053606057fc4bf",
+            "sample_2.mapping.potential.ARG:md5,45ddd21438e40115eabb05d32da5da72"
+        ],
+        "timestamp": "2023-11-20T15:17:46.053671873"
+    },
+    "software_versions": {
+        "content": [
+            "{BIOAWK={bioawk=1.0}, CUSTOM_DUMPSOFTWAREVERSIONS={python=3.12.0, yaml=6.0.1}, DEEPARG_PREDICT={deeparg=1.0.2}, GUNZIP_FASTA_PREP={gunzip=1.10}, HAMRONIZATION_DEEPARG={hamronization=1.1.1}, HAMRONIZATION_SUMMARIZE={hamronization=1.1.1}, PRODIGAL_GFF={pigz=2.6, prodigal=2.6.3}, Workflow={nf-core/funcscan=1.1.5dev}}"
+        ],
+        "timestamp": "2023-11-20T15:17:46.04735499"
+    },
+    "hamronization_deeparg": {
+        "content": [
+            "sample_1.mapping.ARG.deeparg.json:md5,3e121cf393335459885747c6c7909234",
+            "sample_1.mapping.potential.ARG.deeparg.json:md5,d165e53b2d51394a14d19931409683d2",
+            "sample_2.mapping.ARG.deeparg.json:md5,66c75c4d290204221875990610a8aa0a",
+            "sample_2.mapping.potential.ARG.deeparg.json:md5,4aeda476f4012b396e324a191bc82799"
+        ],
+        "timestamp": "2023-11-20T15:17:46.070930072"
+    }
+}
