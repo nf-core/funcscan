@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | ------- | ---------------- | ----------- |
 | DeepARG | 1.0.2            | 1.0.4       |
 | DeepBGC | 0.1.30           | 0.1.31      |
-| MultiQC | 1.15             | 1.18        |
+| MultiQC | 1.15             | 1.19        |
 
 ### `Deprecated`
 
