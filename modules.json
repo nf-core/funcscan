@@ -7,7 +7,7 @@
                 "nf-core": {
                     "abricate/run": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "02dd89c60aa318ad8e8b6060856e90cb66481d2c",
                         "installed_by": ["modules"]
                     },
                     "ampcombi": {
@@ -17,7 +17,7 @@
                     },
                     "ampir": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "8534344b57d22107b9a3829c92da71cb2b1329a8",
                         "installed_by": ["modules"]
                     },
                     "amplify/predict": {
@@ -63,7 +63,7 @@
                     },
                     "custom/dumpsoftwareversions": {
                         "branch": "master",
-                        "git_sha": "bba7e362e4afead70653f84d8700588ea28d0f9e",
+                        "git_sha": "8ec825f465b9c17f9d83000022995b4f7de6fe93",
                         "installed_by": ["modules"]
                     },
                     "deeparg/downloaddata": {
@@ -98,7 +98,7 @@
                     },
                     "gunzip": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "3a5fef109d113b4997c9822198664ca5f2716208",
                         "installed_by": ["modules"]
                     },
                     "hamronization/abricate": {
@@ -143,7 +143,7 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "4ab13872435962dadc239979554d13709e20bf29",
+                        "git_sha": "8ec825f465b9c17f9d83000022995b4f7de6fe93",
                         "installed_by": ["modules"]
                     },
                     "prodigal": {
@@ -153,12 +153,12 @@
                     },
                     "prokka": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "49ebda931c36c2b282f7958d00e1236b751f1031",
                         "installed_by": ["modules"]
                     },
                     "pyrodigal": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "0e70547d116de782ec3825f1a449a56abb894482",
                         "installed_by": ["modules"]
                     },
                     "rgi/main": {
@@ -173,7 +173,7 @@
                     },
                     "untar": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "e719354ba77df0a1bd310836aa2039b45c29d620",
                         "installed_by": ["modules"]
                     }
                 }
