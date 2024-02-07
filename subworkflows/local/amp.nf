@@ -109,10 +109,10 @@ workflow AMP {
                 input: [ it[0] ]
                 summary: it[1]
         }
-    
+
     ch_tabix_input = Channel.of(['id':'ampcombi_complete_summary'])
         .combine(ch_ampcombi_summaries_out.summary.collectFile(name: 'ampcombi_complete_summary.csv', keepHeader:true))
-    
+
     TABIX_BGZIP(ch_tabix_input)
 
     emit:
