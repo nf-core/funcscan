@@ -39,8 +39,8 @@ welcome = """\
                 ........................
     This tool aggregates the results of BGC prediction tools:
                 antiSMASH, deepBGC, and GECCO
-           For detailed usage documentation please
-             refer to https://nf-co.re/funcscan
+    For detailed usage documentation please refer
+    to https://nf-co.re/funcscan
     .........................................................""".format(
     version=tool_version
 )
