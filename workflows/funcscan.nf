@@ -111,20 +111,23 @@ workflow FUNCSCAN {
     ch_input = Channel.fromSamplesheet("input")
 
     // Some tools require uncompressed input
-    ch_fasta_prep = INPUT_CHECK.out.contigs
-        .map{
-            meta, fasta, protein, feature ->
-            [meta, fasta]
-        }
-        .branch {
-            compressed: it[1].toString().endsWith('.gz')
-            uncompressed: it[1]
-        }
+    ch_fasta_prep = ch_input
+                        .dump(tag: 'ch_fasta_prep')
+                        .map{
+                            meta, fasta, protein, feature ->
+                            [meta, fasta]
+                        }
+                        .branch {
+                            compressed: it[1].toString().endsWith('.gz')
+                            uncompressed: it[1]
+                        }
 
-    ch_preannotated_files = INPUT_CHECK.out.contigs.map{
-        meta, fasta, protein, feature ->
-        [meta, protein, feature]
-    }
+    ch_preannotated_files = ch_input
+                            .dump(tag: 'ch_preannotated_files')
+                            .map{
+                                meta, fasta, protein, feature ->
+                                [meta, protein, feature]
+                            }
 
     GUNZIP_FASTA_PREP ( ch_fasta_prep.compressed )
     ch_versions = ch_versions.mix(GUNZIP_FASTA_PREP.out.versions)
@@ -163,7 +166,6 @@ workflow FUNCSCAN {
                                 }
 
     // Some tools require annotated FASTAs
-    // For prodigal: run twice, once for gff and once for gbk generation, (for parity with PROKKA which produces both)
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.bgc_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
 
         ANNOTATION( ch_input_for_annotation.unannotated.map{meta, fasta, protein, feature -> [meta, fasta]})
@@ -183,7 +185,7 @@ workflow FUNCSCAN {
 
     // Join back the pre-annotated FASTAs with newly annotated FASTAs
     ch_annotation_proteins = ch_input_for_annotation.annotated_feature.map{meta, fasta, protein, feature -> [meta, feature]}
-    ch_annotation_faa      = ch_new_annotation_faa.mix(ch_annotation_proteins)
+    ch_annotation_faa      = ch_new_annotation_faa.mix(ch_annotation_proteins).dump(tag: 'ch_annotation_faa')
 
     ch_annotation_features = ch_input_for_annotation.annotated_feature.map{meta, fasta, protein, feature -> [meta, feature]}
     ch_annotation_gff      = ch_annotation_features.filter { meta, feature -> feature.toString().endsWith('.gff') }.mix(ch_new_annotation_gff)
