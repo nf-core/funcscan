@@ -68,12 +68,12 @@
                     },
                     "deeparg/downloaddata": {
                         "branch": "master",
-                        "git_sha": "045be63d4c76c2cf4e7ca263e8c2b5fbce2ab070",
+                        "git_sha": "0af92e0fe6a34f31ee41eae66f04d71850fb4beb",
                         "installed_by": ["modules"]
                     },
                     "deeparg/predict": {
                         "branch": "master",
-                        "git_sha": "045be63d4c76c2cf4e7ca263e8c2b5fbce2ab070",
+                        "git_sha": "0af92e0fe6a34f31ee41eae66f04d71850fb4beb",
                         "installed_by": ["modules"]
                     },
                     "deepbgc/download": {
