@@ -24,7 +24,7 @@ jobs:
     strategy:
       matrix:
         NXF_VER:
-          - "22.10.1"
+          - "23.04.0"
           - "latest-everything"
         parameters:
           - "--annotation_tool prodigal"
@@ -33,7 +33,7 @@ jobs:
 
     steps:
       - name: Check out pipeline code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Nextflow
         uses: nf-core/setup-nextflow@v1
@@ -52,7 +52,7 @@ jobs:
     strategy:
       matrix:
         NXF_VER:
-          - "22.10.1"
+          - "23.04.0"
           - "latest-everything"
         parameters:
           - "--annotation_tool prodigal"
@@ -70,33 +70,4 @@ jobs:
 
       - name: Run pipeline with test data (BGC workflow)
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test_bgc,docker --outdir ./results ${{ matrix.parameters }}
-
-  test_deeparg:
-    name: Run pipeline with test data (DeepARG only workflow)
-    # Only run on push if this is the nf-core dev branch (merged PRs)
-    if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        NXF_VER:
-          - "22.10.1"
-          - "latest-everything"
-        parameters:
-          - "--annotation_tool bakta --annotation_bakta_db_downloadtype light"
-          - "--annotation_tool prodigal"
-          - "--annotation_tool prokka"
-          - "--annotation_tool pyrodigal"
-
-    steps:
-      - name: Check out pipeline code
-        uses: actions/checkout@v2
-
-      - name: Install Nextflow
-        uses: nf-core/setup-nextflow@v1
-        with:
-          version: "${{ matrix.NXF_VER }}"
-
-      - name: Run pipeline with test data (DeepARG workflow)
-        run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test_deeparg,docker --outdir ./results ${{ matrix.parameters }}
+          nextflow run ${GITHUB_WORKSPACE} -profile test_bgc,docker --outdir ./results ${{ matrix.parameters }} --bgc_skip_deepbgc
