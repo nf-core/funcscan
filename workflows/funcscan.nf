@@ -170,7 +170,8 @@ workflow FUNCSCAN {
     // Join back prepped fastas with any other additional files (protein, fasta)
     // Then we make specific channels for each context
     ch_input_for_annotation = ch_prepped_fastas
-                                .join(ch_preannotated_files)
+                                .dump(tag: 'fastas')
+                                .join(ch_preannotated_files.dump(tag: 'features'))
                                 .branch {
                                     meta, fasta, protein, feature ->
                                         annotated_protein: protein != null
