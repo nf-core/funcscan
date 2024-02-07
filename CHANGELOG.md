@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#322](https://github.com/nf-core/funcscan/pull/322) Updated all modules: introduce environment.yml files. (by @jasmezz)
 - [#324](https://github.com/nf-core/funcscan/pull/324) Removed separate DeepARG test profile because database download is now stable. (by @jasmezz)
-- [#327](https://github.com/nf-core/funcscan/pull/327) Merged pipeline template of nf-core/tools version 2.11.1. (by @jfy133)
+- [#332](https://github.com/nf-core/funcscan/pull/332) & [#327](https://github.com/nf-core/funcscan/pull/327) Merged pipeline template of nf-core/tools version 2.12.1 (by @jfy133)
 
 ### `Fixed`
 
