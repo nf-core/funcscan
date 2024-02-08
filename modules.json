@@ -52,7 +52,7 @@
                     },
                     "bakta/baktadbdownload": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "bacae7f0c22948c6e34fa001be4481985851282f",
                         "installed_by": ["modules"]
                     },
                     "bioawk": {
