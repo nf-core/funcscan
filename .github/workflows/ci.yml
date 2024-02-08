@@ -29,7 +29,7 @@ jobs:
         parameters:
           - "--annotation_tool prodigal"
           - "--annotation_tool prokka"
-          - "--annotation_tool bakta --annotation_bakta_db_downloadtype light"
+          - "--annotation_tool bakta --annotation_bakta_db_downloadtype light --arg_skip_deeparg --arg_skip_amrfinderplus" # Skip deeparg and amrfinderplus due to otherwise running out of space on GitHub Actions
 
     steps:
       - name: Check out pipeline code
