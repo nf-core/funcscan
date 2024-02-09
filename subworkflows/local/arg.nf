@@ -24,7 +24,7 @@ workflow ARG {
     main:
     ch_versions = Channel.empty()
 
-     // Prepare HAMRONIZATION reporting channel
+    // Prepare HAMRONIZATION reporting channel
     ch_input_to_hamronization_summarize = Channel.empty()
 
     // AMRfinderplus run
