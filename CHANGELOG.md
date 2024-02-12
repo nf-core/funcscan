@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#322](https://github.com/nf-core/funcscan/pull/322) Updated all modules: introduce environment.yml files. (by @jasmezz)
 - [#324](https://github.com/nf-core/funcscan/pull/324) Removed separate DeepARG test profile because database download is now stable. (by @jasmezz)
 - [#332](https://github.com/nf-core/funcscan/pull/332) & [#327](https://github.com/nf-core/funcscan/pull/327) Merged pipeline template of nf-core/tools version 2.12.1 (by @jfy133, @jasmezz)
-- [#338](https://github.com/nf-core/funcscan/pull/338) Add `--metagenome` parameter for Bakta. (by @jasmezz)
+- [#338](https://github.com/nf-core/funcscan/pull/338) Set `--meta` parameter to default for Bakta, with singlemode optional. (by @jasmezz)
 
 ### `Fixed`
 
