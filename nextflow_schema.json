@@ -111,7 +111,6 @@
                 },
                 "annotation_bakta_singlemode": {
                     "type": "boolean",
-                    "default": false,
                     "description": "Use the default genome-length optimised mode (rather than the metagenome mode).",
                     "help_text": "By default, Bakta's --meta mode is used in the pipeline to improve the gene prediction of highly fragmented metagenomes.\n\nBy specifying this parameter Bakta will instead use its default mode that is optimised for singular 'complete' genome sequences.\n\nMore details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--meta`",
                     "minimum": 1,
