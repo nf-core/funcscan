@@ -109,6 +109,15 @@
                     "enum": ["full", "light"],
                     "default": "full"
                 },
+                "annotation_bakta_singlemode": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use the default genome-length optimised mode (rather than the metagenome mode).",
+                    "help_text": "By default, Bakta's --meta mode is used in the pipeline to improve the gene prediction of highly fragmented metagenomes.\n\nBy specifying this parameter Bakta will instead use its default mode that is optimised for singular 'complete' genome sequences.\n\nMore details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--meta`",
+                    "minimum": 1,
+                    "maximum": 25,
+                    "fa_icon": "fas fa-dna"
+                },
                 "annotation_bakta_mincontiglen": {
                     "type": "integer",
                     "default": 1,
@@ -125,15 +134,6 @@
                     "minimum": 1,
                     "maximum": 25,
                     "fa_icon": "fas fa-border-all"
-                },
-                "annotation_bakta_metagenome": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Run bakta in metagenome mode.",
-                    "help_text": "Specify that input nucleotide sequences are treated as metegenomic. This often recovers longer CDSs for short contigs or low quality sequences. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--meta`",
-                    "minimum": 1,
-                    "maximum": 25,
-                    "fa_icon": "fas fa-dna"
                 },
                 "annotation_bakta_gram": {
                     "type": "string",
@@ -246,7 +246,7 @@
                 "annotation_prokka_singlemode": {
                     "type": "boolean",
                     "description": "Use the default genome-length optimised mode (rather than the metagenome mode).",
-                    "help_text": "By default, Prokka's --metagenome mode is used in the pipeline to improve the gene prediction of highly fragmented metagenomes.\n\nBy specifying this parameter Prokka will instead use it's default mode that is optimised for singular 'complete' genome sequences.\n\nFor more information, please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--metagenome`",
+                    "help_text": "By default, Prokka's --metagenome mode is used in the pipeline to improve the gene prediction of highly fragmented metagenomes.\n\nBy specifying this parameter Prokka will instead use its default mode that is optimised for singular 'complete' genome sequences.\n\nFor more information, please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--metagenome`",
                     "fa_icon": "fas fa-braille"
                 },
                 "annotation_prokka_rawproduct": {
