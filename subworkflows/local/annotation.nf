@@ -80,7 +80,7 @@ workflow ANNOTATION {
 
             BAKTA_BAKTA ( fasta, ch_bakta_db, [], [] )
             ch_versions              = ch_versions.mix(BAKTA_BAKTA.out.versions)
-            ch_multiqc_files         = BAKTA.out.txt
+            ch_multiqc_files         = BAKTA_BAKTA.out.txt
 
             ch_annotation_faa        = BAKTA_BAKTA.out.faa
             ch_annotation_fna        = BAKTA_BAKTA.out.fna
