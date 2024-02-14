@@ -14,8 +14,6 @@ run_modules:
   - prokka
   - custom_content
 
-prokka_fn_snames: True
-
 table_columns_visible:
   Prokka:
     organism: False
