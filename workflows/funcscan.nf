@@ -137,6 +137,12 @@ workflow FUNCSCAN {
                                     def faa_found     = files.find{it.toString().endsWith('.faa')}
                                     def feature_found = files.find{it.toString().tokenize('.').last().matches('gff|gbk')}
 
+                                    // https://github.com/antismash/antismash/issues/364
+                                    if ( params.run_bgc_screening && !params.bgc_skip_antismash && feature_found != null ) {
+                                        log.warn("[nf-core/funcscan] antiSMASH screening requested and pre-annotated files given.")
+                                        log.warn("Be aware that Prokka generated GFF or GBK files will likely fail with antiSMASH!")
+                                        log.warn("See usage docs. File: " + feature_found.name) }
+
                                     def fasta   = fasta_found   != null ? fasta_found : []
                                     def faa     = faa_found     != null ? faa_found : []
                                     def feature = feature_found != null ? feature_found : []

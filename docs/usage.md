@@ -80,7 +80,9 @@ sample_2,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gz,/<path>/<to>/wast
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
-> ⚠️ We highly recommend performing quality control on input contigs before running the pipeline. You may not receive results for some tools if none of the contigs in a FASTA file reach certain thresholds. Check parameter documentation for relevant minimum contig parameters.
+:::warning
+We highly recommend performing quality control on input contigs before running the pipeline. You may not receive results for some tools if none of the contigs in a FASTA file reach certain thresholds. Check parameter documentation for relevant minimum contig parameters.
+:::
 
 ## Notes on screening tools
 
@@ -92,11 +94,19 @@ antiSMASH has a minimum contig parameter, in which only contigs of a certain len
 
 To prevent entire pipeline failures due to a single 'bad sample', nf-core/funcscan will filter out any input sample in which none of the contigs reach the minimum contig length in bp specified with `--bgc_antismash_sampleminlength` (default: 1000).
 
-> ⚠️ If a sample does not reach this contig length threshold, you will receive a warning in your console and in the `.nextflow.log` file, and no result files will exist for this sample in your results directory for this tool.
+:::warning
+If a sample does not reach this contig length threshold, you will receive a warning in your console and in the `.nextflow.log` file, and no result files will exist for this sample in your results directory for this tool.
+:::
 
 When the annotation is run with Prokka, the resulting `.gbk` file passed to antiSMASH may produce the error `translation longer than location allows` and end the pipeline run. This Prokka bug has been reported before (see [discussion on GitHub](https://github.com/antismash/antismash/discussions/450)) and is not likely to be fixed soon.
 
-> ⚠️ If antiSMASH is run for BGC detection, we recommend to **not** run Prokka for annotation but instead use the default annotation tool (Pyrodigal) or switch to Prodigal, or (for bacteria only!) Bakta.
+:::warning
+Prokka GFF generated files [appears to be incompatible with antiSMASH](https://github.com/antismash/antismash/issues/364), and will likely fail! We recommend running or supplying Prodigal or Pyrodigal annotations instead.
+:::
+
+:::warning
+If antiSMASH is run for BGC detection, we recommend to **not** run Prokka for annotation but instead use the default annotation tool (Pyrodigal) or switch > to Prodigal, or (for bacteria only!) Bakta.
+:::warning
 
 ## Databases and reference files
 
@@ -106,7 +116,10 @@ nf-core/funcscan offers the functionality to auto-download databases for you, an
 
 We **highly recommend** allowing the pipeline to download these databases for you on a first run, saving these to your results directory with `--save_databases`, then moving these to a different location (in case you wish to delete the results directory of this first run). An exception to this is HMM files where no auto-downloading functionality is possible.
 
-> ⚠️ We generally do not recommend downloading the databases yourself, as this can often be non-trivial to do!
+:::warning
+
+> We generally do not recommend downloading the databases yourself, as this can often be non-trivial to do!
+> :::
 
 As a reference, we will describe below where and how you can obtain databases and reference files used for tools included in the pipeline.
 
@@ -128,7 +141,9 @@ And then passed to the pipeline with:
 --annotation_bakta_db_localpath /<path>/<to>/db/
 ```
 
-> ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::info
+The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::
 
 ### hmmsearch
 
@@ -186,7 +201,9 @@ The downloaded database folder contains the AMR related files:
 
 2. Supply the database directory path to the pipeline as described above.
 
-> ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::info
+The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::
 
 ### DeepARG
 
@@ -215,7 +232,9 @@ You can then supply the path to resulting database directory with:
 Note that if you supply your own database that is not downloaded by the pipeline, make sure to also supply `--arg_deeparg_data_version` along
 with the version number so hAMRonization will correctly display the database version in the summary report.
 
-> ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::info
+The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::
 
 ### antiSMASH
 
@@ -238,9 +257,13 @@ To supply the database directories to the pipeline:
 
 Note that the names of the supplied folders must differ from each other (e.g. `antismash_db` and `antismash_dir`). If they are not provided, the databases will be auto-downloaded upon each BGC screening run of the pipeline.
 
-> ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::info
+The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::
 
-> ℹ️ If installing with conda, the installation directory will be `lib/python3.8/site-packages/antismash` from the base directory of your conda install or conda environment directory.
+:::info
+If installing with conda, the installation directory will be `lib/python3.8/site-packages/antismash` from the base directory of your conda install or conda environment directory.
+:::
 
 ### DeepBGC
 
