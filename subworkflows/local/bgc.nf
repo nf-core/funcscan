@@ -6,7 +6,8 @@ include { UNTAR as UNTAR_CSS                       } from '../../modules/nf-core
 include { UNTAR as UNTAR_DETECTION                 } from '../../modules/nf-core/untar/main'
 include { UNTAR as UNTAR_MODULES                   } from '../../modules/nf-core/untar/main'
 include { ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES } from '../../modules/nf-core/antismash/antismashlitedownloaddatabases/main'
-include { ANTISMASH_ANTISMASHLITE                  } from '../../modules/nf-core/antismash/antismashlite/main'
+include { ANTISMASH_ANTISMASHLITE as ANTISMASH_GBK } from '../../modules/nf-core/antismash/antismashlite/main'
+include { ANTISMASH_ANTISMASHLITE as ANTISMASH_GFF } from '../../modules/nf-core/antismash/antismashlite/main'
 include { GECCO_RUN                                } from '../../modules/nf-core/gecco/run/main'
 include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH   } from '../../modules/nf-core/hmmer/hmmsearch/main'
 include { DEEPBGC_DOWNLOAD                         } from '../../modules/nf-core/deepbgc/download/main'
@@ -16,10 +17,10 @@ include { COMBGC                                   } from '../../modules/local/c
 workflow BGC {
 
     take:
-    fna         // tuple val(meta), path(PREPPED_INPUT.out.fna)
-    gff         // tuple val(meta), path(<ANNO_TOOL>.out.gff)
-    faa         // tuple val(meta), path(<ANNO_TOOL>.out.faa)
-    gbk         // tuple val(meta), path(<ANNO_TOOL>.out.gbk)
+    fastas       // tuple val(meta), path(PREPPED_INPUT.out.fna)
+    faas         // tuple val(meta), path(<ANNO_TOOL>.out.faa)
+    gffs         // tuple val(meta), path(<ANNO_TOOL>.out.gff)
+    gbks         // tuple val(meta), path(<ANNO_TOOL>.out.gbk)
 
     main:
     ch_versions              = Channel.empty()
@@ -28,7 +29,7 @@ workflow BGC {
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
     // to ensure annotation is executed!
-    ch_faa_for_bgc_hmmsearch = faa
+    ch_faa_for_bgc_hmmsearch = faas
 
     // ANTISMASH
     if ( !params.bgc_skip_antismash ) {
@@ -68,52 +69,45 @@ workflow BGC {
 
         }
 
-        if ( params.annotation_tool == 'prodigal' || params.annotation_tool == "pyrodigal" ) {
+        // Exact input combination to antismash depends on whether gff (requires fna) or gbk (just gbk) necessary
 
-            ch_antismash_input = fna.join(gff, by: 0)
+            ch_antismash_gff_input = fastas.join(gffs, by: 0)
                                     .filter {
-                                        meta, fna, gff ->
+                                        meta, fastas, gff ->
                                             if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. Antismash will not be run for sample: ${meta.id}."
                                             meta.longest_contig >= params.bgc_antismash_sampleminlength
                                     }
                                     .multiMap {
-                                        meta, fna, gff ->
-                                        fna: [ meta, fna ]
-                                        gff: [ gff ]
+                                        meta, fastas, gff ->
+                                        fastas: [ meta, fastas ]
+                                        gffs: [ gff ]
                                     }
 
-            ANTISMASH_ANTISMASHLITE ( ch_antismash_input.fna, ch_antismash_databases, ch_antismash_directory, ch_antismash_input.gff )
+            ANTISMASH_GFF ( ch_antismash_gff_input.fastas, ch_antismash_databases, ch_antismash_directory, ch_antismash_gff_input.gffs )
+            ch_versions = ch_versions.mix(ANTISMASH_GFF.out.versions)
 
-        } else if ( params.annotation_tool == 'prokka' ) {
-
-            ch_antismash_input = gbk.filter {
+            ch_antismash_gbk_input = gbks.filter {
                                         meta, files ->
                                             if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. Antismash will not be run for sample: ${meta.id}."
                                             meta.longest_contig >= params.bgc_antismash_sampleminlength
                                     }
 
-            ANTISMASH_ANTISMASHLITE ( ch_antismash_input, ch_antismash_databases, ch_antismash_directory, [] )
+            ANTISMASH_GBK ( ch_antismash_gbk_input, ch_antismash_databases, ch_antismash_directory, [] )
+            ch_versions = ch_versions.mix(ANTISMASH_GBK.out.versions)
 
-        } else if ( params.annotation_tool == 'bakta' ) {
-
-            ch_antismash_input = gbk.filter {
-                                        meta, files ->
-                                            if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. Antismash will not be run for sample: ${meta.id}."
-                                            meta.longest_contig >= params.bgc_antismash_sampleminlength
-                                    }
-
-            ANTISMASH_ANTISMASHLITE ( ch_antismash_input, ch_antismash_databases, ch_antismash_directory, [] )
-
-        }
-
-        ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITE.out.versions)
-        ch_antismashresults_for_combgc = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
-            .mix(ANTISMASH_ANTISMASHLITE.out.gbk_input)
-            .groupTuple()
-            .map{
-                meta, files ->
-                [meta, files.flatten()]
-            }
+        ch_antismashresults_for_combgc = ANTISMASH_GFF.out.knownclusterblast_dir.dump(tag: 'gff_cluster')
+                                            .dump(tag: 'antismash_gff_knownclusterblast_dir')
+                                            .mix(ANTISMASH_GFF.out.gbk_input.dump(tag: 'gff_input'))
+                                            .dump(tag: 'antismash_gff_gbk_input')
+                                            .mix(ANTISMASH_GBK.out.knownclusterblast_dir.dump(tag: 'gbk_cluster'))
+                                            .dump(tag: 'antismash_gbk_knownclusterblast_dir')
+                                            .mix(ANTISMASH_GBK.out.gbk_input.dump(tag: 'gbk_input'))
+                                            .dump(tag: 'antismash_gbk_gbk_input')
+                                            .groupTuple()
+                                            .map{
+                                                meta, files ->
+                                                [meta, files.flatten()]
+                                            }
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(ch_antismashresults_for_combgc)
     }
 
@@ -130,14 +124,14 @@ workflow BGC {
             ch_versions = ch_versions.mix(DEEPBGC_DOWNLOAD.out.versions)
         }
 
-        DEEPBGC_PIPELINE ( fna, ch_deepbgc_database)
+        DEEPBGC_PIPELINE ( fastas, ch_deepbgc_database)
         ch_versions = ch_versions.mix(DEEPBGC_PIPELINE.out.versions)
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(DEEPBGC_PIPELINE.out.bgc_tsv)
     }
 
     // GECCO
     if ( !params.bgc_skip_gecco ) {
-        ch_gecco_input = fna.groupTuple()
+        ch_gecco_input = fastas.groupTuple()
                             .multiMap {
                                 fna: [ it[0], it[1], [] ]
                             }

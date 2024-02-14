@@ -110,6 +110,10 @@ workflow FUNCSCAN {
 
     ch_input = Channel.fromSamplesheet("input")
 
+    ///////////////////////
+    // INPUT PREPARATION //
+    ///////////////////////
+
     // Some tools require uncompressed input
     ch_input_prep = ch_input
                         .map{meta, fasta, faa, feature -> [meta, [fasta, faa, feature]]}
@@ -162,9 +166,9 @@ workflow FUNCSCAN {
                                     [ meta + meta_new, fasta, faa, feature ]
                                 }
 
-    /*
-        ANNOTATION
-    */
+    ////////////////
+    // ANNOTATION //
+    ////////////////
 
     // Separate pre-annotated FASTAs from those that need annotation
     ch_input_for_annotation = ch_intermediate_input
@@ -222,20 +226,21 @@ workflow FUNCSCAN {
                             gbks: [meta, gbk]
                         }
 
-    // /*
-    //     SCREENING
-    // */
+    ///////////////
+    // SCREENING //
+    ///////////////
 
     /*
         AMPs
     */
+
     if ( params.run_amp_screening ) {
         AMP (
             ch_prepped_input.fastas,
             ch_prepped_input.faas
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 }
         )
@@ -245,6 +250,7 @@ workflow FUNCSCAN {
     /*
         ARGs
     */
+
     if ( params.run_arg_screening ) {
         if (params.arg_skip_deeparg) {
             ARG ( ch_prepped_input.fastas, [] )
@@ -254,7 +260,7 @@ workflow FUNCSCAN {
                 ch_prepped_input.faas
                     .filter {
                         meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. ARG screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. ARG screening tools requiring this file will not be executed: ${meta.id}")
                             !file.isEmpty()
                     }
             )
@@ -265,30 +271,30 @@ workflow FUNCSCAN {
     // /*
     //     BGCs
     // */
-    // if ( params.run_bgc_screening ) {
-    //     BGC (
-    //         ch_prepped_input,
-    //         ch_annotation_gff
-    //             .filter {
-    //                 meta, file ->
-    //                     if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GFF file. BGC screening tools requiring this file will not be executed: ${meta.id}")
-    //                     !file.isEmpty()
-    //             },
-    //         ch_annotation_faa
-    //             .filter {
-    //                 meta, file ->
-    //                     if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. BGC screening tools requiring this file will not be executed: ${meta.id}")
-    //                     !file.isEmpty()
-    //             },
-    //         ch_annotation_gbk
-    //             .filter {
-    //                 meta, file ->
-    //                     if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
-    //                     !file.isEmpty()
-    //             }
-    //     )
-    //     ch_versions = ch_versions.mix(BGC.out.versions)
-    // }
+    if ( params.run_bgc_screening ) {
+        BGC (
+            ch_prepped_input.fastas,
+            ch_prepped_input.faas
+                .filter {
+                    meta, file ->
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. BGC screening tools requiring this file will not be executed: ${meta.id}")
+                        !file.isEmpty()
+                },
+            ch_prepped_input.gffs
+                .filter {
+                    meta, file ->
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GFF file. BGC screening tools requiring this file will not be executed: ${meta.id}")
+                        !file.isEmpty()
+                },
+            ch_prepped_input.gbks
+                .filter {
+                    meta, file ->
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        !file.isEmpty()
+                }
+        )
+        ch_versions = ch_versions.mix(BGC.out.versions)
+    }
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
