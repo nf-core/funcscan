@@ -27,9 +27,9 @@ jobs:
           - "23.04.0"
           - "latest-everything"
         parameters:
-          - "--annotation_tool prodigal"
-          - "--annotation_tool prokka"
-          - "--annotation_tool bakta --annotation_bakta_db_downloadtype light --arg_skip_deeparg --arg_skip_amrfinderplus" # Skip deeparg and amrfinderplus due to otherwise running out of space on GitHub Actions
+          - "--profile docker,test_preannotated --annotation_tool prodigal"
+          - "--profile docker,test --annotation_tool prokka"
+          - "--profile docker,test --annotation_tool bakta --annotation_bakta_db_downloadtype light --arg_skip_deeparg --arg_skip_amrfinderplus" # Skip deeparg and amrfinderplus due to otherwise running out of space on GitHub Actions
 
     steps:
       - name: Check out pipeline code
@@ -42,7 +42,7 @@ jobs:
 
       - name: Run pipeline with test data (AMP and ARG workflows)
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results ${{ matrix.parameters }}
+          nextflow run ${GITHUB_WORKSPACE} ${{ matrix.parameters }} --outdir ./results
 
   test_bgc:
     name: Run pipeline with test data (BGC workflow)
