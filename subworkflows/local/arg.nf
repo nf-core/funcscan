@@ -18,7 +18,7 @@ include { HAMRONIZATION_SUMMARIZE     }  from '../../modules/nf-core/hamronizati
 
 workflow ARG {
     take:
-    contigs // tuple val(meta), path(contigs)
+    fastas // tuple val(meta), path(contigs)
     annotations // output from prokka
 
     main:
@@ -40,7 +40,7 @@ workflow ARG {
     }
 
     if ( !params.arg_skip_amrfinderplus ) {
-        AMRFINDERPLUS_RUN ( contigs, ch_amrfinderplus_db )
+        AMRFINDERPLUS_RUN ( fastas, ch_amrfinderplus_db )
         ch_versions = ch_versions.mix(AMRFINDERPLUS_RUN.out.versions)
 
     // Reporting
@@ -54,20 +54,20 @@ workflow ARG {
 
         ch_fargene_classes = Channel.fromList( params.arg_fargene_hmmmodel.tokenize(',') )
 
-        ch_fargene_input = contigs
+        ch_fargene_input = fastas
                             .combine(ch_fargene_classes)
                             .map {
-                                meta, contigs, hmm_class ->
+                                meta, fastas, hmm_class ->
                                     def meta_new = meta.clone()
                                     meta_new['hmm_class'] = hmm_class
-                                [ meta_new, contigs, hmm_class ]
+                                [ meta_new, fastas, hmm_class ]
                             }
                             .multiMap {
-                                contigs: [ it[0], it[1] ]
+                                fastas: [ it[0], it[1] ]
                                 hmmclass: it[2]
                             }
 
-        FARGENE ( ch_fargene_input.contigs, ch_fargene_input.hmmclass )
+        FARGENE ( ch_fargene_input.fastas, ch_fargene_input.hmmclass )
         ch_versions = ch_versions.mix(FARGENE.out.versions)
 
         // Reporting
@@ -80,7 +80,7 @@ workflow ARG {
     // RGI run
     if ( !params.arg_skip_rgi ) {
 
-        RGI_MAIN ( contigs )
+        RGI_MAIN ( fastas )
         ch_versions = ch_versions.mix(RGI_MAIN.out.versions)
 
         // Reporting
@@ -127,7 +127,7 @@ workflow ARG {
 
     // ABRicate run
     if ( !params.arg_skip_abricate ) {
-        ABRICATE_RUN ( contigs )
+        ABRICATE_RUN ( fastas )
         ch_versions = ch_versions.mix(ABRICATE_RUN.out.versions)
 
         HAMRONIZATION_ABRICATE ( ABRICATE_RUN.out.report, 'json', '1.0.1', '2021-Mar-27' )

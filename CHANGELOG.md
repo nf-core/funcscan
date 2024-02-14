@@ -16,11 +16,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool    | Previous version | New version |
-| ------- | ---------------- | ----------- |
-| DeepARG | 1.0.2            | 1.0.4       |
-| DeepBGC | 0.1.30           | 0.1.31      |
-| MultiQC | 1.15             | 1.19        |
+| Tool      | Previous version | New version |
+| --------- | ---------------- | ----------- |
+| antiSMASH | 6.1.1            | 7.1.0       |
+| DeepARG   | 1.0.2            | 1.0.4       |
+| DeepBGC   | 0.1.30           | 0.1.31      |
+| MultiQC   | 1.15             | 1.19        |
 
 ### `Deprecated`
 

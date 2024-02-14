@@ -62,9 +62,10 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { AMP } from '../subworkflows/local/amp'
-include { ARG } from '../subworkflows/local/arg'
-include { BGC } from '../subworkflows/local/bgc'
+include { ANNOTATION } from '../subworkflows/local/annotation'
+include { AMP        } from '../subworkflows/local/amp'
+include { ARG        } from '../subworkflows/local/arg'
+include { BGC        } from '../subworkflows/local/bgc'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -75,9 +76,10 @@ include { BGC } from '../subworkflows/local/bgc'
 //
 // MODULE: Installed directly from nf-core/modules
 //
+
 include { MULTIQC                           } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS       } from '../modules/nf-core/custom/dumpsoftwareversions/main'
-include { GUNZIP as GUNZIP_FASTA_PREP       } from '../modules/nf-core/gunzip/main'
+include { GUNZIP as GUNZIP_INPUT_PREP       } from '../modules/nf-core/gunzip/main'
 include { GUNZIP as GUNZIP_PRODIGAL_FNA     } from '../modules/nf-core/gunzip/main'
 include { GUNZIP as GUNZIP_PRODIGAL_FAA     } from '../modules/nf-core/gunzip/main'
 include { GUNZIP as GUNZIP_PRODIGAL_GFF     } from '../modules/nf-core/gunzip/main'
@@ -108,119 +110,143 @@ workflow FUNCSCAN {
 
     ch_input = Channel.fromSamplesheet("input")
 
-    // Some tools require uncompressed input
-    fasta_prep = ch_input
-        .branch {
-            compressed: it[1].toString().endsWith('.gz')
-            uncompressed: it[1]
-        }
+    ///////////////////////
+    // INPUT PREPARATION //
+    ///////////////////////
 
-    GUNZIP_FASTA_PREP ( fasta_prep.compressed )
-    ch_versions = ch_versions.mix(GUNZIP_FASTA_PREP.out.versions)
+    // Some tools require uncompressed input
+    ch_input_prep = ch_input
+                        .map{meta, fasta, faa, feature -> [meta, [fasta, faa, feature]]}
+                        .transpose()
+                        .branch {
+                            compressed: it[1].toString().endsWith('.gz')
+                            uncompressed: it[1]
+                        }
+
+    GUNZIP_INPUT_PREP ( ch_input_prep.compressed )
+    ch_versions = ch_versions.mix(GUNZIP_INPUT_PREP.out.versions)
 
     // Merge all the already uncompressed and newly compressed FASTAs here into
     // a single input channel for downstream
-    ch_prepped_fastas = GUNZIP_FASTA_PREP.out.gunzip
-                        .mix(fasta_prep.uncompressed)
+    ch_intermediate_input = GUNZIP_INPUT_PREP.out.gunzip
+                            .mix(ch_input_prep.uncompressed)
+                            .groupTuple()
+                            .map{
+                                meta, files ->
+                                    def fasta_found   = files.find{it.toString().tokenize('.').last().matches('fasta|fas|fna|fa')}
+                                    def faa_found     = files.find{it.toString().endsWith('.faa')}
+                                    def feature_found = files.find{it.toString().tokenize('.').last().matches('gff|gbk')}
+
+                                    // https://github.com/antismash/antismash/issues/364
+                                    if ( params.run_bgc_screening && !params.bgc_skip_antismash && feature_found != null ) {
+                                        log.warn("[nf-core/funcscan] antiSMASH screening requested and pre-annotated files given.")
+                                        log.warn("Be aware that Prokka generated GFF or GBK files will likely fail with antiSMASH!")
+                                        log.warn("See usage docs. File: " + feature_found.name) }
+
+                                    def fasta   = fasta_found   != null ? fasta_found : []
+                                    def faa     = faa_found     != null ? faa_found : []
+                                    def feature = feature_found != null ? feature_found : []
+
+                                    [meta, fasta, faa, feature]
+                            }
+                            .multiMap {
+                                meta, fasta, faa, feature ->
+                                    fastas: [ meta, fasta ]
+                                    annotations : [ meta, faa, feature ]
+                            }
 
     // Add to meta the length of longest contig for downstream filtering
-    BIOAWK ( ch_prepped_fastas )
+    ch_intermediate_input.fastas
+    ch_intermediate_input.annotations
+
+    BIOAWK ( ch_intermediate_input.fastas )
     ch_versions = ch_versions.mix(BIOAWK.out.versions)
 
-    ch_prepped_input = ch_prepped_fastas
-                        .join( BIOAWK.out.longest )
-                        .map{
-                            meta, fasta, length ->
-                                def meta_new = meta.clone()
-                                meta['longest_contig'] = Integer.parseInt(length)
-                            [ meta, fasta ]
-                        }
+    ch_intermediate_input = ch_intermediate_input.fastas
+                                .join(BIOAWK.out.longest)
+                                .join(ch_intermediate_input.annotations)
+                                .map{
+                                    meta, fasta, length, faa, feature ->
+                                        def meta_new = [:]
+                                        meta_new['longest_contig'] = Integer.parseInt(length)
+                                    [ meta + meta_new, fasta, faa, feature ]
+                                }
 
-    /*
-        ANNOTATION
-    */
+    ////////////////
+    // ANNOTATION //
+    ////////////////
+
+    // Separate pre-annotated FASTAs from those that need annotation
+    ch_input_for_annotation = ch_intermediate_input
+                                .branch {
+                                    meta, fasta, protein, feature ->
+                                        preannotated: protein != []
+                                        unannotated: true
+                                }
 
     // Some tools require annotated FASTAs
-    // For prodigal: run twice, once for gff and once for gbk generation, (for parity with PROKKA which produces both)
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.bgc_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
 
-        if ( params.annotation_tool == "prodigal" ) {
-            PRODIGAL_GFF ( ch_prepped_input, "gff" )
-            GUNZIP_PRODIGAL_FAA ( PRODIGAL_GFF.out.amino_acid_fasta )
-            GUNZIP_PRODIGAL_FNA ( PRODIGAL_GFF.out.nucleotide_fasta)
-            GUNZIP_PRODIGAL_GFF ( PRODIGAL_GFF.out.gene_annotations )
-            ch_versions              = ch_versions.mix(PRODIGAL_GFF.out.versions)
-            ch_annotation_faa        = GUNZIP_PRODIGAL_FAA.out.gunzip
-            ch_annotation_fna        = GUNZIP_PRODIGAL_FNA.out.gunzip
-            ch_annotation_gff        = GUNZIP_PRODIGAL_GFF.out.gunzip
-            ch_annotation_gbk        = Channel.empty() // Prodigal GBK and GFF output are mutually exclusive
+        ch_unannotated_for_annotation = ch_input_for_annotation.unannotated
+                                            .map{
+                                                meta, fasta, protein, feature ->
+                                                [meta, fasta]
+                                            }
 
-            if ( params.save_annotations == true ) {
-                PRODIGAL_GBK ( ch_prepped_input, "gbk" )
-                ch_versions              = ch_versions.mix(PRODIGAL_GBK.out.versions)
-                ch_annotation_gbk        = PRODIGAL_GBK.out.gene_annotations // Prodigal GBK output stays zipped because it is currently not used by any downstream subworkflow.
-            }
-        } else if ( params.annotation_tool == "pyrodigal" ) {
-            PYRODIGAL ( ch_prepped_input )
-            GUNZIP_PYRODIGAL_FAA ( PYRODIGAL.out.faa )
-            GUNZIP_PYRODIGAL_FNA ( PYRODIGAL.out.fna)
-            GUNZIP_PYRODIGAL_GFF ( PYRODIGAL.out.gff )
-            ch_versions              = ch_versions.mix(PYRODIGAL.out.versions)
-            ch_annotation_faa        = GUNZIP_PYRODIGAL_FAA.out.gunzip
-            ch_annotation_fna        = GUNZIP_PYRODIGAL_FNA.out.gunzip
-            ch_annotation_gff        = GUNZIP_PYRODIGAL_GFF.out.gunzip
-            ch_annotation_gbk        = Channel.empty() // Pyrodigal doesn't produce GBK
-        }  else if ( params.annotation_tool == "prokka" ) {
-            PROKKA ( ch_prepped_input, [], [] )
-            ch_versions              = ch_versions.mix(PROKKA.out.versions)
-            ch_annotation_faa        = PROKKA.out.faa
-            ch_annotation_fna        = PROKKA.out.fna
-            ch_annotation_gff        = PROKKA.out.gff
-            ch_annotation_gbk        = PROKKA.out.gbk
-        }   else if ( params.annotation_tool == "bakta" ) {
+        ANNOTATION( ch_unannotated_for_annotation )
+        ch_versions = ch_versions.mix(ANNOTATION.out.versions)
 
-            // BAKTA prepare download
-            if ( params.annotation_bakta_db_localpath ) {
-                ch_bakta_db = Channel
-                    .fromPath( params.annotation_bakta_db_localpath )
-                    .first()
-            } else {
-                BAKTA_BAKTADBDOWNLOAD ( )
-                ch_versions = ch_versions.mix( BAKTA_BAKTADBDOWNLOAD.out.versions )
-                ch_bakta_db = ( BAKTA_BAKTADBDOWNLOAD.out.db )
-            }
-
-            BAKTA_BAKTA ( ch_prepped_input, ch_bakta_db, [], [] )
-            ch_versions              = ch_versions.mix(BAKTA_BAKTA.out.versions)
-            ch_annotation_faa        = BAKTA_BAKTA.out.faa
-            ch_annotation_fna        = BAKTA_BAKTA.out.fna
-            ch_annotation_gff        = BAKTA_BAKTA.out.gff
-            ch_annotation_gbk        = BAKTA_BAKTA.out.gbff
+        // Only Bakta and Prokka make GBK, else give empty entry to satisfy downstream cardinality
+        if ( ['bakta', 'prokka'].contains(params.annotation_tool) ) {
+            ch_new_annotation = ch_unannotated_for_annotation
+                                    .join(ANNOTATION.out.faa)
+                                    .join(ANNOTATION.out.gff)
+                                    .join(ANNOTATION.out.gbk)
+        } else {
+            ch_new_annotation = ch_unannotated_for_annotation
+                        .join(ANNOTATION.out.faa)
+                        .join(ANNOTATION.out.gff)
+                        .map {
+                            meta, fasta, faa, gff ->
+                                [meta, fasta, faa, gff, []]
+                        }
         }
 
     } else {
-
-        ch_annotation_faa        = Channel.empty()
-        ch_annotation_fna        = Channel.empty()
-        ch_annotation_gff        = Channel.empty()
-        ch_annotation_gbk        = Channel.empty()
-
+        ch_new_annotation = Channel.empty()
     }
 
-    /*
-        SCREENING
-    */
+    ch_prepped_input = ch_input_for_annotation.preannotated
+                        .map{
+                            meta, fasta, protein, feature ->
+                                def gff = feature.extension == 'gff' ? feature : []
+                                def gbk = feature.extension == 'gbk' ? feature : []
+                            [meta, fasta, protein, gff, gbk]
+                        }
+                        .mix(ch_new_annotation)
+                        .multiMap {
+                            meta, fasta, protein, gff, gbk ->
+                            fastas: [meta, fasta]
+                            faas: [meta, protein]
+                            gffs: [meta, gff]
+                            gbks: [meta, gbk]
+                        }
+
+    ///////////////
+    // SCREENING //
+    ///////////////
 
     /*
         AMPs
     */
+
     if ( params.run_amp_screening ) {
         AMP (
-            ch_prepped_input,
-            ch_annotation_faa
+            ch_prepped_input.fastas,
+            ch_prepped_input.faas
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 }
         )
@@ -230,16 +256,17 @@ workflow FUNCSCAN {
     /*
         ARGs
     */
+
     if ( params.run_arg_screening ) {
         if (params.arg_skip_deeparg) {
-            ARG ( ch_prepped_input, [] )
+            ARG ( ch_prepped_input.fastas, [] )
         } else {
             ARG (
-                ch_prepped_input,
-                ch_annotation_faa
+                ch_prepped_input.fastas,
+                ch_prepped_input.faas
                     .filter {
                         meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. ARG screening tools requiring this file will not be executed: ${meta.id}")
                             !file.isEmpty()
                     }
             )
@@ -247,28 +274,28 @@ workflow FUNCSCAN {
         ch_versions = ch_versions.mix(ARG.out.versions)
     }
 
-    /*
-        BGCs
-    */
+    // /*
+    //     BGCs
+    // */
     if ( params.run_bgc_screening ) {
         BGC (
-            ch_prepped_input,
-            ch_annotation_gff
+            ch_prepped_input.fastas,
+            ch_prepped_input.faas
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GFF file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. BGC screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
-            ch_annotation_faa
+            ch_prepped_input.gffs
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GFF file. BGC screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
-            ch_annotation_gbk
+            ch_prepped_input.gbks
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 }
         )
@@ -289,10 +316,24 @@ workflow FUNCSCAN {
     ch_methods_description = Channel.value(methods_description)
 
     ch_multiqc_files = Channel.empty()
+
+
+    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.bgc_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
+
+        if ( params.annotation_tool == 'prokka' ) {
+            ch_multiqc_files = ch_multiqc_files.mix(ANNOTATION.out.multiqc_files.map{it[1]})
+        }
+
+    }
+
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
-    if(params.annotation_tool=='prokka'){ch_multiqc_files = ch_multiqc_files.mix( PROKKA.out.txt.collect{it[1]}.ifEmpty([])) }
+    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.bgc_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
+        if( ['prokka','bakta'].contains(params.annotation_tool) ){
+            ch_multiqc_files = ch_multiqc_files.mix( ANNOTATION.out.multiqc_files.collect{it[1]}.ifEmpty([]))
+        }
+    }
 
     MULTIQC (
         ch_multiqc_files.collect(),
