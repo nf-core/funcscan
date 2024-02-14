@@ -26,7 +26,7 @@ workflow ANNOTATION {
 
         // For prodigal: run twice, once for gff and once for gbk generation, (for parity with PROKKA which produces both)
         if ( params.annotation_tool == "prodigal" ) {
-            PRODIGAL_GFF ( ch_prepped_input, "gff" )
+            PRODIGAL_GFF ( fasta, "gff" )
             GUNZIP_PRODIGAL_FAA ( PRODIGAL_GFF.out.amino_acid_fasta )
             GUNZIP_PRODIGAL_FNA ( PRODIGAL_GFF.out.nucleotide_fasta)
             GUNZIP_PRODIGAL_GFF ( PRODIGAL_GFF.out.gene_annotations )
@@ -37,14 +37,14 @@ workflow ANNOTATION {
             ch_annotation_gbk        = Channel.empty() // Prodigal GBK and GFF output are mutually exclusive
 
             if ( params.save_annotations == true ) {
-                PRODIGAL_GBK ( ch_prepped_input, "gbk" )
+                PRODIGAL_GBK ( fasta, "gbk" )
                 ch_versions              = ch_versions.mix(PRODIGAL_GBK.out.versions)
                 ch_annotation_gbk        = PRODIGAL_GBK.out.gene_annotations // Prodigal GBK output stays zipped because it is currently not used by any downstream subworkflow.
             }
 
         } else if ( params.annotation_tool == "pyrodigal" ) {
 
-            PYRODIGAL ( ch_prepped_input )
+            PYRODIGAL ( fasta )
             GUNZIP_PYRODIGAL_FAA ( PYRODIGAL.out.faa )
             GUNZIP_PYRODIGAL_FNA ( PYRODIGAL.out.fna)
             GUNZIP_PYRODIGAL_GFF ( PYRODIGAL.out.gff )
@@ -56,8 +56,10 @@ workflow ANNOTATION {
 
         }  else if ( params.annotation_tool == "prokka" ) {
 
-            PROKKA ( ch_prepped_input, [], [] )
+            PROKKA ( fasta, [], [] )
             ch_versions              = ch_versions.mix(PROKKA.out.versions)
+            ch_multiqc_files         = PROKKA.out.txt
+
             ch_annotation_faa        = PROKKA.out.faa
             ch_annotation_fna        = PROKKA.out.fna
             ch_annotation_gff        = PROKKA.out.gff
@@ -76,8 +78,10 @@ workflow ANNOTATION {
                 ch_bakta_db = ( BAKTA_BAKTADBDOWNLOAD.out.db )
             }
 
-            BAKTA_BAKTA ( ch_prepped_input, ch_bakta_db, [], [] )
+            BAKTA_BAKTA ( fasta, ch_bakta_db, [], [] )
             ch_versions              = ch_versions.mix(BAKTA_BAKTA.out.versions)
+            ch_multiqc_files         = BAKTA.out.txt
+
             ch_annotation_faa        = BAKTA_BAKTA.out.faa
             ch_annotation_fna        = BAKTA_BAKTA.out.fna
             ch_annotation_gff        = BAKTA_BAKTA.out.gff
