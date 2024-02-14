@@ -48,9 +48,9 @@ workflow BGC {
         } else {
 
             // May need to update on each new version of antismash-lite due to changes to scripts inside these tars
-            ch_css_for_antismash = "https://github.com/nf-core/test-datasets/raw/91bb8781c576967e23d2c5315dd4d43213575033/data/delete_me/antismash/css.tar.gz"
-            ch_detection_for_antismash = "https://github.com/nf-core/test-datasets/raw/91bb8781c576967e23d2c5315dd4d43213575033/data/delete_me/antismash/detection.tar.gz"
-            ch_modules_for_antismash = "https://github.com/nf-core/test-datasets/raw/91bb8781c576967e23d2c5315dd4d43213575033/data/delete_me/antismash/modules.tar.gz"
+            ch_css_for_antismash = "https://github.com/nf-core/test-datasets/raw/59ddeb5929f89ddddaff292d67f9025812762b87/data/delete_me/antismash/css.tar.gz"
+            ch_detection_for_antismash = "https://github.com/nf-core/test-datasets/raw/59ddeb5929f89ddddaff292d67f9025812762b87/data/delete_me/antismash/detection.tar.gz"
+            ch_modules_for_antismash = "https://github.com/nf-core/test-datasets/raw/59ddeb5929f89ddddaff292d67f9025812762b87/data/delete_me/antismash/modules.tar.gz"
 
             UNTAR_CSS ( [ [], ch_css_for_antismash ] )
             ch_versions = ch_versions.mix(UNTAR_CSS.out.versions)
