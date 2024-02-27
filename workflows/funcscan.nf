@@ -91,6 +91,10 @@ include { PRODIGAL as PRODIGAL_GBK          } from '../modules/nf-core/prodigal/
 include { PYRODIGAL                         } from '../modules/nf-core/pyrodigal/main'
 include { BAKTA_BAKTADBDOWNLOAD             } from '../modules/nf-core/bakta/baktadbdownload/main'
 include { BAKTA_BAKTA                       } from '../modules/nf-core/bakta/bakta/main'
+include { MMSEQS_CREATEDB                   } from '../modules/nf-core/mmseqs/createdb/main'
+include { MMSEQS_DATABASES                  } from '../modules/nf-core/mmseqs/databases/main'
+include { MMSEQS_TAXONOMY                   } from '../modules/nf-core/mmseqs/taxonomy/main'
+include { MMSEQS_CREATETSV                  } from '../modules/nf-core/mmseqs/createtsv/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -135,6 +139,46 @@ workflow FUNCSCAN {
                                 meta['longest_contig'] = Integer.parseInt(length)
                             [ meta, fasta ]
                         }
+
+    /*
+        TAXONOMIC CLASSIFICATION
+    */
+    // The final subworkflow reports need taxonomic classification
+    // This can be either on NT or AA level depending on annotation
+    // NOTE: (AA tax. classification will be added only when its PR is merged - NOW - only on NT)
+    //TODO RUN MMSEQS/database /create db and taxonomy and converttsv / and grab teh output table
+    if ( params.classify_taxonomy ==  true ) {
+
+        // Download the ref db if not supplied by user
+        if ( params.classify_taxonomy_mmseqs_db_localpath ) {
+            ch_mmseqs_db = Channel
+                .fromPath( params.classify_taxonomy_mmseqs_db_localpath )
+                .first()
+        } else {
+            MMSEQS_DATABASES ( params.classify_taxonomy_mmseqs_db )
+            ch_versions     = ch_versions.mix( MMSEQS_DATABASES.out.versions )
+            ch_mmseqs_db    = ( MMSEQS_DATABASES.out.database )
+        }
+
+        // Create db for query contigs, assign taxonomy and convert to table format
+        MMSEQS_CREATEDB ( ch_prepped_input )
+        ch_versions                 = ch_versions.mix(MMSEQS_CREATEDB.out.versions)
+        ch_taxonomy_querydb         = MMSEQS_CREATEDB.out.db
+        MMSEQS_TAXONOMY ( ch_taxonomy_querydb, ch_mmseqs_db )
+        ch_versions                 = ch_versions.mix(MMSEQS_TAXONOMY.out.versions)
+        ch_taxonomy_querydb_taxdb   = MMSEQS_TAXONOMY.out.db
+        MMSEQS_CREATETSV ( ch_taxonomy_querydb, ch_taxonomy_querydb_taxdb, [[:],[]] )
+        ch_versions                 = ch_versions.mix(MMSEQS_CREATETSV.out.versions)
+        ch_taxonomy_tsv             = MMSEQS_CREATETSV.out.tsv
+
+        } else {
+
+            ch_mmseqs_db                = Channel.empty()
+            ch_taxonomy_querydb         = Channel.empty()
+            ch_taxonomy_querydb_taxdb   = Channel.empty()
+            ch_taxonomy_tsv             = Channel.empty()
+
+    }
 
     /*
         ANNOTATION
