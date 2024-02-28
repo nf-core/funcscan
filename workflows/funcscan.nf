@@ -5,14 +5,14 @@
 */
 include { validateParameters; paramsHelp; paramsSummaryLog; paramsSummaryMap; fromSamplesheet } from 'plugin/nf-validation'
 
-def logo = NfcoreTemplate.logo(workflow, params.monochrome_logs)
-def citation = '\n' + WorkflowMain.citation(workflow) + '\n'
+// def logo = NfcoreTemplate.logo(workflow, params.monochrome_logs)
+// def citation = '\n' + WorkflowMain.citation(workflow) + '\n'
 def summary_params = paramsSummaryMap(workflow)
 
 // Print parameter summary log to screen
-log.info logo + paramsSummaryLog(workflow) + citation
+// log.info logo + paramsSummaryLog(workflow) + citation
 
-WorkflowFuncscan.initialise(params, log)
+// WorkflowFuncscan.initialise(params, log)
 
 // Check input path parameters to see if they exist
 /*def checkPathParamList = [ params.input, params.multiqc_config, params.annotation_bakta_db_localpath,
@@ -283,15 +283,15 @@ workflow FUNCSCAN {
     //
     // MODULE: MultiQC
     //
-    workflow_summary    = WorkflowFuncscan.paramsSummaryMultiqc(workflow, summary_params)
-    ch_workflow_summary = Channel.value(workflow_summary)
+    // workflow_summary    = WorkflowFuncscan.paramsSummaryMultiqc(workflow, summary_params)
+    // ch_workflow_summary = Channel.value(workflow_summary)
 
-    methods_description    = WorkflowFuncscan.methodsDescriptionText(workflow, ch_multiqc_custom_methods_description, params)
-    ch_methods_description = Channel.value(methods_description)
+    // methods_description    = WorkflowFuncscan.methodsDescriptionText(workflow, ch_multiqc_custom_methods_description, params)
+    // ch_methods_description = Channel.value(methods_description)
 
     ch_multiqc_files = Channel.empty()
-    ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
-    ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
+    // ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
+    // ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     if(params.annotation_tool=='prokka'){ch_multiqc_files = ch_multiqc_files.mix( PROKKA.out.txt.collect{it[1]}.ifEmpty([])) }
 
@@ -310,16 +310,16 @@ workflow FUNCSCAN {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-workflow.onComplete {
-    if (params.email || params.email_on_fail) {
-        NfcoreTemplate.email(workflow, params, summary_params, projectDir, log, multiqc_report)
-    }
-    NfcoreTemplate.dump_parameters(workflow, params)
-    NfcoreTemplate.summary(workflow, params, log)
-    if (params.hook_url) {
-        NfcoreTemplate.IM_notification(workflow, params, summary_params, projectDir, log)
-    }
-}
+// workflow.onComplete {
+//     if (params.email || params.email_on_fail) {
+//         NfcoreTemplate.email(workflow, params, summary_params, projectDir, log, multiqc_report)
+//     }
+//     NfcoreTemplate.dump_parameters(workflow, params)
+//     NfcoreTemplate.summary(workflow, params, log)
+//     if (params.hook_url) {
+//         NfcoreTemplate.IM_notification(workflow, params, summary_params, projectDir, log)
+//     }
+// }
 
 workflow.onError {
     if (workflow.errorReport.contains("Process requirement exceeds available memory")) {

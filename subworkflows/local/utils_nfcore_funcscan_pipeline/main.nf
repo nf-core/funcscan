@@ -256,10 +256,9 @@ def toolCitationText() {
 }
 
 def toolBibliographyText() {
-    // TODO nf-core: Optionally add bibliographic entries to this list.
     // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "<li>Author (2023) Pub name, Journal, DOI</li>" : "",
     // Uncomment function in methodsDescriptionText to render in MultiQC report
-def preprocessing_text = "<li>Li, H. (2023). bioawk: BWK awk modified for biological data. Github. Retrieved July 12, 2023, from <a href=\"https://github.com/lh3/bioawk\">https://github.com/lh3/bioawk</a></li>"
+    def preprocessing_text = "<li>Li, H. (2023). bioawk: BWK awk modified for biological data. Github. Retrieved July 12, 2023, from <a href=\"https://github.com/lh3/bioawk\">https://github.com/lh3/bioawk</a></li>"
 
     def annotation_text    = [
             params.annotation_tool == 'prodigal'  ? "<li>Hyatt, D., Chen, G. L., Locascio, P. F., Land, M. L., Larimer, F. W., & Hauser, L. J. (2010). Prodigal: prokaryotic gene recognition and translation initiation site identification. BMC bioinformatics, 11, 119. DOI: <a href=\"https://doi.org/10.1186/1471-2105-11-119\">10.1186/1471-2105-11-119</a>" : "",
@@ -323,9 +322,8 @@ def methodsDescriptionText(mqc_methods_yaml) {
     meta["tool_citations"] = ""
     meta["tool_bibliography"] = ""
 
-    // TODO nf-core: Only uncomment below if logic in toolCitationText/toolBibliographyText has been filled!
-    // meta["tool_citations"] = toolCitationText().replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
-    // meta["tool_bibliography"] = toolBibliographyText()
+    meta["tool_citations"] = toolCitationText().replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
+    meta["tool_bibliography"] = toolBibliographyText()
 
 
     def methods_text = mqc_methods_yaml.text
