@@ -1442,7 +1442,9 @@
     ],
     "properties": {
         "taxonomy_mmseqs_databases_localpath": {
-            "type": "string"
+            "type": "string",
+            "description": "",
+            "help_text": ""
         },
         "taxonomy_mmseqs_databases_id": {
             "type": "string",

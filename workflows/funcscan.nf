@@ -152,7 +152,7 @@ workflow FUNCSCAN {
         // Download the ref db if not supplied by user
         if ( params.classify_taxonomy_mmseqs_db_localpath ) {
             ch_mmseqs_db = Channel
-                .fromPath( params.classify_taxonomy_mmseqs_db_localpath )
+                .fromPath( params.taxonomy_mmseqs_databases_localpath )
                 .first()
         } else {
             MMSEQS_DATABASES ( params.taxonomy_mmseqs_databases_id )
