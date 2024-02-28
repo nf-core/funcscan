@@ -62,9 +62,10 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { AMP } from '../subworkflows/local/amp'
-include { ARG } from '../subworkflows/local/arg'
-include { BGC } from '../subworkflows/local/bgc'
+include { AMP                      } from '../subworkflows/local/amp'
+include { ARG                      } from '../subworkflows/local/arg'
+include { BGC                      } from '../subworkflows/local/bgc'
+include { validateInputSamplesheet } from '../subworkflows/local/utils_nfcore_funcscan_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
