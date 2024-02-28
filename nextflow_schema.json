@@ -68,6 +68,23 @@
             },
             "fa_icon": "fas fa-network-wired"
         },
+        "taxonomy": {
+            "title": "Taxonomy",
+            "type": "object",
+            "description": "These options influence whether to activate the taxonomic classification of contigs",
+            "default": "",
+            "fa_icon": "fas fa-address-book",
+            "properties": {
+                "classify_taxonomy": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Activates the taxonomic classification of contigs"
+                },
+                "taxonomy_mmseqs_save_intermedfiles": {
+                    "type": "boolean"
+                }
+            }
+        },
         "annotation": {
             "title": "Annotation",
             "type": "object",
@@ -87,7 +104,8 @@
                     "fa_icon": "fas fa-save"
                 }
             },
-            "fa_icon": "fas fa-file-signature"
+            "fa_icon": "fas fa-file-signature",
+            "help_text": ""
         },
         "annotation_bakta": {
             "title": "Annotation: BAKTA",
@@ -259,7 +277,7 @@
                     "default": "Bacteria",
                     "fa_icon": "fab fa-accusoft",
                     "description": "Specify the kingdom that the input represents.",
-                    "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n> ⚠️ Prokka cannot annotate Eukaryotes.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--kingdom`",
+                    "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n> \u26a0\ufe0f Prokka cannot annotate Eukaryotes.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--kingdom`",
                     "enum": ["Archaea", "Bacteria", "Mitochondria", "Viruses"]
                 },
                 "annotation_prokka_gcode": {
@@ -280,7 +298,7 @@
                 },
                 "annotation_prokka_evalue": {
                     "type": "number",
-                    "default": 0.000001,
+                    "default": 1e-6,
                     "description": "Minimum e-value cut-off.",
                     "help_text": "Specifiy the minimum e-value used for filtering the alignment hits.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--evalue`",
                     "fa_icon": "fas fa-sort-amount-down"
@@ -528,7 +546,7 @@
                 },
                 "amp_ampcombi_cutoff": {
                     "type": "number",
-                    "default": 0.0,
+                    "default": 0,
                     "description": "Specify probability cutoff to filter AMPs",
                     "help_text": "Specify the minimum probability an AMP hit must have to be retained in the final output file. Anything below this threshold will be removed.\n\nFor more information check AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cutoff`",
                     "fa_icon": "fas fa-sort-amount-up"
@@ -557,7 +575,7 @@
                 },
                 "arg_amrfinderplus_identmin": {
                     "type": "number",
-                    "default": -1.0,
+                    "default": -1,
                     "help_text": "Specify the minimum percentage amino-acid identity to reference protein or nucleotide identity for nucleotide reference must have if a BLAST alignment (based on methods: BLAST or PARTIAL) was detected, otherwise NA.\n\n If you specify `-1`, this means use a curated threshold if it exists and `0.9` otherwise.\n\nSetting this value to something other than `-1` will override any curated similarity cutoffs. For BLAST: alignment is > 90% of length and > 90% identity to a protein in the AMRFinderPlus database. For PARTIAL: alignment is > 50% of length, but < 90% of length and > 90% identity to the reference, and does not end at a contig boundary.\n\nFor more information check AMRFinderPlus [documentation](https://github.com/ncbi/amr/wiki/Running-AMRFinderPlus#--organism-option).\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--ident_min`",
                     "description": "Minimum percent identity to reference sequence.",
                     "fa_icon": "fas fa-angle-left"
@@ -865,7 +883,7 @@
                     "default": 1000,
                     "description": "Minimum longest-contig length a sample must have to be screened with antiSMASH.",
                     "fa_icon": "fas fa-ruler-horizontal",
-                    "help_text": "This specifies the minimum length that the longest contig must have for the entire sample to be screened by antiSMASH.\n\nAny samples that do not reach this length will be not be sent to antiSMASH, therefore you will not receive output for these samples in your `--outdir`.\n\n> ⚠️ This is not the same as `--bgc_antismash_contigminlength`, which specifies to only analyse contigs above that threshold but _within_ a sample that has already passed `--bgc_antismash_sampleminlength` sample filter!"
+                    "help_text": "This specifies the minimum length that the longest contig must have for the entire sample to be screened by antiSMASH.\n\nAny samples that do not reach this length will be not be sent to antiSMASH, therefore you will not receive output for these samples in your `--outdir`.\n\n> \u26a0\ufe0f This is not the same as `--bgc_antismash_contigminlength`, which specifies to only analyse contigs above that threshold but _within_ a sample that has already passed `--bgc_antismash_sampleminlength` sample filter!"
                 },
                 "bgc_antismash_contigminlength": {
                     "type": "integer",
@@ -1033,7 +1051,7 @@
                     "type": "number",
                     "description": "The p-value cutoff for protein domains to be included.",
                     "fa_icon": "fas fa-filter",
-                    "default": 0.000000001,
+                    "default": 1e-9,
                     "help_text": "The p-value cutoff for protein domains to be included.\n\nFor more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--pfilter`"
                 },
                 "bgc_gecco_threshold": {
@@ -1338,13 +1356,13 @@
     },
     "allOf": [
         {
-            "$ref": "#/definitions/annotation_pyrodigal"
-        },
-        {
             "$ref": "#/definitions/input_output_options"
         },
         {
             "$ref": "#/definitions/screening_type_activation"
+        },
+        {
+            "$ref": "#/definitions/taxonomy"
         },
         {
             "$ref": "#/definitions/annotation"
@@ -1357,6 +1375,9 @@
         },
         {
             "$ref": "#/definitions/annotation_prodigal"
+        },
+        {
+            "$ref": "#/definitions/annotation_pyrodigal"
         },
         {
             "$ref": "#/definitions/database_downloading_options"
@@ -1418,5 +1439,52 @@
         {
             "$ref": "#/definitions/generic_options"
         }
-    ]
+    ],
+    "properties": {
+        "taxonomy_mmseqs_databases_localpath": {
+            "type": "string"
+        },
+        "taxonomy_mmseqs_databases_id": {
+            "type": "string",
+            "default": "SILVA"
+        },
+        "taxonomy_mmseqs_databases_savetmp": {
+            "type": "boolean"
+        },
+        "taxonomy_mmseqs_taxonomy_savetmp": {
+            "type": "boolean"
+        },
+        "taxonomy_mmseqs_taxonomy_searchtype": {
+            "type": "integer",
+            "default": 2
+        },
+        "taxonomy_mmseqs_taxonomy_lcaranks": {
+            "type": "string",
+            "default": "kingdom,phylum,class,order,family,genus,species"
+        },
+        "taxonomy_mmseqs_taxonomy_taxlineage": {
+            "type": "integer",
+            "default": 1
+        },
+        "taxonomy_mmseqs_taxonomy_sensitivity": {
+            "type": "integer",
+            "default": 5
+        },
+        "taxonomy_mmseqs_taxonomy_orffilters": {
+            "type": "integer",
+            "default": 2
+        },
+        "taxonomy_mmseqs_taxonomy_lcamode": {
+            "type": "integer",
+            "default": 3
+        },
+        "taxonomy_mmseqs_taxonomy_votemode": {
+            "type": "integer",
+            "default": 1
+        },
+        "taxonomy_mmseqs_taxonomy_majority": {
+            "type": "number",
+            "default": 0.5
+        }
+    }
 }

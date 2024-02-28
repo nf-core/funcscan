@@ -155,7 +155,7 @@ workflow FUNCSCAN {
                 .fromPath( params.classify_taxonomy_mmseqs_db_localpath )
                 .first()
         } else {
-            MMSEQS_DATABASES ( params.classify_taxonomy_mmseqs_db )
+            MMSEQS_DATABASES ( params.taxonomy_mmseqs_databases_id )
             ch_versions     = ch_versions.mix( MMSEQS_DATABASES.out.versions )
             ch_mmseqs_db    = ( MMSEQS_DATABASES.out.database )
         }
