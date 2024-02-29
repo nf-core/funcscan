@@ -90,6 +90,10 @@
 
   > Alcock, B. P., Raphenya, A. R., Lau, T., Tsang, K. K., Bouchard, M., Edalatmand, A., Huynh, W., Nguyen, A. V., Cheng, A. A., Liu, S., Min, S. Y., Miroshnichenko, A., Tran, H. K., Werfalli, R. E., Nasir, J. A., Oloni, M., Speicher, D. J., Florescu, A., Singh, B., Faltyn, M., … McArthur, A. G. (2020). CARD 2020: antibiotic resistome surveillance with the comprehensive antibiotic resistance database. Nucleic acids research, 48(D1), D517–D525. [DOI: 10.1093/nar/gkz935](https://doi.org/10.1093/nar/gkz935)
 
+- [MMseqs2](https://doi.org/10.1093bioinformatics/btab184)
+
+  > Mirdita M., Steinegger M., Breitwieser F., Söding J., Levy Karin E. (2021). Fastand sensitive taxonomic assignment to metagenomic contigs, Bioinformatics, 37(18),3029–3031. [DOI: 10.1093/bioinformatics/btab184](https://doi.org/10.1093bioinformatics/btab184)
+
 ## Software packaging/containerisation tools
 
 - [Anaconda](https://anaconda.com)

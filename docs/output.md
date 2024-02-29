@@ -10,7 +10,7 @@ The output of nf-core/funcscan provides reports for each of the functional group
 
 As a general workflow, we recommend to first look at the summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each result. The tool-specific output directories also includes the output from the functional annotation steps of either [prokka](https://github.com/tseemann/prokka), [pyrodigal](https://github.com/althonos/pyrodigal), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set.
 
-Similarly, all downloaded databases are saved (i.e. from [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), and/or [AMPcombi](https://github.com/Darcy220606/AMPcombi)) into the output directory `<outdir>/downloads/` if the `--save_databases` flag was set.
+Similarly, all downloaded databases are saved (i.e. from [MMseqs2](https://github.com/soedinglab/MMseqs2), [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), and/or [AMPcombi](https://github.com/Darcy220606/AMPcombi)) into the output directory `<outdir>/downloads/` if the `--save_databases` flag was set.
 
 Furthermore, for reproducibility, versions of all software used in the run is presented in a [MultiQC](http://multiqc.info) report.
 
@@ -18,6 +18,8 @@ The directories listed below will be created in the results directory (specified
 
 ```console
 results/
+├── taxonomy/
+|   ├── mmseqs_createtsv/
 ├── annotation/
 |   ├── bakta/
 |   ├── prodigal
@@ -53,6 +55,10 @@ work/
 ## Pipeline overview
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes prokaryotic sequence data through the following steps:
+
+Taxonomy classification of contigs with:
+
+ - [MMseqs2](https://github.com/soedinglab/MMseqs2) (default) - for contig taxonomic classification using 2bLCA.
 
 ORF prediction and annotation with any of:
 
@@ -92,6 +98,22 @@ Output Summaries:
 - [Pipeline information](#pipeline-information) – report metrics generated during the workflow execution.
 
 ## Tool details
+
+### Taxonomic classification tool
+[MMseqs2](#MMseqs2)
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `taxonomy/mmseqs2_createtsv/`
+  - `<samplename>/`:
+    - `*.tsv`: tab seperated table containing the taxonomic lineage of every contig when available
+
+> Descriptions taken from the [MMseqs2 documentation](https://github.com/soedinglab/MMseqs2/wiki)
+
+</details>
+
+[MMseqs2](https://github.com/soedinglab/MMseqs2) classifies the taxonomic lineage of contigs based on the least common ancestor. The taxonomic lineage produced is also added to the final workflow summaries to annotate the potential source bacteria of the BGC, AMP, and ARG.
 
 ### Annotation tools
 
