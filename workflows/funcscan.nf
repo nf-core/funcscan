@@ -146,11 +146,10 @@ workflow FUNCSCAN {
     // The final subworkflow reports need taxonomic classification
     // This can be either on NT or AA level depending on annotation
     // NOTE: (AA tax. classification will be added only when its PR is merged - NOW - only on NT)
-    //TODO RUN MMSEQS/database /create db and taxonomy and converttsv / and grab teh output table
-    if ( params.classify_taxonomy ==  true ) {
+    if ( params.taxonomy_mmseqs_classification_off ==  false ) {
 
         // Download the ref db if not supplied by user
-        if ( params.classify_taxonomy_mmseqs_db_localpath ) {
+        if ( params.taxonomy_mmseqs_databases_localpath != null ) {
             ch_mmseqs_db = Channel
                 .fromPath( params.taxonomy_mmseqs_databases_localpath )
                 .first()
@@ -166,8 +165,9 @@ workflow FUNCSCAN {
         ch_taxonomy_querydb         = MMSEQS_CREATEDB.out.db
         MMSEQS_TAXONOMY ( ch_taxonomy_querydb, ch_mmseqs_db )
         ch_versions                 = ch_versions.mix(MMSEQS_TAXONOMY.out.versions)
-        ch_taxonomy_querydb_taxdb   = MMSEQS_TAXONOMY.out.db
-        MMSEQS_CREATETSV ( ch_taxonomy_querydb, ch_taxonomy_querydb_taxdb, [[:],[]] )
+        ch_taxonomy_querydb_taxdb   = MMSEQS_TAXONOMY.out.db_taxonomy
+
+        MMSEQS_CREATETSV ( ch_taxonomy_querydb_taxdb, [[:],[]], ch_taxonomy_querydb )
         ch_versions                 = ch_versions.mix(MMSEQS_CREATETSV.out.versions)
         ch_taxonomy_tsv             = MMSEQS_CREATETSV.out.tsv
 
