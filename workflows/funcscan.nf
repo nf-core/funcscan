@@ -167,6 +167,7 @@ workflow FUNCSCAN {
         ch_versions                 = ch_versions.mix(MMSEQS_TAXONOMY.out.versions)
         ch_taxonomy_querydb_taxdb   = MMSEQS_TAXONOMY.out.db_taxonomy
 
+        // MMSEQS_CREATETSV ( ch_taxonomy_querydb_taxdb, [[:],[]], ch_taxonomy_querydb )
         MMSEQS_CREATETSV ( ch_taxonomy_querydb_taxdb, [[:],[]], ch_taxonomy_querydb )
         ch_versions                 = ch_versions.mix(MMSEQS_CREATETSV.out.versions)
         ch_taxonomy_tsv             = MMSEQS_CREATETSV.out.tsv

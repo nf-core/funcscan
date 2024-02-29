@@ -75,15 +75,16 @@
             "default": "",
             "fa_icon": "fas fa-address-book",
             "properties": {
-                "classify_taxonomy": {
+                "taxonomy_mmseqs_classification_off": {
                     "type": "boolean",
-                    "default": true,
-                    "description": "Activates the taxonomic classification of contigs",
-                    "fa_icon": "fas fa-ad"
+                    "fa_icon": "fas fa-ad",
+                    "description": "Activates the taxonomic classification of input contigs."
                 },
                 "taxonomy_mmseqs_save_intermedfiles": {
                     "type": "boolean",
-                    "fa_icon": "fas fa-file-download"
+                    "fa_icon": "fas fa-file-download",
+                    "description": "Save any intermediate files created in the taxonomic classification step.",
+                    "help_text": "This flag saves to the output folder all the databases created to generate the final taxonomic lineages."
                 }
             }
         },
@@ -101,7 +102,7 @@
                 },
                 "taxonomy_mmseqs_databases_id": {
                     "type": "string",
-                    "default": "SILVA",
+                    "default": "Kalamari",
                     "help_text": "Specify the MMseqs2 formatted database to use to classify the input contigs. This can be a nucleotide or amino acid database, however the database chosen must include taxonomic classifications. For example both GTDB, an amico acid database and SILVA, a nucleotide database are both databases provided by MMseqs2 that have taxonomic classifications. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\\n\\n>  Modifies tool parameter(s):\\n> - mmseqs databases <third positional argument>\".",
                     "description": "Specify the label of the database to be used.",
                     "fa_icon": "fas fa-address-card"
