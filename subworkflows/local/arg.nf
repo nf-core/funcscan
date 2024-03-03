@@ -2,24 +2,26 @@
     Run ARG screening tools
 */
 
-include { ABRICATE_RUN                }  from '../../modules/nf-core/abricate/run/main'
-include { AMRFINDERPLUS_UPDATE        }  from '../../modules/nf-core/amrfinderplus/update/main'
-include { AMRFINDERPLUS_RUN           }  from '../../modules/nf-core/amrfinderplus/run/main'
-include { FARGENE                     }  from '../../modules/nf-core/fargene/main'
-include { DEEPARG_DOWNLOADDATA        }  from '../../modules/nf-core/deeparg/downloaddata/main'
-include { DEEPARG_PREDICT             }  from '../../modules/nf-core/deeparg/predict/main'
-include { RGI_MAIN                    }  from '../../modules/nf-core/rgi/main/main'
-include { HAMRONIZATION_ABRICATE      }  from '../../modules/nf-core/hamronization/abricate/main'
-include { HAMRONIZATION_RGI           }  from '../../modules/nf-core/hamronization/rgi/main'
-include { HAMRONIZATION_DEEPARG       }  from '../../modules/nf-core/hamronization/deeparg/main'
-include { HAMRONIZATION_AMRFINDERPLUS }  from '../../modules/nf-core/hamronization/amrfinderplus/main'
-include { HAMRONIZATION_FARGENE       }  from '../../modules/nf-core/hamronization/fargene/main'
-include { HAMRONIZATION_SUMMARIZE     }  from '../../modules/nf-core/hamronization/summarize/main'
+include { ABRICATE_RUN                  }  from '../../modules/nf-core/abricate/run/main'
+include { AMRFINDERPLUS_UPDATE          }  from '../../modules/nf-core/amrfinderplus/update/main'
+include { AMRFINDERPLUS_RUN             }  from '../../modules/nf-core/amrfinderplus/run/main'
+include { FARGENE                       }  from '../../modules/nf-core/fargene/main'
+include { DEEPARG_DOWNLOADDATA          }  from '../../modules/nf-core/deeparg/downloaddata/main'
+include { DEEPARG_PREDICT               }  from '../../modules/nf-core/deeparg/predict/main'
+include { RGI_MAIN                      }  from '../../modules/nf-core/rgi/main/main'
+include { HAMRONIZATION_ABRICATE        }  from '../../modules/nf-core/hamronization/abricate/main'
+include { HAMRONIZATION_RGI             }  from '../../modules/nf-core/hamronization/rgi/main'
+include { HAMRONIZATION_DEEPARG         }  from '../../modules/nf-core/hamronization/deeparg/main'
+include { HAMRONIZATION_AMRFINDERPLUS   }  from '../../modules/nf-core/hamronization/amrfinderplus/main'
+include { HAMRONIZATION_FARGENE         }  from '../../modules/nf-core/hamronization/fargene/main'
+include { HAMRONIZATION_SUMMARIZE       }  from '../../modules/nf-core/hamronization/summarize/main'
+include { MERGE_TAXONOMY_HAMRONIZATION  }  from '../../modules/local/merge_taxonomy_hamronization'
 
 workflow ARG {
     take:
     contigs // tuple val(meta), path(contigs)
     annotations // output from prokka
+    tsv         // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
 
     main:
     ch_versions = Channel.empty()
@@ -144,6 +146,10 @@ workflow ARG {
 
     HAMRONIZATION_SUMMARIZE( ch_input_for_hamronization_summarize, params.arg_hamronization_summarizeformat )
     ch_versions = ch_versions.mix(HAMRONIZATION_SUMMARIZE.out.versions)
+
+    // MERGE_TAXONOMY
+    ch_mmseqs_taxonomy_list = tsv.map{ it[1] }.collect()
+    MERGE_TAXONOMY_HAMRONIZATION(HAMRONIZATION_SUMMARIZE.out.tsv, ch_mmseqs_taxonomy_list)
 
     emit:
     versions = ch_versions

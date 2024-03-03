@@ -267,6 +267,12 @@ workflow FUNCSCAN {
                     meta, file ->
                         if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
+                },
+            ch_taxonomy_tsv
+                .filter {
+                        meta, file ->
+                        if ( file.isEmpty() ) log.warn("Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
+                        !file.isEmpty()
                 }
         )
         ch_versions = ch_versions.mix(AMP.out.versions)
@@ -277,7 +283,15 @@ workflow FUNCSCAN {
     */
     if ( params.run_arg_screening ) {
         if (params.arg_skip_deeparg) {
-            ARG ( ch_prepped_input, [] )
+            ARG ( ch_prepped_input,
+                  [],
+                  ch_taxonomy_tsv
+                    .filter {
+                        meta, file ->
+                        if ( file.isEmpty() ) log.warn("Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
+                        !file.isEmpty()
+                }
+            )
         } else {
             ARG (
                 ch_prepped_input,
@@ -286,7 +300,13 @@ workflow FUNCSCAN {
                         meta, file ->
                         if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                             !file.isEmpty()
-                    }
+                    },
+                ch_taxonomy_tsv
+                    .filter {
+                        meta, file ->
+                        if ( file.isEmpty() ) log.warn("Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
+                        !file.isEmpty()
+                }
             )
         }
         ch_versions = ch_versions.mix(ARG.out.versions)
@@ -314,6 +334,12 @@ workflow FUNCSCAN {
                 .filter {
                     meta, file ->
                         if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        !file.isEmpty()
+                },
+            ch_taxonomy_tsv
+                .filter {
+                        meta, file ->
+                        if ( file.isEmpty() ) log.warn("Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
                         !file.isEmpty()
                 }
         )

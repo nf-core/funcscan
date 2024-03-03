@@ -12,6 +12,7 @@ include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH   } from '../../modules/nf-core
 include { DEEPBGC_DOWNLOAD                         } from '../../modules/nf-core/deepbgc/download/main'
 include { DEEPBGC_PIPELINE                         } from '../../modules/nf-core/deepbgc/pipeline/main'
 include { COMBGC                                   } from '../../modules/local/combgc'
+include { MERGE_TAXONOMY_COMBGC                    } from '../../modules/local/merge_taxonomy_combgc'
 
 workflow BGC {
 
@@ -20,6 +21,7 @@ workflow BGC {
     gff         // tuple val(meta), path(<ANNO_TOOL>.out.gff)
     faa         // tuple val(meta), path(<ANNO_TOOL>.out.faa)
     gbk         // tuple val(meta), path(<ANNO_TOOL>.out.gbk)
+    tsv         // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
 
     main:
     ch_versions              = Channel.empty()
@@ -183,7 +185,12 @@ workflow BGC {
     // COMBGC
     COMBGC ( ch_bgcresults_for_combgc )
 
+    // COMBGC concatenation
     ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile(name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true)
+
+    // MERGE_TAXONOMY
+    ch_mmseqs_taxonomy_list = tsv.map{ it[1] }.collect()
+    MERGE_TAXONOMY_COMBGC(ch_combgc_summaries, ch_mmseqs_taxonomy_list)
 
     emit:
     versions = ch_versions

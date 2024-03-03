@@ -8,7 +8,7 @@ The output of nf-core/funcscan provides reports for each of the functional group
 - antimicrobial peptides (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) – summarised by [AMPcombi](https://github.com/Darcy220606/AMPcombi))
 - biosynthetic gene clusters (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org) – summarised by [comBGC](#combgc))
 
-As a general workflow, we recommend to first look at the summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each result. The tool-specific output directories also includes the output from the functional annotation steps of either [prokka](https://github.com/tseemann/prokka), [pyrodigal](https://github.com/althonos/pyrodigal), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set.
+As a general workflow, we recommend to first look at the summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each result. The tool-specific output directories also includes the output from the functional annotation steps of either [prokka](https://github.com/tseemann/prokka), [pyrodigal](https://github.com/althonos/pyrodigal), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set and taxonomic classifications from [MMseqs2](https://github.com/soedinglab/MMseqs2) if the `taxonomy_mmseqs_save_intermedfiles` flag was set.
 
 Similarly, all downloaded databases are saved (i.e. from [MMseqs2](https://github.com/soedinglab/MMseqs2), [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), and/or [AMPcombi](https://github.com/Darcy220606/AMPcombi)) into the output directory `<outdir>/downloads/` if the `--save_databases` flag was set.
 
@@ -19,7 +19,9 @@ The directories listed below will be created in the results directory (specified
 ```console
 results/
 ├── taxonomy/
-|   ├── mmseqs_createtsv/
+|   ├── mmseqs_createdb/
+|   ├── mmseqs_taxonomy/
+|   └── mmseqs_createtsv/
 ├── annotation/
 |   ├── bakta/
 |   ├── prodigal
@@ -58,7 +60,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes p
 
 Taxonomy classification of contigs with:
 
- - [MMseqs2](https://github.com/soedinglab/MMseqs2) (default) - for contig taxonomic classification using 2bLCA.
+- [MMseqs2](https://github.com/soedinglab/MMseqs2) (default) - for contig taxonomic classification using 2bLCA.
 
 ORF prediction and annotation with any of:
 
@@ -100,6 +102,7 @@ Output Summaries:
 ## Tool details
 
 ### Taxonomic classification tool
+
 [MMseqs2](#MMseqs2)
 
 <details markdown="1">
@@ -107,9 +110,10 @@ Output Summaries:
 
 - `taxonomy/mmseqs2_createtsv/`
   - `<samplename>/`:
-    - `*.tsv`: tab seperated table containing the taxonomic lineage of every contig when available
-
-> Descriptions taken from the [MMseqs2 documentation](https://github.com/soedinglab/MMseqs2/wiki)
+    - `*.tsv`: tab seperated table containing the taxonomic lineage of every contig when available.
+- `reports/<workflow>/`
+- `*<workflow>_complete_summary_taxonomy.tsv`: tab seperated table containing the taxonomic lineage of every contig when available along with teh results from the <workflow> summary tables.
+  > Descriptions taken from the [MMseqs2 documentation](https://github.com/soedinglab/MMseqs2/wiki)
 
 </details>
 
