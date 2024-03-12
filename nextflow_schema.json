@@ -978,7 +978,7 @@
                     "default": 1000,
                     "description": "Minimum longest-contig length a sample must have to be screened with antiSMASH.",
                     "fa_icon": "fas fa-ruler-horizontal",
-                    "help_text": "This specifies the minimum length that the longest contig must have for the entire sample to be screened by antiSMASH.\n\nAny samples that do not reach this length will be not be sent to antiSMASH, therefore you will not receive output for these samples in your `--outdir`.\n\n> \u26a0\ufe0f This is not the same as `--bgc_antismash_contigminlength`, which specifies to only analyse contigs above that threshold but _within_ a sample that has already passed `--bgc_antismash_sampleminlength` sample filter!"
+                    "help_text": "This specifies the minimum length that the longest contig must have for the entire sample to be screened by antiSMASH.\n\nAny samples that do not reach this length will be not be sent to antiSMASH, therefore you will not receive output for these samples in your `--outdir`.\n\n> ⚠️ This is not the same as `--bgc_antismash_contigminlength`, which specifies to only analyse contigs above that threshold but _within_ a sample that has already passed `--bgc_antismash_sampleminlength` sample filter!"
                 },
                 "bgc_antismash_contigminlength": {
                     "type": "integer",
