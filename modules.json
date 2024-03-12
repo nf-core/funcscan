@@ -148,7 +148,7 @@
                     },
                     "mmseqs/createtsv": {
                         "branch": "master",
-                        "git_sha": "151460db852d636979d9ff3ee631e2268060d4c3",
+                        "git_sha": "5d849d54f06174c3313eb50c776d4916912db16b",
                         "installed_by": ["modules"]
                     },
                     "mmseqs/databases": {
