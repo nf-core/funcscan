@@ -61,11 +61,6 @@
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/bioawk/bioawk.diff"
                     },
-                    "custom/dumpsoftwareversions": {
-                        "branch": "master",
-                        "git_sha": "8ec825f465b9c17f9d83000022995b4f7de6fe93",
-                        "installed_by": ["modules"]
-                    },
                     "deeparg/downloaddata": {
                         "branch": "master",
                         "git_sha": "0af92e0fe6a34f31ee41eae66f04d71850fb4beb",
