@@ -97,7 +97,7 @@ workflow AMP {
                                     .fromPath( params.amp_ampcombi_db, checkIfExists: true ) }
     else {
         DRAMP_DOWNLOAD()
-        ch_versions = ch_versions.mix(AMPCOMBI.out.versions)
+        ch_versions = ch_versions.mix(DRAMP_DOWNLOAD.out.versions)
         ch_ampcombi_input_db = DRAMP_DOWNLOAD.out.db
     }
 
