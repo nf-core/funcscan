@@ -641,7 +641,7 @@
                 },
                 "amp_ampcombi_cutoff": {
                     "type": "number",
-                    "default": 0,
+                    "default": 0.0,
                     "description": "Specify probability cutoff to filter AMPs",
                     "help_text": "Specify the minimum probability an AMP hit must have to be retained in the final output file. Anything below this threshold will be removed.\n\nFor more information check AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cutoff`",
                     "fa_icon": "fas fa-sort-amount-up"
