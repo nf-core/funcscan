@@ -393,7 +393,7 @@
                 },
                 "annotation_prokka_evalue": {
                     "type": "number",
-                    "default": 1e-6,
+                    "default": 0.000001,
                     "description": "Minimum e-value cut-off.",
                     "help_text": "Specifiy the minimum e-value used for filtering the alignment hits.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--evalue`",
                     "fa_icon": "fas fa-sort-amount-down"
