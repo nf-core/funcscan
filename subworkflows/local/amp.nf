@@ -2,14 +2,14 @@
     Run AMP screening tools
 */
 
-include { MACREL_CONTIGS                                            } from '../../modules/nf-core/macrel/contigs/main'
-include { HMMER_HMMSEARCH as AMP_HMMER_HMMSEARCH                    } from '../../modules/nf-core/hmmer/hmmsearch/main'
-include { AMPLIFY_PREDICT                                           } from '../../modules/nf-core/amplify/predict/main'
-include { AMPIR                                                     } from '../../modules/nf-core/ampir/main'
-include { DRAMP_DOWNLOAD                                            } from '../../modules/local/dramp_download'
-include { AMPCOMBI                                                  } from '../../modules/nf-core/ampcombi/main'
-include { GUNZIP as GUNZIP_MACREL_PRED ; GUNZIP as GUNZIP_HMMER  ; GUNZIP as GUNZIP_MACREL_ORFS } from '../../modules/nf-core/gunzip/main'
-include { TABIX_BGZIP                                               } from '../../modules/nf-core/tabix/bgzip/main'
+include { MACREL_CONTIGS                                              } from '../../modules/nf-core/macrel/contigs/main'
+include { HMMER_HMMSEARCH as AMP_HMMER_HMMSEARCH                      } from '../../modules/nf-core/hmmer/hmmsearch/main'
+include { AMPLIFY_PREDICT                                             } from '../../modules/nf-core/amplify/predict/main'
+include { AMPIR                                                       } from '../../modules/nf-core/ampir/main'
+include { DRAMP_DOWNLOAD                                              } from '../../modules/local/dramp_download'
+include { AMPCOMBI                                                    } from '../../modules/nf-core/ampcombi/main'
+include { GUNZIP as GUNZIP_MACREL_PRED ; GUNZIP as GUNZIP_MACREL_ORFS } from '../../modules/nf-core/gunzip/main'
+include { TABIX_BGZIP                                                 } from '../../modules/nf-core/tabix/bgzip/main'
 
 workflow AMP {
     take:
@@ -97,10 +97,12 @@ workflow AMP {
                                     .fromPath( params.amp_ampcombi_db, checkIfExists: true ) }
     else {
         DRAMP_DOWNLOAD()
+        ch_versions = ch_versions.mix(DRAMP_DOWNLOAD.out.versions)
         ch_ampcombi_input_db = DRAMP_DOWNLOAD.out.db
     }
 
     AMPCOMBI( ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_ampcombi_input_db )
+    ch_versions = ch_versions.mix(AMPCOMBI.out.versions)
     ch_ampcombi_summaries = ch_ampcombi_summaries.mix(AMPCOMBI.out.csv)
 
     //AMPCOMBI concatenation
@@ -114,6 +116,7 @@ workflow AMP {
         .combine(ch_ampcombi_summaries_out.summary.collectFile(name: 'ampcombi_complete_summary.csv', keepHeader:true))
 
     TABIX_BGZIP(ch_tabix_input)
+    ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions)
 
     emit:
     versions = ch_versions

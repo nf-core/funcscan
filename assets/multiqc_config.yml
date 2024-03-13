@@ -12,6 +12,8 @@ report_section_order:
 
 export_plots: true
 
+disable_version_detection: true
+
 custom_logo: "nf-core-funcscan_logo_flat_light.png"
 custom_logo_url: https://nf-co.re/funcscan
 custom_logo_title: "nf-core/funcscan"

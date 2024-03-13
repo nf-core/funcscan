@@ -182,6 +182,7 @@ workflow BGC {
 
     // COMBGC
     COMBGC ( ch_bgcresults_for_combgc )
+    ch_versions = ch_versions.mix(COMBGC.out.versions)
 
     ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile(name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true)
 

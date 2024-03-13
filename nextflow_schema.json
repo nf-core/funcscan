@@ -16,9 +16,9 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
+                    "schema": "assets/schema_input.json",
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
-                    "schema": "assets/schema_input.json",
                     "description": "Path to comma-separated file containing information sample names and paths to corresponding FASTA files.",
                     "help_text": "Before running the pipeline, you will need to create a design file with information about the samples to be scanned by nf-core/funcscan, containing `sample name` and `path/to/your/contigs.fasta`. Use this parameter to specify its location. It has to be a comma-separated file with 2 columns, and a header row (`sample, fasta`). See [usage docs](https://nf-co.re/funcscan/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
@@ -1108,39 +1108,6 @@
             "fa_icon": "fas fa-file-import",
             "help_text": ""
         },
-        "reference_genome_options": {
-            "title": "Reference genome options",
-            "type": "object",
-            "fa_icon": "fas fa-dna",
-            "description": "Reference genome related files and options required for the workflow.",
-            "properties": {
-                "genome": {
-                    "type": "string",
-                    "description": "Name of iGenomes reference.",
-                    "fa_icon": "fas fa-book",
-                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details.",
-                    "hidden": true
-                },
-                "fasta": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": false,
-                    "mimetype": "text/plain",
-                    "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
-                    "description": "Path to FASTA genome file.",
-                    "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
-                    "fa_icon": "far fa-file-code",
-                    "hidden": true
-                },
-                "igenomes_ignore": {
-                    "type": "boolean",
-                    "description": "Do not load the iGenomes reference config.",
-                    "fa_icon": "fas fa-ban",
-                    "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`.",
-                    "hidden": true
-                }
-            }
-        },
         "institutional_config_options": {
             "title": "Institutional config options",
             "type": "object",
@@ -1405,9 +1372,6 @@
         },
         {
             "$ref": "#/definitions/reporting"
-        },
-        {
-            "$ref": "#/definitions/reference_genome_options"
         },
         {
             "$ref": "#/definitions/institutional_config_options"
