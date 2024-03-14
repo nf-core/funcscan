@@ -113,6 +113,7 @@ workflow AMP {
     // MERGE_TAXONOMY
     ch_mmseqs_taxonomy_list = tsv.map{ it[1] }.collect()
     MERGE_TAXONOMY_AMPCOMBI(ch_ampcombi_summaries, ch_mmseqs_taxonomy_list)
+    ch_versions = ch_versions.mix(MERGE_TAXONOMY_AMPCOMBI.out.versions)
 
     ch_tabix_input = Channel.of(['id':'ampcombi_complete_summary_taxonomy'])
         .combine(MERGE_TAXONOMY_AMPCOMBI.out.tsv)

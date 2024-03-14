@@ -192,6 +192,7 @@ workflow BGC {
     // MERGE_TAXONOMY
     ch_mmseqs_taxonomy_list = tsv.map{ it[1] }.collect()
     MERGE_TAXONOMY_COMBGC(ch_combgc_summaries, ch_mmseqs_taxonomy_list)
+    ch_versions = ch_versions.mix(MERGE_TAXONOMY_COMBGC.out.versions)
 
     emit:
     versions = ch_versions
