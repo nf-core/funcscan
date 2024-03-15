@@ -252,8 +252,8 @@ workflow FUNCSCAN {
     if ( params.run_arg_screening ) {
         if (params.arg_skip_deeparg) {
             ARG ( ch_prepped_input,
-                  [],
-                  ch_taxonomy_tsv
+                [],
+                ch_taxonomy_tsv
                     .filter {
                         meta, file ->
                         if ( file.isEmpty() ) log.warn("Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
