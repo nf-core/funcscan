@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#338](https://github.com/nf-core/funcscan/pull/338) Set `--meta` parameter to default for Bakta, with singlemode optional. (by @jasmezz)
 
 ### `Fixed`
+- [#348](https://github.com/nf-core/funcscan/pull/348) Updated config files samplesheet to 'samplesheet_reduced.csv' to reduce resource consumption. (by @darcy220606)
 
 ### `Dependencies`
 
