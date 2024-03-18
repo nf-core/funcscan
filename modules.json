@@ -27,27 +27,27 @@
                     },
                     "amrfinderplus/run": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "8f4a5d5ad55715f6c905ab73ce49f677cf6092fc",
                         "installed_by": ["modules"]
                     },
                     "amrfinderplus/update": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "8f4a5d5ad55715f6c905ab73ce49f677cf6092fc",
                         "installed_by": ["modules"]
                     },
                     "antismash/antismashlite": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "1c78323903f07d62bb57686914b567fb2018b1e4",
                         "installed_by": ["modules"]
                     },
                     "antismash/antismashlitedownloaddatabases": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "6c7bac5e7c4c00c43803df47e7db5d0c344b7ac4",
                         "installed_by": ["modules"]
                     },
                     "bakta/bakta": {
                         "branch": "master",
-                        "git_sha": "bacae7f0c22948c6e34fa001be4481985851282f",
+                        "git_sha": "fff61a9921ae4ade89e5c7491c6e5355e7d7dcdb",
                         "installed_by": ["modules"]
                     },
                     "bakta/baktadbdownload": {
@@ -98,32 +98,32 @@
                     },
                     "hamronization/abricate": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "be5430a0d9dc63f71d5140ea2a3489b439d0bcad",
                         "installed_by": ["modules"]
                     },
                     "hamronization/amrfinderplus": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "52ddbb3ad754d870e485bcfcb680fe6a49d83567",
                         "installed_by": ["modules"]
                     },
                     "hamronization/deeparg": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "52ddbb3ad754d870e485bcfcb680fe6a49d83567",
                         "installed_by": ["modules"]
                     },
                     "hamronization/fargene": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "52ddbb3ad754d870e485bcfcb680fe6a49d83567",
                         "installed_by": ["modules"]
                     },
                     "hamronization/rgi": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "483e4838a2a009e826ea14da0dfc6bcaccef5ad1",
                         "installed_by": ["modules"]
                     },
                     "hamronization/summarize": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "52ddbb3ad754d870e485bcfcb680fe6a49d83567",
                         "installed_by": ["modules"]
                     },
                     "hmmer/hmmsearch": {
@@ -143,7 +143,7 @@
                     },
                     "prodigal": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "2a196d6bfea8b6b5f49fc1885e39fae5f50bc2a0",
                         "installed_by": ["modules"]
                     },
                     "prokka": {
@@ -153,22 +153,27 @@
                     },
                     "pyrodigal": {
                         "branch": "master",
-                        "git_sha": "0e70547d116de782ec3825f1a449a56abb894482",
+                        "git_sha": "94c4df7840d1ee5ec4d817310ff60b02e6459353",
+                        "installed_by": ["modules"]
+                    },
+                    "rgi/cardannotation": {
+                        "branch": "master",
+                        "git_sha": "483e4838a2a009e826ea14da0dfc6bcaccef5ad1",
                         "installed_by": ["modules"]
                     },
                     "rgi/main": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "483e4838a2a009e826ea14da0dfc6bcaccef5ad1",
                         "installed_by": ["modules"]
                     },
                     "tabix/bgzip": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "09d3c8c29b31a2dfd610305b10550f0e1dbcd4a9",
                         "installed_by": ["modules"]
                     },
                     "untar": {
                         "branch": "master",
-                        "git_sha": "e719354ba77df0a1bd310836aa2039b45c29d620",
+                        "git_sha": "5caf7640a9ef1d18d765d55339be751bb0969dfa",
                         "installed_by": ["modules"]
                     }
                 }

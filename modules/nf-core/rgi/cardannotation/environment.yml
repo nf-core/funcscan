@@ -1,7 +1,7 @@
-name: hamronization_summarize
+name: rgi_cardannotation
 channels:
   - conda-forge
   - bioconda
   - defaults
 dependencies:
-  - bioconda::hamronization=1.1.4
+  - bioconda::rgi=6.0.3

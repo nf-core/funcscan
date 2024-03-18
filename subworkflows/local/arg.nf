@@ -5,15 +5,17 @@
 include { ABRICATE_RUN                }  from '../../modules/nf-core/abricate/run/main'
 include { AMRFINDERPLUS_UPDATE        }  from '../../modules/nf-core/amrfinderplus/update/main'
 include { AMRFINDERPLUS_RUN           }  from '../../modules/nf-core/amrfinderplus/run/main'
-include { FARGENE                     }  from '../../modules/nf-core/fargene/main'
 include { DEEPARG_DOWNLOADDATA        }  from '../../modules/nf-core/deeparg/downloaddata/main'
 include { DEEPARG_PREDICT             }  from '../../modules/nf-core/deeparg/predict/main'
-include { RGI_MAIN                    }  from '../../modules/nf-core/rgi/main/main'
+include { FARGENE                     }  from '../../modules/nf-core/fargene/main'
 include { HAMRONIZATION_ABRICATE      }  from '../../modules/nf-core/hamronization/abricate/main'
 include { HAMRONIZATION_RGI           }  from '../../modules/nf-core/hamronization/rgi/main'
 include { HAMRONIZATION_DEEPARG       }  from '../../modules/nf-core/hamronization/deeparg/main'
 include { HAMRONIZATION_AMRFINDERPLUS }  from '../../modules/nf-core/hamronization/amrfinderplus/main'
 include { HAMRONIZATION_FARGENE       }  from '../../modules/nf-core/hamronization/fargene/main'
+include { RGI_CARDANNOTATION          }  from '../../modules/nf-core/rgi/cardannotation/main'
+include { RGI_MAIN                    }  from '../../modules/nf-core/rgi/main/main'
+include { UNTAR                       }  from '../../modules/nf-core/untar/main'
 include { HAMRONIZATION_SUMMARIZE     }  from '../../modules/nf-core/hamronization/summarize/main'
 
 workflow ARG {
@@ -80,12 +82,19 @@ workflow ARG {
     // RGI run
     if ( !params.arg_skip_rgi ) {
 
-        RGI_MAIN ( contigs )
-        ch_versions = ch_versions.mix(RGI_MAIN.out.versions)
+        // Download and prepare CARD
+        ch_card     = file('https://card.mcmaster.ca/latest/data', checkIfExists: true).copyTo('data.tar.gz')
+        UNTAR ( [ [], file("data.tar.gz") ] )
+        ch_versions = ch_versions.mix( UNTAR.out.versions )
+        RGI_CARDANNOTATION ( UNTAR.out.untar.map{ it[1] } )
+        ch_versions = ch_versions.mix( RGI_CARDANNOTATION.out.versions )
+
+        RGI_MAIN ( contigs, RGI_CARDANNOTATION.out.db, [] )
+        ch_versions = ch_versions.mix( RGI_MAIN.out.versions )
 
         // Reporting
         HAMRONIZATION_RGI ( RGI_MAIN.out.tsv, 'json', RGI_MAIN.out.tool_version, RGI_MAIN.out.db_version )
-        ch_versions = ch_versions.mix(HAMRONIZATION_RGI.out.versions)
+        ch_versions = ch_versions.mix( HAMRONIZATION_RGI.out.versions )
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_RGI.out.json)
     }
 
@@ -96,7 +105,7 @@ workflow ARG {
             .first()
     } else if ( !params.arg_skip_deeparg && !params.arg_deeparg_data ) {
         DEEPARG_DOWNLOADDATA( )
-        ch_versions = ch_versions.mix(DEEPARG_DOWNLOADDATA.out.versions)
+        ch_versions = ch_versions.mix( DEEPARG_DOWNLOADDATA.out.versions )
         ch_deeparg_db = DEEPARG_DOWNLOADDATA.out.db
     }
 
@@ -115,14 +124,14 @@ workflow ARG {
                 .set { ch_input_for_deeparg }
 
         DEEPARG_PREDICT ( ch_input_for_deeparg, ch_deeparg_db )
-        ch_versions = ch_versions.mix(DEEPARG_PREDICT.out.versions)
+        ch_versions = ch_versions.mix( DEEPARG_PREDICT.out.versions )
 
         // Reporting
         // Note: currently hardcoding versions as unreported by DeepARG
         // Make sure to update on version bump.
         HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix(DEEPARG_PREDICT.out.potential_arg), 'json', '1.0.2', params.arg_deeparg_data_version )
-        ch_versions = ch_versions.mix(HAMRONIZATION_DEEPARG.out.versions)
-        ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix(HAMRONIZATION_DEEPARG.out.json)
+        ch_versions = ch_versions.mix( HAMRONIZATION_DEEPARG.out.versions )
+        ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_DEEPARG.out.json )
     }
 
     // ABRicate run

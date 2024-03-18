@@ -25,36 +25,36 @@ workflow AMP {
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
     // to ensure annotation is executed!
-    ch_faa_for_amplify          = faa
-    ch_faa_for_amp_hmmsearch    = faa
-    ch_faa_for_ampir            = faa
-    ch_faa_for_ampcombi         = faa
+    ch_faa_for_amplify             = faa
+    ch_faa_for_amp_hmmsearch       = faa
+    ch_faa_for_ampir               = faa
+    ch_faa_for_ampcombi            = faa
 
     // AMPLIFY
     if ( !params.amp_skip_amplify ) {
         AMPLIFY_PREDICT ( ch_faa_for_amplify, [] )
-        ch_versions                 = ch_versions.mix(AMPLIFY_PREDICT.out.versions)
-        ch_ampresults_for_ampcombi  = ch_ampresults_for_ampcombi.mix(AMPLIFY_PREDICT.out.tsv)
+        ch_versions                = ch_versions.mix(AMPLIFY_PREDICT.out.versions)
+        ch_ampresults_for_ampcombi = ch_ampresults_for_ampcombi.mix(AMPLIFY_PREDICT.out.tsv)
     }
 
     // MACREL
     if ( !params.amp_skip_macrel ) {
         MACREL_CONTIGS ( contigs )
-        ch_versions                 = ch_versions.mix(MACREL_CONTIGS.out.versions)
+        ch_versions                = ch_versions.mix(MACREL_CONTIGS.out.versions)
         GUNZIP_MACREL_PRED ( MACREL_CONTIGS.out.amp_prediction )
         GUNZIP_MACREL_ORFS ( MACREL_CONTIGS.out.all_orfs )
-        ch_versions                 = ch_versions.mix(GUNZIP_MACREL_PRED.out.versions)
-        ch_versions                 = ch_versions.mix(GUNZIP_MACREL_ORFS.out.versions)
-        ch_ampresults_for_ampcombi  = ch_ampresults_for_ampcombi.mix(GUNZIP_MACREL_PRED.out.gunzip)
-        ch_macrel_faa               = ch_macrel_faa.mix(GUNZIP_MACREL_ORFS.out.gunzip)
-        ch_faa_for_ampcombi         = ch_faa_for_ampcombi.mix(ch_macrel_faa)
+        ch_versions                = ch_versions.mix(GUNZIP_MACREL_PRED.out.versions)
+        ch_versions                = ch_versions.mix(GUNZIP_MACREL_ORFS.out.versions)
+        ch_ampresults_for_ampcombi = ch_ampresults_for_ampcombi.mix(GUNZIP_MACREL_PRED.out.gunzip)
+        ch_macrel_faa              = ch_macrel_faa.mix(GUNZIP_MACREL_ORFS.out.gunzip)
+        ch_faa_for_ampcombi        = ch_faa_for_ampcombi.mix(ch_macrel_faa)
     }
 
     // AMPIR
     if ( !params.amp_skip_ampir ) {
         AMPIR ( ch_faa_for_ampir, params.amp_ampir_model, params.amp_ampir_minlength, 0.0 )
-        ch_versions                 = ch_versions.mix(AMPIR.out.versions)
-        ch_ampresults_for_ampcombi  = ch_ampresults_for_ampcombi.mix(AMPIR.out.amps_tsv)
+        ch_versions                = ch_versions.mix(AMPIR.out.versions)
+        ch_ampresults_for_ampcombi = ch_ampresults_for_ampcombi.mix(AMPIR.out.amps_tsv)
     }
 
     // HMMSEARCH
@@ -64,7 +64,7 @@ workflow AMP {
         ch_amp_hmm_models_meta = ch_amp_hmm_models
             .map {
                 file ->
-                    def meta  = [:]
+                    def meta = [:]
                     meta['id'] = file.extension == 'gz' ? file.name - '.hmm.gz' :  file.name - '.hmm'
 
                 [ meta, file ]
