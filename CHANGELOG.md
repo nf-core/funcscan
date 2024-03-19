@@ -15,8 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#343](https://github.com/nf-core/funcscan/pull/343) Standardized the resulting workflow summary tables to always start with 'sample_id\tcontig_id\t..'. (by @darcy220606)
-- [#343](https://github.com/nf-core/funcscan/pull/343) Reformated the the output of 'hamronization summarize' module. (by @darcy220606)
+- [#343](https://github.com/nf-core/funcscan/pull/343) Standardized the resulting workflow summary tables to always start with 'sample_id\tcontig_id\t..'. Reformated the the output of 'hamronization summarize' module. (by @darcy220606)
+- [#348](https://github.com/nf-core/funcscan/pull/348) Updated samplesheet for pipeline tests to 'samplesheet_reduced.csv' with smaller datasets to reduce resource consumption. Updated prodigal module to fix pigz issue. Removed `tests/` from `.gitignore` (by @darcy220606)
 
 ### `Dependencies`
 
