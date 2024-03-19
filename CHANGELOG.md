@@ -14,8 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#348](https://github.com/nf-core/funcscan/pull/348) Updated config files samplesheet to 'samplesheet_reduced.csv' to reduce resource consumption. (by @darcy220606)
-- [#348](https://github.com/nf-core/funcscan/pull/348) Updated prodigal module to fix pigz issue. (by @darcy220606)
+- [#348](https://github.com/nf-core/funcscan/pull/348) Updated samplesheet for pipeline tests to 'samplesheet_reduced.csv' with smaller datasets to reduce resource consumption. Updated prodigal module to fix pigz issue. (by @darcy220606)
 
 ### `Dependencies`
 
