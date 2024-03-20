@@ -311,7 +311,7 @@
                 },
                 "annotation_prokka_retaincontigheaders": {
                     "type": "boolean",
-                    "fa_icon":"fas fa-remove-format",          
+                    "fa_icon": "fas fa-remove-format",
                     "help_text": "This parameter allows prokka to retain the original contig names by activating `PROKKA`'s  `--force` flag. If this parameter is set to `false` it activates `PROKKA`'s flags `--locus-tag PROKKA --centre CENTER` so the locus tags (contig names) will be PROKKA_# and the center tag will be CENTER. By default `PROKKA` changes contig headers to avoid errors that might rise due to long contig headers, so this must be turned on if the user has short contig names that should be retained by `PROKKA`. \n\n> Modifies tool parameter(s):\n> - Prokka: `--locus-tag PROKKA --centre CENTER`\n> - Prokka: `--force`",
                     "description": "Retains contig names."
                 }

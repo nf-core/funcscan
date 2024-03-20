@@ -3,6 +3,23 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.1.5 - [2024-03-20]
+
+### `Added`
+
+### `Fixed`
+
+- [#346](https://github.com/nf-core/funcscan/pull/346) Pinned version of nf-validation to 1.1.3
+
+### `Dependencies`
+
+| Plugin        | Previous | New version |
+| ------------- | -------- | ----------- |
+| Bakta         | 1.8.2    | 1.9.3       |
+| nf-validation | Latest   | 1.1.3       |
+
+### `Deprecated`
+
 ## v1.1.4 - [2023-11-07]
 
 ### `Added`
@@ -20,7 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | ------------- | ---------------- | ----------- |
 | AMRFinderPlus | 3.10.42          | 3.11.18     |
 | Bakta         | 1.7.0            | 1.8.2       |
-| MultiQC       | 1.14            | 1.15       |
+| MultiQC       | 1.14             | 1.15        |
 
 ### `Deprecated`
 
