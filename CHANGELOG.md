@@ -3,6 +3,27 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.2.0dev - [date]
+
+### `Added`
+
+- [#322](https://github.com/nf-core/funcscan/pull/322) Updated all modules: introduce environment.yml files. (by @jasmezz)
+- [#324](https://github.com/nf-core/funcscan/pull/324) Removed separate DeepARG test profile because database download is now stable. (by @jasmezz)
+- [#332](https://github.com/nf-core/funcscan/pull/332) & [#327](https://github.com/nf-core/funcscan/pull/327) Merged pipeline template of nf-core/tools version 2.12.1 (by @jfy133, @jasmezz)
+- [#338](https://github.com/nf-core/funcscan/pull/338) Set `--meta` parameter to default for Bakta, with singlemode optional. (by @jasmezz)
+
+### `Fixed`
+
+- [#348](https://github.com/nf-core/funcscan/pull/348) Updated samplesheet for pipeline tests to 'samplesheet_reduced.csv' with smaller datasets to reduce resource consumption. Updated prodigal module to fix pigz issue. (by @darcy220606)
+
+### `Dependencies`
+
+| Tool    | Previous version | New version |
+| ------- | ---------------- | ----------- |
+| DeepARG | 1.0.2            | 1.0.4       |
+| DeepBGC | 0.1.30           | 0.1.31      |
+| MultiQC | 1.15             | 1.19        |
+
 ## v1.1.5 - [2024-03-20]
 
 ### `Added`
