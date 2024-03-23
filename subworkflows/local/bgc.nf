@@ -12,6 +12,7 @@ include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH   } from '../../modules/nf-core
 include { DEEPBGC_DOWNLOAD                         } from '../../modules/nf-core/deepbgc/download/main'
 include { DEEPBGC_PIPELINE                         } from '../../modules/nf-core/deepbgc/pipeline/main'
 include { COMBGC                                   } from '../../modules/local/combgc'
+include { TABIX_BGZIP as BGC_TABIX_BGZIP           } from '../../modules/nf-core/tabix/bgzip/main'
 include { MERGE_TAXONOMY_COMBGC                    } from '../../modules/local/merge_taxonomy_combgc'
 
 workflow BGC {
@@ -187,12 +188,26 @@ workflow BGC {
     ch_versions = ch_versions.mix(COMBGC.out.versions)
 
     // COMBGC concatenation
-    ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile(name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true)
+    if ( !params.run_taxonomic_classification ) {
+        ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile(name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true)
+    } else {
+        ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile(name: 'combgc_complete_summary.tsv', keepHeader:true)
+    }
 
     // MERGE_TAXONOMY
-    ch_mmseqs_taxonomy_list = tsv.map{ it[1] }.collect()
-    MERGE_TAXONOMY_COMBGC(ch_combgc_summaries, ch_mmseqs_taxonomy_list)
-    ch_versions = ch_versions.mix(MERGE_TAXONOMY_COMBGC.out.versions)
+    if ( params.run_taxonomic_classification ) {
+
+        ch_mmseqs_taxonomy_list = tsv.map{ it[1] }.collect()
+        MERGE_TAXONOMY_COMBGC(ch_combgc_summaries, ch_mmseqs_taxonomy_list)
+        ch_versions = ch_versions.mix(MERGE_TAXONOMY_COMBGC.out.versions)
+
+        ch_tabix_input = Channel.of(['id':'combgc_complete_summary_taxonomy'])
+            .combine(MERGE_TAXONOMY_COMBGC.out.tsv)
+
+        BGC_TABIX_BGZIP(ch_tabix_input)
+        ch_versions = ch_versions.mix(BGC_TABIX_BGZIP.out.versions)
+
+    }
 
     emit:
     versions = ch_versions

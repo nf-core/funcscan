@@ -92,7 +92,7 @@
 
 - [MMseqs2](https://doi.org/10.1093bioinformatics/btab184)
 
-  > Mirdita M., Steinegger M., Breitwieser F., Söding J., Levy Karin E. (2021). Fastand sensitive taxonomic assignment to metagenomic contigs, Bioinformatics, 37(18),3029–3031. [DOI: 10.1093/bioinformatics/btab184](https://doi.org/10.1093bioinformatics/btab184)
+  > Mirdita, M., Steinegger, M., Breitwieser, F., Söding, J., Levy Karin, E. (2021). Fast and sensitive taxonomic assignment to metagenomic contigs. Bioinformatics, 37(18),3029–3031. [DOI: 10.1093/bioinformatics/btab184](https://doi.org/10.1093/bioinformatics/btab184)
 
 ## Software packaging/containerisation tools
 

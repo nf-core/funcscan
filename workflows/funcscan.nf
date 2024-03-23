@@ -29,9 +29,10 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { AMP } from '../subworkflows/local/amp'
-include { ARG } from '../subworkflows/local/arg'
-include { BGC } from '../subworkflows/local/bgc'
+include { AMP  }  from '../subworkflows/local/amp'
+include { ARG  }  from '../subworkflows/local/arg'
+include { BGC  }  from '../subworkflows/local/bgc'
+include { TAXA } from '../subworkflows/local/taxa'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -57,10 +58,6 @@ include { PRODIGAL as PRODIGAL_GBK       } from '../modules/nf-core/prodigal/mai
 include { PYRODIGAL                      } from '../modules/nf-core/pyrodigal/main'
 include { BAKTA_BAKTADBDOWNLOAD          } from '../modules/nf-core/bakta/baktadbdownload/main'
 include { BAKTA_BAKTA                    } from '../modules/nf-core/bakta/bakta/main'
-include { MMSEQS_CREATEDB                } from '../modules/nf-core/mmseqs/createdb/main'
-include { MMSEQS_DATABASES               } from '../modules/nf-core/mmseqs/databases/main'
-include { MMSEQS_TAXONOMY                } from '../modules/nf-core/mmseqs/taxonomy/main'
-include { MMSEQS_CREATETSV               } from '../modules/nf-core/mmseqs/createtsv/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -111,42 +108,21 @@ workflow FUNCSCAN {
     /*
         TAXONOMIC CLASSIFICATION
     */
-    // The final subworkflow reports need taxonomic classification
-    // This can be either on NT or AA level depending on annotation
-    // NOTE: (AA tax. classification will be added only when its PR is merged - NOW - only on NT)
-    if ( params.taxonomy_mmseqs_classification_off ==  false ) {
 
-        // Download the ref db if not supplied by user
-        if ( params.taxonomy_mmseqs_databases_localpath != null ) {
-            ch_mmseqs_db = Channel
-                .fromPath( params.taxonomy_mmseqs_databases_localpath )
-                .first()
-        } else {
-            MMSEQS_DATABASES ( params.taxonomy_mmseqs_databases_id )
-            ch_versions     = ch_versions.mix( MMSEQS_DATABASES.out.versions )
-            ch_mmseqs_db    = ( MMSEQS_DATABASES.out.database )
-        }
+    // The final subworkflow reports need taxonomic classification.
+    // This can be either on NT or AA level depending on annotation.
+    // TODO: Only NT at the moment. AA tax. classification will be added only when its PR is merged.
+    if ( params.run_taxonomic_classification ) {
+            TAXA ( ch_prepped_input )
+            ch_versions     = ch_versions.mix(TAXA.out.versions)
+            ch_taxonomy_tsv = TAXA.out.sample_taxonomy
 
-        // Create db for query contigs, assign taxonomy and convert to table format
-        MMSEQS_CREATEDB ( ch_prepped_input )
-        ch_versions                 = ch_versions.mix(MMSEQS_CREATEDB.out.versions)
-        ch_taxonomy_querydb         = MMSEQS_CREATEDB.out.db
-        MMSEQS_TAXONOMY ( ch_taxonomy_querydb, ch_mmseqs_db )
-        ch_versions                 = ch_versions.mix(MMSEQS_TAXONOMY.out.versions)
-        ch_taxonomy_querydb_taxdb   = MMSEQS_TAXONOMY.out.db_taxonomy
+    } else {
 
-        // MMSEQS_CREATETSV ( ch_taxonomy_querydb_taxdb, [[:],[]], ch_taxonomy_querydb )
-        MMSEQS_CREATETSV ( ch_taxonomy_querydb_taxdb, [[:],[]], ch_taxonomy_querydb )
-        ch_versions                 = ch_versions.mix(MMSEQS_CREATETSV.out.versions)
-        ch_taxonomy_tsv             = MMSEQS_CREATETSV.out.tsv
-
-        } else {
-
-            ch_mmseqs_db                = Channel.empty()
-            ch_taxonomy_querydb         = Channel.empty()
-            ch_taxonomy_querydb_taxdb   = Channel.empty()
-            ch_taxonomy_tsv             = Channel.empty()
-
+            ch_mmseqs_db              = Channel.empty()
+            ch_taxonomy_querydb       = Channel.empty()
+            ch_taxonomy_querydb_taxdb = Channel.empty()
+            ch_taxonomy_tsv           = Channel.empty()
     }
 
     /*
@@ -227,7 +203,7 @@ workflow FUNCSCAN {
     /*
         AMPs
     */
-    if ( params.run_amp_screening ) {
+    if ( params.run_amp_screening && !params.run_taxonomic_classification ) {
         AMP (
             ch_prepped_input,
             ch_annotation_faa
@@ -235,13 +211,26 @@ workflow FUNCSCAN {
                     meta, file ->
                         if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
+
                 },
+            ch_taxonomy_tsv
+        )
+        ch_versions = ch_versions.mix(AMP.out.versions)
+    } else if ( params.run_amp_screening && params.run_taxonomic_classification ) {
+        AMP (
+            ch_prepped_input,
+            ch_annotation_faa
+                .filter {
+                    meta, file ->
+                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        !file.isEmpty()
+                    },
             ch_taxonomy_tsv
                 .filter {
                         meta, file ->
                         if ( file.isEmpty() ) log.warn("Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
                         !file.isEmpty()
-                }
+                    }
         )
         ch_versions = ch_versions.mix(AMP.out.versions)
     }
@@ -249,17 +238,38 @@ workflow FUNCSCAN {
     /*
         ARGs
     */
-    if ( params.run_arg_screening ) {
+    if ( params.run_arg_screening && !params.run_taxonomic_classification ) {
         if (params.arg_skip_deeparg) {
-            ARG ( ch_prepped_input,
+            ARG (
+                ch_prepped_input,
+                [],
+                ch_taxonomy_tsv
+                )
+        } else {
+            ARG (
+                ch_prepped_input,
+                ch_annotation_faa
+                    .filter {
+                        meta, file ->
+                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                            !file.isEmpty()
+                    },
+                ch_taxonomy_tsv
+            )
+        }
+        ch_versions = ch_versions.mix(ARG.out.versions)
+    } else if ( params.run_arg_screening && params.run_taxonomic_classification ) {
+        if (params.arg_skip_deeparg) {
+            ARG (
+                ch_prepped_input,
                 [],
                 ch_taxonomy_tsv
                     .filter {
                         meta, file ->
                         if ( file.isEmpty() ) log.warn("Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
                         !file.isEmpty()
-                }
-            )
+                    }
+                )
         } else {
             ARG (
                 ch_prepped_input,
@@ -283,7 +293,7 @@ workflow FUNCSCAN {
     /*
         BGCs
     */
-    if ( params.run_bgc_screening ) {
+    if ( params.run_bgc_screening && !params.run_taxonomic_classification ) {
         BGC (
             ch_prepped_input,
             ch_annotation_gff
@@ -305,7 +315,31 @@ workflow FUNCSCAN {
                         !file.isEmpty()
                 },
             ch_taxonomy_tsv
+        )
+        ch_versions = ch_versions.mix(BGC.out.versions)
+    } else if ( params.run_bgc_screening && params.run_taxonomic_classification ) {
+        BGC (
+            ch_prepped_input,
+            ch_annotation_gff
                 .filter {
+                    meta, file ->
+                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GFF file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        !file.isEmpty()
+                },
+            ch_annotation_faa
+                .filter {
+                    meta, file ->
+                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        !file.isEmpty()
+                },
+            ch_annotation_gbk
+                .filter {
+                    meta, file ->
+                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        !file.isEmpty()
+                },
+            ch_taxonomy_tsv
+                    .filter {
                         meta, file ->
                         if ( file.isEmpty() ) log.warn("Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
                         !file.isEmpty()
@@ -313,6 +347,7 @@ workflow FUNCSCAN {
         )
         ch_versions = ch_versions.mix(BGC.out.versions)
     }
+
     //
     // Collate and save software versions
     //

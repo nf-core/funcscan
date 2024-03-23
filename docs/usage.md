@@ -6,7 +6,7 @@
 
 ## Introduction
 
-nf-core/funcscan is a pipeline for efficient and parallelised screening of long nucleotide sequences such as contigs for antimicrobial peptide genes, antimicrobial resistance genes, and biosynthetic gene clusters.
+nf-core/funcscan is a pipeline for efficient and parallelised screening of long nucleotide sequences such as contigs for antimicrobial peptide genes, antimicrobial resistance genes, and biosynthetic gene clusters. It further identifies their taxonomic orgin.
 
 ## Running the pipeline
 
@@ -18,13 +18,14 @@ nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
 
-To run any of the three screening workflows (AMP, ARG, and/or BGC), switch them on by adding the respective flag(s) to the command:
+To run any of the three screening workflows (AMP, ARG, and/or BGC) or taxonomic classification (currently done with [MMseqs2](https://github.com/soedinglab/MMseqs2)), switch them on by adding the respective flag(s) to the command:
 
 - `--run_amp_screening`
 - `--run_arg_screening`
 - `--run_bgc_screening`
+- `--run_taxonomic_classification`
 
-When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them.
+When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them. For the taxonomic classification, MMseqs2 is currently the only tool implemented in the pipline.
 
 **Example:** You want to run AMP and ARG screening but you don't need the DeepARG tool of the ARG workflow and the Macrel tool of the AMP workflow. Your command would be:
 

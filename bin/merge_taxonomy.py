@@ -35,7 +35,7 @@ parser.add_argument('--version', action='version', version='merge_taxonomy ' + t
 subparsers = parser.add_subparsers(required=True)
 
 #########################################
-# SUBPARSERS : AMPCOMBI
+# SUBPARSER: AMPCOMBI
 #########################################
 ampcombi_parser = subparsers.add_parser('ampcombi_taxa')
 
@@ -44,7 +44,7 @@ ampcombi_parser.add_argument("--ampcombi", dest="amp", nargs='?', help="Enter th
 ampcombi_parser.add_argument("--taxonomy", dest="taxa1", nargs='+', help="Enter the list of taxonomy files for all samples. ")
 
 #########################################
-# SUBPARSERS : COMBGC
+# SUBPARSER: COMBGC
 #########################################
 combgc_parser = subparsers.add_parser('combgc_taxa')
 
@@ -53,7 +53,7 @@ combgc_parser.add_argument("--combgc", dest="bgc", nargs='?', help="Enter the pa
 combgc_parser.add_argument("--taxonomy", dest="taxa2", nargs='+', help="Enter the list of taxonomy files for all samples. ")
 
 #########################################
-# SUBPARSERS : HAMRONIZATION
+# SUBPARSER: HAMRONIZATION
 #########################################
 hamronization_parser = subparsers.add_parser('hamronization_taxa')
 
@@ -74,7 +74,6 @@ def reformat_mmseqs_taxonomy(mmseqs_taxonomy):
         lineage = str(row['mmseqs_lineage_contig'])
         if 'Eukaryota' in lineage or 'root' in lineage:
             mmseqs2_df.at[i, 'mmseqs_lineage_contig'] = np.nan
-            #mmseqs2_df['mmseqs_lineage_contig'].unique()
     # insert the sample name in the first column according to the file basename
     file_basename = os.path.basename(mmseqs_taxonomy)
     filename = os.path.splitext(file_basename)[0]
@@ -82,7 +81,7 @@ def reformat_mmseqs_taxonomy(mmseqs_taxonomy):
     return mmseqs2_df
 
 #########################################
-# FUNCTION : AMPCOMBI
+# FUNCTION: AMPCOMBI
 #########################################
 def ampcombi_taxa(args):
     merged_df = pd.DataFrame()
@@ -128,7 +127,7 @@ def ampcombi_taxa(args):
     merged_df.to_csv('ampcombi_complete_summary_taxonomy.tsv', sep='\t', index=False)
 
 #########################################
-# FUNCTION : COMBGC
+# FUNCTION: COMBGC
 #########################################
 def combgc_taxa(args):
     merged_df = pd.DataFrame()
@@ -172,7 +171,7 @@ def combgc_taxa(args):
     merged_df.to_csv('combgc_complete_summary_taxonomy.tsv', sep='\t', index=False)
 
 #########################################
-# FUNCTION : HAMRONIZATION
+# FUNCTION: HAMRONIZATION
 #########################################
 def hamronization_taxa(args):
     merged_df = pd.DataFrame()
@@ -220,7 +219,7 @@ def hamronization_taxa(args):
     merged_df.to_csv('hamronization_complete_summary_taxonomy.tsv', sep='\t', index=False)
 
 #########################################
-# SUBPARSERS : DEFAULT
+# SUBPARSERS: DEFAULT
 #########################################
 ampcombi_parser.set_defaults(func=ampcombi_taxa)
 combgc_parser.set_defaults(func=combgc_taxa)
