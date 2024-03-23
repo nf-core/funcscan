@@ -52,4 +52,4 @@ workflow TAXA {
     emit:
     versions        = ch_versions
     sample_taxonomy = ch_taxonomy_tsv              //channel: [ val(meta), tsv ]
-   }
+}
