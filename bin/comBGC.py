@@ -643,6 +643,10 @@ if __name__ == "__main__":
         inplace=True,
     )
 
+    # Rearrange and rename the columns in the summary df
+    summary_all = summary_all.iloc[:, [0, 2, 1] + list(range(3, len(summary_all.columns)))]
+    summary_all.rename(columns={'Sample_ID':'sample_id', 'Contig_ID':'contig_id', 'CDS_ID':'BGC_region_contig_ids'}, inplace=True)
+
     # Write results to TSV
     if not os.path.exists(outdir):
         os.makedirs(outdir)
