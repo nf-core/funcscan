@@ -29,10 +29,10 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { AMP  }  from '../subworkflows/local/amp'
-include { ARG  }  from '../subworkflows/local/arg'
-include { BGC  }  from '../subworkflows/local/bgc'
-include { TAXA } from '../subworkflows/local/taxa'
+include { AMP        }  from '../subworkflows/local/amp'
+include { ARG        }  from '../subworkflows/local/arg'
+include { BGC        }  from '../subworkflows/local/bgc'
+include { TAXA_CLASS } from '../subworkflows/local/taxa_class'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -113,9 +113,9 @@ workflow FUNCSCAN {
     // This can be either on NT or AA level depending on annotation.
     // TODO: Only NT at the moment. AA tax. classification will be added only when its PR is merged.
     if ( params.run_taxonomic_classification ) {
-            TAXA ( ch_prepped_input )
-            ch_versions     = ch_versions.mix(TAXA.out.versions)
-            ch_taxonomy_tsv = TAXA.out.sample_taxonomy
+            TAXA_CLASS ( ch_prepped_input )
+            ch_versions     = ch_versions.mix(TAXA_CLASS.out.versions)
+            ch_taxonomy_tsv = TAXA_CLASS.out.sample_taxonomy
 
     } else {
 

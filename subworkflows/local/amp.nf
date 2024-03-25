@@ -9,7 +9,7 @@ include { AMPIR                                                       } from '..
 include { DRAMP_DOWNLOAD                                              } from '../../modules/local/dramp_download'
 include { AMPCOMBI                                                    } from '../../modules/nf-core/ampcombi/main'
 include { GUNZIP as GUNZIP_MACREL_PRED ; GUNZIP as GUNZIP_MACREL_ORFS } from '../../modules/nf-core/gunzip/main'
-include { TABIX_BGZIP as AMP_TABIX_BGZIP                                              } from '../../modules/nf-core/tabix/bgzip/main'
+include { TABIX_BGZIP as AMP_TABIX_BGZIP                              } from '../../modules/nf-core/tabix/bgzip/main'
 include { MERGE_TAXONOMY_AMPCOMBI                                     } from '../../modules/local/merge_taxonomy_ampcombi'
 
 workflow AMP {
@@ -110,7 +110,7 @@ workflow AMP {
     if ( !params.run_taxonomic_classification ) {
         ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile(name: 'ampcombi_complete_summary.tsv', storeDir: "${params.outdir}/reports/ampcombi",keepHeader:true)
     } else {
-        ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile(name: 'ampcombi_complete_summary.tsv',keepHeader:true)
+        ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile(name: 'ampcombi_complete_summary.tsv', keepHeader:true)
     }
 
     // MERGE_TAXONOMY

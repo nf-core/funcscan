@@ -7,7 +7,7 @@ include { MMSEQS_DATABASES  } from '../../modules/nf-core/mmseqs/databases/main'
 include { MMSEQS_TAXONOMY   } from '../../modules/nf-core/mmseqs/taxonomy/main'
 include { MMSEQS_CREATETSV  } from '../../modules/nf-core/mmseqs/createtsv/main'
 
-workflow TAXA {
+workflow TAXA_CLASS {
     take:
     contigs // tuple val(meta), path(contigs)
 
