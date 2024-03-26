@@ -18,11 +18,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool    | Previous version | New version |
-| ------- | ---------------- | ----------- |
-| DeepARG | 1.0.2            | 1.0.4       |
-| DeepBGC | 0.1.30           | 0.1.31      |
-| MultiQC | 1.15             | 1.19        |
+| Tool          | Previous version | New version |
+| ------------- | ---------------- | ----------- |
+| AMRFinderPlus | 3.11.18          | 3.12.8      |
+| AntiSMASH     | 6.1.1            | 7.1.0       |
+| DeepARG       | 1.0.2            | 1.0.4       |
+| DeepBGC       | 0.1.30           | 0.1.31      |
+| GECCO         | 0.9.8            | 0.9.10      |
+| hAMRonization | 1.1.1            | 1.1.4       |
+| MultiQC       | 1.15             | 1.19        |
+| Pyrodigal     | 2.1.0            | 3.3.0       |
+| RGI           | 5.2.1            | 6.0.3       |
 
 ## v1.1.5 - [2024-03-20]
 
