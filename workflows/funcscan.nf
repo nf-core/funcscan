@@ -15,9 +15,9 @@ include { paramsSummaryMap; validateParameters; paramsHelp; paramsSummaryLog; fr
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-ch_multiqc_config          = Channel.fromPath("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-ch_multiqc_custom_config   = params.multiqc_config ? Channel.fromPath( params.multiqc_config, checkIfExists: true ) : Channel.empty()
-ch_multiqc_logo            = params.multiqc_logo   ? Channel.fromPath( params.multiqc_logo, checkIfExists: true ) : Channel.empty()
+ch_multiqc_config                     = Channel.fromPath("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
+ch_multiqc_custom_config              = params.multiqc_config ? Channel.fromPath( params.multiqc_config, checkIfExists: true ) : Channel.empty()
+ch_multiqc_logo                       = params.multiqc_logo   ? Channel.fromPath( params.multiqc_logo, checkIfExists: true ) : Channel.empty()
 ch_multiqc_custom_methods_description = params.multiqc_methods_description ? file(params.multiqc_methods_description, checkIfExists: true) : file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
 
 /*
@@ -54,7 +54,8 @@ include { BIOAWK                         } from '../modules/nf-core/bioawk/main'
 include { PROKKA                         } from '../modules/nf-core/prokka/main'
 include { PRODIGAL as PRODIGAL_GFF       } from '../modules/nf-core/prodigal/main'
 include { PRODIGAL as PRODIGAL_GBK       } from '../modules/nf-core/prodigal/main'
-include { PYRODIGAL                      } from '../modules/nf-core/pyrodigal/main'
+include { PYRODIGAL as PYRODIGAL_GBK     } from '../modules/nf-core/pyrodigal/main'
+include { PYRODIGAL as PYRODIGAL_GFF     } from '../modules/nf-core/pyrodigal/main'
 include { BAKTA_BAKTADBDOWNLOAD          } from '../modules/nf-core/bakta/baktadbdownload/main'
 include { BAKTA_BAKTA                    } from '../modules/nf-core/bakta/bakta/main'
 
@@ -84,16 +85,16 @@ workflow FUNCSCAN {
         }
 
     GUNZIP_FASTA_PREP ( fasta_prep.compressed )
-    ch_versions = ch_versions.mix(GUNZIP_FASTA_PREP.out.versions)
+    ch_versions = ch_versions.mix( GUNZIP_FASTA_PREP.out.versions )
 
     // Merge all the already uncompressed and newly compressed FASTAs here into
     // a single input channel for downstream
     ch_prepped_fastas = GUNZIP_FASTA_PREP.out.gunzip
-                        .mix(fasta_prep.uncompressed)
+                        .mix( fasta_prep.uncompressed )
 
     // Add to meta the length of longest contig for downstream filtering
     BIOAWK ( ch_prepped_fastas )
-    ch_versions = ch_versions.mix(BIOAWK.out.versions)
+    ch_versions = ch_versions.mix( BIOAWK.out.versions )
 
     ch_prepped_input = ch_prepped_fastas
                         .join( BIOAWK.out.longest )
@@ -115,9 +116,9 @@ workflow FUNCSCAN {
         if ( params.annotation_tool == "prodigal" ) {
             PRODIGAL_GFF ( ch_prepped_input, "gff" )
             GUNZIP_PRODIGAL_FAA ( PRODIGAL_GFF.out.amino_acid_fasta )
-            GUNZIP_PRODIGAL_FNA ( PRODIGAL_GFF.out.nucleotide_fasta)
+            GUNZIP_PRODIGAL_FNA ( PRODIGAL_GFF.out.nucleotide_fasta )
             GUNZIP_PRODIGAL_GFF ( PRODIGAL_GFF.out.gene_annotations )
-            ch_versions              = ch_versions.mix(PRODIGAL_GFF.out.versions)
+            ch_versions              = ch_versions.mix( PRODIGAL_GFF.out.versions )
             ch_annotation_faa        = GUNZIP_PRODIGAL_FAA.out.gunzip
             ch_annotation_fna        = GUNZIP_PRODIGAL_FNA.out.gunzip
             ch_annotation_gff        = GUNZIP_PRODIGAL_GFF.out.gunzip
@@ -125,22 +126,28 @@ workflow FUNCSCAN {
 
             if ( params.save_annotations == true ) {
                 PRODIGAL_GBK ( ch_prepped_input, "gbk" )
-                ch_versions              = ch_versions.mix(PRODIGAL_GBK.out.versions)
-                ch_annotation_gbk        = PRODIGAL_GBK.out.gene_annotations // Prodigal GBK output stays zipped because it is currently not used by any downstream subworkflow.
+                ch_versions          = ch_versions.mix( PRODIGAL_GBK.out.versions )
+                ch_annotation_gbk    = PRODIGAL_GBK.out.gene_annotations // Prodigal GBK output stays zipped because it is currently not used by any downstream subworkflow.
             }
         } else if ( params.annotation_tool == "pyrodigal" ) {
-            PYRODIGAL ( ch_prepped_input )
-            GUNZIP_PYRODIGAL_FAA ( PYRODIGAL.out.faa )
-            GUNZIP_PYRODIGAL_FNA ( PYRODIGAL.out.fna)
-            GUNZIP_PYRODIGAL_GFF ( PYRODIGAL.out.gff )
-            ch_versions              = ch_versions.mix(PYRODIGAL.out.versions)
+            PYRODIGAL_GFF ( ch_prepped_input, "gff" )
+            GUNZIP_PYRODIGAL_FAA ( PYRODIGAL_GFF.out.faa )
+            GUNZIP_PYRODIGAL_FNA ( PYRODIGAL_GFF.out.fna )
+            GUNZIP_PYRODIGAL_GFF ( PYRODIGAL_GFF.out.annotations )
+            ch_versions              = ch_versions.mix( PYRODIGAL_GFF.out.versions )
             ch_annotation_faa        = GUNZIP_PYRODIGAL_FAA.out.gunzip
             ch_annotation_fna        = GUNZIP_PYRODIGAL_FNA.out.gunzip
             ch_annotation_gff        = GUNZIP_PYRODIGAL_GFF.out.gunzip
-            ch_annotation_gbk        = Channel.empty() // Pyrodigal doesn't produce GBK
+            ch_annotation_gbk        = Channel.empty() // Pyrodigal GBK and GFF output are mutually exclusive
+
+            if ( params.save_annotations == true ) {
+                PYRODIGAL_GBK ( ch_prepped_input, "gbk" )
+                ch_versions          = ch_versions.mix( PYRODIGAL_GBK.out.versions )
+                ch_annotation_gbk    = PYRODIGAL_GBK.out.annotations // Pyrodigal GBK output stays zipped because it is currently not used by any downstream subworkflow.
+            }
         }  else if ( params.annotation_tool == "prokka" ) {
             PROKKA ( ch_prepped_input, [], [] )
-            ch_versions              = ch_versions.mix(PROKKA.out.versions)
+            ch_versions              = ch_versions.mix( PROKKA.out.versions )
             ch_annotation_faa        = PROKKA.out.faa
             ch_annotation_fna        = PROKKA.out.fna
             ch_annotation_gff        = PROKKA.out.gff
@@ -149,17 +156,17 @@ workflow FUNCSCAN {
 
             // BAKTA prepare download
             if ( params.annotation_bakta_db_localpath ) {
-                ch_bakta_db = Channel
+                ch_bakta_db          = Channel
                     .fromPath( params.annotation_bakta_db_localpath )
                     .first()
             } else {
                 BAKTA_BAKTADBDOWNLOAD ( )
-                ch_versions = ch_versions.mix( BAKTA_BAKTADBDOWNLOAD.out.versions )
-                ch_bakta_db = ( BAKTA_BAKTADBDOWNLOAD.out.db )
+                ch_versions          = ch_versions.mix( BAKTA_BAKTADBDOWNLOAD.out.versions )
+                ch_bakta_db          = ( BAKTA_BAKTADBDOWNLOAD.out.db )
             }
 
             BAKTA_BAKTA ( ch_prepped_input, ch_bakta_db, [], [] )
-            ch_versions              = ch_versions.mix(BAKTA_BAKTA.out.versions)
+            ch_versions              = ch_versions.mix( BAKTA_BAKTA.out.versions )
             ch_annotation_faa        = BAKTA_BAKTA.out.faa
             ch_annotation_fna        = BAKTA_BAKTA.out.fna
             ch_annotation_gff        = BAKTA_BAKTA.out.gff
@@ -168,10 +175,10 @@ workflow FUNCSCAN {
 
     } else {
 
-        ch_annotation_faa        = Channel.empty()
-        ch_annotation_fna        = Channel.empty()
-        ch_annotation_gff        = Channel.empty()
-        ch_annotation_gbk        = Channel.empty()
+        ch_annotation_faa            = Channel.empty()
+        ch_annotation_fna            = Channel.empty()
+        ch_annotation_gff            = Channel.empty()
+        ch_annotation_gbk            = Channel.empty()
 
     }
 
@@ -199,7 +206,7 @@ workflow FUNCSCAN {
         ARGs
     */
     if ( params.run_arg_screening ) {
-        if (params.arg_skip_deeparg) {
+        if ( params.arg_skip_deeparg ) {
             ARG ( ch_prepped_input, [] )
         } else {
             ARG (
@@ -212,7 +219,7 @@ workflow FUNCSCAN {
                     }
             )
         }
-        ch_versions = ch_versions.mix(ARG.out.versions)
+        ch_versions = ch_versions.mix( ARG.out.versions )
     }
 
     /*
@@ -245,24 +252,26 @@ workflow FUNCSCAN {
     //
     // Collate and save software versions
     //
-    softwareVersionsToYAML(ch_versions)
-        .collectFile(storeDir: "${params.outdir}/pipeline_info", name: 'nf_core_pipeline_software_mqc_versions.yml', sort: true, newLine: true)
+    softwareVersionsToYAML( ch_versions )
+        .collectFile( storeDir: "${params.outdir}/pipeline_info", name: 'nf_core_pipeline_software_mqc_versions.yml', sort: true, newLine: true )
         .set { ch_collated_versions }
 
     //
     // MODULE: MultiQC
     //
-    ch_multiqc_config                     = Channel.fromPath("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-    ch_multiqc_custom_config              = params.multiqc_config ? Channel.fromPath(params.multiqc_config, checkIfExists: true) : Channel.empty()
-    ch_multiqc_logo                       = params.multiqc_logo ? Channel.fromPath(params.multiqc_logo, checkIfExists: true) : Channel.empty()
-    summary_params                        = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
-    ch_workflow_summary                   = Channel.value(paramsSummaryMultiqc(summary_params))
+    ch_multiqc_config                     = Channel.fromPath( "$projectDir/assets/multiqc_config.yml", checkIfExists: true )
+    ch_multiqc_custom_config              = params.multiqc_config ? Channel.fromPath( params.multiqc_config, checkIfExists: true ) : Channel.empty()
+    ch_multiqc_logo                       = params.multiqc_logo ? Channel.fromPath( params.multiqc_logo, checkIfExists: true ) : Channel.empty()
+    summary_params                        = paramsSummaryMap( workflow, parameters_schema: "nextflow_schema.json" )
+    ch_workflow_summary                   = Channel.value( paramsSummaryMultiqc(summary_params) )
     ch_multiqc_custom_methods_description = params.multiqc_methods_description ? file(params.multiqc_methods_description, checkIfExists: true) : file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
-    ch_methods_description = Channel.value(methodsDescriptionText(ch_multiqc_custom_methods_description))
-    ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
-    ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
-    ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
-    if(params.annotation_tool=='prokka'){ch_multiqc_files = ch_multiqc_files.mix( PROKKA.out.txt.collect{it[1]}.ifEmpty([])) }
+    ch_methods_description                = Channel.value( methodsDescriptionText( ch_multiqc_custom_methods_description ))
+    ch_multiqc_files                      = ch_multiqc_files.mix( ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml') )
+    ch_multiqc_files                      = ch_multiqc_files.mix( ch_collated_versions )
+    ch_multiqc_files                      = ch_multiqc_files.mix( ch_methods_description.collectFile(name: 'methods_description_mqc.yaml') )
+    if( params.annotation_tool=='prokka' ) {
+        ch_multiqc_files                  = ch_multiqc_files.mix( PROKKA.out.txt.collect{it[1]}.ifEmpty([]) )
+    }
 
     MULTIQC (
         ch_multiqc_files.collect(),

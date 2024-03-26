@@ -52,16 +52,16 @@ workflow BGC {
             ch_modules_for_antismash = "https://github.com/nf-core/test-datasets/raw/91bb8781c576967e23d2c5315dd4d43213575033/data/delete_me/antismash/modules.tar.gz"
 
             UNTAR_CSS ( [ [], ch_css_for_antismash ] )
-            ch_versions = ch_versions.mix(UNTAR_CSS.out.versions)
+            ch_versions = ch_versions.mix( UNTAR_CSS.out.versions )
 
             UNTAR_DETECTION ( [ [], ch_detection_for_antismash ] )
-            ch_versions = ch_versions.mix(UNTAR_DETECTION.out.versions)
+            ch_versions = ch_versions.mix( UNTAR_DETECTION.out.versions )
 
             UNTAR_MODULES ( [ [], ch_modules_for_antismash ] )
-            ch_versions = ch_versions.mix(UNTAR_MODULES.out.versions)
+            ch_versions = ch_versions.mix( UNTAR_MODULES.out.versions )
 
             ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES ( UNTAR_CSS.out.untar.map{ it[1] }, UNTAR_DETECTION.out.untar.map{ it[1] }, UNTAR_MODULES.out.untar.map{ it[1] } )
-            ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.versions)
+            ch_versions = ch_versions.mix( ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.versions )
             ch_antismash_databases = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.database
 
             ch_antismash_directory = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.antismash_dir
@@ -106,15 +106,15 @@ workflow BGC {
 
         }
 
-        ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITE.out.versions)
+        ch_versions = ch_versions.mix( ANTISMASH_ANTISMASHLITE.out.versions )
         ch_antismashresults_for_combgc = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
-            .mix(ANTISMASH_ANTISMASHLITE.out.gbk_input)
+            .mix( ANTISMASH_ANTISMASHLITE.out.gbk_input )
             .groupTuple()
             .map{
                 meta, files ->
                 [meta, files.flatten()]
             }
-        ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(ch_antismashresults_for_combgc)
+        ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( ch_antismashresults_for_combgc )
     }
 
     // DEEPBGC
@@ -127,12 +127,12 @@ workflow BGC {
         } else {
             DEEPBGC_DOWNLOAD()
             ch_deepbgc_database = DEEPBGC_DOWNLOAD.out.db
-            ch_versions = ch_versions.mix(DEEPBGC_DOWNLOAD.out.versions)
+            ch_versions = ch_versions.mix( DEEPBGC_DOWNLOAD.out.versions )
         }
 
         DEEPBGC_PIPELINE ( fna, ch_deepbgc_database)
-        ch_versions = ch_versions.mix(DEEPBGC_PIPELINE.out.versions)
-        ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(DEEPBGC_PIPELINE.out.bgc_tsv)
+        ch_versions = ch_versions.mix( DEEPBGC_PIPELINE.out.versions )
+        ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( DEEPBGC_PIPELINE.out.bgc_tsv )
     }
 
     // GECCO
@@ -143,15 +143,15 @@ workflow BGC {
                             }
 
         GECCO_RUN ( ch_gecco_input, [] )
-        ch_versions = ch_versions.mix(GECCO_RUN.out.versions)
+        ch_versions = ch_versions.mix( GECCO_RUN.out.versions )
         ch_geccoresults_for_combgc = GECCO_RUN.out.gbk
-            .mix(GECCO_RUN.out.clusters)
+            .mix( GECCO_RUN.out.clusters )
             .groupTuple()
             .map{
                 meta, files ->
-                [meta, files.flatten()]
+                [ meta, files.flatten() ]
             }
-        ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(ch_geccoresults_for_combgc)
+        ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( ch_geccoresults_for_combgc )
     }
 
     // HMMSEARCH
@@ -177,14 +177,14 @@ workflow BGC {
             }
 
         BGC_HMMER_HMMSEARCH ( ch_in_for_bgc_hmmsearch )
-        ch_versions = ch_versions.mix(BGC_HMMER_HMMSEARCH.out.versions)
+        ch_versions = ch_versions.mix( BGC_HMMER_HMMSEARCH.out.versions )
     }
 
     // COMBGC
     COMBGC ( ch_bgcresults_for_combgc )
-    ch_versions = ch_versions.mix(COMBGC.out.versions)
+    ch_versions = ch_versions.mix( COMBGC.out.versions )
 
-    ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile(name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true)
+    ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile( name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true )
 
     emit:
     versions = ch_versions

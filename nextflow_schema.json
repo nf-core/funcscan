@@ -737,13 +737,15 @@
                     "type": "boolean",
                     "description": "Save RGI output .json file.",
                     "help_text": "When activated, this flag saves the `.json` file in the RGI output directory. The `.json` file contains the ARG predictions in a format that can be can be uploaded to the CARD website for visualization. See [RGI documentation](https://github.com/arpcard/rgi) for more details. By default, the `.json` file is generated in the working directory but not saved in the results directory to save disk space (`.json` file is quite large and not required downstream in the pipeline). ",
-                    "fa_icon": "fas fa-ad"
+                    "fa_icon": "fas fa-ad",
+                    "default": false
                 },
                 "arg_rgi_savetmpfiles": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Specify to save intermediate temporary files the results directory.",
-                    "help_text": "RGI generates many additional temporary files which in most cases won't be useful so by default are not saved.\n\nBy specifying this parameter, the files including `temp` in the name will be also saved in the output directory for closer inspection by the user, if necessary."
+                    "help_text": "RGI generates many additional temporary files which in most cases won't be useful so by default are not saved.\n\nBy specifying this parameter, the files including `temp` in the name will be also saved in the output directory for closer inspection by the user, if necessary.",
+                    "default": false
                 },
                 "arg_rgi_alignmenttool": {
                     "type": "string",
@@ -756,22 +758,23 @@
                 "arg_rgi_includeloose": {
                     "type": "boolean",
                     "description": "Include all of loose, strict and perfect hits (i.e. >=95% identity) found by RGI.",
-                    "help_text": "When activated it includes 'Loose' hits (a.k.a. Discovery) in addition to strict and perfect hits. All 'Loose' matches of 95% identity or better are automatically listed as 'Strict', regardless of alignment length (RGI v. <6.0.0). This behaviour can be overrun by using the --exclude_nudge flag. The 'Loose' algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--include_loose`",
+                    "help_text": "When activated it includes 'Loose' hits (a.k.a. Discovery) in addition to strict and perfect hits. All 'Loose' matches of 95% identity or better are automatically listed as 'Strict', regardless of alignment length (RGI v. <6.0.0). This behaviour can be overrun by using the --include_nudge flag. The 'Loose' algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--include_loose`",
                     "fa_icon": "far fa-hand-scissors",
-                    "default": true
+                    "default": false
                 },
-                "arg_rgi_excludenudge": {
+                "arg_rgi_includenudge": {
                     "type": "boolean",
                     "description": "Suppresses the default behaviour of RGI with `--arg_rgi_includeloose`.",
-                    "help_text": "This flag suppresses the default behaviour of RGI with `--include_loose`, which lists all 'Loose' matches of >= 95% identity as 'Strict', regardless of alignment length. With this strict and perfect labels are added. This is discontinued in future versions of RGI.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--exclude_nudge`",
+                    "help_text": "This flag suppresses the default behaviour of RGI with `--include_loose`, which lists all 'Loose' matches of >= 95% identity as 'Strict', regardless of alignment length. With this strict and perfect labels are added. This is discontinued in future versions of RGI.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--include_nudge`",
                     "fa_icon": "fas fa-hand-scissors",
-                    "default": true
+                    "default": false
                 },
                 "arg_rgi_lowquality": {
                     "type": "boolean",
                     "description": "Include screening of low quality contigs for partial genes.",
                     "help_text": "This flag should be used only when the contigs are of poor quality (e.g. short) to predict partial genes.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--low_quality`",
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-angle-double-down",
+                    "default": false
                 },
                 "arg_rgi_data": {
                     "type": "string",
@@ -780,6 +783,13 @@
                     "help_text": "This flag is used to specify the data type used as input to RGI. By default this is set as 'NA', which makes no assumptions on input data.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--data`",
                     "enum": ["NA", "wgs", "plasmid", "chromosome"],
                     "fa_icon": "fas fa-database"
+                },
+                "arg_rgi_split_prodigal_jobs": {
+                    "type": "boolean",
+                    "description": "Run multiple prodigal jobs simultaneously for contigs in a fasta file.",
+                    "help_text": "Modifies tool parameter:\n> - RGI: `--split_prodigal_jobs`",
+                    "fa_icon": "fas fa-angle-double-down",
+                    "default": true
                 }
             },
             "fa_icon": "fas fa-tools"
