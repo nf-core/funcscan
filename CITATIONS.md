@@ -56,7 +56,7 @@
 
 - [GECCO](https://gecco.embl.de)
 
-  > Carroll, L. M. , Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. bioRxiv. [DOI: 10.1101/2021.05.03.442509](https://doi.org/10.1101/2021.05.03.442509)
+  > Carroll, L. M., Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. bioRxiv. [DOI: 10.1101/2021.05.03.442509](https://doi.org/10.1101/2021.05.03.442509)
 
 - [AMPcombi](https://github.com/Darcy220606/AMPcombi)
 
@@ -64,7 +64,7 @@
 
 - [hAMRonization](https://github.com/pha4ge/hAMRonization)
 
-  > Maguire, F., Fornika, D., Mendes, I., Phelan, J., Underwood, A., Witney, A., pvanheus, Manuele, A., Lee, T., amos, & imendes. (2023). pha4ge/hAMRonization: Zenodo Release. Zenodo. https://doi.org/10.5281/ZENODO.8131134
+  > Mendes, I., Griffiths, E., Manuele, A., Fornika, D., Tausch, S. H., Le-Viet, T., Phelan, J., Meehan, C. J., Raphenya, A. R., Alcock, B., Culp, E., Lorenzo, F., Haim, M. S., Witney, A., Black, A., Katz, L., Oluniyi, P., Olawoye, I., Timme, R., Neoh, H., Lam, S. D., Jamaluddin, T. Z. M. T., Nathan, S., Ang, M. Y., Di Gregorio, S., Vandelannoote, K., Dusadeepong, R, Chindelevitch, L., Nasar, M. I., Aanensen, D., Afolayan, A. O., Odih, E. E., McArthur, A. G., Feldgarden, M., Galas, M. M., Campos, J., Okeke, I. N., Underwood, A., Page, A. J., MacCannell, D., Maguire, F. (2023). hAMRonization: Enhancing antimicrobial resistance prediction using the PHA4GE AMR detection specification and tooling. bioRxiv. [DOI: 10.1101/2024.03.07.583950](https://doi.org/10.1101/2024.03.07.583950)
 
 - [HMMER](https://doi.org/10.1371/journal.pcbi.1002195.)
 
