@@ -83,8 +83,7 @@ workflow ARG {
     if ( !params.arg_skip_rgi ) {
 
         // Download and prepare CARD
-        ch_card     = file('https://card.mcmaster.ca/latest/data', checkIfExists: true).copyTo('data.tar.gz')
-        UNTAR ( [ [], file("data.tar.gz") ] )
+        UNTAR ( [ [], file('https://card.mcmaster.ca/latest/data', checkIfExists: true).copyTo(params.outdir + '/databases/card/data.tar.gz') ] )
         ch_versions = ch_versions.mix( UNTAR.out.versions )
         RGI_CARDANNOTATION ( UNTAR.out.untar.map{ it[1] } )
         ch_versions = ch_versions.mix( RGI_CARDANNOTATION.out.versions )

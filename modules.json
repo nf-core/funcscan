@@ -128,7 +128,7 @@
                     },
                     "hmmer/hmmsearch": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "b046a286c8240ebe3412ddf8ae901d47008d1ca7",
                         "installed_by": ["modules"]
                     },
                     "macrel/contigs": {
