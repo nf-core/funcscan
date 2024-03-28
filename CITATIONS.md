@@ -56,7 +56,7 @@
 
 - [GECCO](https://gecco.embl.de)
 
-  > Carroll, L. M. , Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. bioRxiv. [DOI: 10.1101/2021.05.03.442509](https://doi.org/10.1101/2021.05.03.442509)
+  > Carroll, L. M., Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. bioRxiv. [DOI: 10.1101/2021.05.03.442509](https://doi.org/10.1101/2021.05.03.442509)
 
 - [AMPcombi](https://github.com/Darcy220606/AMPcombi)
 
@@ -64,7 +64,7 @@
 
 - [hAMRonization](https://github.com/pha4ge/hAMRonization)
 
-  > Maguire, F., Fornika, D., Mendes, I., Phelan, J., Underwood, A., Witney, A., pvanheus, Manuele, A., Lee, T., amos, & imendes. (2023). pha4ge/hAMRonization: Zenodo Release. Zenodo. https://doi.org/10.5281/ZENODO.8131134
+  > Mendes, I., Griffiths, E., Manuele, A., Fornika, D., Tausch, S. H., Le-Viet, T., Phelan, J., Meehan, C. J., Raphenya, A. R., Alcock, B., Culp, E., Lorenzo, F., Haim, M. S., Witney, A., Black, A., Katz, L., Oluniyi, P., Olawoye, I., Timme, R., Neoh, H., Lam, S. D., Jamaluddin, T. Z. M. T., Nathan, S., Ang, M. Y., Di Gregorio, S., Vandelannoote, K., Dusadeepong, R, Chindelevitch, L., Nasar, M. I., Aanensen, D., Afolayan, A. O., Odih, E. E., McArthur, A. G., Feldgarden, M., Galas, M. M., Campos, J., Okeke, I. N., Underwood, A., Page, A. J., MacCannell, D., Maguire, F. (2023). hAMRonization: Enhancing antimicrobial resistance prediction using the PHA4GE AMR detection specification and tooling. bioRxiv. [DOI: 10.1101/2024.03.07.583950](https://doi.org/10.1101/2024.03.07.583950)
 
 - [HMMER](https://doi.org/10.1371/journal.pcbi.1002195.)
 
@@ -88,7 +88,7 @@
 
 - [RGI](https://doi.org/10.1093/nar/gkz935)
 
-  > Alcock, B. P., Raphenya, A. R., Lau, T., Tsang, K. K., Bouchard, M., Edalatmand, A., Huynh, W., Nguyen, A. V., Cheng, A. A., Liu, S., Min, S. Y., Miroshnichenko, A., Tran, H. K., Werfalli, R. E., Nasir, J. A., Oloni, M., Speicher, D. J., Florescu, A., Singh, B., Faltyn, M., … McArthur, A. G. (2020). CARD 2020: antibiotic resistome surveillance with the comprehensive antibiotic resistance database. Nucleic acids research, 48(D1), D517–D525. [DOI: 10.1093/nar/gkz935](https://doi.org/10.1093/nar/gkz935)
+  > Alcock, B. P., Huynh, W., Chalil, R., Smith, K. W., Raphenya, A. R., Wlodarski, M. A., Edalatmand, A., Petkau, A., Syed, S. A., Tsang, K. K., Baker, S. J. C., Dave, M., McCarthy, M. C., Mukiri, K. M., Nasir, J. A., Golbon, B., Imtiaz, H., Jiang, X., Kaur, K., Kwong, M., Liang, Z. C., Niu, K. C., Shan, P., Yang, J. Y. J., Gray, K. L., Hoad, G. R., Jia, B., Bhando, T., Carfrae, L. A., Farha, M. A., French, S., Gordzevich, R., Rachwalski, K., Tu, M. M., Bordeleau, E., Dooley, D., Griffiths, E., Zubyk, H. L., Brown, E. D., Maguire, F., Beiko, R. G., Hsiao, W. W. L., Brinkman F. S. L., Van Domselaar, G., McArthur, A. G. (2023). CARD 2023: expanded curation, support for machine learning, and resistome prediction at the Comprehensive Antibiotic Resistance Database. Nucleic acids research, 51(D1):D690-D699. [DOI: 10.1093/nar/gkac920](https://doi.org/10.1093/nar/gkac920)
 
 ## Software packaging/containerisation tools
 
