@@ -1,0 +1,36 @@
+{
+  "ExpressionStatement": {
+    "expression": {
+      "BinaryExpression": {
+        "leftExpression": {
+          "VariableExpression": "res"
+        },
+        "operation": "=",
+        "rightExpression": {
+          "MethodCallExpression": {
+            "objectExpression": {
+              "MethodCallExpression": {
+                "objectExpression": {
+                  "VariableExpression": "Channel"
+                },
+                "method": "placeholder",
+                "arguments": {
+                  "ArgumentListExpression": {
+                    "expressions": []
+                  }
+                }
+              }
+            },
+            "method": "toList",
+            "arguments": {
+              "ArgumentListExpression": {
+                "expressions": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "labels": []
+  }
+}

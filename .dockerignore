@@ -1,0 +1,11 @@
+.latch
+!.latch/bin/nextflow
+!.latch/.nextflow
+!.latch/nf_entrypoint.py
+
+null
+pipeline_info
+spec
+.nextflow.log*
+work
+.nextflow

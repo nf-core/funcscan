@@ -1,0 +1,1930 @@
+{
+    "vertices": [
+        {
+            "content": {
+                "id": "0",
+                "label": "contigs",
+                "type": "Input",
+                "statement": null,
+                "ret": null,
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "1",
+                "label": "faa",
+                "type": "Input",
+                "statement": null,
+                "ret": null,
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "2",
+                "label": "Channel.empty()",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"empty\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "3",
+                "label": "Channel.empty()",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"empty\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "4",
+                "label": "Channel.empty()",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"empty\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "5",
+                "label": "Channel.empty()",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"empty\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "6",
+                "label": "params.amp_skip_amplify",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"NotExpression\":{\"NotExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"params\"},\"property\":\"amp_skip_amplify\"}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "7",
+                "label": "params.amp_skip_amplify",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"toBoolean\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "8",
+                "label": "params.amp_skip_amplify",
+                "type": "Conditional",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"condition\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"condition\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "9",
+                "label": "AMPLIFY_PREDICT",
+                "type": "Process",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"this\"},\"method\":\"AMPLIFY_PREDICT\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},{\"ListExpression\":[]}]}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"tsv\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPLIFY_PREDICT\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":0}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"versions\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPLIFY_PREDICT\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":1}}}}},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    "tsv",
+                    "versions"
+                ],
+                "module": "/Users/ayush/Desktop/workflows/funcscan/modules/nf-core/amplify/predict/main.nf",
+                "unaliased": "AMPLIFY_PREDICT"
+            }
+        },
+        {
+            "content": {
+                "id": "10",
+                "label": "mix",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"mix\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "11",
+                "label": "mix",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"mix\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "12",
+                "label": "Merge ch_ampresults_for_ampcombi",
+                "type": "Merge",
+                "statement": null,
+                "ret": null,
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "13",
+                "label": "Merge ch_versions",
+                "type": "Merge",
+                "statement": null,
+                "ret": null,
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "14",
+                "label": "params.amp_skip_macrel",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"NotExpression\":{\"NotExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"params\"},\"property\":\"amp_skip_macrel\"}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "15",
+                "label": "params.amp_skip_macrel",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"toBoolean\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "16",
+                "label": "params.amp_skip_macrel",
+                "type": "Conditional",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"condition\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"condition\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "17",
+                "label": "MACREL_CONTIGS",
+                "type": "Process",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"this\"},\"method\":\"MACREL_CONTIGS\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"smorfs\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"MACREL_CONTIGS\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":0}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"all_orfs\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"MACREL_CONTIGS\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":1}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"amp_prediction\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"MACREL_CONTIGS\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":2}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"readme_file\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"MACREL_CONTIGS\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":3}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"log_file\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"MACREL_CONTIGS\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":4}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"versions\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"MACREL_CONTIGS\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":5}}}}},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    "smorfs",
+                    "all_orfs",
+                    "amp_prediction",
+                    "readme_file",
+                    "log_file",
+                    "versions"
+                ],
+                "module": "/Users/ayush/Desktop/workflows/funcscan/modules/nf-core/macrel/contigs/main.nf",
+                "unaliased": "MACREL_CONTIGS"
+            }
+        },
+        {
+            "content": {
+                "id": "18",
+                "label": "mix",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"mix\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "19",
+                "label": "GUNZIP_MACREL_PRED",
+                "type": "Process",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"this\"},\"method\":\"GUNZIP_MACREL_PRED\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"gunzip\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"GUNZIP_MACREL_PRED\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":0}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"versions\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"GUNZIP_MACREL_PRED\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":1}}}}},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    "gunzip",
+                    "versions"
+                ],
+                "module": "/Users/ayush/Desktop/workflows/funcscan/modules/nf-core/gunzip/main.nf",
+                "unaliased": "GUNZIP"
+            }
+        },
+        {
+            "content": {
+                "id": "20",
+                "label": "GUNZIP_MACREL_ORFS",
+                "type": "Process",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"this\"},\"method\":\"GUNZIP_MACREL_ORFS\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"gunzip\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"GUNZIP_MACREL_ORFS\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":0}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"versions\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"GUNZIP_MACREL_ORFS\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":1}}}}},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    "gunzip",
+                    "versions"
+                ],
+                "module": "/Users/ayush/Desktop/workflows/funcscan/modules/nf-core/gunzip/main.nf",
+                "unaliased": "GUNZIP"
+            }
+        },
+        {
+            "content": {
+                "id": "21",
+                "label": "mix",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"mix\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "22",
+                "label": "mix",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"mix\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "23",
+                "label": "mix",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"mix\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "24",
+                "label": "mix",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"mix\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "25",
+                "label": "mix",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"mix\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "26",
+                "label": "Merge ch_macrel_faa",
+                "type": "Merge",
+                "statement": null,
+                "ret": null,
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "27",
+                "label": "Merge ch_ampresults_for_ampcombi",
+                "type": "Merge",
+                "statement": null,
+                "ret": null,
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "28",
+                "label": "Merge ch_faa_for_ampcombi",
+                "type": "Merge",
+                "statement": null,
+                "ret": null,
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "29",
+                "label": "Merge ch_versions",
+                "type": "Merge",
+                "statement": null,
+                "ret": null,
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "30",
+                "label": "params.amp_skip_ampir",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"NotExpression\":{\"NotExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"params\"},\"property\":\"amp_skip_ampir\"}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "31",
+                "label": "params.amp_skip_ampir",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"toBoolean\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "32",
+                "label": "params.amp_skip_ampir",
+                "type": "Conditional",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"condition\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"condition\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "33",
+                "label": "AMPIR",
+                "type": "Process",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"this\"},\"method\":\"AMPIR\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"params\"},\"property\":\"amp_ampir_model\"}},{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"params\"},\"property\":\"amp_ampir_minlength\"}},{\"ConstantExpression\":0.0}]}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"amps_faa\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPIR\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":0}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"amps_tsv\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPIR\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":1}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"versions\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPIR\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":2}}}}},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    "amps_faa",
+                    "amps_tsv",
+                    "versions"
+                ],
+                "module": "/Users/ayush/Desktop/workflows/funcscan/modules/nf-core/ampir/main.nf",
+                "unaliased": "AMPIR"
+            }
+        },
+        {
+            "content": {
+                "id": "34",
+                "label": "mix",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"mix\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "35",
+                "label": "mix",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"mix\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "36",
+                "label": "Merge ch_ampresults_for_ampcombi",
+                "type": "Merge",
+                "statement": null,
+                "ret": null,
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "37",
+                "label": "Merge ch_versions",
+                "type": "Merge",
+                "statement": null,
+                "ret": null,
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "38",
+                "label": "params.amp_skip_hmmsearch",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"NotExpression\":{\"NotExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"params\"},\"property\":\"amp_skip_hmmsearch\"}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "39",
+                "label": "params.amp_skip_hmmsearch",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"toBoolean\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "40",
+                "label": "params.amp_skip_hmmsearch",
+                "type": "Conditional",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"condition\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"condition\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "41",
+                "label": "params.amp_hmmsearch_models",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"NotExpression\":{\"NotExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"params\"},\"property\":\"amp_hmmsearch_models\"}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "42",
+                "label": "params.amp_hmmsearch_models",
+                "type": "Conditional",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"condition\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"condition\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "43",
+                "label": "Channel.fromPath([checkIfExists:true], params.amp_hmmsearch_models)",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"fromPath\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MapExpression\":[{\"MapEntryExpression\":{\"keyExpression\":{\"ConstantExpression\":\"checkIfExists\"},\"valueExpression\":{\"ConstantExpression\":true}}}]},{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"params\"},\"property\":\"amp_hmmsearch_models\"}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "44",
+                "label": "this.error([nf-core/funcscan] error: hmm model files not found for --amp_hmmsearch_models! Please check input.)",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"this\"},\"method\":\"error\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"ConstantExpression\":\"[nf-core/funcscan] error: hmm model files not found for --amp_hmmsearch_models! Please check input.\"}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "45",
+                "label": "map",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"map\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"ClosureExpression\":{\"code\":{\"BlockStatement\":{\"statements\":[{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"meta\"},\"operation\":\"=\",\"rightExpression\":{\"MapExpression\":[]}}},\"labels\":[]}},{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"meta\"},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":\"id\"}}},\"operation\":\"=\",\"rightExpression\":{\"TernaryExpression\":{\"booleanExpression\":{\"BooleanExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"file\"},\"property\":\"extension\"}},\"operation\":\"==\",\"rightExpression\":{\"ConstantExpression\":\"gz\"}}}},\"trueExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"file\"},\"property\":\"name\"}},\"operation\":\"-\",\"rightExpression\":{\"ConstantExpression\":\".hmm.gz\"}}},\"falseExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"file\"},\"property\":\"name\"}},\"operation\":\"-\",\"rightExpression\":{\"ConstantExpression\":\".hmm\"}}}}}}},\"labels\":[]}},{\"ExpressionStatement\":{\"expression\":{\"ListExpression\":[{\"VariableExpression\":\"meta\"},{\"VariableExpression\":\"file\"}]},\"labels\":[]}}],\"scope\":{\"declaredVariables\":[],\"referencedClassVariables\":[]},\"labels\":[]}},\"parameters\":[\"file\"]}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "46",
+                "label": "combine",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"combine\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "47",
+                "label": "map",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"map\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"ClosureExpression\":{\"code\":{\"BlockStatement\":{\"statements\":[{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"meta_new\"},\"operation\":\"=\",\"rightExpression\":{\"MapExpression\":[]}}},\"labels\":[]}},{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"meta_new\"},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":\"id\"}}},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"meta_faa\"},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":\"id\"}}}}},\"labels\":[]}},{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"meta_new\"},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":\"hmm_id\"}}},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"meta_hmm\"},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":\"id\"}}}}},\"labels\":[]}},{\"ExpressionStatement\":{\"expression\":{\"ListExpression\":[{\"VariableExpression\":\"meta_new\"},{\"VariableExpression\":\"hmm\"},{\"VariableExpression\":\"faa\"},{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"params\"},\"property\":\"amp_hmmsearch_savealignments\"}},{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"params\"},\"property\":\"amp_hmmsearch_savetargets\"}},{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"params\"},\"property\":\"amp_hmmsearch_savedomains\"}}]},\"labels\":[]}}],\"scope\":{\"declaredVariables\":[],\"referencedClassVariables\":[]},\"labels\":[]}},\"parameters\":[\"meta_faa\",\"faa\",\"meta_hmm\",\"hmm\"]}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "48",
+                "label": "AMP_HMMER_HMMSEARCH",
+                "type": "Process",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"this\"},\"method\":\"AMP_HMMER_HMMSEARCH\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"output\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMP_HMMER_HMMSEARCH\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":0}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"alignments\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMP_HMMER_HMMSEARCH\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":1}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"target_summary\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMP_HMMER_HMMSEARCH\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":2}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"domain_summary\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMP_HMMER_HMMSEARCH\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":3}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"versions\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMP_HMMER_HMMSEARCH\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":4}}}}},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    "output",
+                    "alignments",
+                    "target_summary",
+                    "domain_summary",
+                    "versions"
+                ],
+                "module": "/Users/ayush/Desktop/workflows/funcscan/modules/nf-core/hmmer/hmmsearch/main.nf",
+                "unaliased": "HMMER_HMMSEARCH"
+            }
+        },
+        {
+            "content": {
+                "id": "49",
+                "label": "mix",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"mix\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "50",
+                "label": "Merge ch_versions",
+                "type": "Merge",
+                "statement": null,
+                "ret": null,
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "51",
+                "label": "groupTuple",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"groupTuple\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "52",
+                "label": "join",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"join\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "53",
+                "label": "multiMap",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"multiMap\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"ClosureExpression\":{\"code\":{\"BlockStatement\":{\"statements\":[{\"ExpressionStatement\":{\"expression\":{\"ListExpression\":[{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"it\"},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":0}}},{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"it\"},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":1}}}]},\"labels\":[\"input\"]}},{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"it\"},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":2}}},\"labels\":[\"faa\"]}}],\"scope\":{\"declaredVariables\":[],\"referencedClassVariables\":[]},\"labels\":[]}},\"parameters\":[]}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"input\"},\"operation\":\"=\",\"rightExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"res\"},\"property\":\"input\"}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"faa\"},\"operation\":\"=\",\"rightExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"res\"},\"property\":\"faa\"}}}},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    "input",
+                    "faa"
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "54",
+                "label": "params.amp_ampcombi_db",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"NotExpression\":{\"NotExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"params\"},\"property\":\"amp_ampcombi_db\"}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "55",
+                "label": "params.amp_ampcombi_db",
+                "type": "Conditional",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"condition\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"condition\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "56",
+                "label": "Channel.fromPath([checkIfExists:true], params.amp_ampcombi_db)",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"fromPath\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MapExpression\":[{\"MapEntryExpression\":{\"keyExpression\":{\"ConstantExpression\":\"checkIfExists\"},\"valueExpression\":{\"ConstantExpression\":true}}}]},{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"params\"},\"property\":\"amp_ampcombi_db\"}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "57",
+                "label": "DRAMP_DOWNLOAD",
+                "type": "Process",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"this\"},\"method\":\"DRAMP_DOWNLOAD\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"db\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"DRAMP_DOWNLOAD\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":0}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"versions\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"DRAMP_DOWNLOAD\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":1}}}}},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    "db",
+                    "versions"
+                ],
+                "module": "/Users/ayush/Desktop/workflows/funcscan/modules/local/dramp_download.nf",
+                "unaliased": "DRAMP_DOWNLOAD"
+            }
+        },
+        {
+            "content": {
+                "id": "58",
+                "label": "Merge ch_ampcombi_input_db",
+                "type": "Merge",
+                "statement": null,
+                "ret": null,
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "59",
+                "label": "AMPCOMBI",
+                "type": "Process",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"this\"},\"method\":\"AMPCOMBI\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"sample_dir\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPCOMBI\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":0}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"txt\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPCOMBI\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":1}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"csv\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPCOMBI\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":2}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"faa\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPCOMBI\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":3}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"summary_csv\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPCOMBI\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":4}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"summary_html\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPCOMBI\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":5}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"log\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPCOMBI\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":6}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"results_db\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPCOMBI\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":7}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"results_db_dmnd\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPCOMBI\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":8}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"results_db_fasta\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPCOMBI\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":9}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"results_db_tsv\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPCOMBI\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":10}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"versions\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"AMPCOMBI\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":11}}}}},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    "sample_dir",
+                    "txt",
+                    "csv",
+                    "faa",
+                    "summary_csv",
+                    "summary_html",
+                    "log",
+                    "results_db",
+                    "results_db_dmnd",
+                    "results_db_fasta",
+                    "results_db_tsv",
+                    "versions"
+                ],
+                "module": "/Users/ayush/Desktop/workflows/funcscan/modules/nf-core/ampcombi/main.nf",
+                "unaliased": "AMPCOMBI"
+            }
+        },
+        {
+            "content": {
+                "id": "60",
+                "label": "mix",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"mix\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "61",
+                "label": "multiMap",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"multiMap\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"ClosureExpression\":{\"code\":{\"BlockStatement\":{\"statements\":[{\"ExpressionStatement\":{\"expression\":{\"ListExpression\":[{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"it\"},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":0}}}]},\"labels\":[\"input\"]}},{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"it\"},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":1}}},\"labels\":[\"summary\"]}}],\"scope\":{\"declaredVariables\":[],\"referencedClassVariables\":[]},\"labels\":[]}},\"parameters\":[]}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"input\"},\"operation\":\"=\",\"rightExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"res\"},\"property\":\"input\"}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"summary\"},\"operation\":\"=\",\"rightExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"res\"},\"property\":\"summary\"}}}},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    "input",
+                    "summary"
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "62",
+                "label": "Channel.of([id:ampcombi_complete_summary])",
+                "type": "Generator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"of\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MapExpression\":[{\"MapEntryExpression\":{\"keyExpression\":{\"ConstantExpression\":\"id\"},\"valueExpression\":{\"ConstantExpression\":\"ampcombi_complete_summary\"}}}]}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "63",
+                "label": "collectFile",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"collectFile\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MapExpression\":[{\"MapEntryExpression\":{\"keyExpression\":{\"ConstantExpression\":\"name\"},\"valueExpression\":{\"ConstantExpression\":\"ampcombi_complete_summary.csv\"}}},{\"MapEntryExpression\":{\"keyExpression\":{\"ConstantExpression\":\"keepHeader\"},\"valueExpression\":{\"ConstantExpression\":true}}}]}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "64",
+                "label": "combine",
+                "type": "Operator",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"res\"},\"operation\":\"=\",\"rightExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}},\"method\":\"combine\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"VariableExpression\":\"res\"},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    
+                ],
+                "module": "",
+                "unaliased": ""
+            }
+        },
+        {
+            "content": {
+                "id": "65",
+                "label": "TABIX_BGZIP",
+                "type": "Process",
+                "statement": "{\"ExpressionStatement\":{\"expression\":{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"this\"},\"method\":\"TABIX_BGZIP\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[{\"MethodCallExpression\":{\"objectExpression\":{\"VariableExpression\":\"Channel\"},\"method\":\"placeholder\",\"arguments\":{\"ArgumentListExpression\":{\"expressions\":[]}}}}]}}}},\"labels\":[]}}",
+                "ret": [
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"output\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"TABIX_BGZIP\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":0}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"gzi\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"TABIX_BGZIP\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":1}}}}},\"labels\":[]}}",
+                    "{\"ExpressionStatement\":{\"expression\":{\"BinaryExpression\":{\"leftExpression\":{\"VariableExpression\":\"versions\"},\"operation\":\"=\",\"rightExpression\":{\"BinaryExpression\":{\"leftExpression\":{\"PropertyExpression\":{\"objectExpression\":{\"VariableExpression\":\"TABIX_BGZIP\"},\"property\":\"out\"}},\"operation\":\"[\",\"rightExpression\":{\"ConstantExpression\":2}}}}},\"labels\":[]}}"
+                ],
+                "outputNames": [
+                    "output",
+                    "gzi",
+                    "versions"
+                ],
+                "module": "/Users/ayush/Desktop/workflows/funcscan/modules/nf-core/tabix/bgzip/main.nf",
+                "unaliased": "TABIX_BGZIP"
+            }
+        }
+    ],
+    "edges": [
+        {
+            "content": {
+                "label": "",
+                "src": "6",
+                "dest": "7",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "7",
+                "dest": "8",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "8",
+                "dest": "9",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "1",
+                "dest": "9",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "8",
+                "dest": "10",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "2",
+                "dest": "10",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "1",
+                "src": "9",
+                "dest": "10",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "8",
+                "dest": "11",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "3",
+                "dest": "11",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "0",
+                "src": "9",
+                "dest": "11",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "11",
+                "dest": "12",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "3",
+                "dest": "12",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "10",
+                "dest": "13",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "2",
+                "dest": "13",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "14",
+                "dest": "15",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "15",
+                "dest": "16",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "16",
+                "dest": "17",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "0",
+                "dest": "17",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "16",
+                "dest": "18",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "13",
+                "dest": "18",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "5",
+                "src": "17",
+                "dest": "18",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "16",
+                "dest": "19",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "2",
+                "src": "17",
+                "dest": "19",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "16",
+                "dest": "20",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "1",
+                "src": "17",
+                "dest": "20",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "16",
+                "dest": "21",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "18",
+                "dest": "21",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "1",
+                "src": "19",
+                "dest": "21",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "16",
+                "dest": "22",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "21",
+                "dest": "22",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "1",
+                "src": "20",
+                "dest": "22",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "16",
+                "dest": "23",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "12",
+                "dest": "23",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "0",
+                "src": "19",
+                "dest": "23",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "16",
+                "dest": "24",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "5",
+                "dest": "24",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "0",
+                "src": "20",
+                "dest": "24",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "16",
+                "dest": "25",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "1",
+                "dest": "25",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "24",
+                "dest": "25",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "24",
+                "dest": "26",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "5",
+                "dest": "26",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "23",
+                "dest": "27",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "12",
+                "dest": "27",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "25",
+                "dest": "28",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "1",
+                "dest": "28",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "22",
+                "dest": "29",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "13",
+                "dest": "29",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "30",
+                "dest": "31",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "31",
+                "dest": "32",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "32",
+                "dest": "33",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "1",
+                "dest": "33",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "32",
+                "dest": "34",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "29",
+                "dest": "34",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "2",
+                "src": "33",
+                "dest": "34",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "32",
+                "dest": "35",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "27",
+                "dest": "35",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "1",
+                "src": "33",
+                "dest": "35",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "35",
+                "dest": "36",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "27",
+                "dest": "36",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "34",
+                "dest": "37",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "29",
+                "dest": "37",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "38",
+                "dest": "39",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "39",
+                "dest": "40",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "40",
+                "dest": "41",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "40",
+                "dest": "42",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "41",
+                "dest": "42",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "40",
+                "dest": "43",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "42",
+                "dest": "43",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "40",
+                "dest": "44",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: false",
+                "src": "42",
+                "dest": "44",
+                "branch": false
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "40",
+                "dest": "45",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "43",
+                "dest": "45",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "40",
+                "dest": "46",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "1",
+                "dest": "46",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "45",
+                "dest": "46",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "40",
+                "dest": "47",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "46",
+                "dest": "47",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "40",
+                "dest": "48",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "47",
+                "dest": "48",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "40",
+                "dest": "49",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "37",
+                "dest": "49",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "4",
+                "src": "48",
+                "dest": "49",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "49",
+                "dest": "50",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "37",
+                "dest": "50",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "36",
+                "dest": "51",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "51",
+                "dest": "52",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "28",
+                "dest": "52",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "52",
+                "dest": "53",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "54",
+                "dest": "55",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: true",
+                "src": "55",
+                "dest": "56",
+                "branch": true
+            }
+        },
+        {
+            "content": {
+                "label": "Conditional: (condition = Channel.placeholder()) - Branch: false",
+                "src": "55",
+                "dest": "57",
+                "branch": false
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "56",
+                "dest": "58",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "0",
+                "src": "57",
+                "dest": "58",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "0",
+                "src": "53",
+                "dest": "59",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "1",
+                "src": "53",
+                "dest": "59",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "58",
+                "dest": "59",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "4",
+                "dest": "60",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "2",
+                "src": "59",
+                "dest": "60",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "60",
+                "dest": "61",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "1",
+                "src": "61",
+                "dest": "63",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "62",
+                "dest": "64",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "63",
+                "dest": "64",
+                "branch": null
+            }
+        },
+        {
+            "content": {
+                "label": "",
+                "src": "64",
+                "dest": "65",
+                "branch": null
+            }
+        }
+    ]
+}

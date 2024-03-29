@@ -1,0 +1,127 @@
+Step 1/19 : from 812206152185.dkr.ecr.us-west-2.amazonaws.com/latch-base:fe0b-main
+
+
+ ---> f23c37efcd53
+
+Step 2/19 : workdir /tmp/docker-build/work/
+
+
+ ---> Using cache
+
+ ---> dd16c2d4f334
+
+Step 3/19 : shell [     "/usr/bin/env", "bash",     "-o", "errexit",     "-o", "pipefail",     "-o", "nounset",     "-o", "verbose",     "-o", "errtrace",     "-O", "inherit_errexit",     "-O", "shift_verbose",     "-c" ]
+
+
+ ---> Using cache
+
+ ---> aaada0c60239
+
+Step 4/19 : env TZ='Etc/UTC'
+
+
+ ---> Using cache
+
+ ---> d6869bc03deb
+
+Step 5/19 : env LANG='en_US.UTF-8'
+
+
+ ---> Using cache
+
+ ---> ae2f7ca65880
+
+Step 6/19 : arg DEBIAN_FRONTEND=noninteractive
+
+
+ ---> Using cache
+
+ ---> f029b3f36a86
+
+Step 7/19 : run apt-get update &&     apt-get install -y openjdk-17-jdk-headless
+
+
+ ---> Using cache
+
+ ---> 523a3e2aaa7b
+
+Step 8/19 : run apt-get update --yes &&     apt-get install --yes curl &&     curl         --location         --fail         --remote-name         https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh &&     bash Mambaforge-Linux-x86_64.sh -b -p /opt/conda -u &&     rm Mambaforge-Linux-x86_64.sh
+
+
+ ---> Using cache
+
+ ---> ba2971acd305
+
+Step 9/19 : env PATH=/opt/conda/bin:$PATH
+
+
+ ---> Using cache
+
+ ---> 14bc6b2f3dbd
+
+Step 10/19 : run /opt/conda/bin/pip install latch
+
+
+ ---> Using cache
+
+ ---> 328e2a7a06ca
+
+Step 11/19 : run mkdir /opt/latch
+
+
+ ---> Using cache
+
+ ---> f4467dafde3a
+
+Step 12/19 : copy . /root/
+
+
+ ---> 3e4259df7f6a
+
+Step 13/19 : copy .latch/bin/nextflow /root/nextflow
+
+
+ ---> 104078816b55
+
+Step 14/19 : copy .latch/.nextflow /root/.nextflow
+
+
+ ---> 287550fe200e
+
+Step 15/19 : copy .latch/nf_entrypoint.py /root/nf_entrypoint.py
+
+
+ ---> a6fb3e330002
+
+Step 16/19 : env hello goodble
+
+
+ ---> Running in f68b4fff53de
+
+ ---> 1a4f9b4b2284
+
+Step 17/19 : arg tag
+
+
+ ---> Running in 16505586539f
+
+ ---> a7a0351c83a5
+
+Step 18/19 : env FLYTE_INTERNAL_IMAGE $tag
+
+
+ ---> Running in 3cf7146bba8b
+
+ ---> e2b27ad49388
+
+Step 19/19 : workdir /root
+
+
+ ---> Running in 5286c58808c2
+
+ ---> f0c734bc6b59
+
+Successfully built f0c734bc6b59
+
+Successfully tagged 812206152185.dkr.ecr.us-west-2.amazonaws.com/1721_nf_nf_core_funcscan:0.3.1-fe8cc7
+
