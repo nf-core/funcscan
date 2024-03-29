@@ -149,7 +149,7 @@ workflow ARG {
     ch_versions = ch_versions.mix(HAMRONIZATION_SUMMARIZE.out.versions)
 
     // MERGE_TAXONOMY
-    if ( params.run_taxonomic_classification ) {
+    if ( params.run_taxa_classification ) {
 
         ch_mmseqs_taxonomy_list = tsv.map{ it[1] }.collect()
         MERGE_TAXONOMY_HAMRONIZATION(HAMRONIZATION_SUMMARIZE.out.tsv, ch_mmseqs_taxonomy_list)

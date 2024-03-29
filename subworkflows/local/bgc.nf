@@ -188,14 +188,14 @@ workflow BGC {
     ch_versions = ch_versions.mix(COMBGC.out.versions)
 
     // COMBGC concatenation
-    if ( !params.run_taxonomic_classification ) {
+    if ( !params.run_taxa_classification ) {
         ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile(name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true)
     } else {
         ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile(name: 'combgc_complete_summary.tsv', keepHeader:true)
     }
 
     // MERGE_TAXONOMY
-    if ( params.run_taxonomic_classification ) {
+    if ( params.run_taxa_classification ) {
 
         ch_mmseqs_taxonomy_list = tsv.map{ it[1] }.collect()
         MERGE_TAXONOMY_COMBGC(ch_combgc_summaries, ch_mmseqs_taxonomy_list)
