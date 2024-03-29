@@ -107,14 +107,14 @@ workflow AMP {
     ch_versions = ch_versions.mix(AMPCOMBI.out.versions)
 
     //AMPCOMBI concatenation
-    if ( !params.run_taxonomic_classification ) {
+    if ( !params.run_taxa_classification ) {
         ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile(name: 'ampcombi_complete_summary.tsv', storeDir: "${params.outdir}/reports/ampcombi",keepHeader:true)
     } else {
         ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile(name: 'ampcombi_complete_summary.tsv', keepHeader:true)
     }
 
     // MERGE_TAXONOMY
-    if ( params.run_taxonomic_classification ) {
+    if ( params.run_taxa_classification ) {
 
         ch_mmseqs_taxonomy_list = tsv.map{ it[1] }.collect()
         MERGE_TAXONOMY_AMPCOMBI(ch_ampcombi_summaries, ch_mmseqs_taxonomy_list)

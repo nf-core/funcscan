@@ -74,13 +74,13 @@
             "description": "These options influence whether to activate the taxonomic classification of the input nucleotide sequences.",
             "default": "",
             "properties": {
-                "run_taxonomic_classification": {
+                "run_taxa_classification": {
                     "type": "boolean",
                     "description": "Activates the taxonomic classification of input mucleotide sequences.",
                     "help_text": "This flag turns on the taxonomic classification of input nucleotide sequences. The taxonomic annotations should be turned on if the input metagenomes' bacterial sources are unknown, which can help identify the source of the AMP, BGC or ARG hit obtained for laboratory experiments. This flag should be turned off (which is by deafult) if the input nucleotide sequences represnet a single known genome or *nf-core/mag* was run beforhand. Turning on this flag relatively decreases the pipleine speed and requires >8GB RAM. Due to the size of the resulting table, the final complete summary is in a zipped format.",
                     "fa_icon": "fas fa-ad"
                 },
-                "taxonomic_classification_tool": {
+                "taxa_classification_tool": {
                     "type": "string",
                     "default": "mmseqs2",
                     "help_text": "This flag specifies which tool for taxonomic classification should be activated. At the moment only 'MMseqs2' is incorporated in the pipeline.",
@@ -96,19 +96,19 @@
             "description": "These parameters influence the database to be used in classifying the taxonomy.",
             "default": "",
             "properties": {
-                "mmseqs_databases_localpath": {
+                "taxa_classification_mmseqs_databases_localpath": {
                     "description": "Specify a path to MMseqs2-formatted database.",
                     "help_text": "Specify a path to a database that is prepared in MMseqs2 format as detailed in the [documentation](https://mmseqs.com/latest/userguide.pdf).",
                     "fa_icon": "fab fa-stackpath"
                 },
-                "mmseqs_databases_id": {
+                "taxa_classification_mmseqs_databases_id": {
                     "type": "string",
                     "default": "Kalamari",
                     "help_text": "Specify which MMseqs2-formatted database to use to classify the input contigs. This can be a nucleotide or amino acid database that includes taxonomic classifications. For example, both GTDB (an amico acid database) and SILVA (a nucleotide database) are supported by MMseqs2. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\\n\\n>  Modifies tool parameter(s):\\n> - mmseqs databases <third positional argument>\".",
                     "description": "Specify the label of the database to be used.",
                     "fa_icon": "fas fa-address-card"
                 },
-                "mmseqs_databases_savetmp": {
+                "taxa_classification_mmseqs_databases_savetmp": {
                     "type": "boolean",
                     "help_text": "This flag saves the temporary files from downloading the database and formatting them in the MMseqs2 format into the output folder. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs databases: `--remove-tmp-files`\".",
                     "description": "Specify whether the temporary files should be saved.",
@@ -123,55 +123,55 @@
             "description": "These parameters influence the taxonomic classification step.",
             "default": "",
             "properties": {
-                "mmseqs_taxonomy_savetmp": {
+                "taxa_classification_mmseqs_taxonomy_savetmp": {
                     "type": "boolean",
                     "help_text": "This flag saves the temporary files from creating the taxonomy database and the final `tsv` file into the output folder.  More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--remove-tmp-files`\".\n",
                     "description": "Specify whether to save the temporary files.",
                     "fa_icon": "fab fa-adversal"
                 },
-                "mmseqs_taxonomy_searchtype": {
+                "taxa_classification_mmseqs_taxonomy_searchtype": {
                     "type": "integer",
                     "default": 2,
                     "help_text": "Specify the type of alignment to be carried out between the query database and the reference MMseqs2 database. This can be set to '0' for automatic detection, '1' for amino acid alignment, '2' for translating the inputs and running the alignment on the translated sequences, '3' nucleotide based alignment and '4' for the translated nucleotide sequences alignment. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--search-type`\".",
                     "description": "Specify the alignment type between database and query.",
                     "fa_icon": "fas fa-align-center"
                 },
-                "mmseqs_taxonomy_lcaranks": {
+                "taxa_classification_mmseqs_taxonomy_lcaranks": {
                     "type": "string",
                     "default": "kingdom,phylum,class,order,family,genus,species",
                     "help_text": "Specify the taxonomic ranks to include in the taxonomic lineage column in the final `.tsv` file. For example, 'kingdom,phylum,class,order,family,genus,species'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--lca-ranks`\".",
                     "description": "Specify the taxonomic levels to display in the result table.",
                     "fa_icon": "fas fa-stream"
                 },
-                "mmseqs_taxonomy_taxlineage": {
+                "taxa_classification_mmseqs_taxonomy_taxlineage": {
                     "type": "integer",
                     "default": 1,
                     "help_text": "This flag specifies whether the taxonomic lineage should be included in the output `.tsv` file. The taxonomic lineage is obtained from the internal module of `mmseqs/taxonomy` that infers the last common ancestor to classify the taxonomy. A value of '0' writes no taxonomic lineage, a value of '1' adds a column with the full lineage names prefixed with abbreviation of the lineage level, e.g., k_Prokaryotes;p_Bacteroidetes;c_....;o_....;f_....;g_....;s_...., while a value of '2' adds a column with the full NCBI taxids lineage,e.g., 1324;2345;4546;5345.  More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--tax-lineage`\".",
                     "description": "Specify whether to include or remove the taxonomic lineage.",
                     "fa_icon": "fab fa-audible"
                 },
-                "mmseqs_taxonomy_sensitivity": {
+                "taxa_classification_mmseqs_taxonomy_sensitivity": {
                     "type": "string",
                     "default": "5.0",
                     "help_text": "This flag specifies the speed and sensitivity of the taxonomic search. It stands for how many kmers should be produced during the preliminary seeding stage. A very fast search requires a low value e.g., '1.0' and a a very sensitive search requires e.g., '7.0'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--s`\".",
                     "description": "Specify the speed and sensitivity for taxonomy assignment.",
                     "fa_icon": "fas fa-history"
                 },
-                "mmseqs_taxonomy_orffilters": {
+                "taxa_classification_mmseqs_taxonomy_orffilters": {
                     "type": "string",
                     "default": "2.0",
                     "help_text": "This flag specifies the sensitivity used for prefiltering the query ORF. Before the taxonomy-assigning step, MMseqs2 searches the predicted ORFs against the provided database. This value influences the speed with which the search is carried out. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--orf-filter-s`\".",
                     "description": "Specify the ORF search sensitivity in the prefilter step.",
                     "fa_icon": "fas fa-clock"
                 },
-                "mmseqs_taxonomy_lcamode": {
+                "taxa_classification_mmseqs_taxonomy_lcamode": {
                     "type": "integer",
                     "default": 3,
                     "help_text": "This flag specifies the strategy used for assigning the last common ancestor (LCA). MMseqs2 assigns taxonomy based on an accelerated approximation of the 2bLCA protocol and uses the value of '3'. In this mode, the taxonomic assignment is based not only on usual alignment parameters but also considers the taxonomic classification of the LCA. When the value '4' is used the LCA is assigned based on all the equal scoring top hits. If the value '1' is used the LCA assignment is disregarded and the taxonomic assignment is based on usual alignment parameters like evalue and coverage. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--lca-mode`\".",
                     "description": "Specify the mode to assign the taxonomy.",
                     "fa_icon": "fas fa-broom"
                 },
-                "mmseqs_taxonomy_votemode": {
+                "taxa_classification_mmseqs_taxonomy_votemode": {
                     "type": "integer",
                     "default": 1,
                     "help_text": "This flag assigns the mode value with which the weights are computed. The value of '0' stands for uniform weights of taxonomy assignments, the value of '1' uses the minus log E-value and '2' the actual score. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--vote-mode`\".",

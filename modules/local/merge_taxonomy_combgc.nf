@@ -11,8 +11,8 @@ process MERGE_TAXONOMY_COMBGC {
     path(taxa_list)
 
     output:
-    path("combgc_complete_summary_taxonomy.tsv") , emit: tsv
-    path "versions.yml"                          , emit: versions
+    path "combgc_complete_summary_taxonomy.tsv" , emit: tsv
+    path "versions.yml"                         , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

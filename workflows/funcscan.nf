@@ -112,7 +112,7 @@ workflow FUNCSCAN {
     // The final subworkflow reports need taxonomic classification.
     // This can be either on NT or AA level depending on annotation.
     // TODO: Only NT at the moment. AA tax. classification will be added only when its PR is merged.
-    if ( params.run_taxonomic_classification ) {
+    if ( params.run_taxa_classification ) {
             TAXA_CLASS ( ch_prepped_input )
             ch_versions     = ch_versions.mix(TAXA_CLASS.out.versions)
             ch_taxonomy_tsv = TAXA_CLASS.out.sample_taxonomy
@@ -203,7 +203,7 @@ workflow FUNCSCAN {
     /*
         AMPs
     */
-    if ( params.run_amp_screening && !params.run_taxonomic_classification ) {
+    if ( params.run_amp_screening && !params.run_taxa_classification ) {
         AMP (
             ch_prepped_input,
             ch_annotation_faa
@@ -216,7 +216,7 @@ workflow FUNCSCAN {
             ch_taxonomy_tsv
         )
         ch_versions = ch_versions.mix(AMP.out.versions)
-    } else if ( params.run_amp_screening && params.run_taxonomic_classification ) {
+    } else if ( params.run_amp_screening && params.run_taxa_classification ) {
         AMP (
             ch_prepped_input,
             ch_annotation_faa
@@ -238,7 +238,7 @@ workflow FUNCSCAN {
     /*
         ARGs
     */
-    if ( params.run_arg_screening && !params.run_taxonomic_classification ) {
+    if ( params.run_arg_screening && !params.run_taxa_classification ) {
         if (params.arg_skip_deeparg) {
             ARG (
                 ch_prepped_input,
@@ -258,7 +258,7 @@ workflow FUNCSCAN {
             )
         }
         ch_versions = ch_versions.mix(ARG.out.versions)
-    } else if ( params.run_arg_screening && params.run_taxonomic_classification ) {
+    } else if ( params.run_arg_screening && params.run_taxa_classification ) {
         if (params.arg_skip_deeparg) {
             ARG (
                 ch_prepped_input,
@@ -293,7 +293,7 @@ workflow FUNCSCAN {
     /*
         BGCs
     */
-    if ( params.run_bgc_screening && !params.run_taxonomic_classification ) {
+    if ( params.run_bgc_screening && !params.run_taxa_classification ) {
         BGC (
             ch_prepped_input,
             ch_annotation_gff
@@ -317,7 +317,7 @@ workflow FUNCSCAN {
             ch_taxonomy_tsv
         )
         ch_versions = ch_versions.mix(BGC.out.versions)
-    } else if ( params.run_bgc_screening && params.run_taxonomic_classification ) {
+    } else if ( params.run_bgc_screening && params.run_taxa_classification ) {
         BGC (
             ch_prepped_input,
             ch_annotation_gff

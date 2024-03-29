@@ -11,8 +11,8 @@ process MERGE_TAXONOMY_AMPCOMBI {
     path(taxa_list)
 
     output:
-    path("ampcombi_complete_summary_taxonomy.tsv") , emit: tsv
-    path "versions.yml"                            , emit: versions
+    path "ampcombi_complete_summary_taxonomy.tsv" , emit: tsv
+    path "versions.yml"                           , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

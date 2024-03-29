@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# Written by Jasmin Frangenberg and released under the MIT license.
+# See below for full license text.
+
 from Bio import SeqIO
 import pandas as pd
 import argparse
