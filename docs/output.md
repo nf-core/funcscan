@@ -484,7 +484,7 @@ Output Summaries:
 - `hamronization_summarize/` one of the following:
   - `hamronization_combined_report.json`: summarised output in .json format
   - `hamronization_combined_report.tsv`: summarised output in .tsv format when the taxonomic classification is turned off (pipeline default).
-  - `hamronization_combined_report.tsv.gz`: summarised output in zipped format when the taxonomic classification is turned on by `run_taxonomic_classification`.
+  - `hamronization_combined_report.tsv.gz`: summarised output in zipped format when the taxonomic classification is turned on by `run_taxa_classification`.
   - `hamronization_combined_report.html`: interactive output in .html format
 
 </details>
@@ -541,7 +541,7 @@ Output Summaries:
 
 - `comBGC/`
   - `combgc_complete_summary.tsv`: summarised output from all BGC detection tools used in tsv format (all samples concatenated). This is the output given when the taxonomic classification is not activated, i.e., pipeline default.
-  - `combgc_complete_summary.tsv.gz`: summarised output in zipped format from all BGC detection tools used in tsv format (all samples concatenated) along with the taxonomic classification obtained when `run_taxonomic_classification` is activated.
+  - `combgc_complete_summary.tsv.gz`: summarised output in zipped format from all BGC detection tools used in tsv format (all samples concatenated) along with the taxonomic classification obtained when `run_taxa_classification` is activated.
   - `*/combgc_summary.tsv`: summarised output from all applied BGC detection tools in tsv format for each sample.
 
 </details>
