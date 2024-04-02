@@ -198,15 +198,14 @@ workflow BGC {
     if ( params.run_taxa_classification ) {
 
         ch_mmseqs_taxonomy_list = tsv.map{ it[1] }.collect()
-        MERGE_TAXONOMY_COMBGC(ch_combgc_summaries, ch_mmseqs_taxonomy_list)
-        ch_versions = ch_versions.mix(MERGE_TAXONOMY_COMBGC.out.versions)
+        MERGE_TAXONOMY_COMBGC( ch_combgc_summaries, ch_mmseqs_taxonomy_list )
+        ch_versions = ch_versions.mix( MERGE_TAXONOMY_COMBGC.out.versions )
 
-        ch_tabix_input = Channel.of(['id':'combgc_complete_summary_taxonomy'])
+        ch_tabix_input = Channel.of( [ 'id':'combgc_complete_summary_taxonomy' ] )
             .combine(MERGE_TAXONOMY_COMBGC.out.tsv)
 
-        BGC_TABIX_BGZIP(ch_tabix_input)
-        ch_versions = ch_versions.mix(BGC_TABIX_BGZIP.out.versions)
-
+        BGC_TABIX_BGZIP( ch_tabix_input )
+        ch_versions = ch_versions.mix( BGC_TABIX_BGZIP.out.versions )
     }
 
     emit:

@@ -79,15 +79,15 @@ MMseqs2 is currently the only taxonomic classification tool used in the pipeline
 
 - a custom based database created by the user using `mmseqs createdb` externally and beforehand. If this flag is assigned, this database takes precedence over the default database in ` mmseqs_databases_id`.
 
-```
-taxa_classification_mmseqs_databases_localpath 'path/to/mmsesqs_custom_database/dir'
-```
+    ```bash
+    --taxa_classification_mmseqs_databases_localpath 'path/to/mmsesqs_custom_database/dir'
+    ```
 
-- an MMseqs2 ready database. These databases were compiled by the developers of MMseqs2 and can be called using their labels. All available options can be found [here](https://github.com/soedinglab/MMseqs2/wiki#downloading-databases). Only use those databases that have taxonomy files available (i.e., Taxonomy == Yes). By default mmseqs2 in the pipeline uses 'Kalamari' and runs an aminoacid based alignment.
+- an MMseqs2 ready database. These databases were compiled by the developers of MMseqs2 and can be called using their labels. All available options can be found [here](https://github.com/soedinglab/MMseqs2/wiki#downloading-databases). Only use those databases that have taxonomy files available (i.e., Taxonomy == Yes). By default mmseqs2 in the pipeline uses '[Kalamari](https://github.com/lskatz/Kalamari)' and runs an aminoacid based alignment.
 
-```
-taxa_classification_mmseqs_databases_id 'Kalamari'
-```
+    ```bash
+    --taxa_classification_mmseqs_databases_id 'Kalamari'
+    ```
 
 ### antiSMASH
 
