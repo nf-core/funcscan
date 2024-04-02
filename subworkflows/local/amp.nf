@@ -27,36 +27,36 @@ workflow AMP {
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
     // to ensure annotation is executed!
-    ch_faa_for_amplify          = faa
-    ch_faa_for_amp_hmmsearch    = faa
-    ch_faa_for_ampir            = faa
-    ch_faa_for_ampcombi         = faa
+    ch_faa_for_amplify             = faa
+    ch_faa_for_amp_hmmsearch       = faa
+    ch_faa_for_ampir               = faa
+    ch_faa_for_ampcombi            = faa
 
     // AMPLIFY
     if ( !params.amp_skip_amplify ) {
         AMPLIFY_PREDICT ( ch_faa_for_amplify, [] )
-        ch_versions                 = ch_versions.mix(AMPLIFY_PREDICT.out.versions)
-        ch_ampresults_for_ampcombi  = ch_ampresults_for_ampcombi.mix(AMPLIFY_PREDICT.out.tsv)
+        ch_versions                = ch_versions.mix( AMPLIFY_PREDICT.out.versions )
+        ch_ampresults_for_ampcombi = ch_ampresults_for_ampcombi.mix( AMPLIFY_PREDICT.out.tsv )
     }
 
     // MACREL
     if ( !params.amp_skip_macrel ) {
         MACREL_CONTIGS ( contigs )
-        ch_versions                 = ch_versions.mix(MACREL_CONTIGS.out.versions)
+        ch_versions                = ch_versions.mix( MACREL_CONTIGS.out.versions )
         GUNZIP_MACREL_PRED ( MACREL_CONTIGS.out.amp_prediction )
         GUNZIP_MACREL_ORFS ( MACREL_CONTIGS.out.all_orfs )
-        ch_versions                 = ch_versions.mix(GUNZIP_MACREL_PRED.out.versions)
-        ch_versions                 = ch_versions.mix(GUNZIP_MACREL_ORFS.out.versions)
-        ch_ampresults_for_ampcombi  = ch_ampresults_for_ampcombi.mix(GUNZIP_MACREL_PRED.out.gunzip)
-        ch_macrel_faa               = ch_macrel_faa.mix(GUNZIP_MACREL_ORFS.out.gunzip)
-        ch_faa_for_ampcombi         = ch_faa_for_ampcombi.mix(ch_macrel_faa)
+        ch_versions                = ch_versions.mix( GUNZIP_MACREL_PRED.out.versions )
+        ch_versions                = ch_versions.mix( GUNZIP_MACREL_ORFS.out.versions )
+        ch_ampresults_for_ampcombi = ch_ampresults_for_ampcombi.mix( GUNZIP_MACREL_PRED.out.gunzip )
+        ch_macrel_faa              = ch_macrel_faa.mix( GUNZIP_MACREL_ORFS.out.gunzip )
+        ch_faa_for_ampcombi        = ch_faa_for_ampcombi.mix( ch_macrel_faa )
     }
 
     // AMPIR
     if ( !params.amp_skip_ampir ) {
         AMPIR ( ch_faa_for_ampir, params.amp_ampir_model, params.amp_ampir_minlength, 0.0 )
-        ch_versions                 = ch_versions.mix(AMPIR.out.versions)
-        ch_ampresults_for_ampcombi  = ch_ampresults_for_ampcombi.mix(AMPIR.out.amps_tsv)
+        ch_versions                = ch_versions.mix( AMPIR.out.versions )
+        ch_ampresults_for_ampcombi = ch_ampresults_for_ampcombi.mix( AMPIR.out.amps_tsv )
     }
 
     // HMMSEARCH
@@ -66,13 +66,12 @@ workflow AMP {
         ch_amp_hmm_models_meta = ch_amp_hmm_models
             .map {
                 file ->
-                    def meta  = [:]
+                    def meta   = [:]
                     meta['id'] = file.extension == 'gz' ? file.name - '.hmm.gz' :  file.name - '.hmm'
-
                 [ meta, file ]
             }
 
-        ch_in_for_amp_hmmsearch = ch_faa_for_amp_hmmsearch.combine(ch_amp_hmm_models_meta)
+        ch_in_for_amp_hmmsearch = ch_faa_for_amp_hmmsearch.combine( ch_amp_hmm_models_meta )
             .map {
                 meta_faa, faa, meta_hmm, hmm ->
                     def meta_new = [:]
@@ -82,7 +81,7 @@ workflow AMP {
             }
 
         AMP_HMMER_HMMSEARCH ( ch_in_for_amp_hmmsearch )
-        ch_versions = ch_versions.mix(AMP_HMMER_HMMSEARCH.out.versions)
+        ch_versions = ch_versions.mix( AMP_HMMER_HMMSEARCH.out.versions )
     }
 
     //AMPCOMBI
@@ -99,18 +98,18 @@ workflow AMP {
                                     .fromPath( params.amp_ampcombi_db, checkIfExists: true ) }
     else {
         DRAMP_DOWNLOAD()
-        ch_versions = ch_versions.mix(DRAMP_DOWNLOAD.out.versions)
+        ch_versions = ch_versions.mix( DRAMP_DOWNLOAD.out.versions )
         ch_ampcombi_input_db = DRAMP_DOWNLOAD.out.db
     }
 
     AMPCOMBI( ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_ampcombi_input_db )
-    ch_versions = ch_versions.mix(AMPCOMBI.out.versions)
+    ch_versions = ch_versions.mix( AMPCOMBI.out.versions )
 
     //AMPCOMBI concatenation
     if ( !params.run_taxa_classification ) {
-        ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile(name: 'ampcombi_complete_summary.tsv', storeDir: "${params.outdir}/reports/ampcombi",keepHeader:true)
+        ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile( name: 'ampcombi_complete_summary.tsv', storeDir: "${params.outdir}/reports/ampcombi",keepHeader:true )
     } else {
-        ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile(name: 'ampcombi_complete_summary.tsv', keepHeader:true)
+        ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile( name: 'ampcombi_complete_summary.tsv', keepHeader:true )
     }
 
     // MERGE_TAXONOMY
@@ -120,14 +119,13 @@ workflow AMP {
         MERGE_TAXONOMY_AMPCOMBI(ch_ampcombi_summaries, ch_mmseqs_taxonomy_list)
         ch_versions = ch_versions.mix(MERGE_TAXONOMY_AMPCOMBI.out.versions)
 
-        ch_tabix_input = Channel.of(['id':'ampcombi_complete_summary_taxonomy'])
+        ch_tabix_input = Channel.of( [ 'id':'ampcombi_complete_summary_taxonomy' ] )
             .combine(MERGE_TAXONOMY_AMPCOMBI.out.tsv)
 
-        AMP_TABIX_BGZIP(ch_tabix_input)
-        ch_versions = ch_versions.mix(AMP_TABIX_BGZIP.out.versions)
+        AMP_TABIX_BGZIP( ch_tabix_input )
+        ch_versions = ch_versions.mix( AMP_TABIX_BGZIP.out.versions )
     }
 
     emit:
     versions = ch_versions
-
 }
