@@ -23,7 +23,7 @@ To run any of the three screening workflows (AMP, ARG, and/or BGC) or taxonomic 
 - `--run_amp_screening`
 - `--run_arg_screening`
 - `--run_bgc_screening`
-- `--run_taxonomic_classification`
+- `--run_taxa_classification`
 
 When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them. For the taxonomic classification, MMseqs2 is currently the only tool implemented in the pipline.
 
