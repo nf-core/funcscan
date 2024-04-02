@@ -9,12 +9,14 @@ include { AMPIR                                                       } from '..
 include { DRAMP_DOWNLOAD                                              } from '../../modules/local/dramp_download'
 include { AMPCOMBI                                                    } from '../../modules/nf-core/ampcombi/main'
 include { GUNZIP as GUNZIP_MACREL_PRED ; GUNZIP as GUNZIP_MACREL_ORFS } from '../../modules/nf-core/gunzip/main'
-include { TABIX_BGZIP                                                 } from '../../modules/nf-core/tabix/bgzip/main'
+include { TABIX_BGZIP as AMP_TABIX_BGZIP                              } from '../../modules/nf-core/tabix/bgzip/main'
+include { MERGE_TAXONOMY_AMPCOMBI                                     } from '../../modules/local/merge_taxonomy_ampcombi'
 
 workflow AMP {
     take:
     contigs // tuple val(meta), path(contigs)
     faa     // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
+    tsv     // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
 
     main:
     ch_versions                    = Channel.empty()
@@ -102,20 +104,27 @@ workflow AMP {
 
     AMPCOMBI( ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_ampcombi_input_db )
     ch_versions = ch_versions.mix( AMPCOMBI.out.versions )
-    ch_ampcombi_summaries = ch_ampcombi_summaries.mix( AMPCOMBI.out.csv )
 
     //AMPCOMBI concatenation
-    ch_ampcombi_summaries_out = ch_ampcombi_summaries
-        .multiMap{
-                input: [ it[0] ]
-                summary: it[1]
-        }
+    if ( !params.run_taxa_classification ) {
+        ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile( name: 'ampcombi_complete_summary.tsv', storeDir: "${params.outdir}/reports/ampcombi",keepHeader:true )
+    } else {
+        ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile( name: 'ampcombi_complete_summary.tsv', keepHeader:true )
+    }
 
-    ch_tabix_input = Channel.of( [ 'id':'ampcombi_complete_summary' ] )
-        .combine( ch_ampcombi_summaries_out.summary.collectFile( name: 'ampcombi_complete_summary.csv', keepHeader:true ) )
+    // MERGE_TAXONOMY
+    if ( params.run_taxa_classification ) {
 
-    TABIX_BGZIP( ch_tabix_input )
-    ch_versions = ch_versions.mix( TABIX_BGZIP.out.versions )
+        ch_mmseqs_taxonomy_list = tsv.map{ it[1] }.collect()
+        MERGE_TAXONOMY_AMPCOMBI(ch_ampcombi_summaries, ch_mmseqs_taxonomy_list)
+        ch_versions = ch_versions.mix(MERGE_TAXONOMY_AMPCOMBI.out.versions)
+
+        ch_tabix_input = Channel.of( [ 'id':'ampcombi_complete_summary_taxonomy' ] )
+            .combine(MERGE_TAXONOMY_AMPCOMBI.out.tsv)
+
+        AMP_TABIX_BGZIP( ch_tabix_input )
+        ch_versions = ch_versions.mix( AMP_TABIX_BGZIP.out.versions )
+    }
 
     emit:
     versions = ch_versions
