@@ -2,10 +2,10 @@
     TAXONOMIC CLASSIFICATION
 */
 
-include { MMSEQS_CREATEDB   } from '../../modules/nf-core/mmseqs/createdb/main'
-include { MMSEQS_DATABASES  } from '../../modules/nf-core/mmseqs/databases/main'
-include { MMSEQS_TAXONOMY   } from '../../modules/nf-core/mmseqs/taxonomy/main'
-include { MMSEQS_CREATETSV  } from '../../modules/nf-core/mmseqs/createtsv/main'
+include { MMSEQS_CREATEDB  } from '../../modules/nf-core/mmseqs/createdb/main'
+include { MMSEQS_DATABASES } from '../../modules/nf-core/mmseqs/databases/main'
+include { MMSEQS_TAXONOMY  } from '../../modules/nf-core/mmseqs/taxonomy/main'
+include { MMSEQS_CREATETSV } from '../../modules/nf-core/mmseqs/createtsv/main'
 
 workflow TAXA_CLASS {
     take:
@@ -35,21 +35,21 @@ workflow TAXA_CLASS {
         // Create db for query contigs, assign taxonomy and convert to table format
         // MMSEQS_CREATEDB
         MMSEQS_CREATEDB ( contigs )
-        ch_versions               = ch_versions.mix(MMSEQS_CREATEDB.out.versions)
-        ch_taxonomy_querydb       = MMSEQS_CREATEDB.out.db
+        ch_versions         = ch_versions.mix( MMSEQS_CREATEDB.out.versions )
+        ch_taxonomy_querydb = MMSEQS_CREATEDB.out.db
 
         // MMSEQS_TAXONOMY
         MMSEQS_TAXONOMY ( ch_taxonomy_querydb, ch_mmseqs_db )
-        ch_versions               = ch_versions.mix(MMSEQS_TAXONOMY.out.versions)
+        ch_versions               = ch_versions.mix( MMSEQS_TAXONOMY.out.versions )
         ch_taxonomy_querydb_taxdb = MMSEQS_TAXONOMY.out.db_taxonomy
 
         // MMSEQS_CREATETSV
         MMSEQS_CREATETSV ( ch_taxonomy_querydb_taxdb, [[:],[]], ch_taxonomy_querydb )
-        ch_versions     = ch_versions.mix(MMSEQS_CREATETSV.out.versions)
+        ch_versions     = ch_versions.mix( MMSEQS_CREATETSV.out.versions )
         ch_taxonomy_tsv = MMSEQS_CREATETSV.out.tsv
     }
 
     emit:
     versions        = ch_versions
-    sample_taxonomy = ch_taxonomy_tsv              //channel: [ val(meta), tsv ]
+    sample_taxonomy = ch_taxonomy_tsv // channel: [ val(meta), tsv ]
 }
