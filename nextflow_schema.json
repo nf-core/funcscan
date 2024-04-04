@@ -16,9 +16,9 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
+                    "schema": "assets/schema_input.json",
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
-                    "schema": "assets/schema_input.json",
                     "description": "Path to comma-separated file containing information sample names and paths to corresponding FASTA files.",
                     "help_text": "Before running the pipeline, you will need to create a design file with information about the samples to be scanned by nf-core/funcscan, containing `sample name` and `path/to/your/contigs.fasta`. Use this parameter to specify its location. It has to be a comma-separated file with 2 columns, and a header row (`sample, fasta`). See [usage docs](https://nf-co.re/funcscan/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
@@ -68,6 +68,119 @@
             },
             "fa_icon": "fas fa-network-wired"
         },
+        "taxonomic_classification": {
+            "title": "Taxonomic classification",
+            "type": "object",
+            "description": "These options influence whether to activate the taxonomic classification of the input nucleotide sequences.",
+            "default": "",
+            "properties": {
+                "run_taxa_classification": {
+                    "type": "boolean",
+                    "description": "Activates the taxonomic classification of input nucleotide sequences.",
+                    "help_text": "This flag turns on the taxonomic classification of input nucleotide sequences. The taxonomic annotations should be turned on if the input metagenomes' bacterial sources are unknown, which can help identify the source of the AMP, BGC or ARG hit obtained for laboratory experiments. This flag should be turned off (which is by default) if the input nucleotide sequences represent a single known genome or *nf-core/mag* was run beforehand. Turning on this flag relatively decreases the pipeline speed and requires >8GB RAM. Due to the size of the resulting table, the final complete summary is in a zipped format.",
+                    "fa_icon": "fas fa-ad"
+                },
+                "taxa_classification_tool": {
+                    "type": "string",
+                    "default": "mmseqs2",
+                    "help_text": "This flag specifies which tool for taxonomic classification should be activated. At the moment only 'MMseqs2' is incorporated in the pipeline.",
+                    "description": "Specifies the tool used for taxonomic classification.",
+                    "fa_icon": "fas fa-check-circle"
+                }
+            },
+            "fa_icon": "fas fa-address-book"
+        },
+        "taxonomic_classification_mmseqs2_databases": {
+            "title": "Taxonomic classification: MMseqs2 databases",
+            "type": "object",
+            "description": "These parameters influence the database to be used in classifying the taxonomy.",
+            "default": "",
+            "properties": {
+                "taxa_classification_mmseqs_databases_localpath": {
+                    "description": "Specify a path to MMseqs2-formatted database.",
+                    "help_text": "Specify a path to a database that is prepared in MMseqs2 format as detailed in the [documentation](https://mmseqs.com/latest/userguide.pdf).",
+                    "fa_icon": "fab fa-stackpath"
+                },
+                "taxa_classification_mmseqs_databases_id": {
+                    "type": "string",
+                    "default": "Kalamari",
+                    "help_text": "Specify which MMseqs2-formatted database to use to classify the input contigs. This can be a nucleotide or amino acid database that includes taxonomic classifications. For example, both GTDB (an amico acid database) and SILVA (a nucleotide database) are supported by MMseqs2. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\\n\\n>  Modifies tool parameter(s):\\n> - mmseqs databases <name>\".",
+                    "description": "Specify the label of the database to be used.",
+                    "fa_icon": "fas fa-address-card"
+                },
+                "taxa_classification_mmseqs_databases_savetmp": {
+                    "type": "boolean",
+                    "help_text": "This flag saves the temporary files from downloading the database and formatting it in the MMseqs2 format into the output folder. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\\n\\n>  Modifies tool parameter(s):\\n> - mmseqs databases: `--remove-tmp-files`\".",
+                    "description": "Specify whether the temporary files should be saved.",
+                    "fa_icon": "fas fa-file-download"
+                }
+            },
+            "fa_icon": "far fa-address-card"
+        },
+        "taxonomic_classification_mmseqs2_taxonomy": {
+            "title": "Taxonomic classification: MMseqs2 taxonomy",
+            "type": "object",
+            "description": "These parameters influence the taxonomic classification step.",
+            "default": "",
+            "properties": {
+                "taxa_classification_mmseqs_taxonomy_savetmp": {
+                    "type": "boolean",
+                    "help_text": "This flag saves the temporary files from creating the taxonomy database and the final `tsv` file into the output folder.  More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--remove-tmp-files`\".\n",
+                    "description": "Specify whether to save the temporary files.",
+                    "fa_icon": "fab fa-adversal"
+                },
+                "taxa_classification_mmseqs_taxonomy_searchtype": {
+                    "type": "integer",
+                    "default": 2,
+                    "help_text": "Specify the type of alignment to be carried out between the query database and the reference MMseqs2 database. This can be set to '0' for automatic detection, '1' for amino acid alignment, '2' for translating the inputs and running the alignment on the translated sequences, '3' nucleotide based alignment and '4' for the translated nucleotide sequences alignment. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--search-type`\".",
+                    "description": "Specify the alignment type between database and query.",
+                    "fa_icon": "fas fa-align-center"
+                },
+                "taxa_classification_mmseqs_taxonomy_lcaranks": {
+                    "type": "string",
+                    "default": "kingdom,phylum,class,order,family,genus,species",
+                    "help_text": "Specify the taxonomic ranks to include in the taxonomic lineage column in the final `.tsv` file. For example, 'kingdom,phylum,class,order,family,genus,species'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--lca-ranks`\".",
+                    "description": "Specify the taxonomic levels to display in the result table.",
+                    "fa_icon": "fas fa-stream"
+                },
+                "taxa_classification_mmseqs_taxonomy_taxlineage": {
+                    "type": "integer",
+                    "default": 1,
+                    "help_text": "This flag specifies whether the taxonomic lineage should be included in the output `.tsv` file. The taxonomic lineage is obtained from the internal module of `mmseqs/taxonomy` that infers the last common ancestor to classify the taxonomy. A value of '0' writes no taxonomic lineage, a value of '1' adds a column with the full lineage names prefixed with abbreviation of the lineage level, e.g. k_Prokaryotes;p_Bacteroidetes;c_....;o_....;f_....;g_....;s_...., while a value of '2' adds a column with the full NCBI taxids lineage,e.g. 1324;2345;4546;5345. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--tax-lineage`\".",
+                    "description": "Specify whether to include or remove the taxonomic lineage.",
+                    "fa_icon": "fab fa-audible"
+                },
+                "taxa_classification_mmseqs_taxonomy_sensitivity": {
+                    "type": "string",
+                    "default": "5.0",
+                    "help_text": "This flag specifies the speed and sensitivity of the taxonomic search. It stands for how many kmers should be produced during the preliminary seeding stage. A very fast search requires a low value e.g. '1.0' and a a very sensitive search requires e.g. '7.0'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--s`\".",
+                    "description": "Specify the speed and sensitivity for taxonomy assignment.",
+                    "fa_icon": "fas fa-history"
+                },
+                "taxa_classification_mmseqs_taxonomy_orffilters": {
+                    "type": "string",
+                    "default": "2.0",
+                    "help_text": "This flag specifies the sensitivity used for prefiltering the query ORF. Before the taxonomy-assigning step, MMseqs2 searches the predicted ORFs against the provided database. This value influences the speed with which the search is carried out. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--orf-filter-s`\".",
+                    "description": "Specify the ORF search sensitivity in the prefilter step.",
+                    "fa_icon": "fas fa-clock"
+                },
+                "taxa_classification_mmseqs_taxonomy_lcamode": {
+                    "type": "integer",
+                    "default": 3,
+                    "help_text": "This flag specifies the strategy used for assigning the last common ancestor (LCA). MMseqs2 assigns taxonomy based on an accelerated approximation of the 2bLCA protocol and uses the value of '3'. In this mode, the taxonomic assignment is based not only on usual alignment parameters but also considers the taxonomic classification of the LCA. When the value '4' is used the LCA is assigned based on all the equal scoring top hits. If the value '1' is used the LCA assignment is disregarded and the taxonomic assignment is based on usual alignment parameters like E-value and coverage. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--lca-mode`\".",
+                    "description": "Specify the mode to assign the taxonomy.",
+                    "fa_icon": "fas fa-broom"
+                },
+                "taxa_classification_mmseqs_taxonomy_votemode": {
+                    "type": "integer",
+                    "default": 1,
+                    "help_text": "This flag assigns the mode value with which the weights are computed. The value of '0' stands for uniform weights of taxonomy assignments, the value of '1' uses the minus log E-value and '2' the actual score. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--vote-mode`\".",
+                    "description": "Specify the weights of the taxonomic assignment.",
+                    "fa_icon": "fas fa-poll"
+                }
+            },
+            "fa_icon": "fas fa-tag"
+        },
         "annotation": {
             "title": "Annotation",
             "type": "object",
@@ -87,7 +200,8 @@
                     "fa_icon": "fas fa-save"
                 }
             },
-            "fa_icon": "fas fa-file-signature"
+            "fa_icon": "fas fa-file-signature",
+            "help_text": ""
         },
         "annotation_bakta": {
             "title": "Annotation: BAKTA",
@@ -409,7 +523,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Specify whether to save pipeline-downloaded databases in your results directory.",
-                    "help_text": "While nf-core/funcscan can download databases for you, often these are very large and can significantly slow-down pipeline runtime if the databases have to be downloaded every run.\n\nSpecifying `--save_databases` while save the pipeline-downloaded databases in your results directory. This applies to: BAKTA, DeepBGC, DeepARG, AMRFinderPlus, antiSMASH, and DRAMP.\n\nYou can then move the resulting directories/files to a central cache directory of your choice for re-use in the future.\n\nIf you do not specify these flags, the database files will remain in your `work/` directory and will be deleted if `cleanup = true` is specified in your config, or if you run `nextflow clean`.\n"
+                    "help_text": "While nf-core/funcscan can download databases for you, often these are very large and can significantly slow-down pipeline runtime if the databases have to be downloaded every run.\n\nSpecifying `--save_databases` while save the pipeline-downloaded databases in your results directory. This applies to: AMRFinderPlus, antiSMASH, BAKTA, CARD, DeepARG, DeepBGC, and DRAMP.\n\nYou can then move the resulting directories/files to a central cache directory of your choice for re-use in the future.\n\nIf you do not specify these flags, the database files will remain in your `work/` directory and will be deleted if `cleanup = true` is specified in your config, or if you run `nextflow clean`.\n"
                 }
             },
             "fa_icon": "fas fa-database"
@@ -737,13 +851,15 @@
                     "type": "boolean",
                     "description": "Save RGI output .json file.",
                     "help_text": "When activated, this flag saves the `.json` file in the RGI output directory. The `.json` file contains the ARG predictions in a format that can be can be uploaded to the CARD website for visualization. See [RGI documentation](https://github.com/arpcard/rgi) for more details. By default, the `.json` file is generated in the working directory but not saved in the results directory to save disk space (`.json` file is quite large and not required downstream in the pipeline). ",
-                    "fa_icon": "fas fa-ad"
+                    "fa_icon": "fas fa-ad",
+                    "default": false
                 },
                 "arg_rgi_savetmpfiles": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Specify to save intermediate temporary files the results directory.",
-                    "help_text": "RGI generates many additional temporary files which in most cases won't be useful so by default are not saved.\n\nBy specifying this parameter, the files including `temp` in the name will be also saved in the output directory for closer inspection by the user, if necessary."
+                    "help_text": "RGI generates many additional temporary files which in most cases won't be useful so by default are not saved.\n\nBy specifying this parameter, the files including `temp` in the name will be also saved in the output directory for closer inspection by the user, if necessary.",
+                    "default": false
                 },
                 "arg_rgi_alignmenttool": {
                     "type": "string",
@@ -756,22 +872,23 @@
                 "arg_rgi_includeloose": {
                     "type": "boolean",
                     "description": "Include all of loose, strict and perfect hits (i.e. >=95% identity) found by RGI.",
-                    "help_text": "When activated it includes 'Loose' hits (a.k.a. Discovery) in addition to strict and perfect hits. All 'Loose' matches of 95% identity or better are automatically listed as 'Strict', regardless of alignment length (RGI v. <6.0.0). This behaviour can be overrun by using the --exclude_nudge flag. The 'Loose' algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--include_loose`",
+                    "help_text": "When activated it includes 'Loose' hits (a.k.a. Discovery) in addition to strict and perfect hits. All 'Loose' matches of 95% identity or better are automatically listed as 'Strict', regardless of alignment length (RGI v. <6.0.0). This behaviour can be overrun by using the --include_nudge flag. The 'Loose' algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--include_loose`",
                     "fa_icon": "far fa-hand-scissors",
-                    "default": true
+                    "default": false
                 },
-                "arg_rgi_excludenudge": {
+                "arg_rgi_includenudge": {
                     "type": "boolean",
                     "description": "Suppresses the default behaviour of RGI with `--arg_rgi_includeloose`.",
-                    "help_text": "This flag suppresses the default behaviour of RGI with `--include_loose`, which lists all 'Loose' matches of >= 95% identity as 'Strict', regardless of alignment length. With this strict and perfect labels are added. This is discontinued in future versions of RGI.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--exclude_nudge`",
+                    "help_text": "This flag suppresses the default behaviour of RGI with `--include_loose`, which lists all 'Loose' matches of >= 95% identity as 'Strict', regardless of alignment length. With this strict and perfect labels are added. This is discontinued in future versions of RGI.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--include_nudge`",
                     "fa_icon": "fas fa-hand-scissors",
-                    "default": true
+                    "default": false
                 },
                 "arg_rgi_lowquality": {
                     "type": "boolean",
                     "description": "Include screening of low quality contigs for partial genes.",
                     "help_text": "This flag should be used only when the contigs are of poor quality (e.g. short) to predict partial genes.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--low_quality`",
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-angle-double-down",
+                    "default": false
                 },
                 "arg_rgi_data": {
                     "type": "string",
@@ -780,6 +897,13 @@
                     "help_text": "This flag is used to specify the data type used as input to RGI. By default this is set as 'NA', which makes no assumptions on input data.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--data`",
                     "enum": ["NA", "wgs", "plasmid", "chromosome"],
                     "fa_icon": "fas fa-database"
+                },
+                "arg_rgi_split_prodigal_jobs": {
+                    "type": "boolean",
+                    "description": "Run multiple prodigal jobs simultaneously for contigs in a fasta file.",
+                    "help_text": "Modifies tool parameter:\n> - RGI: `--split_prodigal_jobs`",
+                    "fa_icon": "fas fa-angle-double-down",
+                    "default": true
                 }
             },
             "fa_icon": "fas fa-tools"
@@ -1108,39 +1232,6 @@
             "fa_icon": "fas fa-file-import",
             "help_text": ""
         },
-        "reference_genome_options": {
-            "title": "Reference genome options",
-            "type": "object",
-            "fa_icon": "fas fa-dna",
-            "description": "Reference genome related files and options required for the workflow.",
-            "properties": {
-                "genome": {
-                    "type": "string",
-                    "description": "Name of iGenomes reference.",
-                    "fa_icon": "fas fa-book",
-                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details.",
-                    "hidden": true
-                },
-                "fasta": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": false,
-                    "mimetype": "text/plain",
-                    "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
-                    "description": "Path to FASTA genome file.",
-                    "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
-                    "fa_icon": "far fa-file-code",
-                    "hidden": true
-                },
-                "igenomes_ignore": {
-                    "type": "boolean",
-                    "description": "Do not load the iGenomes reference config.",
-                    "fa_icon": "fas fa-ban",
-                    "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`.",
-                    "hidden": true
-                }
-            }
-        },
         "institutional_config_options": {
             "title": "Institutional config options",
             "type": "object",
@@ -1338,13 +1429,19 @@
     },
     "allOf": [
         {
-            "$ref": "#/definitions/annotation_pyrodigal"
-        },
-        {
             "$ref": "#/definitions/input_output_options"
         },
         {
             "$ref": "#/definitions/screening_type_activation"
+        },
+        {
+            "$ref": "#/definitions/taxonomic_classification"
+        },
+        {
+            "$ref": "#/definitions/taxonomic_classification_mmseqs2_databases"
+        },
+        {
+            "$ref": "#/definitions/taxonomic_classification_mmseqs2_taxonomy"
         },
         {
             "$ref": "#/definitions/annotation"
@@ -1357,6 +1454,9 @@
         },
         {
             "$ref": "#/definitions/annotation_prodigal"
+        },
+        {
+            "$ref": "#/definitions/annotation_pyrodigal"
         },
         {
             "$ref": "#/definitions/database_downloading_options"
@@ -1405,9 +1505,6 @@
         },
         {
             "$ref": "#/definitions/reporting"
-        },
-        {
-            "$ref": "#/definitions/reference_genome_options"
         },
         {
             "$ref": "#/definitions/institutional_config_options"

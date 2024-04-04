@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.1.5dev - [date]
+## v1.2.0dev - [date]
 
 ### `Added`
 
@@ -11,17 +11,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#324](https://github.com/nf-core/funcscan/pull/324) Removed separate DeepARG test profile because database download is now stable. (by @jasmezz)
 - [#332](https://github.com/nf-core/funcscan/pull/332) & [#327](https://github.com/nf-core/funcscan/pull/327) Merged pipeline template of nf-core/tools version 2.12.1 (by @jfy133, @jasmezz)
 - [#338](https://github.com/nf-core/funcscan/pull/338) Set `--meta` parameter to default for Bakta, with singlemode optional. (by @jasmezz)
+- [#343](https://github.com/nf-core/funcscan/pull/343) Added contig taxonomic classification using [MMseqs2](https://github.com/soedinglab/MMseqs2/). (by @darcy220606)
 
 ### `Fixed`
 
+- [#343](https://github.com/nf-core/funcscan/pull/343) Standardized the resulting workflow summary tables to always start with 'sample_id\tcontig_id\t..'. Reformatted the output of `hamronization/summarize` module. (by @darcy220606)
+- [#348](https://github.com/nf-core/funcscan/pull/348) Updated samplesheet for pipeline tests to 'samplesheet_reduced.csv' with smaller datasets to reduce resource consumption. Updated prodigal module to fix pigz issue. Removed `tests/` from `.gitignore`. (by @darcy220606)
+
+| Tool          | Previous version | New version |
+| ------------- | ---------------- | ----------- |
+| AMRFinderPlus | 3.11.18          | 3.12.8      |
+| antiSMASH     | 6.1.1            | 7.1.0       |
+| DeepARG       | 1.0.2            | 1.0.4       |
+| DeepBGC       | 0.1.30           | 0.1.31      |
+| GECCO         | 0.9.8            | 0.9.10      |
+| hAMRonization | 1.1.1            | 1.1.4       |
+| HMMER         | 3.3.2            | 3.4         |
+| MultiQC       | 1.15             | 1.19        |
+| Pyrodigal     | 2.1.0            | 3.3.0       |
+| RGI           | 5.2.1            | 6.0.3       |
+| tabix/htslib  | 1.11             | 1.19.1      |
+
+## v1.1.5 - [2024-03-20]
+
+### `Added`
+
+### `Fixed`
+
+- [#346](https://github.com/nf-core/funcscan/pull/346) Pinned version of nf-validation to 1.1.3
+
 ### `Dependencies`
 
-| Tool      | Previous version | New version |
-| --------- | ---------------- | ----------- |
-| antiSMASH | 6.1.1            | 7.1.0       |
-| DeepARG   | 1.0.2            | 1.0.4       |
-| DeepBGC   | 0.1.30           | 0.1.31      |
-| MultiQC   | 1.15             | 1.19        |
+| Plugin        | Previous | New version |
+| ------------- | -------- | ----------- |
+| Bakta         | 1.8.2    | 1.9.3       |
+| nf-validation | Latest   | 1.1.3       |
 
 ### `Deprecated`
 

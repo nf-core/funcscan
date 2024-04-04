@@ -6,7 +6,7 @@
 
 ## Introduction
 
-nf-core/funcscan is a pipeline for efficient and parallelised screening of long nucleotide sequences such as contigs for antimicrobial peptide genes, antimicrobial resistance genes, and biosynthetic gene clusters.
+nf-core/funcscan is a pipeline for efficient and parallelised screening of long nucleotide sequences such as contigs for antimicrobial peptide genes, antimicrobial resistance genes, and biosynthetic gene clusters. It can additionally identify the taxonomic origin of the sequences.
 
 ## Running the pipeline
 
@@ -18,13 +18,14 @@ nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
 
-To run any of the three screening workflows (AMP, ARG, and/or BGC), switch them on by adding the respective flag(s) to the command:
+To run any of the three screening workflows (AMP, ARG, and/or BGC) or taxonomic classification, switch them on by adding the respective flag(s) to the command:
 
 - `--run_amp_screening`
 - `--run_arg_screening`
 - `--run_bgc_screening`
+- `--run_taxa_classification`
 
-When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them.
+When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them. For the taxonomic classification, MMseqs2 is currently the only tool implemented in the pipline.
 
 **Example:** You want to run AMP and ARG screening but you don't need the DeepARG tool of the ARG workflow and the Macrel tool of the AMP workflow. Your command would be:
 
@@ -84,9 +85,25 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 We highly recommend performing quality control on input contigs before running the pipeline. You may not receive results for some tools if none of the contigs in a FASTA file reach certain thresholds. Check parameter documentation for relevant minimum contig parameters.
 :::
 
-## Notes on screening tools
+## Notes on screening tools and taxonomic classification
 
 The implementation of some tools in the pipeline may have some particular behaviours that you should be aware of before you run the pipeline.
+
+### MMseqs2
+
+MMseqs2 is currently the only taxonomic classification tool used in the pipeline to assign a taxonomic lineage to the input contigs. The database used to assign the taxonomic lineage can either be:
+
+- a custom based database created by the user using `mmseqs createdb` externally and beforehand. If this flag is assigned, this database takes precedence over the default database in ` mmseqs_databases_id`.
+
+  ```bash
+  --taxa_classification_mmseqs_databases_localpath 'path/to/mmsesqs_custom_database/dir'
+  ```
+
+- an MMseqs2 ready database. These databases were compiled by the developers of MMseqs2 and can be called using their labels. All available options can be found [here](https://github.com/soedinglab/MMseqs2/wiki#downloading-databases). Only use those databases that have taxonomy files available (i.e., Taxonomy == Yes). By default mmseqs2 in the pipeline uses '[Kalamari](https://github.com/lskatz/Kalamari)' and runs an aminoacid based alignment.
+
+  ```bash
+  --taxa_classification_mmseqs_databases_id 'Kalamari'
+  ```
 
 ### antiSMASH
 

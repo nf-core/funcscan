@@ -8,9 +8,9 @@ The output of nf-core/funcscan provides reports for each of the functional group
 - antimicrobial peptides (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) – summarised by [AMPcombi](https://github.com/Darcy220606/AMPcombi))
 - biosynthetic gene clusters (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org) – summarised by [comBGC](#combgc))
 
-As a general workflow, we recommend to first look at the summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each result. The tool-specific output directories also includes the output from the functional annotation steps of either [prokka](https://github.com/tseemann/prokka), [pyrodigal](https://github.com/althonos/pyrodigal), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set.
+As a general workflow, we recommend to first look at the summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each result. The tool-specific output directories also includes the output from the functional annotation steps of either [prokka](https://github.com/tseemann/prokka), [pyrodigal](https://github.com/althonos/pyrodigal), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set. Additionally, taxonomic classifications from [MMseqs2](https://github.com/soedinglab/MMseqs2) are saved if the `--taxa_classification_mmseqs_databases_savetmp` and `--taxa_classification_mmseqs_taxonomy_savetmp` flags are set.
 
-Similarly, all downloaded databases are saved (i.e. from [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), and/or [AMPcombi](https://github.com/Darcy220606/AMPcombi)) into the output directory `<outdir>/downloads/` if the `--save_databases` flag was set.
+Similarly, all downloaded databases are saved (i.e. from [MMseqs2](https://github.com/soedinglab/MMseqs2), [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [RGI](https://github.com/arpcard/rgi), and/or [AMPcombi](https://github.com/Darcy220606/AMPcombi)) into the output directory `<outdir>/databases/` if the `--save_databases` flag was set.
 
 Furthermore, for reproducibility, versions of all software used in the run is presented in a [MultiQC](http://multiqc.info) report.
 
@@ -18,6 +18,8 @@ The directories listed below will be created in the results directory (specified
 
 ```console
 results/
+├── taxonomic_classification/
+|   └── mmseqs_createtsv/
 ├── annotation/
 |   ├── bakta/
 |   ├── prodigal
@@ -53,6 +55,10 @@ work/
 ## Pipeline overview
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes prokaryotic sequence data through the following steps:
+
+Taxonomy classification of nucleotide sequences with:
+
+- [MMseqs2](https://github.com/soedinglab/MMseqs2) (default) - for contig taxonomic classification using 2bLCA.
 
 ORF prediction and annotation with any of:
 
@@ -93,9 +99,24 @@ Output Summaries:
 
 ## Tool details
 
+### Taxonomic classification tool
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `taxonomic_classification/mmseqs2_createtsv/`
+  - `<samplename>/`:
+    - `*.tsv`: tab-separated table containing the taxonomic lineage of every contig. When a contig cannot be classified according to the database, it is assigned in the 'lineage' column as 'no rank | unclassified'.
+- `reports/<workflow>/<workflow>_complete_summary_taxonomy.tsv.gz`: tab-separated table containing the concatenated results from the <workflow> summary tables along with the taxonomic classification if the parameter `--run_taxa_classification` is called.
+</details>
+
+[MMseqs2](https://github.com/soedinglab/MMseqs2) classifies the taxonomic lineage of contigs based on the last common ancestor. The inferred taxonomic lineages are included in the final workflow summaries to annotate the potential source bacteria of the identified AMPs, ARGs, and/or BGCs.
+
 ### Annotation tools
 
 [Pyrodigal](#pyrodigal), [Prodigal](#prodigal), [Prokka](#prokka), [Bakta](#bakta)
+
+### Annotation tools
 
 #### Prodigal
 
@@ -403,16 +424,13 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `ampcombi/`
-  - `ampcombi_complete_summary.csv.gz`: summarised output from all AMP workflow tools (except hmmer_hmmsearch) in compressed csv format
+  - `ampcombi_complete_summary.tsv`: tab-separated table containing the concatenated results from the AMPcombi summary tables. This is the output given when the taxonomic classification is not activated (pipeline default).
+  - `ampcombi_complete_summary_taxonomy.tsv.gz`: summarised output from all AMP workflow tools with taxonomic assignment in compressed tsv format.
   - `ampcombi.log`: a log file generated by ampcombi
-  - `*_ampcombi.csv`: summarised output in csv for each sample
-  - `*_amp.faa*`: fasta file containing the amino acid sequences for all AMP hits for each sample
-  - `*_diamond_matches.txt*`: alignment file generated by DIAMOND for each sample
-
-</details>
-
-<details markdown="1">
-<summary>AMP summary table header descriptions</summary>
+  - `<sample>/*_ampcombi.csv`: summarised output in csv for each sample
+  - `<sample>/*_amp.faa*`: fasta file containing the amino acid sequences for all AMP hits for each sample
+  - `<sample>/*_diamond_matches.txt*`: alignment file generated by DIAMOND for each sample
+  <summary>AMP summary table header descriptions</summary>
 
 | Table column              | Description                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -463,9 +481,10 @@ Output Summaries:
 <details markdown="1">
 <summary>Output files</summary>
 
-- `hamronization/` one of the following:
+- `hamronization_summarize/` one of the following:
   - `hamronization_combined_report.json`: summarised output in .json format
-  - `hamronization_combined_report.tsv`: summarised output in .tsv format
+  - `hamronization_combined_report.tsv`: summarised output in .tsv format when the taxonomic classification is turned off (pipeline default).
+  - `hamronization_combined_report.tsv.gz`: summarised output in gzipped format when the taxonomic classification is turned on by `--run_taxa_classification`.
   - `hamronization_combined_report.html`: interactive output in .html format
 
 </details>
@@ -521,7 +540,8 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `comBGC/`
-  - `combgc_complete_summary.tsv`: summarised output from all BGC detection tools used in tsv format (all samples concatenated).
+  - `combgc_complete_summary.tsv`: summarised output from all BGC detection tools used in tsv format (all samples concatenated). This is the output given when the taxonomic classification is not activated (pipeline default).
+  - `combgc_complete_summary.tsv.gz`: summarised output in gzipped format from all BGC detection tools used in tsv format (all samples concatenated) along with the taxonomic classification obtained when `--run_taxa_classification` is activated.
   - `*/combgc_summary.tsv`: summarised output from all applied BGC detection tools in tsv format for each sample.
 
 </details>
