@@ -30,9 +30,9 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 include { ANNOTATION } from '../subworkflows/local/annotation'
-include { AMP        }  from '../subworkflows/local/amp'
-include { ARG        }  from '../subworkflows/local/arg'
-include { BGC        }  from '../subworkflows/local/bgc'
+include { AMP        } from '../subworkflows/local/amp'
+include { ARG        } from '../subworkflows/local/arg'
+include { BGC        } from '../subworkflows/local/bgc'
 include { TAXA_CLASS } from '../subworkflows/local/taxa_class'
 
 /*
@@ -110,7 +110,7 @@ workflow FUNCSCAN {
                                     // https://github.com/antismash/antismash/issues/364
                                     if ( params.run_bgc_screening && !params.bgc_skip_antismash && feature_found != null ) {
                                         log.warn("[nf-core/funcscan] antiSMASH screening requested and pre-annotated files given.")
-                                        log.warn("Be aware that Prokka generated GFF or GBK files will likely fail with antiSMASH!")
+                                        log.warn("Be aware that Prokka-generated GFF or GBK files will likely fail with antiSMASH!")
                                         log.warn("See usage docs. File: " + feature_found.name) }
 
                                     def fasta   = fasta_found   != null ? fasta_found : []
@@ -142,25 +142,13 @@ workflow FUNCSCAN {
                                     [ meta + meta_new, fasta, faa, feature ]
                                 }
 
-    /*
-        TAXONOMIC CLASSIFICATION
-    */
-
-    // The final subworkflow reports need taxonomic classification.
-    // This can be either on NT or AA level depending on annotation.
-    // TODO: Only NT at the moment. AA tax. classification will be added only when its PR is merged.
-    if ( params.run_taxa_classification ) {
-            TAXA_CLASS ( ch_prepped_input )
-            ch_versions     = ch_versions.mix( TAXA_CLASS.out.versions )
-            ch_taxonomy_tsv = TAXA_CLASS.out.sample_taxonomy
-
-    } else {
-
-            ch_mmseqs_db              = Channel.empty()
-            ch_taxonomy_querydb       = Channel.empty()
-            ch_taxonomy_querydb_taxdb = Channel.empty()
-            ch_taxonomy_tsv           = Channel.empty()
-    }
+        // Separate pre-annotated FASTAs from those that need annotation
+    ch_input_for_annotation = ch_intermediate_input
+                                .branch {
+                                    meta, fasta, protein, feature ->
+                                        preannotated: protein != []
+                                        unannotated: true
+                                }
 
     /*
         ANNOTATION
@@ -214,6 +202,26 @@ workflow FUNCSCAN {
                             gbks: [meta, gbk]
                         }
 
+
+    /*
+        TAXONOMIC CLASSIFICATION
+    */
+
+    // The final subworkflow reports need taxonomic classification.
+    // This can be either on NT or AA level depending on annotation.
+    // TODO: Only NT at the moment. AA tax. classification will be added only when its PR is merged.
+    if ( params.run_taxa_classification ) {
+            TAXA_CLASS ( ch_prepped_input.fastas )
+            ch_versions     = ch_versions.mix( TAXA_CLASS.out.versions )
+            ch_taxonomy_tsv = TAXA_CLASS.out.sample_taxonomy
+
+    } else {
+            ch_mmseqs_db              = Channel.empty()
+            ch_taxonomy_querydb       = Channel.empty()
+            ch_taxonomy_querydb_taxdb = Channel.empty()
+            ch_taxonomy_tsv           = Channel.empty()
+    }
+
     ///////////////
     // SCREENING //
     ///////////////
@@ -236,17 +244,17 @@ workflow FUNCSCAN {
         ch_versions = ch_versions.mix(AMP.out.versions)
     } else if ( params.run_amp_screening && params.run_taxa_classification ) {
         AMP (
-            ch_prepped_input,
-            ch_annotation_faa
+            ch_prepped_input.fastas,
+            ch_prepped_input.faas
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                     },
             ch_taxonomy_tsv
                 .filter {
                         meta, file ->
-                        if ( file.isEmpty() ) log.warn("Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
                         !file.isEmpty()
                     }
         )
@@ -259,7 +267,7 @@ workflow FUNCSCAN {
     if ( params.run_arg_screening && !params.run_taxa_classification ) {
         if ( params.arg_skip_deeparg ) {
             ARG (
-                ch_prepped_input,
+                ch_prepped_input.fastas,
                 [],
                 ch_taxonomy_tsv
                 )
@@ -279,28 +287,28 @@ workflow FUNCSCAN {
     } else if ( params.run_arg_screening && params.run_taxa_classification ) {
         if ( params.arg_skip_deeparg ) {
             ARG (
-                ch_prepped_input,
+                ch_prepped_input.fastas,
                 [],
                 ch_taxonomy_tsv
                     .filter {
                         meta, file ->
-                        if ( file.isEmpty() ) log.warn("Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
                         !file.isEmpty()
                     }
                 )
         } else {
             ARG (
-                ch_prepped_input,
-                ch_annotation_faa
+                ch_prepped_input.fastas,
+                ch_prepped_input.faas
                     .filter {
                         meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                             !file.isEmpty()
                     },
                 ch_taxonomy_tsv
                     .filter {
                         meta, file ->
-                        if ( file.isEmpty() ) log.warn("Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
                         !file.isEmpty()
                 }
             )
@@ -313,23 +321,23 @@ workflow FUNCSCAN {
     */
     if ( params.run_bgc_screening && !params.run_taxa_classification ) {
         BGC (
-            ch_prepped_input,
-            ch_annotation_gff
+            ch_prepped_input.fastas,
+            ch_prepped_input.gffs
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GFF file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GFF file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
-            ch_annotation_faa
+            ch_prepped_input.faas
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
-            ch_annotation_gbk
+            ch_prepped_input.gbks
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
             ch_taxonomy_tsv
@@ -359,7 +367,7 @@ workflow FUNCSCAN {
             ch_taxonomy_tsv
                     .filter {
                         meta, file ->
-                        if ( file.isEmpty() ) log.warn("Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
                         !file.isEmpty()
                 }
         )

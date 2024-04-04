@@ -19,11 +19,11 @@ include { MERGE_TAXONOMY_COMBGC                    } from '../../modules/local/m
 workflow BGC {
 
     take:
-    fna         // tuple val(meta), path(PREPPED_INPUT.out.fna)
-    gff         // tuple val(meta), path(<ANNO_TOOL>.out.gff)
-    faa         // tuple val(meta), path(<ANNO_TOOL>.out.faa)
-    gbk         // tuple val(meta), path(<ANNO_TOOL>.out.gbk)
-    tsv         // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
+    fastas // tuple val(meta), path(PREPPED_INPUT.out.fna)
+    faas   // tuple val(meta), path(<ANNO_TOOL>.out.faa)
+    gffs   // tuple val(meta), path(<ANNO_TOOL>.out.gff)
+    gbks   // tuple val(meta), path(<ANNO_TOOL>.out.gbk)
+    tsvs   // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
 
     main:
     ch_versions              = Channel.empty()
@@ -74,40 +74,49 @@ workflow BGC {
 
         // Exact input combination to antismash depends on whether gff (requires fna) or gbk (just gbk) necessary
 
-            ch_antismash_gff_input = fastas.join(gffs, by: 0)
-                                    .filter {
-                                        meta, fastas, gff ->
-                                            if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. Antismash will not be run for sample: ${meta.id}."
-                                            meta.longest_contig >= params.bgc_antismash_sampleminlength
-                                    }
-                                    .multiMap {
-                                        meta, fastas, gff ->
-                                        fastas: [ meta, fastas ]
-                                        gffs: [ gff ]
-                                    }
+        // TODO: if ( annotation input is "gff" ) do this:
+        ch_antismash_gff_input = fastas.join(gffs, by: 0)
+                                .filter {
+                                    meta, fastas, gff ->
+                                        if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. AntiSMASH will not be run for sample: ${meta.id}."
+                                        meta.longest_contig >= params.bgc_antismash_sampleminlength
+                                }
+                                .multiMap {
+                                    meta, fastas, gff ->
+                                    fastas: [ meta, fastas ]
+                                    gffs: [ gff ]
+                                }
 
-            ANTISMASH_GFF ( ch_antismash_gff_input.fastas, ch_antismash_databases, ch_antismash_directory, ch_antismash_gff_input.gffs )
-            ch_versions = ch_versions.mix(ANTISMASH_GFF.out.versions)
+        ANTISMASH_GFF ( ch_antismash_gff_input.fastas, ch_antismash_databases, ch_antismash_directory, ch_antismash_gff_input.gffs )
+        ch_versions = ch_versions.mix(ANTISMASH_GFF.out.versions)
 
-            ch_antismash_gbk_input = gbks.filter {
-                                        meta, files ->
-                                            if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. Antismash will not be run for sample: ${meta.id}."
-                                            meta.longest_contig >= params.bgc_antismash_sampleminlength
-                                    }
+        // TODO: else if ( antismash input is "gbk") do this:
+        ch_antismash_gbk_input = gbks
+                                .filter {
+                                    meta, files ->
+                                        if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. AntiSMASH will not be run for sample: ${meta.id}."
+                                        meta.longest_contig >= params.bgc_antismash_sampleminlength
+                                }
 
-            ANTISMASH_ANTISMASHLITE ( ch_antismash_input, ch_antismash_databases, ch_antismash_directory, [] )
+        ANTISMASH_GBK ( ch_antismash_gbk_input, ch_antismash_databases, ch_antismash_directory, [] )
+        ch_versions = ch_versions.mix(ANTISMASH_GBK.out.versions)
 
-        }
+        // TODO: Fix below
+        // ch_antismashresults_for_combgc = ANTISMASH_GFF.out.knownclusterblast_dir.dump(tag: 'gff_cluster')
+        //                                     .dump(tag: 'antismash_gff_knownclusterblast_dir')
+        //                                     .mix(ANTISMASH_GFF.out.gbk_input.dump(tag: 'gff_input'))
+        //                                     .dump(tag: 'antismash_gff_gbk_input')
+        //                                     .mix(ANTISMASH_GBK.out.knownclusterblast_dir.dump(tag: 'gbk_cluster'))
+        //                                     .dump(tag: 'antismash_gbk_knownclusterblast_dir')
+        //                                     .mix(ANTISMASH_GBK.out.gbk_input.dump(tag: 'gbk_input'))
+        //                                     .dump(tag: 'antismash_gbk_gbk_input')
+        //                                     .groupTuple()
+        //                                     .map{
+        //                                         meta, files ->
+        //                                         [meta, files.flatten()]
+        //                                     }
 
-        ch_versions = ch_versions.mix( ANTISMASH_ANTISMASHLITE.out.versions )
-        ch_antismashresults_for_combgc = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
-            .mix( ANTISMASH_ANTISMASHLITE.out.gbk_input )
-            .groupTuple()
-            .map{
-                meta, files ->
-                [meta, files.flatten()]
-            }
-        ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( ch_antismashresults_for_combgc )
+        // ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( ch_antismashresults_for_combgc )
     }
 
     // DEEPBGC
@@ -123,7 +132,7 @@ workflow BGC {
             ch_versions = ch_versions.mix( DEEPBGC_DOWNLOAD.out.versions )
         }
 
-        DEEPBGC_PIPELINE ( fna, ch_deepbgc_database)
+        DEEPBGC_PIPELINE ( fastas, ch_deepbgc_database)
         ch_versions = ch_versions.mix( DEEPBGC_PIPELINE.out.versions )
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( DEEPBGC_PIPELINE.out.bgc_tsv )
     }

@@ -22,9 +22,9 @@ include { MERGE_TAXONOMY_HAMRONIZATION      }  from '../../modules/local/merge_t
 
 workflow ARG {
     take:
-    contigs // tuple val(meta), path(contigs)
+    fastas      // tuple val(meta), path(contigs)
     annotations
-    tsv     // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
+    tsvs        // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
 
     main:
     ch_versions = Channel.empty()
@@ -45,7 +45,7 @@ workflow ARG {
     }
 
     if ( !params.arg_skip_amrfinderplus ) {
-        AMRFINDERPLUS_RUN ( contigs, ch_amrfinderplus_db )
+        AMRFINDERPLUS_RUN ( fastas, ch_amrfinderplus_db )
         ch_versions = ch_versions.mix( AMRFINDERPLUS_RUN.out.versions )
 
     // Reporting
@@ -59,7 +59,7 @@ workflow ARG {
 
         ch_fargene_classes = Channel.fromList( params.arg_fargene_hmmmodel.tokenize(',') )
 
-        ch_fargene_input = contigs
+        ch_fargene_input = fastas
                             .combine( ch_fargene_classes )
                             .map {
                                 meta, fastas, hmm_class ->
@@ -72,7 +72,7 @@ workflow ARG {
                                 hmmclass: it[2]
                             }
 
-        FARGENE ( ch_fargene_input.contigs, ch_fargene_input.hmmclass )
+        FARGENE ( ch_fargene_input.fastas, ch_fargene_input.hmmclass )
         ch_versions = ch_versions.mix( FARGENE.out.versions )
 
         // Reporting
@@ -91,7 +91,7 @@ workflow ARG {
         RGI_CARDANNOTATION ( UNTAR.out.untar.map{ it[1] } )
         ch_versions = ch_versions.mix( RGI_CARDANNOTATION.out.versions )
 
-        RGI_MAIN ( contigs, RGI_CARDANNOTATION.out.db, [] )
+        RGI_MAIN ( fastas, RGI_CARDANNOTATION.out.db, [] )
         ch_versions = ch_versions.mix( RGI_MAIN.out.versions )
 
         // Reporting
@@ -138,7 +138,7 @@ workflow ARG {
 
     // ABRicate run
     if ( !params.arg_skip_abricate ) {
-        ABRICATE_RUN ( contigs )
+        ABRICATE_RUN ( fastas )
         ch_versions = ch_versions.mix( ABRICATE_RUN.out.versions )
 
         HAMRONIZATION_ABRICATE ( ABRICATE_RUN.out.report, 'json', '1.0.1', '2021-Mar-27' )

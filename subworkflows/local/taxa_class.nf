@@ -9,7 +9,7 @@ include { MMSEQS_CREATETSV } from '../../modules/nf-core/mmseqs/createtsv/main'
 
 workflow TAXA_CLASS {
     take:
-    contigs // tuple val(meta), path(contigs)
+    fastas // tuple val(meta), path(contigs)
 
     main:
     ch_versions               = Channel.empty()
@@ -34,7 +34,7 @@ workflow TAXA_CLASS {
 
         // Create db for query contigs, assign taxonomy and convert to table format
         // MMSEQS_CREATEDB
-        MMSEQS_CREATEDB ( contigs )
+        MMSEQS_CREATEDB ( fastas )
         ch_versions         = ch_versions.mix( MMSEQS_CREATEDB.out.versions )
         ch_taxonomy_querydb = MMSEQS_CREATEDB.out.db
 

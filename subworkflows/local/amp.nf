@@ -14,9 +14,9 @@ include { MERGE_TAXONOMY_AMPCOMBI                                     } from '..
 
 workflow AMP {
     take:
-    contigs // tuple val(meta), path(contigs)
-    faa     // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
-    tsv     // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
+    fastas // tuple val(meta), path(contigs)
+    faas   // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
+    tsvs   // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
 
     main:
     ch_versions                    = Channel.empty()
@@ -27,11 +27,10 @@ workflow AMP {
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
     // to ensure annotation is executed!
-
-    ch_faa_for_amplify             = faa
-    ch_faa_for_amp_hmmsearch       = faa
-    ch_faa_for_ampir               = faa
-    ch_faa_for_ampcombi            = faa
+    ch_faa_for_amplify             = faas
+    ch_faa_for_amp_hmmsearch       = faas
+    ch_faa_for_ampir               = faas
+    ch_faa_for_ampcombi            = faas
 
     // AMPLIFY
     if ( !params.amp_skip_amplify ) {
@@ -42,7 +41,7 @@ workflow AMP {
 
     // MACREL
     if ( !params.amp_skip_macrel ) {
-        MACREL_CONTIGS ( contigs )
+        MACREL_CONTIGS ( fastas )
         ch_versions                = ch_versions.mix( MACREL_CONTIGS.out.versions )
         GUNZIP_MACREL_PRED ( MACREL_CONTIGS.out.amp_prediction )
         GUNZIP_MACREL_ORFS ( MACREL_CONTIGS.out.all_orfs )
@@ -72,14 +71,15 @@ workflow AMP {
                 [ meta, file ]
             }
 
-        ch_in_for_amp_hmmsearch = ch_faa_for_amp_hmmsearch.combine( ch_amp_hmm_models_meta )
-            .map {
-                meta_faa, faa, meta_hmm, hmm ->
-                    def meta_new = [:]
-                    meta_new['id']     = meta_faa['id']
-                    meta_new['hmm_id'] = meta_hmm['id']
-                [ meta_new, hmm, faa, params.amp_hmmsearch_savealignments, params.amp_hmmsearch_savetargets, params.amp_hmmsearch_savedomains ]
-            }
+        ch_in_for_amp_hmmsearch = ch_faa_for_amp_hmmsearch
+                                    .combine( ch_amp_hmm_models_meta )
+                                    .map {
+                                        meta_faa, faa, meta_hmm, hmm ->
+                                            def meta_new = [:]
+                                            meta_new['id']     = meta_faa['id']
+                                            meta_new['hmm_id'] = meta_hmm['id']
+                                        [ meta_new, hmm, faa, params.amp_hmmsearch_savealignments, params.amp_hmmsearch_savetargets, params.amp_hmmsearch_savedomains ]
+                                    }
 
         AMP_HMMER_HMMSEARCH ( ch_in_for_amp_hmmsearch )
         ch_versions = ch_versions.mix( AMP_HMMER_HMMSEARCH.out.versions )
