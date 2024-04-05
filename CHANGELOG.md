@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Tool          | Previous version | New version |
 | ------------- | ---------------- | ----------- |
+| AMPlify       | 1.1.0            | 2.0.0       |
 | AMRFinderPlus | 3.11.18          | 3.12.8      |
 | antiSMASH     | 6.1.1            | 7.1.0       |
 | DeepARG       | 1.0.2            | 1.0.4       |

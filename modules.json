@@ -22,7 +22,7 @@
                     },
                     "amplify/predict": {
                         "branch": "master",
-                        "git_sha": "b15e8f066db9071996e83c0bec4a5d1a6e0b7b65",
+                        "git_sha": "5f9b79852ecea362439d5a302aa204bdee0e7f97",
                         "installed_by": ["modules"]
                     },
                     "amrfinderplus/run": {
