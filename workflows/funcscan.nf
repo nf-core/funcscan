@@ -45,22 +45,9 @@ include { TAXA_CLASS } from '../subworkflows/local/taxa_class'
 // MODULE: Installed directly from nf-core/modules
 //
 
-include { MULTIQC                        } from '../modules/nf-core/multiqc/main'
-include { GUNZIP as GUNZIP_INPUT_PREP    } from '../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PRODIGAL_FNA  } from '../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PRODIGAL_FAA  } from '../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PRODIGAL_GFF  } from '../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PYRODIGAL_FNA } from '../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PYRODIGAL_FAA } from '../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PYRODIGAL_GFF } from '../modules/nf-core/gunzip/main'
-include { BIOAWK                         } from '../modules/nf-core/bioawk/main'
-include { PROKKA                         } from '../modules/nf-core/prokka/main'
-include { PRODIGAL as PRODIGAL_GFF       } from '../modules/nf-core/prodigal/main'
-include { PRODIGAL as PRODIGAL_GBK       } from '../modules/nf-core/prodigal/main'
-include { PYRODIGAL as PYRODIGAL_GBK     } from '../modules/nf-core/pyrodigal/main'
-include { PYRODIGAL as PYRODIGAL_GFF     } from '../modules/nf-core/pyrodigal/main'
-include { BAKTA_BAKTADBDOWNLOAD          } from '../modules/nf-core/bakta/baktadbdownload/main'
-include { BAKTA_BAKTA                    } from '../modules/nf-core/bakta/bakta/main'
+include { BIOAWK                      } from '../modules/nf-core/bioawk/main'
+include { GUNZIP as GUNZIP_INPUT_PREP } from '../modules/nf-core/gunzip/main'
+include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -105,17 +92,10 @@ workflow FUNCSCAN {
                                 meta, files ->
                                     def fasta_found   = files.find{it.toString().tokenize('.').last().matches('fasta|fas|fna|fa')}
                                     def faa_found     = files.find{it.toString().endsWith('.faa')}
-                                    def feature_found = files.find{it.toString().tokenize('.').last().matches('gff|gbk')}
-
-                                    // https://github.com/antismash/antismash/issues/364
-                                    if ( params.run_bgc_screening && !params.bgc_skip_antismash && feature_found != null ) {
-                                        log.warn("[nf-core/funcscan] antiSMASH screening requested and pre-annotated files given.")
-                                        log.warn("Be aware that Prokka-generated GFF or GBK files will likely fail with antiSMASH!")
-                                        log.warn("See usage docs. File: " + feature_found.name) }
-
-                                    def fasta   = fasta_found   != null ? fasta_found : []
-                                    def faa     = faa_found     != null ? faa_found : []
-                                    def feature = feature_found != null ? feature_found : []
+                                    def feature_found = files.find{it.toString().tokenize('.').last().matches('gbk')}
+                                    def fasta         = fasta_found   != null ? fasta_found   : []
+                                    def faa           = faa_found     != null ? faa_found     : []
+                                    def feature       = feature_found != null ? feature_found : []
 
                                     [meta, fasta, faa, feature]
                             }
@@ -165,22 +145,12 @@ workflow FUNCSCAN {
 
         ANNOTATION( ch_unannotated_for_annotation )
         ch_versions = ch_versions.mix(ANNOTATION.out.versions)
+        ch_multiqc_files = ch_multiqc_files.mix(ANNOTATION.out.multiqc_files)
 
         // Only Bakta and Prokka make GBK, else give empty entry to satisfy downstream cardinality
-        if ( ['bakta', 'prokka'].contains(params.annotation_tool) ) {
-            ch_new_annotation = ch_unannotated_for_annotation
-                                    .join(ANNOTATION.out.faa)
-                                    .join(ANNOTATION.out.gff)
-                                    .join(ANNOTATION.out.gbk)
-        } else {
-            ch_new_annotation = ch_unannotated_for_annotation
-                        .join(ANNOTATION.out.faa)
-                        .join(ANNOTATION.out.gff)
-                        .map {
-                            meta, fasta, faa, gff ->
-                                [meta, fasta, faa, gff, []]
-                        }
-        }
+        ch_new_annotation = ch_unannotated_for_annotation
+                                .join(ANNOTATION.out.faa)
+                                .join(ANNOTATION.out.gbk)
 
     } else {
         ch_new_annotation = Channel.empty()
@@ -189,16 +159,14 @@ workflow FUNCSCAN {
     ch_prepped_input = ch_input_for_annotation.preannotated
                         .map{
                             meta, fasta, protein, feature ->
-                                def gff = feature.extension == 'gff' ? feature : []
                                 def gbk = feature.extension == 'gbk' ? feature : []
-                            [meta, fasta, protein, gff, gbk]
+                            [meta, fasta, protein, gbk]
                         }
                         .mix(ch_new_annotation)
                         .multiMap {
-                            meta, fasta, protein, gff, gbk ->
+                            meta, fasta, protein, gbk ->
                             fastas: [meta, fasta]
                             faas: [meta, protein]
-                            gffs: [meta, gff]
                             gbks: [meta, gbk]
                         }
 
@@ -302,7 +270,7 @@ workflow FUNCSCAN {
                 ch_prepped_input.faas
                     .filter {
                         meta, file ->
-                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. ARG screening tools requiring this file will not be executed: ${meta.id}")
                             !file.isEmpty()
                     },
                 ch_taxonomy_tsv
@@ -322,22 +290,16 @@ workflow FUNCSCAN {
     if ( params.run_bgc_screening && !params.run_taxa_classification ) {
         BGC (
             ch_prepped_input.fastas,
-            ch_prepped_input.gffs
-                .filter {
-                    meta, file ->
-                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GFF file. AMP screening tools requiring this file will not be executed: ${meta.id}")
-                        !file.isEmpty()
-                },
             ch_prepped_input.faas
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. BGC screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
             ch_prepped_input.gbks
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GBK file. BGC screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
             ch_taxonomy_tsv
@@ -352,16 +314,10 @@ workflow FUNCSCAN {
                         if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. BGC screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
-            ch_prepped_input.gffs
-                .filter {
-                    meta, file ->
-                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GFF file. BGC screening tools requiring this file will not be executed: ${meta.id}")
-                        !file.isEmpty()
-                },
             ch_prepped_input.gbks
                 .filter {
                     meta, file ->
-                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced an empty GBK file. BGC screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
             ch_taxonomy_tsv
@@ -389,15 +345,12 @@ workflow FUNCSCAN {
     ch_multiqc_custom_config              = params.multiqc_config ? Channel.fromPath( params.multiqc_config, checkIfExists: true ) : Channel.empty()
     ch_multiqc_logo                       = params.multiqc_logo ? Channel.fromPath( params.multiqc_logo, checkIfExists: true ) : Channel.empty()
     summary_params                        = paramsSummaryMap( workflow, parameters_schema: "nextflow_schema.json" )
-    ch_workflow_summary                   = Channel.value( paramsSummaryMultiqc(summary_params) )
+    ch_workflow_summary                   = Channel.value( paramsSummaryMultiqc( summary_params ) )
     ch_multiqc_custom_methods_description = params.multiqc_methods_description ? file(params.multiqc_methods_description, checkIfExists: true) : file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
     ch_methods_description                = Channel.value( methodsDescriptionText( ch_multiqc_custom_methods_description ))
     ch_multiqc_files                      = ch_multiqc_files.mix( ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml') )
     ch_multiqc_files                      = ch_multiqc_files.mix( ch_collated_versions )
     ch_multiqc_files                      = ch_multiqc_files.mix( ch_methods_description.collectFile(name: 'methods_description_mqc.yaml') )
-    if( params.annotation_tool=='prokka' ) {
-        ch_multiqc_files                  = ch_multiqc_files.mix( PROKKA.out.txt.collect{it[1]}.ifEmpty([]) )
-    }
 
     MULTIQC (
         ch_multiqc_files.collect(),
