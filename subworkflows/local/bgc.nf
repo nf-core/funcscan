@@ -87,7 +87,7 @@ workflow BGC {
                                                 meta, files ->
                                                 [meta, files.flatten()]
                                             }
-        
+
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( ch_antismashresults_for_combgc )
     }
 

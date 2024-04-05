@@ -116,7 +116,7 @@ workflow AMP {
     // MERGE_TAXONOMY
     if ( params.run_taxa_classification ) {
 
-        ch_mmseqs_taxonomy_list = tsv.map{ it[1] }.collect()
+        ch_mmseqs_taxonomy_list = tsvs.map{ it[1] }.collect()
         MERGE_TAXONOMY_AMPCOMBI(ch_ampcombi_summaries, ch_mmseqs_taxonomy_list)
         ch_versions = ch_versions.mix(MERGE_TAXONOMY_AMPCOMBI.out.versions)
 

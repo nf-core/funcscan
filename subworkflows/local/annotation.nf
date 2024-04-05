@@ -27,11 +27,14 @@ workflow ANNOTATION {
             PRODIGAL ( fasta, "gbk" )
             GUNZIP_PRODIGAL_FAA ( PRODIGAL.out.amino_acid_fasta )
             GUNZIP_PRODIGAL_FNA ( PRODIGAL.out.nucleotide_fasta)
-            GUNZIP_PYRODIGAL_GBK ( PRODIGAL.out.gene_annotations )
+            GUNZIP_PRODIGAL_GBK ( PRODIGAL.out.gene_annotations )
             ch_versions       = ch_versions.mix(PRODIGAL.out.versions)
+            ch_versions       = ch_versions.mix(GUNZIP_PRODIGAL_FAA.out.versions)
+            ch_versions       = ch_versions.mix(GUNZIP_PRODIGAL_FNA.out.versions)
+            ch_versions       = ch_versions.mix(GUNZIP_PRODIGAL_GBK.out.versions)
             ch_annotation_faa = GUNZIP_PRODIGAL_FAA.out.gunzip
             ch_annotation_fna = GUNZIP_PRODIGAL_FNA.out.gunzip
-            ch_annotation_gbk = GUNZIP_PYRODIGAL_GBK.out.gunzip
+            ch_annotation_gbk = GUNZIP_PRODIGAL_GBK.out.gunzip
 
         } else if ( params.annotation_tool == "pyrodigal" ) {
 
@@ -40,6 +43,9 @@ workflow ANNOTATION {
             GUNZIP_PYRODIGAL_FNA ( PYRODIGAL.out.fna)
             GUNZIP_PYRODIGAL_GBK ( PYRODIGAL.out.annotations )
             ch_versions       = ch_versions.mix(PYRODIGAL.out.versions)
+            ch_versions       = ch_versions.mix(GUNZIP_PYRODIGAL_FAA.out.versions)
+            ch_versions       = ch_versions.mix(GUNZIP_PYRODIGAL_FNA.out.versions)
+            ch_versions       = ch_versions.mix(GUNZIP_PYRODIGAL_GBK.out.versions)
             ch_annotation_faa = GUNZIP_PYRODIGAL_FAA.out.gunzip
             ch_annotation_fna = GUNZIP_PYRODIGAL_FNA.out.gunzip
             ch_annotation_gbk = GUNZIP_PYRODIGAL_GBK.out.gunzip
