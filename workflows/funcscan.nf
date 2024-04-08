@@ -81,12 +81,12 @@ workflow FUNCSCAN {
                         }
 
     GUNZIP_INPUT_PREP ( ch_input_prep.compressed )
-    ch_versions = ch_versions.mix(GUNZIP_INPUT_PREP.out.versions)
+    ch_versions = ch_versions.mix( GUNZIP_INPUT_PREP.out.versions )
 
     // Merge all the already uncompressed and newly compressed FASTAs here into
     // a single input channel for downstream
     ch_intermediate_input = GUNZIP_INPUT_PREP.out.gunzip
-                            .mix(ch_input_prep.uncompressed)
+                            .mix( ch_input_prep.uncompressed )
                             .groupTuple()
                             .map{
                                 meta, files ->
@@ -110,11 +110,11 @@ workflow FUNCSCAN {
     ch_intermediate_input.annotations
 
     BIOAWK ( ch_intermediate_input.fastas )
-    ch_versions = ch_versions.mix(BIOAWK.out.versions)
+    ch_versions = ch_versions.mix( BIOAWK.out.versions )
 
     ch_intermediate_input = ch_intermediate_input.fastas
-                                .join(BIOAWK.out.longest)
-                                .join(ch_intermediate_input.annotations)
+                                .join( BIOAWK.out.longest )
+                                .join( ch_intermediate_input.annotations )
                                 .map{
                                     meta, fasta, length, faa, feature ->
                                         def meta_new = [:]
@@ -122,7 +122,7 @@ workflow FUNCSCAN {
                                     [ meta + meta_new, fasta, faa, feature ]
                                 }
 
-        // Separate pre-annotated FASTAs from those that need annotation
+    // Separate pre-annotated FASTAs from those that need annotation
     ch_input_for_annotation = ch_intermediate_input
                                 .branch {
                                     meta, fasta, protein, feature ->
@@ -144,13 +144,12 @@ workflow FUNCSCAN {
                                             }
 
         ANNOTATION( ch_unannotated_for_annotation )
-        ch_versions = ch_versions.mix(ANNOTATION.out.versions)
-        ch_multiqc_files = ch_multiqc_files.mix(ANNOTATION.out.multiqc_files)
+        ch_versions = ch_versions.mix( ANNOTATION.out.versions )
+        ch_multiqc_files = ch_multiqc_files.mix( ANNOTATION.out.multiqc_files )
 
-        // Only Bakta and Prokka make GBK, else give empty entry to satisfy downstream cardinality
         ch_new_annotation = ch_unannotated_for_annotation
-                                .join(ANNOTATION.out.faa)
-                                .join(ANNOTATION.out.gbk)
+                                .join( ANNOTATION.out.faa )
+                                .join( ANNOTATION.out.gbk )
 
     } else {
         ch_new_annotation = Channel.empty()
@@ -162,7 +161,7 @@ workflow FUNCSCAN {
                                 def gbk = feature.extension == 'gbk' ? feature : []
                             [meta, fasta, protein, gbk]
                         }
-                        .mix(ch_new_annotation)
+                        .mix( ch_new_annotation )
                         .multiMap {
                             meta, fasta, protein, gbk ->
                             fastas: [meta, fasta]

@@ -253,7 +253,7 @@
                     "default": "?",
                     "enum": ["+", "-", "?"],
                     "description": "Specify the type of bacteria to be annotated to detect signaling peptides.",
-                    "help_text": "Specify the type of bacteria expected in the input dataset for correct annotation of the signal peptide predictions. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--gram`",
+                    "help_text": "Specify the type of bacteria expected in the input dataset for correct annotation of the signal peptide predictions. Gram types: +/-/?\nMore details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--gram`",
                     "fa_icon": "far fa-plus-square"
                 },
                 "annotation_bakta_complete": {
