@@ -22,21 +22,11 @@ workflow ANNOTATION {
     ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
-        if ( params.annotation_tool == "prodigal" ) {
+        if ( params.annotation_tool == "pyrodigal" || ( params.annotation_tool == "prodigal" && params.run_bgc_screening == true && !params.bgc_skip_antismash ) ) { // Need to use pyrodigal for antiSMASH because prodigal GBK annotation format is incompatible with antiSMASH.
 
-            PRODIGAL ( fasta, "gbk" )
-            GUNZIP_PRODIGAL_FAA ( PRODIGAL.out.amino_acid_fasta )
-            GUNZIP_PRODIGAL_FNA ( PRODIGAL.out.nucleotide_fasta)
-            GUNZIP_PRODIGAL_GBK ( PRODIGAL.out.gene_annotations )
-            ch_versions       = ch_versions.mix(PRODIGAL.out.versions)
-            ch_versions       = ch_versions.mix(GUNZIP_PRODIGAL_FAA.out.versions)
-            ch_versions       = ch_versions.mix(GUNZIP_PRODIGAL_FNA.out.versions)
-            ch_versions       = ch_versions.mix(GUNZIP_PRODIGAL_GBK.out.versions)
-            ch_annotation_faa = GUNZIP_PRODIGAL_FAA.out.gunzip
-            ch_annotation_fna = GUNZIP_PRODIGAL_FNA.out.gunzip
-            ch_annotation_gbk = GUNZIP_PRODIGAL_GBK.out.gunzip
-
-        } else if ( params.annotation_tool == "pyrodigal" ) {
+            if ( params.annotation_tool == "prodigal" && params.run_bgc_screening == true && !params.bgc_skip_antismash ) {
+                log.warn("[nf-core/funcscan] Switching annotation tool to: pyrodigal. This is because prodigal annotations (in GBK format) are incompatible with antiSMASH. If you specifically wish to run prodigal instead, please skip antiSMASH or provide a pre-annotated GBK file in the samplesheet.")
+            }
 
             PYRODIGAL ( fasta, "gbk" )
             GUNZIP_PYRODIGAL_FAA ( PYRODIGAL.out.faa )
@@ -50,7 +40,21 @@ workflow ANNOTATION {
             ch_annotation_fna = GUNZIP_PYRODIGAL_FNA.out.gunzip
             ch_annotation_gbk = GUNZIP_PYRODIGAL_GBK.out.gunzip
 
-        }  else if ( params.annotation_tool == "prokka" ) {
+        } else if ( params.annotation_tool == "prodigal" ) {
+
+            PRODIGAL ( fasta, "gbk" )
+            GUNZIP_PRODIGAL_FAA ( PRODIGAL.out.amino_acid_fasta )
+            GUNZIP_PRODIGAL_FNA ( PRODIGAL.out.nucleotide_fasta)
+            GUNZIP_PRODIGAL_GBK ( PRODIGAL.out.gene_annotations )
+            ch_versions       = ch_versions.mix(PRODIGAL.out.versions)
+            ch_versions       = ch_versions.mix(GUNZIP_PRODIGAL_FAA.out.versions)
+            ch_versions       = ch_versions.mix(GUNZIP_PRODIGAL_FNA.out.versions)
+            ch_versions       = ch_versions.mix(GUNZIP_PRODIGAL_GBK.out.versions)
+            ch_annotation_faa = GUNZIP_PRODIGAL_FAA.out.gunzip
+            ch_annotation_fna = GUNZIP_PRODIGAL_FNA.out.gunzip
+            ch_annotation_gbk = GUNZIP_PRODIGAL_GBK.out.gunzip
+
+        } else if ( params.annotation_tool == "prokka" ) {
 
             PROKKA ( fasta, [], [] )
             ch_versions       = ch_versions.mix(PROKKA.out.versions)
@@ -59,7 +63,7 @@ workflow ANNOTATION {
             ch_annotation_fna = PROKKA.out.fna
             ch_annotation_gbk = PROKKA.out.gbk
 
-        }   else if ( params.annotation_tool == "bakta" ) {
+        } else if ( params.annotation_tool == "bakta" ) {
 
             // BAKTA prepare download
             if ( params.annotation_bakta_db_localpath ) {
