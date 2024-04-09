@@ -85,10 +85,27 @@ workflow ARG {
     // RGI run
     if ( !params.arg_skip_rgi ) {
 
-        // Download and prepare CARD
-        UNTAR ( [ [], file('https://card.mcmaster.ca/latest/data', checkIfExists: true).copyTo(params.outdir + '/databases/card/data.tar.gz') ] )
-        ch_versions = ch_versions.mix( UNTAR.out.versions )
-        RGI_CARDANNOTATION ( UNTAR.out.untar.map{ it[1] } )
+        if ( !params.arg_rgi_database ) {
+
+            // Download und untar CARD
+            UNTAR ( [ [], file('https://card.mcmaster.ca/latest/data', checkIfExists: true).copyTo("${params.outdir}/databases/rgi/data.tar.gz") ] )
+            ch_versions = ch_versions.mix( UNTAR.out.versions )
+            rgi_database = UNTAR.out.untar.map{ it[1] }
+            if ( params.save_databases ) {
+                rgi_database.copyTo("${params.outdir}/databases/rgi/card")
+            }
+
+        } else {
+
+            // Use user-supplied database
+            rgi_database = params.arg_rgi_database
+            if ( params.save_databases ) {
+                file( rgi_database, checkIfExists: true ).copyTo("${params.outdir}/databases/rgi/card")
+            }
+
+        }
+
+        RGI_CARDANNOTATION ( rgi_database )
         ch_versions = ch_versions.mix( RGI_CARDANNOTATION.out.versions )
 
         RGI_MAIN ( contigs, RGI_CARDANNOTATION.out.db, [] )

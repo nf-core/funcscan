@@ -847,6 +847,12 @@
                     "description": "Skip RGI during the ARG-screening.",
                     "fa_icon": "fas fa-ban"
                 },
+                "arg_rgi_database": {
+                    "type": "string",
+                    "description": "Path to user-defined local CARD database.",
+                    "fa_icon": "fas fa-layer-group",
+                    "help_text": "You can pre-download the CARD database to your machine and pass the path of it to this parameter.\n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#rgi) for details on how to download this."
+                },
                 "arg_rgi_savejson": {
                     "type": "boolean",
                     "description": "Save RGI output .json file.",
@@ -976,7 +982,7 @@
                     "type": "string",
                     "description": "Path to user-defined local antiSMASH database.",
                     "fa_icon": "fas fa-layer-group",
-                    "help_text": "It is recommend to pre-download the antiSMASH databases to your machine and pass the path of it to this parameter, as this can take a long time to download - particularly when running lots of pipeline runs. \n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#antismash) for details on how to download this. If running with docker or singularity, please also check `--bgc_antismash_installationdirectory` for important information."
+                    "help_text": "It is recommend to pre-download the antiSMASH databases to your machine and pass the path of it to this parameter, as this can take a long time to download - particularly when running lots of pipeline runs. \n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#antismash-1) for details on how to download this. If running with docker or singularity, please also check `--bgc_antismash_installationdirectory` for important information."
                 },
                 "bgc_antismash_installationdirectory": {
                     "type": "string",
@@ -1046,7 +1052,7 @@
                 }
             },
             "fa_icon": "fas fa-tools",
-            "help_text": "The antibiotics and Secondary Metabolite Analysis SHell  (antiSMASH) carries out a genome-wide screening, annotation and analysis of secondary metabolite biosynthesis gene clusters in bacterial and fungal genomes. \n\nDocumentation: https://antismash.secondarymetabolites.org/#!/about"
+            "help_text": "The antibiotics and Secondary Metabolite Analysis SHell (antiSMASH) carries out a genome-wide screening, annotation and analysis of secondary metabolite biosynthesis gene clusters in bacterial and fungal genomes. \n\nDocumentation: https://antismash.secondarymetabolites.org/#!/about"
         },
         "bgc_deepbgc": {
             "title": "BGC: deepBGC",
