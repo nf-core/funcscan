@@ -91,17 +91,11 @@ workflow ARG {
             UNTAR ( [ [], file('https://card.mcmaster.ca/latest/data', checkIfExists: true).copyTo("${params.outdir}/databases/rgi/data.tar.gz") ] )
             ch_versions = ch_versions.mix( UNTAR.out.versions )
             rgi_database = UNTAR.out.untar.map{ it[1] }
-            if ( params.save_databases ) {
-                rgi_database.copyTo("${params.outdir}/databases/rgi/card")
-            }
 
         } else {
 
             // Use user-supplied database
             rgi_database = params.arg_rgi_database
-            if ( params.save_databases ) {
-                file( rgi_database, checkIfExists: true ).copyTo("${params.outdir}/databases/rgi/card")
-            }
 
         }
 
