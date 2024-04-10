@@ -76,7 +76,7 @@ sample_2,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gz,/<path>/<to>/wast
 | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sample`  | Custom sample name. This will be used to name all output files from the pipeline. Spaces in sample names are automatically converted to underscores (`_`).                               |
 | `fasta`   | Path or URL to a gzipped or uncompressed FASTA file. Accepted file suffixes are: `.fasta`, `.fna`, or `.fa`, or any of these with `.gz`, e.g. `.fa.gz`.                                  |
-| `protein` | Optional path to a pre-generated amino acid FASTA file (`.faa`) containing protein annotations of `fasta`, optionally gzipped. Required to be supplied if `gbk` also given.          |
+| `protein` | Optional path to a pre-generated amino acid FASTA file (`.faa`) containing protein annotations of `fasta`, optionally gzipped. Required to be supplied if `gbk` also given.              |
 | `gbk`     | Optional path to a pre-generated annotation file in `.gbk` format containing annotations information of `fasta`, optionally gzipped. Required to be supplied if `protein` is also given. |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
