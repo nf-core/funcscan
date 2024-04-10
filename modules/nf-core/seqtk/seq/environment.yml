@@ -1,7 +1,7 @@
-name: bioawk
+name: seqtk_seq
 channels:
   - conda-forge
   - bioconda
   - defaults
 dependencies:
-  - bioconda::bioawk=1.0
+  - bioconda::seqtk=1.4

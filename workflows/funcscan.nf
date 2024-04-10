@@ -51,7 +51,6 @@ include { GUNZIP as GUNZIP_PRODIGAL_GFF  } from '../modules/nf-core/gunzip/main'
 include { GUNZIP as GUNZIP_PYRODIGAL_FNA } from '../modules/nf-core/gunzip/main'
 include { GUNZIP as GUNZIP_PYRODIGAL_FAA } from '../modules/nf-core/gunzip/main'
 include { GUNZIP as GUNZIP_PYRODIGAL_GFF } from '../modules/nf-core/gunzip/main'
-include { BIOAWK                         } from '../modules/nf-core/bioawk/main'
 include { PROKKA                         } from '../modules/nf-core/prokka/main'
 include { PRODIGAL as PRODIGAL_GFF       } from '../modules/nf-core/prodigal/main'
 include { PRODIGAL as PRODIGAL_GBK       } from '../modules/nf-core/prodigal/main'
@@ -93,18 +92,9 @@ workflow FUNCSCAN {
     ch_prepped_fastas = GUNZIP_FASTA_PREP.out.gunzip
                         .mix( fasta_prep.uncompressed )
 
-    // Add to meta the length of longest contig for downstream filtering
-    BIOAWK ( ch_prepped_fastas )
-    ch_versions = ch_versions.mix( BIOAWK.out.versions )
 
-    ch_prepped_input = ch_prepped_fastas
-                        .join( BIOAWK.out.longest )
-                        .map{
-                            meta, fasta, length ->
-                                def meta_new = meta.clone()
-                                meta['longest_contig'] = Integer.parseInt(length)
-                            [ meta, fasta ]
-                        }
+    // TODO insert seqTK stuff here
+
 
     /*
         TAXONOMIC CLASSIFICATION
