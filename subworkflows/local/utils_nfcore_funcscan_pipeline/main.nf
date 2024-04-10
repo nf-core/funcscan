@@ -253,7 +253,7 @@ def toolCitationText() {
 def toolBibliographyText() {
     // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "<li>Author (2023) Pub name, Journal, DOI</li>" : "",
     // Uncomment function in methodsDescriptionText to render in MultiQC report
-    def preprocessing_text = "<li>TODO <a href=\"TODO\">TODO</a></li>"
+    def preprocessing_text = "<li>Shen, W., Sipos, B., & Zhao, L. (2024). SeqKit2: A Swiss army knife for sequence and alignment processing. iMeta, e191. <a href=\"https://doi.org/10.1002/imt2.191\">https://doi.org/10.1002/imt2.191</a></li>"
 
     def annotation_text    = [
             params.annotation_tool == 'prodigal'  ? "<li>Hyatt, D., Chen, G. L., Locascio, P. F., Land, M. L., Larimer, F. W., & Hauser, L. J. (2010). Prodigal: prokaryotic gene recognition and translation initiation site identification. BMC bioinformatics, 11, 119. DOI: <a href=\"https://doi.org/10.1186/1471-2105-11-119\">10.1186/1471-2105-11-119</a>" : "",

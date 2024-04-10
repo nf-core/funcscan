@@ -67,7 +67,11 @@ sample_2,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gz
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
-> ⚠️ We highly recommend performing quality control on input contigs before running the pipeline. You may not receive results for some tools if none of the contigs in a FASTA file reach certain thresholds. Check parameter documentation for relevant minimum contig parameters.
+:::warning
+We highly recommend performing quality control on input contigs before running the pipeline. You may not receive results for some tools if none of the contigs in a FASTA file reach certain thresholds. Check parameter documentation for relevant minimum contig parameters.
+
+For example, by default BGC screening requires contigs of at least 3000bp (see `--contig_qc_lengththreshold`).
+:::
 
 ## Notes on screening tools and taxonomic classification
 

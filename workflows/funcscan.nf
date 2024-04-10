@@ -94,17 +94,28 @@ workflow FUNCSCAN {
     ch_unzipped_fastas = GUNZIP_FASTA_PREP.out.gunzip
                         .mix( fasta_prep.uncompressed )
 
-    SEQKIT_SEQ_LONG ( ch_unzipped_fastas.map{ meta, file -> [ meta + [meta.id: meta.id + '_long'], length: "long" ], file ] } )
-    SEQKIT_SEQ_SHORT ( ch_unzipped_fastas.map{ meta, file -> [ meta + [meta.id: meta.id + '_short'], length: "short" ], file ]}  )
+    // Split each FASTA into long and short contigs to
+    // speed up e.g. BGC running with BGC-compatible contig lengths only
+    SEQKIT_SEQ_LONG ( ch_unzipped_fastas )
+    SEQKIT_SEQ_SHORT ( ch_unzipped_fastas )
+    ch_versions = ch_versions.mix(SEQKIT_SEQ_LONG.out.versions)
+    ch_versions = ch_versions.mix(SEQKIT_SEQ_SHORT.out.versions)
 
-    ch_prepped_input = SEQKIT_SEQ_LONG.out.fastx
-                        .mix( SEQKIT_SEQ_SHORT.out.fastx )
-                        .filter{
-                            meta, fasta ->
-                                !fasta.isEmpty()
-                        }
-                        .dump(tag: 'ch_prepped_input')
+    ch_prepped_input_long = SEQKIT_SEQ_LONG.out.fastx
+                                .map{ meta, file -> [ meta + [id: meta.id + '_long', length: "long" ], file ] }
+                                .filter{
+                                    meta, fasta ->
+                                        !fasta.isEmpty()
+                                }
 
+    ch_prepped_input_short = SEQKIT_SEQ_SHORT.out.fastx
+                                .map{ meta, file -> [ meta + [id: meta.id + '_short', length: "short" ], file ]}
+                                .filter{
+                                    meta, fasta ->
+                                        !fasta.isEmpty()
+                                }
+
+    ch_prepped_input = ch_prepped_input_long.mix( ch_prepped_input_short )
 
     /*
         TAXONOMIC CLASSIFICATION
@@ -302,7 +313,7 @@ workflow FUNCSCAN {
     */
     if ( params.run_bgc_screening && !params.run_taxa_classification ) {
         BGC (
-            ch_prepped_input,
+            ch_prepped_input_long,
             ch_annotation_gff
                 .filter {
                     meta, file ->
