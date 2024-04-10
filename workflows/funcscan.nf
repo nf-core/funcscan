@@ -73,7 +73,7 @@ workflow FUNCSCAN {
 
     // Some tools require uncompressed input
     ch_input_prep = ch_input
-                        .map{meta, fasta, faa, feature -> [meta, [fasta, faa, feature]]}
+                        .map{meta, fasta, faa, gbk -> [meta, [fasta, faa, gbk]]}
                         .transpose()
                         .branch {
                             compressed: it[1].toString().endsWith('.gz')
@@ -92,17 +92,17 @@ workflow FUNCSCAN {
                                 meta, files ->
                                     def fasta_found   = files.find{it.toString().tokenize('.').last().matches('fasta|fas|fna|fa')}
                                     def faa_found     = files.find{it.toString().endsWith('.faa')}
-                                    def feature_found = files.find{it.toString().tokenize('.').last().matches('gbk')}
+                                    def gbk_found     = files.find{it.toString().tokenize('.').last().matches('gbk')}
                                     def fasta         = fasta_found   != null ? fasta_found   : []
                                     def faa           = faa_found     != null ? faa_found     : []
-                                    def feature       = feature_found != null ? feature_found : []
+                                    def gbk           = gbk_found     != null ? gbk_found     : []
 
-                                    [meta, fasta, faa, feature]
+                                    [meta, fasta, faa, gbk]
                             }
                             .multiMap {
-                                meta, fasta, faa, feature ->
+                                meta, fasta, faa, gbk ->
                                     fastas: [ meta, fasta ]
-                                    annotations : [ meta, faa, feature ]
+                                    annotations : [ meta, faa, gbk ]
                             }
 
     // Add to meta the length of longest contig for downstream filtering
@@ -113,16 +113,16 @@ workflow FUNCSCAN {
                                 .join( BIOAWK.out.longest )
                                 .join( ch_intermediate_input.annotations )
                                 .map{
-                                    meta, fasta, length, faa, feature ->
+                                    meta, fasta, length, faa, gbk ->
                                         def meta_new = [:]
                                         meta_new['longest_contig'] = Integer.parseInt(length)
-                                    [ meta + meta_new, fasta, faa, feature ]
+                                    [ meta + meta_new, fasta, faa, gbk ]
                                 }
 
     // Separate pre-annotated FASTAs from those that need annotation
     ch_input_for_annotation = ch_intermediate_input
                                 .branch {
-                                    meta, fasta, protein, feature ->
+                                    meta, fasta, protein, gbk ->
                                         preannotated: protein != []
                                         unannotated: true
                                 }
@@ -136,7 +136,7 @@ workflow FUNCSCAN {
 
         ch_unannotated_for_annotation = ch_input_for_annotation.unannotated
                                             .map{
-                                                meta, fasta, protein, feature ->
+                                                meta, fasta, protein, gbk ->
                                                 [meta, fasta]
                                             }
 
@@ -154,9 +154,9 @@ workflow FUNCSCAN {
 
     ch_prepped_input = ch_input_for_annotation.preannotated
                         .map{
-                            meta, fasta, protein, feature ->
-                                def gbk = feature.extension == 'gbk' ? feature : []
-                            [meta, fasta, protein, gbk]
+                            meta, fasta, protein, gbk ->
+                                def gbk_format = gbk.extension == 'gbk' ? gbk : []
+                            [meta, fasta, protein, gbk_format]
                         }
                         .mix( ch_new_annotation )
                         .multiMap {

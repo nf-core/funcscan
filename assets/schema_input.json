@@ -29,7 +29,7 @@
                 "pattern": "^\\S+\\.(faa)(\\.gz)?$",
                 "errorMessage": "Input file for peptide annotations has incorrect file format. File must end in .fasta, .faa",
                 "unique": true,
-                "dependentRequired": ["feature"]
+                "dependentRequired": ["gbk"]
             },
             "gbk": {
                 "type": "string",
