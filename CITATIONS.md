@@ -34,10 +34,6 @@
 
   > Schwengers, O., Jelonek, L., Dieckmann, M. A., Beyvers, S., Blom, J., & Goesmann, A. (2021). Bakta: rapid and standardized annotation of bacterial genomes via alignment-free sequence identification. Microbial Genomics, 7(11). [DOI: 10.1099/mgen.0.000685](https://doi.org/10.1099/mgen.0.000685)
 
-- [bioawk](https://github.com/lh3/bioawk)
-
-  > Li, H. (2023). bioawk: BWK awk modified for biological data. Github. Retrieved July 12, 2023, from https://github.com/lh3/bioawk
-
 - [comBGC](https://github.com/nf-core/funcscan)
 
   > Frangenberg, J., Fellows Yates, J. A., Ibrahim, A., Perelo, L., & Beber, M. E. (2023). nf-core/funcscan: 1.0.0 - German Rollmops - 2023-02-15. https://doi.org/10.5281/zenodo.7643100

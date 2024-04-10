@@ -58,6 +58,8 @@ include { PYRODIGAL as PYRODIGAL_GBK     } from '../modules/nf-core/pyrodigal/ma
 include { PYRODIGAL as PYRODIGAL_GFF     } from '../modules/nf-core/pyrodigal/main'
 include { BAKTA_BAKTADBDOWNLOAD          } from '../modules/nf-core/bakta/baktadbdownload/main'
 include { BAKTA_BAKTA                    } from '../modules/nf-core/bakta/bakta/main'
+include { SEQKIT_SEQ as SEQKIT_SEQ_LONG  } from '../modules/nf-core/seqkit/seq/main'
+include { SEQKIT_SEQ as SEQKIT_SEQ_SHORT } from '../modules/nf-core/seqkit/seq/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -89,11 +91,19 @@ workflow FUNCSCAN {
 
     // Merge all the already uncompressed and newly compressed FASTAs here into
     // a single input channel for downstream
-    ch_prepped_fastas = GUNZIP_FASTA_PREP.out.gunzip
+    ch_unzipped_fastas = GUNZIP_FASTA_PREP.out.gunzip
                         .mix( fasta_prep.uncompressed )
 
+    SEQKIT_SEQ_LONG ( ch_unzipped_fastas.map{ meta, file -> [ meta + [meta.id: meta.id + '_long'], length: "long" ], file ] } )
+    SEQKIT_SEQ_SHORT ( ch_unzipped_fastas.map{ meta, file -> [ meta + [meta.id: meta.id + '_short'], length: "short" ], file ]}  )
 
-    // TODO insert seqTK stuff here
+    ch_prepped_input = SEQKIT_SEQ_LONG.out.fastx
+                        .mix( SEQKIT_SEQ_SHORT.out.fastx )
+                        .filter{
+                            meta, fasta ->
+                                !fasta.isEmpty()
+                        }
+                        .dump(tag: 'ch_prepped_input')
 
 
     /*

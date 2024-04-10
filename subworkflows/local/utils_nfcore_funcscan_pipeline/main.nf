@@ -198,7 +198,7 @@ def genomeExistsError() {
 def toolCitationText() {
     // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "Tool (Foo et al. 2023)" : "",
     // Uncomment function in methodsDescriptionText to render in MultiQC report
-    def preprocessing_text = "The pipeline used the following tools: preprocessing included bioawk (Li 2023)."
+    def preprocessing_text = "The pipeline used the following tools: preprocessing included SeqKit2 (Shen et al. 2024)."
 
     def annotation_text    = [
             "Annotation was carried out with:",
@@ -253,7 +253,7 @@ def toolCitationText() {
 def toolBibliographyText() {
     // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "<li>Author (2023) Pub name, Journal, DOI</li>" : "",
     // Uncomment function in methodsDescriptionText to render in MultiQC report
-    def preprocessing_text = "<li>Li, H. (2023). bioawk: BWK awk modified for biological data. Github. Retrieved July 12, 2023, from <a href=\"https://github.com/lh3/bioawk\">https://github.com/lh3/bioawk</a></li>"
+    def preprocessing_text = "<li>TODO <a href=\"TODO\">TODO</a></li>"
 
     def annotation_text    = [
             params.annotation_tool == 'prodigal'  ? "<li>Hyatt, D., Chen, G. L., Locascio, P. F., Land, M. L., Larimer, F. W., & Hauser, L. J. (2010). Prodigal: prokaryotic gene recognition and translation initiation site identification. BMC bioinformatics, 11, 119. DOI: <a href=\"https://doi.org/10.1186/1471-2105-11-119\">10.1186/1471-2105-11-119</a>" : "",
