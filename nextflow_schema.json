@@ -1532,11 +1532,5 @@
         {
             "$ref": "#/definitions/generic_options"
         }
-    ],
-    "properties": {
-        "contig_qc_lengththreshold": {
-            "type": "integer",
-            "default": 3000
-        }
-    }
+    ]
 }
