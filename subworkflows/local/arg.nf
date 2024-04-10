@@ -16,7 +16,7 @@ include { HAMRONIZATION_FARGENE             }  from '../../modules/nf-core/hamro
 include { HAMRONIZATION_SUMMARIZE           }  from '../../modules/nf-core/hamronization/summarize/main'
 include { RGI_CARDANNOTATION                }  from '../../modules/nf-core/rgi/cardannotation/main'
 include { RGI_MAIN                          }  from '../../modules/nf-core/rgi/main/main'
-include { UNTAR                             }  from '../../modules/nf-core/untar/main'
+include { UNTAR as UNTAR_CARD               }  from '../../modules/nf-core/untar/main'
 include { TABIX_BGZIP as ARG_TABIX_BGZIP    }  from '../../modules/nf-core/tabix/bgzip/main'
 include { MERGE_TAXONOMY_HAMRONIZATION      }  from '../../modules/local/merge_taxonomy_hamronization'
 
@@ -85,10 +85,21 @@ workflow ARG {
     // RGI run
     if ( !params.arg_skip_rgi ) {
 
-        // Download and prepare CARD
-        UNTAR ( [ [], file('https://card.mcmaster.ca/latest/data', checkIfExists: true).copyTo(params.outdir + '/databases/card/data.tar.gz') ] )
-        ch_versions = ch_versions.mix( UNTAR.out.versions )
-        RGI_CARDANNOTATION ( UNTAR.out.untar.map{ it[1] } )
+        if ( !params.arg_rgi_database ) {
+
+            // Download and untar CARD
+            UNTAR_CARD ( [ [], file('https://card.mcmaster.ca/latest/data', checkIfExists: true) ] )
+            ch_versions = ch_versions.mix( UNTAR_CARD.out.versions )
+            rgi_database = UNTAR_CARD.out.untar.map{ it[1] }
+
+        } else {
+
+            // Use user-supplied database
+            rgi_database = params.arg_rgi_database
+
+        }
+
+        RGI_CARDANNOTATION ( rgi_database )
         ch_versions = ch_versions.mix( RGI_CARDANNOTATION.out.versions )
 
         RGI_MAIN ( contigs, RGI_CARDANNOTATION.out.db, [] )

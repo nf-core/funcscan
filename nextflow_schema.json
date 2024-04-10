@@ -847,6 +847,12 @@
                     "description": "Skip RGI during the ARG-screening.",
                     "fa_icon": "fas fa-ban"
                 },
+                "arg_rgi_database": {
+                    "type": "string",
+                    "description": "Path to user-defined local CARD database.",
+                    "fa_icon": "fas fa-layer-group",
+                    "help_text": "You can pre-download the CARD database to your machine and pass the path of it to this parameter.\n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#rgi) for details on how to download this.\n\n>  Modifies tool parameter(s):\n> - RGI_CARDANNOTATION: `--input`"
+                },
                 "arg_rgi_savejson": {
                     "type": "boolean",
                     "description": "Save RGI output .json file.",
@@ -865,28 +871,28 @@
                     "type": "string",
                     "default": "BLAST",
                     "description": "Specify the alignment tool to be used.",
-                    "help_text": "Specifies the alignment tool to be used. By default RGI runs BLAST and this is also set as default in the nf-core/funcscan pipeline. Using this flag the user can activate the alignment by DIAMOND again.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--alignment_tool`",
+                    "help_text": "Specifies the alignment tool to be used. By default RGI runs BLAST and this is also set as default in the nf-core/funcscan pipeline. Using this flag the user can activate the alignment by DIAMOND again.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--alignment_tool`",
                     "enum": ["BLAST", "DIAMOND"],
                     "fa_icon": "fas fa-align-justify"
                 },
                 "arg_rgi_includeloose": {
                     "type": "boolean",
                     "description": "Include all of loose, strict and perfect hits (i.e. >=95% identity) found by RGI.",
-                    "help_text": "When activated it includes 'Loose' hits (a.k.a. Discovery) in addition to strict and perfect hits. All 'Loose' matches of 95% identity or better are automatically listed as 'Strict', regardless of alignment length (RGI v. <6.0.0). This behaviour can be overrun by using the --include_nudge flag. The 'Loose' algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--include_loose`",
+                    "help_text": "When activated it includes 'Loose' hits (a.k.a. Discovery) in addition to strict and perfect hits. All 'Loose' matches of 95% identity or better are automatically listed as 'Strict', regardless of alignment length (RGI v. <6.0.0). This behaviour can be overrun by using the --include_nudge flag. The 'Loose' algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_loose`",
                     "fa_icon": "far fa-hand-scissors",
                     "default": false
                 },
                 "arg_rgi_includenudge": {
                     "type": "boolean",
                     "description": "Suppresses the default behaviour of RGI with `--arg_rgi_includeloose`.",
-                    "help_text": "This flag suppresses the default behaviour of RGI with `--include_loose`, which lists all 'Loose' matches of >= 95% identity as 'Strict', regardless of alignment length. With this strict and perfect labels are added. This is discontinued in future versions of RGI.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--include_nudge`",
+                    "help_text": "This flag suppresses the default behaviour of RGI with `--include_loose`, which lists all 'Loose' matches of >= 95% identity as 'Strict', regardless of alignment length. With this strict and perfect labels are added. This is discontinued in future versions of RGI.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_nudge`",
                     "fa_icon": "fas fa-hand-scissors",
                     "default": false
                 },
                 "arg_rgi_lowquality": {
                     "type": "boolean",
                     "description": "Include screening of low quality contigs for partial genes.",
-                    "help_text": "This flag should be used only when the contigs are of poor quality (e.g. short) to predict partial genes.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--low_quality`",
+                    "help_text": "This flag should be used only when the contigs are of poor quality (e.g. short) to predict partial genes.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--low_quality`",
                     "fa_icon": "fas fa-angle-double-down",
                     "default": false
                 },
@@ -894,14 +900,14 @@
                     "type": "string",
                     "default": "NA",
                     "description": "Specify a more specific data-type of input (e.g. plasmid, chromosome)",
-                    "help_text": "This flag is used to specify the data type used as input to RGI. By default this is set as 'NA', which makes no assumptions on input data.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI: `--data`",
+                    "help_text": "This flag is used to specify the data type used as input to RGI. By default this is set as 'NA', which makes no assumptions on input data.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--data`",
                     "enum": ["NA", "wgs", "plasmid", "chromosome"],
                     "fa_icon": "fas fa-database"
                 },
                 "arg_rgi_split_prodigal_jobs": {
                     "type": "boolean",
                     "description": "Run multiple prodigal jobs simultaneously for contigs in a fasta file.",
-                    "help_text": "Modifies tool parameter:\n> - RGI: `--split_prodigal_jobs`",
+                    "help_text": "Modifies tool parameter:\n> - RGI_MAIN: `--split_prodigal_jobs`",
                     "fa_icon": "fas fa-angle-double-down",
                     "default": true
                 }
@@ -976,7 +982,7 @@
                     "type": "string",
                     "description": "Path to user-defined local antiSMASH database.",
                     "fa_icon": "fas fa-layer-group",
-                    "help_text": "It is recommend to pre-download the antiSMASH databases to your machine and pass the path of it to this parameter, as this can take a long time to download - particularly when running lots of pipeline runs. \n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#antismash) for details on how to download this. If running with docker or singularity, please also check `--bgc_antismash_installationdirectory` for important information."
+                    "help_text": "It is recommend to pre-download the antiSMASH databases to your machine and pass the path of it to this parameter, as this can take a long time to download - particularly when running lots of pipeline runs. \n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#antismash-1) for details on how to download this. If running with docker or singularity, please also check `--bgc_antismash_installationdirectory` for important information."
                 },
                 "bgc_antismash_installationdirectory": {
                     "type": "string",
@@ -1046,7 +1052,7 @@
                 }
             },
             "fa_icon": "fas fa-tools",
-            "help_text": "The antibiotics and Secondary Metabolite Analysis SHell  (antiSMASH) carries out a genome-wide screening, annotation and analysis of secondary metabolite biosynthesis gene clusters in bacterial and fungal genomes. \n\nDocumentation: https://antismash.secondarymetabolites.org/#!/about"
+            "help_text": "The antibiotics and Secondary Metabolite Analysis SHell (antiSMASH) carries out a genome-wide screening, annotation and analysis of secondary metabolite biosynthesis gene clusters in bacterial and fungal genomes. \n\nDocumentation: https://antismash.secondarymetabolites.org/#!/about"
         },
         "bgc_deepbgc": {
             "title": "BGC: deepBGC",

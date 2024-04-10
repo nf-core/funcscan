@@ -220,6 +220,21 @@ with the version number so hAMRonization will correctly display the database ver
 
 > ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
 
+### RGI
+
+RGI requires the database CARD which can be downloaded by nf-core/funcscan or supplied by the user manually. To download and supply the database yourself, do:
+
+1. Download [CARD](https://card.mcmaster.ca/latest/data)
+2. Extract the archive.
+
+You can then supply the path to resulting database directory with:
+
+```bash
+--arg_rgi_database '/<path>/<to>/<card>/'
+```
+
+> ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+
 ### antiSMASH
 
 antiSMASH requires several databases for the detection of potential biosynthetic gene cluster (BGC) sequences (ClusterBlast, MIBiG, Pfam, Resfams, TIGRFAMs).
@@ -243,7 +258,7 @@ Note that the names of the supplied folders must differ from each other (e.g. `a
 
 > ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
 
-> ℹ️ If installing with conda, the installation directory will be `lib/python3.8/site-packages/antismash` from the base directory of your conda install or conda environment directory.
+> ℹ️ If installing with conda, the installation directory will be `lib/python3.10/site-packages/antismash` from the base directory of your conda install or conda environment directory.
 
 ### DeepBGC
 
