@@ -52,11 +52,11 @@ nf-core/funcscan takes FASTA files as input, typically contigs or whole genome s
 --input '[path to samplesheet file]'
 ```
 
-The input samplesheet has to be a comma-separated file (`.csv`) with 2 (`sample`, `fasta`) or 4 columns (`sample`, `fasta`, `protein`, `feature`), and a header row as shown in the examples below.
+The input samplesheet has to be a comma-separated file (`.csv`) with 2 (`sample`, `fasta`) or 4 columns (`sample`, `fasta`, `protein`, `gbk`), and a header row as shown in the examples below.
 
-If you already have annotated contigs, you can supply these to the pipeline using the optional `protein` and `feature` columns. If these two columns are supplied, pipeline annotation (i.e. with bakta, prodigal, pyrodigal or prokka) will be skipped and the corresponding annotation files used instead.
+If you already have annotated contigs with peptide sequences and an annotation file in `gbk` format, you can supply these to the pipeline using the optional `protein` and `gbk` columns. If these additional columns are supplied, pipeline annotation (i.e. with bakta, prodigal, pyrodigal or prokka) will be skipped and the corresponding annotation files used instead.
 
-For two columns:
+For two columns (without pre-annotated data):
 
 ```csv title="samplesheet.csv"
 sample,fasta
@@ -64,10 +64,10 @@ sample_1,/<path>/<to>/wastewater_metagenome_contigs_1.fasta.gz
 sample_2,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gz
 ```
 
-For four columns:
+For four columns (with pre-annotated data):
 
 ```csv title="samplesheet.csv"
-sample,fasta,protein,feature
+sample,fasta,protein,gbk
 sample_1,/<path>/<to>/wastewater_metagenome_contigs_1.fasta.gz,/<path>/<to>/wastewater_metagenome_contigs_1.faa,/<path>/<to>/wastewater_metagenome_contigs_1.fasta.gbk
 sample_2,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gz,/<path>/<to>/wastewater_metagenome_contigs_2.faa,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gbk
 ```
@@ -77,12 +77,12 @@ sample_2,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gz,/<path>/<to>/wast
 | `sample`  | Custom sample name. This will be used to name all output files from the pipeline. Spaces in sample names are automatically converted to underscores (`_`).                            |
 | `fasta`   | Path or URL to a gzipped or uncompressed FASTA file. Accepted file suffixes are: `.fasta`, `.fna`, or `.fa`, or any of these with `.gz`, e.g. `.fa.gz`.                               |
 | `protein` | Optional path to a pre-generated amino acid FASTA file (`.faa`) containing protein annotations of `fasta`, optionally gzipped. Required to be supplied if `feature` also given.       |
-| `feature` | Optional path to a pre-generated annotation file in `.gbk` format containing annotations information of `fasta`, optionally gzipped. Required to be supplied if `protein` also given. |
+| `gbk` | Optional path to a pre-generated annotation file in `.gbk` format containing annotations information of `fasta`, optionally gzipped. Required to be supplied if `protein` is also given. |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
 :::warning
-We highly recommend performing quality control on input contigs before running the pipeline. You may not receive results for some tools if none of the contigs in a FASTA file reach certain thresholds. Check parameter documentation for relevant minimum contig parameters.
+We highly recommend performing quality control on input contigs before running the pipeline. You may not receive results for some tools, or the pipeline may even crash, if none of the contigs in a FASTA file reach certain thresholds for different tools. Check parameter documentation for relevant minimum contig parameters.
 :::
 
 ## Notes on screening tools and taxonomic classification
@@ -118,10 +118,6 @@ If a sample does not reach this contig length threshold, you will receive a warn
 When the annotation is run with Prokka, the resulting `.gbk` file passed to antiSMASH may produce the error `translation longer than location allows` and end the pipeline run. This Prokka bug has been reported before (see [discussion on GitHub](https://github.com/antismash/antismash/discussions/450)) and is not likely to be fixed soon.
 
 :::warning
-Prokka GFF generated files [appears to be incompatible with antiSMASH](https://github.com/antismash/antismash/issues/364), and will likely fail! We recommend running or supplying Prodigal or Pyrodigal annotations instead.
-:::
-
-:::warning
 If antiSMASH is run for BGC detection, we recommend to **not** run Prokka for annotation but instead use the default annotation tool (Pyrodigal) or switch > to Prodigal, or (for bacteria only!) Bakta.
 :::warning
 
@@ -131,7 +127,7 @@ Various tools of nf-core/funcscan use databases and reference files to operate.
 
 nf-core/funcscan offers the functionality to auto-download databases for you, and as these databases can be very large, and we suggest to store these files in a central place from where you can reuse them across pipeline runs.
 
-We **highly recommend** allowing the pipeline to download these databases for you on a first run, saving these to your results directory with `--save_databases`, then moving these to a different location (in case you wish to delete the results directory of this first run). An exception to this is HMM files where no auto-downloading functionality is possible.
+If your infrastructure has internet access (particularly on compute nodes), we **highly recommend** allowing the pipeline to download these databases for you on a first run, saving these to your results directory with `--save_databases`, then moving these to a different location (in case you wish to delete the results directory of this first run). An exception to this is HMM files where no auto-downloading functionality is possible.
 
 :::warning
 
