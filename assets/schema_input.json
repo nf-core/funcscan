@@ -31,7 +31,7 @@
                 "unique": true,
                 "dependentRequired": ["feature"]
             },
-            "feature": {
+            "gbk": {
                 "type": "string",
                 "format": "file-path",
                 "exists": true,

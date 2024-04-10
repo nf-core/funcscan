@@ -125,7 +125,6 @@ Output Summaries:
 
 - `prodigal/`
   - `<samplename>/`:
-    - `*.gff`: annotation in GFF3 format, containing both sequences and annotations
     - `*.fna`: nucleotide FASTA file of the input contig sequences
     - `*.faa`: protein FASTA file of the translated CDS sequences
     - `*.gbk`: annotation in GBK format, containing both sequences and annotations
@@ -143,9 +142,10 @@ Output Summaries:
 
 - `pyrodigal/`
   - `<samplename>/`:
-    - `*.gff`: annotation in GFF3 format, containing both sequences and annotations
-    - `*.fna`: nucleotide FASTA file of the input contig sequences
+    - `*.gbk`: annotation in GBK format, containing both sequences and annotations
+    - `*.fna`: nucleotide FASTA file of the annotated CDS sequences
     - `*.faa`: protein FASTA file of the translated CDS sequences
+    - `*.score.gz`: all potential genes (with scores)
 
 > Descriptions taken from the [Pyrodigal documentation](https://pyrodigal.readthedocs.io/)
 
