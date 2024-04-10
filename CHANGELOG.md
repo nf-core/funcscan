@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#332](https://github.com/nf-core/funcscan/pull/332) & [#327](https://github.com/nf-core/funcscan/pull/327) Merged pipeline template of nf-core/tools version 2.12.1 (by @jfy133, @jasmezz)
 - [#338](https://github.com/nf-core/funcscan/pull/338) Set `--meta` parameter to default for Bakta, with singlemode optional. (by @jasmezz)
 - [#343](https://github.com/nf-core/funcscan/pull/343) Added contig taxonomic classification using [MMseqs2](https://github.com/soedinglab/MMseqs2/). (by @darcy220606)
+- [#358](https://github.com/nf-core/funcscan/pull/358) Improved RGI databases handling, users can supply their own CARD now. (by @jasmezz)
 - [#340](https://github.com/nf-core/funcscan/pull/340) Added support for supplying pre-annotated sequences to the pipeline. (by @jfy133, @jasmezz)
 
 ### `Fixed`
