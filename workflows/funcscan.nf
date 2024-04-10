@@ -106,9 +106,6 @@ workflow FUNCSCAN {
                             }
 
     // Add to meta the length of longest contig for downstream filtering
-    ch_intermediate_input.fastas
-    ch_intermediate_input.annotations
-
     BIOAWK ( ch_intermediate_input.fastas )
     ch_versions = ch_versions.mix( BIOAWK.out.versions )
 
@@ -168,7 +165,6 @@ workflow FUNCSCAN {
                             faas: [meta, protein]
                             gbks: [meta, gbk]
                         }
-
 
     /*
         TAXONOMIC CLASSIFICATION
