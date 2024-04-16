@@ -70,7 +70,7 @@
 
   > Santos-Júnior, C. D., Pan, S., Zhao, X. M., & Coelho, L. P. (2020). Macrel: antimicrobial peptide screening in genomes and metagenomes. PeerJ, 8, e10555. [DOI: 10.7717/peerj.10555](https://doi.org/10.7717/peerj.10555)
 
-- [MMseqs2](https://doi.org/10.1093bioinformatics/btab184)
+- [MMseqs2](https://doi.org/10.1093/bioinformatics/btab184)
 
   > Mirdita, M., Steinegger, M., Breitwieser, F., Söding, J., Levy Karin, E. (2021). Fast and sensitive taxonomic assignment to metagenomic contigs. Bioinformatics, 37(18),3029–3031. [DOI: 10.1093/bioinformatics/btab184](https://doi.org/10.1093/bioinformatics/btab184)
 

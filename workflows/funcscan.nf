@@ -95,11 +95,11 @@ workflow FUNCSCAN {
                         .mix( fasta_prep.uncompressed )
 
     // Split each FASTA into long and short contigs to
-    // speed up e.g. BGC running with BGC-compatible contig lengths only
+    // speed up BGC workflow with BGC-compatible contig lengths only
     SEQKIT_SEQ_LONG ( ch_unzipped_fastas )
     SEQKIT_SEQ_SHORT ( ch_unzipped_fastas )
-    ch_versions = ch_versions.mix(SEQKIT_SEQ_LONG.out.versions)
-    ch_versions = ch_versions.mix(SEQKIT_SEQ_SHORT.out.versions)
+    ch_versions = ch_versions.mix( SEQKIT_SEQ_LONG.out.versions )
+    ch_versions = ch_versions.mix( SEQKIT_SEQ_SHORT.out.versions )
 
     ch_prepped_input_long = SEQKIT_SEQ_LONG.out.fastx
                                 .map{ meta, file -> [ meta + [id: meta.id + '_long', length: "long" ], file ] }

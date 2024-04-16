@@ -17,7 +17,7 @@ Furthermore, for reproducibility, versions of all software used in the run is pr
 :::info
 Note that (unannotated) input contigs will be split into two categories per sample: long and short. Each sample will thus get two sets of results for each ARG/AMP screening (suffixed with `_long` and `_short` respectively, assuming contigs remain above/below the threshold), whereas for BGC results only `_long` will exist. This is because BGCs can only be reliability screened with longer contigs.
 
-The threshold for the separation can be adjusted with `--contig_qc_lengththreshold `
+The threshold for the separation can be adjusted with `--contig_qc_lengththreshold `.
 :::
 
 The directories listed below will be created in the results directory (specified by the `--outdir` flag) after the pipeline has finished. All paths are relative to this top-level output directory. The default directory structure of nf-core/funcscan is:
@@ -117,7 +117,7 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `qc/seqkit/`
-  - `<samplename>_long.fasta`: FASTA file containing contigs equals or longer than the threshold set by `--contig_qc_lengththreshold` used in downstream AMP, ARG, BGC subworkflows
+  - `<samplename>_long.fasta`: FASTA file containing contigs equal or longer than the threshold set by `--contig_qc_lengththreshold` used in downstream AMP, ARG, BGC subworkflows
   - `<samplename>_short.fasta`: FASTA file containing contigs shorter than the threshold set by `--contig_qc_lengththreshold` used in downstream AMP, ARG subworkflows
   </details>
 
