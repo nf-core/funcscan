@@ -14,6 +14,12 @@ Similarly, all downloaded databases are saved (i.e. from [MMseqs2](https://githu
 
 Furthermore, for reproducibility, versions of all software used in the run is presented in a [MultiQC](http://multiqc.info) report.
 
+:::info
+Note that (unannotated) input contigs will be split into two categories per sample: long and short. Each sample will thus get two sets of results for each ARG/AMP screening (suffixed with `_long` and `_short` respectively, assuming contigs remain above/below the threshold), whereas for BGC results only `_long` will exist. This is because BGCs can only be reliability screened with longer contigs.
+
+The threshold for the separation can be adjusted with `--contig_qc_lengththreshold `.
+:::
+
 The directories listed below will be created in the results directory (specified by the `--outdir` flag) after the pipeline has finished. All paths are relative to this top-level output directory. The default directory structure of nf-core/funcscan is:
 
 ```console
@@ -42,6 +48,8 @@ results/
 |   ├── deepbgc/
 |   ├── gecco/
 |   └── hmmsearch/
+├── qc/
+|   └── seqkit/
 ├── reports/
 |   ├── ampcombi/
 |   ├── comBGC/
@@ -55,6 +63,10 @@ work/
 ## Pipeline overview
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes prokaryotic sequence data through the following steps:
+
+Input contig QC with:
+
+- [SeqKit](https://bioinf.shenwei.me/seqkit/) (default) - for separating into long- and short- categories
 
 Taxonomy classification of nucleotide sequences with:
 
@@ -98,6 +110,18 @@ Output Summaries:
 - [Pipeline information](#pipeline-information) – report metrics generated during the workflow execution.
 
 ## Tool details
+
+### Input contig QC
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `qc/seqkit/`
+  - `<samplename>_long.fasta`: FASTA file containing contigs equal or longer than the threshold set by `--contig_qc_lengththreshold` used in downstream AMP, ARG, BGC subworkflows
+  - `<samplename>_short.fasta`: FASTA file containing contigs shorter than the threshold set by `--contig_qc_lengththreshold` used in downstream AMP, ARG subworkflows
+  </details>
+
+[SeqKit](https://bioinf.shenwei.me/seqkit/) is a cross-platform and ultrafast toolkit for FASTA/Q file manipulation.
 
 ### Taxonomic classification tool
 

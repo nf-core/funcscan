@@ -74,11 +74,6 @@ workflow BGC {
         if ( params.annotation_tool == 'prodigal' || params.annotation_tool == "pyrodigal" ) {
 
             ch_antismash_input = fna.join(gff, by: 0)
-                                    .filter {
-                                        meta, fna, gff ->
-                                            if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. Antismash will not be run for sample: ${meta.id}."
-                                            meta.longest_contig >= params.bgc_antismash_sampleminlength
-                                    }
                                     .multiMap {
                                         meta, fna, gff ->
                                         fna: [ meta, fna ]
@@ -89,23 +84,11 @@ workflow BGC {
 
         } else if ( params.annotation_tool == 'prokka' ) {
 
-            ch_antismash_input = gbk.filter {
-                                        meta, files ->
-                                            if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. Antismash will not be run for sample: ${meta.id}."
-                                            meta.longest_contig >= params.bgc_antismash_sampleminlength
-                                    }
-
-            ANTISMASH_ANTISMASHLITE ( ch_antismash_input, ch_antismash_databases, ch_antismash_directory, [] )
+            ANTISMASH_ANTISMASHLITE ( gbk, ch_antismash_databases, ch_antismash_directory, [] )
 
         } else if ( params.annotation_tool == 'bakta' ) {
 
-            ch_antismash_input = gbk.filter {
-                                        meta, files ->
-                                            if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. Antismash will not be run for sample: ${meta.id}."
-                                            meta.longest_contig >= params.bgc_antismash_sampleminlength
-                                    }
-
-            ANTISMASH_ANTISMASHLITE ( ch_antismash_input, ch_antismash_databases, ch_antismash_directory, [] )
+            ANTISMASH_ANTISMASHLITE ( gbk, ch_antismash_databases, ch_antismash_directory, [] )
 
         }
 

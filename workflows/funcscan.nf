@@ -51,7 +51,6 @@ include { GUNZIP as GUNZIP_PRODIGAL_GFF  } from '../modules/nf-core/gunzip/main'
 include { GUNZIP as GUNZIP_PYRODIGAL_FNA } from '../modules/nf-core/gunzip/main'
 include { GUNZIP as GUNZIP_PYRODIGAL_FAA } from '../modules/nf-core/gunzip/main'
 include { GUNZIP as GUNZIP_PYRODIGAL_GFF } from '../modules/nf-core/gunzip/main'
-include { BIOAWK                         } from '../modules/nf-core/bioawk/main'
 include { PROKKA                         } from '../modules/nf-core/prokka/main'
 include { PRODIGAL as PRODIGAL_GFF       } from '../modules/nf-core/prodigal/main'
 include { PRODIGAL as PRODIGAL_GBK       } from '../modules/nf-core/prodigal/main'
@@ -59,6 +58,8 @@ include { PYRODIGAL as PYRODIGAL_GBK     } from '../modules/nf-core/pyrodigal/ma
 include { PYRODIGAL as PYRODIGAL_GFF     } from '../modules/nf-core/pyrodigal/main'
 include { BAKTA_BAKTADBDOWNLOAD          } from '../modules/nf-core/bakta/baktadbdownload/main'
 include { BAKTA_BAKTA                    } from '../modules/nf-core/bakta/bakta/main'
+include { SEQKIT_SEQ as SEQKIT_SEQ_LONG  } from '../modules/nf-core/seqkit/seq/main'
+include { SEQKIT_SEQ as SEQKIT_SEQ_SHORT } from '../modules/nf-core/seqkit/seq/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -90,21 +91,31 @@ workflow FUNCSCAN {
 
     // Merge all the already uncompressed and newly compressed FASTAs here into
     // a single input channel for downstream
-    ch_prepped_fastas = GUNZIP_FASTA_PREP.out.gunzip
+    ch_unzipped_fastas = GUNZIP_FASTA_PREP.out.gunzip
                         .mix( fasta_prep.uncompressed )
 
-    // Add to meta the length of longest contig for downstream filtering
-    BIOAWK ( ch_prepped_fastas )
-    ch_versions = ch_versions.mix( BIOAWK.out.versions )
+    // Split each FASTA into long and short contigs to
+    // speed up BGC workflow with BGC-compatible contig lengths only
+    SEQKIT_SEQ_LONG ( ch_unzipped_fastas )
+    SEQKIT_SEQ_SHORT ( ch_unzipped_fastas )
+    ch_versions = ch_versions.mix( SEQKIT_SEQ_LONG.out.versions )
+    ch_versions = ch_versions.mix( SEQKIT_SEQ_SHORT.out.versions )
 
-    ch_prepped_input = ch_prepped_fastas
-                        .join( BIOAWK.out.longest )
-                        .map{
-                            meta, fasta, length ->
-                                def meta_new = meta.clone()
-                                meta['longest_contig'] = Integer.parseInt(length)
-                            [ meta, fasta ]
-                        }
+    ch_prepped_input_long = SEQKIT_SEQ_LONG.out.fastx
+                                .map{ meta, file -> [ meta + [id: meta.id + '_long', length: "long" ], file ] }
+                                .filter{
+                                    meta, fasta ->
+                                        !fasta.isEmpty()
+                                }
+
+    ch_prepped_input_short = SEQKIT_SEQ_SHORT.out.fastx
+                                .map{ meta, file -> [ meta + [id: meta.id + '_short', length: "short" ], file ]}
+                                .filter{
+                                    meta, fasta ->
+                                        !fasta.isEmpty()
+                                }
+
+    ch_prepped_input = ch_prepped_input_long.mix( ch_prepped_input_short )
 
     /*
         TAXONOMIC CLASSIFICATION
@@ -302,7 +313,7 @@ workflow FUNCSCAN {
     */
     if ( params.run_bgc_screening && !params.run_taxa_classification ) {
         BGC (
-            ch_prepped_input,
+            ch_prepped_input_long,
             ch_annotation_gff
                 .filter {
                     meta, file ->

@@ -68,6 +68,27 @@
             },
             "fa_icon": "fas fa-network-wired"
         },
+        "input_qc": {
+            "title": "Input Quality Control",
+            "type": "object",
+            "description": "These parameters influence some simple contig quality control that occur prior to screening.",
+            "default": "",
+            "properties": {
+                "contig_qc_lengththreshold": {
+                    "type": "number",
+                    "default": 3000,
+                    "description": "The sequence length threshold at which contigs are considered 'long' (above or same as threshold) vs. 'short' (below threshold).",
+                    "help_text": "nf-core/funcscan will split unannotated input contigs into two categories based on this parameter: long, and short.\n\nFor both ARG and AMPs, both categories of contigs will be screened. For BGCs, only contigs in the 'long' category will be screened.\n\nThis is due to an (approximate) 'biological' minimal that nucleotide sequences need to be to synthesise a valid BGC, as well as to speeding up pipeline runs by screening only useful contigs.\n\nFile and sample ID names in results tables will be indicated by `_long` and `_short` suffixes.",
+                    "fa_icon": "fas fa-check-circle"
+                },
+                "contig_qc_savesplitfastas": {
+                    "type": "boolean",
+                    "description": "Specify to save the `_long` and `_short` FASTAs generated during QC",
+                    "fa_icon": "fas fa-check-circle"
+                }
+            },
+            "fa_icon": "fas fa-network-wired"
+        },
         "taxonomic_classification": {
             "title": "Taxonomic classification",
             "type": "object",
@@ -990,13 +1011,6 @@
                     "fa_icon": "far fa-folder-open",
                     "help_text": "This is required when running with **docker and singularity** (not required for conda), due to attempted 'modifications' of files during database checks in the installation directory, something that cannot be done in immutable docker/singularity containers.\n\nTherefore, a local installation directory needs to be mounted (including all modified files from the downloading step) to the container as a workaround."
                 },
-                "bgc_antismash_sampleminlength": {
-                    "type": "integer",
-                    "default": 1000,
-                    "description": "Minimum longest-contig length a sample must have to be screened with antiSMASH.",
-                    "fa_icon": "fas fa-ruler-horizontal",
-                    "help_text": "This specifies the minimum length that the longest contig must have for the entire sample to be screened by antiSMASH.\n\nAny samples that do not reach this length will be not be sent to antiSMASH, therefore you will not receive output for these samples in your `--outdir`.\n\n> ⚠️ This is not the same as `--bgc_antismash_contigminlength`, which specifies to only analyse contigs above that threshold but _within_ a sample that has already passed `--bgc_antismash_sampleminlength` sample filter!"
-                },
                 "bgc_antismash_contigminlength": {
                     "type": "integer",
                     "default": 1000,
@@ -1439,6 +1453,9 @@
         },
         {
             "$ref": "#/definitions/screening_type_activation"
+        },
+        {
+            "$ref": "#/definitions/input_qc"
         },
         {
             "$ref": "#/definitions/taxonomic_classification"
