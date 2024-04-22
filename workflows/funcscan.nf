@@ -44,10 +44,10 @@ include { TAXA_CLASS } from '../subworkflows/local/taxa_class'
 //
 // MODULE: Installed directly from nf-core/modules
 //
-
-include { BIOAWK                      } from '../modules/nf-core/bioawk/main'
 include { GUNZIP as GUNZIP_INPUT_PREP } from '../modules/nf-core/gunzip/main'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
+include { SEQKIT_SEQ as SEQKIT_SEQ_LONG  } from '../modules/nf-core/seqkit/seq/main'
+include { SEQKIT_SEQ as SEQKIT_SEQ_SHORT } from '../modules/nf-core/seqkit/seq/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -83,6 +83,9 @@ workflow FUNCSCAN {
     GUNZIP_INPUT_PREP ( ch_input_prep.compressed )
     ch_versions = ch_versions.mix( GUNZIP_INPUT_PREP.out.versions )
 
+    // ch _unzipped_fastas = GUNZIP_FASTA_PREP.out.gunzip
+    //                     .mix( fasta_prep.uncompressed )
+
     // Merge all the already uncompressed and newly compressed FASTAs here into
     // a single input channel for downstream
     ch_intermediate_input = GUNZIP_INPUT_PREP.out.gunzip
@@ -105,25 +108,34 @@ workflow FUNCSCAN {
                                     annotations : [ meta, faa, gbk ]
                             }
 
-    // Add to meta the length of longest contig for downstream filtering
-    BIOAWK ( ch_intermediate_input.fastas )
-    ch_versions = ch_versions.mix( BIOAWK.out.versions )
+    // Split each FASTA into long and short contigs to
+    // speed up BGC workflow with BGC-compatible contig lengths only
+    SEQKIT_SEQ_LONG ( ch_intermediate_input.fastas )
+    SEQKIT_SEQ_SHORT ( ch_intermediate_input.fastas )
+    ch_versions = ch_versions.mix( SEQKIT_SEQ_LONG.out.versions )
+    ch_versions = ch_versions.mix( SEQKIT_SEQ_SHORT.out.versions )
 
-    ch_intermediate_input = ch_intermediate_input.fastas
-                                .join( BIOAWK.out.longest )
-                                .join( ch_intermediate_input.annotations )
-                                .map{
-                                    meta, fasta, length, faa, gbk ->
-                                        def meta_new = [:]
-                                        meta_new['longest_contig'] = Integer.parseInt(length)
-                                    [ meta + meta_new, fasta, faa, gbk ]
+    ch_intermediate_input_long = SEQKIT_SEQ_LONG.out.fastx
+                                .map{ meta, file -> [ meta + [id: meta.id + '_long', length: "long" ], file ] }
+                                .filter{
+                                    meta, fasta ->
+                                        !fasta.isEmpty()
                                 }
 
+    ch_intermediate_input_short = SEQKIT_SEQ_SHORT.out.fastx
+                                .map{ meta, file -> [ meta + [id: meta.id + '_short', length: "short" ], file ] }
+                                .filter{
+                                    meta, fasta ->
+                                        !fasta.isEmpty()
+                                }
+
+    ch_intermediate_input = ch_intermediate_input_long
+
     // Separate pre-annotated FASTAs from those that need annotation
-    ch_input_for_annotation = ch_intermediate_input
+    ch_input_for_annotation = ch_intermediate_input_long
                                 .branch {
-                                    meta, fasta, protein, gbk ->
-                                        preannotated: protein != []
+                                    meta, fasta, faa, gbk ->
+                                        preannotated: faa != []
                                         unannotated: true
                                 }
 
@@ -136,7 +148,7 @@ workflow FUNCSCAN {
 
         ch_unannotated_for_annotation = ch_input_for_annotation.unannotated
                                             .map{
-                                                meta, fasta, protein, gbk ->
+                                                meta, fasta, faa, gbk ->
                                                 [meta, fasta]
                                             }
 
@@ -154,15 +166,15 @@ workflow FUNCSCAN {
 
     ch_prepped_input = ch_input_for_annotation.preannotated
                         .map{
-                            meta, fasta, protein, gbk ->
+                            meta, fasta, faa, gbk ->
                                 def gbk_format = gbk.extension == 'gbk' ? gbk : []
-                            [meta, fasta, protein, gbk_format]
+                            [meta, fasta, faa, gbk_format]
                         }
                         .mix( ch_new_annotation )
                         .multiMap {
-                            meta, fasta, protein, gbk ->
+                            meta, fasta, faa, gbk ->
                             fastas: [meta, fasta]
-                            faas: [meta, protein]
+                            faas: [meta, faa]
                             gbks: [meta, gbk]
                         }
 

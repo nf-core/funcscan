@@ -55,12 +55,6 @@
                         "git_sha": "7c06e6820fa3918bc28a040e794f8a2b39fabadb",
                         "installed_by": ["modules"]
                     },
-                    "bioawk": {
-                        "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/bioawk/bioawk.diff"
-                    },
                     "deeparg/downloaddata": {
                         "branch": "master",
                         "git_sha": "0af92e0fe6a34f31ee41eae66f04d71850fb4beb",
@@ -184,6 +178,11 @@
                     "rgi/main": {
                         "branch": "master",
                         "git_sha": "dbbb0c509e044d2680b429ba622049d4a23426dc",
+                        "installed_by": ["modules"]
+                    },
+                    "seqkit/seq": {
+                        "branch": "master",
+                        "git_sha": "687ad41c14008d3d55cf7c2ffacebe6a057211a4",
                         "installed_by": ["modules"]
                     },
                     "tabix/bgzip": {

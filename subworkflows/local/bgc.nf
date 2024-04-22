@@ -78,10 +78,9 @@ workflow BGC {
                                 }
 
         ANTISMASH_ANTISMASHLITE ( ch_antismash_input, ch_antismash_databases, ch_antismash_directory, [] )
-        ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITE.out.versions)
-
+        ch_versions = ch_versions.mix( ANTISMASH_ANTISMASHLITE.out.versions )
         ch_antismashresults_for_combgc = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
-                                            .mix(ANTISMASH_ANTISMASHLITE.out.gbk_input)
+                                            .mix( ANTISMASH_ANTISMASHLITE.out.gbk_input )
                                             .groupTuple()
                                             .map{
                                                 meta, files ->
