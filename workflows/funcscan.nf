@@ -129,10 +129,10 @@ workflow FUNCSCAN {
                                         !fasta.isEmpty()
                                 }
 
-    ch_intermediate_input = ch_intermediate_input_long
+    ch_intermediate_input = ch_intermediate_input_long.mix( ch_intermediate_input_short )
 
     // Separate pre-annotated FASTAs from those that need annotation
-    ch_input_for_annotation = ch_intermediate_input_long
+    ch_input_for_annotation = ch_intermediate_input
                                 .branch {
                                     meta, fasta, faa, gbk ->
                                         preannotated: faa != []
