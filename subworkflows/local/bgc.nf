@@ -70,7 +70,7 @@ workflow BGC {
 
         }
 
-        ANTISMASH_ANTISMASHLITE ( gbk, ch_antismash_databases, ch_antismash_directory, [] )
+        ANTISMASH_ANTISMASHLITE ( gbks, ch_antismash_databases, ch_antismash_directory, [] )
         ch_versions = ch_versions.mix( ANTISMASH_ANTISMASHLITE.out.versions )
         ch_antismashresults_for_combgc = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
                                             .mix( ANTISMASH_ANTISMASHLITE.out.gbk_input )
