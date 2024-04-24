@@ -83,9 +83,6 @@ workflow FUNCSCAN {
     GUNZIP_INPUT_PREP ( ch_input_prep.compressed )
     ch_versions = ch_versions.mix( GUNZIP_INPUT_PREP.out.versions )
 
-    // ch _unzipped_fastas = GUNZIP_FASTA_PREP.out.gunzip
-    //                     .mix( fasta_prep.uncompressed )
-
     // Merge all the already uncompressed and newly compressed FASTAs here into
     // a single input channel for downstream
     ch_intermediate_input = GUNZIP_INPUT_PREP.out.gunzip
@@ -130,6 +127,7 @@ workflow FUNCSCAN {
                                         !fasta.isEmpty()
                                 }
 
+    // Now they are split, can annotated together for efficiency
     ch_input_for_annotation = ch_intermediate_input_long.mix( ch_intermediate_input_short )
 
     /*
@@ -151,9 +149,11 @@ workflow FUNCSCAN {
         ch_new_annotation = Channel.empty()
     }
 
+    // Mix back the preannotated samples with the newly annotated ones,
+    // but also have dedicated channel for subworkflows that should only use
+    // for long contigs
     ch_prepped_input = ch_intermediate_input.preannotated
                         .mix( ch_new_annotation )
-                        .dump(tag: 'final_for_screening_all')
                         .multiMap {
                             meta, fasta, faa, gbk ->
                                 fastas: [meta, fasta]
@@ -167,7 +167,11 @@ workflow FUNCSCAN {
                                         meta.length == "long"
                                 }
                                 .mix(ch_intermediate_input.preannotated)
-                                .dump(tag: 'final_for_screening_long')
+                                .map {
+                                    meta, fasta, faa, gbk ->
+                                        if ( params.run_bgc_screening && meta.length == null ) { log.warn("[nf-core/funcscan] Pre-annotated input will not be filtered to long contigs for BGC screening! Expect long-run times and/or possible crashes if includes very short contigs") }
+                                    [meta, fasta, faa, gbk]
+                                }
                                 .multiMap {
                                     meta, fasta, faa, gbk ->
                                         fastas: [meta, fasta]
