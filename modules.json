@@ -27,7 +27,7 @@
                     },
                     "amrfinderplus/run": {
                         "branch": "master",
-                        "git_sha": "8f4a5d5ad55715f6c905ab73ce49f677cf6092fc",
+                        "git_sha": "c0514dfc403fa97c96f549de6abe99f03c78fe8d",
                         "installed_by": ["modules"]
                     },
                     "amrfinderplus/update": {
