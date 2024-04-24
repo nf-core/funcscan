@@ -70,14 +70,7 @@ workflow BGC {
 
         }
 
-        ch_antismash_input = gbks
-                                .filter {
-                                    meta, files ->
-                                        if ( meta.longest_contig < params.bgc_antismash_sampleminlength ) log.warn "[nf-core/funcscan] Sample does not have any contig reaching min. length threshold of --bgc_antismash_sampleminlength ${params.bgc_antismash_sampleminlength}. AntiSMASH will not be run for sample: ${meta.id}."
-                                        meta.longest_contig >= params.bgc_antismash_sampleminlength
-                                }
-
-        ANTISMASH_ANTISMASHLITE ( ch_antismash_input, ch_antismash_databases, ch_antismash_directory, [] )
+        ANTISMASH_ANTISMASHLITE ( gbk, ch_antismash_databases, ch_antismash_directory, [] )
         ch_versions = ch_versions.mix( ANTISMASH_ANTISMASHLITE.out.versions )
         ch_antismashresults_for_combgc = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
                                             .mix( ANTISMASH_ANTISMASHLITE.out.gbk_input )

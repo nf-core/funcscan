@@ -102,16 +102,17 @@ workflow FUNCSCAN {
 
                                     [meta, fasta, faa, gbk]
                             }
-                            .multiMap {
+                            .branch {
                                 meta, fasta, faa, gbk ->
-                                    fastas: [ meta, fasta ]
-                                    annotations : [ meta, faa, gbk ]
+                                    preannotated: gbk != []
+                                    fastas: true
                             }
 
     // Split each FASTA into long and short contigs to
     // speed up BGC workflow with BGC-compatible contig lengths only
-    SEQKIT_SEQ_LONG ( ch_intermediate_input.fastas )
-    SEQKIT_SEQ_SHORT ( ch_intermediate_input.fastas )
+    ch_intermediate_fasta_for_split = ch_intermediate_input.fastas.map{ meta, fasta, faa, gbk -> [ meta, fasta ] }
+    SEQKIT_SEQ_LONG ( ch_intermediate_fasta_for_split )
+    SEQKIT_SEQ_SHORT ( ch_intermediate_fasta_for_split )
     ch_versions = ch_versions.mix( SEQKIT_SEQ_LONG.out.versions )
     ch_versions = ch_versions.mix( SEQKIT_SEQ_SHORT.out.versions )
 
@@ -129,15 +130,7 @@ workflow FUNCSCAN {
                                         !fasta.isEmpty()
                                 }
 
-    ch_intermediate_input = ch_intermediate_input_long.mix( ch_intermediate_input_short )
-
-    // Separate pre-annotated FASTAs from those that need annotation
-    ch_input_for_annotation = ch_intermediate_input
-                                .branch {
-                                    meta, fasta, faa, gbk ->
-                                        preannotated: faa != []
-                                        unannotated: true
-                                }
+    ch_input_for_annotation = ch_intermediate_input_long.mix( ch_intermediate_input_short )
 
     /*
         ANNOTATION
@@ -146,17 +139,11 @@ workflow FUNCSCAN {
     // Some tools require annotated FASTAs
     if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.bgc_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
 
-        ch_unannotated_for_annotation = ch_input_for_annotation.unannotated
-                                            .map{
-                                                meta, fasta, faa, gbk ->
-                                                [meta, fasta]
-                                            }
-
-        ANNOTATION( ch_unannotated_for_annotation )
+        ANNOTATION( ch_input_for_annotation )
         ch_versions = ch_versions.mix( ANNOTATION.out.versions )
         ch_multiqc_files = ch_multiqc_files.mix( ANNOTATION.out.multiqc_files )
 
-        ch_new_annotation = ch_unannotated_for_annotation
+        ch_new_annotation = ch_input_for_annotation
                                 .join( ANNOTATION.out.faa )
                                 .join( ANNOTATION.out.gbk )
 
@@ -164,19 +151,29 @@ workflow FUNCSCAN {
         ch_new_annotation = Channel.empty()
     }
 
-    ch_prepped_input = ch_input_for_annotation.preannotated
-                        .map{
-                            meta, fasta, faa, gbk ->
-                                def gbk_format = gbk.extension == 'gbk' ? gbk : []
-                            [meta, fasta, faa, gbk_format]
-                        }
+    ch_prepped_input = ch_intermediate_input.preannotated
                         .mix( ch_new_annotation )
+                        .dump(tag: 'final_for_screening_all')
                         .multiMap {
                             meta, fasta, faa, gbk ->
-                            fastas: [meta, fasta]
-                            faas: [meta, faa]
-                            gbks: [meta, gbk]
+                                fastas: [meta, fasta]
+                                faas: [meta, faa]
+                                gbks: [meta, gbk]
                         }
+
+    ch_prepped_input_long = ch_new_annotation
+                                .filter{
+                                    meta, fasta, faa, gbk ->
+                                        meta.length == "long"
+                                }
+                                .mix(ch_intermediate_input.preannotated)
+                                .dump(tag: 'final_for_screening_long')
+                                .multiMap {
+                                    meta, fasta, faa, gbk ->
+                                        fastas: [meta, fasta]
+                                        faas: [meta, faa]
+                                        gbks: [meta, gbk]
+                                }
 
     /*
         TAXONOMIC CLASSIFICATION
@@ -296,14 +293,14 @@ workflow FUNCSCAN {
     */
     if ( params.run_bgc_screening && !params.run_taxa_classification ) {
         BGC (
-            ch_prepped_input.fastas,
-            ch_prepped_input.faas
+            ch_prepped_input_long.fastas,
+            ch_prepped_input_long.faas
                 .filter {
                     meta, file ->
                         if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. BGC screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
-            ch_prepped_input.gbks
+            ch_prepped_input_long.gbks
                 .filter {
                     meta, file ->
                         if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GBK file. BGC screening tools requiring this file will not be executed: ${meta.id}")
