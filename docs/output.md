@@ -28,7 +28,7 @@ results/
 |   └── mmseqs_createtsv/
 ├── annotation/
 |   ├── bakta/
-|   ├── prodigal
+|   ├── prodigal/
 |   ├── prokka/
 |   └── pyrodigal/
 ├── amp/
@@ -209,18 +209,19 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `bakta/`
-  - `<samplename>.gff3`: annotations & sequences in GFF3 format
-  - `<samplename>.gbff`: annotations & sequences in (multi) GenBank format
-  - `<samplename>.ffn`: feature nucleotide sequences as FASTA
-  - `<samplename>.fna`: replicon/contig DNA sequences as FASTA
-  - `<samplename>.embl`: annotations & sequences in (multi) EMBL format
-  - `<samplename>.faa`: CDS/sORF amino acid sequences as FASTA
-  - `<samplename>_hypothetical.faa`: further information on hypothetical protein CDS as simple human readble tab separated values
-  - `<samplename>_hypothetical.tsv`: hypothetical protein CDS amino acid sequences as FASTA
-  - `<samplename>.tsv`: annotations as simple human readble TSV
-  - `<samplename>.txt`: summary in TXT format
+  - `<samplename>`
+    - `<samplename>.gff3`: annotations & sequences in GFF3 format
+    - `<samplename>.gbff`: annotations & sequences in (multi) GenBank format
+    - `<samplename>.ffn`: feature nucleotide sequences as FASTA
+    - `<samplename>.fna`: replicon/contig DNA sequences as FASTA
+    - `<samplename>.embl`: annotations & sequences in (multi) EMBL format
+    - `<samplename>.faa`: CDS/sORF amino acid sequences as FASTA
+    - `<samplename>_hypothetical.faa`: further information on hypothetical protein CDS as simple human readble tab separated values
+    - `<samplename>_hypothetical.tsv`: hypothetical protein CDS amino acid sequences as FASTA
+    - `<samplename>.tsv`: annotations as simple human readble TSV
+    - `<samplename>.txt`: summary in TXT format
 
-> Descriptions directly from the [Bakta documentation](https://github.com/oschwengers/bakta#output).
+> Descriptions taken from the [Bakta documentation](https://github.com/oschwengers/bakta#output).
 
 </details>
 
