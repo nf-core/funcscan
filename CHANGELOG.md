@@ -19,7 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#343](https://github.com/nf-core/funcscan/pull/343) Standardized the resulting workflow summary tables to always start with 'sample_id\tcontig_id\t..'. Reformatted the output of `hamronization/summarize` module. (by @darcy220606)
 - [#348](https://github.com/nf-core/funcscan/pull/348) Updated samplesheet for pipeline tests to 'samplesheet_reduced.csv' with smaller datasets to reduce resource consumption. Updated prodigal module to fix pigz issue. Removed `tests/` from `.gitignore`. (by @darcy220606)
 - [#362](https://github.com/nf-core/funcscan/pull/362) Save annotations from bakta in subdirectories per sample. (by @jasmezz)
-- [#363](https://github.com/nf-core/funcscan/pull/363) Remove warning from DeepBGC usage docs. (by @jasmezz)
+- [#363](https://github.com/nf-core/funcscan/pull/363) Removed warning from DeepBGC usage docs. (by @jasmezz)
+- [#365](https://github.com/nf-core/funcscan/pull/365) Fixed AMRFinderPlus module and usage docs for manual database download. (by @jasmezz)
 
 ### `Dependencies`
 

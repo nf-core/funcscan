@@ -151,7 +151,7 @@ You should place all HMMs in a directory and supply them e.g. to AMP models:
 
 ### AMRFinderPlus
 
-AMRFinderPlus relies on NCBI’s curated Reference Gene Database and curated collection of Hidden Markov Models.
+AMRFinderPlus relies on NCBI's curated Reference Gene Database and curated collection of Hidden Markov Models.
 
 nf-core/funcscan will download this database for you, unless the path to a local version is given with:
 
@@ -159,16 +159,13 @@ nf-core/funcscan will download this database for you, unless the path to a local
 --arg_amrfinderplus_db '/<path>/<to>/<amrfinderplus_db>/'
 ```
 
-You can either:
+To obtain a local version of the database:
 
-1. Install AMRFinderPlus from [bioconda](https://bioconda.github.io/recipes/ncbi-amrfinderplus/README.html?highlight=amrfinderplus)
-2. Run `amrfinder --update`, which will download the latest version of the AMRFinderPlus database to the default location (location of the AMRFinderPlus binaries/data). It creates a directory in the format YYYY-MM-DD.version (e.g., `<installation>/<path>/data/2022-12-19.1/`).
+1. Install AMRFinderPlus from [bioconda](https://bioconda.github.io/recipes/ncbi-amrfinderplus/README.html?highlight=amrfinderplus). To ensure database compatibility, please use the same version as is used in your nf-core/funcscan release (check version in file `<installation>/<path>/funcscan/modules/nf-core/amrfinderplus/run/environment.yml`).
+2. Run `amrfinder --update`, which will download the latest version of the AMRFinderPlus database to the default location (location of the AMRFinderPlus binaries/data). It creates a directory in the format YYYY-MM-DD.version (e.g., `<installation>/<path>/data/2024-01-31.1/`).
 
-Or:
-
-1. Download the files directly from the [NCBI FTP site](https://ftp.ncbi.nlm.nih.gov/pathogen/Antimicrobial_resistance/AMRFinderPlus/database/latest/)
-
-The downloaded database folder contains the AMR related files:
+<details markdown="1">
+<summary>AMR related files in the database folder</summary>
 
 ```console
 <YYYY-MM-DD.v>/
@@ -191,7 +188,7 @@ The downloaded database folder contains the AMR related files:
 └── version.txt
 ```
 
-2. Supply the database directory path to the pipeline as described above.
+</details>
 
 > ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
 
