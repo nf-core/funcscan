@@ -108,9 +108,9 @@ workflow AMP {
 
     //AMPCOMBI concatenation
     if ( !params.run_taxa_classification ) {
-        ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile( name: 'ampcombi_complete_summary.tsv', storeDir: "${params.outdir}/reports/ampcombi",keepHeader:true )
+        ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile( name: 'ampcombi_complete_summary.csv', storeDir: "${params.outdir}/reports/ampcombi",keepHeader:true )
     } else {
-        ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile( name: 'ampcombi_complete_summary.tsv', keepHeader:true )
+        ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile( name: 'ampcombi_complete_summary.csv', keepHeader:true )
     }
 
     // MERGE_TAXONOMY

@@ -29,22 +29,28 @@ workflow TAXA_CLASS {
         } else {
             MMSEQS_DATABASES ( params.taxa_classification_mmseqs_databases_id )
             ch_versions  = ch_versions.mix( MMSEQS_DATABASES.out.versions )
-            ch_mmseqs_db = ( MMSEQS_DATABASES.out.database )
+            ch_mmseqs_db = MMSEQS_DATABASES.out.database
         }
 
         // Create db for query contigs, assign taxonomy and convert to table format
         // MMSEQS_CREATEDB
         MMSEQS_CREATEDB ( fastas )
         ch_versions         = ch_versions.mix( MMSEQS_CREATEDB.out.versions )
-        ch_taxonomy_querydb = MMSEQS_CREATEDB.out.db
 
         // MMSEQS_TAXONOMY
         MMSEQS_TAXONOMY ( ch_taxonomy_querydb, ch_mmseqs_db )
         ch_versions               = ch_versions.mix( MMSEQS_TAXONOMY.out.versions )
-        ch_taxonomy_querydb_taxdb = MMSEQS_TAXONOMY.out.db_taxonomy
+
+        ch_taxonomy_input_for_createtsv = MMSEQS_CREATEDB.out.db.dump(tag: 'db')
+                                            .join(MMSEQS_TAXONOMY.out.db_taxonomy.dump(tag: 'db_taxonomy'))
+                                            .dump(tag: 'post_join')
+                                            .multiMap { meta, db, db_taxonomy ->
+                                                db: [ meta,db ]
+                                                db_taxonomy: [ meta,db_taxonomy ]
+                                            }
 
         // MMSEQS_CREATETSV
-        MMSEQS_CREATETSV ( ch_taxonomy_querydb_taxdb, [[:],[]], ch_taxonomy_querydb )
+        MMSEQS_CREATETSV ( ch_taxonomy_input_for_createtsv.db, [[:],[]], ch_taxonomy_input_for_createtsv.db_taxonomy )
         ch_versions     = ch_versions.mix( MMSEQS_CREATETSV.out.versions )
         ch_taxonomy_tsv = MMSEQS_CREATETSV.out.tsv
     }

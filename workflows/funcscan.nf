@@ -92,7 +92,7 @@ workflow FUNCSCAN {
                                 meta, files ->
                                     def fasta_found   = files.find{it.toString().tokenize('.').last().matches('fasta|fas|fna|fa')}
                                     def faa_found     = files.find{it.toString().endsWith('.faa')}
-                                    def gbk_found     = files.find{it.toString().tokenize('.').last().matches('gbk')}
+                                    def gbk_found     = files.find{it.toString().tokenize('.').last().matches('gbk|gbff')}
                                     def fasta         = fasta_found   != null ? fasta_found   : []
                                     def faa           = faa_found     != null ? faa_found     : []
                                     def gbk           = gbk_found     != null ? gbk_found     : []
@@ -185,9 +185,15 @@ workflow FUNCSCAN {
 
     // The final subworkflow reports need taxonomic classification.
     // This can be either on NT or AA level depending on annotation.
-    // TODO: Only NT at the moment. AA tax. classification will be added only when its PR is merged.
     if ( params.run_taxa_classification ) {
-            TAXA_CLASS ( ch_prepped_input.fastas )
+
+            if ( params.run_bgc_screening && !params.run_amp_screening && !params.run_arg_screening ) {
+                ch_input_for_taxonomy = ch_prepped_input_long.fastas.dump(tag: 'ch_prepped_input_long')
+            } else {
+                ch_input_for_taxonomy = ch_prepped_input.fastas.dump(tag: 'ch_prepped_input')
+            }
+
+            TAXA_CLASS ( ch_input_for_taxonomy )
             ch_versions     = ch_versions.mix( TAXA_CLASS.out.versions )
             ch_taxonomy_tsv = TAXA_CLASS.out.sample_taxonomy
 
