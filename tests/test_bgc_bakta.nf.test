@@ -21,22 +21,22 @@ nextflow_pipeline {
                 { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
 
                 // antiSMASH
-                { assert path("$outputDir/bgc/antismash/sample_2_long/sample_2_long.gbk").text.contains("##antiSMASH-Data-START##") }, // channel: gbk_input
-                { assert snapshot( path("$outputDir/bgc/antismash/sample_2_long/css") ).match("antismash_css") }, // parts of channel: html_accessory_files
-                { assert path("$outputDir/bgc/antismash/sample_2_long/sample_2_long.zip").exists() },  // channel: zip
+                { assert path("$outputDir/bgc/antismash/sample_2_long/sample_2_long.gbk").text.contains("##antiSMASH-Data-START##") },             // channel: gbk_input
+                { assert snapshot( path("$outputDir/bgc/antismash/sample_2_long/css") ).match("antismash_css") },                                  // parts of channel: html_accessory_files
+                { assert path("$outputDir/bgc/antismash/sample_2_long/sample_2_long.zip").exists() },                                              // channel: zip
                 { assert path("$outputDir/bgc/antismash/sample_2_long/index.html").text.contains("https://antismash.secondarymetabolites.org/") }, // channel: html
-                { assert path("$outputDir/bgc/antismash/sample_2_long/regions.js").text.contains('NODE_861_length_4516_cov') }, // channel:json_sideloading
-                { assert path("$outputDir/bgc/antismash/sample_2_long/sample_2_long.log").text.contains("antiSMASH status: SUCCESS") }, // channel: log
+                { assert path("$outputDir/bgc/antismash/sample_2_long/regions.js").text.contains('NODE_861_length_4516_cov') },                    // channel: json_sideloading
+                { assert path("$outputDir/bgc/antismash/sample_2_long/sample_2_long.log").text.contains("antiSMASH status: SUCCESS") },            // channel: log
 
                 // deepBGC
-                { assert snapshot("$outputDir/bgc/deepbgc/sample_2_long/sample_2_long.bgc.gbk").match("deepbgc_bgc_gbk") }, // channel: bgc_gbk
+                { assert snapshot("$outputDir/bgc/deepbgc/sample_2_long/sample_2_long.bgc.gbk").match("deepbgc_bgc_gbk") },                              // channel: bgc_gbk
                 { assert path("$outputDir/bgc/deepbgc/sample_2_long/sample_2_long.antismash.json").text.contains("NODE_861_length_4516_cov_2.736606") }, // channel: json
-                { assert path("$outputDir/bgc/deepbgc/sample_2_long/LOG.txt").text.contains('Saved DeepBGC result to: sample_2_long') }, // channel: log
-                { assert path("$outputDir/bgc/deepbgc/sample_2_long/sample_2_long.full.gbk").text.contains('1 aaggggtatg gagcagcgac gtctacccgt') }, // channel: full_gbk
+                { assert path("$outputDir/bgc/deepbgc/sample_2_long/LOG.txt").text.contains('Saved DeepBGC result to: sample_2_long') },                 // channel: log
+                { assert path("$outputDir/bgc/deepbgc/sample_2_long/sample_2_long.full.gbk").text.contains('1 aaggggtatg gagcagcgac gtctacccgt') },      // channel: full_gbk
 
                 // GECCO
-                { assert snapshot("$outputDir/bgc/gecco/sample_2_long.genes.tsv").match("gecco_tsv") },
-                { assert snapshot("$outputDir/bgc/gecco/sample_2_long.features" ).match("gecco_features") }
+                { assert snapshot("$outputDir/bgc/gecco/sample_2_long.genes.tsv").match("gecco_tsv") },     // channel: genes
+                { assert snapshot("$outputDir/bgc/gecco/sample_2_long.features" ).match("gecco_features") } // channel: features
             )
         }
     }
