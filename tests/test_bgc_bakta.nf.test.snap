@@ -1,0 +1,44 @@
+{
+    "gecco_features": {
+        "content": [
+            "/home/jasmin/nf-core/funcscan/funcscan/.nf-test/tests/34ac17f0542ce1a0a47c7f38d3560b8a/output/bgc/gecco/sample_2_long.features"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-05-07T15:44:28.012202034"
+    },
+    "antismash_css": {
+        "content": [
+            [
+                "bacteria.css:md5,39c0ca9cbc64cb824dc958b26b5b4ab8"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-05-07T15:44:27.985325303"
+    },
+    "deepbgc_bgc_gbk": {
+        "content": [
+            "sample_2_long.bgc.gbk:md5,d41d8cd98f00b204e9800998ecf8427e"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-05-07T15:44:27.999099404"
+    },
+    "gecco_tsv": {
+        "content": [
+            "/home/jasmin/nf-core/funcscan/funcscan/.nf-test/tests/34ac17f0542ce1a0a47c7f38d3560b8a/output/bgc/gecco/sample_2_long.genes.tsv"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-05-07T15:44:28.006310884"
+    }
+}
