@@ -55,15 +55,51 @@ nextflow_pipeline {
                 { assert snapshot("$outputDir/amp/macrel/sample_2_short/sample_2_short_log.txt").match("macrel_log_file_2-short") },
                 { assert snapshot("$outputDir/amp/macrel/sample_2_long/sample_2_long_log.txt").match("macrel_log_file_2-long") },
 
-                // TODO: DeepARG
+                // ampcombi
+                { assert snapshot("$outputDir/reports/ampcombi/ampcombi_complete_summary.tsv").match("ampcombi_summarize_tsv") },
 
-                // TODO: ABRicate
+                // DeepARG
+                { assert snapshot("$outputDir/arg/deeparg/sample_1_short/sample_1_short.align.daa.tsv").match("deeparg_daa_tsv_1-short") },
+                { assert snapshot("$outputDir/arg/deeparg/sample_2_short/sample_2_short.align.daa.tsv").match("deeparg_daa_tsv_2-short") },
+                { assert snapshot("$outputDir/arg/deeparg/sample_2_long/sample_2_long.align.daa.tsv").match("deeparg_daa_tsv_2-long") },
+                { assert snapshot("$outputDir/arg/deeparg/sample_1_short/sample_1_short.mapping.ARG").match("deeparg_daa_arg_1-short") },
+                { assert snapshot("$outputDir/arg/deeparg/sample_2_short/sample_2_short.mapping.ARG").match("deeparg_daa_arg_2-short") },
+                { assert snapshot("$outputDir/arg/deeparg/sample_2_long/sample_2_long.mapping.ARG").match("deeparg_daa_sarg_2-long") },
+                { assert file("$outputDir/arg/deeparg/sample_1_short/sample_1_short.align.daa").name },
+                { assert file("$outputDir/arg/deeparg/sample_2_short/sample_2_short.align.daa").name },
+                { assert file("$outputDir/arg/deeparg/sample_2_long/sample_2_long.align.daa").name },
+                { assert path("$outputDir/arg/deeparg/sample_1_short/sample_1_short.mapping.potential.ARG").text.contains("#ARG") },
+                { assert path("$outputDir/arg/deeparg/sample_2_short/sample_2_short.mapping.potential.ARG").text.contains("#ARG") },
+                { assert path("$outputDir/arg/deeparg/sample_2_long/sample_2_long.mapping.potential.ARG").text.contains("#ARG") },
 
-                // TODO: AMRFinderPlus
+                // ABRicate
+                { assert snapshot("$outputDir/arg/deeparg/sample_1_short/sample_1_short.txt").match("abricate_txt_1-short") },
+                { assert snapshot("$outputDir/arg/deeparg/sample_2_short/sample_2_short.txt").match("abricate_txt_2-short") },
+                { assert snapshot("$outputDir/arg/deeparg/sample_2_long/sample_2_long.txt").match("abricate_txt_2-long") },
 
-                // TODO: RGI
+                // AMRFinderPlus
+                { assert snapshot("$outputDir/arg/amrfinderplus/sample_1_short/sample_1_short.tsv").match("amrfinderplus_tsv_1-short") },
+                { assert snapshot("$outputDir/arg/amrfinderplus/sample_2_short/sample_2_short.tsv").match("amrfinderplus_tsv_2-short") },
+                { assert snapshot("$outputDir/arg/amrfinderplus/sample_2_long/sample_2_long.tsv").match("amrfinderplus_tsv_2-long") },
 
-                // TODO: fARGene
+                // RGI
+                { assert snapshot("$outputDir/arg/rgi/sample_1_short/sample_1_short.txt").match("rgi_txt_1-short") },
+                { assert snapshot("$outputDir/arg/rgi/sample_2_short/sample_2_short.txt").match("rgi_txt_2-short") },
+                { assert snapshot("$outputDir/arg/rgi/sample_2_long/sample_2_long.txt").match("rgi_txt_2-long") },
+
+                // fARGene
+                { assert snapshot("$outputDir/arg/rgi/sample_1_short/class_a/results_summary.txt").match("fargene_class_a_txt_1-short") },
+                { assert snapshot("$outputDir/arg/rgi/sample_2_short/class_a/results_summary.txt").match("fargene_class_a_txt_2-short") },
+                { assert snapshot("$outputDir/arg/rgi/sample_2_long/class_a/results_summary.txt").match("fargene_class_a_txt_2-long") },
+                { assert snapshot("$outputDir/arg/rgi/sample_1_short/class_b_1_2/results_summary.txt").match("fargene_class_b_txt_1-short") },
+                { assert snapshot("$outputDir/arg/rgi/sample_2_short/class_b_1_2/results_summary.txt").match("fargene_class_b_txt_2-short") },
+                { assert snapshot("$outputDir/arg/rgi/sample_2_long/class_b_1_2/results_summary.txt").match("fargene_class_b_txt_2-long") },
+                { assert snapshot("$outputDir/arg/rgi/sample_1_short/class_b_1_2/fargene_analysis.log").match("fargene_log_1-short") },
+                { assert snapshot("$outputDir/arg/rgi/sample_2_short/class_b_1_2/fargene_analysis.log").match("fargene_log_2-short") },
+                { assert snapshot("$outputDir/arg/rgi/sample_2_long/class_b_1_2/fargene_analysis.log").match("fargene_log_2-long") },
+
+                // hamronization
+                { assert snapshot("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv").match("hamronization_summarize") },
 
             )
         }
