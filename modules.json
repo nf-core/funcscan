@@ -177,7 +177,7 @@
                     },
                     "rgi/main": {
                         "branch": "master",
-                        "git_sha": "dbbb0c509e044d2680b429ba622049d4a23426dc",
+                        "git_sha": "4dc25cf0a0f11ea5a2693ec2540d41cbb829fabe",
                         "installed_by": ["modules"]
                     },
                     "seqkit/seq": {
