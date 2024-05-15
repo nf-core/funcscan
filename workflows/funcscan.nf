@@ -188,9 +188,9 @@ workflow FUNCSCAN {
     if ( params.run_taxa_classification ) {
 
             if ( params.run_bgc_screening && !params.run_amp_screening && !params.run_arg_screening ) {
-                ch_input_for_taxonomy = ch_prepped_input_long.fastas.dump(tag: 'ch_prepped_input_long')
+                ch_input_for_taxonomy = ch_prepped_input_long.fastas
             } else {
-                ch_input_for_taxonomy = ch_prepped_input.fastas.dump(tag: 'ch_prepped_input')
+                ch_input_for_taxonomy = ch_prepped_input.fastas
             }
 
             TAXA_CLASS ( ch_input_for_taxonomy )
