@@ -13,12 +13,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#338](https://github.com/nf-core/funcscan/pull/338) Set `--meta` parameter to default for Bakta, with singlemode optional. (by @jasmezz)
 - [#343](https://github.com/nf-core/funcscan/pull/343) Added contig taxonomic classification using [MMseqs2](https://github.com/soedinglab/MMseqs2/). (by @darcy220606)
 - [#358](https://github.com/nf-core/funcscan/pull/358) Improved RGI databases handling, users can supply their own CARD now. (by @jasmezz)
+- [#375](https://github.com/nf-core/funcscan/pull/375) Merged pipeline template of nf-core/tools version 2.14.1 (by @jfy133)
 - [#340](https://github.com/nf-core/funcscan/pull/340) Added support for supplying pre-annotated sequences to the pipeline. (by @jfy133, @jasmezz)
 
 ### `Fixed`
 
 - [#343](https://github.com/nf-core/funcscan/pull/343) Standardized the resulting workflow summary tables to always start with 'sample_id\tcontig_id\t..'. Reformatted the output of `hamronization/summarize` module. (by @darcy220606)
 - [#348](https://github.com/nf-core/funcscan/pull/348) Updated samplesheet for pipeline tests to 'samplesheet_reduced.csv' with smaller datasets to reduce resource consumption. Updated prodigal module to fix pigz issue. Removed `tests/` from `.gitignore`. (by @darcy220606)
+- [#362](https://github.com/nf-core/funcscan/pull/362) Save annotations from bakta in subdirectories per sample. (by @jasmezz)
+- [#363](https://github.com/nf-core/funcscan/pull/363) Removed warning from DeepBGC usage docs. (by @jasmezz)
+- [#365](https://github.com/nf-core/funcscan/pull/365) Fixed AMRFinderPlus module and usage docs for manual database download. (by @jasmezz)
+- [#371](https://github.com/nf-core/funcscan/pull/371) Fixed AMRFinderPlus parameter `arg_amrfinderplus_name`. (by @m3hdad)
+
+### `Dependencies`
 
 | Tool          | Previous version | New version |
 | ------------- | ---------------- | ----------- |
@@ -34,6 +41,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | Pyrodigal     | 2.1.0            | 3.3.0       |
 | RGI           | 5.2.1            | 6.0.3       |
 | tabix/htslib  | 1.11             | 1.19.1      |
+
+### `Deprecated`
 
 ## v1.1.5 - [2024-03-20]
 

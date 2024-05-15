@@ -176,7 +176,7 @@ You should place all HMMs in a directory and supply them e.g. to AMP models:
 
 ### AMRFinderPlus
 
-AMRFinderPlus relies on NCBI’s curated Reference Gene Database and curated collection of Hidden Markov Models.
+AMRFinderPlus relies on NCBI's curated Reference Gene Database and curated collection of Hidden Markov Models.
 
 nf-core/funcscan will download this database for you, unless the path to a local version is given with:
 
@@ -184,16 +184,13 @@ nf-core/funcscan will download this database for you, unless the path to a local
 --arg_amrfinderplus_db '/<path>/<to>/<amrfinderplus_db>/'
 ```
 
-You can either:
+To obtain a local version of the database:
 
-1. Install AMRFinderPlus from [bioconda](https://bioconda.github.io/recipes/ncbi-amrfinderplus/README.html?highlight=amrfinderplus)
-2. Run `amrfinder --update`, which will download the latest version of the AMRFinderPlus database to the default location (location of the AMRFinderPlus binaries/data). It creates a directory in the format YYYY-MM-DD.version (e.g., `<installation>/<path>/data/2022-12-19.1/`).
+1. Install AMRFinderPlus from [bioconda](https://bioconda.github.io/recipes/ncbi-amrfinderplus/README.html?highlight=amrfinderplus). To ensure database compatibility, please use the same version as is used in your nf-core/funcscan release (check version in file `<installation>/<path>/funcscan/modules/nf-core/amrfinderplus/run/environment.yml`).
+2. Run `amrfinder --update`, which will download the latest version of the AMRFinderPlus database to the default location (location of the AMRFinderPlus binaries/data). It creates a directory in the format YYYY-MM-DD.version (e.g., `<installation>/<path>/data/2024-01-31.1/`).
 
-Or:
-
-1. Download the files directly from the [NCBI FTP site](https://ftp.ncbi.nlm.nih.gov/pathogen/Antimicrobial_resistance/AMRFinderPlus/database/latest/)
-
-The downloaded database folder contains the AMR related files:
+<details markdown="1">
+<summary>AMR related files in the database folder</summary>
 
 ```console
 <YYYY-MM-DD.v>/
@@ -216,7 +213,7 @@ The downloaded database folder contains the AMR related files:
 └── version.txt
 ```
 
-2. Supply the database directory path to the pipeline as described above.
+</details>
 
 :::info
 The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
@@ -300,10 +297,6 @@ If installing with conda, the installation directory will be `lib/python3.10/sit
 :::
 
 ### DeepBGC
-
-:::danger
-The dependencies for the deepBGC database download are currently broken. Until deepBGC gets fixed, users need to provide the database files themselves or just skip the tool (`--bgc_skip_deepbgc`). To provide the files yourself: The links for the database files can be found in [this script](https://github.com/Merck/deepbgc/blob/476934b61521d23c1122a1cfada176ee5e402741/deepbgc/data.py) from the deepBGC GitHub repository. The command `deepbgc download` as described below will not work at the moment.
-:::
 
 DeepBGC relies on trained models and Pfams to run its analysis. nf-core/funcscan will download these databases for you. If the flag `--save_databases` is set, the downloaded files will be stored in the output directory under `databases/deepbgc/`.
 
@@ -405,6 +398,8 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
   - A generic configuration profile to be used with [Charliecloud](https://hpc.github.io/charliecloud/)
 - `apptainer`
   - A generic configuration profile to be used with [Apptainer](https://apptainer.org/)
+- `wave`
+  - A generic configuration profile to enable [Wave](https://seqera.io/wave/) containers. Use together with one of the above (requires Nextflow ` 24.03.0-edge` or later).
 - `conda`
   - A generic configuration profile to be used with [Conda](https://conda.io/docs/). Please only use Conda as a last resort i.e. when it's not possible to run the pipeline with Docker, Singularity, Podman, Shifter, Charliecloud, or Apptainer.
 
