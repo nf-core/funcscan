@@ -35,8 +35,8 @@
                 "type": "string",
                 "format": "file-path",
                 "exists": true,
-                "pattern": "^\\S+\\.gbk(\\.gz)?$",
-                "errorMessage": "Input file for feature annotations has incorrect file format. File must end in .gbk",
+                "pattern": "^\\S+\\.(gbk|gbff)(\\.gz)?$",
+                "errorMessage": "Input file for feature annotations has incorrect file format. File must end in .gbk or .gbff",
                 "unique": true,
                 "dependentRequired": ["protein"]
             }
