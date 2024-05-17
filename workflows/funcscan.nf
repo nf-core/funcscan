@@ -398,6 +398,7 @@ workflow FUNCSCAN {
     )
 
     emit:
+    prepped_input  = ch_prepped_input
     multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
     versions       = ch_versions                 // channel: [ path(versions.yml) ]
 }

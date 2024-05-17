@@ -1,0 +1,107 @@
+nextflow_pipeline {
+
+    name "Test pipeline: NFCORE_FUNCSCAN"
+    script "main.nf"
+    tag "pipeline"
+    tag "nfcore_funcscan"
+    tag "test_pyrodigal"
+
+    test("test_pyrodigal_profile") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert new File("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+
+                // AMPir
+                { assert snapshot("$outputDir/amp/ampir/sample_1_short/sample_1_short.ampir.tsv").match("ampir_tsv_1-short") },
+                { assert snapshot("$outputDir/amp/ampir/sample_1_short/sample_1_short.ampir.faa").match("ampir_faa_1-short") },
+                { assert snapshot("$outputDir/amp/ampir/sample_2_short/sample_2_short.ampir.tsv").match("ampir_tsv_2-short") },
+                { assert snapshot("$outputDir/amp/ampir/sample_2_short/sample_2_short.ampir.faa").match("ampir_faa_2-short") },
+                { assert snapshot("$outputDir/amp/ampir/sample_2_long/sample_2_long.ampir.tsv").match("ampir_tsv_2-long") },
+                { assert snapshot("$outputDir/amp/ampir/sample_2_long/sample_2_long.ampir.faa").match("ampir_faa_2-long") },
+
+                // AMPlify
+                { assert snapshot("$outputDir/amp/amplify/sample_1_short/sample_1_short.tsv").match("amplify_tsv_1-short") },
+                { assert snapshot("$outputDir/amp/amplify/sample_2_short/sample_2_short.tsv").match("amplify_tsv_2-short") },
+                { assert snapshot("$outputDir/amp/amplify/sample_2_long/sample_2_long.tsv").match("amplify_tsv_2-long") },
+
+                // HMMsearch
+                { assert snapshot("$outputDir/amp/hmmer_hmmsearch/sample_1_short/sample_1_short_mybacteriocin.txt.gz").match("hmmsearch_output_1-short") },
+                { assert snapshot("$outputDir/amp/hmmer_hmmsearch/sample_2_short/sample_2_short_mybacteriocin.txt.gz").match("hmmsearch_output_2-short") },
+                { assert snapshot("$outputDir/amp/hmmer_hmmsearch/sample_2_long/sample_2_long_mybacteriocin.txt.gz").match("hmmsearch_output_2-long") },
+
+                // Macrel
+                { assert snapshot("$outputDir/amp/macrel/sample_1_short/sample_1_short.smorfs.faa.gz").match("macrel_smorfs_1-short") },
+                { assert snapshot("$outputDir/amp/macrel/sample_2_short/sample_2_short.smorfs.faa.gz").match("macrel_smorfs_2-short") },
+                { assert snapshot("$outputDir/amp/macrel/sample_2_long/sample_2_long.smorfs.faa.gz").match("macrel_smorfs_2-long") },
+                { assert snapshot("$outputDir/amp/macrel/sample_1_short/sample_1_short.all_orfs.faa.gz").match("macrel_all_orfs_1-short") },
+                { assert snapshot("$outputDir/amp/macrel/sample_2_short/sample_2_short.all_orfs.faa.gz").match("macrel_all_orfs_2-short") },
+                { assert snapshot("$outputDir/amp/macrel/sample_2_long/sample_2_long.all_orfs.faa.gz").match("macrel_all_orfs_2-long") },
+                { assert snapshot("$outputDir/amp/macrel/sample_1_short/sample_1_short.prediction.gz").match("macrel_amp_prediction_1-short") },
+                { assert snapshot("$outputDir/amp/macrel/sample_2_short/sample_2_short.prediction.gz").match("macrel_amp_prediction_2-short") },
+                { assert snapshot("$outputDir/amp/macrel/sample_2_long/sample_2_long.prediction.gz").match("macrel_amp_prediction_2-long") },
+                { assert snapshot("$outputDir/amp/macrel/sample_1_short/README.md").match("macrel_readme_file_1-short") },
+                { assert snapshot("$outputDir/amp/macrel/sample_2_short/README.md").match("macrel_readme_file_2-short") },
+                { assert snapshot("$outputDir/amp/macrel/sample_2_long/README.md").match("macrel_readme_file_2-long") },
+                { assert snapshot("$outputDir/amp/macrel/sample_1_short/sample_1_short_log.txt").match("macrel_log_file_1-short") },
+                { assert snapshot("$outputDir/amp/macrel/sample_2_short/sample_2_short_log.txt").match("macrel_log_file_2-short") },
+                { assert snapshot("$outputDir/amp/macrel/sample_2_long/sample_2_long_log.txt").match("macrel_log_file_2-long") },
+
+                // ampcombi
+                { assert snapshot("$outputDir/reports/ampcombi/ampcombi_complete_summary.tsv").match("ampcombi_summarize_tsv") },
+
+                // DeepARG
+                { assert snapshot("$outputDir/arg/deeparg/sample_1_short/sample_1_short.align.daa.tsv").match("deeparg_daa_tsv_1-short") },
+                { assert snapshot("$outputDir/arg/deeparg/sample_2_short/sample_2_short.align.daa.tsv").match("deeparg_daa_tsv_2-short") },
+                { assert snapshot("$outputDir/arg/deeparg/sample_2_long/sample_2_long.align.daa.tsv").match("deeparg_daa_tsv_2-long") },
+                { assert snapshot("$outputDir/arg/deeparg/sample_1_short/sample_1_short.mapping.ARG").match("deeparg_daa_arg_1-short") },
+                { assert snapshot("$outputDir/arg/deeparg/sample_2_short/sample_2_short.mapping.ARG").match("deeparg_daa_arg_2-short") },
+                { assert snapshot("$outputDir/arg/deeparg/sample_2_long/sample_2_long.mapping.ARG").match("deeparg_daa_sarg_2-long") },
+                { assert file("$outputDir/arg/deeparg/sample_1_short/sample_1_short.align.daa").name },
+                { assert file("$outputDir/arg/deeparg/sample_2_short/sample_2_short.align.daa").name },
+                { assert file("$outputDir/arg/deeparg/sample_2_long/sample_2_long.align.daa").name },
+                { assert path("$outputDir/arg/deeparg/sample_1_short/sample_1_short.mapping.potential.ARG").text.contains("#ARG") },
+                { assert path("$outputDir/arg/deeparg/sample_2_short/sample_2_short.mapping.potential.ARG").text.contains("#ARG") },
+                { assert path("$outputDir/arg/deeparg/sample_2_long/sample_2_long.mapping.potential.ARG").text.contains("#ARG") },
+
+                // ABRicate
+                { assert snapshot("$outputDir/arg/deeparg/sample_1_short/sample_1_short.txt").match("abricate_txt_1-short") },
+                { assert snapshot("$outputDir/arg/deeparg/sample_2_short/sample_2_short.txt").match("abricate_txt_2-short") },
+                { assert snapshot("$outputDir/arg/deeparg/sample_2_long/sample_2_long.txt").match("abricate_txt_2-long") },
+
+                // AMRFinderPlus
+                { assert snapshot("$outputDir/arg/amrfinderplus/sample_1_short/sample_1_short.tsv").match("amrfinderplus_tsv_1-short") },
+                { assert snapshot("$outputDir/arg/amrfinderplus/sample_2_short/sample_2_short.tsv").match("amrfinderplus_tsv_2-short") },
+                { assert snapshot("$outputDir/arg/amrfinderplus/sample_2_long/sample_2_long.tsv").match("amrfinderplus_tsv_2-long") },
+
+                // RGI
+                { assert snapshot("$outputDir/arg/rgi/sample_1_short/sample_1_short.txt").match("rgi_txt_1-short") },
+                { assert snapshot("$outputDir/arg/rgi/sample_2_short/sample_2_short.txt").match("rgi_txt_2-short") },
+                { assert snapshot("$outputDir/arg/rgi/sample_2_long/sample_2_long.txt").match("rgi_txt_2-long") },
+
+                // fARGene
+                { assert snapshot("$outputDir/arg/rgi/sample_1_short/class_a/results_summary.txt").match("fargene_class_a_txt_1-short") },
+                { assert snapshot("$outputDir/arg/rgi/sample_2_short/class_a/results_summary.txt").match("fargene_class_a_txt_2-short") },
+                { assert snapshot("$outputDir/arg/rgi/sample_2_long/class_a/results_summary.txt").match("fargene_class_a_txt_2-long") },
+                { assert snapshot("$outputDir/arg/rgi/sample_1_short/class_b_1_2/results_summary.txt").match("fargene_class_b_txt_1-short") },
+                { assert snapshot("$outputDir/arg/rgi/sample_2_short/class_b_1_2/results_summary.txt").match("fargene_class_b_txt_2-short") },
+                { assert snapshot("$outputDir/arg/rgi/sample_2_long/class_b_1_2/results_summary.txt").match("fargene_class_b_txt_2-long") },
+                { assert snapshot("$outputDir/arg/rgi/sample_1_short/class_b_1_2/fargene_analysis.log").match("fargene_log_1-short") },
+                { assert snapshot("$outputDir/arg/rgi/sample_2_short/class_b_1_2/fargene_analysis.log").match("fargene_log_2-short") },
+                { assert snapshot("$outputDir/arg/rgi/sample_2_long/class_b_1_2/fargene_analysis.log").match("fargene_log_2-long") },
+
+                // hamronization
+                { assert snapshot("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv").match("hamronization_summarize") },
+
+            )
+        }
+    }
+}
