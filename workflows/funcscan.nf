@@ -120,6 +120,7 @@ workflow FUNCSCAN {
                                     .map{ meta, file -> [ meta + [id: meta.id + '_long', length: "long" ], file ] }
                                     .filter{
                                         meta, fasta ->
+                                            if ( fasta.isEmpty() ) { log.warn("[nf-core/funcscan] The following sample did not contain contigs longer than ${params.contig_qc_lengththreshold} BGC screening will not be executed: ${meta.id}") }
                                             !fasta.isEmpty()
                                     }
 
@@ -178,7 +179,7 @@ workflow FUNCSCAN {
                                 .mix(ch_intermediate_input.preannotated)
                                 .map {
                                     meta, fasta, faa, gbk ->
-                                        if ( params.run_bgc_screening && meta.length == null ) { log.warn("[nf-core/funcscan] Pre-annotated input will not be filtered to long contigs for BGC screening! Expect long-run times and/or possible crashes if includes very short contigs") }
+                                        if ( params.run_bgc_screening && meta.length == null ) { log.warn("[nf-core/funcscan] Pre-annotated input will not be filtered to long contigs for BGC screening! Expect long-run times and/or possible crashes if includes very short contigs. Sample: ${meta.id}") }
                                     [meta, fasta, faa, gbk]
                                 }
                                 .multiMap {
@@ -313,6 +314,9 @@ workflow FUNCSCAN {
         BGCs
     */
     if ( params.run_bgc_screening && !params.run_taxa_classification ) {
+
+        ch_filtered_taxonomytsv_for_bgc = ch_taxonomy_tsv.dump(tag: 'ch_taxonomy_tsv_for_bgc.tsv')
+
         BGC (
             ch_prepped_input_long.fastas,
             ch_prepped_input_long.faas
@@ -327,19 +331,19 @@ workflow FUNCSCAN {
                         if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GBK file. BGC screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
-            ch_taxonomy_tsv
+            ch_filtered_taxonomytsv_for_bgc
         )
         ch_versions = ch_versions.mix( BGC.out.versions )
     } else if ( params.run_bgc_screening && params.run_taxa_classification ) {
         BGC (
-            ch_prepped_input.fastas,
-            ch_prepped_input.faas
+            ch_prepped_input_long.fastas,
+            ch_prepped_input_long.faas
                 .filter {
                     meta, file ->
                         if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. BGC screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
-            ch_prepped_input.gbks
+            ch_prepped_input_long.gbks
                 .filter {
                     meta, file ->
                         if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced an empty GBK file. BGC screening tools requiring this file will not be executed: ${meta.id}")
