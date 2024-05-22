@@ -15,7 +15,7 @@ Similarly, all downloaded databases are saved (i.e. from [MMseqs2](https://githu
 Furthermore, for reproducibility, versions of all software used in the run is presented in a [MultiQC](http://multiqc.info) report.
 
 :::info
-Note that (unannotated) input contigs will be split into two categories per sample: long and short. Each sample will thus get two sets of results for each ARG/AMP screening (suffixed with `_long` and `_short` respectively, assuming contigs remain above/below the threshold), whereas for BGC results only `_long` will exist. This is because BGCs can only be reliability screened with longer contigs.
+Note that if running the BGC subworkflow (unannotated) input contigs will be split into two categories per sample: long and short. Each sample will thus get two sets of results for each ARG/AMP screening (suffixed with `_long` and `_short` respectively, assuming contigs remain above/below the threshold), whereas for BGC results only `_long` will exist. This is because BGCs can only be reliability screened with longer contigs.
 
 The threshold for the separation can be adjusted with `--contig_qc_lengththreshold `.
 :::

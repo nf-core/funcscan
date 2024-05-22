@@ -107,28 +107,34 @@ workflow FUNCSCAN {
 
     // Split each FASTA into long and short contigs to
     // speed up BGC workflow with BGC-compatible contig lengths only
-    ch_intermediate_fasta_for_split = ch_intermediate_input.fastas.map{ meta, fasta, faa, gbk -> [ meta, fasta ] }
-    SEQKIT_SEQ_LONG ( ch_intermediate_fasta_for_split )
-    SEQKIT_SEQ_SHORT ( ch_intermediate_fasta_for_split )
-    ch_versions = ch_versions.mix( SEQKIT_SEQ_LONG.out.versions )
-    ch_versions = ch_versions.mix( SEQKIT_SEQ_SHORT.out.versions )
+    // Only if BGC screening is enabled!
+    if ( params.run_bgc_screening) {
 
-    ch_intermediate_input_long = SEQKIT_SEQ_LONG.out.fastx
-                                .map{ meta, file -> [ meta + [id: meta.id + '_long', length: "long" ], file ] }
-                                .filter{
-                                    meta, fasta ->
-                                        !fasta.isEmpty()
-                                }
+        ch_intermediate_fasta_for_split = ch_intermediate_input.fastas.map{ meta, fasta, faa, gbk -> [ meta, fasta ] }
+        SEQKIT_SEQ_LONG ( ch_intermediate_fasta_for_split )
+        SEQKIT_SEQ_SHORT ( ch_intermediate_fasta_for_split )
+        ch_versions = ch_versions.mix( SEQKIT_SEQ_LONG.out.versions )
+        ch_versions = ch_versions.mix( SEQKIT_SEQ_SHORT.out.versions )
 
-    ch_intermediate_input_short = SEQKIT_SEQ_SHORT.out.fastx
-                                .map{ meta, file -> [ meta + [id: meta.id + '_short', length: "short" ], file ] }
-                                .filter{
-                                    meta, fasta ->
-                                        !fasta.isEmpty()
-                                }
+        ch_intermediate_input_long = SEQKIT_SEQ_LONG.out.fastx
+                                    .map{ meta, file -> [ meta + [id: meta.id + '_long', length: "long" ], file ] }
+                                    .filter{
+                                        meta, fasta ->
+                                            !fasta.isEmpty()
+                                    }
 
-    // Now they are split, can annotated together for efficiency
-    ch_input_for_annotation = ch_intermediate_input_long.mix( ch_intermediate_input_short )
+        ch_intermediate_input_short = SEQKIT_SEQ_SHORT.out.fastx
+                                    .map{ meta, file -> [ meta + [id: meta.id + '_short', length: "short" ], file ] }
+                                    .filter{
+                                        meta, fasta ->
+                                            !fasta.isEmpty()
+                                    }
+
+        // Now they are split, can annotated together for efficiency
+        ch_input_for_annotation = ch_intermediate_input_long.mix( ch_intermediate_input_short )
+    } else {
+        ch_input_for_annotation = ch_intermediate_input.fastas.map{ meta, fasta, faa, gbk -> [ meta, fasta ] }
+    }
 
     /*
         ANNOTATION
@@ -161,6 +167,9 @@ workflow FUNCSCAN {
                                 gbks: [meta, gbk]
                         }
 
+    // Generate long contigs only channel only when BGC screening is enabled
+    if ( params.run_bgc_screening) {
+
     ch_prepped_input_long = ch_new_annotation
                                 .filter{
                                     meta, fasta, faa, gbk ->
@@ -178,6 +187,8 @@ workflow FUNCSCAN {
                                         faas: [meta, faa]
                                         gbks: [meta, gbk]
                                 }
+
+    }
 
     /*
         TAXONOMIC CLASSIFICATION

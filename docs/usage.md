@@ -84,9 +84,9 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 :::danger
 We highly recommend performing quality control on input contigs before running the pipeline.
 
-For example, **for un-annotated** input nf-core/funcscan will by default filter for the BGC subworkflow to screen only contigs with at least 3,000 bp length or more (see `--contig_qc_lengththreshold`).
+For example, **for un-annotated** input if running the BGC screening subworkflow, nf-core/funcscan will by default filter for the BGC subworkflow to screen only contigs with at least 3,000 bp length or more (see `--contig_qc_lengththreshold`). This will split the input contigs into two files: one with contigs of sufficient length for BGC screening and one with contigs below the threshold. Only the former will go for BGC screening, whereas both short and long are used for AMP and ARG screening. Thus when running the BGC subworkflow, all output files will be labelled with the suffix `_long` or `_short` to indicate the length of the contigs.
 
-In contrast, no such filtering is done for the **pre-annotated** input sent to the BGC screening subworkflow! If you have pre-annotated contigs, make sure they and the annotation files contain sufficiently high quality and length for the type of molecule to be screened for.
+In contrast, no such filtering nor relabelling is performed for the **pre-annotated** input sent to the BGC screening subworkflow! If you have pre-annotated contigs, make sure they, and the corresponding annotation files, contain sufficiently high quality and length for the type of molecule to be screened for.
 :::
 
 ## Notes on screening tools and taxonomic classification
