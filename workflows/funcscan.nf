@@ -398,9 +398,7 @@ workflow FUNCSCAN {
         )
     )
 
-    if( params.annotation_tool=='prokka' ) {
-        ch_multiqc_files                  = ch_multiqc_files.mix( PROKKA.out.txt.collect{it[1]}.ifEmpty([]) )
-    }
+    ch_multiqc_files                  = ch_multiqc_files.mix( ANNOTATION.out.multiqc_files.collect{it[1]}.ifEmpty([]) )
 
     MULTIQC (
         ch_multiqc_files.collect(),
