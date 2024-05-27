@@ -14,7 +14,7 @@ on:
 
 env:
   NXF_ANSI_LOG: false
-  NFTEST_VER: "0.7.3"
+  NFTEST_VER: "0.7.3" # We tested with 0.8.4 - should we also change that here??
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -45,6 +45,9 @@ jobs:
         NXF_VER: ${{ fromJson(needs.define_nxf_versions.outputs.matrix) }}
         tags:
           - "test_nothing"
+          - "test_taxonomy_pyrodigal"
+          - "test_taxonomy_bakta"
+          - "test_taxonomy_prokka"
         profile:
           - "docker"
 
