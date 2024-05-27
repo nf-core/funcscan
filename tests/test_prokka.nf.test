@@ -4,9 +4,9 @@ nextflow_pipeline {
     script "main.nf"
     tag "pipeline"
     tag "nfcore_funcscan"
-    tag "test_pyrodigal"
+    tag "test_prokka"
 
-    test("test_pyrodigal_profile") {
+    test("test_prokka_profile") {
 
         when {
             params {
