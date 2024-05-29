@@ -44,11 +44,11 @@ workflow TAXA_CLASS {
 
         // Join together to ensure in sync
         ch_taxonomy_input_for_createtsv = MMSEQS_CREATEDB.out.db
-                                                            .join(MMSEQS_TAXONOMY.out.db_taxonomy)
-                                                            .multiMap { meta, db, db_taxonomy ->
-                                                                db: [ meta,db ]
-                                                                taxdb: [ meta, db_taxonomy ]
-                                                            }
+                                            .join(MMSEQS_TAXONOMY.out.db_taxonomy)
+                                            .multiMap { meta, db, db_taxonomy ->
+                                                db: [ meta,db ]
+                                                taxdb: [ meta, db_taxonomy ]
+                                            }
 
         // MMSEQS_CREATETSV
         MMSEQS_CREATETSV ( ch_taxonomy_input_for_createtsv.taxdb, [[:],[]], ch_taxonomy_input_for_createtsv.db )

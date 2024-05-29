@@ -52,22 +52,36 @@ nf-core/funcscan takes FASTA files as input, typically contigs or whole genome s
 --input '[path to samplesheet file]'
 ```
 
-The input samplesheet has to be a comma-separated file (`.csv`) with 2 columns (`sample`, and `fasta`), and a header row as shown in the examples below.
+The input samplesheet has to be a comma-separated file (`.csv`) with 2 (`sample`, and `fasta`) or 4 columns (`sample`, `fasta`, `protein`, `gbk`), and a header row as shown in the examples below.
 
-```bash
+If you already have annotated contigs with peptide sequences and an annotation file in Genbank format (`.gbk.` or `.gbff`), you can supply these to the pipeline using the optional `protein` and `gbk` columns. If these additional columns are supplied, pipeline annotation (i.e. with bakta, prodigal, pyrodigal or prokka) will be skipped and the corresponding annotation files used instead.
+
+For two columns (without pre-annotated data):
+
+```csv title="samplesheet.csv"
 sample,fasta
 sample_1,/<path>/<to>/wastewater_metagenome_contigs_1.fasta.gz
 sample_2,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gz
 ```
 
-| Column   | Description                                                                                                                                                |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample` | Custom sample name. This will be used to name all output files from the pipeline. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fasta`  | Path or URL to a gzipped or uncompressed FASTA file. Accepted file suffixes are: `.fasta`, `.fna`, or `.fa`, or any of these with `.gz`, e.g. `.fa.gz`.    |
+For four columns (with pre-annotated data):
+
+```csv title="samplesheet.csv"
+sample,fasta,protein,gbk
+sample_1,/<path>/<to>/wastewater_metagenome_contigs_1.fasta.gz,/<path>/<to>/wastewater_metagenome_contigs_1.faa,/<path>/<to>/wastewater_metagenome_contigs_1.fasta.gbk
+sample_2,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gz,/<path>/<to>/wastewater_metagenome_contigs_2.faa,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gbk
+```
+
+| Column    | Description                                                                                                                                                                                                           |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sample`  | Custom sample name. This will be used to name all output files from the pipeline. Spaces in sample names are automatically converted to underscores (`_`).                                                            |
+| `fasta`   | Path or URL to a gzipped or uncompressed FASTA file. Accepted file suffixes are: `.fasta`, `.fna`, or `.fa`, or any of these with `.gz`, e.g. `.fa.gz`.                                                               |
+| `protein` | Optional path to a pre-generated amino acid FASTA file (`.faa`) containing protein annotations of `fasta`, optionally gzipped. Required to be supplied if `gbk` also given.                                           |
+| `gbk`     | Optional path to a pre-generated annotation file in Genbank format (`.gbk`, or `.gbff`) format containing annotations information of `fasta`, optionally gzipped. Required to be supplied if `protein` is also given. |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
-:::warning
+:::danger
 We highly recommend performing quality control on input contigs before running the pipeline. You may not receive results for some tools if none of the contigs in a FASTA file reach certain thresholds. Check parameter documentation for relevant minimum contig parameters.
 
 For example, ideally BGC screening requires contigs of at least 3,000 bp else downstream tools may crash.
@@ -97,13 +111,11 @@ MMseqs2 is currently the only taxonomic classification tool used in the pipeline
 
 antiSMASH has a minimum contig parameter, in which only contigs of a certain length (or longer) will be screened. In cases where no hits are found in these, the tool ends successfully without hits. However if no contigs in an input file reach that minimum threshold, the tool will end with a 'failure' code, and cause the pipeline to crash.
 
-To prevent entire pipeline failures due to a single 'bad sample', nf-core/funcscan will filter out any input sample in which none of the contigs reach the minimum contig length in bp specified with `--bgc_antismash_sampleminlength` (default: 1000).
-
-> ⚠️ If a sample does not reach this contig length threshold, you will receive a warning in your console and in the `.nextflow.log` file, and no result files will exist for this sample in your results directory for this tool.
-
 When the annotation is run with Prokka, the resulting `.gbk` file passed to antiSMASH may produce the error `translation longer than location allows` and end the pipeline run. This Prokka bug has been reported before (see [discussion on GitHub](https://github.com/antismash/antismash/discussions/450)) and is not likely to be fixed soon.
 
-> ⚠️ If antiSMASH is run for BGC detection, we recommend to **not** run Prokka for annotation but instead use the default annotation tool (Pyrodigal) or switch to Prodigal, or (for bacteria only!) Bakta.
+:::warning
+If antiSMASH is run for BGC detection, we recommend to **not** run Prokka for annotation but instead use the default annotation tool (Pyrodigal) or switch > to Prodigal, or (for bacteria only!) Bakta.
+:::
 
 ## Databases and reference files
 
@@ -111,9 +123,11 @@ Various tools of nf-core/funcscan use databases and reference files to operate.
 
 nf-core/funcscan offers the functionality to auto-download databases for you, and as these databases can be very large, and we suggest to store these files in a central place from where you can reuse them across pipeline runs.
 
-We **highly recommend** allowing the pipeline to download these databases for you on a first run, saving these to your results directory with `--save_databases`, then moving these to a different location (in case you wish to delete the results directory of this first run). An exception to this is HMM files where no auto-downloading functionality is possible.
+If your infrastructure has internet access (particularly on compute nodes), we **highly recommend** allowing the pipeline to download these databases for you on a first run, saving these to your results directory with `--save_databases`, then moving these to a different location (in case you wish to delete the results directory of this first run). An exception to this is HMM files where no auto-downloading functionality is possible.
 
-> ⚠️ We generally do not recommend downloading the databases yourself, as this can often be non-trivial to do!
+:::warning
+We generally do not recommend downloading the databases yourself, as this can often be non-trivial to do!
+:::
 
 As a reference, we will describe below where and how you can obtain databases and reference files used for tools included in the pipeline.
 
@@ -135,7 +149,9 @@ And then passed to the pipeline with:
 --annotation_bakta_db_localpath /<path>/<to>/db/
 ```
 
-> ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::info
+The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::
 
 ### hmmsearch
 
@@ -190,7 +206,9 @@ To obtain a local version of the database:
 
 </details>
 
-> ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::info
+The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::
 
 ### DeepARG
 
@@ -218,8 +236,9 @@ You can then supply the path to resulting database directory with:
 
 Note that if you supply your own database that is not downloaded by the pipeline, make sure to also supply `--arg_deeparg_data_version` along
 with the version number so hAMRonization will correctly display the database version in the summary report.
-
-> ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::info
+The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::
 
 ### RGI
 
@@ -234,7 +253,9 @@ You can then supply the path to resulting database directory with:
 --arg_rgi_database '/<path>/<to>/<card>/'
 ```
 
-> ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::info
+The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::
 
 ### antiSMASH
 
@@ -257,9 +278,13 @@ To supply the database directories to the pipeline:
 
 Note that the names of the supplied folders must differ from each other (e.g. `antismash_db` and `antismash_dir`). If they are not provided, the databases will be auto-downloaded upon each BGC screening run of the pipeline.
 
-> ℹ️ The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::info
+The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+:::
 
-> ℹ️ If installing with conda, the installation directory will be `lib/python3.10/site-packages/antismash` from the base directory of your conda install or conda environment directory.
+:::info
+If installing with conda, the installation directory will be `lib/python3.10/site-packages/antismash` from the base directory of your conda install or conda environment directory.
+:::
 
 ### DeepBGC
 

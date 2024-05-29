@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   test:
-    name: Run pipeline with test data (AMP and ARG workflows)
+    name: Run pipeline with test data (AMP and ARG)
     # Only run on push if this is the nf-core dev branch (merged PRs)
     if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
     runs-on: ubuntu-latest
@@ -27,9 +27,9 @@ jobs:
           - "23.04.0"
           - "latest-everything"
         parameters:
-          - "--annotation_tool prodigal"
-          - "--annotation_tool prokka"
-          - "--annotation_tool bakta --annotation_bakta_db_downloadtype light --arg_skip_deeparg --arg_skip_amrfinderplus" # Skip deeparg and amrfinderplus due to otherwise running out of space on GitHub Actions
+          - "-profile docker,test_preannotated --annotation_tool prodigal"
+          - "-profile docker,test --annotation_tool prokka"
+          - "-profile docker,test --annotation_tool bakta --annotation_bakta_db_downloadtype light --arg_skip_deeparg --arg_skip_amrfinderplus" # Skip deeparg and amrfinderplus due to otherwise running out of space on GitHub Actions
 
     steps:
       - name: Check out pipeline code
@@ -43,12 +43,12 @@ jobs:
       - name: Disk space cleanup
         uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
 
-      - name: Run pipeline with test data (AMP and ARG workflows)
+      - name: Run pipeline with test data (AMP/ARG workflows)
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results ${{ matrix.parameters }}
+          nextflow run ${GITHUB_WORKSPACE} ${{ matrix.parameters }} --outdir ./results
 
   test_bgc:
-    name: Run pipeline with test data (BGC workflow)
+    name: Run pipeline with test data (BGC)
     # Only run on push if this is the nf-core dev branch (merged PRs)
     if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
     runs-on: ubuntu-latest
@@ -58,9 +58,9 @@ jobs:
           - "23.04.0"
           - "latest-everything"
         parameters:
-          - "--annotation_tool prodigal"
-          - "--annotation_tool prokka"
-          - "--annotation_tool bakta --annotation_bakta_db_downloadtype light"
+          - "-profile docker,test_preannotated_bgc --annotation_tool prodigal"
+          - "-profile docker,test_bgc --annotation_tool prokka"
+          - "-profile docker,test_bgc --annotation_tool bakta --annotation_bakta_db_downloadtype light"
 
     steps:
       - name: Check out pipeline code
@@ -76,10 +76,10 @@ jobs:
 
       - name: Run pipeline with test data (BGC workflow)
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test_bgc,docker --outdir ./results ${{ matrix.parameters }} --bgc_skip_deepbgc
+          nextflow run ${GITHUB_WORKSPACE} ${{ matrix.parameters }} --outdir ./results --bgc_skip_deepbgc
 
   test_taxonomy:
-    name: Run pipeline with test data (AMP, ARG and BGC taxonomy workflows)
+    name: Run pipeline with test data (AMP, ARG and BGC with taxonomy)
     # Only run on push if this is the nf-core dev branch (merged PRs)
     if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/funcscan') }}"
     runs-on: ubuntu-latest
@@ -89,9 +89,9 @@ jobs:
           - "23.04.0"
           - "latest-everything"
         parameters:
-          - "--annotation_tool prodigal"
-          - "--annotation_tool prokka"
-          - "--annotation_tool bakta --annotation_bakta_db_downloadtype light"
+          - "-profile docker,test_taxonomy --annotation_tool prodigal"
+          - "-profile docker,test_taxonomy --annotation_tool prokka"
+          - "-profile docker,test_taxonomy --annotation_tool bakta --annotation_bakta_db_downloadtype light"
 
     steps:
       - name: Check out pipeline code
@@ -107,4 +107,4 @@ jobs:
 
       - name: Run pipeline with test data (AMP, ARG and BGC taxonomy workflows)
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test_taxonomy,docker --outdir ./results ${{ matrix.parameters }}
+          nextflow run ${GITHUB_WORKSPACE} ${{ matrix.parameters }} --outdir ./results

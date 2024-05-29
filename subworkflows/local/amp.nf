@@ -14,9 +14,9 @@ include { MERGE_TAXONOMY_AMPCOMBI                                     } from '..
 
 workflow AMP {
     take:
-    contigs // tuple val(meta), path(contigs)
-    faa     // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
-    tsv     // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
+    fastas // tuple val(meta), path(contigs)
+    faas   // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
+    tsvs   // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
 
     main:
     ch_versions                    = Channel.empty()
@@ -27,10 +27,10 @@ workflow AMP {
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
     // to ensure annotation is executed!
-    ch_faa_for_amplify             = faa
-    ch_faa_for_amp_hmmsearch       = faa
-    ch_faa_for_ampir               = faa
-    ch_faa_for_ampcombi            = faa
+    ch_faa_for_amplify             = faas
+    ch_faa_for_amp_hmmsearch       = faas
+    ch_faa_for_ampir               = faas
+    ch_faa_for_ampcombi            = faas
 
     // AMPLIFY
     if ( !params.amp_skip_amplify ) {
@@ -41,7 +41,7 @@ workflow AMP {
 
     // MACREL
     if ( !params.amp_skip_macrel ) {
-        MACREL_CONTIGS ( contigs )
+        MACREL_CONTIGS ( fastas )
         ch_versions                = ch_versions.mix( MACREL_CONTIGS.out.versions )
         GUNZIP_MACREL_PRED ( MACREL_CONTIGS.out.amp_prediction )
         GUNZIP_MACREL_ORFS ( MACREL_CONTIGS.out.all_orfs )
@@ -71,14 +71,15 @@ workflow AMP {
                 [ meta, file ]
             }
 
-        ch_in_for_amp_hmmsearch = ch_faa_for_amp_hmmsearch.combine( ch_amp_hmm_models_meta )
-            .map {
-                meta_faa, faa, meta_hmm, hmm ->
-                    def meta_new = [:]
-                    meta_new['id']     = meta_faa['id']
-                    meta_new['hmm_id'] = meta_hmm['id']
-                [ meta_new, hmm, faa, params.amp_hmmsearch_savealignments, params.amp_hmmsearch_savetargets, params.amp_hmmsearch_savedomains ]
-            }
+        ch_in_for_amp_hmmsearch = ch_faa_for_amp_hmmsearch
+                                    .combine( ch_amp_hmm_models_meta )
+                                    .map {
+                                        meta_faa, faa, meta_hmm, hmm ->
+                                            def meta_new = [:]
+                                            meta_new['id']     = meta_faa['id']
+                                            meta_new['hmm_id'] = meta_hmm['id']
+                                        [ meta_new, hmm, faa, params.amp_hmmsearch_savealignments, params.amp_hmmsearch_savetargets, params.amp_hmmsearch_savedomains ]
+                                    }
 
         AMP_HMMER_HMMSEARCH ( ch_in_for_amp_hmmsearch )
         ch_versions = ch_versions.mix( AMP_HMMER_HMMSEARCH.out.versions )
@@ -107,15 +108,15 @@ workflow AMP {
 
     //AMPCOMBI concatenation
     if ( !params.run_taxa_classification ) {
-        ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile( name: 'ampcombi_complete_summary.tsv', storeDir: "${params.outdir}/reports/ampcombi",keepHeader:true )
+        ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile( name: 'ampcombi_complete_summary.csv', storeDir: "${params.outdir}/reports/ampcombi",keepHeader:true )
     } else {
-        ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile( name: 'ampcombi_complete_summary.tsv', keepHeader:true )
+        ch_ampcombi_summaries = AMPCOMBI.out.csv.map{ it[1] }.collectFile( name: 'ampcombi_complete_summary.csv', keepHeader:true )
     }
 
     // MERGE_TAXONOMY
     if ( params.run_taxa_classification ) {
 
-        ch_mmseqs_taxonomy_list = tsv.map{ it[1] }.collect()
+        ch_mmseqs_taxonomy_list = tsvs.map{ it[1] }.collect()
         MERGE_TAXONOMY_AMPCOMBI(ch_ampcombi_summaries, ch_mmseqs_taxonomy_list)
         ch_versions = ch_versions.mix(MERGE_TAXONOMY_AMPCOMBI.out.versions)
 

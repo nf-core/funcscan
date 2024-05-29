@@ -18,11 +18,10 @@ include { MERGE_TAXONOMY_COMBGC                    } from '../../modules/local/m
 workflow BGC {
 
     take:
-    fna         // tuple val(meta), path(PREPPED_INPUT.out.fna)
-    gff         // tuple val(meta), path(<ANNO_TOOL>.out.gff)
-    faa         // tuple val(meta), path(<ANNO_TOOL>.out.faa)
-    gbk         // tuple val(meta), path(<ANNO_TOOL>.out.gbk)
-    tsv         // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
+    fastas // tuple val(meta), path(PREPPED_INPUT.out.fna)
+    faas   // tuple val(meta), path(<ANNO_TOOL>.out.faa)
+    gbks   // tuple val(meta), path(<ANNO_TOOL>.out.gbk)
+    tsvs   // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
 
     main:
     ch_versions              = Channel.empty()
@@ -31,7 +30,7 @@ workflow BGC {
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
     // to ensure annotation is executed!
-    ch_faa_for_bgc_hmmsearch = faa
+    ch_faa_for_bgc_hmmsearch = faas
 
     // ANTISMASH
     if ( !params.bgc_skip_antismash ) {
@@ -71,35 +70,17 @@ workflow BGC {
 
         }
 
-        if ( params.annotation_tool == 'prodigal' || params.annotation_tool == "pyrodigal" ) {
-
-            ch_antismash_input = fna.join(gff, by: 0)
-                                    .multiMap {
-                                        meta, fna, gff ->
-                                        fna: [ meta, fna ]
-                                        gff: [ gff ]
-                                    }
-
-            ANTISMASH_ANTISMASHLITE ( ch_antismash_input.fna, ch_antismash_databases, ch_antismash_directory, ch_antismash_input.gff )
-
-        } else if ( params.annotation_tool == 'prokka' ) {
-
-            ANTISMASH_ANTISMASHLITE ( gbk, ch_antismash_databases, ch_antismash_directory, [] )
-
-        } else if ( params.annotation_tool == 'bakta' ) {
-
-            ANTISMASH_ANTISMASHLITE ( gbk, ch_antismash_databases, ch_antismash_directory, [] )
-
-        }
+        ANTISMASH_ANTISMASHLITE ( gbks, ch_antismash_databases, ch_antismash_directory, [] )
 
         ch_versions = ch_versions.mix( ANTISMASH_ANTISMASHLITE.out.versions )
         ch_antismashresults_for_combgc = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
-            .mix( ANTISMASH_ANTISMASHLITE.out.gbk_input )
-            .groupTuple()
-            .map{
-                meta, files ->
-                [meta, files.flatten()]
-            }
+                                            .mix( ANTISMASH_ANTISMASHLITE.out.gbk_input )
+                                            .groupTuple()
+                                            .map{
+                                                meta, files ->
+                                                [meta, files.flatten()]
+                                            }
+
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( ch_antismashresults_for_combgc )
     }
 
@@ -116,16 +97,16 @@ workflow BGC {
             ch_versions = ch_versions.mix( DEEPBGC_DOWNLOAD.out.versions )
         }
 
-        DEEPBGC_PIPELINE ( fna, ch_deepbgc_database)
+        DEEPBGC_PIPELINE ( fastas, ch_deepbgc_database)
         ch_versions = ch_versions.mix( DEEPBGC_PIPELINE.out.versions )
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( DEEPBGC_PIPELINE.out.bgc_tsv )
     }
 
     // GECCO
     if ( !params.bgc_skip_gecco ) {
-        ch_gecco_input = fna.groupTuple()
+        ch_gecco_input = fastas.groupTuple()
                             .multiMap {
-                                fna: [ it[0], it[1], [] ]
+                                fastas: [ it[0], it[1], [] ]
                             }
 
         GECCO_RUN ( ch_gecco_input, [] )
@@ -180,7 +161,7 @@ workflow BGC {
     // MERGE_TAXONOMY
     if ( params.run_taxa_classification ) {
 
-        ch_mmseqs_taxonomy_list = tsv.map{ it[1] }.collect()
+        ch_mmseqs_taxonomy_list = tsvs.map{ it[1] }.collect()
         MERGE_TAXONOMY_COMBGC( ch_combgc_summaries, ch_mmseqs_taxonomy_list )
         ch_versions = ch_versions.mix( MERGE_TAXONOMY_COMBGC.out.versions )
 
