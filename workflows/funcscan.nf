@@ -119,9 +119,7 @@ workflow FUNCSCAN {
         ch_new_annotation = Channel.empty()
     }
 
-    // Mix back the preannotated samples with the newly annotated ones,
-    // but also have dedicated channel for subworkflows that should only use
-    // for long contigs
+    // Mix back the preannotated samples with the newly annotated ones
     ch_prepped_input = ch_intermediate_input.preannotated
                         .mix( ch_new_annotation )
                         .multiMap {
