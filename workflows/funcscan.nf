@@ -29,9 +29,10 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { AMP        }  from '../subworkflows/local/amp'
-include { ARG        }  from '../subworkflows/local/arg'
-include { BGC        }  from '../subworkflows/local/bgc'
+include { ANNOTATION } from '../subworkflows/local/annotation'
+include { AMP        } from '../subworkflows/local/amp'
+include { ARG        } from '../subworkflows/local/arg'
+include { BGC        } from '../subworkflows/local/bgc'
 include { TAXA_CLASS } from '../subworkflows/local/taxa_class'
 
 /*
@@ -44,22 +45,7 @@ include { TAXA_CLASS } from '../subworkflows/local/taxa_class'
 // MODULE: Installed directly from nf-core/modules
 //
 include { MULTIQC                        } from '../modules/nf-core/multiqc/main'
-include { GUNZIP as GUNZIP_FASTA_PREP    } from '../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PRODIGAL_FNA  } from '../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PRODIGAL_FAA  } from '../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PRODIGAL_GFF  } from '../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PYRODIGAL_FNA } from '../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PYRODIGAL_FAA } from '../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PYRODIGAL_GFF } from '../modules/nf-core/gunzip/main'
-include { PROKKA                         } from '../modules/nf-core/prokka/main'
-include { PRODIGAL as PRODIGAL_GFF       } from '../modules/nf-core/prodigal/main'
-include { PRODIGAL as PRODIGAL_GBK       } from '../modules/nf-core/prodigal/main'
-include { PYRODIGAL as PYRODIGAL_GBK     } from '../modules/nf-core/pyrodigal/main'
-include { PYRODIGAL as PYRODIGAL_GFF     } from '../modules/nf-core/pyrodigal/main'
-include { BAKTA_BAKTADBDOWNLOAD          } from '../modules/nf-core/bakta/baktadbdownload/main'
-include { BAKTA_BAKTA                    } from '../modules/nf-core/bakta/bakta/main'
-include { SEQKIT_SEQ as SEQKIT_SEQ_LONG  } from '../modules/nf-core/seqkit/seq/main'
-include { SEQKIT_SEQ as SEQKIT_SEQ_SHORT } from '../modules/nf-core/seqkit/seq/main'
+include { GUNZIP as GUNZIP_INPUT_PREP    } from '../modules/nf-core/gunzip/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -80,42 +66,69 @@ workflow FUNCSCAN {
     ch_input = Channel.fromSamplesheet("input")
 
     // Some tools require uncompressed input
-    fasta_prep = ch_input
-        .branch {
-            compressed: it[1].toString().endsWith('.gz')
-            uncompressed: it[1]
-        }
+    ch_input_prep = ch_input
+                        .map{ meta, fasta, faa, gbk -> [meta, [fasta, faa, gbk]] }
+                        .transpose()
+                        .branch {
+                            compressed: it[1].toString().endsWith('.gz')
+                            uncompressed: it[1]
+                        }
 
-    GUNZIP_FASTA_PREP ( fasta_prep.compressed )
-    ch_versions = ch_versions.mix( GUNZIP_FASTA_PREP.out.versions )
+    GUNZIP_INPUT_PREP ( ch_input_prep.compressed )
+    ch_versions = ch_versions.mix( GUNZIP_INPUT_PREP.out.versions )
 
     // Merge all the already uncompressed and newly compressed FASTAs here into
     // a single input channel for downstream
-    ch_unzipped_fastas = GUNZIP_FASTA_PREP.out.gunzip
-                        .mix( fasta_prep.uncompressed )
+    ch_intermediate_input = GUNZIP_INPUT_PREP.out.gunzip
+                                .mix( ch_input_prep.uncompressed )
+                                .groupTuple()
+                                .map{
+                                    meta, files ->
+                                        def fasta_found   = files.find{it.toString().tokenize('.').last().matches('fasta|fas|fna|fa')}
+                                        def faa_found     = files.find{it.toString().endsWith('.faa')}
+                                        def gbk_found     = files.find{it.toString().tokenize('.').last().matches('gbk|gbff')}
+                                        def fasta         = fasta_found   != null ? fasta_found   : []
+                                        def faa           = faa_found     != null ? faa_found     : []
+                                        def gbk           = gbk_found     != null ? gbk_found     : []
 
-    // Split each FASTA into long and short contigs to
-    // speed up BGC workflow with BGC-compatible contig lengths only
-    SEQKIT_SEQ_LONG ( ch_unzipped_fastas )
-    SEQKIT_SEQ_SHORT ( ch_unzipped_fastas )
-    ch_versions = ch_versions.mix( SEQKIT_SEQ_LONG.out.versions )
-    ch_versions = ch_versions.mix( SEQKIT_SEQ_SHORT.out.versions )
-
-    ch_prepped_input_long = SEQKIT_SEQ_LONG.out.fastx
-                                .map{ meta, file -> [ meta + [id: meta.id + '_long', length: "long" ], file ] }
-                                .filter{
-                                    meta, fasta ->
-                                        !fasta.isEmpty()
+                                        [meta, fasta, faa, gbk]
+                                }
+                                .branch {
+                                    meta, fasta, faa, gbk ->
+                                        preannotated: gbk != []
+                                        fastas: true
                                 }
 
-    ch_prepped_input_short = SEQKIT_SEQ_SHORT.out.fastx
-                                .map{ meta, file -> [ meta + [id: meta.id + '_short', length: "short" ], file ]}
-                                .filter{
-                                    meta, fasta ->
-                                        !fasta.isEmpty()
-                                }
+    ch_input_for_annotation = ch_intermediate_input.fastas.map { meta, fasta, protein, gbk ->  [ meta, fasta ] }
 
-    ch_prepped_input = ch_prepped_input_long.mix( ch_prepped_input_short )
+    /*
+        ANNOTATION
+    */
+
+    // Some tools require annotated FASTAs
+    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.bgc_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
+        ANNOTATION( ch_input_for_annotation )
+        ch_versions = ch_versions.mix( ANNOTATION.out.versions )
+        ch_multiqc_files = ch_multiqc_files.mix( ANNOTATION.out.multiqc_files )
+
+        ch_new_annotation = ch_input_for_annotation
+                                .join( ANNOTATION.out.faa )
+                                .join( ANNOTATION.out.gbk )
+
+    } else {
+        ch_new_annotation = Channel.empty()
+    }
+
+    // Mix back the preannotated samples with the newly annotated ones
+    ch_prepped_input = ch_intermediate_input.preannotated
+                        .mix( ch_new_annotation )
+                        .multiMap {
+                            meta, fasta, faa, gbk ->
+                                fastas: [meta, fasta]
+                                faas: [meta, faa]
+                                gbks: [meta, gbk]
+                        }
+
 
     /*
         TAXONOMIC CLASSIFICATION
@@ -125,7 +138,7 @@ workflow FUNCSCAN {
     // This can be either on NT or AA level depending on annotation.
     // TODO: Only NT at the moment. AA tax. classification will be added only when its PR is merged.
     if ( params.run_taxa_classification ) {
-            TAXA_CLASS ( ch_prepped_input )
+            TAXA_CLASS ( ch_prepped_input.fastas )
             ch_versions     = ch_versions.mix( TAXA_CLASS.out.versions )
             ch_taxonomy_tsv = TAXA_CLASS.out.sample_taxonomy
 
@@ -138,83 +151,6 @@ workflow FUNCSCAN {
     }
 
     /*
-        ANNOTATION
-    */
-
-    // Some tools require annotated FASTAs
-    // For prodigal: run twice, once for gff and once for gbk generation, (for parity with PROKKA which produces both)
-    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.bgc_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
-
-        if ( params.annotation_tool == "prodigal" ) {
-            PRODIGAL_GFF ( ch_prepped_input, "gff" )
-            GUNZIP_PRODIGAL_FAA ( PRODIGAL_GFF.out.amino_acid_fasta )
-            GUNZIP_PRODIGAL_FNA ( PRODIGAL_GFF.out.nucleotide_fasta )
-            GUNZIP_PRODIGAL_GFF ( PRODIGAL_GFF.out.gene_annotations )
-            ch_versions              = ch_versions.mix( PRODIGAL_GFF.out.versions )
-            ch_annotation_faa        = GUNZIP_PRODIGAL_FAA.out.gunzip
-            ch_annotation_fna        = GUNZIP_PRODIGAL_FNA.out.gunzip
-            ch_annotation_gff        = GUNZIP_PRODIGAL_GFF.out.gunzip
-            ch_annotation_gbk        = Channel.empty() // Prodigal GBK and GFF output are mutually exclusive
-
-            if ( params.save_annotations == true ) {
-                PRODIGAL_GBK ( ch_prepped_input, "gbk" )
-                ch_versions          = ch_versions.mix( PRODIGAL_GBK.out.versions )
-                ch_annotation_gbk    = PRODIGAL_GBK.out.gene_annotations // Prodigal GBK output stays zipped because it is currently not used by any downstream subworkflow.
-            }
-        } else if ( params.annotation_tool == "pyrodigal" ) {
-            PYRODIGAL_GFF ( ch_prepped_input, "gff" )
-            GUNZIP_PYRODIGAL_FAA ( PYRODIGAL_GFF.out.faa )
-            GUNZIP_PYRODIGAL_FNA ( PYRODIGAL_GFF.out.fna )
-            GUNZIP_PYRODIGAL_GFF ( PYRODIGAL_GFF.out.annotations )
-            ch_versions              = ch_versions.mix( PYRODIGAL_GFF.out.versions )
-            ch_annotation_faa        = GUNZIP_PYRODIGAL_FAA.out.gunzip
-            ch_annotation_fna        = GUNZIP_PYRODIGAL_FNA.out.gunzip
-            ch_annotation_gff        = GUNZIP_PYRODIGAL_GFF.out.gunzip
-            ch_annotation_gbk        = Channel.empty() // Pyrodigal GBK and GFF output are mutually exclusive
-
-            if ( params.save_annotations == true ) {
-                PYRODIGAL_GBK ( ch_prepped_input, "gbk" )
-                ch_versions          = ch_versions.mix( PYRODIGAL_GBK.out.versions )
-                ch_annotation_gbk    = PYRODIGAL_GBK.out.annotations // Pyrodigal GBK output stays zipped because it is currently not used by any downstream subworkflow.
-            }
-        }  else if ( params.annotation_tool == "prokka" ) {
-            PROKKA ( ch_prepped_input, [], [] )
-            ch_versions              = ch_versions.mix( PROKKA.out.versions )
-            ch_annotation_faa        = PROKKA.out.faa
-            ch_annotation_fna        = PROKKA.out.fna
-            ch_annotation_gff        = PROKKA.out.gff
-            ch_annotation_gbk        = PROKKA.out.gbk
-        }   else if ( params.annotation_tool == "bakta" ) {
-
-            // BAKTA prepare download
-            if ( params.annotation_bakta_db_localpath ) {
-                ch_bakta_db          = Channel
-                    .fromPath( params.annotation_bakta_db_localpath )
-                    .first()
-            } else {
-                BAKTA_BAKTADBDOWNLOAD ( )
-                ch_versions          = ch_versions.mix( BAKTA_BAKTADBDOWNLOAD.out.versions )
-                ch_bakta_db          = ( BAKTA_BAKTADBDOWNLOAD.out.db )
-            }
-
-            BAKTA_BAKTA ( ch_prepped_input, ch_bakta_db, [], [] )
-            ch_versions              = ch_versions.mix( BAKTA_BAKTA.out.versions )
-            ch_annotation_faa        = BAKTA_BAKTA.out.faa
-            ch_annotation_fna        = BAKTA_BAKTA.out.fna
-            ch_annotation_gff        = BAKTA_BAKTA.out.gff
-            ch_annotation_gbk        = BAKTA_BAKTA.out.gbff
-        }
-
-    } else {
-
-        ch_annotation_faa            = Channel.empty()
-        ch_annotation_fna            = Channel.empty()
-        ch_annotation_gff            = Channel.empty()
-        ch_annotation_gbk            = Channel.empty()
-
-    }
-
-    /*
         SCREENING
     */
 
@@ -223,11 +159,11 @@ workflow FUNCSCAN {
     */
     if ( params.run_amp_screening && !params.run_taxa_classification ) {
         AMP (
-            ch_prepped_input,
-            ch_annotation_faa
+            ch_prepped_input.fastas,
+            ch_prepped_input.faas
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
 
                 },
@@ -236,17 +172,17 @@ workflow FUNCSCAN {
         ch_versions = ch_versions.mix(AMP.out.versions)
     } else if ( params.run_amp_screening && params.run_taxa_classification ) {
         AMP (
-            ch_prepped_input,
-            ch_annotation_faa
+            ch_prepped_input.fastas,
+            ch_prepped_input.faas
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                     },
             ch_taxonomy_tsv
                 .filter {
                         meta, file ->
-                        if ( file.isEmpty() ) log.warn("Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
                         !file.isEmpty()
                     }
         )
@@ -259,17 +195,17 @@ workflow FUNCSCAN {
     if ( params.run_arg_screening && !params.run_taxa_classification ) {
         if ( params.arg_skip_deeparg ) {
             ARG (
-                ch_prepped_input,
+                ch_prepped_input.fastas,
                 [],
                 ch_taxonomy_tsv
                 )
         } else {
             ARG (
-                ch_prepped_input,
-                ch_annotation_faa
+                ch_prepped_input.fastas,
+                ch_prepped_input.faas
                     .filter {
                         meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                             !file.isEmpty()
                     },
                 ch_taxonomy_tsv
@@ -279,28 +215,28 @@ workflow FUNCSCAN {
     } else if ( params.run_arg_screening && params.run_taxa_classification ) {
         if ( params.arg_skip_deeparg ) {
             ARG (
-                ch_prepped_input,
+                ch_prepped_input.fastas,
                 [],
                 ch_taxonomy_tsv
                     .filter {
                         meta, file ->
-                        if ( file.isEmpty() ) log.warn("Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
                         !file.isEmpty()
                     }
                 )
         } else {
             ARG (
-                ch_prepped_input,
-                ch_annotation_faa
+                ch_prepped_input.fastas,
+                ch_prepped_input.faas
                     .filter {
                         meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                             !file.isEmpty()
                     },
                 ch_taxonomy_tsv
                     .filter {
                         meta, file ->
-                        if ( file.isEmpty() ) log.warn("Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
                         !file.isEmpty()
                 }
             )
@@ -313,23 +249,17 @@ workflow FUNCSCAN {
     */
     if ( params.run_bgc_screening && !params.run_taxa_classification ) {
         BGC (
-            ch_prepped_input_long,
-            ch_annotation_gff
+            ch_prepped_input.fastas,
+            ch_prepped_input.faas
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GFF file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GFF file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
-            ch_annotation_faa
+            ch_prepped_input.gbks
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
-                        !file.isEmpty()
-                },
-            ch_annotation_gbk
-                .filter {
-                    meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
             ch_taxonomy_tsv
@@ -337,29 +267,23 @@ workflow FUNCSCAN {
         ch_versions = ch_versions.mix( BGC.out.versions )
     } else if ( params.run_bgc_screening && params.run_taxa_classification ) {
         BGC (
-            ch_prepped_input,
-            ch_annotation_gff
+            ch_prepped_input.fastas,
+            ch_prepped_input.faas
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GFF file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
-            ch_annotation_faa
+            ch_prepped_input.gbks
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
-                        !file.isEmpty()
-                },
-            ch_annotation_gbk
-                .filter {
-                    meta, file ->
-                        if ( file.isEmpty() ) log.warn("Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
             ch_taxonomy_tsv
                     .filter {
                         meta, file ->
-                        if ( file.isEmpty() ) log.warn("Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
                         !file.isEmpty()
                 }
         )
@@ -409,9 +333,7 @@ workflow FUNCSCAN {
         )
     )
 
-    if( params.annotation_tool=='prokka' ) {
-        ch_multiqc_files                  = ch_multiqc_files.mix( PROKKA.out.txt.collect{it[1]}.ifEmpty([]) )
-    }
+    ch_multiqc_files = ch_multiqc_files.mix( ANNOTATION.out.multiqc_files.collect{it[1]}.ifEmpty([]) )
 
     MULTIQC (
         ch_multiqc_files.collect(),
