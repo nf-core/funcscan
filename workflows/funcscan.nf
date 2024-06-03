@@ -139,7 +139,6 @@ workflow FUNCSCAN {
     ch_prepped_input = ch_intermediate_input.preannotated
                         .mix( ch_new_annotation )
                         .filter { meta, fasta, faa, gbk -> meta.category != 'long' }
-                        .dump(tag: 'ch_prepped_input')
                         .multiMap {
                             meta, fasta, faa, gbk ->
                                 fastas: [meta, fasta]
@@ -152,7 +151,6 @@ workflow FUNCSCAN {
         ch_prepped_input_long = ch_intermediate_input.preannotated
                                     .mix( ch_new_annotation )
                                     .filter { meta, fasta, faa, gbk -> meta.category == 'long'}
-                                    .dump(tag: 'ch_prepped_input_long')
                                     .multiMap {
                                         meta, fasta, faa, gbk ->
                                             fastas: [meta, fasta]
