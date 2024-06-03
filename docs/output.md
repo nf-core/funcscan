@@ -130,10 +130,11 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `prodigal/`
-  - `<samplename>/`:
-    - `*.fna`: nucleotide FASTA file of the input contig sequences
-    - `*.faa`: protein FASTA file of the translated CDS sequences
-    - `*.gbk`: annotation in GBK format, containing both sequences and annotations
+  - `category/`: indicates whether annotation files are of all contigs or `long`-only contigs (BGC only)
+    - `<samplename>/`:
+      - `*.fna`: nucleotide FASTA file of the input contig sequences
+      - `*.faa`: protein FASTA file of the translated CDS sequences
+      - `*.gbk`: annotation in GBK format, containing both sequences and annotations
 
 > Descriptions taken from the [Prodigal documentation](https://github.com/hyattpd/prodigal/wiki)
 
@@ -147,10 +148,11 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `pyrodigal/`
-  - `<samplename>/`:
-    - `*.gbk`: annotation in GBK format, containing both sequences and annotations
-    - `*.fna`: nucleotide FASTA file of the annotated CDS sequences
-    - `*.faa`: protein FASTA file of the translated CDS sequences
+  - `category/`: indicates whether annotation files are of all contigs or `long`-only contigs (BGC only)
+    - `<samplename>/`:
+      - `*.gbk`: annotation in GBK format, containing both sequences and annotations
+      - `*.fna`: nucleotide FASTA file of the annotated CDS sequences
+      - `*.faa`: protein FASTA file of the translated CDS sequences
 
 > Descriptions taken from the [Pyrodigal documentation](https://pyrodigal.readthedocs.io/)
 
@@ -164,19 +166,20 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `prokka/`
-  - `<samplename>/`
-    - `*.gff`: annotation in GFF3 format, containing both sequences and annotations
-    - `*.gbk`: standard Genbank file derived from the master .gff
-    - `*.fna`: nucleotide FASTA file of the input contig sequences
-    - `*.faa`: protein FASTA file of the translated CDS sequences
-    - `*.ffn`: nucleotide FASTA file of all the prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
-    - `*.sqn`: an ASN1 format "Sequin" file for submission to Genbank
-    - `*.fsa`: nucleotide FASTA file of the input contig sequences, used by "tbl2asn" to create the .sqn file
-    - `*.tbl`: feature Table file, used by "tbl2asn" to create the .sqn file
-    - `*.err`: unacceptable annotations - the NCBI discrepancy report
-    - `*.log`: logging output that Prokka produced during its run
-    - `*.txt`: statistics relating to the annotated features found
-    - `*.tsv`: tab-separated file of all features
+  - `category/`: indicates whether annotation files are of all contigs or `long`-only contigs (BGC only)
+    - `<samplename>/`
+      - `*.gff`: annotation in GFF3 format, containing both sequences and annotations
+      - `*.gbk`: standard Genbank file derived from the master .gff
+      - `*.fna`: nucleotide FASTA file of the input contig sequences
+      - `*.faa`: protein FASTA file of the translated CDS sequences
+      - `*.ffn`: nucleotide FASTA file of all the prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
+      - `*.sqn`: an ASN1 format "Sequin" file for submission to Genbank
+      - `*.fsa`: nucleotide FASTA file of the input contig sequences, used by "tbl2asn" to create the .sqn file
+      - `*.tbl`: feature Table file, used by "tbl2asn" to create the .sqn file
+      - `*.err`: unacceptable annotations - the NCBI discrepancy report
+      - `*.log`: logging output that Prokka produced during its run
+      - `*.txt`: statistics relating to the annotated features found
+      - `*.tsv`: tab-separated file of all features
 
 > Descriptions directly from the [Prokka documentation](https://github.com/tseemann/prokka#output-files)
 
@@ -190,17 +193,18 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `bakta/`
-  - `<samplename>`
-    - `<samplename>.gff3`: annotations & sequences in GFF3 format
-    - `<samplename>.gbff`: annotations & sequences in (multi) GenBank format
-    - `<samplename>.ffn`: feature nucleotide sequences as FASTA
-    - `<samplename>.fna`: replicon/contig DNA sequences as FASTA
-    - `<samplename>.embl`: annotations & sequences in (multi) EMBL format
-    - `<samplename>.faa`: CDS/sORF amino acid sequences as FASTA
-    - `<samplename>_hypothetical.faa`: further information on hypothetical protein CDS as simple human readble tab separated values
-    - `<samplename>_hypothetical.tsv`: hypothetical protein CDS amino acid sequences as FASTA
-    - `<samplename>.tsv`: annotations as simple human readble TSV
-    - `<samplename>.txt`: summary in TXT format
+  - `category/`: indicates whether annotation files are of all contigs or `long`-only contigs (BGC only)
+    - `<samplename>`
+      - `<samplename>.gff3`: annotations & sequences in GFF3 format
+      - `<samplename>.gbff`: annotations & sequences in (multi) GenBank format
+      - `<samplename>.ffn`: feature nucleotide sequences as FASTA
+      - `<samplename>.fna`: replicon/contig DNA sequences as FASTA
+      - `<samplename>.embl`: annotations & sequences in (multi) EMBL format
+      - `<samplename>.faa`: CDS/sORF amino acid sequences as FASTA
+      - `<samplename>_hypothetical.faa`: further information on hypothetical protein CDS as simple human readble tab separated values
+      - `<samplename>_hypothetical.tsv`: hypothetical protein CDS amino acid sequences as FASTA
+      - `<samplename>.tsv`: annotations as simple human readble TSV
+      - `<samplename>.txt`: summary in TXT format
 
 > Descriptions taken from the [Bakta documentation](https://github.com/oschwengers/bakta#output).
 
@@ -356,6 +360,19 @@ Output Summaries:
 ### BGC detection tools
 
 [antiSMASH](#antismash), [deepBGC](#deepbgc), [GECCO](#gecco), [hmmsearch](#hmmsearch)
+
+### Input contig QC
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `qc/seqkit/`
+  - `<samplename>_long.fasta`: FASTA file containing contigs equal or longer than the threshold set by `--contig_qc_lengththreshold` used in BGC subworkflow
+  </details>
+
+[SeqKit](https://bioinf.shenwei.me/seqkit/) is a cross-platform and ultrafast toolkit for FASTA/Q file manipulation.
+
+Note that filtered FASTA is only used for BGC workflow for run-time optimisation and biological reasons. All contigs are otherwise screened in ARG/AMP workflows.
 
 #### antiSMASH
 
