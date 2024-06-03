@@ -359,14 +359,16 @@ Output Summaries:
 
 ### BGC detection tools
 
-[antiSMASH](#antismash), [deepBGC](#deepbgc), [GECCO](#gecco), [hmmsearch](#hmmsearch)
+[antiSMASH](#antismash), [deepBGC](#deepbgc), [GECCO](#gecco), [hmmsearch](#hmmsearch).
+
+Note that the BGC tools are run on a set of annotations generated on only long contigs (3000 bp or longer) by default. These specific filtered FASTA files are under `bgc/seqkit/`, and annotations files are under `annotation/<annotation_tool>/long/`, if the corresponding saving flags are specified (see [parameter docs](https://nf-co.re/funcscan/parameters)). However the same annotations _should_ also be annotation files in the sister `all/` directory.
 
 ### Input contig QC
 
 <details markdown="1">
 <summary>Output files</summary>
 
-- `qc/seqkit/`
+- `seqkit/`
   - `<samplename>_long.fasta`: FASTA file containing contigs equal or longer than the threshold set by `--contig_qc_lengththreshold` used in BGC subworkflow
   </details>
 
