@@ -37,7 +37,7 @@
                     },
                     "antismash/antismashlite": {
                         "branch": "master",
-                        "git_sha": "1c78323903f07d62bb57686914b567fb2018b1e4",
+                        "git_sha": "39c00d0873ff072b2901d8ae1f36abe1522c90f2",
                         "installed_by": ["modules"]
                     },
                     "antismash/antismashlitedownloaddatabases": {
@@ -82,7 +82,7 @@
                     },
                     "gecco/run": {
                         "branch": "master",
-                        "git_sha": "f6867fb2512d9a6c276af0c50d59fab6df46d7dd",
+                        "git_sha": "f9707f9499a90a46208873d23440e22ac8ad5ebc",
                         "installed_by": ["modules"]
                     },
                     "gunzip": {
@@ -182,7 +182,7 @@
                     },
                     "seqkit/seq": {
                         "branch": "master",
-                        "git_sha": "687ad41c14008d3d55cf7c2ffacebe6a057211a4",
+                        "git_sha": "2be41ca2cc780eca4293d1b0dd3850b0b7ac40a3",
                         "installed_by": ["modules"]
                     },
                     "tabix/bgzip": {
