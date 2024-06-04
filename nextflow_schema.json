@@ -1528,7 +1528,7 @@
             "default": 3000,
             "fa_icon": "fas fa-ruler-horizontal",
             "description": "Specify the minimum length of contigs that go into BGC screening.",
-            "help_text": "Specify the minimum length of contigs that go into BGC screening.\n\nIf BGC screening is turned on, nf-core/funcscan will generate for each input sample a second FASTA of only contigs that are longer than the specified minimum length.\nThis is due to an (approximate) 'biological' minimum length that nucleotide sequences would need to be to synthesise a valid BGC, as well as to speeding up BGC screening sections of the pipeline by screening only meaningful contigs.\n\nNote this only affects BGCs. For ARG and AMPs no filtering is performed and all contigs are screened."
+            "help_text": "Specify the minimum length of contigs that go into BGC screening.\n\nIf BGC screening is turned on, nf-core/funcscan will generate for each input sample a second FASTA file of only contigs that are longer than the specified minimum length.\nThis is due to an (approximate) 'biological' minimum length that nucleotide sequences would need to have to code for a valid BGC (e.g. not on the edge of a contig), as well as to speeding up BGC screening sections of the pipeline by screening only meaningful contigs.\n\nNote this only affects BGCs. For ARG and AMPs no filtering is performed and all contigs are screened."
         },
         "bgc_savefilteredcontigs": {
             "type": "boolean",
