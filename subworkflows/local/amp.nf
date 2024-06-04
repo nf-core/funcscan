@@ -130,16 +130,16 @@ workflow AMP {
     // MERGE_TAXONOMY
     if ( params.run_taxa_classification ) {
 
-       ch_mmseqs_taxonomy_list = tsvs.map{ it[1] }.collect()
+        ch_mmseqs_taxonomy_list = tsvs.map{ it[1] }.collect()
 
-       MERGE_TAXONOMY_AMPCOMBI( AMPCOMBI2_CLUSTER.out.cluster_tsv, ch_mmseqs_taxonomy_list )
-       ch_versions = ch_versions.mix( MERGE_TAXONOMY_AMPCOMBI.out.versions )
+        MERGE_TAXONOMY_AMPCOMBI( AMPCOMBI2_CLUSTER.out.cluster_tsv, ch_mmseqs_taxonomy_list )
+        ch_versions = ch_versions.mix( MERGE_TAXONOMY_AMPCOMBI.out.versions )
 
-       ch_tabix_input = Channel.of( [ 'id':'ampcombi_complete_summary_taxonomy' ] )
-           .combine( MERGE_TAXONOMY_AMPCOMBI.out.tsv )
+        ch_tabix_input = Channel.of( [ 'id':'ampcombi_complete_summary_taxonomy' ] )
+            .combine( MERGE_TAXONOMY_AMPCOMBI.out.tsv )
 
-       AMP_TABIX_BGZIP( ch_tabix_input )
-       ch_versions = ch_versions.mix( AMP_TABIX_BGZIP.out.versions )
+        AMP_TABIX_BGZIP( ch_tabix_input )
+        ch_versions = ch_versions.mix( AMP_TABIX_BGZIP.out.versions )
     }
 
     emit:
