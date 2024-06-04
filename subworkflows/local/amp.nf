@@ -125,7 +125,7 @@ workflow AMP {
     ch_versions = ch_versions.mix( AMPCOMBI2_COMPLETE.out.versions )
 
     AMPCOMBI2_CLUSTER ( AMPCOMBI2_COMPLETE.out.tsv )
-    ch_versions = ch_versions.mix( AMPCOMBI2_COMPLETE.out.versions )
+    ch_versions = ch_versions.mix( AMPCOMBI2_CLUSTER.out.versions )
 
     // MERGE_TAXONOMY
     if ( params.run_taxa_classification ) {

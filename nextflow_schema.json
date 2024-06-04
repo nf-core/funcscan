@@ -704,12 +704,14 @@
                 "amp_ampcombi_parsetables_macrel": {
                     "type": "string",
                     "default": ".macrel.prediction",
+                    "description": "Assigns the file extension used to identify MACREL output.",
                     "help_text": "Assigns the ending of the input files -file extension- to allow AMPcombi to identify the tool output from the list of input files.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--macrel_file`",
                     "fa_icon": "fas fa-address-card"
                 },
                 "amp_ampcombi_parsetables_hmmsearch": {
                     "type": "string",
                     "default": ".hmmer_hmmsearch.txt",
+                    "description": "Assigns the file extension used to identify HMMER/HMMSEARCH output.",
                     "help_text": "Assigns the ending of the input files -file extension- to allow AMPcombi to identify the tool output from the list of input files.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--hmmsearch_file`",
                     "fa_icon": "fas fa-address-card"
                 }
