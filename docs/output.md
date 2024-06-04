@@ -130,7 +130,7 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `prodigal/`
-  - `category/`: indicates whether annotation files are of all contigs or `long`-only contigs (BGC only)
+  - `category/`: indicates whether annotation files are of all contigs or `long`-only contigs (BGC subworkflow only)
     - `<samplename>/`:
       - `*.fna`: nucleotide FASTA file of the input contig sequences
       - `*.faa`: protein FASTA file of the translated CDS sequences
@@ -148,7 +148,7 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `pyrodigal/`
-  - `category/`: indicates whether annotation files are of all contigs or `long`-only contigs (BGC only)
+  - `category/`: indicates whether annotation files are of all contigs or `long`-only contigs (BGC subworkflow only)
     - `<samplename>/`:
       - `*.gbk`: annotation in GBK format, containing both sequences and annotations
       - `*.fna`: nucleotide FASTA file of the annotated CDS sequences
@@ -166,7 +166,7 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `prokka/`
-  - `category/`: indicates whether annotation files are of all contigs or `long`-only contigs (BGC only)
+  - `category/`: indicates whether annotation files are of all contigs or `long`-only contigs (BGC subworkflow only)
     - `<samplename>/`
       - `*.gff`: annotation in GFF3 format, containing both sequences and annotations
       - `*.gbk`: standard Genbank file derived from the master .gff
