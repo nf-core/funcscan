@@ -46,6 +46,7 @@ include { TAXA_CLASS } from '../subworkflows/local/taxa_class'
 //
 include { MULTIQC                        } from '../modules/nf-core/multiqc/main'
 include { GUNZIP as GUNZIP_INPUT_PREP    } from '../modules/nf-core/gunzip/main'
+include { SEQKIT_SEQ                     } from '../modules/nf-core/seqkit/seq/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -67,7 +68,7 @@ workflow FUNCSCAN {
 
     // Some tools require uncompressed input
     ch_input_prep = ch_input
-                        .map{ meta, fasta, faa, gbk -> [meta, [fasta, faa, gbk]] }
+                        .map{ meta, fasta, faa, gbk -> [meta + [category: 'all'], [fasta, faa, gbk]] }
                         .transpose()
                         .branch {
                             compressed: it[1].toString().endsWith('.gz')
@@ -99,7 +100,22 @@ workflow FUNCSCAN {
                                         fastas: true
                                 }
 
-    ch_input_for_annotation = ch_intermediate_input.fastas.map { meta, fasta, protein, gbk ->  [ meta, fasta ] }
+    // Duplicate and filter the duplicated file for long contigs only for BGC
+    // This is to speed up BGC run and prevent 'no hits found'  fails
+    if ( params.run_bgc_screening ){
+        SEQKIT_SEQ ( ch_intermediate_input.fastas.map{meta, fasta, faa, gbk -> [ meta, fasta ]} )
+        ch_input_for_annotation = ch_intermediate_input.fastas
+                                    .map { meta, fasta, protein, gbk ->  [ meta, fasta ] }
+                                    .mix( SEQKIT_SEQ.out.fastx.map{ meta, fasta -> [ meta + [category: 'long'], fasta ] } )
+                                    .filter {
+                                        meta, fasta ->
+                                            if ( fasta != [] && fasta.isEmpty() ) log.warn("[nf-core/funcscan] Sample ${meta.id} does not have contigs longer than ${params.bgc_mincontiglength} bp. Will not be screened for BGCs.")
+                                            !fasta.isEmpty()
+                                    }
+        ch_versions = ch_versions.mix( SEQKIT_SEQ.out.versions )
+    } else {
+        ch_input_for_annotation = ch_intermediate_input.fastas.map { meta, fasta, protein, gbk ->  [ meta, fasta ] }
+    }
 
     /*
         ANNOTATION
@@ -122,6 +138,7 @@ workflow FUNCSCAN {
     // Mix back the preannotated samples with the newly annotated ones
     ch_prepped_input = ch_intermediate_input.preannotated
                         .mix( ch_new_annotation )
+                        .filter { meta, fasta, faa, gbk -> meta.category != 'long' }
                         .multiMap {
                             meta, fasta, faa, gbk ->
                                 fastas: [meta, fasta]
@@ -129,6 +146,18 @@ workflow FUNCSCAN {
                                 gbks: [meta, gbk]
                         }
 
+    if ( params.run_bgc_screening ){
+
+        ch_prepped_input_long = ch_intermediate_input.preannotated
+                                    .mix( ch_new_annotation )
+                                    .filter { meta, fasta, faa, gbk -> meta.category == 'long'}
+                                    .multiMap {
+                                        meta, fasta, faa, gbk ->
+                                            fastas: [meta, fasta]
+                                            faas: [meta, faa]
+                                            gbks: [meta, gbk]
+                                    }
+    }
 
     /*
         TAXONOMIC CLASSIFICATION
@@ -251,14 +280,14 @@ workflow FUNCSCAN {
     */
     if ( params.run_bgc_screening && !params.run_taxa_classification ) {
         BGC (
-            ch_prepped_input.fastas,
-            ch_prepped_input.faas
+            ch_prepped_input_long.fastas,
+            ch_prepped_input_long.faas
                 .filter {
                     meta, file ->
                         if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GFF file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
-            ch_prepped_input.gbks
+            ch_prepped_input_long.gbks
                 .filter {
                     meta, file ->
                         if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
@@ -269,14 +298,14 @@ workflow FUNCSCAN {
         ch_versions = ch_versions.mix( BGC.out.versions )
     } else if ( params.run_bgc_screening && params.run_taxa_classification ) {
         BGC (
-            ch_prepped_input.fastas,
-            ch_prepped_input.faas
+            ch_prepped_input_long.fastas,
+            ch_prepped_input_long.faas
                 .filter {
                     meta, file ->
                         if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
-            ch_prepped_input.gbks
+            ch_prepped_input_long.gbks
                 .filter {
                     meta, file ->
                         if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
