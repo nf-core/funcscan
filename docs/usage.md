@@ -173,6 +173,10 @@ For ampcombi, nf-core/funcscan by default will download the day's version of [DR
 --amp_ampcombi_db '/<path>/<to>/<amp_ref_database>
 ```
 
+:::warning
+When the annotation is run with Prodigal, the resulting `.gbk` file passed to ampcombi will not be processed (i.e., the contig names will not be extracted) and end the pipeline run due to incompatibility issues. Therefore, the pipeline will automatically run Pyrodigal instead, if the `--run_annotation_tool prodigal --run_amp_screening`.
+:::
+
 ### AMRFinderPlus
 
 AMRFinderPlus relies on NCBI's curated Reference Gene Database and curated collection of Hidden Markov Models.
