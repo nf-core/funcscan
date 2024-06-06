@@ -641,7 +641,7 @@
                 },
                 "amp_ampcombi_parsetables_cutoff": {
                     "type": "number",
-                    "default": 0.0,
+                    "default": 0.6,
                     "description": "Assigns the prediction tools' cut-offs.",
                     "help_text": "This converts any prediction score below this cut-off to '0'.By doing so only values above this value will be used in the final AMPcombi table. This applies to all prediction tools except for HMMER-HMMSEARCH, which uses e-value. To change the e-value cut-off use instead `--amp_ampcombi_parsetables_hmmevalue`.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--amp_cutoff`",
                     "fa_icon": "fas fa-address-card"
