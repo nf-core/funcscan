@@ -99,7 +99,10 @@ workflow BGC {
 
         DEEPBGC_PIPELINE ( fastas, ch_deepbgc_database)
         ch_versions = ch_versions.mix( DEEPBGC_PIPELINE.out.versions )
-        ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( DEEPBGC_PIPELINE.out.bgc_tsv )
+
+        if ( params.bgc_skip_antismash && params.bgc_skip_gecco && !params.bgc_skip_deepbgc ) {
+            DEEPBGC_PIPELINE.out.bgc_tsv.collect{it[1]}.ifEmpty(log.warn("[nf-core/funcscan] No hits found by DeepBGC; comBGC summary tool will not be run for sample ${DEEPBGC_PIPELINE.out.bgc_tsv.collect{it[0]}}.")) // TODO: Trying to insert meta.id in the end of the warning string
+        }
     }
 
     // GECCO
