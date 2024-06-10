@@ -1275,6 +1275,7 @@
                     "help_text": "Specify the number of consecutive genes a hit must have to be considered a part of a possible BGC region during BGC extraction.\n\nFor more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--cds`"
                 },
                 "bgc_gecco_pfilter": {
+                    "type": "number",
                     "description": "The p-value cutoff for protein domains to be included.",
                     "fa_icon": "fas fa-filter",
                     "default": 0.000000001,
