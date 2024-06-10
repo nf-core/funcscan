@@ -99,10 +99,7 @@ workflow BGC {
 
         DEEPBGC_PIPELINE ( fastas, ch_deepbgc_database)
         ch_versions = ch_versions.mix( DEEPBGC_PIPELINE.out.versions )
-
-        if ( params.bgc_skip_antismash && params.bgc_skip_gecco && !params.bgc_skip_deepbgc ) {
-            DEEPBGC_PIPELINE.out.bgc_tsv.collect{it[1]}.ifEmpty(log.warn("[nf-core/funcscan] No hits found by DeepBGC; comBGC summary tool will not be run for sample ${DEEPBGC_PIPELINE.out.bgc_tsv.collect{it[0]}}.")) // TODO: Trying to insert meta.id in the end of the warning string
-        }
+        ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( DEEPBGC_PIPELINE.out.bgc_tsv )
     }
 
     // GECCO
@@ -151,28 +148,72 @@ workflow BGC {
     }
 
     // COMBGC
-    COMBGC ( ch_bgcresults_for_combgc )
-    ch_versions = ch_versions.mix( COMBGC.out.versions )
 
-    // COMBGC concatenation
-    if ( !params.run_taxa_classification ) {
-        ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile( name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true )
+    // Print warning if BGC tools find no hits
+    if ( !params.bgc_skip_antismash && !params.bgc_skip_deepbgc && !params.bgc_skip_gecco ) { // If all BGC tools are executed but find no hits
+        DEEPBGC_PIPELINE.out.bgc_tsv.ifEmpty(
+            ANTISMASH_ANTISMASHLITE.out.gbk_results.ifEmpty(
+                GECCO_RUN.out.gbk.ifEmpty (
+                    DEEPBGC_PIPELINE.out.bgc_gbk // DeepBGC GBK output always exists, take meta from there
+                    .filter {
+                        meta, gbk ->
+                            log.warn("[nf-core/funcscan] BGC workflow: No hits found by BGC tools; comBGC summary tool will not be run for sample ${meta.id}.")
+                    }
+                )
+            )
+        )
+    } else if ( !params.bgc_skip_antismash && !params.bgc_skip_deepbgc ) {
+        ANTISMASH_ANTISMASHLITE.out.gbk_results.ifEmpty(
+            DEEPBGC_PIPELINE.out.bgc_tsv.ifEmpty(
+                DEEPBGC_PIPELINE.out.bgc_gbk // DeepBGC GBK output always exists, take meta from there
+                .filter {
+                    meta, gbk ->
+                        log.warn("[nf-core/funcscan] BGC workflow: No hits found by BGC tools; comBGC summary tool will not be run for sample ${meta.id}.")
+                }
+            )
+        )
+    } else if ( !params.bgc_skip_antismash && !params.bgc_skip_gecco ) {
+        ANTISMASH_ANTISMASHLITE.out.gbk_results.ifEmpty(
+            GECCO_RUN.out.gbk.ifEmpty (
+                GECCO_RUN.out.genes // GECCO "<sample>.genes.tsv" output always exists, take meta from there
+                .filter {
+                    meta, tsv ->
+                        log.warn("[nf-core/funcscan] BGC workflow: No hits found by BGC tools; comBGC summary tool will not be run for sample ${meta.id}.")
+                }
+            )
+        )
+    } else if ( !params.bgc_skip_antismash ) {
+        ANTISMASH_ANTISMASHLITE.out.gbk_results.ifEmpty(
+            ANTISMASH_ANTISMASHLITE.out.gbk_input
+            .filter {
+                meta, tsv -> // AntiSMASH gbk_input always exists, take meta from there
+                    log.warn("[nf-core/funcscan] BGC workflow: No hits found by BGC tools; comBGC summary tool will not be run for sample ${meta.id}.")
+            }
+        )
     } else {
-        ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile( name: 'combgc_complete_summary.tsv', keepHeader:true )
-    }
+        COMBGC ( ch_bgcresults_for_combgc )
+        ch_versions = ch_versions.mix( COMBGC.out.versions )
 
-    // MERGE_TAXONOMY
-    if ( params.run_taxa_classification ) {
+        // COMBGC concatenation
+        if ( !params.run_taxa_classification ) {
+            ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile( name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true )
+        } else {
+            ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile( name: 'combgc_complete_summary.tsv', keepHeader:true )
+        }
 
-        ch_mmseqs_taxonomy_list = tsvs.map{ it[1] }.collect()
-        MERGE_TAXONOMY_COMBGC( ch_combgc_summaries, ch_mmseqs_taxonomy_list )
-        ch_versions = ch_versions.mix( MERGE_TAXONOMY_COMBGC.out.versions )
+        // MERGE_TAXONOMY
+        if ( params.run_taxa_classification ) {
 
-        ch_tabix_input = Channel.of( [ 'id':'combgc_complete_summary_taxonomy' ] )
-            .combine(MERGE_TAXONOMY_COMBGC.out.tsv)
+            ch_mmseqs_taxonomy_list = tsvs.map{ it[1] }.collect()
+            MERGE_TAXONOMY_COMBGC( ch_combgc_summaries, ch_mmseqs_taxonomy_list )
+            ch_versions = ch_versions.mix( MERGE_TAXONOMY_COMBGC.out.versions )
 
-        BGC_TABIX_BGZIP( ch_tabix_input )
-        ch_versions = ch_versions.mix( BGC_TABIX_BGZIP.out.versions )
+            ch_tabix_input = Channel.of( [ 'id':'combgc_complete_summary_taxonomy' ] )
+                .combine(MERGE_TAXONOMY_COMBGC.out.tsv)
+
+            BGC_TABIX_BGZIP( ch_tabix_input )
+            ch_versions = ch_versions.mix( BGC_TABIX_BGZIP.out.versions )
+        }
     }
 
     emit:
