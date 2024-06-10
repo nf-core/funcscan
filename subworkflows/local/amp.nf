@@ -27,7 +27,6 @@ workflow AMP {
     ch_ampresults_for_ampcombi     = Channel.empty()
     ch_ampcombi_summaries          = Channel.empty()
     ch_macrel_faa                  = Channel.empty()
-    //ch_ampcombi_input_db           = Channel.empty()
 
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
@@ -90,7 +89,7 @@ workflow AMP {
         AMP_HMMER_HMMSEARCH ( ch_in_for_amp_hmmsearch )
         ch_versions = ch_versions.mix( AMP_HMMER_HMMSEARCH.out.versions )
         AMP_GUNZIP_HMMER_HMMSEARCH ( AMP_HMMER_HMMSEARCH.out.output )
-        ch_versions                = ch_versions.mix( AMP_GUNZIP_HMMER_HMMSEARCH.out.versions )
+        ch_versions = ch_versions.mix( AMP_GUNZIP_HMMER_HMMSEARCH.out.versions )
         ch_AMP_GUNZIP_HMMER_HMMSEARCH = AMP_GUNZIP_HMMER_HMMSEARCH.out.gunzip
             .map { meta, file ->
                 [ [id: meta.id], file ]
@@ -110,12 +109,12 @@ workflow AMP {
         }
 
     if ( params.amp_ampcombi_db != null ) {
-        AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input,  ch_input_for_ampcombi.faa,  ch_input_for_ampcombi.gbk, params.amp_ampcombi_db)
+        AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input,  ch_input_for_ampcombi.faa,  ch_input_for_ampcombi.gbk, params.amp_ampcombi_db )
         } else {
             DRAMP_DOWNLOAD()
             ch_versions = ch_versions.mix( DRAMP_DOWNLOAD.out.versions )
             ch_ampcombi_input_db = DRAMP_DOWNLOAD.out.db
-            AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input,  ch_input_for_ampcombi.faa,  ch_input_for_ampcombi.gbk, ch_ampcombi_input_db)
+            AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input,  ch_input_for_ampcombi.faa,  ch_input_for_ampcombi.gbk, ch_ampcombi_input_db )
         }
     ch_versions = ch_versions.mix( AMPCOMBI2_PARSETABLES.out.versions )
 

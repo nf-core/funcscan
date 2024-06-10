@@ -167,14 +167,14 @@ You should place all HMMs in a directory and supply them e.g. to AMP models:
 
 ### ampcombi
 
-For ampcombi, nf-core/funcscan by default will download the day's version of [DRAMP](http://dramp.cpu-bioinfor.org/) database as a reference database for aligning the AMP hits in the AMP workflow. However, the user can also supply their own custom AMP database by following the guidelines in [ampcombi](https://github.com/Darcy220606/AMPcombi). This can then be passed to the pipeline with:
+For AMPcombi, nf-core/funcscan will by default download the most recent version of the [DRAMP](http://dramp.cpu-bioinfor.org/) database as a reference database for aligning the AMP hits in the AMP workflow. However, the user can also supply their own custom AMP database by following the guidelines in [AMPcombi](https://github.com/Darcy220606/AMPcombi). This can then be passed to the pipeline with:
 
 ```bash
 --amp_ampcombi_db '/<path>/<to>/<amp_ref_database>
 ```
 
 :::warning
-When the annotation is run with Prodigal, the resulting `.gbk` file passed to ampcombi will not be processed (i.e., the contig names will not be extracted) and end the pipeline run due to incompatibility issues. Therefore, the pipeline will automatically run Pyrodigal instead, if the `--run_annotation_tool prodigal --run_amp_screening`.
+The pipeline will automatically run Pyrodigal instead of Prodigal if the parameters `--run_annotation_tool prodigal --run_amp_screening` are both provided. This is due to an incompatibility issue of Prodigal's output `.gbk` file with multiple downstream tools.
 :::
 
 ### AMRFinderPlus

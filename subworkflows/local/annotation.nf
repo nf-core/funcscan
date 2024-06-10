@@ -24,7 +24,7 @@ workflow ANNOTATION {
 
         if ( params.annotation_tool == "pyrodigal" || ( params.annotation_tool == "prodigal" && params.run_bgc_screening == true && !params.bgc_skip_antismash ) || ( params.annotation_tool == "prodigal" && params.run_amp_screening == true ) ) { // Need to use pyrodigal for antiSMASH / AMP workflow because prodigal GBK annotation format is incompatible with antiSMASH/AMPcombi.
 
-            if ( params.annotation_tool == "prodigal" && params.run_bgc_screening == true && !params.bgc_skip_antismash  ) {
+            if ( params.annotation_tool == "prodigal" && params.run_bgc_screening == true && !params.bgc_skip_antismash ) {
                 log.warn("[nf-core/funcscan] Switching annotation tool to: pyrodigal. This is because prodigal annotations (in GBK format) are incompatible with antiSMASH. If you specifically wish to run prodigal instead, please skip antiSMASH or provide a pre-annotated GBK file in the samplesheet.")
             } else if ( params.annotation_tool == "prodigal" && params.run_amp_screening == true ) {
                 log.warn("[nf-core/funcscan] Switching annotation tool to: pyrodigal. This is because prodigal annotations (in GBK format) are incompatible with AMPcombi. If you specifically wish to run prodigal instead, please skip AMP workflow or provide a pre-annotated GBK file in the samplesheet.")
