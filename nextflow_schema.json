@@ -1009,6 +1009,7 @@
                 "arg_rgi_includenudge": {
                     "type": "boolean",
                     "description": "Suppresses the default behaviour of RGI with `--arg_rgi_includeloose`.",
+                    "help_text": "This flag suppresses the default behaviour of RGI with `--include_loose`, which lists all 'Loose' matches of >= 95% identity as 'Strict', regardless of alignment length. With this strict and perfect labels are added. This is discontinued in future versions of RGI.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_nudge`",
                     "default": false,
                     "fa_icon": "fas fa-hand-scissors"
                 },
