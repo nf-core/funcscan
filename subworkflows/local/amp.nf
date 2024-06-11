@@ -20,7 +20,7 @@ workflow AMP {
     fastas // tuple val(meta), path(contigs)
     faas   // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
     tsvs   // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
-    gbks   // tuple val(meta), path(ANNOTATION/ANNOTATION_TOOL.out.gbk)
+    gbks   // tuple val(meta), path(ANNOTATION_ANNOTATION_TOOL.out.gbk)
 
     main:
     ch_versions                    = Channel.empty()
