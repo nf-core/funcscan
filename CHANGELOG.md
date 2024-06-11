@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#375](https://github.com/nf-core/funcscan/pull/375) Merged pipeline template of nf-core/tools version 2.14.1. (by @jfy133)
 - [#381](https://github.com/nf-core/funcscan/pull/381) Added support for supplying pre-annotated sequences to the pipeline. (by @jfy133, @jasmezz)
 - [#382](https://github.com/nf-core/funcscan/pull/382) Optimised BGC screening run time and prevent crashes due to too-short contigs by adding contig length filtering for BGC workflow only. (by @jfy133, @darcy220606)
-- [#384](https://github.com/nf-core/funcscan/pull/384) Deprecated AMPcombi and exchanged it with full suit of AMPcombi2 submodules. (by @darcy220606)
+- [#384](https://github.com/nf-core/funcscan/pull/384) Deprecated AMPcombi and exchanged it with full suite of AMPcombi2 submodules. (by @darcy220606)
 
 ### `Fixed`
 
