@@ -114,7 +114,7 @@ workflow AMP {
             DRAMP_DOWNLOAD()
             ch_versions = ch_versions.mix( DRAMP_DOWNLOAD.out.versions )
             ch_ampcombi_input_db = DRAMP_DOWNLOAD.out.db
-            AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input,  ch_input_for_ampcombi.faa,  ch_input_for_ampcombi.gbk, ch_ampcombi_input_db )
+            AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_input_for_ampcombi.gbk, ch_ampcombi_input_db )
         }
     ch_versions = ch_versions.mix( AMPCOMBI2_PARSETABLES.out.versions )
 
