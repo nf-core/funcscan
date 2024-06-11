@@ -1015,6 +1015,7 @@
                 },
                 "arg_rgi_lowquality": {
                     "type": "boolean",
+                    "description": "Include screening of low quality contigs for partial genes.",
                     "default": false,
                     "help_text": "This flag should be used only when the contigs are of poor quality (e.g. short) to predict partial genes.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--low_quality`",
                     "fa_icon": "fas fa-angle-double-down"
