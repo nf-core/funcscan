@@ -151,9 +151,7 @@ workflow BGC {
     }
 
     // COMBGC
-    COMBGC (
-        ch_bgcresults_for_combgc
-    )
+    COMBGC ( ch_bgcresults_for_combgc )
 
     ch_bgcresults_for_combgc.ifEmpty(
         fastas.filter {
@@ -163,26 +161,26 @@ workflow BGC {
     )
     ch_versions = ch_versions.mix( COMBGC.out.versions )
 
-        // COMBGC concatenation
-        if ( !params.run_taxa_classification ) {
-            ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile( name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true )
-        } else {
-            ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile( name: 'combgc_complete_summary.tsv', keepHeader:true )
-        }
+    // COMBGC concatenation
+    if ( !params.run_taxa_classification ) {
+        ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile( name: 'combgc_complete_summary.tsv', storeDir: "${params.outdir}/reports/combgc", keepHeader:true )
+    } else {
+        ch_combgc_summaries = COMBGC.out.tsv.map{ it[1] }.collectFile( name: 'combgc_complete_summary.tsv', keepHeader:true )
+    }
 
-        // MERGE_TAXONOMY
-        if ( params.run_taxa_classification ) {
+    // MERGE_TAXONOMY
+    if ( params.run_taxa_classification ) {
 
-            ch_mmseqs_taxonomy_list = tsvs.map{ it[1] }.collect()
-            MERGE_TAXONOMY_COMBGC( ch_combgc_summaries, ch_mmseqs_taxonomy_list )
-            ch_versions = ch_versions.mix( MERGE_TAXONOMY_COMBGC.out.versions )
+        ch_mmseqs_taxonomy_list = tsvs.map{ it[1] }.collect()
+        MERGE_TAXONOMY_COMBGC( ch_combgc_summaries, ch_mmseqs_taxonomy_list )
+        ch_versions = ch_versions.mix( MERGE_TAXONOMY_COMBGC.out.versions )
 
-            ch_tabix_input = Channel.of( [ 'id':'combgc_complete_summary_taxonomy' ] )
-                .combine(MERGE_TAXONOMY_COMBGC.out.tsv)
+        ch_tabix_input = Channel.of( [ 'id':'combgc_complete_summary_taxonomy' ] )
+            .combine(MERGE_TAXONOMY_COMBGC.out.tsv)
 
-            BGC_TABIX_BGZIP( ch_tabix_input )
-            ch_versions = ch_versions.mix( BGC_TABIX_BGZIP.out.versions )
-        }
+        BGC_TABIX_BGZIP( ch_tabix_input )
+        ch_versions = ch_versions.mix( BGC_TABIX_BGZIP.out.versions )
+    }
 
     emit:
     versions = ch_versions
