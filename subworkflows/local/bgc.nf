@@ -80,6 +80,9 @@ workflow BGC {
                                                 meta, files ->
                                                 [meta, files.flatten()]
                                             }
+        ANTISMASH_ANTISMASHLITE.out.gbk_results.ifEmpty(
+            ch_antismashresults_for_combgc = Channel.empty()
+        )
 
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( ch_antismashresults_for_combgc )
     }
@@ -148,77 +151,17 @@ workflow BGC {
     }
 
     // COMBGC
+    COMBGC (
+        ch_bgcresults_for_combgc
+    )
 
-    // Print warning if BGC tools find no hits
-    if ( !params.bgc_skip_antismash && !params.bgc_skip_deepbgc && !params.bgc_skip_gecco ) { // If all BGC tools are executed but find no hits
-        DEEPBGC_PIPELINE.out.bgc_tsv.ifEmpty(
-            ANTISMASH_ANTISMASHLITE.out.gbk_results.ifEmpty(
-                GECCO_RUN.out.gbk.ifEmpty (
-                    DEEPBGC_PIPELINE.out.bgc_gbk // DeepBGC GBK output always exists, take meta from there
-                    .filter {
-                        meta, gbk ->
-                            log.warn("[nf-core/funcscan] BGC workflow: No hits found by DeepBGC, antiSMASH, and GECCO; comBGC summary tool will not be run for sample ${meta.id}.")
-                    }
-                )
-            )
-        )
-    } else if ( !params.bgc_skip_antismash && !params.bgc_skip_gecco ) { // If only antiSMASH and GECCO are executed but find no hits
-        ANTISMASH_ANTISMASHLITE.out.gbk_results.ifEmpty(
-            GECCO_RUN.out.gbk.ifEmpty (
-                GECCO_RUN.out.genes // GECCO "<sample>.genes.tsv" output always exists, take meta from there
-                .filter {
-                    meta, tsv ->
-                        log.warn("[nf-core/funcscan] BGC workflow: No hits found by antiSMASH and GECCO; comBGC summary tool will not be run for sample ${meta.id}.")
-                }
-            )
-        )
-    } else if ( !params.bgc_skip_antismash && !params.bgc_skip_deepbgc ) { // If only antiSMASH and DeepBGC are executed but find no hits
-        ANTISMASH_ANTISMASHLITE.out.gbk_results.ifEmpty(
-            DEEPBGC_PIPELINE.out.bgc_tsv.ifEmpty(
-                DEEPBGC_PIPELINE.out.bgc_gbk // DeepBGC GBK output always exists, take meta from there
-                .filter {
-                    meta, gbk ->
-                        log.warn("[nf-core/funcscan] BGC workflow: No hits found by antiSMASH and DeepBGC; comBGC summary tool will not be run for sample ${meta.id}.")
-                }
-            )
-        )
-    } else if ( !params.bgc_skip_gecco && !params.bgc_skip_deepbgc ) { // If only GECCO and DeepBGC are executed but find no hits
-        ANTISMASH_ANTISMASHLITE.out.gbk_results.ifEmpty(
-            GECCO_RUN.out.gbk.ifEmpty (
-                GECCO_RUN.out.genes // GECCO "<sample>.genes.tsv" output always exists, take meta from there
-                .filter {
-                    meta, tsv ->
-                        log.warn("[nf-core/funcscan] BGC workflow: No hits found by GECCO and DeepBGC; comBGC summary tool will not be run for sample ${meta.id}.")
-                }
-            )
-        )
-    } else if ( !params.bgc_skip_deepbgc ) { // If only DeepBGC is executed but finds no hits
-        DEEPBGC_PIPELINE.out.bgc_tsv.ifEmpty(
-            DEEPBGC_PIPELINE.out.bgc_gbk // DeepBGC GBK output always exists, take meta from there
-            .filter {
-                meta, gbk ->
-                    log.warn("[nf-core/funcscan] BGC workflow: No hits found by DeepBGC; comBGC summary tool will not be run for sample ${meta.id}.")
-            }
-        )
-    } else if ( !params.bgc_skip_gecco ) { // If only GECCO is executed but finds no hits
-        GECCO_RUN.out.gbk.ifEmpty (
-            GECCO_RUN.out.genes // GECCO "<sample>.genes.tsv" output always exists, take meta from there
-            .filter {
-                meta, tsv ->
-                    log.warn("[nf-core/funcscan] BGC workflow: No hits found by GECCO; comBGC summary tool will not be run for sample ${meta.id}.")
-            }
-        )
-    } else if ( !params.bgc_skip_antismash ) { // If only antiSMASH is executed but finds no hits
-        ANTISMASH_ANTISMASHLITE.out.gbk_results.ifEmpty(
-            ANTISMASH_ANTISMASHLITE.out.gbk_input
-            .filter {
-                meta, tsv -> // AntiSMASH gbk_input always exists, take meta from there
-                    log.warn("[nf-core/funcscan] BGC workflow: No hits found by antiSMASH; comBGC summary tool will not be run for sample ${meta.id}.")
-            }
-        )
-    } else {
-        COMBGC ( ch_bgcresults_for_combgc )
-        ch_versions = ch_versions.mix( COMBGC.out.versions )
+    ch_bgcresults_for_combgc.ifEmpty(
+        fastas.filter {
+            meta, fna ->
+                log.warn("[nf-core/funcscan] BGC workflow: No hits found by BGC tools; comBGC summary tool will not be run for sample ${meta.id}.")
+        }
+    )
+    ch_versions = ch_versions.mix( COMBGC.out.versions )
 
         // COMBGC concatenation
         if ( !params.run_taxa_classification ) {
@@ -240,7 +183,6 @@ workflow BGC {
             BGC_TABIX_BGZIP( ch_tabix_input )
             ch_versions = ch_versions.mix( BGC_TABIX_BGZIP.out.versions )
         }
-    }
 
     emit:
     versions = ch_versions
