@@ -1,14 +1,4 @@
 {
-    "gecco_features": {
-        "content": [
-            "/home/jasmin/nf-core/funcscan/funcscan/.nf-test/tests/1492bc81b1890c8d79fb47e3f75b9dab/output/bgc/gecco/sample_2_long.features"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-07T15:13:06.365332654"
-    },
     "antismash_css": {
         "content": [
             [
@@ -17,9 +7,9 @@
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.2"
         },
-        "timestamp": "2024-05-07T15:13:06.337410872"
+        "timestamp": "2024-06-12T16:06:37.879464917"
     },
     "deepbgc_bgc_gbk": {
         "content": [
@@ -27,18 +17,19 @@
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.2"
         },
-        "timestamp": "2024-05-07T15:13:06.352880346"
+        "timestamp": "2024-06-12T16:06:37.920624113"
     },
-    "gecco_tsv": {
+    "gecco": {
         "content": [
-            "/home/jasmin/nf-core/funcscan/funcscan/.nf-test/tests/1492bc81b1890c8d79fb47e3f75b9dab/output/bgc/gecco/sample_2_long.genes.tsv"
+            "sample_2_long.genes.tsv:md5,66e3724c7e7da102bf58acd564211e8b",
+            "sample_2_long.features.tsv:md5,2ef146213836ca80d3079776f17c7cb2"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.2"
         },
-        "timestamp": "2024-05-07T15:13:06.36032928"
+        "timestamp": "2024-06-12T16:06:37.944935473"
     }
 }

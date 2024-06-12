@@ -1,432 +1,132 @@
 {
-    "amrfinderplus_tsv_1-short": {
-        "content": [
-            "sample_1_short.tsv:md5,b4d261ace9be7d013c19d1f5c0005bfe"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.689486402"
-    },
-    "macrel_all_orfs_1-short": {
-        "content": [
-            "sample_1_short.all_orfs.faa.gz:md5,cb2b6710eefb57e50ceac62d5b11c499"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.464563333"
-    },
-    "abricate_txt_2-short": {
-        "content": [
-            "/home/jasmin/nf-core/funcscan/funcscan/.nf-test/tests/60d170ad1b69a33c73de0d3957ad3bd2/output/arg/deeparg/sample_2_short/sample_2_short.txt"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.668540071"
-    },
-    "macrel_smorfs_2-short": {
-        "content": [
-            "sample_2_short.smorfs.faa.gz:md5,24404fcfc2d43eb9ea61982949fa171a"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.442736311"
-    },
-    "macrel_readme_file_1-short": {
-        "content": [
-            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.529437342"
-    },
-    "deeparg_daa_sarg_2-long": {
-        "content": [
-            "sample_2_long.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.645899129"
-    },
-    "deeparg_daa_arg_1-short": {
-        "content": [
-            "sample_1_short.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.625767105"
-    },
-    "macrel_amp_prediction_2-short": {
-        "content": [
-            "sample_2_short.prediction.gz:md5,2bed4ad2302371ae2a5802a9292d8a06"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.509502141"
-    },
-    "fargene_class_b_txt_2-long": {
-        "content": [
-            "/home/jasmin/nf-core/funcscan/funcscan/.nf-test/tests/60d170ad1b69a33c73de0d3957ad3bd2/output/arg/rgi/sample_2_long/class_b_1_2/results_summary.txt"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.814121576"
-    },
-    "macrel_log_file_2-short": {
-        "content": [
-            "sample_2_short_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.572479826"
-    },
-    "abricate_txt_2-long": {
-        "content": [
-            "/home/jasmin/nf-core/funcscan/funcscan/.nf-test/tests/60d170ad1b69a33c73de0d3957ad3bd2/output/arg/deeparg/sample_2_long/sample_2_long.txt"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.679057169"
-    },
-    "fargene_log_1-short": {
-        "content": [
-            "/home/jasmin/nf-core/funcscan/funcscan/.nf-test/tests/60d170ad1b69a33c73de0d3957ad3bd2/output/arg/rgi/sample_1_short/class_b_1_2/fargene_analysis.log"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.825881578"
-    },
-    "amplify_tsv_1-short": {
-        "content": [
-            "sample_1_short.tsv:md5,2433bc0083fc363c24c014379fc18ec8"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.40685565"
-    },
-    "amplify_tsv_2-long": {
-        "content": [
-            "sample_2_long.tsv:md5,afaf86a1ff4a43a3f46975af75376b33"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.424852347"
-    },
-    "macrel_amp_prediction_2-long": {
-        "content": [
-            "sample_2_long.prediction.gz:md5,7167e7c0f269e2ac5935c239c2d13dfe"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.519231253"
-    },
-    "deeparg_daa_tsv_2-long": {
-        "content": [
-            "sample_2_long.align.daa.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.615772926"
-    },
-    "fargene_class_a_txt_2-long": {
-        "content": [
-            "/home/jasmin/nf-core/funcscan/funcscan/.nf-test/tests/60d170ad1b69a33c73de0d3957ad3bd2/output/arg/rgi/sample_2_long/class_a/results_summary.txt"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.778593965"
-    },
-    "deeparg_daa_tsv_1-short": {
-        "content": [
-            "sample_1_short.align.daa.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.594281701"
-    },
-    "macrel_readme_file_2-long": {
-        "content": [
-            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.550248446"
-    },
-    "macrel_smorfs_2-long": {
-        "content": [
-            "sample_2_long.smorfs.faa.gz:md5,bc48062855750db65cc0f0a14c64e125"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.453552839"
-    },
-    "abricate_txt_1-short": {
-        "content": [
-            "/home/jasmin/nf-core/funcscan/funcscan/.nf-test/tests/60d170ad1b69a33c73de0d3957ad3bd2/output/arg/deeparg/sample_1_short/sample_1_short.txt"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.657772504"
-    },
-    "macrel_readme_file_2-short": {
-        "content": [
-            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.539678588"
-    },
-    "fargene_class_a_txt_1-short": {
-        "content": [
-            "/home/jasmin/nf-core/funcscan/funcscan/.nf-test/tests/60d170ad1b69a33c73de0d3957ad3bd2/output/arg/rgi/sample_1_short/class_a/results_summary.txt"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.755031404"
-    },
     "hamronization_summarize": {
         "content": [
             "hamronization_combined_report.tsv:md5,864466b0fb1acfc0e6b3425271f78ecb"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.2"
         },
-        "timestamp": "2024-05-28T15:25:44.863489283"
+        "timestamp": "2024-06-12T17:09:05.318606577"
     },
-    "macrel_smorfs_1-short": {
+    "abricate": {
         "content": [
-            "sample_1_short.smorfs.faa.gz:md5,1b5e2434860e635e95324d1804a3be7b"
+            "sample_1_short.txt:md5,69af3321b0bc808b7ef85f102395736f",
+            "sample_2_short.txt:md5,69af3321b0bc808b7ef85f102395736f",
+            "sample_2_long.txt:md5,69af3321b0bc808b7ef85f102395736f"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.2"
         },
-        "timestamp": "2024-05-28T15:25:44.432770583"
+        "timestamp": "2024-06-12T17:09:05.258219081"
     },
-    "fargene_class_b_txt_1-short": {
+    "fargene": {
         "content": [
-            "/home/jasmin/nf-core/funcscan/funcscan/.nf-test/tests/60d170ad1b69a33c73de0d3957ad3bd2/output/arg/rgi/sample_1_short/class_b_1_2/results_summary.txt"
+            "results_summary.txt:md5,690d351cfc52577263ef4cfab1c81f50",
+            "results_summary.txt:md5,690d351cfc52577263ef4cfab1c81f50",
+            "results_summary.txt:md5,690d351cfc52577263ef4cfab1c81f50",
+            "results_summary.txt:md5,f69af9b0e18a0cfc934eb18b7e4bffe1",
+            "results_summary.txt:md5,f69af9b0e18a0cfc934eb18b7e4bffe1",
+            "results_summary.txt:md5,f69af9b0e18a0cfc934eb18b7e4bffe1",
+            "fargene_analysis.log:md5,220bf08adcb2cc1d3d7a7d4ceaccdb42",
+            "fargene_analysis.log:md5,b549ab7710e97cd528a05abaaddb3427",
+            "fargene_analysis.log:md5,6197a2fccbd06934c84ee16c577d5837"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.2"
         },
-        "timestamp": "2024-05-28T15:25:44.7905393"
+        "timestamp": "2024-06-12T17:09:05.303856549"
     },
-    "macrel_amp_prediction_1-short": {
+    "rgi": {
         "content": [
-            "sample_1_short.prediction.gz:md5,0c4b16e0838be56e012b99169863a168"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.49855303"
-    },
-    "amrfinderplus_tsv_2-short": {
-        "content": [
-            "sample_2_short.tsv:md5,b4d261ace9be7d013c19d1f5c0005bfe"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.700295927"
-    },
-    "amrfinderplus_tsv_2-long": {
-        "content": [
-            "sample_2_long.tsv:md5,b4d261ace9be7d013c19d1f5c0005bfe"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.710989756"
-    },
-    "rgi_txt_2-short": {
-        "content": [
-            "sample_2_short.txt:md5,fce130af51f93cccfc09ddaf9caf623f"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.732803992"
-    },
-    "macrel_all_orfs_2-long": {
-        "content": [
-            "sample_2_long.all_orfs.faa.gz:md5,0fac84013ec35256a136ca1e0d2cbd48"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.488166295"
-    },
-    "macrel_all_orfs_2-short": {
-        "content": [
-            "sample_2_short.all_orfs.faa.gz:md5,481fb8df3f8ed67010b5152b7fe4059a"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.475508141"
-    },
-    "fargene_log_2-long": {
-        "content": [
-            "/home/jasmin/nf-core/funcscan/funcscan/.nf-test/tests/60d170ad1b69a33c73de0d3957ad3bd2/output/arg/rgi/sample_2_long/class_b_1_2/fargene_analysis.log"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.851433476"
-    },
-    "amplify_tsv_2-short": {
-        "content": [
-            "sample_2_short.tsv:md5,e2e899c3730e5f44d35cf6af9bbf38ff"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.418934331"
-    },
-    "deeparg_daa_tsv_2-short": {
-        "content": [
-            "sample_2_short.align.daa.tsv:md5,238aa3eef0215ff18790d66e3ea13a47"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.605136482"
-    },
-    "macrel_log_file_1-short": {
-        "content": [
-            "sample_1_short_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.561370683"
-    },
-    "rgi_txt_2-long": {
-        "content": [
+            "sample_1_short.txt:md5,fce130af51f93cccfc09ddaf9caf623f",
+            "sample_2_short.txt:md5,fce130af51f93cccfc09ddaf9caf623f",
             "sample_2_long.txt:md5,fce130af51f93cccfc09ddaf9caf623f"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.2"
         },
-        "timestamp": "2024-05-28T15:25:44.743855057"
+        "timestamp": "2024-06-12T17:09:05.290028286"
     },
-    "rgi_txt_1-short": {
+    "deeparg_tsv_ARG": {
         "content": [
-            "sample_1_short.txt:md5,fce130af51f93cccfc09ddaf9caf623f"
+            "sample_1_short.align.daa.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "sample_2_short.align.daa.tsv:md5,238aa3eef0215ff18790d66e3ea13a47",
+            "sample_2_long.align.daa.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "sample_1_short.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9",
+            "sample_2_short.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9",
+            "sample_2_long.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.2"
         },
-        "timestamp": "2024-05-28T15:25:44.721962277"
+        "timestamp": "2024-06-12T17:09:05.231557712"
     },
-    "fargene_class_a_txt_2-short": {
+    "ampir": {
         "content": [
-            "/home/jasmin/nf-core/funcscan/funcscan/.nf-test/tests/60d170ad1b69a33c73de0d3957ad3bd2/output/arg/rgi/sample_2_short/class_a/results_summary.txt"
+            "sample_1_short.ampir.tsv:md5,3954b492f129cbee5bced9ee06a05251",
+            "sample_1_short.ampir.faa:md5,8fb90d4b5ae584b7495fbd347bd4920f",
+            "sample_2_short.ampir.tsv:md5,ef898a6b6e415bcf9e715da6c6865c84",
+            "sample_2_short.ampir.faa:md5,8d17fdb7707c2bb7145d8eb2a7291dd9",
+            "sample_2_long.ampir.tsv:md5,772999eb38752bb569405855330308f0",
+            "sample_2_long.ampir.faa:md5,7ed948ee92aa65d860286e041a266d04"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.2"
         },
-        "timestamp": "2024-05-28T15:25:44.766271909"
+        "timestamp": "2024-06-12T17:09:05.175805054"
     },
-    "macrel_log_file_2-long": {
+    "amplify": {
         "content": [
+            "sample_1_short.tsv:md5,2433bc0083fc363c24c014379fc18ec8",
+            "sample_2_short.tsv:md5,e2e899c3730e5f44d35cf6af9bbf38ff",
+            "sample_2_long.tsv:md5,afaf86a1ff4a43a3f46975af75376b33"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.2"
+        },
+        "timestamp": "2024-06-12T17:09:05.195446719"
+    },
+    "macrel": {
+        "content": [
+            "sample_1_short.smorfs.faa.gz:md5,1b5e2434860e635e95324d1804a3be7b",
+            "sample_2_short.smorfs.faa.gz:md5,24404fcfc2d43eb9ea61982949fa171a",
+            "sample_2_long.smorfs.faa.gz:md5,bc48062855750db65cc0f0a14c64e125",
+            "sample_1_short.all_orfs.faa.gz:md5,cb2b6710eefb57e50ceac62d5b11c499",
+            "sample_2_short.all_orfs.faa.gz:md5,481fb8df3f8ed67010b5152b7fe4059a",
+            "sample_2_long.all_orfs.faa.gz:md5,0fac84013ec35256a136ca1e0d2cbd48",
+            "sample_1_short.prediction.gz:md5,0c4b16e0838be56e012b99169863a168",
+            "sample_2_short.prediction.gz:md5,2bed4ad2302371ae2a5802a9292d8a06",
+            "sample_2_long.prediction.gz:md5,7167e7c0f269e2ac5935c239c2d13dfe",
+            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
+            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
+            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
+            "sample_1_short_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "sample_2_short_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
             "sample_2_long_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.2"
         },
-        "timestamp": "2024-05-28T15:25:44.583346318"
+        "timestamp": "2024-06-12T17:09:05.20907587"
     },
-    "deeparg_daa_arg_2-short": {
+    "amrfinderplus": {
         "content": [
-            "sample_2_short.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9"
+            "sample_1_short.tsv:md5,b4d261ace9be7d013c19d1f5c0005bfe",
+            "sample_2_short.tsv:md5,b4d261ace9be7d013c19d1f5c0005bfe",
+            "sample_2_long.tsv:md5,b4d261ace9be7d013c19d1f5c0005bfe"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
+            "nextflow": "24.04.2"
         },
-        "timestamp": "2024-05-28T15:25:44.635999107"
-    },
-    "fargene_log_2-short": {
-        "content": [
-            "/home/jasmin/nf-core/funcscan/funcscan/.nf-test/tests/60d170ad1b69a33c73de0d3957ad3bd2/output/arg/rgi/sample_2_short/class_b_1_2/fargene_analysis.log"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.839154121"
-    },
-    "fargene_class_b_txt_2-short": {
-        "content": [
-            "/home/jasmin/nf-core/funcscan/funcscan/.nf-test/tests/60d170ad1b69a33c73de0d3957ad3bd2/output/arg/rgi/sample_2_short/class_b_1_2/results_summary.txt"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "23.10.1"
-        },
-        "timestamp": "2024-05-28T15:25:44.802286167"
+        "timestamp": "2024-06-12T17:09:05.274247372"
     }
 }
