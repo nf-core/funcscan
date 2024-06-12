@@ -196,7 +196,8 @@ workflow FUNCSCAN {
                         !file.isEmpty()
 
                 },
-            ch_taxonomy_tsv
+            ch_taxonomy_tsv,
+            ch_prepped_input.gbks
         )
         ch_versions = ch_versions.mix(AMP.out.versions)
     } else if ( params.run_amp_screening && params.run_taxa_classification ) {
@@ -213,7 +214,8 @@ workflow FUNCSCAN {
                         meta, file ->
                         if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
                         !file.isEmpty()
-                    }
+                    },
+            ch_prepped_input.gbks
         )
         ch_versions = ch_versions.mix( AMP.out.versions )
     }

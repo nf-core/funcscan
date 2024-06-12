@@ -627,12 +627,11 @@
             "fa_icon": "fas fa-tools",
             "help_text": "Macrel is a tool that mines antimicrobial peptides (AMPs) from (meta)genomes by predicting peptides from genomes (provided as contigs) and outputs all the predicted anti-microbial peptides found.\n\nDocumentation: https://github.com/BigDataBiology/macrel"
         },
-        "amp_ampcombi": {
-            "title": "AMP: AMPcombi",
+        "amp_ampcombi2_parsetables": {
+            "title": "AMP: ampcombi2 parsetables",
             "type": "object",
-            "description": "AntiMicrobial Peptides parsing and functional classification tool",
+            "description": "Antimicrobial peptides parsing, filtering, and annotating submodule of AMPcombi2",
             "default": "",
-            "fa_icon": "fas fa-filter",
             "properties": {
                 "amp_ampcombi_db": {
                     "type": "string",
@@ -640,15 +639,140 @@
                     "help_text": "AMPcombi uses the 'general AMPs' dataset of the (DRAMP database)[http://dramp.cpu-bioinfor.org/downloads/] for taxonomic classification. If you have a local version of it, you can provide the path to the folder containing the reference database files:\n1. a fasta file with a `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nFor more information check AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).",
                     "fa_icon": "fas fa-address-book"
                 },
-                "amp_ampcombi_cutoff": {
+                "amp_ampcombi_parsetables_cutoff": {
                     "type": "number",
-                    "default": 0.0,
-                    "description": "Specify probability cutoff to filter AMPs",
-                    "help_text": "Specify the minimum probability an AMP hit must have to be retained in the final output file. Anything below this threshold will be removed.\n\nFor more information check AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cutoff`",
-                    "fa_icon": "fas fa-sort-amount-up"
+                    "default": 0.6,
+                    "description": "Assigns the prediction tools' cut-offs.",
+                    "help_text": "This converts any prediction score below this cut-off to '0'.By doing so only values above this value will be used in the final AMPcombi table. This applies to all prediction tools except for HMMER-HMMSEARCH, which uses e-value. To change the e-value cut-off use instead `--amp_ampcombi_parsetables_hmmevalue`.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--amp_cutoff`",
+                    "fa_icon": "fas fa-address-card"
+                },
+                "amp_ampcombi_parsetables_aalength": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "Filter out all amino acid fragments shorter than this number.",
+                    "help_text": "Any AMP hit that does not satisfy this length cut-off will be removed from the final AMPcombi table.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--aminoacid_length`",
+                    "fa_icon": "fas fa-ruler"
+                },
+                "amp_ampcombi_parsetables_dbevalue": {
+                    "type": "number",
+                    "default": 5.0,
+                    "description": "Remove all DRAMP annotations that have an e-value greater than this value.",
+                    "help_text": "This e-value is used as a cut-off for the annotations from the internal Diamond alignment step (against the DRAMP database by default). Any e-value below this value will only remove the DRAMP classification and not the entire hit.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--db_evalue`",
+                    "fa_icon": "fas fa-sort-numeric-down"
+                },
+                "amp_ampcombi_parsetables_hmmevalue": {
+                    "type": "number",
+                    "default": 0.06,
+                    "description": "Retain HMM hits that have an e-value lower than this.",
+                    "help_text": "This converts any prediction score below this cut-off to '0'. By doing so only values above this value will be used in the final AMPcombi table. To change the prediction score cut-off for all other AMP prediction tools, use instead `--amp_cutoff`.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--hmm_evalue`",
+                    "fa_icon": "fas fa-sort-numeric-up"
+                },
+                "amp_ampcombi_parsetables_windowstopcodon": {
+                    "type": "integer",
+                    "default": 60,
+                    "description": "Assign the number of codons used to look for stop codons, upstream and downstream of the AMP hit.",
+                    "help_text": "This assigns the length of the window size required to look for stop codons downstream and upstream of the CDS hits. In the default case, it looks 10 codons downstream and upstream of the AMP hit and reports whether a stop codon was found.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--window_size_stop_codon`",
+                    "fa_icon": "fas fa-stop-circle"
+                },
+                "amp_ampcombi_parsetables_windowtransport": {
+                    "type": "integer",
+                    "default": 11,
+                    "description": "Assign the number of CDSs upstream and downstream of the AMP to look for a transport protein.",
+                    "help_text": "This assigns the length of the window size required to look for a 'transporter' (e.g. ABC transporter) downstream and upstream of the CDS hits. This is done on CDS classification level.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--window_size_transporter`",
+                    "fa_icon": "fas fa-car-side"
+                },
+                "amp_ampcombi_parsetables_removehitswostopcodons": {
+                    "type": "boolean",
+                    "description": "Remove hits that have no stop codon upstream and downstream of the AMP",
+                    "help_text": "Removes any hits/CDSs that don't have a stop codon found in the window downstream or upstream of the CDS assigned by '--amp_ampcombi_parsetables_windowstopcodon'. We recommend to turn it on if the results will be used downstream experimentally.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--remove_stop_codons`",
+                    "fa_icon": "fas fa-ban"
+                },
+                "amp_ampcombi_parsetables_ampir": {
+                    "type": "string",
+                    "default": ".ampir.tsv",
+                    "description": "Assigns the file extension used to identify AMPIR output.",
+                    "help_text": "Assigns the file extension of the input files to allow AMPcombi to identify the tool output from the list of input files.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--ampir_file`",
+                    "fa_icon": "fas fa-address-card"
+                },
+                "amp_ampcombi_parsetables_amplify": {
+                    "type": "string",
+                    "default": ".amplify.tsv",
+                    "description": "Assigns the file extension used to identify AMPLIFY output.",
+                    "help_text": "Assigns the file extension of the input files to allow AMPcombi to identify the tool output from the list of input files.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--amplify_file`",
+                    "fa_icon": "fas fa-address-card"
+                },
+                "amp_ampcombi_parsetables_macrel": {
+                    "type": "string",
+                    "default": ".macrel.prediction",
+                    "description": "Assigns the file extension used to identify MACREL output.",
+                    "help_text": "Assigns the file extension of the input files to allow AMPcombi to identify the tool output from the list of input files.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--macrel_file`",
+                    "fa_icon": "fas fa-address-card"
+                },
+                "amp_ampcombi_parsetables_hmmsearch": {
+                    "type": "string",
+                    "default": ".hmmer_hmmsearch.txt",
+                    "description": "Assigns the file extension used to identify HMMER/HMMSEARCH output.",
+                    "help_text": "Assigns the file extension of the input files to allow AMPcombi to identify the tool output from the list of input files.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--hmmsearch_file`",
+                    "fa_icon": "fas fa-address-card"
                 }
             },
-            "help_text": "AMPcombi : AntiMicrobial Peptides parsing and functional classification tool.\n\nDocumentation: https://github.com/Darcy220606/AMPcombi"
+            "fa_icon": "fas fa-search-dollar"
+        },
+        "amp_ampcombi2_cluster": {
+            "title": "AMP: ampcombi2 cluster",
+            "type": "object",
+            "description": "Clustering submodule of AMPCOMBI2",
+            "default": "",
+            "properties": {
+                "amp_ampcombi_cluster_covmode": {
+                    "type": "number",
+                    "default": 0.0,
+                    "description": "MMseqs2 coverage mode.",
+                    "help_text": "This assigns the coverage mode to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More details can be found in the [MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_cov_mode`",
+                    "fa_icon": "far fa-circle"
+                },
+                "amp_ampcombi_cluster_sensitivity": {
+                    "type": "number",
+                    "default": 4.0,
+                    "description": "Remove hits that have no stop codon upstream and downstream of the AMP.",
+                    "help_text": "This assigns the sensitivity of alignment to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More information can be obtained in the [MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_sensitivity`",
+                    "fa_icon": "fas fa-balance-scale-left"
+                },
+                "amp_ampcombi_cluster_minmembers": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Remove clusters that have this min. number of AMP hits.",
+                    "help_text": "Removes all clusters with this number of AMP hits and less.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_min_member`",
+                    "fa_icon": "fas fa-users"
+                },
+                "amp_ampcombi_cluster_mode": {
+                    "type": "number",
+                    "default": 1.0,
+                    "description": "MMseqs2 clustering mode.",
+                    "help_text": "This assigns the cluster mode to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More information can be obtained in the [MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_mode`",
+                    "fa_icon": "fas fa-circle"
+                },
+                "amp_ampcombi_cluster_coverage": {
+                    "type": "number",
+                    "default": 0.8,
+                    "description": "MMseqs2 alignment coverage.",
+                    "help_text": "This assigns the coverage to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More information can be obtained in[MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_coverage`",
+                    "fa_icon": "far fa-arrow-alt-circle-right"
+                },
+                "amp_ampcombi_cluster_seqid": {
+                    "type": "number",
+                    "default": 0.4,
+                    "description": "MMseqs2 sequence identity.",
+                    "help_text": "This assigns the cluster sequence identity to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More information can be obtained in the [MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_seq_id`",
+                    "fa_icon": "far fa-address-card"
+                },
+                "amp_ampcombi_cluster_removesingletons": {
+                    "type": "boolean",
+                    "description": "Remove any hits that formed a single member cluster.",
+                    "help_text": "Removes any AMP hits that formed a single-member cluster.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_remove_singletons`",
+                    "fa_icon": "fas fa-book-dead"
+                }
+            }
         },
         "arg_amrfinderplus": {
             "title": "ARG: AMRFinderPlus",
@@ -886,15 +1010,15 @@
                     "type": "boolean",
                     "description": "Suppresses the default behaviour of RGI with `--arg_rgi_includeloose`.",
                     "help_text": "This flag suppresses the default behaviour of RGI with `--include_loose`, which lists all 'Loose' matches of >= 95% identity as 'Strict', regardless of alignment length. With this strict and perfect labels are added. This is discontinued in future versions of RGI.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_nudge`",
-                    "fa_icon": "fas fa-hand-scissors",
-                    "default": false
+                    "default": false,
+                    "fa_icon": "fas fa-hand-scissors"
                 },
                 "arg_rgi_lowquality": {
                     "type": "boolean",
                     "description": "Include screening of low quality contigs for partial genes.",
+                    "default": false,
                     "help_text": "This flag should be used only when the contigs are of poor quality (e.g. short) to predict partial genes.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--low_quality`",
-                    "fa_icon": "fas fa-angle-double-down",
-                    "default": false
+                    "fa_icon": "fas fa-angle-double-down"
                 },
                 "arg_rgi_data": {
                     "type": "string",
@@ -1480,7 +1604,10 @@
             "$ref": "#/definitions/amp_macrel"
         },
         {
-            "$ref": "#/definitions/amp_ampcombi"
+            "$ref": "#/definitions/amp_ampcombi2_parsetables"
+        },
+        {
+            "$ref": "#/definitions/amp_ampcombi2_cluster"
         },
         {
             "$ref": "#/definitions/arg_amrfinderplus"
