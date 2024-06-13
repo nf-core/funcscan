@@ -44,6 +44,7 @@ jobs:
       matrix:
         NXF_VER: ${{ fromJson(needs.define_nxf_versions.outputs.matrix) }}
         tags:
+          - "test"
           - "test_nothing"
           - "test_pyrodigal"
           - "test_bakta"
@@ -56,7 +57,6 @@ jobs:
           - "test_taxonomy_prokka"
           - "test_preannotated"
           - "test_preannotated_bgc"
-          - "test_preannotated_taxonomy"
         profile:
           - "docker"
 
@@ -93,7 +93,7 @@ jobs:
         if: failure()
         run: |
           sudo apt install bat > /dev/null
-          batcat --decorations=always --color=always ${{ github.workspace }}/.nf-test/tests/*/output/pipeline_info/software_versions.yml
+          batcat --decorations=always --color=always ${{ github.workspace }}/.nf-test/tests/output/pipeline_info/software_versions.yml
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v3

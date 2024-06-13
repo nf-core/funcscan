@@ -10,7 +10,10 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "outdir"],
+            "required": [
+                "input",
+                "outdir"
+            ],
             "properties": {
                 "input": {
                     "type": "string",
@@ -191,7 +194,12 @@
                     "type": "string",
                     "default": "pyrodigal",
                     "description": "Specify which annotation tool to use for some downstream tools.",
-                    "enum": ["prodigal", "pyrodigal", "prokka", "bakta"],
+                    "enum": [
+                        "prodigal",
+                        "pyrodigal",
+                        "prokka",
+                        "bakta"
+                    ],
                     "fa_icon": "fas fa-edit"
                 },
                 "save_annotations": {
@@ -220,7 +228,10 @@
                     "description": "Download full or light version of the Bakta database if not supplying own database.",
                     "help_text": "If you want the pipeline to download the Bakta database for you, you can choose between the full (33.1 GB) and light (1.3 GB) version. The full version is generally recommended for best annotation results, because it contains all of these:\n\n- UPS: unique protein sequences identified via length and MD5 hash digests (100% coverage & 100% sequence identity)\n- IPS: identical protein sequences comprising seeds of UniProt's UniRef100 protein sequence clusters\n- PSC: protein sequences clusters comprising seeds of UniProt's UniRef90 protein sequence clusters\n- PSCC: protein sequences clusters of clusters comprising annotations of UniProt's UniRef50 protein sequence clusters\n\nIf download bandwidth, storage, memory, or run duration requirements become an issue, go for the light version (which only contains PSCCs) by modifying the `annotation_bakta_db_downloadtype` flag.\nMore details can be found in the [documentation](https://github.com/oschwengers/bakta#database)\n\n>  Modifies tool parameter(s):\n> - BAKTA_DBDOWNLOAD: `--type`",
                     "fa_icon": "fas fa-database",
-                    "enum": ["full", "light"],
+                    "enum": [
+                        "full",
+                        "light"
+                    ],
                     "default": "full"
                 },
                 "annotation_bakta_singlemode": {
@@ -251,7 +262,11 @@
                 "annotation_bakta_gram": {
                     "type": "string",
                     "default": "?",
-                    "enum": ["+", "-", "?"],
+                    "enum": [
+                        "+",
+                        "-",
+                        "?"
+                    ],
                     "description": "Specify the type of bacteria to be annotated to detect signaling peptides.",
                     "help_text": "Specify the type of bacteria expected in the input dataset for correct annotation of the signal peptide predictions. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--gram`",
                     "fa_icon": "far fa-plus-square"
@@ -374,7 +389,12 @@
                     "fa_icon": "fab fa-accusoft",
                     "description": "Specify the kingdom that the input represents.",
                     "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n> ⚠️ Prokka cannot annotate Eukaryotes.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--kingdom`",
-                    "enum": ["Archaea", "Bacteria", "Mitochondria", "Viruses"]
+                    "enum": [
+                        "Archaea",
+                        "Bacteria",
+                        "Mitochondria",
+                        "Viruses"
+                    ]
                 },
                 "annotation_prokka_gcode": {
                     "type": "integer",
@@ -559,7 +579,10 @@
                     "default": "precursor",
                     "description": "Specify which machine learning classification model to use.",
                     "help_text": "AMPir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, \"precursor\" and \"mature\". \n\nThe precursor module is better for predicted proteins from a translated transcriptome or translated gene models. The alternative model (mature) is best suited for AMP sequences after post-translational processing, typically from direct proteomic sequencing.\n\nMore information can be found in the AMPir [documentation](https://ampir.marine-omics.net/).\n\n> Modifies tool parameter(s):\n> - AMPir: `model =`",
-                    "enum": ["precursor", "mature"],
+                    "enum": [
+                        "precursor",
+                        "mature"
+                    ],
                     "fa_icon": "fas fa-layer-group"
                 },
                 "amp_ampir_minlength": {
@@ -771,8 +794,9 @@
                     "description": "Remove any hits that formed a single member cluster.",
                     "help_text": "Removes any AMP hits that formed a single-member cluster.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_remove_singletons`",
                     "fa_icon": "fas fa-book-dead"
-                }
             }
+            },
+            "fa_icon": "fas fa-braille"
         },
         "arg_amrfinderplus": {
             "title": "ARG: AMRFinderPlus",
@@ -859,7 +883,10 @@
                 "arg_deeparg_model": {
                     "type": "string",
                     "default": "LS",
-                    "enum": ["LS", "SS"],
+                    "enum": [
+                        "LS",
+                        "SS"
+                    ],
                     "description": "Specify which model to use (short or long sequences).",
                     "help_text": "Specify which model to use: short sequences for reads (`SS`), or long sequences for genes (`LS`). In the vast majority of cases we recommend using the `LS` model when using funcscan\n\nFor more information check DeepARG [documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/).\n\n> Modifies tool parameter(s):\n> - DeepARG: `--model`",
                     "fa_icon": "fas fa-layer-group"
@@ -981,42 +1008,40 @@
                     "type": "boolean",
                     "description": "Save RGI output .json file.",
                     "help_text": "When activated, this flag saves the `.json` file in the RGI output directory. The `.json` file contains the ARG predictions in a format that can be can be uploaded to the CARD website for visualization. See [RGI documentation](https://github.com/arpcard/rgi) for more details. By default, the `.json` file is generated in the working directory but not saved in the results directory to save disk space (`.json` file is quite large and not required downstream in the pipeline). ",
-                    "fa_icon": "fas fa-ad",
-                    "default": false
+                    "fa_icon": "fas fa-ad"
                 },
                 "arg_rgi_savetmpfiles": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Specify to save intermediate temporary files the results directory.",
-                    "help_text": "RGI generates many additional temporary files which in most cases won't be useful so by default are not saved.\n\nBy specifying this parameter, the files including `temp` in the name will be also saved in the output directory for closer inspection by the user, if necessary.",
-                    "default": false
+                    "help_text": "RGI generates many additional temporary files which in most cases won't be useful so by default are not saved.\n\nBy specifying this parameter, the files including `temp` in the name will be also saved in the output directory for closer inspection by the user, if necessary."
                 },
                 "arg_rgi_alignmenttool": {
                     "type": "string",
                     "default": "BLAST",
                     "description": "Specify the alignment tool to be used.",
                     "help_text": "Specifies the alignment tool to be used. By default RGI runs BLAST and this is also set as default in the nf-core/funcscan pipeline. Using this flag the user can activate the alignment by DIAMOND again.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--alignment_tool`",
-                    "enum": ["BLAST", "DIAMOND"],
+                    "enum": [
+                        "BLAST",
+                        "DIAMOND"
+                    ],
                     "fa_icon": "fas fa-align-justify"
                 },
                 "arg_rgi_includeloose": {
                     "type": "boolean",
                     "description": "Include all of loose, strict and perfect hits (i.e. >=95% identity) found by RGI.",
                     "help_text": "When activated it includes 'Loose' hits (a.k.a. Discovery) in addition to strict and perfect hits. All 'Loose' matches of 95% identity or better are automatically listed as 'Strict', regardless of alignment length (RGI v. <6.0.0). This behaviour can be overrun by using the --include_nudge flag. The 'Loose' algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_loose`",
-                    "fa_icon": "far fa-hand-scissors",
-                    "default": false
+                    "fa_icon": "far fa-hand-scissors"
                 },
                 "arg_rgi_includenudge": {
                     "type": "boolean",
                     "description": "Suppresses the default behaviour of RGI with `--arg_rgi_includeloose`.",
                     "help_text": "This flag suppresses the default behaviour of RGI with `--include_loose`, which lists all 'Loose' matches of >= 95% identity as 'Strict', regardless of alignment length. With this strict and perfect labels are added. This is discontinued in future versions of RGI.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_nudge`",
-                    "default": false,
                     "fa_icon": "fas fa-hand-scissors"
                 },
                 "arg_rgi_lowquality": {
                     "type": "boolean",
                     "description": "Include screening of low quality contigs for partial genes.",
-                    "default": false,
                     "help_text": "This flag should be used only when the contigs are of poor quality (e.g. short) to predict partial genes.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--low_quality`",
                     "fa_icon": "fas fa-angle-double-down"
                 },
@@ -1025,7 +1050,12 @@
                     "default": "NA",
                     "description": "Specify a more specific data-type of input (e.g. plasmid, chromosome)",
                     "help_text": "This flag is used to specify the data type used as input to RGI. By default this is set as 'NA', which makes no assumptions on input data.\n\nFor more information check RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--data`",
-                    "enum": ["NA", "wgs", "plasmid", "chromosome"],
+                    "enum": [
+                        "NA",
+                        "wgs",
+                        "plasmid",
+                        "chromosome"
+                    ],
                     "fa_icon": "fas fa-database"
                 },
                 "arg_rgi_split_prodigal_jobs": {
@@ -1090,6 +1120,27 @@
                 }
             },
             "help_text": "ABRicate screens for antimicrobial resistance or virulence genes based on NCBI, CARD, ARG-ANNOT, Resfinder, MEGARES, EcOH, PlasmidFinder, Ecoli_VF and VFDB databases.\n\nDocumentation: https://github.com/tseemann/abricate"
+        },
+        "bgc_general_filters": {
+            "title": "BGC: General filters",
+            "type": "object",
+            "description": "These parameters influence general BGC settings like minimum input sequence length.",
+            "default": "",
+            "fa_icon": "fas fa-tools",
+            "properties": {
+                "bgc_mincontiglength": {
+                "type": "integer",
+                "default": 3000,
+                "fa_icon": "fas fa-ruler-horizontal",
+                "description": "Specify the minimum length of contigs that go into BGC screening.",
+                "help_text": "Specify the minimum length of contigs that go into BGC screening.\n\nIf BGC screening is turned on, nf-core/funcscan will generate for each input sample a second FASTA file of only contigs that are longer than the specified minimum length.\nThis is due to an (approximate) 'biological' minimum length that nucleotide sequences would need to have to code for a valid BGC (e.g. not on the edge of a contig), as well as to speeding up BGC screening sections of the pipeline by screening only meaningful contigs.\n\nNote this only affects BGCs. For ARG and AMPs no filtering is performed and all contigs are screened."
+                },
+                "bgc_savefilteredcontigs": {
+                "type": "boolean",
+                "fa_icon": "fas fa-save",
+                "description": "Specify to save the length-filtered (unannotated) FASTAs used for BGC screening."
+                }
+            }
         },
         "bgc_antismash": {
             "title": "BGC: antiSMASH",
@@ -1157,7 +1208,11 @@
                     "description": "Defines which level of strictness to use for HMM-based cluster detection",
                     "help_text": "Defines which level of strictness to use for HMM-based cluster detection. \n\nThese correspond to screening of different groups of 'how well-defined' clusters are. For example, `loose` will include screening for 'poorly defined' clusters (e.g. saccharides), `relaxed` for partially present clusters (e.g. certain types of NRPS), whereas `strict` will screen for well-defined clusters such as Ketosynthases.\n\nYou can see the rules for the levels of strictness [here](https://github.com/antismash/antismash/tree/master/antismash/detection/hmm_detection/cluster_rules).\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--hmmdetection-strictness`",
                     "fa_icon": "fas fa-search",
-                    "enum": ["relaxed", "strict", "loose"]
+                    "enum": [
+                        "relaxed",
+                        "strict",
+                        "loose"
+                    ]
                 },
                 "bgc_antismash_taxon": {
                     "type": "string",
@@ -1165,7 +1220,10 @@
                     "description": "Specify which taxonomic classification of input sequence to use",
                     "help_text": "This specifies which set of secondary metabolites to screen for, based on the taxon type the secondary metabolites are from.\n\nThis will run different pipelines depending on whether the input sequences are from bacteria or fungi.\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--taxon`",
                     "fa_icon": "fas fa-bacteria",
-                    "enum": ["bacteria", "fungi"]
+                    "enum": [
+                        "bacteria",
+                        "fungi"
+                    ]
                 }
             },
             "fa_icon": "fas fa-tools",
@@ -1250,7 +1308,8 @@
                     "help_text": "DeepBGC classification score threshold for assigning classes to BGCs.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--classifier-score`"
                 }
             },
-            "help_text": "DeepBGC screens for BGCs in bacterial and fungal genomes using deep learning.\n\nDocumentation: https://github.com/Merck/deepbgc/tree/master/deepbgc"
+            "help_text": "DeepBGC screens for BGCs in bacterial and fungal genomes using deep learning.\n\nDocumentation: https://github.com/Merck/deepbgc/tree/master/deepbgc",
+            "fa_icon": "fas fa-tools"
         },
         "bgc_gecco": {
             "title": "BGC: gecco",
@@ -1296,8 +1355,9 @@
                     "description": "The minimum number of annotated genes that must separate a cluster from the edge.",
                     "help_text": "The minimum number of annotated genes that must separate a possible BGC cluster from the edge. Edge clusters will still be included if they are longer. A lower number will increase the number of false positives on small contigs. Used during BGC extraction.\n\nFor more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--edge-distance`",
                     "fa_icon": "fas fa-ruler-horizontal"
-                }
             }
+            },
+            "fa_icon": "fas fa-tools"
         },
         "bgc_hmmsearch": {
             "title": "BGC: HMMSearch",
@@ -1335,7 +1395,8 @@
                     "fa_icon": "far fa-save"
                 }
             },
-            "help_text": "HMMER/hmmsearch is used for searching sequence databases for sequence homologs, and for making sequence alignments. It implements methods using probabilistic models called profile hidden Markov models (profile HMMs). `hmmsearch` is used to search one or more profiles against a sequence database.\n\nFor more information check HMMER [documentation](http://hmmer.org/)."
+            "help_text": "HMMER/hmmsearch is used for searching sequence databases for sequence homologs, and for making sequence alignments. It implements methods using probabilistic models called profile hidden Markov models (profile HMMs). `hmmsearch` is used to search one or more profiles against a sequence database.\n\nFor more information check HMMER [documentation](http://hmmer.org/).",
+            "fa_icon": "fas fa-tools"
         },
         "reporting": {
             "title": "Reporting",
@@ -1346,7 +1407,11 @@
                 "arg_hamronization_summarizeformat": {
                     "type": "string",
                     "default": "tsv",
-                    "enum": ["interactive", "tsv", "json"],
+                    "enum": [
+                        "interactive",
+                        "tsv",
+                        "json"
+                    ],
                     "help_text": "Specifies which summary report format to generate with `hamronize summarize`: tsv, json or interactive (html)\n\n>  Modifies tool parameter(s)\n> - HMMsearch: `-t`, `--summary_type`",
                     "description": "Specifies summary output format",
                     "fa_icon": "far fa-file-code"
@@ -1463,7 +1528,14 @@
                     "description": "Method used to save pipeline results to output directory.",
                     "help_text": "The Nextflow `publishDir` option specifies which intermediate files should be saved to the output directory. This option tells the pipeline what method should be used to move these files. See [Nextflow docs](https://www.nextflow.io/docs/latest/process.html#publishdir) for details.",
                     "fa_icon": "fas fa-copy",
-                    "enum": ["symlink", "rellink", "link", "copy", "copyNoFollow", "move"],
+                    "enum": [
+                        "symlink",
+                        "rellink",
+                        "link",
+                        "copy",
+                        "copyNoFollow",
+                        "move"
+                    ],
                     "hidden": true
                 },
                 "email_on_fail": {
@@ -1625,6 +1697,9 @@
             "$ref": "#/definitions/arg_abricate"
         },
         {
+            "$ref": "#/definitions/bgc_general_filters"
+        },
+        {
             "$ref": "#/definitions/bgc_antismash"
         },
         {
@@ -1648,19 +1723,5 @@
         {
             "$ref": "#/definitions/generic_options"
         }
-    ],
-    "properties": {
-        "bgc_mincontiglength": {
-            "type": "integer",
-            "default": 3000,
-            "fa_icon": "fas fa-ruler-horizontal",
-            "description": "Specify the minimum length of contigs that go into BGC screening.",
-            "help_text": "Specify the minimum length of contigs that go into BGC screening.\n\nIf BGC screening is turned on, nf-core/funcscan will generate for each input sample a second FASTA file of only contigs that are longer than the specified minimum length.\nThis is due to an (approximate) 'biological' minimum length that nucleotide sequences would need to have to code for a valid BGC (e.g. not on the edge of a contig), as well as to speeding up BGC screening sections of the pipeline by screening only meaningful contigs.\n\nNote this only affects BGCs. For ARG and AMPs no filtering is performed and all contigs are screened."
-        },
-        "bgc_savefilteredcontigs": {
-            "type": "boolean",
-            "fa_icon": "fas fa-save",
-            "description": "Specify to save the length-filtered (unannotated) FASTAs used for BGC screening."
-        }
-    }
+    ]
 }
