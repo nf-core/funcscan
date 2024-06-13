@@ -45,11 +45,18 @@ jobs:
         NXF_VER: ${{ fromJson(needs.define_nxf_versions.outputs.matrix) }}
         tags:
           - "test_nothing"
+          - "test_pyrodigal"
+          - "test_bakta"
+          - "test_prokka"
+          - "test_bgc_pyrodigal"
+          - "test_bgc_bakta"
+          - "test_bgc_prokka"
           - "test_taxonomy_pyrodigal"
           - "test_taxonomy_bakta"
           - "test_taxonomy_prokka"
           - "test_preannotated"
           - "test_preannotated_bgc"
+          - "test_preannotated_taxonomy"
         profile:
           - "docker"
 
