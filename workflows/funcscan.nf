@@ -122,9 +122,11 @@ workflow FUNCSCAN {
     */
 
     // Some tools require annotated FASTAs
-    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.bgc_skip_hmmsearch || !params.bgc_skip_antismash || !params.bgc_skip_deepbgc || !params.bgc_skip_gecco ) ) ) {
+    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening ) ) {
         ANNOTATION( ch_input_for_annotation )
         ch_versions = ch_versions.mix( ANNOTATION.out.versions )
+
+        ch_multiqc_files = ch_multiqc_files.mix( ANNOTATION.out.multiqc_files.collect{it[1]} )
 
         ch_new_annotation = ch_input_for_annotation
                                 .join( ANNOTATION.out.faa )
@@ -132,10 +134,12 @@ workflow FUNCSCAN {
 
     } else {
         ch_new_annotation = Channel.empty()
+        ch_multiqc_files = ch_multiqc_files.mix( Channel.of([]) )
     }
 
     // Mix back the preannotated samples with the newly annotated ones
     ch_prepped_input = ch_intermediate_input.preannotated
+                        .mix( ch_intermediate_input.fastas )
                         .mix( ch_new_annotation )
                         .filter { meta, fasta, faa, gbk -> meta.category != 'long' }
                         .multiMap {
@@ -360,8 +364,6 @@ workflow FUNCSCAN {
             sort: true
         )
     )
-
-    ch_multiqc_files = ch_multiqc_files.mix( ANNOTATION.out.multiqc_files )
 
     MULTIQC (
         ch_multiqc_files.collect(),
