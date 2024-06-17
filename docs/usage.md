@@ -101,7 +101,7 @@ MMseqs2 is currently the only taxonomic classification tool used in the pipeline
   --taxa_classification_mmseqs_databases_localpath 'path/to/mmsesqs_custom_database/dir'
   ```
 
-- an MMseqs2 ready database. These databases were compiled by the developers of MMseqs2 and can be called using their labels. All available options can be found [here](https://github.com/soedinglab/MMseqs2/wiki#downloading-databases). Only use those databases that have taxonomy files available (i.e., Taxonomy == Yes). By default mmseqs2 in the pipeline uses '[Kalamari](https://github.com/lskatz/Kalamari)' and runs an aminoacid based alignment.
+- an MMseqs2 ready database. These databases were compiled by the developers of MMseqs2 and can be called using their labels. All available options can be found [here](https://github.com/soedinglab/MMseqs2/wiki#downloading-databases). Only use those databases that have taxonomy files available (i.e., Taxonomy == Yes). By default mmseqs2 in the pipeline uses '[Kalamari](https://github.com/lskatz/Kalamari)', and runs an aminoacid based alignment. However, if the user requires a more comprehensive taxonomic classification, we recommend the use of [GTDB](https://gtdb.ecogenomic.org/), but for that please remember to increase the memory, CPU threads and time required for the process `MMSEQS_TAXONOMY`.
 
   ```bash
   --taxa_classification_mmseqs_databases_id 'Kalamari'
@@ -164,6 +164,18 @@ You should place all HMMs in a directory and supply them e.g. to AMP models:
 ```bash
 --amp_hmmsearch_models '/<path>/<to>/<amp>/*.hmm'
 ```
+
+### AMPcombi
+
+For AMPcombi, nf-core/funcscan will by default download the most recent version of the [DRAMP](http://dramp.cpu-bioinfor.org/) database as a reference database for aligning the AMP hits in the AMP workflow. However, the user can also supply their own custom AMP database by following the guidelines in [AMPcombi](https://github.com/Darcy220606/AMPcombi). This can then be passed to the pipeline with:
+
+```bash
+--amp_ampcombi_db '/<path>/<to>/<amp_ref_database>
+```
+
+:::warning
+The pipeline will automatically run Pyrodigal instead of Prodigal if the parameters `--run_annotation_tool prodigal --run_amp_screening` are both provided. This is due to an incompatibility issue of Prodigal's output `.gbk` file with multiple downstream tools.
+:::
 
 ### AMRFinderPlus
 

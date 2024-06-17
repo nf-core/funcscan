@@ -22,10 +22,12 @@ workflow ANNOTATION {
     ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
-        if ( params.annotation_tool == "pyrodigal" || ( params.annotation_tool == "prodigal" && params.run_bgc_screening == true && ( !params.bgc_skip_gecco || !params.bgc_skip_antismash || !params.bgc_skip_deepbgc ) ) ) { // Need to use Pyrodigal for BGC tools because Prodigal GBK annotation format is incompatible with them.
+        if ( params.annotation_tool == "pyrodigal" || ( params.annotation_tool == "prodigal" && params.run_bgc_screening == true && ( !params.bgc_skip_antismash || !params.bgc_skip_deepbgc || !params.bgc_skip_gecco ) ) || ( params.annotation_tool == "prodigal" && params.run_amp_screening == true ) ) { // Need to use Pyrodigal for most BGC tools and AMPcombi because Prodigal GBK annotation format is incompatible with them.
 
-            if ( params.annotation_tool == "prodigal" ) {
-                log.warn("[nf-core/funcscan] Switching annotation tool to: Pyrodigal. This is because Prodigal annotations (in GBK format) are incompatible with antiSMASH, DeepBGC, and GECCO. If you specifically wish to run Prodigal instead, please skip BGC workflow or provide a pre-annotated GBK file in the samplesheet.")
+            if ( params.annotation_tool == "prodigal" && params.run_bgc_screening == true && ( !params.bgc_skip_antismash || !params.bgc_skip_deepbgc || !params.bgc_skip_gecco ) ) {
+                log.warn("[nf-core/funcscan] Switching annotation tool to: Pyrodigal. This is because Prodigal annotations (in GBK format) are incompatible with antiSMASH, DeepBGC, and GECCO. If you specifically wish to run Prodigal instead, please skip antiSMASH, DeepBGC, and GECCO or provide a pre-annotated GBK file in the samplesheet.")
+            } else if ( params.annotation_tool == "prodigal" && params.run_amp_screening == true ) {
+                log.warn("[nf-core/funcscan] Switching annotation tool to: Pyrodigal. This is because Prodigal annotations (in GBK format) are incompatible with AMPcombi. If you specifically wish to run Prodigal instead, please skip AMP workflow or provide a pre-annotated GBK file in the samplesheet.")
             }
 
             PYRODIGAL ( fasta, "gbk" )
