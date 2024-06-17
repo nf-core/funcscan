@@ -100,14 +100,14 @@ workflow BGC {
             ch_versions = ch_versions.mix( DEEPBGC_DOWNLOAD.out.versions )
         }
 
-        DEEPBGC_PIPELINE ( fastas, ch_deepbgc_database)
+        DEEPBGC_PIPELINE ( gbks, ch_deepbgc_database)
         ch_versions = ch_versions.mix( DEEPBGC_PIPELINE.out.versions )
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( DEEPBGC_PIPELINE.out.bgc_tsv )
     }
 
     // GECCO
     if ( !params.bgc_skip_gecco ) {
-        ch_gecco_input = fastas.groupTuple()
+        ch_gecco_input = gbks.groupTuple()
                             .multiMap {
                                 fastas: [ it[0], it[1], [] ]
                             }
