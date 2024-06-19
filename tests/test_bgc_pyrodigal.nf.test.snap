@@ -9,7 +9,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-12T15:33:48.422019665"
+        "timestamp": "2024-06-19T12:49:25.720352923"
     },
     "deepbgc_bgc_gbk": {
         "content": [
@@ -19,17 +19,17 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-12T15:33:48.45466435"
+        "timestamp": "2024-06-19T13:05:44.435766452"
     },
     "gecco": {
         "content": [
-            "sample_2_long.genes.tsv:md5,66e3724c7e7da102bf58acd564211e8b",
-            "sample_2_long.features.tsv:md5,2ef146213836ca80d3079776f17c7cb2"
+            "sample_2.genes.tsv:md5,66e3724c7e7da102bf58acd564211e8b",
+            "sample_2.features.tsv:md5,2ef146213836ca80d3079776f17c7cb2"
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-12T15:33:48.482173668"
+        "timestamp": "2024-06-19T12:49:25.732866237"
     }
 }
