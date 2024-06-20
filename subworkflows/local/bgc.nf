@@ -73,16 +73,22 @@ workflow BGC {
         ANTISMASH_ANTISMASHLITE ( gbks, ch_antismash_databases, ch_antismash_directory, [] )
 
         ch_versions = ch_versions.mix( ANTISMASH_ANTISMASHLITE.out.versions )
-        ch_antismashresults_for_combgc = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
+        ch_antismashresults = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
                                             .mix( ANTISMASH_ANTISMASHLITE.out.gbk_input )
                                             .groupTuple()
                                             .map{
                                                 meta, files ->
-                                                [meta, files.flatten()]
+                                                [ meta, files.flatten() ]
                                             }
-        ANTISMASH_ANTISMASHLITE.out.gbk_results.ifEmpty(
-            ch_antismashresults_for_combgc = Channel.empty()
-        )
+
+        // Filter out samples with no BGC hits
+        ch_antismashresults_for_combgc = ch_antismashresults
+            .join(fastas, remainder: false)
+            .join(ANTISMASH_ANTISMASHLITE.out.gbk_results, remainder: false)
+            .map {
+                meta, gbk_input, fasta, gbk_results ->
+                    [ meta, gbk_input ]
+            }
 
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( ch_antismashresults_for_combgc )
     }
@@ -151,15 +157,14 @@ workflow BGC {
     }
 
     // COMBGC
-    ch_bgc_warning = fastas
-        .map {
-            meta, fasta ->
-                "[nf-core/funcscan] BGC workflow: No hits found by BGC tools; comBGC summary tool will not be run for sample: ${meta.id}"
-        }
-        .collect()
 
     ch_bgcresults_for_combgc
-        .ifEmpty { log.warn(ch_bgc_warning.val[0]) }
+        .join(fastas, remainder: true)
+        .filter {
+            meta, bgcfile, fasta ->
+                if ( !bgcfile ) { log.warn("[nf-core/funcscan] BGC workflow: No hits found by BGC tools; comBGC summary tool will not be run for sample: ${meta.id}") }
+                return [meta, bgcfile, fasta]
+        }
 
     COMBGC ( ch_bgcresults_for_combgc )
     ch_versions = ch_versions.mix( COMBGC.out.versions )
