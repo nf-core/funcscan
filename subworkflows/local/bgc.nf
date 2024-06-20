@@ -151,14 +151,17 @@ workflow BGC {
     }
 
     // COMBGC
-    COMBGC ( ch_bgcresults_for_combgc )
-
-    ch_bgcresults_for_combgc.ifEmpty(
-        fastas.filter {
-            meta, fna ->
-                log.warn("[nf-core/funcscan] BGC workflow: No hits found by BGC tools; comBGC summary tool will not be run for sample ${meta.id}.")
+    ch_bgc_warning = fastas
+        .map {
+            meta, fasta ->
+                "[nf-core/funcscan] BGC workflow: No hits found by BGC tools; comBGC summary tool will not be run for sample: ${meta.id}"
         }
-    )
+        .collect()
+
+    ch_bgcresults_for_combgc
+        .ifEmpty { log.warn(ch_bgc_warning.val[0]) }
+
+    COMBGC ( ch_bgcresults_for_combgc )
     ch_versions = ch_versions.mix( COMBGC.out.versions )
 
     // COMBGC concatenation
