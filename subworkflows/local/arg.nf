@@ -149,7 +149,8 @@ workflow ARG {
 
     // ABRicate run
     if ( !params.arg_skip_abricate ) {
-        ABRICATE_RUN ( fastas )
+        abricate_dbdir = params.arg_abricate_localdbdir ? file(params.arg_abricate_localdbdir, checkIfExists: true) : false
+        ABRICATE_RUN ( fastas, abricate_dbdir )
         ch_versions = ch_versions.mix( ABRICATE_RUN.out.versions )
 
         HAMRONIZATION_ABRICATE ( ABRICATE_RUN.out.report, 'json', '1.0.1', '2021-Mar-27' )
