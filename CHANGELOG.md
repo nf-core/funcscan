@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#365](https://github.com/nf-core/funcscan/pull/365) Fixed AMRFinderPlus module and usage docs for manual database download. (by @jasmezz)
 - [#371](https://github.com/nf-core/funcscan/pull/371) Fixed AMRFinderPlus parameter `arg_amrfinderplus_name`. (by @m3hdad)
 - [#376](https://github.com/nf-core/funcscan/pull/376) Fixed an occasional RGI process failure when certain files not produced. (❤️ to @amizeranschi for reporting, fix by @amizeranschi & @jfy133)
-- [#386](https://github.com/nf-core/funcscan/pull/386) Updated DeepBGC module to fix output file names. (by @jfy133, @jasmezz)
+- [#386](https://github.com/nf-core/funcscan/pull/386) Updated DeepBGC module to fix output file names, separate annotation step for all BGC tools, add warning if no BGCs found, fix MultiQC reporting of annotation workflow. (by @jfy133, @jasmezz)
 
 ### `Dependencies`
 
