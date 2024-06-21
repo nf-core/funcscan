@@ -122,10 +122,9 @@ workflow FUNCSCAN {
     */
 
     // Some tools require annotated FASTAs
-    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening && ( !params.bgc_skip_hmmsearch || !params.bgc_skip_antismash ) ) ) {
+    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening ) ) {
         ANNOTATION( ch_input_for_annotation )
         ch_versions = ch_versions.mix( ANNOTATION.out.versions )
-        ch_multiqc_files = ch_multiqc_files.mix( ANNOTATION.out.multiqc_files )
 
         ch_new_annotation = ch_input_for_annotation
                                 .join( ANNOTATION.out.faa )
@@ -364,7 +363,9 @@ workflow FUNCSCAN {
         )
     )
 
-    ch_multiqc_files = ch_multiqc_files.mix( ANNOTATION.out.multiqc_files.collect{it[1]}.ifEmpty([]) )
+    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( !params.amp_skip_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening ) ) {
+        ch_multiqc_files = ch_multiqc_files.mix( ANNOTATION.out.multiqc_files.collect{it[1]} )
+    }
 
     MULTIQC (
         ch_multiqc_files.collect(),

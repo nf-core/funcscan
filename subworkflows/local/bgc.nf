@@ -73,13 +73,22 @@ workflow BGC {
         ANTISMASH_ANTISMASHLITE ( gbks, ch_antismash_databases, ch_antismash_directory, [] )
 
         ch_versions = ch_versions.mix( ANTISMASH_ANTISMASHLITE.out.versions )
-        ch_antismashresults_for_combgc = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
+        ch_antismashresults = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
                                             .mix( ANTISMASH_ANTISMASHLITE.out.gbk_input )
                                             .groupTuple()
                                             .map{
                                                 meta, files ->
-                                                [meta, files.flatten()]
+                                                [ meta, files.flatten() ]
                                             }
+
+        // Filter out samples with no BGC hits
+        ch_antismashresults_for_combgc = ch_antismashresults
+            .join(fastas, remainder: false)
+            .join(ANTISMASH_ANTISMASHLITE.out.gbk_results, remainder: false)
+            .map {
+                meta, gbk_input, fasta, gbk_results ->
+                    [ meta, gbk_input ]
+            }
 
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( ch_antismashresults_for_combgc )
     }
@@ -97,14 +106,14 @@ workflow BGC {
             ch_versions = ch_versions.mix( DEEPBGC_DOWNLOAD.out.versions )
         }
 
-        DEEPBGC_PIPELINE ( fastas, ch_deepbgc_database)
+        DEEPBGC_PIPELINE ( gbks, ch_deepbgc_database)
         ch_versions = ch_versions.mix( DEEPBGC_PIPELINE.out.versions )
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( DEEPBGC_PIPELINE.out.bgc_tsv )
     }
 
     // GECCO
     if ( !params.bgc_skip_gecco ) {
-        ch_gecco_input = fastas.groupTuple()
+        ch_gecco_input = gbks.groupTuple()
                             .multiMap {
                                 fastas: [ it[0], it[1], [] ]
                             }
@@ -148,6 +157,15 @@ workflow BGC {
     }
 
     // COMBGC
+
+    ch_bgcresults_for_combgc
+        .join(fastas, remainder: true)
+        .filter {
+            meta, bgcfile, fasta ->
+                if ( !bgcfile ) { log.warn("[nf-core/funcscan] BGC workflow: No hits found by BGC tools; comBGC summary tool will not be run for sample: ${meta.id}") }
+                return [meta, bgcfile, fasta]
+        }
+
     COMBGC ( ch_bgcresults_for_combgc )
     ch_versions = ch_versions.mix( COMBGC.out.versions )
 
