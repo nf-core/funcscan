@@ -179,11 +179,11 @@ The pipeline will automatically run Pyrodigal instead of Prodigal if the paramet
 
 ### Abricate
 
-The default ABRicate installation by default comes with a series of 'default' databases.
+The default ABRicate installation comes with a series of 'default' databases:
 
 - NCBI AMRFinderPlus (`ncbi`)
 - CARD (`card`)
-- Resfinder (`resfinder`)
+- ResFinder (`resfinder`)
 - ARG-ANNOT (`argannot`)
 - MEGARES (`megares`)
 - EcOH (`echo`)
@@ -197,7 +197,7 @@ ABRicate also allows you to download additional and/or use custom databases.
 For both of these, you will need to have your own local installation of ABRicate.
 You then can download/add the custom database to the local installation's database directory, and supply this directory to the pipeline with the flag `--arg_abricate_localdbdir`, in combination with the name of the new database to `--arg_abricate_db <db_name>`.
 
-For example, if you want to use the `bacmet2` database that does not come with the default installation, you could do the following
+For example, if you want to use the `bacmet2` database that does not come with the default installation, you could do:
 
 ```bash
 ## Create conda environment
