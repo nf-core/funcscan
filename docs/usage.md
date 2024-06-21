@@ -177,6 +177,40 @@ For AMPcombi, nf-core/funcscan will by default download the most recent version 
 The pipeline will automatically run Pyrodigal instead of Prodigal if the parameters `--run_annotation_tool prodigal --run_amp_screening` are both provided. This is due to an incompatibility issue of Prodigal's output `.gbk` file with multiple downstream tools.
 :::
 
+### Abricate
+
+The default ABRicate installation comes with a series of 'default' databases:
+
+- NCBI AMRFinderPlus (`ncbi`)
+- CARD (`card`)
+- ResFinder (`resfinder`)
+- ARG-ANNOT (`argannot`)
+- MEGARES (`megares`)
+- EcOH (`echo`)
+- PlasmidFinder (`plasmidfinder`)
+- VFDB (`vfdb`)
+- Ecoli_VF (`ecoli_vf`)
+
+Each can be specified by using the nf-core/funcscan flag, for example for card: `--arg_abricate_db card`.
+
+ABRicate also allows you to download additional and/or use custom databases.
+For both of these, you will need to have your own local installation of ABRicate.
+You then can download/add the custom database to the local installation's database directory, and supply this directory to the pipeline with the flag `--arg_abricate_localdbdir`, in combination with the name of the new database to `--arg_abricate_db <db_name>`.
+
+For example, if you want to use the `bacmet2` database that does not come with the default installation, you could do:
+
+```bash
+## Create conda environment
+conda create -n abricate -c bioconda abricate
+conda activate abricate
+
+## Download the bacmet2 database
+abricate-get_db --db bacmet2 ## the logging will tell you where the database is downloaded to, e.g. /home/<user>/bin/miniconda3/envs/abricate/db/bacmet2/sequences
+
+## Run nextflow
+nextflow run nf-core/funcscan -r <version> -profile docker --input samplesheet.csv --outdir <outdir> --run_arg_screening --arg_abricate_localdbdir /home/<user>/bin/miniconda3/envs/abricate/db/ --arg_abricate_db bacmet2
+```
+
 ### AMRFinderPlus
 
 AMRFinderPlus relies on NCBI's curated Reference Gene Database and curated collection of Hidden Markov Models.

@@ -1054,21 +1054,14 @@
                     "type": "string",
                     "default": "ncbi",
                     "fa_icon": "fas fa-layer-group",
-                    "description": "Specify which of the provided public databases to use by ABRicate.",
-                    "enum": [
-                        "argannot",
-                        "card",
-                        "ecoh",
-                        "ecoli_vf",
-                        "megares",
-                        "ncbi",
-                        "plasmidfinder",
-                        "resfinder",
-                        "vfdb",
-                        "bacmet2",
-                        "victors"
-                    ],
-                    "help_text": "Specifies which database to use from dedicated list of databases available by ABRicate. \n\nFor more information check ABRicate [documentation](https://github.com/tseemann/abricate).\n\n> Modifies tool parameter(s):\n> - ABRicate: `--db`"
+                    "description": "Specify the name of the ABRicate database to use. Names of non-default databases can be supplied if --arg_abricate_localdbdir provided.",
+                    "help_text": "Specifies which database to use from dedicated list of databases available by ABRicate.\n\nDefault supported are one of: `argannot`, `card`, `ecoh`, `ecoli_vf`, `megares`, `ncbi`, `plasmidfinder`, `resfinder`, `vfdb`. Other options can be supplied if you have installed a custom one within the directory you have supplied to `--arg_abricate_localdbdir`.\n\nFor more information check ABRicate [documentation](https://github.com/tseemann/abricate).\n\n> Modifies tool parameter(s):\n> - ABRicate: `--db`"
+                },
+                "arg_abricate_localdbdir": {
+                    "type": "string",
+                    "description": "Path to user-defined local ABRicate database directory for using custom databases.",
+                    "fa_icon": "far fa-folder-open",
+                    "help_text": "Supply this only if you want to use additional custom databases you yourself have added to your ABRicate installation following the instructions [here](https://github.com/tseemann/abricate?tab=readme-ov-file#making-your-own-database).You must also specify the name of the custom database with --arg_abricate_db.\n\n> Modifies tool parameter(s):\n> - ABRicate: `--datadir`"
                 },
                 "arg_abricate_minid": {
                     "type": "integer",
