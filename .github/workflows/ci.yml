@@ -44,13 +44,25 @@ jobs:
       matrix:
         NXF_VER: ${{ fromJson(needs.define_nxf_versions.outputs.matrix) }}
         tags:
+          - "test"
           - "test_nothing"
+          - "test_pyrodigal"
+          - "test_bakta"
+          - "test_prokka"
+          - "test_bgc_pyrodigal"
+          - "test_bgc_bakta"
+          - "test_bgc_prokka"
+          - "test_taxonomy_pyrodigal"
+          - "test_taxonomy_bakta"
+          - "test_taxonomy_prokka"
+          - "test_preannotated"
+          - "test_preannotated_bgc"
         profile:
           - "docker"
 
     steps:
       - name: Check out pipeline code
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
 
       - name: Check out test data
         uses: actions/checkout@v3

@@ -36,15 +36,22 @@ workflow TAXA_CLASS {
         // MMSEQS_CREATEDB
         MMSEQS_CREATEDB ( contigs )
         ch_versions         = ch_versions.mix( MMSEQS_CREATEDB.out.versions )
-        ch_taxonomy_querydb = MMSEQS_CREATEDB.out.db
 
         // MMSEQS_TAXONOMY
-        MMSEQS_TAXONOMY ( ch_taxonomy_querydb, ch_mmseqs_db )
+        MMSEQS_TAXONOMY ( MMSEQS_CREATEDB.out.db, ch_mmseqs_db )
         ch_versions               = ch_versions.mix( MMSEQS_TAXONOMY.out.versions )
         ch_taxonomy_querydb_taxdb = MMSEQS_TAXONOMY.out.db_taxonomy
 
+        // Join together to ensure in sync
+        ch_taxonomy_input_for_createtsv = MMSEQS_CREATEDB.out.db
+                                            .join(MMSEQS_TAXONOMY.out.db_taxonomy)
+                                            .multiMap { meta, db, db_taxonomy ->
+                                                db: [ meta,db ]
+                                                taxdb: [ meta, db_taxonomy ]
+                                            }
+
         // MMSEQS_CREATETSV
-        MMSEQS_CREATETSV ( ch_taxonomy_querydb_taxdb, [[:],[]], ch_taxonomy_querydb )
+        MMSEQS_CREATETSV ( ch_taxonomy_input_for_createtsv.taxdb, [[:],[]], ch_taxonomy_input_for_createtsv.db )
         ch_versions     = ch_versions.mix( MMSEQS_CREATETSV.out.versions )
         ch_taxonomy_tsv = MMSEQS_CREATETSV.out.tsv
     }

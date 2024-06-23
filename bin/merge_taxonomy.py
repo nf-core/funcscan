@@ -99,7 +99,9 @@ def ampcombi_taxa(args):
         taxa_df = pd.concat([taxa_df, df])
 
     # filter the tool df
-    tool_df = pd.read_csv(ampcombi, sep=',') #current ampcombi version is comma sep. CHANGE WITH VERSION 0.2.0
+    tool_df = pd.read_csv(ampcombi, sep='\t')
+    # remove the column with contig_id - duplicate #NOTE: will be fixed in AMPcombi v2.0.0
+    tool_df = tool_df.drop('contig_id', axis=1)
     # make sure 1st and 2nd column have the same column labels
     tool_df.rename(columns={tool_df.columns[0]: 'sample_id'}, inplace=True)
     tool_df.rename(columns={tool_df.columns[1]: 'contig_id'}, inplace=True)
