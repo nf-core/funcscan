@@ -375,7 +375,7 @@ workflow FUNCSCAN {
     )
 
     emit:
-    prepped_input  = ch_prepped_input
+    // prepped_input  = ch_prepped_input // TODO: Check which channels specifically shall be emitted
     multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
     versions       = ch_versions                 // channel: [ path(versions.yml) ]
 }

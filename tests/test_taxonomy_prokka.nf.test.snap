@@ -1,0 +1,51 @@
+{
+    "test_taxonomy_prokka": {
+        "content": [
+            "sample_1_short.ampir.tsv:md5,a5d7df58e6567bf38643c57c73ac89a7",
+            "sample_1_short.ampir.faa:md5,af06d0d5dac80983c40d045f23b222e2",
+            "sample_2_short.ampir.tsv:md5,1be58d70446813edda17e2d65f09a4e8",
+            "sample_2_short.ampir.faa:md5,2ab29cd9cb72a858e6c3d9c305e1614b",
+            "sample_2_long.ampir.tsv:md5,e2bb4f64fc1a2512aa149aeb53f5aaa3",
+            "sample_2_long.ampir.faa:md5,0689ea7b41c953fe6bc0caa310eb8e67",
+            "sample_1_short.tsv:md5,cc87ab238978f1ab20179bd63057323e",
+            "sample_2_short.tsv:md5,9b72f11cb8573e99408133c9b708a21c",
+            "sample_2_long.tsv:md5,53fafcfd31898af29b0c10f4f4f5b7b4",
+            "sample_1_short_mybacteriocin.txt.gz:md5,475afc21db2ea57ac4314cfcb481e803",
+            "sample_2_short_mybacteriocin.txt.gz:md5,b84233ea272e1b2d0d7309cfd281d472",
+            "sample_2_long_mybacteriocin.txt.gz:md5,cf79d93dae775518b9c2e260d264b3d3",
+            "sample_1_short.smorfs.faa.gz:md5,1b5e2434860e635e95324d1804a3be7b",
+            "sample_2_short.smorfs.faa.gz:md5,24404fcfc2d43eb9ea61982949fa171a",
+            "sample_2_long.smorfs.faa.gz:md5,bc48062855750db65cc0f0a14c64e125",
+            "sample_1_short.all_orfs.faa.gz:md5,cb2b6710eefb57e50ceac62d5b11c499",
+            "sample_2_short.all_orfs.faa.gz:md5,481fb8df3f8ed67010b5152b7fe4059a",
+            "sample_2_long.all_orfs.faa.gz:md5,0fac84013ec35256a136ca1e0d2cbd48",
+            "sample_1_short.prediction.gz:md5,0c4b16e0838be56e012b99169863a168",
+            "sample_2_short.prediction.gz:md5,2bed4ad2302371ae2a5802a9292d8a06",
+            "sample_2_long.prediction.gz:md5,7167e7c0f269e2ac5935c239c2d13dfe",
+            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
+            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
+            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
+            "sample_1_short_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "sample_2_short_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "sample_2_long_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "sample_1_short.txt:md5,fce130af51f93cccfc09ddaf9caf623f",
+            "sample_2_short.txt:md5,fce130af51f93cccfc09ddaf9caf623f",
+            "sample_2_long.txt:md5,fce130af51f93cccfc09ddaf9caf623f",
+            true,
+            true,
+            "results_summary.txt:md5,f69af9b0e18a0cfc934eb18b7e4bffe1",
+            true,
+            true,
+            "sample_2_long.gbk:md5,91c1c39ac3df0a7c62e4e2fea50f09d3",
+            true,
+            "sample_2_long.genes.tsv:md5,66e3724c7e7da102bf58acd564211e8b",
+            true,
+            "name,contig_id,prob_macrel,prob_ampir,prob_amplify,aa_sequence,target_id,pident,evalue,Sequence,Sequence_Length,Name,Swiss_Prot_Entry,Family,Gene,Source,Activity,Protein_existence,Structure,Structure_Description,PDB_ID,Comments,Target_Organism,Hemolytic_activity,Linear/Cyclic/Branched,N-terminal_Modification,C-terminal_Modification,Other_Modifications,Stereochemistry,Cytotoxicity,Binding_Traget,Pubmed_ID,Reference,Author,Title"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.1"
+        },
+        "timestamp": "2024-05-27T15:38:15.72293439"
+    }
+}

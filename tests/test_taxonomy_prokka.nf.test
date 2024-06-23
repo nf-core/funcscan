@@ -1,0 +1,76 @@
+nextflow_pipeline {
+
+    name "Test pipeline: NFCORE_FUNCSCAN"
+    script "main.nf"
+    tag "pipeline"
+    tag "nfcore_funcscan"
+    tag "test_taxonomy_prokka"
+
+    test("test_taxonomy_prokka") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+                run_taxa_classification = true
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                //{ assert snapshot(path("$outputDir/")).match()},
+                { assert new File("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+                //*   *//
+                // AMP //
+                //*   *//
+                { assert snapshot(
+                    path("${params.outdir}/amp/ampir/sample_1_short/sample_1_short.ampir.tsv"),
+                    path("${params.outdir}/amp/ampir/sample_1_short/sample_1_short.ampir.faa"),
+                    path("${params.outdir}/amp/ampir/sample_2_short/sample_2_short.ampir.tsv"),
+                    path("${params.outdir}/amp/ampir/sample_2_short/sample_2_short.ampir.faa"),
+                    path("${params.outdir}/amp/ampir/sample_2_long/sample_2_long.ampir.tsv"),
+                    path("${params.outdir}/amp/ampir/sample_2_long/sample_2_long.ampir.faa"),
+                    path("${params.outdir}/amp/amplify/sample_1_short/sample_1_short.tsv"),
+                    path("${params.outdir}/amp/amplify/sample_2_short/sample_2_short.tsv"),
+                    path("${params.outdir}/amp/amplify/sample_2_long/sample_2_long.tsv"),
+                    path("${params.outdir}/amp/hmmer_hmmsearch/sample_1_short/sample_1_short_mybacteriocin.txt.gz"),
+                    path("${params.outdir}/amp/hmmer_hmmsearch/sample_2_short/sample_2_short_mybacteriocin.txt.gz"),
+                    path("${params.outdir}/amp/hmmer_hmmsearch/sample_2_long/sample_2_long_mybacteriocin.txt.gz"),
+                    path("${params.outdir}/amp/macrel/sample_1_short/sample_1_short.smorfs.faa.gz"),
+                    path("${params.outdir}/amp/macrel/sample_2_short/sample_2_short.smorfs.faa.gz"),
+                    path("${params.outdir}/amp/macrel/sample_2_long/sample_2_long.smorfs.faa.gz"),
+                    path("${params.outdir}/amp/macrel/sample_1_short/sample_1_short.all_orfs.faa.gz"),
+                    path("${params.outdir}/amp/macrel/sample_2_short/sample_2_short.all_orfs.faa.gz"),
+                    path("${params.outdir}/amp/macrel/sample_2_long/sample_2_long.all_orfs.faa.gz"),
+                    path("${params.outdir}/amp/macrel/sample_1_short/sample_1_short.prediction.gz"),
+                    path("${params.outdir}/amp/macrel/sample_2_short/sample_2_short.prediction.gz"),
+                    path("${params.outdir}/amp/macrel/sample_2_long/sample_2_long.prediction.gz"),
+                    path("${params.outdir}/amp/macrel/sample_1_short/README.md"),
+                    path("${params.outdir}/amp/macrel/sample_2_short/README.md"),
+                    path("${params.outdir}/amp/macrel/sample_2_long/README.md"),
+                    path("${params.outdir}/amp/macrel/sample_1_short/sample_1_short_log.txt"),
+                    path("${params.outdir}/amp/macrel/sample_2_short/sample_2_short_log.txt"),
+                    path("${params.outdir}/amp/macrel/sample_2_long/sample_2_long_log.txt"),
+                    path("${params.outdir}/arg/rgi/sample_1_short/sample_1_short.txt"),
+                    path("${params.outdir}/arg/rgi/sample_2_short/sample_2_short.txt"),
+                    path("${params.outdir}/arg/rgi/sample_2_long/sample_2_long.txt"),
+                    file("${params.outdir}/arg/abricate/sample_1_short/sample_1_short.txt").text.contains("RESISTANCE"),
+                    file("${params.outdir}/arg/abricate/sample_2_long/sample_2_long.txt").text.contains("COVERAGE_MAP"),
+                    path("${params.outdir}/arg/fargene/sample_1_short/class_b_1_2/results_summary.txt"),
+                    file("${params.outdir}/arg/fargene/sample_2_long/class_b_3/results_summary.txt").text.contains("class_B_3.hmm"),
+                    file("${params.outdir}/arg/fargene/sample_2_short/tet_efflux/results_summary.txt").text.contains("tet_efflux.hmm"),
+                    path("${params.outdir}/bgc/antismash/sample_2_long/sample_2_long.gbk"),
+                    file("${params.outdir}/bgc/antismash/sample_2_long/sample_2_long.log").text.contains("antiSMASH status: SUCCESS"),
+                    path("${params.outdir}/bgc/gecco/sample_2_long/sample_2_long.genes.tsv"),
+                    file("${params.outdir}/bgc/gecco/sample_2_long/sample_2_long.features.tsv").text.contains("NODE_861_length_4516_cov_2.736606_5"),
+                    file("${params.outdir}/reports/ampcombi/sample_2_long/sample_2_long_ampcombi.csv").readLines()[0],
+                    ).match() },
+                { assert new File("${outputDir}/reports/combgc/combgc_complete_summary_taxonomy.tsv.gz").exists() },
+                { assert new File("${outputDir}/reports/ampcombi/ampcombi_complete_summary_taxonomy.tsv.gz").exists() },
+                { assert new File("${outputDir}/reports/hamronization_summarize/hamronization_combined_report.tsv.gz").exists() },
+                { assert new File("${outputDir}/bgc/hmmer_hmmsearch/sample_2_long/sample_2_long_ToyB.txt.gz").exists() }
+            )
+        }
+    }
+}

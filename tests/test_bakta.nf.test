@@ -4,9 +4,9 @@ nextflow_pipeline {
     script "main.nf"
     tag "pipeline"
     tag "nfcore_funcscan"
-    tag "test_pyrodigal"
+    tag "test_bakta"
 
-    test("test_pyrodigal_profile") {
+    test("test_bakta_profile") {
 
         when {
             params {
@@ -85,7 +85,7 @@ nextflow_pipeline {
                     path("$outputDir/arg/abricate/sample_1_short/sample_1_short.txt"),
                     path("$outputDir/arg/abricate/sample_2_short/sample_2_short.txt"),
                     path("$outputDir/arg/abricate/sample_2_long/sample_2_long.txt")
-                ).match("abricate") },
+                )   .match("abricate") },
 
                 // AMRFinderPlus
                 { assert snapshot(
