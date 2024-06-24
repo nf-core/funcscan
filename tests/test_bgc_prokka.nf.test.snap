@@ -13,7 +13,7 @@
     },
     "deepbgc_bgc_gbk": {
         "content": [
-            "sample_2_long.bgc.gbk:md5,d41d8cd98f00b204e9800998ecf8427e"
+            "sample_2.bgc.gbk:md5,d41d8cd98f00b204e9800998ecf8427e"
         ],
         "meta": {
             "nf-test": "0.8.4",
@@ -23,8 +23,8 @@
     },
     "gecco": {
         "content": [
-            "sample_2_long.genes.tsv:md5,66e3724c7e7da102bf58acd564211e8b",
-            "sample_2_long.features.tsv:md5,2ef146213836ca80d3079776f17c7cb2"
+            "sample_2.genes.tsv:md5,050b82ca462430ecc0635acb2e297531",
+            "sample_2.features.tsv:md5,79354868ee3de6fdc419195b8fa8edb6"
         ],
         "meta": {
             "nf-test": "0.8.4",

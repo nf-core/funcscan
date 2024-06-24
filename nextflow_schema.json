@@ -19,19 +19,19 @@
                     "schema": "assets/schema_input.json",
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
-                    "description": "Path to comma-separated file containing information sample names and paths to corresponding FASTA files.",
-                    "help_text": "Before running the pipeline, you will need to create a design file with information about the samples to be scanned by nf-core/funcscan, containing `sample name` and `path/to/your/contigs.fasta`. Use this parameter to specify its location. It has to be a comma-separated file with 2 columns, and a header row (`sample, fasta`). See [usage docs](https://nf-co.re/funcscan/usage#samplesheet-input).",
+                    "description": "Path to comma-separated file containing sample names and paths to corresponding FASTA files.",
+                    "help_text": "Before running the pipeline, you will need to create a design file with information about the samples to be scanned by nf-core/funcscan, containing `sample name` and `path/to/your/contigs.fasta`. Use this parameter to specify its location. It has to be a comma-separated file with a header row (`sample,fasta` or `sample,fasta,protein,gbk`) and 2 or 4 (as specified by header row). See [usage docs](https://nf-co.re/funcscan/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
-                    "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
+                    "description": "The output directory where the results will be saved. You have to use absolute paths to storage on cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "email": {
                     "type": "string",
-                    "description": "Email address for completion summary.",
+                    "description": "E-mail address for completion summary.",
                     "fa_icon": "fas fa-envelope",
                     "help_text": "Set this parameter to your e-mail address to get a summary e-mail with details of the run sent to you when the workflow exits. If set in your user config file (`~/.nextflow/config`) then you don't need to specify this on the command line for every run.",
                     "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
@@ -52,7 +52,7 @@
             "properties": {
                 "run_amp_screening": {
                     "type": "boolean",
-                    "description": "Activate antimicrobial peptide screening tools.",
+                    "description": "Activate antimicrobial peptide genes screening tools.",
                     "fa_icon": "fas fa-check-circle"
                 },
                 "run_arg_screening": {
@@ -104,13 +104,13 @@
                 "taxa_classification_mmseqs_databases_id": {
                     "type": "string",
                     "default": "Kalamari",
-                    "help_text": "Specify which MMseqs2-formatted database to use to classify the input contigs. This can be a nucleotide or amino acid database that includes taxonomic classifications. For example, both GTDB (an amico acid database) and SILVA (a nucleotide database) are supported by MMseqs2. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\\n\\n>  Modifies tool parameter(s):\\n> - mmseqs databases <name>\".",
+                    "help_text": "Specify which MMseqs2-formatted database to use to classify the input contigs. This can be a nucleotide or amino acid database that includes taxonomic classifications. For example, both GTDB (an amico acid database) and SILVA (a nucleotide database) are supported by MMseqs2. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs databases <name>",
                     "description": "Specify the label of the database to be used.",
                     "fa_icon": "fas fa-address-card"
                 },
                 "taxa_classification_mmseqs_databases_savetmp": {
                     "type": "boolean",
-                    "help_text": "This flag saves the temporary files from downloading the database and formatting it in the MMseqs2 format into the output folder. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\\n\\n>  Modifies tool parameter(s):\\n> - mmseqs databases: `--remove-tmp-files`\".",
+                    "help_text": "This flag saves the temporary files from downloading the database and formatting it in the MMseqs2 format into the output folder. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs databases: `--remove-tmp-files`",
                     "description": "Specify whether the temporary files should be saved.",
                     "fa_icon": "fas fa-file-download"
                 }
@@ -125,56 +125,56 @@
             "properties": {
                 "taxa_classification_mmseqs_taxonomy_savetmp": {
                     "type": "boolean",
-                    "help_text": "This flag saves the temporary files from creating the taxonomy database and the final `tsv` file into the output folder.  More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--remove-tmp-files`\".\n",
+                    "help_text": "This flag saves the temporary files from creating the taxonomy database and the final `tsv` file into the output folder.  More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--remove-tmp-files`",
                     "description": "Specify whether to save the temporary files.",
                     "fa_icon": "fab fa-adversal"
                 },
                 "taxa_classification_mmseqs_taxonomy_searchtype": {
                     "type": "integer",
                     "default": 2,
-                    "help_text": "Specify the type of alignment to be carried out between the query database and the reference MMseqs2 database. This can be set to '0' for automatic detection, '1' for amino acid alignment, '2' for translating the inputs and running the alignment on the translated sequences, '3' nucleotide based alignment and '4' for the translated nucleotide sequences alignment. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--search-type`\".",
+                    "help_text": "Specify the type of alignment to be carried out between the query database and the reference MMseqs2 database. This can be set to '0' for automatic detection, '1' for amino acid alignment, '2' for translating the inputs and running the alignment on the translated sequences, '3' nucleotide based alignment and '4' for the translated nucleotide sequences alignment. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--search-type`",
                     "description": "Specify the alignment type between database and query.",
                     "fa_icon": "fas fa-align-center"
                 },
                 "taxa_classification_mmseqs_taxonomy_lcaranks": {
                     "type": "string",
                     "default": "kingdom,phylum,class,order,family,genus,species",
-                    "help_text": "Specify the taxonomic ranks to include in the taxonomic lineage column in the final `.tsv` file. For example, 'kingdom,phylum,class,order,family,genus,species'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--lca-ranks`\".",
+                    "help_text": "Specify the taxonomic ranks to include in the taxonomic lineage column in the final `.tsv` file. For example, 'kingdom,phylum,class,order,family,genus,species'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--lca-ranks`",
                     "description": "Specify the taxonomic levels to display in the result table.",
                     "fa_icon": "fas fa-stream"
                 },
                 "taxa_classification_mmseqs_taxonomy_taxlineage": {
                     "type": "integer",
                     "default": 1,
-                    "help_text": "This flag specifies whether the taxonomic lineage should be included in the output `.tsv` file. The taxonomic lineage is obtained from the internal module of `mmseqs/taxonomy` that infers the last common ancestor to classify the taxonomy. A value of '0' writes no taxonomic lineage, a value of '1' adds a column with the full lineage names prefixed with abbreviation of the lineage level, e.g. k_Prokaryotes;p_Bacteroidetes;c_....;o_....;f_....;g_....;s_...., while a value of '2' adds a column with the full NCBI taxids lineage,e.g. 1324;2345;4546;5345. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--tax-lineage`\".",
+                    "help_text": "This flag specifies whether the taxonomic lineage should be included in the output `.tsv` file. The taxonomic lineage is obtained from the internal module of `mmseqs/taxonomy` that infers the last common ancestor to classify the taxonomy. A value of '0' writes no taxonomic lineage, a value of '1' adds a column with the full lineage names prefixed with abbreviation of the lineage level, e.g. k_Prokaryotes;p_Bacteroidetes;c_....;o_....;f_....;g_....;s_...., while a value of '2' adds a column with the full NCBI taxids lineage,e.g. 1324;2345;4546;5345. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--tax-lineage`",
                     "description": "Specify whether to include or remove the taxonomic lineage.",
                     "fa_icon": "fab fa-audible"
                 },
                 "taxa_classification_mmseqs_taxonomy_sensitivity": {
                     "type": "string",
                     "default": "5.0",
-                    "help_text": "This flag specifies the speed and sensitivity of the taxonomic search. It stands for how many kmers should be produced during the preliminary seeding stage. A very fast search requires a low value e.g. '1.0' and a a very sensitive search requires e.g. '7.0'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--s`\".",
+                    "help_text": "This flag specifies the speed and sensitivity of the taxonomic search. It stands for how many kmers should be produced during the preliminary seeding stage. A very fast search requires a low value e.g. '1.0' and a a very sensitive search requires e.g. '7.0'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--s`",
                     "description": "Specify the speed and sensitivity for taxonomy assignment.",
                     "fa_icon": "fas fa-history"
                 },
                 "taxa_classification_mmseqs_taxonomy_orffilters": {
                     "type": "string",
                     "default": "2.0",
-                    "help_text": "This flag specifies the sensitivity used for prefiltering the query ORF. Before the taxonomy-assigning step, MMseqs2 searches the predicted ORFs against the provided database. This value influences the speed with which the search is carried out. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--orf-filter-s`\".",
+                    "help_text": "This flag specifies the sensitivity used for prefiltering the query ORF. Before the taxonomy-assigning step, MMseqs2 searches the predicted ORFs against the provided database. This value influences the speed with which the search is carried out. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--orf-filter-s`",
                     "description": "Specify the ORF search sensitivity in the prefilter step.",
                     "fa_icon": "fas fa-clock"
                 },
                 "taxa_classification_mmseqs_taxonomy_lcamode": {
                     "type": "integer",
                     "default": 3,
-                    "help_text": "This flag specifies the strategy used for assigning the last common ancestor (LCA). MMseqs2 assigns taxonomy based on an accelerated approximation of the 2bLCA protocol and uses the value of '3'. In this mode, the taxonomic assignment is based not only on usual alignment parameters but also considers the taxonomic classification of the LCA. When the value '4' is used the LCA is assigned based on all the equal scoring top hits. If the value '1' is used the LCA assignment is disregarded and the taxonomic assignment is based on usual alignment parameters like E-value and coverage. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--lca-mode`\".",
+                    "help_text": "This flag specifies the strategy used for assigning the last common ancestor (LCA). MMseqs2 assigns taxonomy based on an accelerated approximation of the 2bLCA protocol and uses the value of '3'. In this mode, the taxonomic assignment is based not only on usual alignment parameters but also considers the taxonomic classification of the LCA. When the value '4' is used the LCA is assigned based on all the equal scoring top hits. If the value '1' is used the LCA assignment is disregarded and the taxonomic assignment is based on usual alignment parameters like E-value and coverage. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--lca-mode`",
                     "description": "Specify the mode to assign the taxonomy.",
                     "fa_icon": "fas fa-broom"
                 },
                 "taxa_classification_mmseqs_taxonomy_votemode": {
                     "type": "integer",
                     "default": 1,
-                    "help_text": "This flag assigns the mode value with which the weights are computed. The value of '0' stands for uniform weights of taxonomy assignments, the value of '1' uses the minus log E-value and '2' the actual score. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf). \\n\\n>  Modifies tool parameter(s):\\n> - mmseqs taxonomy: `--vote-mode`\".",
+                    "help_text": "This flag assigns the mode value with which the weights are computed. The value of '0' stands for uniform weights of taxonomy assignments, the value of '1' uses the minus log E-value and '2' the actual score. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--vote-mode`",
                     "description": "Specify the weights of the taxonomic assignment.",
                     "fa_icon": "fas fa-poll"
                 }
@@ -206,14 +206,14 @@
         "annotation_bakta": {
             "title": "Annotation: BAKTA",
             "type": "object",
-            "description": "These parameters influence the annotation algorithm of Bacteria used by BAKTA.",
+            "description": "These parameters influence the bacterial annotation algorithm used by BAKTA.",
             "default": "",
             "properties": {
                 "annotation_bakta_db_localpath": {
                     "type": "string",
                     "fa_icon": "fas fa-database",
-                    "description": "Specify a path to BAKTA database.",
-                    "help_text": "Specify a path to a database that is prepared in a BAKTA format."
+                    "description": "Specify a path to a BAKTA database.",
+                    "help_text": "If a local database shall be provided, specify the path to that database which is prepared in a BAKTA format."
                 },
                 "annotation_bakta_db_downloadtype": {
                     "type": "string",
@@ -259,7 +259,7 @@
                 "annotation_bakta_complete": {
                     "type": "boolean",
                     "description": "Specify that all contigs are complete replicons.",
-                    "help_text": "This flag expects contigs that make up complete chromosomes and/or plasmids. By calling it, the user ensured that the contigs are complete replicons. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--complete`",
+                    "help_text": "This flag expects contigs that make up complete chromosomes and/or plasmids. By calling it, the user ensures that the contigs are complete replicons. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--complete`",
                     "fa_icon": "far fa-circle"
                 },
                 "annotation_bakta_renamecontigheaders": {
@@ -271,7 +271,7 @@
                 "annotation_bakta_compliant": {
                     "type": "boolean",
                     "description": "Clean the result annotations to standardise them to Genbank/ENA conventions.",
-                    "help_text": "The resulting annotations are cleaned up to standardise them to Genbank/ENA/DDJB conventions. CDS without any attributed hits and those without gene symbols or product descriptions different from hypothetical will be marked as 'hypothetical'.\nWhen activated the '--min-contig-length' will be set to 200. More info can be found [here](https://github.com/oschwengers/bakta).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--compliant`",
+                    "help_text": "The resulting annotations are cleaned up to standardise them to Genbank/ENA/DDJB conventions. CDS without any attributed hits and those without gene symbols or product descriptions different from hypothetical will be marked as 'hypothetical'.\nWhen activated the `--min-contig-length` will be set to 200. More info can be found [here](https://github.com/oschwengers/bakta).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--compliant`",
                     "fa_icon": "fas fa-check"
                 },
                 "annotation_bakta_trna": {
@@ -295,7 +295,7 @@
                 "annotation_bakta_ncrna": {
                     "type": "boolean",
                     "description": "Activate ncRNA detection & annotation.",
-                    "help_text": "This flag activates [Infernal vs. Rfam ncRNA covariance models](http://eddylab.org/infernal/) that predicts ncRNA genes.\nBAKTA distinguishes between ncRNA genes and (cis-regulatory) regions to enable the distinction of feature overlap detection.\nThis including distinguishing between ncRNA gene types: sRNA, antisense, ribozyme and antitoxin. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--ncrna`",
+                    "help_text": "This flag activates [Infernal vs. Rfam ncRNA covariance models](http://eddylab.org/infernal/) that predicts ncRNA genes.\nBAKTA distinguishes between ncRNA genes and (cis-regulatory) regions to enable the distinction of feature overlap detection.\nThis includes distinguishing between ncRNA gene types: sRNA, antisense, ribozyme and antitoxin. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--ncrna`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_ncrnaregion": {
@@ -313,13 +313,13 @@
                 "annotation_bakta_skipcds": {
                     "type": "boolean",
                     "description": "Skip CDS detection & annotation.",
-                    "help_text": "This flag skips CDS prediction that is done by [PYRODIGAL](https://github.com/althonos/pyrodigal) with which the distinct prediction for complete replicons and uncompleted contigs is done.\nFor more information on how BAKTA predicts CDS please refer to BAKTA [documentation](https://github.com/oschwengers/bakta).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-cds`",
+                    "help_text": "This flag skips CDS prediction that is done by [PYRODIGAL](https://github.com/althonos/pyrodigal) with which the distinct prediction for complete replicons and uncompleted contigs is done.\nFor more information on how BAKTA predicts CDS please refer to the BAKTA [documentation](https://github.com/oschwengers/bakta).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-cds`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_pseudo": {
                     "type": "boolean",
                     "description": "Activate pseudogene detection & annotation.",
-                    "help_text": "This flag activates the search for reference Phytochelatin Synthase genes (PCSs) using hypothetical CDS as seed sequences, then aligns the translated PCSs against up-/downstream-elongated CDS regions. For more info refer to BAKTA [documentation](https://github.com/oschwengers/bakta). \n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-pseudo`",
+                    "help_text": "This flag activates the search for reference Phytochelatin Synthase genes (PCSs) using 'hypothetical' CDS as seed sequences, then aligns the translated PCSs against up-/downstream-elongated CDS regions. More details can be found in the BAKTA [documentation](https://github.com/oschwengers/bakta). \n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-pseudo`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_skipsorf": {
@@ -331,7 +331,7 @@
                 "annotation_bakta_gap": {
                     "type": "boolean",
                     "description": "Activate gap detection & annotation.",
-                    "help_text": "Activates any gene annotation found within contig assembly gaps. For more info. please refer to BAKTA [documentation](https://github.com/oschwengers/bakta). \n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-gap`",
+                    "help_text": "Activates any gene annotation found within contig assembly gaps. More details can be found in the BAKTA [documentation](https://github.com/oschwengers/bakta). \n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-gap`",
                     "fa_icon": "fas fa-forward"
                 },
                 "annotation_bakta_ori": {
@@ -359,7 +359,7 @@
                 "annotation_prokka_singlemode": {
                     "type": "boolean",
                     "description": "Use the default genome-length optimised mode (rather than the metagenome mode).",
-                    "help_text": "By default, Prokka's --metagenome mode is used in the pipeline to improve the gene prediction of highly fragmented metagenomes.\n\nBy specifying this parameter Prokka will instead use its default mode that is optimised for singular 'complete' genome sequences.\n\nFor more information, please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--metagenome`",
+                    "help_text": "By default, Prokka's `--metagenome` mode is used in the pipeline to improve the gene prediction of highly fragmented metagenomes.\n\nBy specifying this parameter Prokka will instead use its default mode that is optimised for singular 'complete' genome sequences.\n\nFor more information, please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--metagenome`",
                     "fa_icon": "fas fa-braille"
                 },
                 "annotation_prokka_rawproduct": {
@@ -389,14 +389,14 @@
                     "type": "integer",
                     "default": 1,
                     "description": "Minimum contig size required for annotation (bp).",
-                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend that this should be >= 200 bp, if you plan to submit such annotations to NCBI.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--mincontiglen`",
+                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend that this should be ≥ 200 bp, if you plan to submit such annotations to NCBI.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--mincontiglen`",
                     "fa_icon": "fas fa-ruler-horizontal"
                 },
                 "annotation_prokka_evalue": {
                     "type": "number",
                     "default": 0.000001,
-                    "description": "Minimum e-value cut-off.",
-                    "help_text": "Specifiy the minimum e-value used for filtering the alignment hits.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--evalue`",
+                    "description": "E-value cut-off.",
+                    "help_text": "Specifiy the maximum E-value used for filtering the alignment hits.\n\nFor more information please check Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--evalue`",
                     "fa_icon": "fas fa-sort-amount-down"
                 },
                 "annotation_prokka_coverage": {
@@ -452,7 +452,7 @@
                 "annotation_prodigal_singlemode": {
                     "type": "boolean",
                     "description": "Specify whether to use Prodigal's single-genome mode for long sequences.",
-                    "help_text": "By default Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or longer than 20000 characters.\n\nHowever, more fragmented reads from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter allows to override this and run in single genome mode again.\n\nFor more information check Prodigal [documentation](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s): \n> -PRODIGAL: `-p`",
+                    "help_text": "By default Prodigal runs in 'single genome' mode that requires sequence lengths to be equal or longer than 20000 characters.\n\nHowever, more fragmented reads from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default. Providing this parameter allows to override this and run in single genome mode again.\n\nFor more information check Prodigal [documentation](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s): \n> -PRODIGAL: `-p`",
                     "fa_icon": "far fa-circle"
                 },
                 "annotation_prodigal_closed": {
@@ -523,7 +523,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Specify whether to save pipeline-downloaded databases in your results directory.",
-                    "help_text": "While nf-core/funcscan can download databases for you, often these are very large and can significantly slow-down pipeline runtime if the databases have to be downloaded every run.\n\nSpecifying `--save_databases` while save the pipeline-downloaded databases in your results directory. This applies to: AMRFinderPlus, antiSMASH, BAKTA, CARD, DeepARG, DeepBGC, and DRAMP.\n\nYou can then move the resulting directories/files to a central cache directory of your choice for re-use in the future.\n\nIf you do not specify these flags, the database files will remain in your `work/` directory and will be deleted if `cleanup = true` is specified in your config, or if you run `nextflow clean`.\n"
+                    "help_text": "While nf-core/funcscan can download databases for you, often these are very large and can significantly slow-down pipeline runtime if the databases have to be downloaded every run.\n\nSpecifying `--save_databases` will save the pipeline-downloaded databases in your results directory. This applies to: AMRFinderPlus, antiSMASH, Bakta, CARD (for RGI), DeepARG, DeepBGC, and DRAMP (for AMPcombi2).\n\nYou can then move the resulting directories/files to a central cache directory of your choice for re-use in the future.\n\nIf you do not specify these flags, the database files will remain in your `work/` directory and will be deleted if `cleanup = true` is specified in your config, or if you run `nextflow clean`.\n"
                 }
             },
             "fa_icon": "fas fa-database"
@@ -551,14 +551,14 @@
             "properties": {
                 "amp_skip_ampir": {
                     "type": "boolean",
-                    "description": "Skip AMPir during AMP-screening.",
+                    "description": "Skip ampir during AMP-screening.",
                     "fa_icon": "fas fa-ban"
                 },
                 "amp_ampir_model": {
                     "type": "string",
                     "default": "precursor",
                     "description": "Specify which machine learning classification model to use.",
-                    "help_text": "AMPir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, \"precursor\" and \"mature\". \n\nThe precursor module is better for predicted proteins from a translated transcriptome or translated gene models. The alternative model (mature) is best suited for AMP sequences after post-translational processing, typically from direct proteomic sequencing.\n\nMore information can be found in the AMPir [documentation](https://ampir.marine-omics.net/).\n\n> Modifies tool parameter(s):\n> - AMPir: `model =`",
+                    "help_text": "Ampir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, \"precursor\" and \"mature\". \n\nThe precursor module is better for predicted proteins from a translated transcriptome or translated gene models. The alternative model (mature) is best suited for AMP sequences after post-translational processing, typically from direct proteomic sequencing.\n\nMore information can be found in the ampir [documentation](https://ampir.marine-omics.net/).\n\n> Modifies tool parameter(s):\n> - AMPir: `model =`",
                     "enum": ["precursor", "mature"],
                     "fa_icon": "fas fa-layer-group"
                 },
@@ -566,7 +566,7 @@
                     "type": "integer",
                     "default": 10,
                     "description": "Specify minimum protein length for prediction calculation.",
-                    "help_text": "Filters result for minimum protein length.\nNote that amino acid sequences that are shorter than 10 amino acids long and/or contain anything other than the standard 20 amino acids are not evaluated and will contain an NA as their prob_AMP value\n\nMore information can be found in the AMPir [documentation](https://ampir.marine-omics.net/).\n\n> Modifies tool parameter(s):\n> - AMPir parameter: `min_length` in the `calculate_features()` function",
+                    "help_text": "Filters result for minimum protein length.\nNote that amino acid sequences that are shorter than 10 amino acids long and/or contain anything other than the standard 20 amino acids are not evaluated and will contain an NA as their \"prob_AMP value.\"\n\nMore information can be found in the ampir [documentation](https://ampir.marine-omics.net/).\n\n> Modifies tool parameter(s):\n> - AMPir parameter: `min_length` in the `calculate_features()` function",
                     "fa_icon": "fas fa-ruler-horizontal"
                 }
             },
@@ -636,21 +636,21 @@
                 "amp_ampcombi_db": {
                     "type": "string",
                     "description": "Path to AMPcombi reference database directory (DRAMP).",
-                    "help_text": "AMPcombi uses the 'general AMPs' dataset of the (DRAMP database)[http://dramp.cpu-bioinfor.org/downloads/] for taxonomic classification. If you have a local version of it, you can provide the path to the folder containing the reference database files:\n1. a fasta file with a `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nFor more information check AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).",
+                    "help_text": "AMPcombi uses the 'general AMPs' dataset of the [DRAMP database](http://dramp.cpu-bioinfor.org/downloads/) for taxonomic classification. If you have a local version of it, you can provide the path to the folder containing the reference database files:\n1. fasta file with `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nFor more information check AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).",
                     "fa_icon": "fas fa-address-book"
                 },
                 "amp_ampcombi_parsetables_cutoff": {
                     "type": "number",
                     "default": 0.6,
                     "description": "Assigns the prediction tools' cut-offs.",
-                    "help_text": "This converts any prediction score below this cut-off to '0'.By doing so only values above this value will be used in the final AMPcombi table. This applies to all prediction tools except for HMMER-HMMSEARCH, which uses e-value. To change the e-value cut-off use instead `--amp_ampcombi_parsetables_hmmevalue`.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--amp_cutoff`",
+                    "help_text": "This converts any prediction score below this cut-off to '0'. By doing so only values above this value will be used in the final AMPcombi2 summary table. This applies to all prediction tools except for hmmsearch, which uses e-value. To change the e-value cut-off use instead `--amp_ampcombi_parsetables_hmmevalue`.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--amp_cutoff`",
                     "fa_icon": "fas fa-address-card"
                 },
                 "amp_ampcombi_parsetables_aalength": {
                     "type": "integer",
                     "default": 100,
                     "description": "Filter out all amino acid fragments shorter than this number.",
-                    "help_text": "Any AMP hit that does not satisfy this length cut-off will be removed from the final AMPcombi table.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--aminoacid_length`",
+                    "help_text": "Any AMP hit that does not satisfy this length cut-off will be removed from the final AMPcombi2 summary table.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--aminoacid_length`",
                     "fa_icon": "fas fa-ruler"
                 },
                 "amp_ampcombi_parsetables_dbevalue": {
@@ -664,7 +664,7 @@
                     "type": "number",
                     "default": 0.06,
                     "description": "Retain HMM hits that have an e-value lower than this.",
-                    "help_text": "This converts any prediction score below this cut-off to '0'. By doing so only values above this value will be used in the final AMPcombi table. To change the prediction score cut-off for all other AMP prediction tools, use instead `--amp_cutoff`.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--hmm_evalue`",
+                    "help_text": "This converts any prediction score below this cut-off to '0'. By doing so only values above this value will be used in the final AMPcombi2 summary table. To change the prediction score cut-off for all other AMP prediction tools, use instead `--amp_cutoff`.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--hmm_evalue`",
                     "fa_icon": "fas fa-sort-numeric-up"
                 },
                 "amp_ampcombi_parsetables_windowstopcodon": {
@@ -683,36 +683,36 @@
                 },
                 "amp_ampcombi_parsetables_removehitswostopcodons": {
                     "type": "boolean",
-                    "description": "Remove hits that have no stop codon upstream and downstream of the AMP",
-                    "help_text": "Removes any hits/CDSs that don't have a stop codon found in the window downstream or upstream of the CDS assigned by '--amp_ampcombi_parsetables_windowstopcodon'. We recommend to turn it on if the results will be used downstream experimentally.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--remove_stop_codons`",
+                    "description": "Remove hits that have no stop codon upstream and downstream of the AMP.",
+                    "help_text": "Removes any hits/CDSs that don't have a stop codon found in the window downstream or upstream of the CDS assigned by `--amp_ampcombi_parsetables_windowstopcodon`. We recommend to turn it on if the results will be used downstream experimentally.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--remove_stop_codons`",
                     "fa_icon": "fas fa-ban"
                 },
                 "amp_ampcombi_parsetables_ampir": {
                     "type": "string",
                     "default": ".ampir.tsv",
                     "description": "Assigns the file extension used to identify AMPIR output.",
-                    "help_text": "Assigns the file extension of the input files to allow AMPcombi to identify the tool output from the list of input files.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--ampir_file`",
+                    "help_text": "Assigns the file extension of the input files to allow AMPcombi2 to identify the tool output from the list of input files.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--ampir_file`",
                     "fa_icon": "fas fa-address-card"
                 },
                 "amp_ampcombi_parsetables_amplify": {
                     "type": "string",
                     "default": ".amplify.tsv",
                     "description": "Assigns the file extension used to identify AMPLIFY output.",
-                    "help_text": "Assigns the file extension of the input files to allow AMPcombi to identify the tool output from the list of input files.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--amplify_file`",
+                    "help_text": "Assigns the file extension of the input files to allow AMPcombi2 to identify the tool output from the list of input files.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--amplify_file`",
                     "fa_icon": "fas fa-address-card"
                 },
                 "amp_ampcombi_parsetables_macrel": {
                     "type": "string",
                     "default": ".macrel.prediction",
                     "description": "Assigns the file extension used to identify MACREL output.",
-                    "help_text": "Assigns the file extension of the input files to allow AMPcombi to identify the tool output from the list of input files.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--macrel_file`",
+                    "help_text": "Assigns the file extension of the input files to allow AMPcombi2 to identify the tool output from the list of input files.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--macrel_file`",
                     "fa_icon": "fas fa-address-card"
                 },
                 "amp_ampcombi_parsetables_hmmsearch": {
                     "type": "string",
                     "default": ".hmmer_hmmsearch.txt",
                     "description": "Assigns the file extension used to identify HMMER/HMMSEARCH output.",
-                    "help_text": "Assigns the file extension of the input files to allow AMPcombi to identify the tool output from the list of input files.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--hmmsearch_file`",
+                    "help_text": "Assigns the file extension of the input files to allow AMPcombi2 to identify the tool output from the list of input files.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--hmmsearch_file`",
                     "fa_icon": "fas fa-address-card"
                 }
             },
@@ -721,7 +721,7 @@
         "amp_ampcombi2_cluster": {
             "title": "AMP: ampcombi2 cluster",
             "type": "object",
-            "description": "Clustering submodule of AMPCOMBI2",
+            "description": "Clustering submodule of AMPcombi2",
             "default": "",
             "properties": {
                 "amp_ampcombi_cluster_covmode": {
@@ -768,8 +768,8 @@
                 },
                 "amp_ampcombi_cluster_removesingletons": {
                     "type": "boolean",
-                    "description": "Remove any hits that formed a single member cluster.",
-                    "help_text": "Removes any AMP hits that formed a single-member cluster.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_remove_singletons`",
+                    "description": "Remove any hits that form a single member cluster.",
+                    "help_text": "Removes any AMP hits that form a single-member cluster.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_remove_singletons`",
                     "fa_icon": "fas fa-book-dead"
                 }
             },
@@ -792,7 +792,7 @@
                     "type": "string",
                     "fa_icon": "fas fa-layer-group",
                     "help_text": "Specify the path to a local version of the ARMFinderPlus database. If no input is given, the pipeline will download the database for you.\n\n See the nf-core/funcscan usage [documentation](https://nf-co.re/funcscan/usage) for more information.",
-                    "description": "Specify the path to a local version of the ARMfinderPlus database."
+                    "description": "Specify the path to a local version of the ARMFinderPlus database."
                 },
                 "arg_amrfinderplus_identmin": {
                     "type": "number",
@@ -848,14 +848,14 @@
                     "type": "string",
                     "fa_icon": "fab fa-deezer",
                     "description": "Specify the path to the DeepARG database.",
-                    "help_text": "Specify the path to a local version of the DeepARG database (see the pipelines' usage [documentation](https://nf-co.re/funcscan/usage)). If no input is given, the module will download the database for you, however this is not recommended, as the database is large and this will take time."
+                    "help_text": "Specify the path to a local version of the DeepARG database (see the pipelines' usage [documentation](https://nf-co.re/funcscan/dev/docs/usage#databases-and-reference-files)). If no input is given, the module will download the database for you, however this is not recommended, as the database is large and this will take time."
                 },
                 "arg_deeparg_data_version": {
                     "type": "integer",
                     "default": 2,
                     "description": "Specify the numeric version number of a user supplied DeepaRG database.",
                     "fa_icon": "fas fa-code-branch",
-                    "help_text": "The DeepARG tool itself does not report explicit the database version it uses. We assume the latest version (as downloaded by the tool's database download module), however if you supply a different database, you must supply the version with this parameter for use with the downstream hAMRonization tool.\n\nThe version number must be without any leading `v` etc."
+                    "help_text": "The DeepARG tool itself does not report explicitly the database version it uses. We assume the latest version (as downloaded by the tool's database download module), however if you supply a different database, you must supply the version with this parameter for use with the downstream hAMRonization tool.\n\nThe version number must be without any leading `v` etc."
                 },
                 "arg_deeparg_model": {
                     "type": "string",
@@ -876,14 +876,14 @@
                     "type": "number",
                     "default": 1e-10,
                     "description": "Specify E-value cutoff under which hits are discarded.",
-                    "help_text": "Sets the cutoff value for Evalue below which hits are discarded\n\nFor more information check DeepARG [documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/).\n\n> Modifies tool parameter(s):\n> - DeepARG: `--arg-alignment-evalue`",
+                    "help_text": "Sets the cutoff value for Evalue below which hits are discarded.\n\nFor more information check DeepARG [documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/).\n\n> Modifies tool parameter(s):\n> - DeepARG: `--arg-alignment-evalue`",
                     "fa_icon": "fas fa-align-center"
                 },
                 "arg_deeparg_alignmentidentity": {
                     "type": "integer",
                     "default": 50,
                     "description": "Specify percent identity cutoff for sequence alignment under which hits are discarded.",
-                    "help_text": "Sets the value for Identity cutoff for sequence alignment\n\nFor more information check DeepARG [documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/).\n\n> Modifies tool parameter(s):\n> - DeepARG: `--arg-alignment-identity`",
+                    "help_text": "Sets the value for Identity cutoff for sequence alignment.\n\nFor more information check DeepARG [documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/).\n\n> Modifies tool parameter(s):\n> - DeepARG: `--arg-alignment-identity`",
                     "fa_icon": "fas fa-align-center"
                 },
                 "arg_deeparg_alignmentoverlap": {
@@ -920,7 +920,7 @@
                     "type": "string",
                     "default": "class_a,class_b_1_2,class_b_3,class_c,class_d_1,class_d_2,qnr,tet_efflux,tet_rpg,tet_enzyme",
                     "description": "Specify comma-separated list of which pre-defined HMM models to screen against",
-                    "help_text": "Specify via a comma separated list any of the hmm-models of the pre-defined models:\n    - Class A beta-lactamases: `class_a`\n    - Subclass B1 and B2 beta-lactamases: `class_b_1_2`\n    - Subclass B3 beta-lactamases: `class_b_3`\n    - Class C beta-lactamases: `class_c\n    - Class D beta-lactamases: `class_d_1`, `class_d_2`\n    - qnr: `qnr`\n    - Tetracycline resistance genes `tet_efflux`, `tet_rpg`, `tet_enzyme`\n\nFor more information check fARGene [documentation](https://github.com/fannyhb/fargene).\n\n For example: `--arg_fargenemodel 'class_a,qnr,tet_enzyme'`\n\n> Modifies tool parameter(s):\n\n> - fARGene: `--hmm-model`",
+                    "help_text": "Specify via a comma separated list any of the hmm-models of the pre-defined models:\n- Class A beta-lactamases: `class_a`\n- Subclass B1 and B2 beta-lactamases: `class_b_1_2`\n- Subclass B3 beta-lactamases: `class_b_3`\n- Class C beta-lactamases: `class_c`\n- Class D beta-lactamases: `class_d_1`, `class_d_2`\n- qnr: `qnr`\n- Tetracycline resistance genes `tet_efflux`, `tet_rpg`, `tet_enzyme`\n\nFor more information check fARGene [documentation](https://github.com/fannyhb/fargene).\n\n For example: `--arg_fargenemodel 'class_a,qnr,tet_enzyme'`\n\n>Modifies tool parameter(s):\n> - fARGene: `--hmm-model`",
                     "fa_icon": "fas fa-layer-group"
                 },
                 "arg_fargene_savetmpfiles": {

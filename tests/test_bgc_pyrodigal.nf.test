@@ -29,10 +29,10 @@ nextflow_pipeline {
                 { assert path("$outputDir/bgc/antismash/sample_2/sample_2.log").text.contains("antiSMASH status: SUCCESS") },                 // channel: log
 
                 // DeepBGC
-                { assert snapshot(path("$outputDir/bgc/deepbgc/sample_2/sample_2_long.bgc.gbk")).match("deepbgc_bgc_gbk") },                        // channel: bgc_gbk
-                { assert path("$outputDir/bgc/deepbgc/sample_2/sample_2_long.antismash.json").text.contains("NODE_861_length_4516_cov_2.736606") }, // channel: json
-                { assert path("$outputDir/bgc/deepbgc/sample_2/LOG.txt").text.contains('Saved DeepBGC result to: sample_2_long') },                 // channel: log
-                { assert path("$outputDir/bgc/deepbgc/sample_2/sample_2_long.full.gbk").text.contains('1 aaggggtatg gagcagcgac gtctacccgt') },      // channel: full_gbk
+                { assert snapshot(path("$outputDir/bgc/deepbgc/sample_2/sample_2.bgc.gbk")).match("deepbgc_bgc_gbk") },                        // channel: bgc_gbk
+                { assert path("$outputDir/bgc/deepbgc/sample_2/sample_2.antismash.json").text.contains("NODE_861_length_4516_cov_2.736606") }, // channel: json
+                { assert path("$outputDir/bgc/deepbgc/sample_2/LOG.txt").text.contains('Saved DeepBGC result to: sample_2') },                 // channel: log
+                { assert path("$outputDir/bgc/deepbgc/sample_2/sample_2.full.gbk").text.contains('1 aaggggtatg gagcagcgac gtctacccgt') },      // channel: full_gbk
 
                 // GECCO
                 { assert snapshot(
