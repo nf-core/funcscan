@@ -22,97 +22,84 @@ nextflow_pipeline {
 
                 // AMPir
                 { assert snapshot(
-                    path("$outputDir/amp/ampir/sample_1_short/sample_1_short.ampir.tsv"),
-                    path("$outputDir/amp/ampir/sample_1_short/sample_1_short.ampir.faa"),
-                    path("$outputDir/amp/ampir/sample_2_short/sample_2_short.ampir.tsv"),
-                    path("$outputDir/amp/ampir/sample_2_short/sample_2_short.ampir.faa"),
-                    path("$outputDir/amp/ampir/sample_2_long/sample_2_long.ampir.tsv"),
-                    path("$outputDir/amp/ampir/sample_2_long/sample_2_long.ampir.faa")
+                    path("$outputDir/amp/ampir/sample_1/sample_1.ampir.tsv"),
+                    path("$outputDir/amp/ampir/sample_1/sample_1.ampir.faa"),
+                    path("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv"),
+                    path("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa")
                 ).match("ampir") },
 
                 // AMPlify
                 { assert snapshot(
-                    path("$outputDir/amp/amplify/sample_1_short/sample_1_short.tsv"),
-                    path("$outputDir/amp/amplify/sample_2_short/sample_2_short.tsv"),
-                    path("$outputDir/amp/amplify/sample_2_long/sample_2_long.tsv")
+                    path("$outputDir/amp/amplify/sample_1/sample_1.amplify.tsv"),
+                    path("$outputDir/amp/amplify/sample_2/sample_2.amplify.tsv")
                 ).match("amplify") },
 
                 // HMMsearch
-                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_1_short/sample_1_short_mybacteriocin.txt.gz").exists() },
-                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_2_short/sample_2_short_mybacteriocin.txt.gz").exists() },
-                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_2_long/sample_2_long_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_1/sample_1_mybacteriocin.hmmer_hmmsearch.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_2/sample_2_mybacteriocin.hmmer_hmmsearch.txt.gz").exists() },
 
                 // Macrel
                 { assert snapshot(
-                    path("$outputDir/amp/macrel/sample_1_short/sample_1_short.smorfs.faa.gz"),
-                    path("$outputDir/amp/macrel/sample_2_short/sample_2_short.smorfs.faa.gz"),
-                    path("$outputDir/amp/macrel/sample_2_long/sample_2_long.smorfs.faa.gz"),
-                    path("$outputDir/amp/macrel/sample_1_short/sample_1_short.all_orfs.faa.gz"),
-                    path("$outputDir/amp/macrel/sample_2_short/sample_2_short.all_orfs.faa.gz"),
-                    path("$outputDir/amp/macrel/sample_2_long/sample_2_long.all_orfs.faa.gz"),
-                    path("$outputDir/amp/macrel/sample_1_short/sample_1_short.prediction.gz"),
-                    path("$outputDir/amp/macrel/sample_2_short/sample_2_short.prediction.gz"),
-                    path("$outputDir/amp/macrel/sample_2_long/sample_2_long.prediction.gz"),
-                    path("$outputDir/amp/macrel/sample_1_short/README.md"),
-                    path("$outputDir/amp/macrel/sample_2_short/README.md"),
-                    path("$outputDir/amp/macrel/sample_2_long/README.md"),
-                    path("$outputDir/amp/macrel/sample_1_short/sample_1_short_log.txt"),
-                    path("$outputDir/amp/macrel/sample_2_short/sample_2_short_log.txt"),
-                    path("$outputDir/amp/macrel/sample_2_long/sample_2_long_log.txt")
+                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.smorfs.faa.gz"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.smorfs.faa.gz"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.all_orfs.faa.gz"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.all_orfs.faa.gz"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/README.md"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/README.md"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel_log.txt"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel_log.txt")
                 ).match("macrel") },
 
                 // ampcombi
-                { assert new File("$outputDir/reports/ampcombi/ampcombi_complete_summary.tsv").exists() }, // check again with new ampcombi version, if md5 check is possible
+                { assert path("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("PROKKA_00019") },
+                { assert snapshot(
+                    path("$outputDir/reports/ampcombi2/Ampcombi_cluster.log"),
+                    path("$outputDir/reports/ampcombi2/Ampcombi_complete.log"),
+                    path("$outputDir/reports/ampcombi2/Ampcombi_parse_tables.log")
+                ).match("ampcombi_logfiles") },
 
                 // DeepARG
                 { assert snapshot(
-                    path("$outputDir/arg/deeparg/sample_1_short/sample_1_short.align.daa.tsv"),
-                    path("$outputDir/arg/deeparg/sample_2_short/sample_2_short.align.daa.tsv"),
-                    path("$outputDir/arg/deeparg/sample_2_long/sample_2_long.align.daa.tsv"),
-                    path("$outputDir/arg/deeparg/sample_1_short/sample_1_short.mapping.ARG"),
-                    path("$outputDir/arg/deeparg/sample_2_short/sample_2_short.mapping.ARG"),
-                    path("$outputDir/arg/deeparg/sample_2_long/sample_2_long.mapping.ARG")
+                    path("$outputDir/arg/deeparg/sample_1/sample_1.align.daa.tsv"),
+                    path("$outputDir/arg/deeparg/sample_2/sample_2.align.daa.tsv"),
+                    path("$outputDir/arg/deeparg/sample_1/sample_1.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/sample_2/sample_2.mapping.ARG")
                 ).match("deeparg_tsv_ARG") },
-                { assert file("$outputDir/arg/deeparg/sample_1_short/sample_1_short.align.daa").name },
-                { assert file("$outputDir/arg/deeparg/sample_2_short/sample_2_short.align.daa").name },
-                { assert file("$outputDir/arg/deeparg/sample_2_long/sample_2_long.align.daa").name },
-                { assert path("$outputDir/arg/deeparg/sample_1_short/sample_1_short.mapping.potential.ARG").text.contains("#ARG") },
-                { assert path("$outputDir/arg/deeparg/sample_2_short/sample_2_short.mapping.potential.ARG").text.contains("#ARG") },
-                { assert path("$outputDir/arg/deeparg/sample_2_long/sample_2_long.mapping.potential.ARG").text.contains("#ARG") },
+                { assert file("$outputDir/arg/deeparg/sample_1/sample_1.align.daa").name },
+                { assert file("$outputDir/arg/deeparg/sample_2/sample_2.align.daa").name },
+                { assert path("$outputDir/arg/deeparg/sample_1/sample_1.mapping.potential.ARG").text.contains("#ARG") },
+                { assert path("$outputDir/arg/deeparg/sample_2/sample_2.mapping.potential.ARG").text.contains("#ARG") },
 
                 // ABRicate
                 { assert snapshot(
-                    path("$outputDir/arg/abricate/sample_1_short/sample_1_short.txt"),
-                    path("$outputDir/arg/abricate/sample_2_short/sample_2_short.txt"),
-                    path("$outputDir/arg/abricate/sample_2_long/sample_2_long.txt")
+                    path("$outputDir/arg/abricate/sample_1/sample_1.txt"),
+                    path("$outputDir/arg/abricate/sample_2/sample_2.txt"),
                 ).match("abricate") },
 
                 // AMRFinderPlus
                 { assert snapshot(
-                    path("$outputDir/arg/amrfinderplus/sample_1_short/sample_1_short.tsv"),
-                    path("$outputDir/arg/amrfinderplus/sample_2_short/sample_2_short.tsv"),
-                    path("$outputDir/arg/amrfinderplus/sample_2_long/sample_2_long.tsv")
+                    path("$outputDir/arg/amrfinderplus/sample_1/sample_1.tsv"),
+                    path("$outputDir/arg/amrfinderplus/sample_2/sample_2.tsv"),
                 ).match("amrfinderplus") },
 
                 // RGI
                 { assert snapshot(
-                    path("$outputDir/arg/rgi/sample_1_short/sample_1_short.txt"),
-                    path("$outputDir/arg/rgi/sample_2_short/sample_2_short.txt"),
-                    path("$outputDir/arg/rgi/sample_2_long/sample_2_long.txt")
+                    path("$outputDir/arg/rgi/sample_1/sample_1.txt"),
+                    path("$outputDir/arg/rgi/sample_2/sample_2.txt"),
                 ).match("rgi") },
 
                 // fARGene
                 { assert snapshot(
-                    path("$outputDir/arg/fargene/sample_1_short/class_a/results_summary.txt"),
-                    path("$outputDir/arg/fargene/sample_2_short/class_a/results_summary.txt"),
-                    path("$outputDir/arg/fargene/sample_2_long/class_a/results_summary.txt"),
-                    path("$outputDir/arg/fargene/sample_1_short/class_b_1_2/results_summary.txt"),
-                    path("$outputDir/arg/fargene/sample_2_short/class_b_1_2/results_summary.txt"),
-                    path("$outputDir/arg/fargene/sample_2_long/class_b_1_2/results_summary.txt"),
-                    path("$outputDir/arg/fargene/sample_1_short/fargene_analysis.log"),
-                    path("$outputDir/arg/fargene/sample_2_short/fargene_analysis.log"),
-                    path("$outputDir/arg/fargene/sample_2_long/fargene_analysis.log")
-                ).match("fargene") },
+                    path("$outputDir/arg/fargene/sample_1/class_a/results_summary.txt"),
+                    path("$outputDir/arg/fargene/sample_2/class_a/results_summary.txt"),
+                    path("$outputDir/arg/fargene/sample_1/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/sample_2/class_b_1_2/results_summary.txt")
+                    ).match("fargene")
+                },
+                { assert path("$outputDir/arg/fargene/sample_1/fargene_analysis.log").text.contains("fARGene is done.") },
+                { assert path("$outputDir/arg/fargene/sample_2/fargene_analysis.log").text.contains("fARGene is done.") },
 
                 // hamronization
                 { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv")).match("hamronization_summarize") },

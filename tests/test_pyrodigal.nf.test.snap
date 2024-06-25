@@ -1,4 +1,62 @@
 {
+    "hamronization_summarize": {
+        "content": [
+            "hamronization_combined_report.tsv:md5,864466b0fb1acfc0e6b3425271f78ecb"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.2"
+        },
+        "timestamp": "2024-06-25T19:05:55.392742849"
+    },
+    "abricate": {
+        "content": [
+            "sample_1.txt:md5,69af3321b0bc808b7ef85f102395736f",
+            "sample_2.txt:md5,69af3321b0bc808b7ef85f102395736f"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.2"
+        },
+        "timestamp": "2024-06-25T19:05:55.323018999"
+    },
+    "fargene": {
+        "content": [
+            "results_summary.txt:md5,690d351cfc52577263ef4cfab1c81f50",
+            "results_summary.txt:md5,690d351cfc52577263ef4cfab1c81f50",
+            "results_summary.txt:md5,f69af9b0e18a0cfc934eb18b7e4bffe1",
+            "results_summary.txt:md5,f69af9b0e18a0cfc934eb18b7e4bffe1"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.2"
+        },
+        "timestamp": "2024-06-25T19:05:55.373895823"
+    },
+    "rgi": {
+        "content": [
+            "sample_1.txt:md5,fce130af51f93cccfc09ddaf9caf623f",
+            "sample_2.txt:md5,fce130af51f93cccfc09ddaf9caf623f"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.2"
+        },
+        "timestamp": "2024-06-25T19:05:55.358191922"
+    },
+    "deeparg_tsv_ARG": {
+        "content": [
+            "sample_1.align.daa.tsv:md5,21822364379fe8f991d27cdb52a33d1d",
+            "sample_2.align.daa.tsv:md5,f448465df58785a87cdee53691a77bfe",
+            "sample_1.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9",
+            "sample_2.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.2"
+        },
+        "timestamp": "2024-06-25T19:05:55.290854134"
+    },
     "ampir": {
         "content": [
             "sample_1.ampir.tsv:md5,9073f195794713630a1978d04b518e0c",
@@ -10,7 +68,19 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-24T13:15:19.075686547"
+        "timestamp": "2024-06-25T19:05:55.172550579"
+    },
+    "ampcombi_logfiles": {
+        "content": [
+            "Ampcombi_cluster.log:md5,4c78f5f134edf566f39e04e3ab7d8558",
+            "Ampcombi_complete.log:md5,3dabfea4303bf94bd4f5d78c5b8c83c1",
+            "Ampcombi_parse_tables.log:md5,cb5dc95f6b64edc2f0eb56bb541660d5"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.2"
+        },
+        "timestamp": "2024-06-25T19:05:55.263333472"
     },
     "amplify": {
         "content": [
@@ -21,6 +91,36 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-24T13:15:19.117467111"
+        "timestamp": "2024-06-25T19:05:55.200574878"
+    },
+    "macrel": {
+        "content": [
+            "sample_1.macrel.smorfs.faa.gz:md5,1b5e2434860e635e95324d1804a3be7b",
+            "sample_2.macrel.smorfs.faa.gz:md5,38108b5cdfdc2196afe67418b9b04682",
+            "sample_1.macrel.all_orfs.faa.gz:md5,86f6b3b590d1b22d9c5aa164f8a14080",
+            "sample_2.macrel.all_orfs.faa.gz:md5,fdb384925af50ecade05dccaff68afd8",
+            "sample_1.macrel.prediction.gz:md5,0c4b16e0838be56e012b99169863a168",
+            "sample_2.macrel.prediction.gz:md5,440deffd6b6d9986ce098e44c66db9ae",
+            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
+            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
+            "sample_1.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "sample_2.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.2"
+        },
+        "timestamp": "2024-06-25T19:05:55.227182137"
+    },
+    "amrfinderplus": {
+        "content": [
+            "sample_1.tsv:md5,b4d261ace9be7d013c19d1f5c0005bfe",
+            "sample_2.tsv:md5,b4d261ace9be7d013c19d1f5c0005bfe"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.2"
+        },
+        "timestamp": "2024-06-25T19:05:55.341152158"
     }
 }
