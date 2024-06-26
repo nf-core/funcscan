@@ -159,10 +159,10 @@ nf-core/funcscan allows screening of sequences for functional genes associated w
 
 This requires supplying a list of HMM files ending in `.hmm`, that have models for the particular molecule(s) or BGCs you are interested in. You can download these files from places such as [PFAM](https://www.ebi.ac.uk/interpro/download/Pfam/) for antimicrobial peptides (AMP), or the antiSMASH GitHub repository for [biosynthetic gene cluster](https://github.com/antismash/antismash/tree/master/antismash/detection/hmm_detection/data) related HMMs, or create them yourself.
 
-You should place all HMMs in a directory and supply them e.g. to AMP models:
+You should place all HMMs in a directory, supply them to the AMP or BGC workflow and switch hmmsearch on like:
 
 ```bash
---amp_hmmsearch_models '/<path>/<to>/<amp>/*.hmm'
+--amp_run_hmmsearch --amp_hmmsearch_models '/<path>/<to>/<amp>/*.hmm'
 ```
 
 ### AMPcombi

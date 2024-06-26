@@ -167,7 +167,7 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "8f2062e7b4185590fb9f43c275381a31a6544fc0",
+                        "git_sha": "314d742bdb357a1df5f9b88427b3b6ac78aa33f7",
                         "installed_by": ["modules"]
                     },
                     "prodigal": {

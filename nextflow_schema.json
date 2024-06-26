@@ -579,9 +579,10 @@
             "description": "Antimicrobial Peptide detection based on predefined HMM models",
             "default": "",
             "properties": {
-                "amp_skip_hmmsearch": {
+                "amp_run_hmmsearch": {
                     "type": "boolean",
-                    "description": "Skip hmmsearch during AMP screening.",
+                    "description": "Run hmmsearch during AMP screening.",
+                    "help_text": "hmmsearch is not run by default because HMM model files must be provided by the user with the flag `amp_hmmsearch_models`.",
                     "fa_icon": "fas fa-ban"
                 },
                 "amp_hmmsearch_models": {
@@ -1317,9 +1318,10 @@
             "description": "Biosynthetic Gene Cluster detection based on predefined HMM models",
             "default": "",
             "properties": {
-                "bgc_skip_hmmsearch": {
+                "bgc_run_hmmsearch": {
                     "type": "boolean",
-                    "description": "Skip hmmsearch during BGC screening.",
+                    "description": "Run hmmsearch during BGC screening.",
+                    "help_text": "hmmsearch is not run by default because HMM model files must be provided by the user with the flag `bgc_hmmsearch_models`.",
                     "fa_icon": "fas fa-ban"
                 },
                 "bgc_hmmsearch_models": {
