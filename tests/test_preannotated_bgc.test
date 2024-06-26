@@ -1,0 +1,45 @@
+nextflow_pipeline {
+
+    name "Test pipeline: NFCORE_FUNCSCAN"
+    script "main.nf"
+    tag "pipeline"
+    tag "nfcore_funcscan"
+    tag "test_preannotated_bgc"
+
+    test("test_preannotated_bgc_profile") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert new File("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+
+                // antiSMASH
+                { assert path("$outputDir/bgc/antismash/sample_2/sample_2.gbk").text.contains("##antiSMASH-Data-START##") },                  // channel: gbk_input
+                { assert snapshot(path("$outputDir/bgc/antismash/sample_2/css")).match("antismash_css") },                                    // parts of channel: html_accessory_files
+                { assert path("$outputDir/bgc/antismash/sample_2/sample_2.zip").exists() },                                                   // channel: zip
+                { assert path("$outputDir/bgc/antismash/sample_2/index.html").text.contains("https://antismash.secondarymetabolites.org/") }, // channel: html
+                { assert path("$outputDir/bgc/antismash/sample_2/regions.js").text.contains('NODE_861_length_4516_cov') },                    // channel: json_sideloading
+                { assert path("$outputDir/bgc/antismash/sample_2/sample_2.log").text.contains("antiSMASH status: SUCCESS") },                 // channel: log
+
+                // DeepBGC
+                { assert snapshot(path("$outputDir/bgc/deepbgc/sample_2/sample_2.bgc.gbk")).match("deepbgc_bgc_gbk") },                        // channel: bgc_gbk
+                { assert path("$outputDir/bgc/deepbgc/sample_2/sample_2.antismash.json").text.contains("NODE_861_length_4516_cov_2.736606") }, // channel: json
+                { assert path("$outputDir/bgc/deepbgc/sample_2/LOG.txt").text.contains('Saved DeepBGC result to: sample_2') },                 // channel: log
+                { assert path("$outputDir/bgc/deepbgc/sample_2/sample_2.full.gbk").text.contains('1 aaggggtatg gagcagcgac gtctacccgt') },      // channel: full_gbk
+
+                // GECCO
+                { assert snapshot(
+                    path("$outputDir/bgc/gecco/sample_2/sample_2.genes.tsv"),   // channel: genes
+                    path("$outputDir/bgc/gecco/sample_2/sample_2.features.tsv") // channel: features
+                ).match("gecco") }
+            )
+        }
+    }
+}

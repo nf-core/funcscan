@@ -27,7 +27,7 @@ nextflow_pipeline {
                     path("$outputDir/amp/ampir/sample_1/sample_1.ampir.tsv"),
                     path("$outputDir/amp/ampir/sample_1/sample_1.ampir.faa"),
                     path("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv"),
-                    path("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa"),
+                    path("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa")
                 ).match("ampir") },
 
                 // HMMsearch
@@ -56,17 +56,15 @@ nextflow_pipeline {
                 // DeepARG
                 { assert snapshot(
                     path("$outputDir/arg/deeparg/sample_1/sample_1.align.daa.tsv"),
-                    path("$outputDir/arg/deeparg/sample_2/sample_2.align.daa.tsv")
+                    path("$outputDir/arg/deeparg/sample_2/sample_2.align.daa.tsv"),
                     path("$outputDir/arg/deeparg/sample_1/sample_1.mapping.ARG"),
                     path("$outputDir/arg/deeparg/sample_2/sample_2.mapping.ARG"),
                     file("$outputDir/arg/deeparg/sample_1/sample_1.mapping.potential.ARG").text.contains("#ARG"),
                     file("$outputDir/arg/deeparg/sample_2/sample_2.mapping.potential.ARG").text.contains("#ARG")
                 ).match("deeparg") },
 
-                { assert
-                    new File("$outputDir/arg/deeparg/sample_1/sample_1.align.daa").exists(),
-                    new File("$outputDir/arg/deeparg/sample_2/sample_2.align.daa").exists()
-                },
+                { assert new File("$outputDir/arg/deeparg/sample_1/sample_1.align.daa").exists() }
+                { assert new File("$outputDir/arg/deeparg/sample_2/sample_2.align.daa").exists() },
 
                 // ABRicate
                 { assert snapshot(

@@ -206,10 +206,10 @@
         "annotation_bakta": {
             "title": "Annotation: BAKTA",
             "type": "object",
-            "description": "These parameters influence the bacterial annotation algorithm used by BAKTA.",
+            "description": "BAKTA is a tool developed to annotate bacterial genomes and plasmids from both isolates and MAGs. More info: [Bakta documentation](https://github.com/oschwengers/bakta).",
             "default": "",
             "properties": {
-                "annotation_bakta_db_localpath": {
+                "annotation_bakta_db": {
                     "type": "string",
                     "fa_icon": "fas fa-database",
                     "description": "Specify a path to a BAKTA database.",
@@ -347,13 +347,12 @@
                     "help_text": "Activate this flag to generate genome plots (might be memory-intensive).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-plot`"
                 }
             },
-            "fa_icon": "fas fa-file-signature",
-            "help_text": "BAKTA is a tool developed to annotate bacterial genomes and plasmids from both isolates and MAGs. \n\nDocumentation: [https://github.com/oschwengers/bakta](https://github.com/oschwengers/bakta)"
+            "fa_icon": "fas fa-file-signature"
         },
         "annotation_prokka": {
             "title": "Annotation: Prokka",
             "type": "object",
-            "description": "These parameters influence the annotation algorithm used by Prokka.",
+            "description": "Prokka annotates genomic sequences belonging to bacterial, archaeal and viral genomes. More info: [Prokka documentation](https://github.com/tseemann/prokka)",
             "default": "",
             "properties": {
                 "annotation_prokka_singlemode": {
@@ -440,13 +439,12 @@
                     "description": "Retains contig names."
                 }
             },
-            "fa_icon": "fas fa-file-signature",
-            "help_text": "Prokka annotates genomic sequences belonging to bacterial, archaeal and viral genomes.\n\nDocumentation: https://github.com/tseemann/prokka"
+            "fa_icon": "fas fa-file-signature"
         },
         "annotation_prodigal": {
             "title": "Annotation: Prodigal",
             "type": "object",
-            "description": "These parameters influence the annotation algorithm used by Prodigal.",
+            "description": "Prodigal is a protein-coding gene prediction tool developed to run on bacterial and archaeal genomes. More info: [Prodigal documentation](https://github.com/hyattpd/prodigal/wiki).",
             "default": "",
             "properties": {
                 "annotation_prodigal_singlemode": {
@@ -475,13 +473,12 @@
                     "fa_icon": "fas fa-barcode"
                 }
             },
-            "fa_icon": "fas fa-file-signature",
-            "help_text": "Prodigal is a protein-coding gene prediction tool developed to run on bacterial and archaeal genomes.\n\nDocumentation: https://github.com/hyattpd/prodigal/wiki"
+            "fa_icon": "fas fa-file-signature"
         },
         "annotation_pyrodigal": {
             "title": "Annotation: Pyrodigal",
             "type": "object",
-            "description": "These parameters influence the annotation algorithm used by Pyrodigal.",
+            "description": "Pyrodigal produces protein-coding gene predictions of bacterial and archaeal genomes, based on the tool Prodigal being resource-optimized. Read more at the [Pyrodigal GitHub](https://github.com/althonos/pyrodigal) or its [documentation](https://pyrodigal.readthedocs.io).",
             "default": "",
             "properties": {
                 "annotation_pyrodigal_singlemode": {
@@ -510,8 +507,7 @@
                     "help_text": "Forces Pyrodigal to a full scan for motifs rather than activating the Shine-Dalgarno RBS finder, the default scanner for Pyrodigal to train for motifs.\n\nFor more information check the Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `-n`"
                 }
             },
-            "fa_icon": "fas fa-file-signature",
-            "help_text": "Pyrodigal produces protein-coding gene predictions of bacterial and archaeal genomes, based on the tool Prodigal being resource-optimized. Read more at the [Pyrodigal GitHub](https://github.com/althonos/pyrodigal)\n\nDocumentation: https://pyrodigal.readthedocs.io"
+            "fa_icon": "fas fa-file-signature"
         },
         "database_downloading_options": {
             "title": "Database downloading options",
@@ -531,7 +527,7 @@
         "amp_amplify": {
             "title": "AMP: AMPlify",
             "type": "object",
-            "description": "Antimicrobial Peptide detection using a deep learning model.",
+            "description": "Antimicrobial Peptide detection using a deep learning model. More info: [AMPlify documentation](https://github.com/bcgsc/AMPlify)",
             "default": "",
             "properties": {
                 "amp_skip_amplify": {
@@ -540,13 +536,12 @@
                     "fa_icon": "fas fa-ban"
                 }
             },
-            "fa_icon": "fas fa-tools",
-            "help_text": "AMPlify is an attentive deep learning model for antimicrobial peptide prediction. It takes in annotated contigs (.faa) and classifies them as either AMP or non-AMP.\n\nDocumentation: https://github.com/bcgsc/AMPlify"
+            "fa_icon": "fas fa-tools"
         },
         "amp_ampir": {
             "title": "AMP: ampir",
             "type": "object",
-            "description": "Antimicrobial Peptide detection using machine learning",
+            "description": "Antimicrobial Peptide detection using machine learning. ampir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, 'precursor' and 'mature' that have been trained on publicly available antimicrobial peptide data. More info: [ampir documentation](https://github.com/Legana/ampir)",
             "default": "",
             "properties": {
                 "amp_skip_ampir": {
@@ -570,13 +565,12 @@
                     "fa_icon": "fas fa-ruler-horizontal"
                 }
             },
-            "fa_icon": "fas fa-tools",
-            "help_text": "ampir (antimicrobial peptide prediction in r) is an r package designed to predict antimicrobial peptides (AMPs) from any given size protein dataset. ampir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, 'precursor' and 'mature' that have been trained on publicly available antimicrobial peptide data.\n\nDocumentation: https://github.com/Legana/ampir"
+            "fa_icon": "fas fa-tools"
         },
         "amp_hmmsearch": {
             "title": "AMP: hmmsearch",
             "type": "object",
-            "description": "Antimicrobial Peptide detection based on predefined HMM models",
+            "description": "Antimicrobial Peptide detection based on predefined HMM models. This tool implements methods using probabilistic models called profile hidden Markov models (profile HMMs) to search against a sequence database. More info: [HMMER User's Guide](http://eddylab.org/software/hmmer/Userguide.pdf)",
             "default": "",
             "properties": {
                 "amp_run_hmmsearch": {
@@ -616,7 +610,7 @@
         "amp_macrel": {
             "title": "AMP: Macrel",
             "type": "object",
-            "description": "Antimicrobial Peptide detection mining from metagenomes",
+            "description": "Antimicrobial peptide detection from metagenomes. More info: [Macrel documentation](https://github.com/BigDataBiology/macrel)",
             "default": "",
             "properties": {
                 "amp_skip_macrel": {
@@ -625,13 +619,12 @@
                     "fa_icon": "fas fa-ban"
                 }
             },
-            "fa_icon": "fas fa-tools",
-            "help_text": "Macrel is a tool that mines antimicrobial peptides (AMPs) from (meta)genomes by predicting peptides from genomes (provided as contigs) and outputs all the predicted anti-microbial peptides found.\n\nDocumentation: https://github.com/BigDataBiology/macrel"
+            "fa_icon": "fas fa-tools"
         },
         "amp_ampcombi2_parsetables": {
             "title": "AMP: ampcombi2 parsetables",
             "type": "object",
-            "description": "Antimicrobial peptides parsing, filtering, and annotating submodule of AMPcombi2",
+            "description": "Antimicrobial peptides parsing, filtering, and annotating submodule of AMPcombi2. More info: [AMPcombi documentation](https://github.com/Darcy220606/AMPcombi)",
             "default": "",
             "properties": {
                 "amp_ampcombi_db": {
@@ -720,7 +713,7 @@
             "fa_icon": "fas fa-search"
         },
         "amp_ampcombi2_cluster": {
-            "title": "AMP: ampcombi2 cluster",
+            "title": "AMP: ampcombi2 cluster. Clusters the AMP candidates identified with AMPcombi. More info: [AMPcombi documentation](https://github.com/Darcy220606/AMPcombi) ",
             "type": "object",
             "description": "Clustering submodule of AMPcombi2",
             "default": "",
@@ -779,9 +772,8 @@
         "arg_amrfinderplus": {
             "title": "ARG: AMRFinderPlus",
             "type": "object",
-            "description": "Antimicrobial resistance gene detection based on NCBI's curated Reference Gene Database and curated collection of Hidden Markov Models",
+            "description": "Antimicrobial resistance gene detection based on NCBI's curated Reference Gene Database and curated collection of Hidden Markov Models. identifies AMR genes, resistance-associated point mutations, and select other classes of genes using protein annotations and/or assembled nucleotide sequences. More info: [AMRFinderPlus documentation](https://github.com/ncbi/amr/wiki)",
             "default": "",
-            "help_text": "NCBI has developed AMRFinderPlus, a tool that identifies AMR genes, resistance-associated point mutations, and select other classes of genes using protein annotations and/or assembled nucleotide sequence. AMRFinderPlus is used in the Pathogen Detection pipeline, and these data are displayed in NCBI's Isolate Browser. AMRFinderPlus relies on NCBI's curated Reference Gene Database and curated collection of Hidden Markov Models.\n\nDocumentation: https://github.com/ncbi/amr/wiki",
             "fa_icon": "fas fa-bacterium",
             "properties": {
                 "arg_skip_amrfinderplus": {
@@ -837,7 +829,7 @@
         "arg_deeparg": {
             "title": "ARG: DeepARG",
             "type": "object",
-            "description": "Antimicrobial resistance gene detection using a deep learning model",
+            "description": "Antimicrobial resistance gene detection using a deep learning model. DeepARG is composed of two models for two types of input: short sequence reads and gene-like sequences. In this pipeline we use the `ls` model, which is suitable for annotating full sequence genes and to discover novel antibiotic resistance genes from assembled samples. The tool `Diamond` is used as an aligner. More info: [DeepARG documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/)",
             "default": "",
             "properties": {
                 "arg_skip_deeparg": {
@@ -902,8 +894,7 @@
                     "fa_icon": "far fa-gem"
                 }
             },
-            "fa_icon": "fas fa-bacterium",
-            "help_text": "deepARG uses deep learning to characterize and annotate antibiotic resistance genes in metagenomes. It is composed of two models for two types of input: short sequence reads and gene-like sequences. In this pipeline we use the `ls` model, which is suitable for annotating full sequence genes and to discover novel antibiotic resistance genes from assembled samples. The tool `Diamond` is used as an aligner.\n\nDocumentation: https://bitbucket.org/gusphdproj/deeparg-ss/src/master/"
+            "fa_icon": "fas fa-bacterium"
         },
         "arg_fargene": {
             "title": "ARG: fARGene",
