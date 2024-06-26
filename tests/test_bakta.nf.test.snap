@@ -7,126 +7,120 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-12T17:09:05.318606577"
+        "timestamp": "2024-06-26T13:50:58.879178298"
     },
     "abricate": {
         "content": [
-            "sample_1_short.txt:md5,69af3321b0bc808b7ef85f102395736f",
-            "sample_2_short.txt:md5,69af3321b0bc808b7ef85f102395736f",
-            "sample_2_long.txt:md5,69af3321b0bc808b7ef85f102395736f"
+            "sample_1.txt:md5,69af3321b0bc808b7ef85f102395736f",
+            "sample_2.txt:md5,69af3321b0bc808b7ef85f102395736f"
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-12T17:09:05.258219081"
+        "timestamp": "2024-06-26T13:50:58.832419582"
     },
     "fargene": {
         "content": [
             "results_summary.txt:md5,690d351cfc52577263ef4cfab1c81f50",
             "results_summary.txt:md5,690d351cfc52577263ef4cfab1c81f50",
-            "results_summary.txt:md5,690d351cfc52577263ef4cfab1c81f50",
             "results_summary.txt:md5,f69af9b0e18a0cfc934eb18b7e4bffe1",
-            "results_summary.txt:md5,f69af9b0e18a0cfc934eb18b7e4bffe1",
-            "results_summary.txt:md5,f69af9b0e18a0cfc934eb18b7e4bffe1",
-            "fargene_analysis.log:md5,220bf08adcb2cc1d3d7a7d4ceaccdb42",
-            "fargene_analysis.log:md5,b549ab7710e97cd528a05abaaddb3427",
-            "fargene_analysis.log:md5,6197a2fccbd06934c84ee16c577d5837"
+            "results_summary.txt:md5,f69af9b0e18a0cfc934eb18b7e4bffe1"
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-12T17:09:05.303856549"
+        "timestamp": "2024-06-26T13:50:58.867033451"
     },
     "rgi": {
         "content": [
-            "sample_1_short.txt:md5,fce130af51f93cccfc09ddaf9caf623f",
-            "sample_2_short.txt:md5,fce130af51f93cccfc09ddaf9caf623f",
-            "sample_2_long.txt:md5,fce130af51f93cccfc09ddaf9caf623f"
+            "sample_1.txt:md5,fce130af51f93cccfc09ddaf9caf623f",
+            "sample_2.txt:md5,fce130af51f93cccfc09ddaf9caf623f"
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-12T17:09:05.290028286"
+        "timestamp": "2024-06-26T13:50:58.855575567"
     },
     "deeparg_tsv_ARG": {
         "content": [
-            "sample_1_short.align.daa.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
-            "sample_2_short.align.daa.tsv:md5,238aa3eef0215ff18790d66e3ea13a47",
-            "sample_2_long.align.daa.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
-            "sample_1_short.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9",
-            "sample_2_short.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9",
-            "sample_2_long.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9"
+            "sample_1.align.daa.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "sample_2.align.daa.tsv:md5,4a86ca69defa4c861fabf236609afe8a",
+            "sample_1.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9",
+            "sample_2.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9"
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-12T17:09:05.231557712"
+        "timestamp": "2024-06-26T13:50:58.819443392"
     },
     "ampir": {
         "content": [
-            "sample_1_short.ampir.tsv:md5,3954b492f129cbee5bced9ee06a05251",
-            "sample_1_short.ampir.faa:md5,8fb90d4b5ae584b7495fbd347bd4920f",
-            "sample_2_short.ampir.tsv:md5,ef898a6b6e415bcf9e715da6c6865c84",
-            "sample_2_short.ampir.faa:md5,8d17fdb7707c2bb7145d8eb2a7291dd9",
-            "sample_2_long.ampir.tsv:md5,772999eb38752bb569405855330308f0",
-            "sample_2_long.ampir.faa:md5,7ed948ee92aa65d860286e041a266d04"
+            "sample_1.ampir.tsv:md5,3954b492f129cbee5bced9ee06a05251",
+            "sample_1.ampir.faa:md5,8fb90d4b5ae584b7495fbd347bd4920f",
+            "sample_2.ampir.tsv:md5,dfd10c415df2a38a9d9945e5efa6b915",
+            "sample_2.ampir.faa:md5,e6b575851223e2c7654ed483e301b16d"
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-12T17:09:05.175805054"
+        "timestamp": "2024-06-26T13:50:58.754303161"
+    },
+    "ampcombi_logfiles": {
+        "content": [
+            "Ampcombi_cluster.log:md5,4c78f5f134edf566f39e04e3ab7d8558",
+            "Ampcombi_complete.log:md5,3dabfea4303bf94bd4f5d78c5b8c83c1",
+            "Ampcombi_parse_tables.log:md5,cb5dc95f6b64edc2f0eb56bb541660d5"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.2"
+        },
+        "timestamp": "2024-06-26T13:50:58.807034543"
     },
     "amplify": {
         "content": [
-            "sample_1_short.tsv:md5,2433bc0083fc363c24c014379fc18ec8",
-            "sample_2_short.tsv:md5,e2e899c3730e5f44d35cf6af9bbf38ff",
-            "sample_2_long.tsv:md5,afaf86a1ff4a43a3f46975af75376b33"
+            "sample_1.amplify.tsv:md5,2433bc0083fc363c24c014379fc18ec8",
+            "sample_2.amplify.tsv:md5,1e67c5c5ced983c69e10bdf6c2e21f50"
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-12T17:09:05.195446719"
+        "timestamp": "2024-06-26T13:50:58.772731103"
     },
     "macrel": {
         "content": [
-            "sample_1_short.smorfs.faa.gz:md5,1b5e2434860e635e95324d1804a3be7b",
-            "sample_2_short.smorfs.faa.gz:md5,24404fcfc2d43eb9ea61982949fa171a",
-            "sample_2_long.smorfs.faa.gz:md5,bc48062855750db65cc0f0a14c64e125",
-            "sample_1_short.all_orfs.faa.gz:md5,cb2b6710eefb57e50ceac62d5b11c499",
-            "sample_2_short.all_orfs.faa.gz:md5,481fb8df3f8ed67010b5152b7fe4059a",
-            "sample_2_long.all_orfs.faa.gz:md5,0fac84013ec35256a136ca1e0d2cbd48",
-            "sample_1_short.prediction.gz:md5,0c4b16e0838be56e012b99169863a168",
-            "sample_2_short.prediction.gz:md5,2bed4ad2302371ae2a5802a9292d8a06",
-            "sample_2_long.prediction.gz:md5,7167e7c0f269e2ac5935c239c2d13dfe",
+            "sample_1.macrel.smorfs.faa.gz:md5,1b5e2434860e635e95324d1804a3be7b",
+            "sample_2.macrel.smorfs.faa.gz:md5,38108b5cdfdc2196afe67418b9b04682",
+            "sample_1.macrel.all_orfs.faa.gz:md5,86f6b3b590d1b22d9c5aa164f8a14080",
+            "sample_2.macrel.all_orfs.faa.gz:md5,fdb384925af50ecade05dccaff68afd8",
+            "sample_1.macrel.prediction.gz:md5,0c4b16e0838be56e012b99169863a168",
+            "sample_2.macrel.prediction.gz:md5,440deffd6b6d9986ce098e44c66db9ae",
             "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
             "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
-            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
-            "sample_1_short_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-            "sample_2_short_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-            "sample_2_long_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+            "sample_1.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "sample_2.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-12T17:09:05.20907587"
+        "timestamp": "2024-06-26T13:50:58.784027774"
     },
     "amrfinderplus": {
         "content": [
-            "sample_1_short.tsv:md5,b4d261ace9be7d013c19d1f5c0005bfe",
-            "sample_2_short.tsv:md5,b4d261ace9be7d013c19d1f5c0005bfe",
-            "sample_2_long.tsv:md5,b4d261ace9be7d013c19d1f5c0005bfe"
+            "sample_1.tsv:md5,b4d261ace9be7d013c19d1f5c0005bfe",
+            "sample_2.tsv:md5,b4d261ace9be7d013c19d1f5c0005bfe"
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-12T17:09:05.274247372"
+        "timestamp": "2024-06-26T13:50:58.844143835"
     }
 }

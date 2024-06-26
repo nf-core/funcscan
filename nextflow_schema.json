@@ -78,14 +78,14 @@
                     "type": "boolean",
                     "description": "Activates the taxonomic classification of input nucleotide sequences.",
                     "help_text": "This flag turns on the taxonomic classification of input nucleotide sequences. The taxonomic annotations should be turned on if the input metagenomes' bacterial sources are unknown, which can help identify the source of the AMP, BGC or ARG hit obtained for laboratory experiments. This flag should be turned off (which is by default) if the input nucleotide sequences represent a single known genome or *nf-core/mag* was run beforehand. Turning on this flag relatively decreases the pipeline speed and requires >8GB RAM. Due to the size of the resulting table, the final complete summary is in a zipped format.",
-                    "fa_icon": "fas fa-ad"
+                    "fa_icon": "fas fa-check-circle"
                 },
                 "taxa_classification_tool": {
                     "type": "string",
                     "default": "mmseqs2",
                     "help_text": "This flag specifies which tool for taxonomic classification should be activated. At the moment only 'MMseqs2' is incorporated in the pipeline.",
                     "description": "Specifies the tool used for taxonomic classification.",
-                    "fa_icon": "fas fa-check-circle"
+                    "fa_icon": "fas fa-tools"
                 }
             },
             "fa_icon": "fas fa-address-book"
@@ -99,7 +99,7 @@
                 "taxa_classification_mmseqs_databases_localpath": {
                     "description": "Specify a path to MMseqs2-formatted database.",
                     "help_text": "Specify a path to a database that is prepared in MMseqs2 format as detailed in the [documentation](https://mmseqs.com/latest/userguide.pdf).",
-                    "fa_icon": "fab fa-database"
+                    "fa_icon": "fas fa-database"
                 },
                 "taxa_classification_mmseqs_databases_id": {
                     "type": "string",
@@ -115,7 +115,7 @@
                     "fa_icon": "fas fa-file-download"
                 }
             },
-            "fa_icon": "far fa-database"
+            "fa_icon": "fas fa-save"
         },
         "taxonomic_classification_mmseqs2_taxonomy": {
             "title": "Taxonomic classification: MMseqs2 taxonomy",
@@ -127,7 +127,7 @@
                     "type": "boolean",
                     "help_text": "This flag saves the temporary files from creating the taxonomy database and the final `tsv` file into the output folder.  More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--remove-tmp-files`",
                     "description": "Specify whether to save the temporary files.",
-                    "fa_icon": "fab fa-adversal"
+                    "fa_icon": "fas fa-save"
                 },
                 "taxa_classification_mmseqs_taxonomy_searchtype": {
                     "type": "integer",
@@ -162,7 +162,7 @@
                     "default": "2.0",
                     "help_text": "This flag specifies the sensitivity used for prefiltering the query ORF. Before the taxonomy-assigning step, MMseqs2 searches the predicted ORFs against the provided database. This value influences the speed with which the search is carried out. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--orf-filter-s`",
                     "description": "Specify the ORF search sensitivity in the prefilter step.",
-                    "fa_icon": "fas fa-clock"
+                    "fa_icon": "fas fa-history"
                 },
                 "taxa_classification_mmseqs_taxonomy_lcamode": {
                     "type": "integer",
@@ -176,7 +176,7 @@
                     "default": 1,
                     "help_text": "This flag assigns the mode value with which the weights are computed. The value of '0' stands for uniform weights of taxonomy assignments, the value of '1' uses the minus log E-value and '2' the actual score. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--vote-mode`",
                     "description": "Specify the weights of the taxonomic assignment.",
-                    "fa_icon": "fas fa-poll"
+                    "fa_icon": "fas fa-balance-scale-right"
                 }
             },
             "fa_icon": "fas fa-tag"
@@ -266,13 +266,13 @@
                     "type": "boolean",
                     "description": "Changes the original contig headers.",
                     "help_text": "This flag specifies that the contig headers should be rewritten. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--keep-contig-headers`",
-                    "fa_icon": "far fa-list-alt"
+                    "fa_icon": "far fa-remove-format"
                 },
                 "annotation_bakta_compliant": {
                     "type": "boolean",
                     "description": "Clean the result annotations to standardise them to Genbank/ENA conventions.",
                     "help_text": "The resulting annotations are cleaned up to standardise them to Genbank/ENA/DDJB conventions. CDS without any attributed hits and those without gene symbols or product descriptions different from hypothetical will be marked as 'hypothetical'.\nWhen activated the `--min-contig-length` will be set to 200. More info can be found [here](https://github.com/oschwengers/bakta).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--compliant`",
-                    "fa_icon": "fas fa-check"
+                    "fa_icon": "fas fa-check-circle"
                 },
                 "annotation_bakta_trna": {
                     "type": "boolean",
@@ -371,7 +371,7 @@
                 "annotation_prokka_kingdom": {
                     "type": "string",
                     "default": "Bacteria",
-                    "fa_icon": "fab fa-accusoft",
+                    "fa_icon": "fab fa-crown",
                     "description": "Specify the kingdom that the input represents.",
                     "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n> ⚠️ Prokka cannot annotate Eukaryotes.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--kingdom`",
                     "enum": ["Archaea", "Bacteria", "Mitochondria", "Viruses"]
@@ -418,7 +418,7 @@
                     "type": "boolean",
                     "description": "Use RNAmmer for rRNA prediction.",
                     "help_text": "Activates [RNAmmer](https://services.healthtech.dtu.dk/service.php?RNAmmer-1.2) instead of the Prokka default [Barrnap](https://github.com/tseemann/barrnap) for rRNA prediction during the annotation process. RNAmmer classifies ribosomal RNA genes in genome sequences by using two levels of Hidden Markov Models. Barrnap uses the nhmmer tool that includes HMMER 3.1 for HMM searching in RNA:DNA style.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--rnammer`",
-                    "fa_icon": "fas fa-adjust"
+                    "fa_icon": "fas fa-cogs"
                 },
                 "annotation_prokka_compliant": {
                     "type": "boolean",
@@ -435,12 +435,12 @@
                 },
                 "annotation_prokka_retaincontigheaders": {
                     "type": "boolean",
-                    "fa_icon": "fas fa-remove-format",
+                    "fa_icon": "fas fa-font",
                     "help_text": "This parameter allows prokka to retain the original contig names by activating `PROKKA`'s  `--force` flag. If this parameter is set to `false` it activates `PROKKA`'s flags `--locus-tag PROKKA --centre CENTER` so the locus tags (contig names) will be PROKKA_# and the center tag will be CENTER. By default `PROKKA` changes contig headers to avoid errors that might rise due to long contig headers, so this must be turned on if the user has short contig names that should be retained by `PROKKA`. \n\n> Modifies tool parameter(s):\n> - Prokka: `--locus-tag PROKKA --centre CENTER`\n> - Prokka: `--force`",
                     "description": "Retains contig names."
                 }
             },
-            "fa_icon": "fas fa-tools",
+            "fa_icon": "fas fa-file-signature",
             "help_text": "Prokka annotates genomic sequences belonging to bacterial, archaeal and viral genomes.\n\nDocumentation: https://github.com/tseemann/prokka"
         },
         "annotation_prodigal": {
@@ -459,7 +459,7 @@
                     "type": "boolean",
                     "description": "Does not allow partial genes on contig edges.",
                     "help_text": "Suppresses partial genes from being on contig edge, resulting in closed ends. Should only be activated for genomes where it is sure the first and last bases of the sequence(s) do not fall inside a gene. Run together with `-p normal` (former `-p single`) .\n\nFor more information check the Prodigal [documentation](https://github.com/hyattpd/prodigal/wiki).\n\n> Modifies tool parameter(s):\n> - PRODIGAL: `-c`",
-                    "fa_icon": "fas fa-circle"
+                    "fa_icon": "fas fa-arrows-alt-h"
                 },
                 "annotation_prodigal_transtable": {
                     "type": "integer",
@@ -475,7 +475,7 @@
                     "fa_icon": "fas fa-barcode"
                 }
             },
-            "fa_icon": "fas fa-tools",
+            "fa_icon": "fas fa-file-signature",
             "help_text": "Prodigal is a protein-coding gene prediction tool developed to run on bacterial and archaeal genomes.\n\nDocumentation: https://github.com/hyattpd/prodigal/wiki"
         },
         "annotation_pyrodigal": {
@@ -492,7 +492,7 @@
                 },
                 "annotation_pyrodigal_closed": {
                     "type": "boolean",
-                    "fa_icon": "fas fa-circle",
+                    "fa_icon": "fas fa-arrows-alt-h",
                     "description": "Does not allow partial genes on contig edges.",
                     "help_text": "Suppresses partial genes from being on contig edge, resulting in closed ends. Should only be activated for genomes where it is sure the first and last bases of the sequence(s) do not fall inside a gene. Run together with `-p single` .\n\nFor more information check the Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `-c`"
                 },
@@ -510,7 +510,7 @@
                     "help_text": "Forces Pyrodigal to a full scan for motifs rather than activating the Shine-Dalgarno RBS finder, the default scanner for Pyrodigal to train for motifs.\n\nFor more information check the Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `-n`"
                 }
             },
-            "fa_icon": "fas fa-tools",
+            "fa_icon": "fas fa-file-signature",
             "help_text": "Pyrodigal produces protein-coding gene predictions of bacterial and archaeal genomes, based on the tool Prodigal being resource-optimized. Read more at the [Pyrodigal GitHub](https://github.com/althonos/pyrodigal)\n\nDocumentation: https://pyrodigal.readthedocs.io"
         },
         "database_downloading_options": {
@@ -643,7 +643,7 @@
                 "amp_ampcombi_parsetables_cutoff": {
                     "type": "number",
                     "default": 0.6,
-                    "description": "Assigns the prediction tools' cut-offs.",
+                    "description": "Specifies the prediction tools' cut-offs.",
                     "help_text": "This converts any prediction score below this cut-off to '0'. By doing so only values above this value will be used in the final AMPcombi2 summary table. This applies to all prediction tools except for hmmsearch, which uses e-value. To change the e-value cut-off use instead `--amp_ampcombi_parsetables_hmmevalue`.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--amp_cutoff`",
                     "fa_icon": "fas fa-address-card"
                 },
@@ -717,7 +717,7 @@
                     "fa_icon": "fas fa-address-card"
                 }
             },
-            "fa_icon": "fas fa-search-dollar"
+            "fa_icon": "fas fa-search"
         },
         "amp_ampcombi2_cluster": {
             "title": "AMP: ampcombi2 cluster",
@@ -737,14 +737,14 @@
                     "default": 4.0,
                     "description": "Remove hits that have no stop codon upstream and downstream of the AMP.",
                     "help_text": "This assigns the sensitivity of alignment to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More information can be obtained in the [MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_sensitivity`",
-                    "fa_icon": "fas fa-balance-scale-left"
+                    "fa_icon": "fas fa-arrows-alt-h"
                 },
                 "amp_ampcombi_cluster_minmembers": {
                     "type": "integer",
                     "default": 0,
-                    "description": "Remove clusters that have this min. number of AMP hits.",
+                    "description": "Remove clusters that don't have more AMP hits than this number.",
                     "help_text": "Removes all clusters with this number of AMP hits and less.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_min_member`",
-                    "fa_icon": "fas fa-users"
+                    "fa_icon": "fas fa-book-dead"
                 },
                 "amp_ampcombi_cluster_mode": {
                     "type": "number",
@@ -774,7 +774,7 @@
                     "fa_icon": "fas fa-book-dead"
                 }
             },
-            "fa_icon": "fas fa-braille"
+            "fa_icon": "far fa-object-group"
         },
         "arg_amrfinderplus": {
             "title": "ARG: AMRFinderPlus",
@@ -782,7 +782,7 @@
             "description": "Antimicrobial resistance gene detection based on NCBI's curated Reference Gene Database and curated collection of Hidden Markov Models",
             "default": "",
             "help_text": "NCBI has developed AMRFinderPlus, a tool that identifies AMR genes, resistance-associated point mutations, and select other classes of genes using protein annotations and/or assembled nucleotide sequence. AMRFinderPlus is used in the Pathogen Detection pipeline, and these data are displayed in NCBI's Isolate Browser. AMRFinderPlus relies on NCBI's curated Reference Gene Database and curated collection of Hidden Markov Models.\n\nDocumentation: https://github.com/ncbi/amr/wiki",
-            "fa_icon": "fas fa-tools",
+            "fa_icon": "fas fa-bacterium",
             "properties": {
                 "arg_skip_amrfinderplus": {
                     "type": "boolean",
@@ -847,7 +847,7 @@
                 },
                 "arg_deeparg_data": {
                     "type": "string",
-                    "fa_icon": "fab fa-deezer",
+                    "fa_icon": "fas fa-database",
                     "description": "Specify the path to the DeepARG database.",
                     "help_text": "Specify the path to a local version of the DeepARG database (see the pipelines' usage [documentation](https://nf-co.re/funcscan/dev/docs/usage#databases-and-reference-files)). If no input is given, the module will download the database for you, however this is not recommended, as the database is large and this will take time."
                 },
@@ -902,15 +902,14 @@
                     "fa_icon": "far fa-gem"
                 }
             },
-            "fa_icon": "fas fa-tools",
+            "fa_icon": "fas fa-bacterium",
             "help_text": "deepARG uses deep learning to characterize and annotate antibiotic resistance genes in metagenomes. It is composed of two models for two types of input: short sequence reads and gene-like sequences. In this pipeline we use the `ls` model, which is suitable for annotating full sequence genes and to discover novel antibiotic resistance genes from assembled samples. The tool `Diamond` is used as an aligner.\n\nDocumentation: https://bitbucket.org/gusphdproj/deeparg-ss/src/master/"
         },
         "arg_fargene": {
             "title": "ARG: fARGene",
             "type": "object",
-            "description": "Antimicrobial resistance gene detection using a deep learning model",
+            "description": "Antimicrobial resistance gene detection using a deep learning model. The tool includes developed and optimised models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes. More info: [fARGene documentation](https://github.com/fannyhb/fargene)",
             "default": "",
-            "help_text": "fARGene (Fragmented Antibiotic Resistance Gene Identifier) is a tool that takes either fragmented metagenomic data or longer sequences as input and predicts and delivers full-length antiobiotic resistance genes as output. The tool includes developed and optimised models for a number or resistance gene types, and the functionality to create and optimize models of your own choice of resistance genes. \n\nDocumentation: [https://github.com/fannyhb/fargene](https://github.com/fannyhb/fargene)",
             "properties": {
                 "arg_skip_fargene": {
                     "type": "boolean",
@@ -949,7 +948,7 @@
                     "type": "boolean",
                     "description": "Defines which ORF finding algorithm to use.",
                     "help_text": "By default, pipeline uses prodigal/prokka for the prediction of ORFs from nucleotide sequences. Another option is the NCBI ORFfinder tool that is built into fARGene, the use of which is activated by this flag.\n\nFor more information check the fARGene [documentation](https://github.com/fannyhb/fargene).\n\n> Modifies tool parameter(s):\n> - fARGene: `--orf-finder`",
-                    "fa_icon": "fab fa-adn"
+                    "fa_icon": "fas fa-project-diagram"
                 },
                 "arg_fargene_translationformat": {
                     "type": "string",
@@ -959,14 +958,13 @@
                     "fa_icon": "fas fa-border-none"
                 }
             },
-            "fa_icon": "fas fa-tools"
+            "fa_icon": "fas fa-bacterium"
         },
         "arg_rgi": {
             "title": "ARG: RGI",
             "type": "object",
-            "description": "Antimicrobial resistance gene detection, based on alignment to the CARD database",
+            "description": "Antimicrobial resistance gene detection, based on alignment to the CARD database based on homology and SNP models. More info: [RGI documentation](https://github.com/arpcard/rgi)",
             "default": "",
-            "help_text": "RGI (Resistance Gene Identifier) predicts resistome(s) from protein or nucleotide data based on homology and SNP models. It uses reference data from the Comprehensive Antibiotic Resistance Database (CARD).\n\nDocumentation: https://github.com/arpcard/rgi",
             "properties": {
                 "arg_skip_rgi": {
                     "type": "boolean",
@@ -976,14 +974,14 @@
                 "arg_rgi_database": {
                     "type": "string",
                     "description": "Path to user-defined local CARD database.",
-                    "fa_icon": "fas fa-layer-group",
+                    "fa_icon": "fas fa-database",
                     "help_text": "You can pre-download the CARD database to your machine and pass the path of it to this parameter.\n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#rgi) for details on how to download this.\n\n>  Modifies tool parameter(s):\n> - RGI_CARDANNOTATION: `--input`"
                 },
                 "arg_rgi_savejson": {
                     "type": "boolean",
                     "description": "Save RGI output .json file.",
                     "help_text": "When activated, this flag saves the `.json` file in the RGI output directory. The `.json` file contains the ARG predictions in a format that can be can be uploaded to the CARD website for visualization. See [RGI documentation](https://github.com/arpcard/rgi) for more details. By default, the `.json` file is generated in the working directory but not saved in the results directory to save disk space (`.json` file is quite large and not required downstream in the pipeline). ",
-                    "fa_icon": "fas fa-ad"
+                    "fa_icon": "fas fa-save"
                 },
                 "arg_rgi_savetmpfiles": {
                     "type": "boolean",
@@ -1033,14 +1031,14 @@
                     "default": true
                 }
             },
-            "fa_icon": "fas fa-tools"
+            "fa_icon": "fas fa-bacterium"
         },
         "arg_abricate": {
             "title": "ARG: ABRicate",
             "type": "object",
-            "description": "Antimicrobial resistance gene detection based on alignment to CBI, CARD, ARG-ANNOT, ResFinder, MEGARES, EcOH, PlasmidFinder, Ecoli_VF and VFDB.",
+            "description": "Antimicrobial resistance gene detection based on alignment to CBI, CARD, ARG-ANNOT, ResFinder, MEGARES, EcOH, PlasmidFinder, Ecoli_VF and VFDB. More info: [ABRicate documentation](https://github.com/tseemann/abricate)",
             "default": "",
-            "fa_icon": "fas fa-tools",
+            "fa_icon": "fas fa-bacterium",
             "properties": {
                 "arg_skip_abricate": {
                     "type": "boolean",
@@ -1050,7 +1048,7 @@
                 "arg_abricate_db": {
                     "type": "string",
                     "default": "ncbi",
-                    "fa_icon": "fas fa-layer-group",
+                    "fa_icon": "fas fa-database",
                     "description": "Specify the name of the ABRicate database to use. Names of non-default databases can be supplied if `--arg_abricate_localdbdir` provided.",
                     "help_text": "Specifies which database to use from dedicated list of databases available by ABRicate.\n\nDefault supported are one of: `argannot`, `card`, `ecoh`, `ecoli_vf`, `megares`, `ncbi`, `plasmidfinder`, `resfinder`, `vfdb`. Other options can be supplied if you have installed a custom one within the directory you have supplied to `--arg_abricate_localdbdir`.\n\nFor more information check the ABRicate [documentation](https://github.com/tseemann/abricate).\n\n> Modifies tool parameter(s):\n> - ABRicate: `--db`"
                 },
@@ -1078,15 +1076,14 @@
                     "minimum": 1,
                     "maximum": 100
                 }
-            },
-            "help_text": "ABRicate screens for antimicrobial resistance or virulence genes based on NCBI, CARD, ARG-ANNOT, ResFinder, MEGARES, EcOH, PlasmidFinder, Ecoli_VF and VFDB databases.\n\nDocumentation: https://github.com/tseemann/abricate"
+            }
         },
         "bgc_general_filters": {
             "title": "BGC: General filters",
             "type": "object",
             "description": "These parameters influence general BGC settings like minimum input sequence length.",
             "default": "",
-            "fa_icon": "fas fa-tools",
+            "fa_icon": "fas fa-bacteria",
             "properties": {
                 "bgc_mincontiglength": {
                     "type": "integer",
@@ -1105,7 +1102,7 @@
         "bgc_antismash": {
             "title": "BGC: antiSMASH",
             "type": "object",
-            "description": "Biosynthetic gene cluster detection",
+            "description": "Biosynthetic gene cluster detection. More info: [antiSMASH documentation](https://docs.antismash.secondarymetabolites.org/)",
             "default": "",
             "properties": {
                 "bgc_skip_antismash": {
@@ -1179,13 +1176,12 @@
                     "enum": ["bacteria", "fungi"]
                 }
             },
-            "fa_icon": "fas fa-tools",
-            "help_text": "The antibiotics and Secondary Metabolite Analysis SHell (antiSMASH) carries out a genome-wide screening, annotation and analysis of secondary metabolite biosynthesis gene clusters in bacterial and fungal genomes. \n\nDocumentation: https://antismash.secondarymetabolites.org/#!/about"
+            "fa_icon": "fas fa-tools"
         },
         "bgc_deepbgc": {
             "title": "BGC: DeepBGC",
             "type": "object",
-            "description": "A deep learning genome-mining strategy for biosynthetic gene cluster prediction",
+            "description": "A deep learning genome-mining strategy for biosynthetic gene cluster prediction. More info: [DeepBGC documentation](https://github.com/Merck/deepbgc/tree/master/deepbgc)",
             "default": "",
             "properties": {
                 "bgc_skip_deepbgc": {
@@ -1261,13 +1257,12 @@
                     "help_text": "DeepBGC classification score threshold for assigning classes to BGCs.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--classifier-score`"
                 }
             },
-            "help_text": "DeepBGC screens for BGCs in bacterial and fungal genomes using deep learning.\n\nDocumentation: https://github.com/Merck/deepbgc/tree/master/deepbgc",
-            "fa_icon": "fas fa-database"
+            "fa_icon": "fas fa-bacteria"
         },
         "bgc_gecco": {
-            "title": "BGC: gecco",
+            "title": "BGC: GECCO",
             "type": "object",
-            "description": "Biosynthetic gene cluster detection",
+            "description": "Biosynthetic gene cluster detection using Conditional Random Fields (CRFs). More info: [GECCO documentation](https://gecco.embl.de/)",
             "default": "",
             "properties": {
                 "bgc_skip_gecco": {
@@ -1310,12 +1305,12 @@
                     "fa_icon": "fas fa-ruler-horizontal"
                 }
             },
-            "fa_icon": "fas fa-tools"
+            "fa_icon": "fas fa-bacteria"
         },
         "bgc_hmmsearch": {
             "title": "BGC: hmmsearch",
             "type": "object",
-            "description": "Biosynthetic Gene Cluster detection based on predefined HMM models",
+            "description": "Biosynthetic Gene Cluster detection based on predefined HMM models. This tool implements methods using probabilistic models called profile hidden Markov models (profile HMMs) to search against a sequence database. More info: [HMMER User's Guide](http://eddylab.org/software/hmmer/Userguide.pdf)",
             "default": "",
             "properties": {
                 "bgc_run_hmmsearch": {
@@ -1349,8 +1344,7 @@
                     "fa_icon": "far fa-save"
                 }
             },
-            "help_text": "HMMER/hmmsearch is used for searching sequence databases for sequence homologs, and for making sequence alignments. It implements methods using probabilistic models called profile hidden Markov models (profile HMMs). `hmmsearch` is used to search one or more profiles against a sequence database.\n\nFor more information check the HMMER [documentation](http://hmmer.org/).",
-            "fa_icon": "fas fa-tools"
+            "fa_icon": "fas fa-bacteria"
         },
         "reporting": {
             "title": "Reporting",

@@ -52,7 +52,7 @@ nextflow_pipeline {
                     path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel_log.txt")
                 ).match("macrel") },
 
-                // ampcombi
+                // AMPcombi
                 { assert path("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("NODE_515831_length_303_cov_1.532258_1") },
                 { assert snapshot(
                     path("$outputDir/reports/ampcombi2/Ampcombi_cluster.log"),
@@ -101,7 +101,7 @@ nextflow_pipeline {
                 { assert path("$outputDir/arg/fargene/sample_1/fargene_analysis.log").text.contains("fARGene is done.") },
                 { assert path("$outputDir/arg/fargene/sample_2/fargene_analysis.log").text.contains("fARGene is done.") },
 
-                // hamronization
+                // hAMRonization
                 { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv")).match("hamronization_summarize") },
             )
         }

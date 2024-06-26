@@ -1,0 +1,133 @@
+nextflow_pipeline {
+
+    name "Test pipeline: NFCORE_FUNCSCAN"
+    script "main.nf"
+    tag "pipeline"
+    tag "nfcore_funcscan"
+    tag "test_full"
+
+    test("test_full_profile") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert new File("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+
+                // AMP workflow
+
+                // AMPir
+                { assert snapshot(
+                    path("$outputDir/amp/ampir/sample_1/sample_1.ampir.tsv"),
+                    path("$outputDir/amp/ampir/sample_1/sample_1.ampir.faa"),
+                    path("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv"),
+                    path("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa"),
+                ).match("ampir") },
+
+                // HMMsearch
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_1/sample_1.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_2/sample_2.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+
+                // Macrel
+                { assert snapshot(
+                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.smorfs.faa.gz"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.smorfs.faa.gz"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.all_orfs.faa.gz"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.all_orfs.faa.gz"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/README.md"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/README.md"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel_log.txt"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel_log.txt")
+                ).match("macrel") },
+
+                // AMPcombi
+                { assert new File("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("KKEJHB_00100") },
+
+                // ARG workflow
+
+                // DeepARG
+                { assert snapshot(
+                    path("$outputDir/arg/deeparg/sample_1/sample_1.align.daa.tsv"),
+                    path("$outputDir/arg/deeparg/sample_2/sample_2.align.daa.tsv")
+                    path("$outputDir/arg/deeparg/sample_1/sample_1.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/sample_2/sample_2.mapping.ARG"),
+                    file("$outputDir/arg/deeparg/sample_1/sample_1.mapping.potential.ARG").text.contains("#ARG"),
+                    file("$outputDir/arg/deeparg/sample_2/sample_2.mapping.potential.ARG").text.contains("#ARG")
+                ).match("deeparg") },
+
+                { assert
+                    new File("$outputDir/arg/deeparg/sample_1/sample_1.align.daa").exists(),
+                    new File("$outputDir/arg/deeparg/sample_2/sample_2.align.daa").exists()
+                },
+
+                // ABRicate
+                { assert snapshot(
+                    path("$outputDir/arg/deeparg/sample_1/sample_1.txt"),
+                    path("$outputDir/arg/deeparg/sample_2/sample_2.txt")
+                ).match("abricate") },
+
+                // AMRFinderPlus
+                { assert snapshot(
+                    path("$outputDir/arg/amrfinderplus/sample_1/sample_1.tsv"),
+                    path("$outputDir/arg/amrfinderplus/sample_2/sample_2.tsv")
+                ).match("amrfinderplus") },
+
+                // RGI
+                { assert snapshot(
+                    path("$outputDir/arg/rgi/sample_1/sample_1.txt"),
+                    path("$outputDir/arg/rgi/sample_2/sample_2.txt")
+                ).match("rgi") },
+
+                // fARGene
+                { assert snapshot(
+                    path("$outputDir/arg/rgi/sample_1/class_a/results_summary.txt"),
+                    path("$outputDir/arg/rgi/sample_2/class_a/results_summary.txt"),
+                    path("$outputDir/arg/rgi/sample_1/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/rgi/sample_2/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/rgi/sample_1/class_b_1_2/fargene_analysis.log"),
+                    path("$outputDir/arg/rgi/sample_2/class_b_1_2/fargene_analysis.log")
+                ).match("fargene") },
+
+                // hAMRonization
+                { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv")).match("hamronization_summarize") },
+
+                // BGC workflow
+
+                // antiSMASH
+                { assert snapshot(
+                    file("$outputDir/bgc/antismash/sample_2/sample_2.gbk").text.contains("##antiSMASH-Data-START##"),                  // channel: gbk_input
+                    path("$outputDir/bgc/antismash/sample_2/css"),                                                                     // parts of channel: html_accessory_files
+                    path("$outputDir/bgc/antismash/sample_2/sample_2.zip"),                                                            // channel: zip
+                    file("$outputDir/bgc/antismash/sample_2/index.html").text.contains("https://antismash.secondarymetabolites.org/"), // channel: html
+                    file("$outputDir/bgc/antismash/sample_2/regions.js").text.contains('NODE_861_length_4516_cov'),                    // channel: json_sideloading
+                    file("$outputDir/bgc/antismash/sample_2/sample_2.log").text.contains("antiSMASH status: SUCCESS")                  // channel: log
+                ).match("antismash") },
+
+                // DeepBGC
+                { assert snapshot(
+                    path("$outputDir/bgc/deepbgc/sample_2/sample_2.full.gbk"),                                                          // channel: bgc_gbk
+                    file("$outputDir/bgc/deepbgc/sample_2/sample_2.antismash.json").text.contains("NODE_861_length_4516_cov_2.736606"), // channel: json
+                    file("$outputDir/bgc/deepbgc/sample_2/LOG.txt").text.contains('Saved DeepBGC result to: sample_2'),                 // channel: log
+                    file("$outputDir/bgc/deepbgc/sample_2/sample_2.full.gbk").text.contains('1 aaggggtatg gagcagcgac gtctacccgt')       // channel: full_gbk
+                ).match("deepbgc") },
+
+                // GECCO
+                { assert snapshot(
+                    path("$outputDir/bgc/gecco/sample_2.genes.tsv"), // channel: genes
+                    path("$outputDir/bgc/gecco/sample_2.features" )  // channel: features
+                ).match("gecco") },
+
+                // comBGC
+                { assert snapshot("$outputDir/reports/combgc/combgc_complete_summary.tsv") }
+            )
+        }
+    }
+}
