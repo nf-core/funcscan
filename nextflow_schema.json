@@ -96,12 +96,12 @@
             "description": "These parameters influence the database to be used in classifying the taxonomy.",
             "default": "",
             "properties": {
-                "taxa_classification_mmseqs_databases_localpath": {
+                "taxa_classification_mmseqs_db": {
                     "description": "Specify a path to MMseqs2-formatted database.",
                     "help_text": "Specify a path to a database that is prepared in MMseqs2 format as detailed in the [documentation](https://mmseqs.com/latest/userguide.pdf).",
                     "fa_icon": "fas fa-database"
                 },
-                "taxa_classification_mmseqs_databases_id": {
+                "taxa_classification_mmseqs_db_id": {
                     "type": "string",
                     "default": "Kalamari",
                     "help_text": "Specify which MMseqs2-formatted database to use to classify the input contigs. This can be a nucleotide or amino acid database that includes taxonomic classifications. For example, both GTDB (an amico acid database) and SILVA (a nucleotide database) are supported by MMseqs2. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs databases <name>",
@@ -515,11 +515,11 @@
             "description": "Generic options for database downloading",
             "default": "",
             "properties": {
-                "save_databases": {
+                "save_db": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Specify whether to save pipeline-downloaded databases in your results directory.",
-                    "help_text": "While nf-core/funcscan can download databases for you, often these are very large and can significantly slow-down pipeline runtime if the databases have to be downloaded every run.\n\nSpecifying `--save_databases` will save the pipeline-downloaded databases in your results directory. This applies to: AMRFinderPlus, antiSMASH, Bakta, CARD (for RGI), DeepARG, DeepBGC, and DRAMP (for AMPcombi2).\n\nYou can then move the resulting directories/files to a central cache directory of your choice for re-use in the future.\n\nIf you do not specify these flags, the database files will remain in your `work/` directory and will be deleted if `cleanup = true` is specified in your config, or if you run `nextflow clean`.\n"
+                    "help_text": "While nf-core/funcscan can download databases for you, often these are very large and can significantly slow-down pipeline runtime if the databases have to be downloaded every run.\n\nSpecifying `--save_db` will save the pipeline-downloaded databases in your results directory. This applies to: AMRFinderPlus, antiSMASH, Bakta, CARD (for RGI), DeepARG, DeepBGC, and DRAMP (for AMPcombi2).\n\nYou can then move the resulting directories/files to a central cache directory of your choice for re-use in the future.\n\nIf you do not specify these flags, the database files will remain in your `work/` directory and will be deleted if `cleanup = true` is specified in your config, or if you run `nextflow clean`.\n"
                 }
             },
             "fa_icon": "fas fa-database"
@@ -837,13 +837,13 @@
                     "description": "Skip DeepARG during the ARG screening.",
                     "fa_icon": "fas fa-ban"
                 },
-                "arg_deeparg_data": {
+                "arg_deeparg_db": {
                     "type": "string",
                     "fa_icon": "fas fa-database",
                     "description": "Specify the path to the DeepARG database.",
                     "help_text": "Specify the path to a local version of the DeepARG database (see the pipelines' usage [documentation](https://nf-co.re/funcscan/dev/docs/usage#databases-and-reference-files)). If no input is given, the module will download the database for you, however this is not recommended, as the database is large and this will take time."
                 },
-                "arg_deeparg_data_version": {
+                "arg_deeparg_db_version": {
                     "type": "integer",
                     "default": 2,
                     "description": "Specify the numeric version number of a user supplied DeepaRG database.",
@@ -962,7 +962,7 @@
                     "description": "Skip RGI during the ARG screening.",
                     "fa_icon": "fas fa-ban"
                 },
-                "arg_rgi_database": {
+                "arg_rgi_db": {
                     "type": "string",
                     "description": "Path to user-defined local CARD database.",
                     "fa_icon": "fas fa-database",
@@ -1101,17 +1101,17 @@
                     "description": "Skip antiSMASH during the BGC screening.",
                     "fa_icon": "fas fa-ban"
                 },
-                "bgc_antismash_databases": {
+                "bgc_antismash_db": {
                     "type": "string",
                     "description": "Path to user-defined local antiSMASH database.",
                     "fa_icon": "fas fa-database",
-                    "help_text": "It is recommend to pre-download the antiSMASH databases to your machine and pass the path of it to this parameter, as this can take a long time to download - particularly when running lots of pipeline runs. \n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#antismash-1) for details on how to download this. If running with docker or singularity, please also check `--bgc_antismash_installationdirectory` for important information."
+                    "help_text": "It is recommend to pre-download the antiSMASH databases to your machine and pass the path of it to this parameter, as this can take a long time to download - particularly when running lots of pipeline runs. \n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#antismash-1) for details on how to download this. If running with docker or singularity, please also check `--bgc_antismash_installdir` for important information."
                 },
-                "bgc_antismash_installationdirectory": {
+                "bgc_antismash_installdir": {
                     "type": "string",
                     "description": "Path to user-defined local antiSMASH directory. Only required when running with docker/singularity.",
                     "fa_icon": "far fa-folder-open",
-                    "help_text": "This is required when running with **docker and singularity** (not required for conda), due to attempted 'modifications' of files during database checks in the installation directory, something that cannot be done in immutable docker/singularity containers.\n\nTherefore, a local installation directory needs to be mounted (including all modified files from the downloading step) to the container as a workaround.\n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#antismash-1) for details on how to download this. If running with docker or singularity, please also check `--bgc_antismash_installationdirectory` for important information."
+                    "help_text": "This is required when running with **docker and singularity** (not required for conda), due to attempted 'modifications' of files during database checks in the installation directory, something that cannot be done in immutable docker/singularity containers.\n\nTherefore, a local installation directory needs to be mounted (including all modified files from the downloading step) to the container as a workaround.\n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#antismash-1) for details on how to download this. If running with docker or singularity, please also check `--bgc_antismash_installdir` for important information."
                 },
                 "bgc_antismash_contigminlength": {
                     "type": "integer",
@@ -1180,7 +1180,7 @@
                     "fa_icon": "fas fa-ban",
                     "description": "Skip DeepBGC during the BGC screening."
                 },
-                "bgc_deepbgc_database": {
+                "bgc_deepbgc_db": {
                     "type": "string",
                     "fa_icon": "fas fa-database",
                     "description": "Path to local DeepBGC database folder."

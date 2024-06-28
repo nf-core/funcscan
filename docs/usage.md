@@ -98,13 +98,13 @@ MMseqs2 is currently the only taxonomic classification tool used in the pipeline
 - a custom based database created by the user using `mmseqs createdb` externally and beforehand. If this flag is assigned, this database takes precedence over the default database in ` mmseqs_databases_id`.
 
   ```bash
-  --taxa_classification_mmseqs_databases_localpath 'path/to/mmsesqs_custom_database/dir'
+  --taxa_classification_mmseqs_db 'path/to/mmsesqs_custom_database/dir'
   ```
 
 - an MMseqs2 ready database. These databases were compiled by the developers of MMseqs2 and can be called using their labels. All available options can be found [here](https://github.com/soedinglab/MMseqs2/wiki#downloading-databases). Only use those databases that have taxonomy files available (i.e., Taxonomy == Yes). By default mmseqs2 in the pipeline uses '[Kalamari](https://github.com/lskatz/Kalamari)', and runs an aminoacid based alignment. However, if the user requires a more comprehensive taxonomic classification, we recommend the use of [GTDB](https://gtdb.ecogenomic.org/), but for that please remember to increase the memory, CPU threads and time required for the process `MMSEQS_TAXONOMY`.
 
   ```bash
-  --taxa_classification_mmseqs_databases_id 'Kalamari'
+  --taxa_classification_mmseqs_db_id 'Kalamari'
   ```
 
 ### antiSMASH
@@ -123,7 +123,7 @@ Various tools of nf-core/funcscan use databases and reference files to operate.
 
 nf-core/funcscan offers the functionality to auto-download databases for you, and as these databases can be very large, and we suggest to store these files in a central place from where you can reuse them across pipeline runs.
 
-If your infrastructure has internet access (particularly on compute nodes), we **highly recommend** allowing the pipeline to download these databases for you on a first run, saving these to your results directory with `--save_databases`, then moving these to a different location (in case you wish to delete the results directory of this first run). An exception to this is HMM files where no auto-downloading functionality is possible.
+If your infrastructure has internet access (particularly on compute nodes), we **highly recommend** allowing the pipeline to download these databases for you on a first run, saving these to your results directory with `--save_db`, then moving these to a different location (in case you wish to delete the results directory of this first run). An exception to this is HMM files where no auto-downloading functionality is possible.
 
 :::warning
 We generally do not recommend downloading the databases yourself, as this can often be non-trivial to do!
@@ -150,7 +150,7 @@ And then passed to the pipeline with:
 ```
 
 :::info
-The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+The flag `--save_db` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
 :::
 
 ### hmmsearch
@@ -191,11 +191,11 @@ The default ABRicate installation comes with a series of 'default' databases:
 - VFDB (`vfdb`)
 - Ecoli_VF (`ecoli_vf`)
 
-Each can be specified by using the nf-core/funcscan flag, for example for card: `--arg_abricate_db card`.
+Each can be specified by using the nf-core/funcscan flag, for example for card: `--arg_abricate_db_id card`.
 
 ABRicate also allows you to download additional and/or use custom databases.
 For both of these, you will need to have your own local installation of ABRicate.
-You then can download/add the custom database to the local installation's database directory, and supply this directory to the pipeline with the flag `--arg_abricate_localdbdir`, in combination with the name of the new database to `--arg_abricate_db <db_name>`.
+You then can download/add the custom database to the local installation's database directory, and supply this directory to the pipeline with the flag `--arg_abricate_db`, in combination with the name of the new database to `--arg_abricate_db_id <db_name>`.
 
 For example, if you want to use the `bacmet2` database that does not come with the default installation, you could do:
 
@@ -208,7 +208,7 @@ conda activate abricate
 abricate-get_db --db bacmet2 ## the logging will tell you where the database is downloaded to, e.g. /home/<user>/bin/miniconda3/envs/abricate/db/bacmet2/sequences
 
 ## Run nextflow
-nextflow run nf-core/funcscan -r <version> -profile docker --input samplesheet.csv --outdir <outdir> --run_arg_screening --arg_abricate_localdbdir /home/<user>/bin/miniconda3/envs/abricate/db/ --arg_abricate_db bacmet2
+nextflow run nf-core/funcscan -r <version> -profile docker --input samplesheet.csv --outdir <outdir> --run_arg_screening --arg_abricate_db /home/<user>/bin/miniconda3/envs/abricate/db/ --arg_abricate_db_id bacmet2
 ```
 
 ### AMRFinderPlus
@@ -253,7 +253,7 @@ To obtain a local version of the database:
 </details>
 
 :::info
-The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+The flag `--save_db` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
 :::
 
 ### DeepARG
@@ -277,13 +277,13 @@ Note that more recent database versions maybe available from the [ARGMiner servi
 You can then supply the path to resulting database directory with:
 
 ```bash
---arg_deeparg_data '/<path>/<to>/<deeparg>/<db>/'
+--arg_deeparg_db '/<path>/<to>/<deeparg>/<db>/'
 ```
 
-Note that if you supply your own database that is not downloaded by the pipeline, make sure to also supply `--arg_deeparg_data_version` along
+Note that if you supply your own database that is not downloaded by the pipeline, make sure to also supply `--arg_deeparg_db_version` along
 with the version number so hAMRonization will correctly display the database version in the summary report.
 :::info
-The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+The flag `--save_db` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
 :::
 
 ### RGI
@@ -296,11 +296,11 @@ RGI requires the database CARD which can be downloaded by nf-core/funcscan or su
 You can then supply the path to resulting database directory with:
 
 ```bash
---arg_rgi_database '/<path>/<to>/<card>/'
+--arg_rgi_db '/<path>/<to>/<card>/'
 ```
 
 :::info
-The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+The flag `--save_db` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
 :::
 
 ### antiSMASH
@@ -318,14 +318,14 @@ To supply the database directories to the pipeline:
 3. You can then supply the paths to the resulting databases and the whole installation directory with:
 
 ```bash
---bgc_antismash_databases '/<path>/<to>/<antismash>/<db>/'
---bgc_antismash_installationdirectory '/<path>/<to>/<antismash>/<dir>/'
+--bgc_antismash_db '/<path>/<to>/<antismash>/<db>/'
+--bgc_antismash_installdir '/<path>/<to>/<antismash>/<dir>/'
 ```
 
 Note that the names of the supplied folders must differ from each other (e.g. `antismash_db` and `antismash_dir`). If they are not provided, the databases will be auto-downloaded upon each BGC screening run of the pipeline.
 
 :::info
-The flag `--save_databases` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+The flag `--save_db` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
 :::
 
 :::info
@@ -334,9 +334,9 @@ If installing with conda, the installation directory will be `lib/python3.10/sit
 
 ### DeepBGC
 
-DeepBGC relies on trained models and Pfams to run its analysis. nf-core/funcscan will download these databases for you. If the flag `--save_databases` is set, the downloaded files will be stored in the output directory under `databases/deepbgc/`.
+DeepBGC relies on trained models and Pfams to run its analysis. nf-core/funcscan will download these databases for you. If the flag `--save_db` is set, the downloaded files will be stored in the output directory under `databases/deepbgc/`.
 
-Alternatively, if you already downloaded the database locally with `deepbgc download`, you can indicate the path to the database folder with `--bgc_deepbgc_database <path>/<to>/<deepbgc_db>/`. The folder has to contain the subfolders as in the database folder downloaded by `deepbgc download`:
+Alternatively, if you already downloaded the database locally with `deepbgc download`, you can indicate the path to the database folder with `--bgc_deepbgc_db <path>/<to>/<deepbgc_db>/`. The folder has to contain the subfolders as in the database folder downloaded by `deepbgc download`:
 
 ```console
 deepbgc_db/
