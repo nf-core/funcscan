@@ -24,74 +24,228 @@ nextflow_pipeline {
 
                 // AMPir
                 { assert snapshot(
-                    path("$outputDir/amp/ampir/sample_1/sample_1.ampir.tsv"),
-                    path("$outputDir/amp/ampir/sample_1/sample_1.ampir.faa"),
-                    path("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv"),
-                    path("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa")
+                    path("$outputDir/amp/ampir/ERZ1664501/ERZ1664501.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664503/ERZ1664503.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664504/ERZ1664504.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664504/ERZ1664505.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664506/ERZ1664506.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664507/ERZ1664507.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664508/ERZ1664508.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664509/ERZ1664509.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664510/ERZ1664510.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664511/ERZ1664511.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664515/ERZ1664515.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664516/ERZ1664516.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664517/ERZ1664517.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664518/ERZ1664518.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664520/ERZ1664520.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664521/ERZ1664521.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664523/ERZ1664523.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664524/ERZ1664524.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664528/ERZ1664528.ampir.tsv"),
+                    path("$outputDir/amp/ampir/ERZ1664501/ERZ1664501.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664503/ERZ1664503.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664504/ERZ1664504.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664505/ERZ1664505.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664506/ERZ1664506.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664507/ERZ1664507.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664508/ERZ1664508.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664509/ERZ1664509.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664510/ERZ1664510.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664511/ERZ1664511.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664515/ERZ1664515.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664516/ERZ1664516.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664517/ERZ1664517.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664518/ERZ1664518.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664520/ERZ1664520.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664521/ERZ1664521.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664523/ERZ1664523.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664524/ERZ1664524.ampir.faa"),
+                    path("$outputDir/amp/ampir/ERZ1664528/ERZ1664528.ampir.faa")
                 ).match("ampir") },
 
                 // HMMsearch
-                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_1/sample_1.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
-                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_2/sample_2.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664501/ERZ1664501.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664503/ERZ1664503.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664504/ERZ1664504.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664506/ERZ1664506.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664507/ERZ1664507.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664508/ERZ1664508.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664509/ERZ1664509.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664510/ERZ1664510.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664511/ERZ1664511.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664515/ERZ1664515.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664516/ERZ1664516.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664517/ERZ1664517.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664518/ERZ1664518.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664520/ERZ1664520.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664521/ERZ1664521.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664523/ERZ1664523.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664523/ERZ1664523.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664524/ERZ1664524.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/ERZ1664528/ERZ1664528.hmmer_hmmsearch_mybacteriocin.txt.gz").exists() },
 
                 // Macrel
                 { assert snapshot(
-                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.smorfs.faa.gz"),
-                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.smorfs.faa.gz"),
-                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.all_orfs.faa.gz"),
-                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.all_orfs.faa.gz"),
-                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.prediction.gz"),
-                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.prediction.gz"),
-                    path("$outputDir/amp/macrel/sample_1.macrel/README.md"),
-                    path("$outputDir/amp/macrel/sample_2.macrel/README.md"),
-                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel_log.txt"),
-                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel_log.txt")
+                    path("$outputDir/amp/macrel/ERZ1664501.macrel/ERZ1664501.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664503.macrel/ERZ1664503.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664504.macrel/ERZ1664504.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664505.macrel/ERZ1664505.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664506.macrel/ERZ1664506.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664507.macrel/ERZ1664507.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664508.macrel/ERZ1664508.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664509.macrel/ERZ1664509.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664510.macrel/ERZ1664510.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664511.macrel/ERZ1664511.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664515.macrel/ERZ1664515.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664516.macrel/ERZ1664516.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664517.macrel/ERZ1664517.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664518.macrel/ERZ1664518.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664520.macrel/ERZ1664520.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664521.macrel/ERZ1664521.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664523.macrel/ERZ1664523.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664524.macrel/ERZ1664524.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/ERZ1664528.macrel/ERZ1664528.macrel.prediction.gz")
                 ).match("macrel") },
 
                 // AMPcombi
-                { assert new File("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("KKEJHB_00100") },
+                { assert new File("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("ERZ1664515.11560-NODE-11560-length-551-cov-1.403226_2") },
 
                 // ARG workflow
 
                 // DeepARG
                 { assert snapshot(
-                    path("$outputDir/arg/deeparg/sample_1/sample_1.align.daa.tsv"),
-                    path("$outputDir/arg/deeparg/sample_2/sample_2.align.daa.tsv"),
-                    path("$outputDir/arg/deeparg/sample_1/sample_1.mapping.ARG"),
-                    path("$outputDir/arg/deeparg/sample_2/sample_2.mapping.ARG"),
-                    file("$outputDir/arg/deeparg/sample_1/sample_1.mapping.potential.ARG").text.contains("#ARG"),
-                    file("$outputDir/arg/deeparg/sample_2/sample_2.mapping.potential.ARG").text.contains("#ARG")
+                    path("$outputDir/arg/deeparg/ERZ1664501/ERZ1664501.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664503/ERZ1664503.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664504/ERZ1664504.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664505/ERZ1664505.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664506/ERZ1664506.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664507/ERZ1664507.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664508/ERZ1664508.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664509/ERZ1664509.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664510/ERZ1664510.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664511/ERZ1664511.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664515/ERZ1664515.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664516/ERZ1664516.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664517/ERZ1664517.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664518/ERZ1664518.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664520/ERZ1664520.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664521/ERZ1664521.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664523/ERZ1664523.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664524/ERZ1664524.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/ERZ1664528/ERZ1664528.mapping.ARG")
                 ).match("deeparg") },
 
-                { assert new File("$outputDir/arg/deeparg/sample_1/sample_1.align.daa").exists() }
-                { assert new File("$outputDir/arg/deeparg/sample_2/sample_2.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664501/ERZ1664501.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664503/ERZ1664503.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664504/ERZ1664504.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664505/ERZ1664505.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664506/ERZ1664506.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664507/ERZ1664507.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664508/ERZ1664508.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664509/ERZ1664509.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664510/ERZ1664510.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664511/ERZ1664511.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664515/ERZ1664515.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664516/ERZ1664516.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664517/ERZ1664517.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664518/ERZ1664518.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664520/ERZ1664520.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664521/ERZ1664521.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664523/ERZ1664523.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664524/ERZ1664524.align.daa").exists() },
+                { assert new File("$outputDir/arg/deeparg/ERZ1664528/ERZ1664528.align.daa").exists() },
 
                 // ABRicate
                 { assert snapshot(
-                    path("$outputDir/arg/deeparg/sample_1/sample_1.txt"),
-                    path("$outputDir/arg/deeparg/sample_2/sample_2.txt")
+                    path("$outputDir/arg/deeparg/ERZ1664501/ERZ1664501.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664503/ERZ1664503.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664504/ERZ1664504.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664505/ERZ1664505.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664506/ERZ1664506.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664507/ERZ1664507.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664508/ERZ1664508.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664509/ERZ1664509.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664510/ERZ1664510.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664511/ERZ1664511.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664515/ERZ1664515.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664516/ERZ1664516.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664517/ERZ1664517.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664518/ERZ1664518.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664520/ERZ1664520.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664521/ERZ1664521.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664523/ERZ1664523.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664524/ERZ1664524.txt"),
+                    path("$outputDir/arg/deeparg/ERZ1664528/ERZ1664528.txt")
                 ).match("abricate") },
 
                 // AMRFinderPlus
                 { assert snapshot(
-                    path("$outputDir/arg/amrfinderplus/sample_1/sample_1.tsv"),
-                    path("$outputDir/arg/amrfinderplus/sample_2/sample_2.tsv")
+                    path("$outputDir/arg/amrfinderplus/ERZ1664501/ERZ1664501.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664503/ERZ1664503.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664504/ERZ1664504.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664505/ERZ1664505.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664506/ERZ1664506.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664507/ERZ1664507.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664508/ERZ1664508.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664509/ERZ1664509.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664510/ERZ1664510.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664511/ERZ1664511.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664515/ERZ1664515.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664516/ERZ1664516.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664517/ERZ1664517.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664518/ERZ1664518.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664520/ERZ1664520.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664521/ERZ1664521.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664523/ERZ1664523.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664524/ERZ1664524.tsv"),
+                    path("$outputDir/arg/amrfinderplus/ERZ1664528/ERZ1664528.tsv")
                 ).match("amrfinderplus") },
 
                 // RGI
                 { assert snapshot(
-                    path("$outputDir/arg/rgi/sample_1/sample_1.txt"),
-                    path("$outputDir/arg/rgi/sample_2/sample_2.txt")
+                    path("$outputDir/arg/rgi/ERZ1664501/ERZ1664501.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664503/ERZ1664503.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664504/ERZ1664504.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664505/ERZ1664505.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664506/ERZ1664506.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664507/ERZ1664507.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664508/ERZ1664508.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664509/ERZ1664509.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664510/ERZ1664510.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664511/ERZ1664511.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664515/ERZ1664515.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664516/ERZ1664516.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664517/ERZ1664517.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664518/ERZ1664518.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664520/ERZ1664520.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664521/ERZ1664521.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664523/ERZ1664523.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664524/ERZ1664524.txt"),
+                    path("$outputDir/arg/rgi/ERZ1664528/ERZ1664528.txt")
                 ).match("rgi") },
 
                 // fARGene
                 { assert snapshot(
-                    path("$outputDir/arg/rgi/sample_1/class_a/results_summary.txt"),
-                    path("$outputDir/arg/rgi/sample_2/class_a/results_summary.txt"),
-                    path("$outputDir/arg/rgi/sample_1/class_b_1_2/results_summary.txt"),
-                    path("$outputDir/arg/rgi/sample_2/class_b_1_2/results_summary.txt"),
-                    path("$outputDir/arg/rgi/sample_1/class_b_1_2/fargene_analysis.log"),
-                    path("$outputDir/arg/rgi/sample_2/class_b_1_2/fargene_analysis.log")
+                    path("$outputDir/arg/fargene/ERZ1664501/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664503/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664504/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664505/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664506/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664507/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664508/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664509/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664510/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664511/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664515/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664516/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664517/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664518/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664520/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664521/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664523/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664524/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/ERZ1664528/class_b_1_2/results_summary.txt")
                 ).match("fargene") },
 
                 // hAMRonization
@@ -101,26 +255,47 @@ nextflow_pipeline {
 
                 // antiSMASH
                 { assert snapshot(
-                    file("$outputDir/bgc/antismash/sample_2/sample_2.gbk").text.contains("##antiSMASH-Data-START##"),                  // channel: gbk_input
-                    path("$outputDir/bgc/antismash/sample_2/css"),                                                                     // parts of channel: html_accessory_files
-                    path("$outputDir/bgc/antismash/sample_2/sample_2.zip"),                                                            // channel: zip
-                    file("$outputDir/bgc/antismash/sample_2/index.html").text.contains("https://antismash.secondarymetabolites.org/"), // channel: html
-                    file("$outputDir/bgc/antismash/sample_2/regions.js").text.contains('NODE_861_length_4516_cov'),                    // channel: json_sideloading
-                    file("$outputDir/bgc/antismash/sample_2/sample_2.log").text.contains("antiSMASH status: SUCCESS")                  // channel: log
+                    file("$outputDir/bgc/antismash/ERZ1664501/ERZ1664501.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664503/ERZ1664503.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664504/ERZ1664504.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664505/ERZ1664505.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664506/ERZ1664506.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664507/ERZ1664507.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664508/ERZ1664508.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664509/ERZ1664509.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664510/ERZ1664510.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664511/ERZ1664511.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664515/ERZ1664515.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664516/ERZ1664516.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664517/ERZ1664517.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664518/ERZ1664518.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664520/ERZ1664520.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664521/ERZ1664521.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664523/ERZ1664523.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664524/ERZ1664524.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/ERZ1664528/ERZ1664528.gbk").text.contains("##antiSMASH-Data-START##")
                 ).match("antismash") },
-
-                // DeepBGC
-                { assert snapshot(
-                    path("$outputDir/bgc/deepbgc/sample_2/sample_2.full.gbk"),                                                          // channel: bgc_gbk
-                    file("$outputDir/bgc/deepbgc/sample_2/sample_2.antismash.json").text.contains("NODE_861_length_4516_cov_2.736606"), // channel: json
-                    file("$outputDir/bgc/deepbgc/sample_2/LOG.txt").text.contains('Saved DeepBGC result to: sample_2'),                 // channel: log
-                    file("$outputDir/bgc/deepbgc/sample_2/sample_2.full.gbk").text.contains('1 aaggggtatg gagcagcgac gtctacccgt')       // channel: full_gbk
-                ).match("deepbgc") },
 
                 // GECCO
                 { assert snapshot(
-                    path("$outputDir/bgc/gecco/sample_2.genes.tsv"), // channel: genes
-                    path("$outputDir/bgc/gecco/sample_2.features" )  // channel: features
+                    file("$outputDir/bgc/gecco/ERZ1664504/ERZ1664504.220-NODE-220-length-4587-cov-2.552957_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664504/ERZ1664504.48-NODE-48-length-9582-cov-5.239425_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664506/ERZ1664506.42-NODE-42-length-11967-cov-6.006380_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664508/ERZ1664508.3061-NODE-3061-length-1263-cov-3.647351_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664510/ERZ1664510.123-NODE-123-length-8863-cov-8.649410_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664510/ERZ1664510.210-NODE-210-length-5173-cov-7.860688_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664511/ERZ1664511.16-NODE-16-length-49668-cov-9.810473_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664515/ERZ1664515.9-NODE-9-length-49063-cov-10.926196_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664516/ERZ1664516.158-NODE-158-length-6232-cov-9.863850_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664517/ERZ1664517.38-NODE-38-length-19981-cov-8.613771_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664518/ERZ1664518.217-NODE-217-length-4457-cov-6.415947_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664521/ERZ1664521.1871-NODE-1871-length-1473-cov-1.858251_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664521/ERZ1664521.895-NODE-895-length-1964-cov-2.221058_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664523/ERZ1664523.16-NODE-16-length-15072-cov-6.654591_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664524/ERZ1664524.1150-NODE-1150-length-2386-cov-3.450879_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664524/ERZ1664524.54-NODE-54-length-9607-cov-5.345582_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664528/ERZ1664528.138-NODE-138-length-5805-cov-4.599304_cluster_1.gbk"),
+                    file("$outputDir/bgc/gecco/ERZ1664528/ERZ1664528.1641-NODE-1641-length-2049-cov-4.697091_cluster_1.gbk")
                 ).match("gecco") },
 
                 // comBGC
