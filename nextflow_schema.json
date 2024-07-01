@@ -108,7 +108,7 @@
                     "description": "Specify the label of the database to be used.",
                     "fa_icon": "fas fa-address-card"
                 },
-                "taxa_classification_mmseqs_databases_savetmp": {
+                "taxa_classification_mmseqs_db_savetmp": {
                     "type": "boolean",
                     "help_text": "This flag saves the temporary files from downloading the database and formatting it in the MMseqs2 format into the output folder. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs databases: `--remove-tmp-files`",
                     "description": "Specify whether the temporary files should be saved.",
@@ -1036,18 +1036,18 @@
                     "fa_icon": "fas fa-ban",
                     "description": "Skip ABRicate during the ARG screening."
                 },
-                "arg_abricate_db": {
+                "arg_abricate_db_id": {
                     "type": "string",
                     "default": "ncbi",
                     "fa_icon": "fas fa-database",
                     "description": "Specify the name of the ABRicate database to use. Names of non-default databases can be supplied if `--arg_abricate_localdbdir` provided.",
-                    "help_text": "Specifies which database to use from dedicated list of databases available by ABRicate.\n\nDefault supported are one of: `argannot`, `card`, `ecoh`, `ecoli_vf`, `megares`, `ncbi`, `plasmidfinder`, `resfinder`, `vfdb`. Other options can be supplied if you have installed a custom one within the directory you have supplied to `--arg_abricate_localdbdir`.\n\nFor more information check the ABRicate [documentation](https://github.com/tseemann/abricate).\n\n> Modifies tool parameter(s):\n> - ABRicate: `--db`"
+                    "help_text": "Specifies which database to use from dedicated list of databases available by ABRicate.\n\nDefault supported are one of: `argannot`, `card`, `ecoh`, `ecoli_vf`, `megares`, `ncbi`, `plasmidfinder`, `resfinder`, `vfdb`. Other options can be supplied if you have installed a custom one within the directory you have supplied to `--arg_abricate_db`.\n\nFor more information check the ABRicate [documentation](https://github.com/tseemann/abricate).\n\n> Modifies tool parameter(s):\n> - ABRicate: `--db`"
                 },
-                "arg_abricate_localdbdir": {
+                "arg_abricate_db": {
                     "type": "string",
                     "description": "Path to user-defined local ABRicate database directory for using custom databases.",
                     "fa_icon": "far fa-folder-open",
-                    "help_text": "Supply this only if you want to use additional custom databases you yourself have added to your ABRicate installation following the instructions [here](https://github.com/tseemann/abricate?tab=readme-ov-file#making-your-own-database).You must also specify the name of the custom database with `--arg_abricate_db`.\n\n> Modifies tool parameter(s):\n> - ABRicate: `--datadir`"
+                    "help_text": "Supply this only if you want to use additional custom databases you yourself have added to your ABRicate installation following the instructions [here](https://github.com/tseemann/abricate?tab=readme-ov-file#making-your-own-database).You must also specify the name of the custom database with `--arg_abricate_db_id`.\n\n> Modifies tool parameter(s):\n> - ABRicate: `--datadir`"
                 },
                 "arg_abricate_minid": {
                     "type": "integer",

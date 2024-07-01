@@ -141,7 +141,7 @@ workflow PIPELINE_COMPLETION {
 def validateInputParameters() {
     // Validate antiSMASH inputs
     // 1. Make sure that either both or none of the antiSMASH directories are supplied
-    if ( ( params.run_bgc_screening && !params.bgc_antismash_db && params.bgc_antismash_installdir && !params.bgc_skip_antismash) || ( params.run_bgc_screening && params.bgc_antismash_dir && !params.bgc_antismash_installdir && !params.bgc_skip_antismash ) ) error("[nf-core/funcscan] ERROR: You supplied either the antiSMASH database or its installation directory, but not both. Please either supply both directories or none (letting the pipeline download them instead).")
+    if ( ( params.run_bgc_screening && !params.bgc_antismash_db && params.bgc_antismash_installdir && !params.bgc_skip_antismash) || ( params.run_bgc_screening && params.bgc_antismash_db && !params.bgc_antismash_installdir && !params.bgc_skip_antismash ) ) error("[nf-core/funcscan] ERROR: You supplied either the antiSMASH database or its installation directory, but not both. Please either supply both directories or none (letting the pipeline download them instead).")
 
     // 2. If both are supplied: Exit if we have a name collision error
     else if ( params.run_bgc_screening && params.bgc_antismash_db && params.bgc_antismash_installdir && !params.bgc_skip_antismash ) {
