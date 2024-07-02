@@ -141,18 +141,18 @@ workflow PIPELINE_COMPLETION {
 def validateInputParameters() {
     // Validate antiSMASH inputs
     // 1. Make sure that either both or none of the antiSMASH directories are supplied
-    if ( ( params.run_bgc_screening && !params.bgc_antismash_databases && params.bgc_antismash_installationdirectory && !params.bgc_skip_antismash) || ( params.run_bgc_screening && params.bgc_antismash_databases && !params.bgc_antismash_installationdirectory && !params.bgc_skip_antismash ) ) error("[nf-core/funcscan] ERROR: You supplied either the antiSMASH database or its installation directory, but not both. Please either supply both directories or none (letting the pipeline download them instead).")
+    if ( ( params.run_bgc_screening && !params.bgc_antismash_db && params.bgc_antismash_installdir && !params.bgc_skip_antismash) || ( params.run_bgc_screening && params.bgc_antismash_db && !params.bgc_antismash_installdir && !params.bgc_skip_antismash ) ) error("[nf-core/funcscan] ERROR: You supplied either the antiSMASH database or its installation directory, but not both. Please either supply both directories or none (letting the pipeline download them instead).")
 
     // 2. If both are supplied: Exit if we have a name collision error
-    else if ( params.run_bgc_screening && params.bgc_antismash_databases && params.bgc_antismash_installationdirectory && !params.bgc_skip_antismash ) {
-        antismash_database_dir = new File(params.bgc_antismash_databases)
-        antismash_install_dir = new File(params.bgc_antismash_installationdirectory)
+    else if ( params.run_bgc_screening && params.bgc_antismash_db && params.bgc_antismash_installdir && !params.bgc_skip_antismash ) {
+        antismash_database_dir = new File(params.bgc_antismash_db)
+        antismash_install_dir = new File(params.bgc_antismash_installdir)
         if ( antismash_database_dir.name == antismash_install_dir.name ) error("[nf-core/funcscan] ERROR: Your supplied antiSMASH database and installation directories have identical names: \"" + antismash_install_dir.name + "\".\nPlease make sure to name them differently, for example:\n - Database directory:      "+ antismash_database_dir.parent + "/antismash_db\n - Installation directory:  " + antismash_install_dir.parent + "/antismash_dir")
     }
 
     // 3. Give warning if not using container system assuming conda
 
-    if ( params.run_bgc_screening && ( !params.bgc_antismash_databases || !params.bgc_antismash_installationdirectory ) && !params.bgc_skip_antismash && ( session.config.conda && session.config.conda.enabled ) ) { log.warn "[nf-core/funcscan] Running antiSMASH download database module, and detected conda has been enabled. Assuming using conda for pipeline run. Check config if this is not expected!" }
+    if ( params.run_bgc_screening && ( !params.bgc_antismash_db || !params.bgc_antismash_installdir ) && !params.bgc_skip_antismash && ( session.config.conda && session.config.conda.enabled ) ) { log.warn "[nf-core/funcscan] Running antiSMASH download database module, and detected conda has been enabled. Assuming using conda for pipeline run. Check config if this is not expected!" }
 
 }
 
@@ -217,7 +217,7 @@ def toolCitationText() {
             !params.amp_skip_amplify ? "AMPlify (Li et al. 2022)," : "",
             !params.amp_skip_macrel ? "Macrel (Santos-Júnior et al. 2020)," : "",
             !params.amp_skip_ampir ? "ampir (Fingerhut et al. 2021)," : "",
-            !params.amp_skip_hmmsearch ? "HMMER (Eddy 2011)," : "",
+            params.amp_run_hmmsearch ? "HMMER (Eddy 2011)," : "",
             ". The output from the antimicrobial peptide screening tools were standardised and summarised with AMPcombi (Ibrahim and Perelo 2023)."
         ].join(' ').trim().replaceAll(", \\.", ".")
 
@@ -236,7 +236,7 @@ def toolCitationText() {
             !params.bgc_skip_antismash ? "antiSMASH (Blin et al. 2021)," : "",
             !params.bgc_skip_deepbgc ? "deepBGC (Hannigan et al. 2019)," : "",
             !params.bgc_skip_gecco ? "GECCO (Carroll et al. 2021)," : "",
-            !params.bgc_skip_hmmsearch ? "HMMER (Eddy 2011)," : "",
+            params.amp_run_hmmsearch ? "HMMER (Eddy 2011)," : "",
             ". The output from the biosynthetic gene cluster screening tools were standardised and summarised with comBGC (Frangenberg et al. 2023)."
         ].join(' ').replaceAll(", +\\.", ".").trim()
 
@@ -292,7 +292,7 @@ def toolBibliographyText() {
     def postprocessing_text = "<li>Ewels, P., Magnusson, M., Lundin, S., & Käller, M. (2016). MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics , 32(19), 3047–3048. <a href=\"https://doi.org/10.1093/bioinformatics/btw354\">https://doi.org/10.1093/bioinformatics/btw354</a></li>"
 
     // Special as reused in multiple subworkflows, and we don't want to cause duplicates
-    def hmmsearch_text = ( params.run_amp_screening && !params.amp_skip_hmmsearch ) || (params.run_bgc_screening && !params.bgc_skip_hmmsearch) ? "<li>Eddy S. R. (2011). Accelerated Profile HMM Searches. PLoS computational biology, 7(10), e1002195. DOI: <a href=\"https://doi.org/10.1371/journal.pcbi.1002195\">10.1371/journal.pcbi.1002195</a></li>" : ""
+    def hmmsearch_text = ( params.run_amp_screening && params.amp_run_hmmsearch ) || ( params.run_bgc_screening && params.amp_run_hmmsearch ) ? "<li>Eddy S. R. (2011). Accelerated Profile HMM Searches. PLoS computational biology, 7(10), e1002195. DOI: <a href=\"https://doi.org/10.1371/journal.pcbi.1002195\">10.1371/journal.pcbi.1002195</a></li>" : ""
 
     def reference_text = [
         preprocessing_text,

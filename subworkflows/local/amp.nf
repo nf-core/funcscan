@@ -65,8 +65,8 @@ workflow AMP {
     }
 
     // HMMSEARCH
-    if ( !params.amp_skip_hmmsearch ) {
-        if ( params.amp_hmmsearch_models ) { ch_amp_hmm_models = Channel.fromPath( params.amp_hmmsearch_models, checkIfExists: true ) } else { error('[nf-core/funcscan] error: hmm model files not found for --amp_hmmsearch_models! Please check input.') }
+    if ( params.amp_run_hmmsearch ) {
+        if ( params.amp_hmmsearch_models ) { ch_amp_hmm_models = Channel.fromPath( params.amp_hmmsearch_models, checkIfExists: true ) } else { error('[nf-core/funcscan] error: HMM model files not found for --amp_hmmsearch_models! Please check input.') }
 
         ch_amp_hmm_models_meta = ch_amp_hmm_models
             .map {

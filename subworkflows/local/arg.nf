@@ -85,21 +85,21 @@ workflow ARG {
     // RGI run
     if ( !params.arg_skip_rgi ) {
 
-        if ( !params.arg_rgi_database ) {
+        if ( !params.arg_rgi_db ) {
 
             // Download and untar CARD
             UNTAR_CARD ( [ [], file('https://card.mcmaster.ca/latest/data', checkIfExists: true) ] )
             ch_versions = ch_versions.mix( UNTAR_CARD.out.versions )
-            rgi_database = UNTAR_CARD.out.untar.map{ it[1] }
+            rgi_db = UNTAR_CARD.out.untar.map{ it[1] }
 
         } else {
 
             // Use user-supplied database
-            rgi_database = params.arg_rgi_database
+            rgi_db = params.arg_rgi_db
 
         }
 
-        RGI_CARDANNOTATION ( rgi_database )
+        RGI_CARDANNOTATION ( rgi_db )
         ch_versions = ch_versions.mix( RGI_CARDANNOTATION.out.versions )
 
         RGI_MAIN ( fastas, RGI_CARDANNOTATION.out.db, [] )
@@ -112,11 +112,11 @@ workflow ARG {
     }
 
     // DeepARG prepare download
-    if ( !params.arg_skip_deeparg && params.arg_deeparg_data ) {
+    if ( !params.arg_skip_deeparg && params.arg_deeparg_db ) {
         ch_deeparg_db = Channel
-            .fromPath( params.arg_deeparg_data )
+            .fromPath( params.arg_deeparg_db )
             .first()
-    } else if ( !params.arg_skip_deeparg && !params.arg_deeparg_data ) {
+    } else if ( !params.arg_skip_deeparg && !params.arg_deeparg_db ) {
         DEEPARG_DOWNLOADDATA( )
         ch_versions = ch_versions.mix( DEEPARG_DOWNLOADDATA.out.versions )
         ch_deeparg_db = DEEPARG_DOWNLOADDATA.out.db
@@ -142,14 +142,14 @@ workflow ARG {
         // Reporting
         // Note: currently hardcoding versions as unreported by DeepARG
         // Make sure to update on version bump.
-        HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix( DEEPARG_PREDICT.out.potential_arg ), 'json', '1.0.2', params.arg_deeparg_data_version )
+        HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix( DEEPARG_PREDICT.out.potential_arg ), 'json', '1.0.2', params.arg_deeparg_db_version )
         ch_versions = ch_versions.mix( HAMRONIZATION_DEEPARG.out.versions )
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_DEEPARG.out.json )
     }
 
     // ABRicate run
     if ( !params.arg_skip_abricate ) {
-        abricate_dbdir = params.arg_abricate_localdbdir ? file(params.arg_abricate_localdbdir, checkIfExists: true) : []
+        abricate_dbdir = params.arg_abricate_db ? file(params.arg_abricate_db, checkIfExists: true) : []
         ABRICATE_RUN ( fastas, abricate_dbdir )
         ch_versions = ch_versions.mix( ABRICATE_RUN.out.versions )
 
