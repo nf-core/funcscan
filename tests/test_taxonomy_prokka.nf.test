@@ -20,7 +20,7 @@ nextflow_pipeline {
                 { assert workflow.success },
                 { assert new File("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml").exists() },
                 { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
-                
+
                 { assert snapshot(
                     path("${params.outdir}/amp/ampir/sample_1/sample_1.ampir.tsv"),
                     path("${params.outdir}/amp/ampir/sample_1/sample_1.ampir.faa"),
