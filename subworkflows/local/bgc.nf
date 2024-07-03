@@ -36,14 +36,14 @@ workflow BGC {
     if ( !params.bgc_skip_antismash ) {
         // Check whether user supplies database and/or antismash directory. If not, obtain them via the module antismashlite/antismashlitedownloaddatabases.
         // Important for future maintenance: For CI tests, only the "else" option below is used. Both options should be tested locally whenever the antiSMASH module gets updated.
-        if ( params.bgc_antismash_databases && params.bgc_antismash_installationdirectory ) {
+        if ( params.bgc_antismash_db && params.bgc_antismash_installdir ) {
 
             ch_antismash_databases = Channel
                 .fromPath( params.bgc_antismash_databases )
                 .first()
 
             ch_antismash_directory = Channel
-                .fromPath( params.bgc_antismash_installationdirectory )
+                .fromPath( params.bgc_antismash_installdir )
                 .first()
 
         } else {
@@ -95,10 +95,10 @@ workflow BGC {
 
     // DEEPBGC
     if ( !params.bgc_skip_deepbgc ) {
-        if ( params.bgc_deepbgc_database ) {
+        if ( params.bgc_deepbgc_db ) {
 
             ch_deepbgc_database = Channel
-                .fromPath( params.bgc_deepbgc_database )
+                .fromPath( params.bgc_deepbgc_db )
                 .first()
         } else {
             DEEPBGC_DOWNLOAD()
@@ -131,7 +131,7 @@ workflow BGC {
     }
 
     // HMMSEARCH
-    if ( !params.bgc_skip_hmmsearch ) {
+    if ( params.bgc_run_hmmsearch ) {
         if ( params.bgc_hmmsearch_models ) { ch_bgc_hmm_models = Channel.fromPath( params.bgc_hmmsearch_models, checkIfExists: true ) } else { error('[nf-core/funcscan] error: hmm model files not found for --bgc_hmmsearch_models! Please check input.') }
 
         ch_bgc_hmm_models_meta = ch_bgc_hmm_models

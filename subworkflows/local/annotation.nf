@@ -68,9 +68,9 @@ workflow ANNOTATION {
         } else if ( params.annotation_tool == "bakta" ) {
 
             // BAKTA prepare download
-            if ( params.annotation_bakta_db_localpath ) {
+            if ( params.annotation_bakta_db ) {
                 ch_bakta_db = Channel
-                    .fromPath( params.annotation_bakta_db_localpath )
+                    .fromPath( params.annotation_bakta_db )
                     .first()
             } else {
                 BAKTA_BAKTADBDOWNLOAD ( )
