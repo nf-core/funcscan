@@ -109,7 +109,7 @@ nextflow_pipeline {
                 ).match("macrel") },
 
                 // AMPcombi
-                { assert new File("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("ERZ1664515.11560-NODE-11560-length-551-cov-1.403226_2") },
+                { assert path("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("ERZ1664515.11560-NODE-11560-length-551-cov-1.403226_2") },
 
                 // ARG workflow
 
