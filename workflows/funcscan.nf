@@ -135,9 +135,9 @@ workflow FUNCSCAN {
     }
 
     // Mix back the preannotated samples with the newly annotated ones
-    ch_prepped_input = ch_intermediate_input.preannotated
-                        .mix( ch_new_annotation )
+    ch_prepped_input = ch_new_annotation
                         .filter { meta, fasta, faa, gbk -> meta.category != 'long' }
+                        .mix( ch_intermediate_input.preannotated )
                         .multiMap {
                             meta, fasta, faa, gbk ->
                                 fastas: [meta, fasta]
@@ -147,9 +147,9 @@ workflow FUNCSCAN {
 
     if ( params.run_bgc_screening ){
 
-        ch_prepped_input_long = ch_intermediate_input.preannotated
-                                    .mix( ch_new_annotation )
+        ch_prepped_input_long =  ch_new_annotation
                                     .filter { meta, fasta, faa, gbk -> meta.category == 'long'}
+                                    .mix(ch_intermediate_input.preannotated)
                                     .multiMap {
                                         meta, fasta, faa, gbk ->
                                             fastas: [meta, fasta]

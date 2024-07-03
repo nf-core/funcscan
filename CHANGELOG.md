@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#381](https://github.com/nf-core/funcscan/pull/381) Added support for supplying pre-annotated sequences to the pipeline. (by @jfy133, @jasmezz)
 - [#382](https://github.com/nf-core/funcscan/pull/382) Optimised BGC screening run time and prevent crashes due to too-short contigs by adding contig length filtering for BGC workflow only. (by @jfy133, @darcy220606)
 - [#384](https://github.com/nf-core/funcscan/pull/384) Deprecated AMPcombi and exchanged it with full suite of AMPcombi2 submodules. (by @darcy220606)
-- [#366](https://github.com/nf-core/funcscan/pull/366) Added nf-test on pipeline level; skip hmmmsearch by default to not crash pipeline if user provides no HMM files; update database parameters. (by @jfy133, @jasmezz)
+- [#366](https://github.com/nf-core/funcscan/pull/366) Added nf-test on pipeline level, fix pre-annotated BGC input handling. (by @jfy133, @jasmezz)
 
 ### `Fixed`
 

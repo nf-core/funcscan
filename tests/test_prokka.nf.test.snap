@@ -7,7 +7,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-25T18:46:33.634478107"
+        "timestamp": "2024-07-03T11:06:45.990722943"
     },
     "abricate": {
         "content": [
@@ -18,7 +18,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-25T18:46:33.565623351"
+        "timestamp": "2024-07-03T11:06:45.941179691"
     },
     "fargene": {
         "content": [
@@ -31,7 +31,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-25T18:46:33.619183937"
+        "timestamp": "2024-07-03T11:06:45.978326519"
     },
     "rgi": {
         "content": [
@@ -42,7 +42,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-25T18:46:33.604862932"
+        "timestamp": "2024-07-03T11:06:45.964420301"
     },
     "deeparg_tsv_ARG": {
         "content": [
@@ -55,20 +55,20 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-25T18:46:33.543230941"
+        "timestamp": "2024-07-03T11:06:45.928505029"
     },
     "ampir": {
         "content": [
-            "sample_1.ampir.tsv:md5,77e9ed892f8a2783248ac015a30671fd",
-            "sample_1.ampir.faa:md5,af06d0d5dac80983c40d045f23b222e2",
-            "sample_2.ampir.tsv:md5,d426c2662bde91dd581377aaef189d38",
-            "sample_2.ampir.faa:md5,53e3bd83815fdab4974d943e8fe64b9c"
+            false,
+            false,
+            false,
+            false
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-25T18:46:33.460611446"
+        "timestamp": "2024-07-03T11:06:45.879791305"
     },
     "ampcombi_logfiles": {
         "content": [
@@ -80,18 +80,18 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-25T18:46:33.5216115"
+        "timestamp": "2024-07-03T11:06:45.914363724"
     },
     "amplify": {
         "content": [
-            "sample_1.amplify.tsv:md5,cc87ab238978f1ab20179bd63057323e",
-            "sample_2.amplify.tsv:md5,a452acb268aaa97f08c7896567c143db"
+            false,
+            false
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-25T18:46:33.47570837"
+        "timestamp": "2024-07-03T11:06:45.889521968"
     },
     "macrel": {
         "content": [
@@ -110,7 +110,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-25T18:46:33.486210507"
+        "timestamp": "2024-07-03T11:06:45.892460736"
     },
     "amrfinderplus": {
         "content": [
@@ -121,6 +121,6 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-25T18:46:33.583863983"
+        "timestamp": "2024-07-03T11:06:45.952983609"
     }
 }
