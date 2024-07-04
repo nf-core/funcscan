@@ -1,14 +1,12 @@
 {
     "test_taxonomy_pyrodigal": {
         "content": [
-            "sample_1.ampir.tsv:md5,e712a287917c3dd17b5f8285d0e97133",
-            "sample_1.ampir.faa:md5,5537c292406bc9edd7c48fb7e89666ca",
-            "sample_2.ampir.tsv:md5,7f364169dbd9436be9dc317b99b250ab",
-            "sample_2.ampir.faa:md5,10703626fac93067725cfbcd5dd24f0b",
-            "sample_1.amplify.tsv:md5,b8385e808a32a6c97a18ea3d794da72a",
-            "sample_2.amplify.tsv:md5,dd95c7c3287f73b1eae9c1fe1cc7f261",
-            "sample_1_mybacteriocin.hmmer_hmmsearch.txt.gz:md5,bf94cbabae13c22b8726011a8f0fc7ad",
-            "sample_2_mybacteriocin.hmmer_hmmsearch.txt.gz:md5,69e12c52c02ddea4d0d609477577c50c",
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
             "sample_1.macrel.smorfs.faa.gz:md5,1b5e2434860e635e95324d1804a3be7b",
             "sample_2.macrel.smorfs.faa.gz:md5,38108b5cdfdc2196afe67418b9b04682",
             "sample_1.macrel.all_orfs.faa.gz:md5,86f6b3b590d1b22d9c5aa164f8a14080",
@@ -26,16 +24,16 @@
             "results_summary.txt:md5,f69af9b0e18a0cfc934eb18b7e4bffe1",
             true,
             true,
-            "sample_2.gbk:md5,bf3a3bc4c1a19a876491a193ca9e82dc",
+            true,
             true,
             "sample_2.genes.tsv:md5,1fc51bc0ec900638d5e9ea58d1770bd2",
-            true,
+            "sample_2.features.tsv:md5,cf35df4b2d6e64208fc2b18a1f7b2c80",
             true
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-26T15:23:00.452438109"
+        "timestamp": "2024-07-04T16:18:36.677230543"
     }
 }

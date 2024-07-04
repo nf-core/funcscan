@@ -46,7 +46,6 @@ jobs:
         tags:
           - "test"
           - "test_nothing"
-          - "test_pyrodigal"
           - "test_bakta"
           - "test_prokka"
           - "test_bgc_pyrodigal"

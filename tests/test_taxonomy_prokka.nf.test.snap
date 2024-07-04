@@ -1,14 +1,12 @@
 {
     "test_taxonomy_prokka": {
         "content": [
-            "sample_1.ampir.tsv:md5,a5d7df58e6567bf38643c57c73ac89a7",
-            "sample_1.ampir.faa:md5,af06d0d5dac80983c40d045f23b222e2",
-            "sample_2.ampir.tsv:md5,8638e050df585d557b11159391ea1362",
-            "sample_2.ampir.faa:md5,53e3bd83815fdab4974d943e8fe64b9c",
-            "sample_1.amplify.tsv:md5,9fd8bdd65825301ce79ae972b0e3ff68",
-            "sample_2.amplify.tsv:md5,63fbb02143843f7aa0584bb8318a2d94",
-            "sample_1_mybacteriocin.hmmer_hmmsearch.txt.gz:md5,40522f6fbe12e4e70f68f973b741dafa",
-            "sample_2_mybacteriocin.hmmer_hmmsearch.txt.gz:md5,3b78a4ae3f62c062370094251b049cff",
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
             "sample_1.macrel.smorfs.faa.gz:md5,1b5e2434860e635e95324d1804a3be7b",
             "sample_2.macrel.smorfs.faa.gz:md5,38108b5cdfdc2196afe67418b9b04682",
             "sample_1.macrel.all_orfs.faa.gz:md5,86f6b3b590d1b22d9c5aa164f8a14080",
@@ -26,16 +24,16 @@
             "results_summary.txt:md5,f69af9b0e18a0cfc934eb18b7e4bffe1",
             true,
             true,
-            "sample_2.gbk:md5,f362407d5c0cc47c1cf587d63122bf53",
             true,
-            "sample_2.genes.tsv:md5,7c32aa3311e29bceed3cea60d10333af",
-            false,
-            false
+            true,
+            "sample_2.genes.tsv:md5,1fc51bc0ec900638d5e9ea58d1770bd2",
+            "sample_2.features.tsv:md5,cf35df4b2d6e64208fc2b18a1f7b2c80",
+            true
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-06-26T15:48:07.375601156"
+        "timestamp": "2024-07-04T16:18:36.677230543"
     }
 }
