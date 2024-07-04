@@ -19,8 +19,8 @@
                     "schema": "assets/schema_input.json",
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
-                    "description": "Path to comma-separated file containing sample names and paths to corresponding FASTA files.",
-                    "help_text": "Before running the pipeline, you will need to create a design file with information about the samples to be scanned by nf-core/funcscan, containing `sample name` and `path/to/your/contigs.fasta`. Use this parameter to specify its location. It has to be a comma-separated file with a header row (`sample,fasta` or `sample,fasta,protein,gbk`) and 2 or 4 (as specified by header row). See [usage docs](https://nf-co.re/funcscan/usage#samplesheet-input).",
+                    "description": "Path to comma-separated file containing sample names and paths to corresponding FASTA files, and optional annotation files.",
+                    "help_text": "Before running the pipeline, you will need to create a design file with information about the samples to be scanned by nf-core/funcscan, containing at a minimum sample names and paths to contigs. Use this parameter to specify its location. It has to be a two or four column comma-separated file with a header row (`sample,fasta` or `sample,fasta,protein,gbk`). See [usage docs](https://nf-co.re/funcscan/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "outdir": {
@@ -31,7 +31,7 @@
                 },
                 "email": {
                     "type": "string",
-                    "description": "E-mail address for completion summary.",
+                    "description": "Email address for completion summary.",
                     "fa_icon": "fas fa-envelope",
                     "help_text": "Set this parameter to your e-mail address to get a summary e-mail with details of the run sent to you when the workflow exits. If set in your user config file (`~/.nextflow/config`) then you don't need to specify this on the command line for every run.",
                     "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
@@ -146,7 +146,7 @@
                 "taxa_classification_mmseqs_taxonomy_taxlineage": {
                     "type": "integer",
                     "default": 1,
-                    "help_text": "This flag specifies whether the taxonomic lineage should be included in the output `.tsv` file. The taxonomic lineage is obtained from the internal module of `mmseqs/taxonomy` that infers the last common ancestor to classify the taxonomy. A value of '0' writes no taxonomic lineage, a value of '1' adds a column with the full lineage names prefixed with abbreviation of the lineage level, e.g. k_Prokaryotes;p_Bacteroidetes;c_....;o_....;f_....;g_....;s_...., while a value of '2' adds a column with the full NCBI taxids lineage,e.g. 1324;2345;4546;5345. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--tax-lineage`",
+                    "help_text": "This flag specifies whether the taxonomic lineage should be included in the output `.tsv` file. The taxonomic lineage is obtained from the internal module of `mmseqs/taxonomy` that infers the last common ancestor to classify the taxonomy. A value of '0' writes no taxonomic lineage, a value of '1' adds a column with the full lineage names prefixed with abbreviation of the lineage level, e.g. `k_Prokaryotes;p_Bacteroidetes;c_....;o_....;f_....;g_....;s_....,` while a value of '2' adds a column with the full NCBI taxids lineage,e.g. `1324;2345;4546;5345`. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--tax-lineage`",
                     "description": "Specify whether to include or remove the taxonomic lineage.",
                     "fa_icon": "fab fa-audible"
                 },
@@ -212,8 +212,8 @@
                 "annotation_bakta_db": {
                     "type": "string",
                     "fa_icon": "fas fa-database",
-                    "description": "Specify a path to a BAKTA database.",
-                    "help_text": "If a local database shall be provided, specify the path to that database which is prepared in a BAKTA format."
+                    "description": "Specify a path to a local copy of a BAKTA database.",
+                    "help_text": "If a local copy of a BAKTA database exists, specify the path to that database which is prepared in a BAKTA format. Otherwise this will be downloaded for you."
                 },
                 "annotation_bakta_db_downloadtype": {
                     "type": "string",
@@ -478,7 +478,7 @@
         "annotation_pyrodigal": {
             "title": "Annotation: Pyrodigal",
             "type": "object",
-            "description": "Pyrodigal produces protein-coding gene predictions of bacterial and archaeal genomes, based on the tool Prodigal being resource-optimized. Read more at the [Pyrodigal GitHub](https://github.com/althonos/pyrodigal) or its [documentation](https://pyrodigal.readthedocs.io).",
+            "description": "Pyrodigal is a resource-optimized wrapper around Prodigal, producing protein-coding gene predictions of bacterial and archaeal genomes. Read more at the [Pyrodigal GitHub](https://github.com/althonos/pyrodigal) or its [documentation](https://pyrodigal.readthedocs.io).",
             "default": "",
             "properties": {
                 "annotation_pyrodigal_singlemode": {
@@ -630,7 +630,7 @@
                 "amp_ampcombi_db": {
                     "type": "string",
                     "description": "Path to AMPcombi reference database directory (DRAMP).",
-                    "help_text": "AMPcombi uses the 'general AMPs' dataset of the [DRAMP database](http://dramp.cpu-bioinfor.org/downloads/) for taxonomic classification. If you have a local version of it, you can provide the path to the folder containing the reference database files:\n1. fasta file with `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nFor more information check the AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).",
+                    "help_text": "AMPcombi uses the 'general AMPs' dataset of the [DRAMP database](http://dramp.cpu-bioinfor.org/downloads/) for taxonomic classification. If you have a local version of it, you can provide the path to the directory(!) that contains the following reference database files:\n1. fasta file with `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nFor more information check the AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).",
                     "fa_icon": "fas fa-address-book"
                 },
                 "amp_ampcombi_parsetables_cutoff": {
@@ -713,9 +713,9 @@
             "fa_icon": "fas fa-search"
         },
         "amp_ampcombi2_cluster": {
-            "title": "AMP: ampcombi2 cluster. Clusters the AMP candidates identified with AMPcombi. More info: [AMPcombi documentation](https://github.com/Darcy220606/AMPcombi) ",
+            "title": "AMP: ampcombi2 cluster",
             "type": "object",
-            "description": "Clustering submodule of AMPcombi2",
+            "description": "Clusters the AMP candidates identified with AMPcombi. More info: [AMPcombi documentation](https://github.com/Darcy220606/AMPcombi)",
             "default": "",
             "properties": {
                 "amp_ampcombi_cluster_covmode": {
@@ -1069,7 +1069,7 @@
                 }
             }
         },
-        "bgc_general_filters": {
+        "bgc_general_options": {
             "title": "BGC: General filters",
             "type": "object",
             "description": "These parameters influence general BGC settings like minimum input sequence length.",
@@ -1625,7 +1625,7 @@
             "$ref": "#/definitions/arg_abricate"
         },
         {
-            "$ref": "#/definitions/bgc_general_filters"
+            "$ref": "#/definitions/bgc_general_options"
         },
         {
             "$ref": "#/definitions/bgc_antismash"
