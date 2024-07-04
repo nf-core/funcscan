@@ -98,7 +98,7 @@
             "properties": {
                 "taxa_classification_mmseqs_db": {
                     "description": "Specify a path to MMseqs2-formatted database.",
-                    "help_text": "Specify a path to a database that is prepared in MMseqs2 format as detailed in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy environment variable `DB_TARGET_PATH_NAME`",
+                    "help_text": "Specify a path to a database that is prepared in MMseqs2 format as detailed in the [documentation](https://mmseqs.com/latest/userguide.pdf).",
                     "fa_icon": "fas fa-database"
                 },
                 "taxa_classification_mmseqs_db_id": {
