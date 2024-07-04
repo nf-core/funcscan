@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#371](https://github.com/nf-core/funcscan/pull/371) Fixed AMRFinderPlus parameter `arg_amrfinderplus_name`. (by @m3hdad)
 - [#376](https://github.com/nf-core/funcscan/pull/376) Fixed an occasional RGI process failure when certain files not produced. (❤️ to @amizeranschi for reporting, fix by @amizeranschi & @jfy133)
 - [#386](https://github.com/nf-core/funcscan/pull/386) Updated DeepBGC module to fix output file names, separate annotation step for all BGC tools, add warning if no BGCs found, fix MultiQC reporting of annotation workflow. (by @jfy133, @jasmezz)
+- [#392](https://github.com/nf-core/funcscan/pull/392) Fixed a docker/singularity only error appearing when running with conda. (❤️ to @ewissel for reporting, fix by @jfy33 & @jasmezz)
+- [#394](https://github.com/nf-core/funcscan/pull/394) Fixed BGC input channel: pre-annotated input is picked up correctly now. (by @jfy133, @jasmezz)
 - [#391](https://github.com/nf-core/funcscan/pull/391) Skip hmmmsearch by default to not crash pipeline if user provides no HMM files, updated docs. (by @jasmezz)
 - [#391](https://github.com/nf-core/funcscan/pull/391) Unified all "database" parameters. (by @jasmezz)
 
