@@ -66,7 +66,7 @@
                     "fa_icon": "fas fa-check-circle"
                 }
             },
-            "fa_icon": "fas fa-network-wired"
+            "fa_icon": "fa fa-list-ol"
         },
         "taxonomic_classification_general_options": {
             "title": "Taxonomic classification: general options",
@@ -88,7 +88,7 @@
                     "fa_icon": "fas fa-tools"
                 }
             },
-            "fa_icon": "fas fa-address-book"
+            "fa_icon": "fas fa-tag"
         },
         "taxonomic_classification_mmseqs2_databases": {
             "title": "Taxonomic classification: MMseqs2 databases",
@@ -115,7 +115,7 @@
                     "fa_icon": "fas fa-file-download"
                 }
             },
-            "fa_icon": "fas fa-save"
+            "fa_icon": "fas fa-tag"
         },
         "taxonomic_classification_mmseqs2_taxonomy": {
             "title": "Taxonomic classification: MMseqs2 taxonomy",
@@ -226,7 +226,7 @@
                 "annotation_bakta_singlemode": {
                     "type": "boolean",
                     "description": "Use the default genome-length optimised mode (rather than the metagenome mode).",
-                    "help_text": "By default, Bakta's --meta mode is used in the pipeline to improve the gene prediction of highly fragmented metagenomes.\n\nBy specifying this parameter Bakta will instead use its default mode that is optimised for singular 'complete' genome sequences.\n\nMore details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--meta`",
+                    "help_text": "By default, Bakta's `--meta` mode is used in the pipeline to improve the gene prediction of highly fragmented metagenomes.\n\nBy specifying this parameter Bakta will instead use its default mode that is optimised for singular 'complete' genome sequences.\n\nMore details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--meta`",
                     "minimum": 1,
                     "maximum": 25,
                     "fa_icon": "fas fa-dna"
@@ -478,14 +478,14 @@
         "annotation_pyrodigal": {
             "title": "Annotation: Pyrodigal",
             "type": "object",
-            "description": "Pyrodigal is a resource-optimized wrapper around Prodigal, producing protein-coding gene predictions of bacterial and archaeal genomes. Read more at the [Pyrodigal GitHub](https://github.com/althonos/pyrodigal) or its [documentation](https://pyrodigal.readthedocs.io).",
+            "description": "Pyrodigal is a resource-optimized wrapper around Prodigal, producing protein-coding gene predictions of bacterial and archaeal genomes. Read more at the Pyrodigal GitHub repo (https://github.com/althonos/pyrodigal) or its documentation (https://pyrodigal.readthedocs.io).",
             "default": "",
             "properties": {
                 "annotation_pyrodigal_singlemode": {
                     "type": "boolean",
                     "fa_icon": "far fa-circle",
                     "description": "Specify whether to use Pyrodigal's single-genome mode for long sequences.",
-                    "help_text": "By default Pyrodigal runs in 'single genome' mode that requires sequence lengths to be equal or longer than 20000 characters.\n\nHowever, more fragmented reads from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter allows to override this and run in single genome mode again.\n\nFor more information check the Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s): \n> -PYRODIGAL: `-p`"
+                    "help_text": "By default Pyrodigal runs in 'single genome' mode that requires sequence lengths to be equal or longer than 20000 characters.\n\nHowever, more fragmented reads from MAGs often result in contigs shorter than this. Therefore, nf-core/funcscan will run with the `meta` mode by default, but providing this parameter allows to override this and run in single genome mode again.\n\nFor more information check the Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s): \n> - PYRODIGAL: `-p`"
                 },
                 "annotation_pyrodigal_closed": {
                     "type": "boolean",
@@ -536,7 +536,7 @@
                     "fa_icon": "fas fa-ban"
                 }
             },
-            "fa_icon": "fas fa-tools"
+            "fa_icon": "fa fa-plus-square"
         },
         "amp_ampir": {
             "title": "AMP: ampir",
@@ -565,7 +565,7 @@
                     "fa_icon": "fas fa-ruler-horizontal"
                 }
             },
-            "fa_icon": "fas fa-tools"
+            "fa_icon": "fa fa-plus-square"
         },
         "amp_hmmsearch": {
             "title": "AMP: hmmsearch",
@@ -604,7 +604,7 @@
                     "fa_icon": "far fa-save"
                 }
             },
-            "fa_icon": "fas fa-tools",
+            "fa_icon": "fa fa-plus-square",
             "help_text": "HMMER/hmmsearch is used for searching sequence databases for sequence homologs, and for making sequence alignments. It implements methods using probabilistic models called profile hidden Markov models (profile HMMs). `hmmsearch` is used to search one or more profiles against a sequence database.\n\nFor more information check the HMMER [documentation](http://hmmer.org/).\n\n"
         },
         "amp_macrel": {
@@ -619,7 +619,7 @@
                     "fa_icon": "fas fa-ban"
                 }
             },
-            "fa_icon": "fas fa-tools"
+            "fa_icon": "fa fa-plus-square"
         },
         "amp_ampcombi2_parsetables": {
             "title": "AMP: ampcombi2 parsetables",
@@ -710,7 +710,7 @@
                     "fa_icon": "fas fa-address-card"
                 }
             },
-            "fa_icon": "fas fa-search"
+            "fa_icon": "fa fa-plus-square"
         },
         "amp_ampcombi2_cluster": {
             "title": "AMP: ampcombi2 cluster",
@@ -767,14 +767,14 @@
                     "fa_icon": "fas fa-book-dead"
                 }
             },
-            "fa_icon": "far fa-object-group"
+            "fa_icon": "fa fa-plus-square"
         },
         "arg_amrfinderplus": {
             "title": "ARG: AMRFinderPlus",
             "type": "object",
             "description": "Antimicrobial resistance gene detection based on NCBI's curated Reference Gene Database and curated collection of Hidden Markov Models. identifies AMR genes, resistance-associated point mutations, and select other classes of genes using protein annotations and/or assembled nucleotide sequences. More info: https://github.com/ncbi/amr/wiki",
             "default": "",
-            "fa_icon": "fas fa-bacterium",
+            "fa_icon": "fas fa-bacteria",
             "properties": {
                 "arg_skip_amrfinderplus": {
                     "type": "boolean",
@@ -894,7 +894,7 @@
                     "fa_icon": "far fa-gem"
                 }
             },
-            "fa_icon": "fas fa-bacterium"
+            "fa_icon": "fas fa-bacteria"
         },
         "arg_fargene": {
             "title": "ARG: fARGene",
@@ -949,7 +949,7 @@
                     "fa_icon": "fas fa-border-none"
                 }
             },
-            "fa_icon": "fas fa-bacterium"
+            "fa_icon": "fas fa-bacteria"
         },
         "arg_rgi": {
             "title": "ARG: RGI",
@@ -1022,14 +1022,14 @@
                     "default": true
                 }
             },
-            "fa_icon": "fas fa-bacterium"
+            "fa_icon": "fas fa-bacteria"
         },
         "arg_abricate": {
             "title": "ARG: ABRicate",
             "type": "object",
             "description": "Antimicrobial resistance gene detection based on alignment to CBI, CARD, ARG-ANNOT, ResFinder, MEGARES, EcOH, PlasmidFinder, Ecoli_VF and VFDB. More info: https://github.com/tseemann/abricate",
             "default": "",
-            "fa_icon": "fas fa-bacterium",
+            "fa_icon": "fas fa-bacteria",
             "properties": {
                 "arg_skip_abricate": {
                     "type": "boolean",
@@ -1069,12 +1069,30 @@
                 }
             }
         },
+        "arg_hamronization": {
+            "title": "ARG: hAMRonization",
+            "type": "object",
+            "description": "Influences parameters required for the ARG summary by hAMRonization.",
+            "default": "",
+            "properties": {
+                "arg_hamronization_summarizeformat": {
+                    "type": "string",
+                    "default": "tsv",
+                    "enum": ["interactive", "tsv", "json"],
+                    "help_text": "Specifies which summary report format to apply with `hamronize summarize`: tsv, json or interactive (html)\n\n>  Modifies tool parameter(s)\n> - hamronize summarize: `-t`, `--summary_type`",
+                    "description": "Specifies summary output format.",
+                    "fa_icon": "far fa-file-code"
+                }
+            },
+            "fa_icon": "fas fa-bacteria",
+            "help_text": ""
+        },
         "bgc_general_options": {
             "title": "BGC: General options",
             "type": "object",
             "description": "These parameters influence general BGC settings like minimum input sequence length.",
             "default": "",
-            "fa_icon": "fas fa-bacteria",
+            "fa_icon": "fa fa-sliders",
             "properties": {
                 "bgc_mincontiglength": {
                     "type": "integer",
@@ -1167,7 +1185,7 @@
                     "enum": ["bacteria", "fungi"]
                 }
             },
-            "fa_icon": "fas fa-tools"
+            "fa_icon": "fa fa-sliders"
         },
         "bgc_deepbgc": {
             "title": "BGC: DeepBGC",
@@ -1249,7 +1267,7 @@
                     "help_text": "DeepBGC classification score threshold for assigning classes to BGCs.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--classifier-score`"
                 }
             },
-            "fa_icon": "fas fa-bacteria"
+            "fa_icon": "fa fa-sliders"
         },
         "bgc_gecco": {
             "title": "BGC: GECCO",
@@ -1297,7 +1315,7 @@
                     "fa_icon": "fas fa-ruler-horizontal"
                 }
             },
-            "fa_icon": "fas fa-bacteria"
+            "fa_icon": "fa fa-sliders"
         },
         "bgc_hmmsearch": {
             "title": "BGC: hmmsearch",
@@ -1336,25 +1354,7 @@
                     "fa_icon": "far fa-save"
                 }
             },
-            "fa_icon": "fas fa-bacteria"
-        },
-        "reporting": {
-            "title": "Reporting",
-            "type": "object",
-            "description": "Influences parameters required for the reporting workflow.",
-            "default": "",
-            "properties": {
-                "arg_hamronization_summarizeformat": {
-                    "type": "string",
-                    "default": "tsv",
-                    "enum": ["interactive", "tsv", "json"],
-                    "help_text": "Specifies which summary report format to generate with `hamronize summarize`: tsv, json or interactive (html)\n\n>  Modifies tool parameter(s)\n> - hmmsearch: `-t`, `--summary_type`",
-                    "description": "Specifies summary output format.",
-                    "fa_icon": "far fa-file-code"
-                }
-            },
-            "fa_icon": "fas fa-file-import",
-            "help_text": ""
+            "fa_icon": "fa fa-sliders"
         },
         "institutional_config_options": {
             "title": "Institutional config options",
@@ -1626,6 +1626,9 @@
             "$ref": "#/definitions/arg_abricate"
         },
         {
+            "$ref": "#/definitions/arg_hamronization"
+        },
+        {
             "$ref": "#/definitions/bgc_general_options"
         },
         {
@@ -1639,9 +1642,6 @@
         },
         {
             "$ref": "#/definitions/bgc_hmmsearch"
-        },
-        {
-            "$ref": "#/definitions/reporting"
         },
         {
             "$ref": "#/definitions/institutional_config_options"
