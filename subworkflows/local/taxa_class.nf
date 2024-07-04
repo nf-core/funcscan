@@ -22,12 +22,12 @@ workflow TAXA_CLASS {
 
         // Download the ref db if not supplied by user
         // MMSEQS_DATABASE
-        if ( params.taxa_classification_mmseqs_databases_localpath != null ) {
+        if ( params.taxa_classification_mmseqs_db != null ) {
             ch_mmseqs_db = Channel
-                .fromPath( params.taxa_classification_mmseqs_databases_localpath )
+                .fromPath( params.taxa_classification_mmseqs_db )
                 .first()
         } else {
-            MMSEQS_DATABASES ( params.taxa_classification_mmseqs_databases_id )
+            MMSEQS_DATABASES ( params.taxa_classification_mmseqs_db_id )
             ch_versions  = ch_versions.mix( MMSEQS_DATABASES.out.versions )
             ch_mmseqs_db = ( MMSEQS_DATABASES.out.database )
         }
