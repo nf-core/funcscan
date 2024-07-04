@@ -149,7 +149,7 @@ workflow FUNCSCAN {
 
         ch_prepped_input_long =  ch_new_annotation
                                     .filter { meta, fasta, faa, gbk -> meta.category == 'long'}
-                                    .mix(ch_intermediate_input.preannotated)
+                                    .mix( ch_intermediate_input.preannotated )
                                     .multiMap {
                                         meta, fasta, faa, gbk ->
                                             fastas: [meta, fasta]
