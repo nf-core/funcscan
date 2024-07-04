@@ -165,6 +165,9 @@ You should place all HMMs in a directory, supply them to the AMP or BGC workflow
 --amp_run_hmmsearch --amp_hmmsearch_models "/<path>/<to>/<amp>/*.hmm"
 ```
 
+:::warning
+Ensure to wrap in quotes if using an asterisk, to ensure Nextflow (not your shell) parses the wildcard
+:::
 ### AMPcombi
 
 For AMPcombi, nf-core/funcscan will by default download the most recent version of the [DRAMP](http://dramp.cpu-bioinfor.org/) database as a reference database for aligning the AMP hits in the AMP workflow. However, the user can also supply their own custom AMP database by following the guidelines in [AMPcombi](https://github.com/Darcy220606/AMPcombi). This can then be passed to the pipeline with:
