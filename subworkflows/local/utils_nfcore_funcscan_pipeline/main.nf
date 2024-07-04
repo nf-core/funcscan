@@ -236,7 +236,7 @@ def toolCitationText() {
             !params.bgc_skip_antismash ? "antiSMASH (Blin et al. 2021)," : "",
             !params.bgc_skip_deepbgc ? "deepBGC (Hannigan et al. 2019)," : "",
             !params.bgc_skip_gecco ? "GECCO (Carroll et al. 2021)," : "",
-            params.amp_run_hmmsearch ? "HMMER (Eddy 2011)," : "",
+            params.bgc_run_hmmsearch ? "HMMER (Eddy 2011)," : "",
             ". The output from the biosynthetic gene cluster screening tools were standardised and summarised with comBGC (Frangenberg et al. 2023)."
         ].join(' ').replaceAll(", +\\.", ".").trim()
 

@@ -162,7 +162,7 @@ This requires supplying a list of HMM files ending in `.hmm`, that have models f
 You should place all HMMs in a directory, supply them to the AMP or BGC workflow and switch hmmsearch on like:
 
 ```bash
---amp_run_hmmsearch --amp_hmmsearch_models '/<path>/<to>/<amp>/*.hmm'
+--amp_run_hmmsearch --amp_hmmsearch_models "/<path>/<to>/<amp>/*.hmm"
 ```
 
 ### AMPcombi
