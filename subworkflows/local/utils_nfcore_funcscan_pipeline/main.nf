@@ -294,7 +294,7 @@ def toolBibliographyText() {
     def postprocessing_text = "<li>Ewels, P., Magnusson, M., Lundin, S., & Käller, M. (2016). MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics , 32(19), 3047–3048. <a href=\"https://doi.org/10.1093/bioinformatics/btw354\">https://doi.org/10.1093/bioinformatics/btw354</a></li>"
 
     // Special as reused in multiple subworkflows, and we don't want to cause duplicates
-    def hmmsearch_text = ( params.run_amp_screening && params.amp_run_hmmsearch ) || ( params.run_bgc_screening && params.amp_run_hmmsearch ) ? "<li>Eddy S. R. (2011). Accelerated Profile HMM Searches. PLoS computational biology, 7(10), e1002195. DOI: <a href=\"https://doi.org/10.1371/journal.pcbi.1002195\">10.1371/journal.pcbi.1002195</a></li>" : ""
+    def hmmsearch_text = ( params.run_amp_screening && params.amp_run_hmmsearch ) || ( params.run_bgc_screening && params.bgc_run_hmmsearch ) ? "<li>Eddy S. R. (2011). Accelerated Profile HMM Searches. PLoS computational biology, 7(10), e1002195. DOI: <a href=\"https://doi.org/10.1371/journal.pcbi.1002195\">10.1371/journal.pcbi.1002195</a></li>" : ""
 
     def reference_text = [
         preprocessing_text,
