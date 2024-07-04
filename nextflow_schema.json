@@ -1185,7 +1185,6 @@
                     "fa_icon": "fas fa-database",
                     "description": "Path to local DeepBGC database folder.",
                     "help_text": "For more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: environment variable `DEEPBGC_DOWNLOADS_DIR`"
-
                 },
                 "bgc_deepbgc_score": {
                     "type": "number",
