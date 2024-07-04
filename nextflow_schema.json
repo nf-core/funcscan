@@ -45,7 +45,7 @@
             "help_text": ""
         },
         "screening_type_activation": {
-            "title": "Screening Type Activation",
+            "title": "Screening type activation",
             "type": "object",
             "description": "These parameters influence which workflow (ARG, AMP and/or BGC) to activate.",
             "default": "",
@@ -182,7 +182,7 @@
             "fa_icon": "fas fa-tag"
         },
         "annotation_general_options": {
-            "title": "Annotation: General options",
+            "title": "Annotation: general options",
             "type": "object",
             "description": "These options influence the generation of annotation files required for downstream steps in ARG, AMP, and BGC workflows.",
             "default": "",
@@ -1088,7 +1088,7 @@
             "help_text": ""
         },
         "bgc_general_options": {
-            "title": "BGC: General options",
+            "title": "BGC: general options",
             "type": "object",
             "description": "These parameters influence general BGC settings like minimum input sequence length.",
             "default": "",
