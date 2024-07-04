@@ -7,7 +7,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-07-03T16:02:11.117205342"
+        "timestamp": "2024-07-04T22:23:20.891751"
     },
     "abricate": {
         "content": [
@@ -19,7 +19,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-07-03T16:02:10.97423836"
+        "timestamp": "2024-07-04T22:23:20.743136"
     },
     "fargene": {
         "content": [
@@ -34,7 +34,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-07-03T16:02:11.083101728"
+        "timestamp": "2024-07-04T22:23:20.849995"
     },
     "rgi": {
         "content": [
@@ -46,61 +46,62 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-07-03T16:02:11.047631262"
+        "timestamp": "2024-07-04T22:23:20.809033"
     },
     "deeparg_tsv_ARG": {
         "content": [
             "sample_1.align.daa.tsv:md5,0e71c37318bdc6cba792196d0455293d",
             "sample_2.align.daa.tsv:md5,1092ecd3cd6931653168b46c7afeb9e3",
             "sample_3.align.daa.tsv:md5,b79070fe26acd1a10ae3aaf06b0d5901",
-            "sample_1.mapping.ARG:md5,48d5720c2a0462068ad481be0ef36602",
-            "sample_2.mapping.ARG:md5,c2dc8fb15006d6e8e1adf968c28c93ba",
-            "sample_3.mapping.ARG:md5,280a07d7f2b17799046c58c4d614d517"
+            "sample_1.mapping.ARG:md5,e81aec2e3510d314da5a7f78bf402bb1",
+            "sample_2.mapping.ARG:md5,25df6364ac6f966769f0fb22f4877bd5",
+            "sample_3.mapping.ARG:md5,100b6e963449854fefac44f643bb57ca"
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-07-03T16:02:10.932863587"
+        "timestamp": "2024-07-04T22:23:20.699516"
     },
     "ampir": {
         "content": [
-            "sample_1.ampir.tsv:md5,1cf2bd9f581338ed5766ad7068a13004",
+            true,
             "sample_1.ampir.faa:md5,ab02c6e9c5f36ba9c31af97f95f9c317",
-            "sample_2.ampir.tsv:md5,c25ea2ac6198cafde34656ab8d46d988",
+            true,
             "sample_2.ampir.faa:md5,12826875bd18623da78770187a7bbd2c",
-            "sample_3.ampir.tsv:md5,7ddcc960133e29500541d4a99e162d5c",
+            true,
             "sample_3.ampir.faa:md5,0a36691485930a1b77c4b68a738fd98d"
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-07-03T16:02:10.782407328"
+        "timestamp": "2024-07-04T22:23:20.560802"
     },
-    "ampcombi_logfiles": {
+    "ampcombi": {
         "content": [
             "Ampcombi_cluster.log:md5,4c78f5f134edf566f39e04e3ab7d8558",
             "Ampcombi_complete.log:md5,3dabfea4303bf94bd4f5d78c5b8c83c1",
-            "Ampcombi_parse_tables.log:md5,cb5dc95f6b64edc2f0eb56bb541660d5"
+            true,
+            true
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-07-03T16:02:10.893446749"
+        "timestamp": "2024-07-04T22:23:20.663035"
     },
     "amplify": {
         "content": [
-            "sample_1.amplify.tsv:md5,33b89bbe9a1f445eeca3200b394dd8c8",
-            "sample_2.amplify.tsv:md5,9580aa8051bcf6618805c032e89bb3ae",
-            "sample_3.amplify.tsv:md5,98087dced04c11225c8a8d322f972994"
+            true,
+            true,
+            true
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-07-03T16:02:10.817235023"
+        "timestamp": "2024-07-04T22:23:20.593242"
     },
     "macrel": {
         "content": [
@@ -124,7 +125,7 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-07-03T16:02:10.837804995"
+        "timestamp": "2024-07-04T22:23:20.606679"
     },
     "amrfinderplus": {
         "content": [
@@ -136,6 +137,6 @@
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-07-03T16:02:11.011314163"
+        "timestamp": "2024-07-04T22:23:20.777384"
     }
 }

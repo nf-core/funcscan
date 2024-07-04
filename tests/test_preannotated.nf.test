@@ -22,19 +22,19 @@ nextflow_pipeline {
 
                 // AMPir
                 { assert snapshot(
-                    path("$outputDir/amp/ampir/sample_1/sample_1.ampir.tsv"),
+                    path("$outputDir/amp/ampir/sample_1/sample_1.ampir.tsv").text.contains("MRWGYPLSLVLMALSVAAPMIYFRRKGWLR"),
                     path("$outputDir/amp/ampir/sample_1/sample_1.ampir.faa"),
-                    path("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv"),
+                    path("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv").text.contains("MRWGYPLSLVLMALSVAAPMIYFRRKGWLR"),
                     path("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa"),
-                    path("$outputDir/amp/ampir/sample_3/sample_3.ampir.tsv"),
+                    path("$outputDir/amp/ampir/sample_3/sample_3.ampir.tsv").text.contains("IPELEMRWGYPLSLVLMALSVAAPMIYFRRKGWLR"),
                     path("$outputDir/amp/ampir/sample_3/sample_3.ampir.faa")
                 ).match("ampir") },
 
                 // AMPlify
                 { assert snapshot(
-                    path("$outputDir/amp/amplify/sample_1/sample_1.amplify.tsv"),
-                    path("$outputDir/amp/amplify/sample_2/sample_2.amplify.tsv"),
-                    path("$outputDir/amp/amplify/sample_3/sample_3.amplify.tsv")
+                    path("$outputDir/amp/amplify/sample_1/sample_1.amplify.tsv").text.contains("MRWGYPLSLVLMALSVAAPMIYFRRKGWLR"),
+                    path("$outputDir/amp/amplify/sample_2/sample_2.amplify.tsv").text.contains("MRWGYPLSLVLMALSVAAPMIYFRRKGWLR"),
+                    path("$outputDir/amp/amplify/sample_3/sample_3.amplify.tsv").text.contains("IPELEMRWGYPLSLVLMALSVAAPMIYFRRKGWLR")
                 ).match("amplify") },
 
                 // HMMsearch
@@ -62,12 +62,12 @@ nextflow_pipeline {
                 ).match("macrel") },
 
                 // AMPcombi
-                { assert path("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("NODE_515831_length_303_cov_1.532258_1") },
                 { assert snapshot(
                     path("$outputDir/reports/ampcombi2/Ampcombi_cluster.log"),
                     path("$outputDir/reports/ampcombi2/Ampcombi_complete.log"),
-                    path("$outputDir/reports/ampcombi2/Ampcombi_parse_tables.log")
-                ).match("ampcombi_logfiles") },
+                    path("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("NODE_515831_length_303_cov_1.532258_1"),
+                    path("$outputDir/reports/ampcombi2/Ampcombi_parse_tables.log").text.contains(" \$\$\$\$\$\$\\  \$\$\\      \$\$\\")
+                ).match("ampcombi") },
 
                 // DeepARG
                 { assert snapshot(
