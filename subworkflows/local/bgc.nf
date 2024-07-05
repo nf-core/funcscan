@@ -38,7 +38,7 @@ workflow BGC {
         // Important for future maintenance: For CI tests, only the "else" option below is used. Both options should be tested locally whenever the antiSMASH module gets updated.
         if ( params.bgc_antismash_db && params.bgc_antismash_installdir ) {
 
-            ch_antismash_db = Channel
+            ch_antismash_databases = Channel
                 .fromPath( params.bgc_antismash_db )
                 .first()
 
@@ -64,13 +64,13 @@ workflow BGC {
 
             ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES ( UNTAR_CSS.out.untar.map{ it[1] }, UNTAR_DETECTION.out.untar.map{ it[1] }, UNTAR_MODULES.out.untar.map{ it[1] } )
             ch_versions = ch_versions.mix( ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.versions )
-            ch_antismash_db = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.database
+            ch_antismash_databases = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.database
 
             ch_antismash_directory = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.antismash_dir
 
         }
 
-        ANTISMASH_ANTISMASHLITE ( gbks, ch_antismash_db, ch_antismash_directory, [] )
+        ANTISMASH_ANTISMASHLITE ( gbks, ch_antismash_databases, ch_antismash_directory, [] )
 
         ch_versions = ch_versions.mix( ANTISMASH_ANTISMASHLITE.out.versions )
         ch_antismashresults = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
@@ -97,16 +97,16 @@ workflow BGC {
     if ( !params.bgc_skip_deepbgc ) {
         if ( params.bgc_deepbgc_db ) {
 
-            ch_deepbgc_db = Channel
+            ch_deepbgc_database = Channel
                 .fromPath( params.bgc_deepbgc_db )
                 .first()
         } else {
             DEEPBGC_DOWNLOAD()
-            ch_deepbgc_db = DEEPBGC_DOWNLOAD.out.db
+            ch_deepbgc_database = DEEPBGC_DOWNLOAD.out.db
             ch_versions = ch_versions.mix( DEEPBGC_DOWNLOAD.out.versions )
         }
 
-        DEEPBGC_PIPELINE ( gbks, ch_deepbgc_db )
+        DEEPBGC_PIPELINE ( gbks, ch_deepbgc_database )
         ch_versions = ch_versions.mix( DEEPBGC_PIPELINE.out.versions )
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix( DEEPBGC_PIPELINE.out.bgc_tsv )
     }
