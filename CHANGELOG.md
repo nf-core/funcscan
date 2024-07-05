@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Tool          | Previous version | New version |
 | ------------- | ---------------- | ----------- |
+| AMPcombi      | 0.1.7            | 0.2.2       |
 | AMPlify       | 1.1.0            | 2.0.0       |
 | AMRFinderPlus | 3.11.18          | 3.12.8      |
 | antiSMASH     | 6.1.1            | 7.1.0       |
@@ -50,7 +51,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | Pyrodigal     | 2.1.0            | 3.3.0       |
 | RGI           | 5.2.1            | 6.0.3       |
 | tabix/htslib  | 1.11             | 1.19.1      |
-| ampcombi      | 0.1.7            | 0.2.2       |
 
 ### `Deprecated`
 
