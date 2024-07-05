@@ -3,6 +3,16 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.1.6 - [2024-07-05]
+
+### `Added`
+
+### `Fixed`
+
+- [#XXX](https://github.com/nf-core/funcscan/pull/XXX) Fixed bioawk overwriting input files (❤️ to @Microbion for reporting, fix by @jkfy133)
+
+### `Dependencies`
+
 ## v1.1.5 - [2024-03-20]
 
 ### `Added`
