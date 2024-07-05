@@ -25,7 +25,7 @@ To run any of the three screening workflows (AMP, ARG, and/or BGC) or taxonomic 
 - `--run_bgc_screening`
 - `--run_taxa_classification`
 
-When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them. For the taxonomic classification, MMseqs2 is currently the only tool implemented in the pipline.
+When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them. The exception is HMMsearch, which needs to be explicitly switched on and provided with HMM screening files (AMP and BGC workflows, see parameter documentation). For the taxonomic classification, MMseqs2 is currently the only tool implemented in the pipline.
 
 **Example:** You want to run AMP and ARG screening but you don't need the DeepARG tool of the ARG workflow and the Macrel tool of the AMP workflow. Your command would be:
 
@@ -95,7 +95,7 @@ The implementation of some tools in the pipeline may have some particular behavi
 
 MMseqs2 is currently the only taxonomic classification tool used in the pipeline to assign a taxonomic lineage to the input contigs. The database used to assign the taxonomic lineage can either be:
 
-- a custom based database created by the user using `mmseqs createdb` externally and beforehand. If this flag is assigned, this database takes precedence over the default database in ` mmseqs_databases_id`.
+- a custom based database created by the user using `mmseqs createdb` externally and beforehand. If this flag is assigned, this database takes precedence over the default database in `--mmseqs_db_id`.
 
   ```bash
   --taxa_classification_mmseqs_db 'path/to/mmsesqs_custom_database/dir'
@@ -162,8 +162,12 @@ This requires supplying a list of HMM files ending in `.hmm`, that have models f
 You should place all HMMs in a directory, supply them to the AMP or BGC workflow and switch hmmsearch on like:
 
 ```bash
---amp_run_hmmsearch --amp_hmmsearch_models '/<path>/<to>/<amp>/*.hmm'
+--amp_run_hmmsearch --amp_hmmsearch_models "/<path>/<to>/<amp>/*.hmm"
 ```
+
+:::warning
+Ensure to wrap the path in double quotes if using an asterisk, to ensure Nextflow (not your shell) parses the wildcard.
+:::
 
 ### AMPcombi
 
