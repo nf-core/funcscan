@@ -166,7 +166,7 @@ You should place all HMMs in a directory, supply them to the AMP or BGC workflow
 ```
 
 :::warning
-Ensure to wrap in quotes if using an asterisk, to ensure Nextflow (not your shell) parses the wildcard
+Ensure to wrap this path in double quotes if using an asterisk, to ensure Nextflow (not your shell) parses the wildcard.
 :::
 
 ### AMPcombi

@@ -10,11 +10,6 @@
                         "git_sha": "d19df066e54d6682cb534778418b586cadf30daa",
                         "installed_by": ["modules"]
                     },
-                    "ampcombi": {
-                        "branch": "master",
-                        "git_sha": "900f6c970712e41b783e21e5dfc30f052174b5cd",
-                        "installed_by": ["modules"]
-                    },
                     "ampcombi2/cluster": {
                         "branch": "master",
                         "git_sha": "900f6c970712e41b783e21e5dfc30f052174b5cd",
@@ -92,7 +87,7 @@
                     },
                     "fargene": {
                         "branch": "master",
-                        "git_sha": "2506084773f9fa01b65b25058cd5a010f87395b4",
+                        "git_sha": "a7231cbccb86535529e33859e05d19ac93f3ea04",
                         "installed_by": ["modules"]
                     },
                     "gecco/run": {
@@ -102,7 +97,7 @@
                     },
                     "gunzip": {
                         "branch": "master",
-                        "git_sha": "3a5fef109d113b4997c9822198664ca5f2716208",
+                        "git_sha": "a7231cbccb86535529e33859e05d19ac93f3ea04",
                         "installed_by": ["modules"]
                     },
                     "hamronization/abricate": {
@@ -167,7 +162,7 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "b7ebe95761cd389603f9cc0e0dc384c0f663815a",
+                        "git_sha": "314d742bdb357a1df5f9b88427b3b6ac78aa33f7",
                         "installed_by": ["modules"]
                     },
                     "prodigal": {

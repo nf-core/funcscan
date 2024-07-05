@@ -28,10 +28,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#371](https://github.com/nf-core/funcscan/pull/371) Fixed AMRFinderPlus parameter `arg_amrfinderplus_name`. (by @m3hdad)
 - [#376](https://github.com/nf-core/funcscan/pull/376) Fixed an occasional RGI process failure when certain files not produced. (❤️ to @amizeranschi for reporting, fix by @amizeranschi & @jfy133)
 - [#386](https://github.com/nf-core/funcscan/pull/386) Updated DeepBGC module to fix output file names, separate annotation step for all BGC tools, add warning if no BGCs found, fix MultiQC reporting of annotation workflow. (by @jfy133, @jasmezz)
-- [#392](https://github.com/nf-core/funcscan/pull/392) Fixed a docker/singularity only error appearing when running with conda. (❤️ to @ewissel for reporting, fix by @jfy33 & @jasmezz)
+- [#392](https://github.com/nf-core/funcscan/pull/392) & [#397](https://github.com/nf-core/funcscan/pull/397) Fixed a docker/singularity only error appearing when running with conda. (❤️ to @ewissel for reporting, fix by @jfy33 & @jasmezz)
 - [#394](https://github.com/nf-core/funcscan/pull/394) Fixed BGC input channel: pre-annotated input is picked up correctly now. (by @jfy133, @jasmezz)
 - [#391](https://github.com/nf-core/funcscan/pull/391) Skip hmmmsearch by default to not crash pipeline if user provides no HMM files, updated docs. (by @jasmezz)
 - [#391](https://github.com/nf-core/funcscan/pull/391) Made all "database" parameter names consistent. (by @jasmezz)
+- [#397](https://github.com/nf-core/funcscan/pull/397) Removed deprecated conda module, fixed variable name in BGC workflow, updated minor parts in docs (usage, paramter schema). (by @jasmezz)
 
 ### `Dependencies`
 
@@ -45,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | GECCO         | 0.9.8            | 0.9.10      |
 | hAMRonization | 1.1.1            | 1.1.4       |
 | HMMER         | 3.3.2            | 3.4         |
-| MultiQC       | 1.15             | 1.19        |
+| MultiQC       | 1.15             | 1.22.3      |
 | Pyrodigal     | 2.1.0            | 3.3.0       |
 | RGI           | 5.2.1            | 6.0.3       |
 | tabix/htslib  | 1.11             | 1.19.1      |
