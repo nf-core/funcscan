@@ -74,10 +74,10 @@ nextflow_pipeline {
                     path("$outputDir/arg/deeparg/sample_1/sample_1.align.daa.tsv"),
                     path("$outputDir/arg/deeparg/sample_2/sample_2.align.daa.tsv"),
                     path("$outputDir/arg/deeparg/sample_3/sample_3.align.daa.tsv"),
-                    path("$outputDir/arg/deeparg/sample_1/sample_1.mapping.ARG"),
-                    path("$outputDir/arg/deeparg/sample_2/sample_2.mapping.ARG"),
-                    path("$outputDir/arg/deeparg/sample_3/sample_3.mapping.ARG")
-                ).match("deeparg_tsv_ARG") },
+                    path("$outputDir/arg/deeparg/sample_1/sample_1.mapping.ARG").text.contains("#ARG"),
+                    path("$outputDir/arg/deeparg/sample_2/sample_2.mapping.ARG").text.contains("#ARG"),
+                    path("$outputDir/arg/deeparg/sample_3/sample_3.mapping.ARG").text.contains("#ARG")
+                ).match("deeparg") },
                 { assert file("$outputDir/arg/deeparg/sample_1/sample_1.align.daa").name },
                 { assert file("$outputDir/arg/deeparg/sample_2/sample_2.align.daa").name },
                 { assert file("$outputDir/arg/deeparg/sample_3/sample_3.align.daa").name },

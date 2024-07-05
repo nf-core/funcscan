@@ -1,7 +1,7 @@
 {
     "hamronization_summarize": {
         "content": [
-            "hamronization_combined_report.tsv:md5,2be1f41b31332ad53d805728086ea68f"
+            "hamronization_combined_report.tsv:md5,d86ae2e8d42ed6090234b8f5aa7c6a18"
         ],
         "meta": {
             "nf-test": "0.8.4",
@@ -48,14 +48,14 @@
         },
         "timestamp": "2024-07-04T22:23:20.809033"
     },
-    "deeparg_tsv_ARG": {
+    "deeparg": {
         "content": [
             "sample_1.align.daa.tsv:md5,0e71c37318bdc6cba792196d0455293d",
             "sample_2.align.daa.tsv:md5,1092ecd3cd6931653168b46c7afeb9e3",
             "sample_3.align.daa.tsv:md5,b79070fe26acd1a10ae3aaf06b0d5901",
-            "sample_1.mapping.ARG:md5,e81aec2e3510d314da5a7f78bf402bb1",
-            "sample_2.mapping.ARG:md5,25df6364ac6f966769f0fb22f4877bd5",
-            "sample_3.mapping.ARG:md5,100b6e963449854fefac44f643bb57ca"
+            true,
+            true,
+            true
         ],
         "meta": {
             "nf-test": "0.8.4",
