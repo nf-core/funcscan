@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#XXX](https://github.com/nf-core/funcscan/pull/XXX) Fixed bioawk overwriting input files (❤️ to @Microbion for reporting, fix by @jkfy133)
+- [#396](https://github.com/nf-core/funcscan/pull/396) Fixed bioawk overwriting input files (❤️ to @Microbion for reporting, fix by @jfy133)
 
 ### `Dependencies`
 
