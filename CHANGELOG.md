@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#394](https://github.com/nf-core/funcscan/pull/394) Fixed BGC input channel: pre-annotated input is picked up correctly now. (by @jfy133, @jasmezz)
 - [#391](https://github.com/nf-core/funcscan/pull/391) Skip hmmmsearch by default to not crash pipeline if user provides no HMM files, updated docs. (by @jasmezz)
 - [#391](https://github.com/nf-core/funcscan/pull/391) Made all "database" parameter names consistent. (by @jasmezz)
-- [#397](https://github.com/nf-core/funcscan/pull/397) Removed deprecated conda module, fixed variable name in BGC workflow, updated minor parts in docs (usage, paramter schema). (by @jasmezz)
+- [#397](https://github.com/nf-core/funcscan/pull/397) Removed deprecated AMPcombi module, fixed variable name in BGC workflow, updated minor parts in docs (usage, parameter schema). (by @jasmezz)
 
 ### `Dependencies`
 
