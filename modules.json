@@ -88,7 +88,7 @@
                     },
                     "fargene": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "git_sha": "a7231cbccb86535529e33859e05d19ac93f3ea04",
                         "installed_by": ["modules"]
                     },
                     "gecco/run": {
