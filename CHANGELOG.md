@@ -16,7 +16,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#375](https://github.com/nf-core/funcscan/pull/375) Merged pipeline template of nf-core/tools version 2.14.1. (by @jfy133)
 - [#381](https://github.com/nf-core/funcscan/pull/381) Added support for supplying pre-annotated sequences to the pipeline. (by @jfy133, @jasmezz)
 - [#382](https://github.com/nf-core/funcscan/pull/382) Optimised BGC screening run time and prevent crashes due to too-short contigs by adding contig length filtering for BGC workflow only. (by @jfy133, @darcy220606)
-- [#384](https://github.com/nf-core/funcscan/pull/384) Deprecated AMPcombi and exchanged it with full suite of AMPcombi2 submodules. (by @darcy220606)
 - [#366](https://github.com/nf-core/funcscan/pull/366) Added nf-test on pipeline level. (by @jfy133, @jasmezz)
 
 ### `Fixed`
@@ -43,17 +42,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | AMPlify       | 1.1.0            | 2.0.0       |
 | AMRFinderPlus | 3.11.18          | 3.12.8      |
 | antiSMASH     | 6.1.1            | 7.1.0       |
+| bioawk        | 1.0              | NA          |
 | DeepARG       | 1.0.2            | 1.0.4       |
 | DeepBGC       | 0.1.30           | 0.1.31      |
 | GECCO         | 0.9.8            | 0.9.10      |
 | hAMRonization | 1.1.1            | 1.1.4       |
 | HMMER         | 3.3.2            | 3.4         |
+| MMSeqs        | NA               | 2:15.6f452  |
 | MultiQC       | 1.15             | 1.22.3      |
 | Pyrodigal     | 2.1.0            | 3.3.0       |
 | RGI           | 5.2.1            | 6.0.3       |
+| seqkit        | NA               | 2.8.1       |
 | tabix/htslib  | 1.11             | 1.19.1      |
 
 ### `Deprecated`
+
+- [#384](https://github.com/nf-core/funcscan/pull/384) Deprecated AMPcombi and exchanged it with full suite of AMPcombi2 submodules. (by @darcy220606)
+- [#382](https://github.com/nf-core/funcscan/pull/382) Optimised BGC screening run time and prevent crashes due to too-short contigs by adding contig length filtering for BGC workflow only. Bioawk is replaced with seqkit (by @jfy133, @darcy220606)
 
 ## v1.1.6 - [2024-07-08]
 
