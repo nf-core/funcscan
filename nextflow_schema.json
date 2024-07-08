@@ -478,7 +478,7 @@
         "annotation_pyrodigal": {
             "title": "Annotation: Pyrodigal",
             "type": "object",
-            "description": "Pyrodigal is a resource-optimized wrapper around Prodigal, producing protein-coding gene predictions of bacterial and archaeal genomes. Read more at the Pyrodigal GitHub repo (https://github.com/althonos/pyrodigal) or its documentation (https://pyrodigal.readthedocs.io).",
+            "description": "Pyrodigal is a resource-optimized wrapper around Prodigal, producing protein-coding gene predictions of bacterial and archaeal genomes. Read more at the Pyrodigal GitHub repository (https://github.com/althonos/pyrodigal) or its documentation (https://pyrodigal.readthedocs.io).",
             "default": "",
             "properties": {
                 "annotation_pyrodigal_singlemode": {
@@ -512,7 +512,7 @@
         "database_downloading_options": {
             "title": "Database downloading options",
             "type": "object",
-            "description": "Generic options for database downloading",
+            "description": "General options for database downloading",
             "default": "",
             "properties": {
                 "save_db": {

@@ -46,6 +46,14 @@ workflow BGC {
                 .fromPath( params.bgc_antismash_installdir )
                 .first()
 
+        } else if ( params.bgc_antismash_db && ( session.config.conda && session.config.conda.enabled ) ) {
+
+            ch_antismash_databases = Channel
+                .fromPath( params.bgc_antismash_db )
+                .first()
+
+            ch_antismash_directory = []
+
         } else {
 
             // May need to update on each new version of antismash-lite due to changes to scripts inside these tars
@@ -67,7 +75,6 @@ workflow BGC {
             ch_antismash_databases = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.database
 
             ch_antismash_directory = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.antismash_dir
-
         }
 
         ANTISMASH_ANTISMASHLITE ( gbks, ch_antismash_databases, ch_antismash_directory, [] )
