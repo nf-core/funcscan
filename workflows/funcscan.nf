@@ -191,7 +191,7 @@ workflow FUNCSCAN {
             ch_prepped_input.faas
                 .filter {
                     meta, file ->
-                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
 
                 },
@@ -205,7 +205,7 @@ workflow FUNCSCAN {
             ch_prepped_input.faas
                 .filter {
                     meta, file ->
-                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                     },
             ch_taxonomy_tsv
@@ -235,7 +235,7 @@ workflow FUNCSCAN {
                 ch_prepped_input.faas
                     .filter {
                         meta, file ->
-                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced an empty FAA file. ARG screening tools requiring this file will not be executed: ${meta.id}")
                             !file.isEmpty()
                     },
                 ch_taxonomy_tsv
@@ -260,7 +260,7 @@ workflow FUNCSCAN {
                 ch_prepped_input.faas
                     .filter {
                         meta, file ->
-                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced an empty FAA file. ARG screening tools requiring this file will not be executed: ${meta.id}")
                             !file.isEmpty()
                     },
                 ch_taxonomy_tsv
@@ -283,13 +283,13 @@ workflow FUNCSCAN {
             ch_prepped_input_long.faas
                 .filter {
                     meta, file ->
-                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GFF file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced an empty GFF file. BGC screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
             ch_prepped_input_long.gbks
                 .filter {
                     meta, file ->
-                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file != [] && file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced an empty FAA file. BGC screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
             ch_taxonomy_tsv
@@ -301,13 +301,13 @@ workflow FUNCSCAN {
             ch_prepped_input_long.faas
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty FAA file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced an empty FAA file. BGC screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
             ch_prepped_input_long.gbks
                 .filter {
                     meta, file ->
-                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced produced an empty GBK file. AMP screening tools requiring this file will not be executed: ${meta.id}")
+                        if ( file.isEmpty() ) log.warn("[nf-core/funcscan] Annotation of following sample produced an empty GBK file. BGC screening tools requiring this file will not be executed: ${meta.id}")
                         !file.isEmpty()
                 },
             ch_taxonomy_tsv

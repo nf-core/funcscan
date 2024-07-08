@@ -39,12 +39,20 @@ workflow BGC {
         if ( params.bgc_antismash_db && params.bgc_antismash_installdir ) {
 
             ch_antismash_databases = Channel
-                .fromPath( params.bgc_antismash_databases )
+                .fromPath( params.bgc_antismash_db )
                 .first()
 
             ch_antismash_directory = Channel
                 .fromPath( params.bgc_antismash_installdir )
                 .first()
+
+        } else if ( params.bgc_antismash_db && ( session.config.conda && session.config.conda.enabled ) ) {
+
+            ch_antismash_databases = Channel
+                .fromPath( params.bgc_antismash_db )
+                .first()
+
+            ch_antismash_directory = []
 
         } else {
 
@@ -67,7 +75,6 @@ workflow BGC {
             ch_antismash_databases = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.database
 
             ch_antismash_directory = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.antismash_dir
-
         }
 
         ANTISMASH_ANTISMASHLITE ( gbks, ch_antismash_databases, ch_antismash_directory, [] )
