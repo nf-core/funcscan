@@ -27,6 +27,8 @@ workflow AMP {
     ch_ampresults_for_ampcombi     = Channel.empty()
     ch_ampcombi_summaries          = Channel.empty()
     ch_macrel_faa                  = Channel.empty()
+    ch_ampcombi_complete           = Channel.empty()
+    ch_ampcombi_for_cluster        = Channel.empty()
 
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
@@ -97,7 +99,7 @@ workflow AMP {
         ch_ampresults_for_ampcombi = ch_ampresults_for_ampcombi.mix( ch_AMP_GUNZIP_HMMER_HMMSEARCH )
     }
 
-    //AMPCOMBI2
+    // AMPCOMBI2
     ch_input_for_ampcombi = ch_ampresults_for_ampcombi
         .groupTuple()
         .join( ch_faa_for_ampcombi )
@@ -123,12 +125,20 @@ workflow AMP {
     AMPCOMBI2_COMPLETE ( ch_ampcombi_summaries )
     ch_versions = ch_versions.mix( AMPCOMBI2_COMPLETE.out.versions )
 
-    AMPCOMBI2_CLUSTER ( AMPCOMBI2_COMPLETE.out.tsv )
-    ch_versions = ch_versions.mix( AMPCOMBI2_CLUSTER.out.versions )
+    ch_ampcombi_complete = AMPCOMBI2_COMPLETE.out.tsv
+                                .filter { file -> file.countLines() > 1 }
+
+    if ( ch_ampcombi_complete != null )  {
+        AMPCOMBI2_CLUSTER ( ch_ampcombi_complete )
+        ch_versions = ch_versions.mix( AMPCOMBI2_CLUSTER.out.versions )
+    } else {
+        log.warn("[nf-core/funcscan] No AMP hits were found in the samples and so no clustering will be applied.")
+    }
 
     // MERGE_TAXONOMY
-    if ( params.run_taxa_classification ) {
-
+    if ( params.run_taxa_classification && ch_ampcombi_complete == null ) {
+        log.warn("[nf-core/funcscan] No AMP hits were found in the samples, therefore no Taxonomy will be merged ")
+    } else if ( params.run_taxa_classification && ch_ampcombi_complete != null ) {
         ch_mmseqs_taxonomy_list = tsvs.map{ it[1] }.collect()
 
         MERGE_TAXONOMY_AMPCOMBI( AMPCOMBI2_CLUSTER.out.cluster_tsv, ch_mmseqs_taxonomy_list )
