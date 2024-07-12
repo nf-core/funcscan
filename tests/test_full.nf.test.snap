@@ -1,31 +1,13 @@
 {
-    "antismash": {
+    "hamronization_summarize": {
         "content": [
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true
+            "hamronization_combined_report.tsv:md5,5a75323ff27acde627a2c3b6a8dc1539"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nextflow": "24.04.1"
         },
-        "timestamp": "2024-07-02T20:18:53.947865807"
+        "timestamp": "2024-07-12T08:17:19.099809903"
     },
     "abricate": {
         "content": [
@@ -83,33 +65,6 @@
         },
         "timestamp": "2024-07-02T20:18:41.345458618"
     },
-    "gecco": {
-        "content": [
-            "ERZ1664504.220-NODE-220-length-4587-cov-2.552957_cluster_1.gbk:md5,30e9550dbf9ebcf217b813ff98738b95",
-            "ERZ1664504.48-NODE-48-length-9582-cov-5.239425_cluster_1.gbk:md5,ab300a2641b618537053d0cb18ae8c66",
-            "ERZ1664506.42-NODE-42-length-11967-cov-6.006380_cluster_1.gbk:md5,9c24ba6227a3f27862fe8178517b1c96",
-            "ERZ1664508.3061-NODE-3061-length-1263-cov-3.647351_cluster_1.gbk:md5,ed226e403884fb40b67d5b0ab04e9068",
-            "ERZ1664510.123-NODE-123-length-8863-cov-8.649410_cluster_1.gbk:md5,419dbb90a99824424d860b7bbc49f8ea",
-            "ERZ1664510.210-NODE-210-length-5173-cov-7.860688_cluster_1.gbk:md5,79fde05f0b2480c1c7d4748294078786",
-            "ERZ1664511.16-NODE-16-length-49668-cov-9.810473_cluster_1.gbk:md5,9598919b66b52d29deed5b116b0d6fb0",
-            "ERZ1664515.9-NODE-9-length-49063-cov-10.926196_cluster_1.gbk:md5,04b265636bd830f1c758cdd9db8721e7",
-            "ERZ1664516.158-NODE-158-length-6232-cov-9.863850_cluster_1.gbk:md5,655c7073a68f9326e6347b671269e2e8",
-            "ERZ1664517.38-NODE-38-length-19981-cov-8.613771_cluster_1.gbk:md5,c9f6ae75f36da46e62d1a4321e4f9022",
-            "ERZ1664518.217-NODE-217-length-4457-cov-6.415947_cluster_1.gbk:md5,2d28fc5a7c7aa9856024bf8ad92dbd12",
-            "ERZ1664521.1871-NODE-1871-length-1473-cov-1.858251_cluster_1.gbk:md5,8a07ee457233788a91a8221ac9089cb9",
-            "ERZ1664521.895-NODE-895-length-1964-cov-2.221058_cluster_1.gbk:md5,59a50a36effffb3f8671236b213ebeda",
-            "ERZ1664523.16-NODE-16-length-15072-cov-6.654591_cluster_1.gbk:md5,ed9119fb14ffe2dafc2b52163d3e9419",
-            "ERZ1664524.1150-NODE-1150-length-2386-cov-3.450879_cluster_1.gbk:md5,d08f5ce41f640354e4a687376273e50c",
-            "ERZ1664524.54-NODE-54-length-9607-cov-5.345582_cluster_1.gbk:md5,129ee567167d39b0b4528edb77d0e21f",
-            "ERZ1664528.138-NODE-138-length-5805-cov-4.599304_cluster_1.gbk:md5,4eb318f8a2515c5813bd577123c29298",
-            "ERZ1664528.1641-NODE-1641-length-2049-cov-4.697091_cluster_1.gbk:md5,647f17c32a6edc845d1bbb51e034fe99"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
-        },
-        "timestamp": "2024-07-02T20:18:58.06480214"
-    },
     "rgi": {
         "content": [
             "ERZ1664501.txt:md5,631580295a01dfa9942a84ec6daddb7e",
@@ -137,16 +92,6 @@
             "nextflow": "24.04.2"
         },
         "timestamp": "2024-07-02T20:18:37.337052941"
-    },
-    "hamronization_summarize": {
-        "content": [
-            "hamronization_combined_report.tsv:md5,82a55c4e9699bb7fb97d672742389813"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
-        },
-        "timestamp": "2024-05-29T12:51:43.19053393"
     },
     "deeparg": {
         "content": [
@@ -223,33 +168,88 @@
         },
         "timestamp": "2024-07-02T20:18:12.786462549"
     },
-    "macrel": {
+    "gecco": {
         "content": [
-            "ERZ1664501.macrel.prediction.gz:md5,a553cb5d0745a01816c7b9c75822df29",
-            "ERZ1664503.macrel.prediction.gz:md5,dc505be7dfeb81de94865bf3957e670f",
-            "ERZ1664504.macrel.prediction.gz:md5,4e70302d8722836732b1769ae2728bfe",
-            "ERZ1664505.macrel.prediction.gz:md5,94fa17cce88549aab16555ee598c02bb",
-            "ERZ1664506.macrel.prediction.gz:md5,732be08d0236cf63641ef445a02cf1ee",
-            "ERZ1664507.macrel.prediction.gz:md5,eab2d426cf31a47597e61ddb25bf3d49",
-            "ERZ1664508.macrel.prediction.gz:md5,a11d9bb7f1cf9eff90129ac64406ce90",
-            "ERZ1664509.macrel.prediction.gz:md5,bf6653220ad717c2d9a712600d62e843",
-            "ERZ1664510.macrel.prediction.gz:md5,aaf48021a9ddeba74a7aa1df3004ecff",
-            "ERZ1664511.macrel.prediction.gz:md5,c8827ed63936c65b81855a11009ef32d",
-            "ERZ1664515.macrel.prediction.gz:md5,b896ac50f6ebec1e725cff67bdff8fed",
-            "ERZ1664516.macrel.prediction.gz:md5,633dc1053e88721a04bf595dca4845b2",
-            "ERZ1664517.macrel.prediction.gz:md5,6a08f1e4c309e743e9c920ecc7a17fdc",
-            "ERZ1664518.macrel.prediction.gz:md5,ece868e6ffca0ed122c6f88ac90dc971",
-            "ERZ1664520.macrel.prediction.gz:md5,9dec32e1f1f57bafc59b459de344eeb4",
-            "ERZ1664521.macrel.prediction.gz:md5,91bd81f6c4e5c8ff4cc684ec04fa0a30",
-            "ERZ1664523.macrel.prediction.gz:md5,63adc84930105d458389bbf67dd6fd7f",
-            "ERZ1664524.macrel.prediction.gz:md5,69bad7f2a27f43e9b1d6212e1021871d",
-            "ERZ1664528.macrel.prediction.gz:md5,21fde27c71e3cccb7fdecf33b956df72"
+            "ERZ1664504.220-NODE-220-length-4587-cov-2.552957_cluster_1.gbk:md5,69eeb368a6f89a268d069fa07ecee1d6",
+            "ERZ1664504.48-NODE-48-length-9582-cov-5.239425_cluster_1.gbk:md5,357eb07ba90c9bcdc9cedef796bcfca0",
+            "ERZ1664506.42-NODE-42-length-11967-cov-6.006380_cluster_1.gbk:md5,0a260a4ba3de321dd3c700019bbcdedc",
+            "ERZ1664508.3061-NODE-3061-length-1263-cov-3.647351_cluster_1.gbk:md5,ad50f411e0e6b53a4326d0383f8b22c2",
+            "ERZ1664510.123-NODE-123-length-8863-cov-8.649410_cluster_1.gbk:md5,c9692f950285789af64fa69fb871841f",
+            "ERZ1664510.210-NODE-210-length-5173-cov-7.860688_cluster_1.gbk:md5,5fa9a892c2f8f6473317cbfe801e7e95",
+            "ERZ1664511.16-NODE-16-length-49668-cov-9.810473_cluster_1.gbk:md5,ac5f4682cfe60b4038aa39f5f42a117b",
+            "ERZ1664515.9-NODE-9-length-49063-cov-10.926196_cluster_1.gbk:md5,96752064bd4b32f741ae7b5d00c4f37c",
+            "ERZ1664516.158-NODE-158-length-6232-cov-9.863850_cluster_1.gbk:md5,7f58f99bf974d10efa760048552fe2e5",
+            "ERZ1664517.38-NODE-38-length-19981-cov-8.613771_cluster_1.gbk:md5,c876ab59dd943efd8e7838f9b1f665e6",
+            "ERZ1664518.217-NODE-217-length-4457-cov-6.415947_cluster_1.gbk:md5,f01dee924cd2dc677d494d0d4db07f8a",
+            "ERZ1664521.1871-NODE-1871-length-1473-cov-1.858251_cluster_1.gbk:md5,041c705e5ad5d4a6168b3d71fb157667",
+            "ERZ1664521.895-NODE-895-length-1964-cov-2.221058_cluster_1.gbk:md5,e08f19ed77e3ec2ad9b941b5a03ffb82",
+            "ERZ1664523.16-NODE-16-length-15072-cov-6.654591_cluster_1.gbk:md5,a99d1cc8d565ff2fb478363e1d830511",
+            "ERZ1664524.1150-NODE-1150-length-2386-cov-3.450879_cluster_1.gbk:md5,4b9b9b88b428357d510e652a47de957b",
+            "ERZ1664524.54-NODE-54-length-9607-cov-5.345582_cluster_1.gbk:md5,ec9f06b06ea5921e2e1c37acd9f6260b",
+            "ERZ1664528.138-NODE-138-length-5805-cov-4.599304_cluster_1.gbk:md5,2fb5b5e4f7042e66ce04d077386c790f",
+            "ERZ1664528.1641-NODE-1641-length-2049-cov-4.697091_cluster_1.gbk:md5,cbf89f809d489e3a0c8a9c2576b2cd47"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.1"
+        },
+        "timestamp": "2024-07-12T08:17:29.27350638"
+    },
+    "antismash": {
+        "content": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "24.04.2"
         },
-        "timestamp": "2024-07-02T20:18:21.79155386"
+        "timestamp": "2024-07-02T20:18:53.947865807"
+    },
+    "macrel": {
+        "content": [
+            "ERZ1664501.macrel.prediction.gz:md5,a553cb5d0745a01816c7b9c75822df29",
+            "ERZ1664503.macrel.prediction.gz:md5,3ca2cd9a6d999725b4a487c13ddb7fd9",
+            "ERZ1664504.macrel.prediction.gz:md5,52e9c1ec54f486765dea07d97b1c97b7",
+            "ERZ1664505.macrel.prediction.gz:md5,94fa17cce88549aab16555ee598c02bb",
+            "ERZ1664506.macrel.prediction.gz:md5,732be08d0236cf63641ef445a02cf1ee",
+            "ERZ1664507.macrel.prediction.gz:md5,eab2d426cf31a47597e61ddb25bf3d49",
+            "ERZ1664508.macrel.prediction.gz:md5,a0e40483e0136c3bb4abea9c9cba7d4b",
+            "ERZ1664509.macrel.prediction.gz:md5,47ca65c261cf402b390f6951bb1ed9dc",
+            "ERZ1664510.macrel.prediction.gz:md5,3e6ca785e579757616fe515efef1537e",
+            "ERZ1664511.macrel.prediction.gz:md5,df36fa0448591690fc6b7ded2517256e",
+            "ERZ1664515.macrel.prediction.gz:md5,b896ac50f6ebec1e725cff67bdff8fed",
+            "ERZ1664516.macrel.prediction.gz:md5,5dcbc87c6a44e8783dfe48b6385dfca8",
+            "ERZ1664517.macrel.prediction.gz:md5,02373e1b4383dc7501e7e142c9443b7a",
+            "ERZ1664518.macrel.prediction.gz:md5,7290477960af29a76563e8ded5d4a623",
+            "ERZ1664520.macrel.prediction.gz:md5,bdf1a379ee49e34b9a448762e5301926",
+            "ERZ1664521.macrel.prediction.gz:md5,91bd81f6c4e5c8ff4cc684ec04fa0a30",
+            "ERZ1664523.macrel.prediction.gz:md5,cee5ae9ba4a8a3879ab245b767815394",
+            "ERZ1664524.macrel.prediction.gz:md5,73f21254f4e4056a71ebf43851af3698",
+            "ERZ1664528.macrel.prediction.gz:md5,2e957f217c570a58ee61d97c690c1424"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.1"
+        },
+        "timestamp": "2024-07-12T08:17:17.980360618"
     },
     "amrfinderplus": {
         "content": [
