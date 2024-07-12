@@ -1,0 +1,73 @@
+nextflow_pipeline {
+
+    name "Test pipeline: NFCORE_FUNCSCAN"
+    script "main.nf"
+    tag "pipeline"
+    tag "nfcore_funcscan"
+    tag "test_preannotated_bgc"
+
+    test("test_preannotated_bgc_profile") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert new File("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+
+                // antiSMASH
+                { assert snapshot(
+                    path("$outputDir/bgc/antismash/sample_1/css"),
+                    path("$outputDir/bgc/antismash/sample_2/css"),
+                    path("$outputDir/bgc/antismash/sample_3/css")
+                ).match("antismash_css") },                                                                                               // parts of channel: html_accessory_files
+                { assert path("$outputDir/bgc/antismash/sample_1/sample_1.gbk").text.contains("##antiSMASH-Data-START##") },                  // channel: gbk_input
+                { assert path("$outputDir/bgc/antismash/sample_1/sample_1.zip").exists() },                                                   // channel: zip
+                { assert path("$outputDir/bgc/antismash/sample_1/index.html").text.contains("https://antismash.secondarymetabolites.org/") }, // channel: html
+                { assert path("$outputDir/bgc/antismash/sample_1/regions.js").text.contains('PROKKA_859') },                                  // channel: json_sideloading
+                { assert path("$outputDir/bgc/antismash/sample_1/sample_1.log").text.contains("antiSMASH status: SUCCESS") },                 // channel: log
+                { assert path("$outputDir/bgc/antismash/sample_2/sample_2.gbk").text.contains("##antiSMASH-Data-START##") },                  // channel: gbk_input
+                { assert path("$outputDir/bgc/antismash/sample_2/sample_2.zip").exists() },                                                   // channel: zip
+                { assert path("$outputDir/bgc/antismash/sample_2/index.html").text.contains("https://antismash.secondarymetabolites.org/") }, // channel: html
+                { assert path("$outputDir/bgc/antismash/sample_2/regions.js").text.contains('PROKKA_859') },                                  // channel: json_sideloading
+                { assert path("$outputDir/bgc/antismash/sample_2/sample_2.log").text.contains("antiSMASH status: SUCCESS") },                 // channel: log
+                { assert path("$outputDir/bgc/antismash/sample_3/sample_3.gbk").text.contains("##antiSMASH-Data-START##") },                  // channel: gbk_input
+                { assert path("$outputDir/bgc/antismash/sample_3/sample_3.zip").exists() },                                                   // channel: zip
+                { assert path("$outputDir/bgc/antismash/sample_3/index.html").text.contains("https://antismash.secondarymetabolites.org/") }, // channel: html
+                { assert path("$outputDir/bgc/antismash/sample_3/regions.js").text.contains('NODE_1328_length_3730_cov_3.647347') },          // channel: json_sideloading
+                { assert path("$outputDir/bgc/antismash/sample_3/sample_3.log").text.contains("antiSMASH status: SUCCESS") },                 // channel: log
+
+                // DeepBGC
+                { assert snapshot(
+                    path("$outputDir/bgc/deepbgc/sample_1/sample_1.bgc.gbk"),
+                    path("$outputDir/bgc/deepbgc/sample_2/sample_2.bgc.gbk"),
+                    path("$outputDir/bgc/deepbgc/sample_3/sample_3.bgc.gbk")
+                ).match("deepbgc_bgc_gbk") },                                                                                                      // channel: bgc_gbk
+                { assert path("$outputDir/bgc/deepbgc/sample_1/sample_1.antismash.json").text.contains("Putative BGCs predicted using DeepBGC") }, // channel: json
+                { assert path("$outputDir/bgc/deepbgc/sample_1/LOG.txt").text.contains('Saved DeepBGC result to:') },                              // channel: log
+                { assert path("$outputDir/bgc/deepbgc/sample_1/sample_1.full.gbk").text.contains('1 ttcgccagga gtggcgaagc gatgcgaggt') },          // channel: full_gbk
+                { assert path("$outputDir/bgc/deepbgc/sample_2/sample_2.antismash.json").text.contains("Putative BGCs predicted using DeepBGC") }, // channel: json
+                { assert path("$outputDir/bgc/deepbgc/sample_2/LOG.txt").text.contains('Saved DeepBGC result to:') },                              // channel: log
+                { assert path("$outputDir/bgc/deepbgc/sample_2/sample_2.full.gbk").text.contains('1 aaggggtatg gagcagcgac gtctacccgt') },          // channel: full_gbk
+                { assert path("$outputDir/bgc/deepbgc/sample_3/sample_3.antismash.json").text.contains("NODE_1328_length_3730_cov_3.647347") },    // channel: json
+                { assert path("$outputDir/bgc/deepbgc/sample_3/LOG.txt").text.contains('Saved DeepBGC result to:') },                              // channel: log
+                { assert path("$outputDir/bgc/deepbgc/sample_3/sample_3.full.gbk").text.contains('1 tgaatctgtt ttaaagcaaa ttgatctcgc') },          // channel: full_gbk
+
+                // GECCO
+                { assert snapshot(
+                    path("$outputDir/bgc/gecco/sample_1/sample_1.genes.tsv"),    // channel: genes
+                    path("$outputDir/bgc/gecco/sample_1/sample_1.features.tsv"), // channel: features
+                    path("$outputDir/bgc/gecco/sample_2/sample_2.genes.tsv"),    // channel: genes
+                    path("$outputDir/bgc/gecco/sample_2/sample_2.features.tsv"), // channel: features
+                    path("$outputDir/bgc/gecco/sample_3/sample_3.genes.tsv"),    // channel: genes
+                    path("$outputDir/bgc/gecco/sample_3/sample_3.features.tsv")  // channel: features
+                ).match("gecco") }
+            )
+        }
+    }
+}
