@@ -132,7 +132,7 @@ workflow AMP {
         AMPCOMBI2_CLUSTER ( ch_ampcombi_complete )
         ch_versions = ch_versions.mix( AMPCOMBI2_CLUSTER.out.versions )
     } else {
-        log.warn("[nf-core/funcscan] No AMP hits were found in the samples.")
+        log.warn("[nf-core/funcscan] No AMP hits were found in the samples and so no clustering will be applied.")
     }
 
     // MERGE_TAXONOMY
