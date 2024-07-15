@@ -204,6 +204,11 @@
                         "branch": "master",
                         "git_sha": "5caf7640a9ef1d18d765d55339be751bb0969dfa",
                         "installed_by": ["modules"]
+                    },
+                    "argnorm": {
+                        "branch": "master",
+                        "git_sha": "e4fc46af5ec30070e6aef780aba14f89a28caa88",
+                        "installed_by": ["modules"]
                     }
                 }
             },

@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#381](https://github.com/nf-core/funcscan/pull/381) Added support for supplying pre-annotated sequences to the pipeline. (by @jfy133, @jasmezz)
 - [#382](https://github.com/nf-core/funcscan/pull/382) Optimised BGC screening run time and prevent crashes due to too-short contigs by adding contig length filtering for BGC workflow only. (by @jfy133, @darcy220606)
 - [#366](https://github.com/nf-core/funcscan/pull/366) Added nf-test on pipeline level. (by @jfy133, @Darcy220606, @jasmezz)
+- Added argNorm to ARG subworkflow
 
 ### `Fixed`
 
@@ -42,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | AMPlify       | 1.1.0            | 2.0.0       |
 | AMRFinderPlus | 3.11.18          | 3.12.8      |
 | antiSMASH     | 6.1.1            | 7.1.0       |
+| argNorm       | NA               | 0.5.0       |
 | bioawk        | 1.0              | NA          |
 | DeepARG       | 1.0.2            | 1.0.4       |
 | DeepBGC       | 0.1.30           | 0.1.31      |

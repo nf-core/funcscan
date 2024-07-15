@@ -4,7 +4,7 @@
 
 The output of nf-core/funcscan provides reports for each of the functional groups:
 
-- antibiotic resistance genes (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) – summarised by [hAMRonization](https://github.com/pha4ge/hAMRonization))
+- antibiotic resistance genes (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) – summarised by [hAMRonization](https://github.com/pha4ge/hAMRonization) and normalized to ARO by [argNorm](https://github.com/BigDataBiology/argNorm))
 - antimicrobial peptides (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) – summarised by [AMPcombi](https://github.com/Darcy220606/AMPcombi))
 - biosynthetic gene clusters (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org) – summarised by [comBGC](#combgc))
 
@@ -35,8 +35,16 @@ results/
 |   ├── amrfinderplus/
 |   ├── deeparg/
 |   ├── fargene/
-|   ├── hamronization/
-|   └── rgi/
+|   ├── rgi/
+|   └── hamronization/
+|     ├── abricate/
+|     |   └── argnorm/
+|     ├── amrfinderplus/
+|     |   └── argnorm/
+|     ├── deeparg/
+|     |   └── argnorm/
+|     ├── fargene/
+|     └── rgi/
 ├── bgc/
 |   ├── antismash/
 |   ├── deepbgc/
@@ -80,6 +88,7 @@ Antimicrobial Resistance Genes (ARGs):
 - [DeepARG](#deeparg) – antimicrobial resistance gene detection, using a deep learning model.
 - [fARGene](#fargene) – antimicrobial resistance gene detection, using Hidden Markov Models.
 - [RGI](#rgi) – antimicrobial resistance gene detection, based on alignment to the CARD database.
+- [argNorm](#argNorm) -  Normalize ARG annotations to the ARO
 
 Antimicrobial Peptides (AMPs):
 
@@ -274,7 +283,7 @@ Output Summaries:
 
 ### ARG detection tools
 
-[ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), [DeepARG](#deeparg), [fARGene](#fargene), [RGI](#rgi)
+[ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), [DeepARG](#deeparg), [fARGene](#fargene), [RGI](#rgi), [argNorm](#argnorm)
 
 #### ABRicate
 
@@ -356,6 +365,65 @@ Output Summaries:
 </details>
 
 [RGI](https://github.com/arpcard/rgi) (**R**esistance **G**ene **I**dentifier) predicts resistome(s) from protein or nucleotide data based on homology and SNP models. It uses reference data from the Comprehensive Antibiotic Resistance Database (CARD).
+
+#### argNorm
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `normalized/`
+  - `*.{tsv}`: search results in tabular format
+</details>
+<details markdown="1">
+<summary>ARG summary table headers</summary>
+
+| Table column                                      | Description                                                                                                                                                                         |
+| ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `input_file_name`                                 | Name of the file containing the sequence data to be analysed                                                                                                                        |
+| `gene_symbol`                                     | Short name of a gene; a single word that does not contain white space characters. It is typically derived from the gene name                                                        |
+| `gene_name`                                       | Name of a gene                                                                                                                                                                      |
+| `reference_database_name`                         | Identifier of a biological or bioinformatics database                                                                                                                               |
+| `reference_database_version`                      | Version of the database containing the reference sequences used for analysis                                                                                                        |
+| `reference_accession`                             | Identifier that specifies an individual sequence record in a public sequence repository                                                                                             |
+| `analysis_software_name`                          | Name of a computer package, application, method or function used for the analysis of data                                                                                           |
+| `analysis_software_version`                       | Version of software used to analyze data                                                                                                                                            |
+| `genetic_variation_type`                          | Class of genetic variation detected                                                                                                                                                 |
+| `antimicrobial_agent` (optional)                  | A substance that kills or slows the growth of microorganisms, including bacteria, viruses, fungi and protozoans                                                                     |
+| `coverage_percentage` (optional)                  | Percentage of the reference sequence covered by the sequence of interest                                                                                                            |
+| `coverage_depth` (optional)                       | Average number of reads representing a given nucleotide in the reconstructed sequence                                                                                               |
+| `coverage_ratio` (optional)                       | Ratio of the reference sequence covered by the sequence of interest.                                                                                                                |
+| `drug_class` (optional)                           | Set of antibiotic molecules, with similar chemical structures, molecular targets, and/or modes and mechanisms of action                                                             |
+| `input_gene_length` (optional)                    | Length (number of positions) of a target gene sequence submitted by a user                                                                                                          |
+| `input_gene_start` (optional)                     | Position of the first nucleotide in a gene sequence being analysed (input gene sequence)                                                                                            |
+| `input_gene_stop` (optional)                      | Position of the last nucleotide in a gene sequence being analysed (input gene sequence)                                                                                             |
+| `input_protein_length` (optional)                 | Length (number of positions) of a protein target sequence submitted by a user                                                                                                       |
+| `input_protein_start` (optional)                  | Position of the first amino acid in a protein sequence being analysed (input protein sequence)                                                                                      |
+| `input_protein_stop` (optional)                   | Position of the last amino acid in a protein sequence being analysed (input protein sequence)                                                                                       |
+| `input_sequence_id` (optional)                    | Identifier of molecular sequence(s) or entries from a molecular sequence database                                                                                                   |
+| `nucleotide_mutation` (optional)                  | Nucleotide sequence change(s) detected in the sequence being analysed compared to a reference                                                                                       |
+| `nucleotide_mutation_interpretation` (optional)   | Description of identified nucleotide mutation(s) that facilitate clinical interpretation                                                                                            |
+| `predicted_phenotype` (optional)                  | Characteristic of an organism that is predicted rather than directly measured or observed                                                                                           |
+| `predicted_phenotype_confidence_level` (optional) | Confidence level in a predicted phenotype                                                                                                                                           |
+| `amino_acid_mutation` (optional)                  | Amino acid sequence change(s) detected in the sequence being analysed compared to a reference                                                                                       |
+| `amino_acid_mutation_interpretation` (optional)   | Description of identified amino acid mutation(s) that facilitate clinical interpretation.                                                                                           |
+| `reference_gene_length` (optional)                | Length (number of positions) of a gene reference sequence retrieved from a database                                                                                                 |
+| `reference_gene_start` (optional)                 | Position of the first nucleotide in a reference gene sequence                                                                                                                       |
+| `reference_gene_stop` (optional)                  | Position of the last nucleotide in a reference sequence                                                                                                                             |
+| `reference_protein_length` (optional)             | Length (number of positions) of a protein reference sequence retrieved from a database                                                                                              |
+| `reference_protein_start` (optional)              | Position of the first amino acid in a reference protein sequence                                                                                                                    |
+| `reference_protein_stop` (optional)               | Position of the last amino acid in a reference protein sequence                                                                                                                     |
+| `resistance_mechanism` (optional)                 | Antibiotic resistance mechanisms evolve naturally via natural selection through random mutation, but it could also be engineered by applying an evolutionary stress on a population |
+| `strand_orientation` (optional)                   | Orientation of a genomic element on the double-stranded molecule                                                                                                                    |
+| `sequence_identity` (optional)                    | Sequence identity is the number (%) of matches (identical characters) in positions from an alignment of two molecular sequences                                                     |
+| `ARO`                    | ARO accessions of ARG                                                     |
+| `confers_resistance_to`                    | ARO accessions of drugs to which ARGs confer resistance to                                                     |
+| `resistance_to_drug_classes`                    | ARO accessions of drugs classes to which drugs in `confers_resistance_to` belong         
+</details>
+
+[argnorm](https://github.com/BigDataBiology/argNorm) is a tool to normalize antibiotic resistance genes (ARGs) by mapping them to the antibiotic resistance ontology (ARO) created by the CARD database. argNorm also enhances antibiotic resistance gene annotations by providing drug categorization of the drugs that antibiotic resistance genes confer resistance to.
+
+argNorm takes the output of the [hAMRonization](#hamronization) tool and normalizes ARGs in the hAMRonization output to the ARO.
+
 
 ### BGC detection tools
 

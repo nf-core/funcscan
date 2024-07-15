@@ -250,7 +250,74 @@ nextflow_pipeline {
 
                 // hAMRonization
                 { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv")).match("hamronization_summarize") },
-
+                
+                // argNorm
+                { assert snapshot (
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664501.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664503.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664504.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664505.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664506.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664507.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664508.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664509.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664510.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664511.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664515.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664516.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664517.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664518.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664520.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664521.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664523.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664524.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664528.normalized.tsv"),
+                ).match("argnorm_deeparg") },
+                
+                { assert snapshot (
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664501.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664503.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664504.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664505.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664506.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664507.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664508.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664509.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664510.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664511.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664515.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664516.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664517.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664518.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664520.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664521.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664523.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664524.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664528.normalized.tsv"),
+                ).match("argnorm_abricate") },
+                
+                { assert snapshot (
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664501.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664503.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664504.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664505.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664506.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664507.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664508.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664509.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664510.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664511.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664515.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664516.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664517.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664518.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664520.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664521.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664523.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664524.normalized.tsv"),
+                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664528.normalized.tsv"),
+                ).match("argnorm_amrfinderplus") },
+                
                 // BGC workflow
 
                 // antiSMASH
