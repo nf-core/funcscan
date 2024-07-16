@@ -59,13 +59,12 @@ workflow ARG {
         HAMRONIZATION_AMRFINDERPLUS_JSON ( AMRFINDERPLUS_RUN.out.report, 'json', AMRFINDERPLUS_RUN.out.tool_version, AMRFINDERPLUS_RUN.out.db_version )
         ch_versions = ch_versions.mix( HAMRONIZATION_AMRFINDERPLUS_JSON.out.versions )
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_AMRFINDERPLUS_JSON.out.json )
-        ARGNORM_AMRFINDERPLUS ( HAMRONIZATION_AMRFINDERPLUS_TSV.out.tsv.filter{meta, file -> file != null && file.size() > 0}, 'amrfinderplus', 'ncbi' )
+        ARGNORM_AMRFINDERPLUS ( HAMRONIZATION_AMRFINDERPLUS_TSV.out.tsv.filter{meta, file -> !file.isEmpty()}, 'amrfinderplus', 'ncbi' )
         ch_versions = ch_versions.mix(ARGNORM_AMRFINDERPLUS.out.versions)
     }
 
     // fARGene run
     if ( !params.arg_skip_fargene ) {
-
         ch_fargene_classes = Channel.fromList( params.arg_fargene_hmmmodel.tokenize(',') )
 
         ch_fargene_input = fastas
@@ -155,7 +154,7 @@ workflow ARG {
         HAMRONIZATION_DEEPARG_JSON ( DEEPARG_PREDICT.out.arg.mix( DEEPARG_PREDICT.out.potential_arg ), 'json', '1.0.2', params.arg_deeparg_db_version )
         ch_versions = ch_versions.mix( HAMRONIZATION_DEEPARG_JSON.out.versions )
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_DEEPARG_JSON.out.json )
-        ARGNORM_DEEPARG ( HAMRONIZATION_DEEPARG_TSV.out.tsv.filter{meta, file -> file != null && file.size() > 0}, 'deeparg', 'deeparg' )
+        ARGNORM_DEEPARG ( HAMRONIZATION_DEEPARG_TSV.out.tsv.filter{meta, file -> !file.isEmpty()}, 'deeparg', 'deeparg' )
         ch_versions = ch_versions.mix(ARGNORM_DEEPARG.out.versions) 
     }
 
@@ -169,7 +168,7 @@ workflow ARG {
         HAMRONIZATION_ABRICATE_JSON ( ABRICATE_RUN.out.report, 'json', '1.0.1', '2021-Mar-27' )
         ch_versions = ch_versions.mix( HAMRONIZATION_ABRICATE_JSON.out.versions )
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_ABRICATE_JSON.out.json )
-        ARGNORM_ABRICATE ( HAMRONIZATION_ABRICATE_TSV.out.tsv.filter{meta, file -> file != null && file.size() > 0}, 'abricate', params.arg_abricate_db_id )
+        ARGNORM_ABRICATE ( HAMRONIZATION_ABRICATE_TSV.out.tsv.filter{meta, file -> !file.isEmpty()}, 'abricate', params.arg_abricate_db_id )
         ch_versions = ch_versions.mix(ARGNORM_ABRICATE.out.versions)
     }
 
