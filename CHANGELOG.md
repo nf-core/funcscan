@@ -49,7 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | hAMRonization | 1.1.1            | 1.1.4       |
 | HMMER         | 3.3.2            | 3.4         |
 | MMSeqs        | NA               | 2:15.6f452  |
-| MultiQC       | 1.15             | 1.22.3      |
+| MultiQC       | 1.15             | 1.23        |
 | Pyrodigal     | 2.1.0            | 3.3.0       |
 | RGI           | 5.2.1            | 6.0.3       |
 | seqkit        | NA               | 2.8.1       |
