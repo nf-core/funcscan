@@ -128,19 +128,19 @@ nextflow_pipeline {
                     path("$outputDir/arg/hamronization/amrfinderplus/argnorm/sample_1.normalized.tsv"),
                     path("$outputDir/arg/hamronization/amrfinderplus/argnorm/sample_2.normalized.tsv"),
                     path("$outputDir/arg/hamronization/amrfinderplus/argnorm/sample_3.normalized.tsv")
-                ).match("argnorm_amrfinderplus") }
+                ).match("argnorm_amrfinderplus") },
                 
                 { assert snapshot(
                     path("$outputDir/arg/hamronization/deeparg/argnorm/sample_1.normalized.tsv"),
                     path("$outputDir/arg/hamronization/deeparg/argnorm/sample_2.normalized.tsv"),
                     path("$outputDir/arg/hamronization/deeparg/argnorm/sample_3.normalized.tsv")
-                ).match("argnorm_deeparg") }
+                ).match("argnorm_deeparg") },
                 
                 { assert snapshot(
                     path("$outputDir/arg/hamronization/abricate/argnorm/sample_1.normalized.tsv"),
                     path("$outputDir/arg/hamronization/abricate/argnorm/sample_2.normalized.tsv"),
                     path("$outputDir/arg/hamronization/abricate/argnorm/sample_3.normalized.tsv")
-                ).match("argnorm_abricate") }
+                ).match("argnorm_abricate") },
             )
         }
     }
