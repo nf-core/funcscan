@@ -155,7 +155,7 @@ workflow ARG {
         ch_versions = ch_versions.mix( HAMRONIZATION_DEEPARG_JSON.out.versions )
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_DEEPARG_JSON.out.json )
         ARGNORM_DEEPARG ( HAMRONIZATION_DEEPARG_TSV.out.tsv.filter{meta, file -> !file.isEmpty()}, 'deeparg', 'deeparg' )
-        ch_versions = ch_versions.mix(ARGNORM_DEEPARG.out.versions) 
+        ch_versions = ch_versions.mix(ARGNORM_DEEPARG.out.versions)
     }
 
     // ABRicate run
@@ -163,7 +163,7 @@ workflow ARG {
         abricate_dbdir = params.arg_abricate_db ? file(params.arg_abricate_db, checkIfExists: true) : []
         ABRICATE_RUN ( fastas, abricate_dbdir )
         ch_versions = ch_versions.mix( ABRICATE_RUN.out.versions )
-        
+
         HAMRONIZATION_ABRICATE_TSV ( ABRICATE_RUN.out.report, 'tsv', '1.0.1', '2021-Mar-27' )
         HAMRONIZATION_ABRICATE_JSON ( ABRICATE_RUN.out.report, 'json', '1.0.1', '2021-Mar-27' )
         ch_versions = ch_versions.mix( HAMRONIZATION_ABRICATE_JSON.out.versions )

@@ -250,7 +250,7 @@ nextflow_pipeline {
 
                 // hAMRonization
                 { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv")).match("hamronization_summarize") },
-                
+
                 // argNorm
                 { assert snapshot (
                     path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664501.normalized.tsv"),
@@ -273,7 +273,7 @@ nextflow_pipeline {
                     path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664524.normalized.tsv"),
                     path("$outputDir/arg/hamronization/deeparg/argnorm/ERZ1664528.normalized.tsv"),
                 ).match("argnorm_deeparg") },
-                
+
                 { assert snapshot (
                     path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664501.normalized.tsv"),
                     path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664503.normalized.tsv"),
@@ -295,7 +295,7 @@ nextflow_pipeline {
                     path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664524.normalized.tsv"),
                     path("$outputDir/arg/hamronization/abricate/argnorm/ERZ1664528.normalized.tsv"),
                 ).match("argnorm_abricate") },
-                
+
                 { assert snapshot (
                     path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664501.normalized.tsv"),
                     path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664503.normalized.tsv"),
@@ -317,7 +317,7 @@ nextflow_pipeline {
                     path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664524.normalized.tsv"),
                     path("$outputDir/arg/hamronization/amrfinderplus/argnorm/ERZ1664528.normalized.tsv"),
                 ).match("argnorm_amrfinderplus") },
-                
+
                 // BGC workflow
 
                 // antiSMASH
