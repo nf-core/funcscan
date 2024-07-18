@@ -88,7 +88,7 @@ Antimicrobial Resistance Genes (ARGs):
 - [DeepARG](#deeparg) – antimicrobial resistance gene detection, using a deep learning model.
 - [fARGene](#fargene) – antimicrobial resistance gene detection, using Hidden Markov Models.
 - [RGI](#rgi) – antimicrobial resistance gene detection, based on alignment to the CARD database.
-- [argNorm](#argNorm) -  Normalize ARG annotations to the ARO
+- [argNorm](#argNorm) - Normalize ARG annotations to the ARO
 
 Antimicrobial Peptides (AMPs):
 
@@ -373,9 +373,9 @@ Output Summaries:
 
 - `normalized/`
   - `*.{tsv}`: search results in tabular format
-</details>
-<details markdown="1">
-<summary>ARG summary table headers</summary>
+  </details>
+  <details markdown="1">
+  <summary>ARG summary table headers</summary>
 
 | Table column                                      | Description                                                                                                                                                                         |
 | ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -415,15 +415,15 @@ Output Summaries:
 | `resistance_mechanism` (optional)                 | Antibiotic resistance mechanisms evolve naturally via natural selection through random mutation, but it could also be engineered by applying an evolutionary stress on a population |
 | `strand_orientation` (optional)                   | Orientation of a genomic element on the double-stranded molecule                                                                                                                    |
 | `sequence_identity` (optional)                    | Sequence identity is the number (%) of matches (identical characters) in positions from an alignment of two molecular sequences                                                     |
-| `ARO`                    | ARO accessions of ARG                                                     |
-| `confers_resistance_to`                    | ARO accessions of drugs to which ARGs confer resistance to                                                     |
-| `resistance_to_drug_classes`                    | ARO accessions of drugs classes to which drugs in `confers_resistance_to` belong         
+| `ARO`                                             | ARO accessions of ARG                                                                                                                                                               |
+| `confers_resistance_to`                           | ARO accessions of drugs to which ARGs confer resistance to                                                                                                                          |
+| `resistance_to_drug_classes`                      | ARO accessions of drugs classes to which drugs in `confers_resistance_to` belong                                                                                                    |
+
 </details>
 
 [argnorm](https://github.com/BigDataBiology/argNorm) is a tool to normalize antibiotic resistance genes (ARGs) by mapping them to the antibiotic resistance ontology (ARO) created by the CARD database. argNorm also enhances antibiotic resistance gene annotations by providing drug categorization of the drugs that antibiotic resistance genes confer resistance to.
 
 argNorm takes the output of the [hAMRonization](#hamronization) tool and normalizes ARGs in the hAMRonization output to the ARO.
-
 
 ### BGC detection tools
 
