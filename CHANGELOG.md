@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#391](https://github.com/nf-core/funcscan/pull/391) Skip hmmmsearch by default to not crash pipeline if user provides no HMM files, updated docs. (by @jasmezz)
 - [#391](https://github.com/nf-core/funcscan/pull/391) Made all "database" parameter names consistent. (by @jasmezz)
 - [#397](https://github.com/nf-core/funcscan/pull/397) Removed deprecated AMPcombi module, fixed variable name in BGC workflow, updated minor parts in docs (usage, parameter schema). (by @jasmezz)
+- [#402](https://github.com/nf-core/funcscan/pull/402) Fixed BGC length calculation for antiSMASH hits by comBGC. (by @jasmezz)
 
 ### `Dependencies`
 
@@ -43,6 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | AMRFinderPlus | 3.11.18          | 3.12.8      |
 | antiSMASH     | 6.1.1            | 7.1.0       |
 | bioawk        | 1.0              | NA          |
+| comBGC        | 1.6.1            | 1.6.2       |
 | DeepARG       | 1.0.2            | 1.0.4       |
 | DeepBGC       | 0.1.30           | 0.1.31      |
 | GECCO         | 0.9.8            | 0.9.10      |
