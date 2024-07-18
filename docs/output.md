@@ -370,11 +370,11 @@ Output Summaries:
   <details markdown="1">
   <summary>ARG summary table headers</summary>
 
-| Table column                                      | Description                                                                                                                                                                         |
-| ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ARO`                                             | ARO accessions of ARG                                                                                                                                                               |
-| `confers_resistance_to`                           | ARO accessions of drugs to which ARGs confer resistance to                                                                                                                          |
-| `resistance_to_drug_classes`                      | ARO accessions of drugs classes to which drugs in `confers_resistance_to` belong                                                                                                    |
+| Table column                 | Description                                                                      |
+| ---------------------------- | -------------------------------------------------------------------------------- |
+| `ARO`                        | ARO accessions of ARG                                                            |
+| `confers_resistance_to`      | ARO accessions of drugs to which ARGs confer resistance to                       |
+| `resistance_to_drug_classes` | ARO accessions of drugs classes to which drugs in `confers_resistance_to` belong |
 
 </details>
 
