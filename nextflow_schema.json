@@ -1086,6 +1086,20 @@
             },
             "fa_icon": "fas fa-bacteria",
             "help_text": ""
+        }, 
+        "arg_argnorm": {
+            "title": "ARG: argNorm",
+            "type": "object",
+            "description": "Influences parameters required for argNorm",
+            "default": "",
+            "properties": {
+                "arg_skip_argnorm": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-bacteria",
+                    "description": "Normalizes ARG annotation tool outputs to ARO by CARD"
+                }
+            },
+            "fa_icon": "fas fa-bacteria"
         },
         "bgc_general_options": {
             "title": "BGC: general options",
@@ -1627,6 +1641,9 @@
         },
         {
             "$ref": "#/definitions/arg_hamronization"
+        },
+        {
+            "$ref": "#/definitions/arg_argnorm"
         },
         {
             "$ref": "#/definitions/bgc_general_options"
