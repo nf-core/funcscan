@@ -1090,13 +1090,13 @@
         "arg_argnorm": {
             "title": "ARG: argNorm",
             "type": "object",
-            "description": "Influences parameters required for argNorm",
+            "description": "Influences parameters required for the normalization of ARG annotations by argNorm. More info: https://github.com/BigDataBiology/argNorm",
             "default": "",
             "properties": {
                 "arg_skip_argnorm": {
                     "type": "boolean",
-                    "fa_icon": "fas fa-bacteria",
-                    "description": "Normalizes ARG annotation tool outputs to ARO by CARD"
+                    "fa_icon": "fas fa-ban",
+                    "description": "Skip argNorm during ARG screening."
                 }
             },
             "fa_icon": "fas fa-bacteria"
