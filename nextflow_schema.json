@@ -112,7 +112,7 @@
                     "type": "boolean",
                     "help_text": "This flag saves the temporary files from downloading the database and formatting it in the MMseqs2 format into the output folder. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs databases: `--remove-tmp-files`",
                     "description": "Specify whether the temporary files should be saved.",
-                    "fa_icon": "fas fa-file-download"
+                    "fa_icon": "fas fa-save"
                 }
             },
             "fa_icon": "fas fa-tag"
@@ -266,7 +266,7 @@
                     "type": "boolean",
                     "description": "Changes the original contig headers.",
                     "help_text": "This flag specifies that the contig headers should be rewritten. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--keep-contig-headers`",
-                    "fa_icon": "far fa-remove-format"
+                    "fa_icon": "fas fa-remove-format"
                 },
                 "annotation_bakta_compliant": {
                     "type": "boolean",
@@ -370,7 +370,7 @@
                 "annotation_prokka_kingdom": {
                     "type": "string",
                     "default": "Bacteria",
-                    "fa_icon": "fab fa-crown",
+                    "fa_icon": "fas fa-crown",
                     "description": "Specify the kingdom that the input represents.",
                     "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n> ⚠️ Prokka cannot annotate Eukaryotes.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--kingdom`",
                     "enum": ["Archaea", "Bacteria", "Mitochondria", "Viruses"]
@@ -382,7 +382,7 @@
                     "maximum": 25,
                     "description": "Specify the translation table used to annotate the sequences.",
                     "help_text": "Specify the translation table used to annotate the sequences. All possible genetic codes (1-25) used for gene annotation can be found [here](https://en.wikipedia.org/wiki/List_of_genetic_codes). This flag is required if the flag `--kingdom` is assigned.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--gcode`",
-                    "fa_icon": "fas fa-border-none"
+                    "fa_icon": "fas fa-border-all"
                 },
                 "annotation_prokka_mincontiglen": {
                     "type": "integer",
@@ -582,26 +582,26 @@
                 "amp_hmmsearch_models": {
                     "type": "string",
                     "description": "Specify path to the AMP hmm model file(s) to search against. Must have quotes if wildcard used.",
-                    "help_text": "hmmsearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--amp_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n\nYou must wrap the path in quotes if you use a wildcard, to ensure Nextflow expansion _not_ bash!\n\nFor more information check the HMMER [documentation](http://hmmer.org/).",
+                    "help_text": "hmmsearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter\n\ne.g. \n\n```\n--amp_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n\nYou must wrap the path in quotes if you use a wildcard, to ensure Nextflow expansion _not_ bash! When using quotes, the absolute path to the HMM file(s) has to be given.\n\nFor more information check the HMMER [documentation](http://hmmer.org/).",
                     "fa_icon": "fas fa-layer-group"
                 },
                 "amp_hmmsearch_savealignments": {
                     "type": "boolean",
                     "help_text": "Save a multiple alignment of all significant hits (those satisfying inclusion thresholds) to a file\n\nFor more information check the HMMER [documentation](http://hmmer.org/).\n\n>  Modifies tool parameter(s):\n> - hmmsearch: `-A`",
                     "description": "Saves a multiple alignment of all significant hits to a file.",
-                    "fa_icon": "far fa-save"
+                    "fa_icon": "fas fa-save"
                 },
                 "amp_hmmsearch_savetargets": {
                     "type": "boolean",
                     "help_text": "Save a simple tabular (space-delimited) file summarizing the per-target output, with one data line per homologous target sequence found.\n\nFor more information check the HMMER [documentation](http://hmmer.org/).\n\n>  Modifies tool parameter(s)\n> - hmmsearch: `--tblout`",
                     "description": "Save a simple tabular file summarising the per-target output.",
-                    "fa_icon": "far fa-save"
+                    "fa_icon": "fas fa-save"
                 },
                 "amp_hmmsearch_savedomains": {
                     "type": "boolean",
                     "help_text": "Save a simple tabular (space-delimited) file summarizing the per-domain output, with one data line per homologous domain detected in a query sequence for each homologous model.\n\nFor more information check the HMMER [documentation](http://hmmer.org/).\n\n> Modifies tool parameter(s):\n> - hmmsearch: `--domtblout`",
                     "description": "Save a simple tabular file summarising the per-domain output.",
-                    "fa_icon": "far fa-save"
+                    "fa_icon": "fas fa-save"
                 }
             },
             "fa_icon": "fa fa-plus-square",
@@ -645,7 +645,7 @@
                     "default": 100,
                     "description": "Filter out all amino acid fragments shorter than this number.",
                     "help_text": "Any AMP hit that does not satisfy this length cut-off will be removed from the final AMPcombi2 summary table.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--aminoacid_length`",
-                    "fa_icon": "fas fa-ruler"
+                    "fa_icon": "fas fa-ruler-horizontal"
                 },
                 "amp_ampcombi_parsetables_dbevalue": {
                     "type": "number",
@@ -931,7 +931,7 @@
                     "default": 90,
                     "help_text": "The minimum length of a predicted ORF retrieved from annotating the nucleotide sequences. By default the pipeline assigns this to 90% of the assigned hmm_model sequence length. \n\nFor more information check the fARGene [documentation](https://github.com/fannyhb/fargene).\n\n> Modifies tool parameter(s):\n> - fARGene: `--min-orf-length`",
                     "description": "The minimum length of a predicted ORF retrieved from annotating the nucleotide sequences.",
-                    "fa_icon": "fas fa-caret-down",
+                    "fa_icon": "fas fa-ruler-horizontal",
                     "minimum": 1,
                     "maximum": 100
                 },
@@ -1012,7 +1012,7 @@
                     "description": "Specify a more specific data-type of input (e.g. plasmid, chromosome).",
                     "help_text": "This flag is used to specify the data type used as input to RGI. By default this is set as 'NA', which makes no assumptions on input data.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--data`",
                     "enum": ["NA", "wgs", "plasmid", "chromosome"],
-                    "fa_icon": "fas fa-database"
+                    "fa_icon": "fas fa-dna"
                 },
                 "arg_rgi_split_prodigal_jobs": {
                     "type": "boolean",
@@ -1209,7 +1209,7 @@
                     "default": 0.5,
                     "description": "Average protein-wise DeepBGC score threshold for extracting BGC regions from Pfam sequences.",
                     "fa_icon": "fas fa-list-ol",
-                    "help_text": "The DeepBGC score threshold for extracting BGC regions from Pfam sequences based on average protein-wise value. This is a prediction score that the domain is a part of a BGC.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--score`"
+                    "help_text": "The DeepBGC score threshold for extracting BGC regions from Pfam sequences based on average protein-wise value.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--score`"
                 },
                 "bgc_deepbgc_prodigalsinglemode": {
                     "type": "boolean",
@@ -1229,7 +1229,7 @@
                     "default": 0,
                     "description": "Merge detected BGCs within given number of nucleotides.",
                     "fa_icon": "fas fa-angle-double-up",
-                    "help_text": "Merge detected BGCs within given number of proteins.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> - DeepBGC: `--merge-max-nucl-gap`"
+                    "help_text": "Merge detected BGCs within given number of nucleotides.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> - DeepBGC: `--merge-max-nucl-gap`"
                 },
                 "bgc_deepbgc_minnucl": {
                     "type": "integer",
@@ -1332,26 +1332,26 @@
                 "bgc_hmmsearch_models": {
                     "type": "string",
                     "description": "Specify path to the BGC hmm model file(s) to search against. Must have quotes if wildcard used.",
-                    "help_text": "hmmsearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter, e.g.:\n\n```\n--bgc_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n\nYou must wrap the path in quotes if you use a wildcard, to ensure Nextflow expansion _not_ bash!\n\nFor more information check the HMMER [documentation](http://hmmer.org/).",
+                    "help_text": "hmmsearch performs biosequence analysis using profile hidden Markov Models.\nThe models are specified in`.hmm` files that are specified with this parameter, e.g.:\n\n```\n--bgc_hmmsearch_models '/<path>/<to>/<models>/*.hmm'\n```\n\nYou must wrap the path in quotes if you use a wildcard, to ensure Nextflow expansion _not_ bash!  When using quotes, the absolute path to the HMM file(s) has to be given.\n\nFor more information check the HMMER [documentation](http://hmmer.org/).",
                     "fa_icon": "fas fa-layer-group"
                 },
                 "bgc_hmmsearch_savealignments": {
                     "type": "boolean",
                     "help_text": "Save a multiple alignment of all significant hits (those satisfying inclusion thresholds) to a file.\n\nFor more information check the HMMER [documentation](http://hmmer.org/).\n\n>  Modifies tool parameter(s):\n> - hmmsearch: `-A`",
                     "description": "Saves a multiple alignment of all significant hits to a file.",
-                    "fa_icon": "far fa-save"
+                    "fa_icon": "fas fa-save"
                 },
                 "bgc_hmmsearch_savetargets": {
                     "type": "boolean",
                     "help_text": "Save a simple tabular (space-delimited) file summarizing the per-target output, with one data line per homologous target sequence found.\n\nFor more information check the HMMER [documentation](http://hmmer.org/).\n\n>  Modifies tool parameter(s)\n> - hmmsearch: `--tblout`",
                     "description": "Save a simple tabular file summarising the per-target output.",
-                    "fa_icon": "far fa-save"
+                    "fa_icon": "fas fa-save"
                 },
                 "bgc_hmmsearch_savedomains": {
                     "type": "boolean",
                     "help_text": "Save a simple tabular (space-delimited) file summarizing the per-domain output, with one data line per homologous domain detected in a query sequence for each homologous model.\n\nFor more information check the HMMER [documentation](http://hmmer.org/).\n\n>  Modifies tool parameter(s)\n> - hmmsearch:`--domtblout`",
                     "description": "Save a simple tabular file summarising the per-domain output.",
-                    "fa_icon": "far fa-save"
+                    "fa_icon": "fas fa-save"
                 }
             },
             "fa_icon": "fa fa-sliders"
