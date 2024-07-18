@@ -125,21 +125,21 @@ nextflow_pipeline {
 
                 // argNorm
                 { assert snapshot(
-                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/sample_1.normalized.tsv"),
-                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/sample_2.normalized.tsv"),
-                    path("$outputDir/arg/hamronization/amrfinderplus/argnorm/sample_3.normalized.tsv")
+                    path("$outputDir/arg/argnorm/amrfinderplus/sample_1.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/amrfinderplus/sample_2.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/amrfinderplus/sample_3.normalized.tsv")
                 ).match("argnorm_amrfinderplus") },
 
                 { assert snapshot(
-                    path("$outputDir/arg/hamronization/deeparg/argnorm/sample_1.normalized.tsv"),
-                    path("$outputDir/arg/hamronization/deeparg/argnorm/sample_2.normalized.tsv"),
-                    path("$outputDir/arg/hamronization/deeparg/argnorm/sample_3.normalized.tsv")
+                    path("$outputDir/arg/argnorm/deeparg/sample_1.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/deeparg/sample_2.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/deeparg/sample_3.normalized.tsv")
                 ).match("argnorm_deeparg") },
 
                 { assert snapshot(
-                    path("$outputDir/arg/hamronization/abricate/argnorm/sample_1.normalized.tsv"),
-                    path("$outputDir/arg/hamronization/abricate/argnorm/sample_2.normalized.tsv"),
-                    path("$outputDir/arg/hamronization/abricate/argnorm/sample_3.normalized.tsv")
+                    path("$outputDir/arg/argnorm/abricate/sample_1.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/abricate/sample_2.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/abricate/sample_3.normalized.tsv")
                 ).match("argnorm_abricate") },
             )
         }
