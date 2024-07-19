@@ -1180,14 +1180,14 @@
                     "type": "boolean",
                     "default": "false",
                     "description": "Run Pfam to Gene Ontology mapping module.",
-                    "help_text": "For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--pfam2go`",
+                    "help_text": "This maps the proteins to Pfam database to annotate BGC modules with functional information based on the protein families they contain. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--pfam2go`",
                     "fa_icon": "fas fa-search"
                 },
                 "bgc_antismash_rre": {
                     "type": "boolean",
                     "default": "false",
                     "description": "Run RREFinder precision mode on all RiPP gene clusters.",
-                    "help_text": "For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--rre`",
+                    "help_text": "This enables the prediction of regulatory elements on the BGC that help in the control of protein expression. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--rre`",
                     "fa_icon": "fas fa-search"
                 },
                 "bgc_antismash_taxon": {
@@ -1202,7 +1202,7 @@
                     "type": "boolean",
                     "default": "false",
                     "description": "Run TFBS finder on all gene clusters.",
-                    "help_text": "For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--tfbs`",
+                    "help_text": "This enables the prediction of transcription factor binding sites which control the gene expression. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--tfbs`",
                     "fa_icon": "fas fa-search"
                 }
             },
