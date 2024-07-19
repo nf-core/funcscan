@@ -60,7 +60,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Deprecated`
 
 - [#384](https://github.com/nf-core/funcscan/pull/384) Deprecated AMPcombi and exchanged it with full suite of AMPcombi2 submodules. (by @darcy220606)
-- [#382](https://github.com/nf-core/funcscan/pull/382) Optimised BGC screening run time and prevent crashes due to too-short contigs by adding contig length filtering for BGC workflow only. Bioawk is replaced with seqkit (by @jfy133, @darcy220606)
+- [#382](https://github.com/nf-core/funcscan/pull/382) Optimised BGC screening run time and prevent crashes due to too-short contigs by adding contig length filtering for BGC workflow only. Bioawk is replaced with seqkit. (by @jfy133, @darcy220606)
 
 ## v1.1.6 - [2024-07-08]
 
@@ -96,7 +96,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#306](https://github.com/nf-core/funcscan/pull/306) Added new parameter `annotation_prokka_retaincontigheaders` to allow prokka to retain the original contig headers/locus tag. (by @darcy220606)
-- [#307](https://github.com/nf-core/funcscan/pull/307) Fixed stability of deepARG tests by using Zenodo copy of database (❤️ to Gustavo Arango and Liqing Zhang for uploading, fix by @jfy133)
+- [#307](https://github.com/nf-core/funcscan/pull/307) Fixed stability of deepARG tests by using Zenodo copy of database. (❤️ to Gustavo Arango and Liqing Zhang for uploading, fix by @jfy133)
 - [#310](https://github.com/nf-core/funcscan/pull/310) Fixed error when supplying uncompressed input; added "fas" file extension for FASTA files. (by @tavareshugo)
 - [#311](https://github.com/nf-core/funcscan/pull/311) Merged pipeline template of nf-core/tools version 2.10. (by @jasmezz)
 
