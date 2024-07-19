@@ -35,7 +35,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-tool_version = "0.6.1"
+tool_version = "0.6.2"
 welcome = """\
                 ........................
                     * comBGC v.{version} *
@@ -307,7 +307,7 @@ def antismash_workflow(antismash_paths):
                         feature.location.start + 1
                     )  # +1 because zero-based start position
                     BGC_end = feature.location.end
-                    BGC_length = feature.location.end - feature.location.start + 1
+                    BGC_length = feature.location.end - feature.location.start
 
                     # If there are knownclusterblast files for the BGC, get MIBiG IDs of their homologs
                     if kcb_files:

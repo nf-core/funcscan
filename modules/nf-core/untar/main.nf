@@ -52,8 +52,29 @@ process UNTAR {
     stub:
     prefix    = task.ext.prefix ?: ( meta.id ? "${meta.id}" : archive.toString().replaceFirst(/\.[^\.]+(.gz)?$/, ""))
     """
-    mkdir $prefix
-    touch ${prefix}/file.txt
+    mkdir ${prefix}
+    ## Dry-run untaring the archive to get the files and place all in prefix
+    if [[ \$(tar -taf ${archive} | grep -o -P "^.*?\\/" | uniq | wc -l) -eq 1 ]]; then
+        for i in `tar -tf ${archive}`;
+        do
+            if [[ \$(echo "\${i}" | grep -E "/\$") == "" ]];
+            then
+                touch \${i}
+            else
+                mkdir -p \${i}
+            fi
+        done
+    else
+        for i in `tar -tf ${archive}`;
+        do
+            if [[ \$(echo "\${i}" | grep -E "/\$") == "" ]];
+            then
+                touch ${prefix}/\${i}
+            else
+                mkdir -p ${prefix}/\${i}
+            fi
+        done
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

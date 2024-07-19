@@ -47,12 +47,12 @@
                     },
                     "antismash/antismashlite": {
                         "branch": "master",
-                        "git_sha": "39c00d0873ff072b2901d8ae1f36abe1522c90f2",
+                        "git_sha": "4e5f4687318f24ba944a13609d3ea6ebd890737d",
                         "installed_by": ["modules"]
                     },
                     "antismash/antismashlitedownloaddatabases": {
                         "branch": "master",
-                        "git_sha": "6c7bac5e7c4c00c43803df47e7db5d0c344b7ac4",
+                        "git_sha": "4e5f4687318f24ba944a13609d3ea6ebd890737d",
                         "installed_by": ["modules"]
                     },
                     "bakta/bakta": {
@@ -97,7 +97,7 @@
                     },
                     "gunzip": {
                         "branch": "master",
-                        "git_sha": "a7231cbccb86535529e33859e05d19ac93f3ea04",
+                        "git_sha": "4e5f4687318f24ba944a13609d3ea6ebd890737d",
                         "installed_by": ["modules"]
                     },
                     "hamronization/abricate": {
@@ -147,7 +147,7 @@
                     },
                     "mmseqs/createtsv": {
                         "branch": "master",
-                        "git_sha": "5d849d54f06174c3313eb50c776d4916912db16b",
+                        "git_sha": "4e5f4687318f24ba944a13609d3ea6ebd890737d",
                         "installed_by": ["modules"]
                     },
                     "mmseqs/databases": {
@@ -162,7 +162,7 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "314d742bdb357a1df5f9b88427b3b6ac78aa33f7",
+                        "git_sha": "b80f5fd12ff7c43938f424dd76392a2704fa2396",
                         "installed_by": ["modules"]
                     },
                     "prodigal": {
@@ -187,7 +187,7 @@
                     },
                     "rgi/main": {
                         "branch": "master",
-                        "git_sha": "0ae1adbee6a09b4c5097e990b2db1f5ebe96265c",
+                        "git_sha": "4e5f4687318f24ba944a13609d3ea6ebd890737d",
                         "installed_by": ["modules"]
                     },
                     "seqkit/seq": {
@@ -202,8 +202,9 @@
                     },
                     "untar": {
                         "branch": "master",
-                        "git_sha": "5caf7640a9ef1d18d765d55339be751bb0969dfa",
-                        "installed_by": ["modules"]
+                        "git_sha": "4e5f4687318f24ba944a13609d3ea6ebd890737d",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/untar/untar.diff"
                     }
                 }
             },
