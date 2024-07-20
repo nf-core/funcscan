@@ -1086,7 +1086,7 @@
             },
             "fa_icon": "fas fa-bacteria",
             "help_text": ""
-        }, 
+        },
         "arg_argnorm": {
             "title": "ARG: argNorm",
             "type": "object",
