@@ -47,7 +47,7 @@ results/
 |   └── seqkit/
 ├── reports/
 |   ├── ampcombi/
-|   ├── comBGC/
+|   ├── combgc/
 |   └── hamronization_summarize/
 ├── databases/
 ├── multiqc/

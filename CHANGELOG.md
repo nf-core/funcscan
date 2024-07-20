@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#381](https://github.com/nf-core/funcscan/pull/381) Added support for supplying pre-annotated sequences to the pipeline. (by @jfy133, @jasmezz)
 - [#382](https://github.com/nf-core/funcscan/pull/382) Optimised BGC screening run time and prevent crashes due to too-short contigs by adding contig length filtering for BGC workflow only. (by @jfy133, @darcy220606)
 - [#366](https://github.com/nf-core/funcscan/pull/366) Added nf-test on pipeline level. (by @jfy133, @Darcy220606, @jasmezz)
+- [#403](https://github.com/nf-core/funcscan/pull/403) Added antiSMASH parameters `--pfam2go`, `--rre`, and `--tfbs`. (reported by @Darcy220606, added by @jasmezz)
 - [#405](https://github.com/nf-core/funcscan/pull/405) Added argNorm to ARG subworkflow. (by @Vedanth-Ramji)
 
 ### `Fixed`
@@ -34,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#391](https://github.com/nf-core/funcscan/pull/391) Skip hmmmsearch by default to not crash pipeline if user provides no HMM files, updated docs. (by @jasmezz)
 - [#391](https://github.com/nf-core/funcscan/pull/391) Made all "database" parameter names consistent. (by @jasmezz)
 - [#397](https://github.com/nf-core/funcscan/pull/397) Removed deprecated AMPcombi module, fixed variable name in BGC workflow, updated minor parts in docs (usage, parameter schema). (by @jasmezz)
+- [#402](https://github.com/nf-core/funcscan/pull/402) Fixed BGC length calculation for antiSMASH hits by comBGC. (by @jasmezz)
 
 ### `Dependencies`
 
@@ -45,13 +47,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | antiSMASH     | 6.1.1            | 7.1.0       |
 | argNorm       | NA               | 0.5.0       |
 | bioawk        | 1.0              | NA          |
+| comBGC        | 1.6.1            | 1.6.2       |
 | DeepARG       | 1.0.2            | 1.0.4       |
 | DeepBGC       | 0.1.30           | 0.1.31      |
 | GECCO         | 0.9.8            | 0.9.10      |
 | hAMRonization | 1.1.1            | 1.1.4       |
 | HMMER         | 3.3.2            | 3.4         |
 | MMSeqs        | NA               | 2:15.6f452  |
-| MultiQC       | 1.15             | 1.22.3      |
+| MultiQC       | 1.15             | 1.23        |
 | Pyrodigal     | 2.1.0            | 3.3.0       |
 | RGI           | 5.2.1            | 6.0.3       |
 | seqkit        | NA               | 2.8.1       |
@@ -60,7 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Deprecated`
 
 - [#384](https://github.com/nf-core/funcscan/pull/384) Deprecated AMPcombi and exchanged it with full suite of AMPcombi2 submodules. (by @darcy220606)
-- [#382](https://github.com/nf-core/funcscan/pull/382) Optimised BGC screening run time and prevent crashes due to too-short contigs by adding contig length filtering for BGC workflow only. Bioawk is replaced with seqkit (by @jfy133, @darcy220606)
+- [#382](https://github.com/nf-core/funcscan/pull/382) Optimised BGC screening run time and prevent crashes due to too-short contigs by adding contig length filtering for BGC workflow only. Bioawk is replaced with seqkit. (by @jfy133, @darcy220606)
 
 ## v1.1.6 - [2024-07-08]
 
@@ -96,7 +99,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#306](https://github.com/nf-core/funcscan/pull/306) Added new parameter `annotation_prokka_retaincontigheaders` to allow prokka to retain the original contig headers/locus tag. (by @darcy220606)
-- [#307](https://github.com/nf-core/funcscan/pull/307) Fixed stability of deepARG tests by using Zenodo copy of database (❤️ to Gustavo Arango and Liqing Zhang for uploading, fix by @jfy133)
+- [#307](https://github.com/nf-core/funcscan/pull/307) Fixed stability of deepARG tests by using Zenodo copy of database. (❤️ to Gustavo Arango and Liqing Zhang for uploading, fix by @jfy133)
 - [#310](https://github.com/nf-core/funcscan/pull/310) Fixed error when supplying uncompressed input; added "fas" file extension for FASTA files. (by @tavareshugo)
 - [#311](https://github.com/nf-core/funcscan/pull/311) Merged pipeline template of nf-core/tools version 2.10. (by @jasmezz)
 
