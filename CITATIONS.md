@@ -29,6 +29,10 @@
 - [AntiSMASH](https://doi.org/10.1093/nar/gkab335)
 
   > Blin, K., Shaw, S., Kloosterman, A. M., Charlop-Powers, Z., van Wezel, G. P., Medema, M. H., & Weber, T. (2021). antiSMASH 6.0: improving cluster detection and comparison capabilities. Nucleic acids research, 49(W1), W29–W35. [DOI: 10.1093/nar/gkab335](https://doi.org/10.1093/nar/gkab335)
+  
+- [argNorm](https://github.com/BigDataBiology/argNorm)
+
+  > Svetlana Ugarcina Perovic, Vedanth Ramji, Hui Chong, Yiqian Duan, Finlay Maguire, Luis Pedro Coelho (2024). [DOI:10.5281/zenodo.10963591](https://zenodo.org/doi/10.5281/zenodo.10963591)
 
 - [Bakta](https://doi.org/10.1099/mgen.0.000685)
 

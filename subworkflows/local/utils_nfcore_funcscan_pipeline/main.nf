@@ -229,6 +229,7 @@ def toolCitationText() {
             !params.arg_skip_amrfinderplus ? "AMRfinderplus (Feldgarden et al. 2021)," : "",
             !params.arg_skip_deeparg ? "deepARG (Arango-Argoty 2018)," : "",
             !params.arg_skip_abricate ? "ABRicate (Seemann 2020)," : "",
+            !params.arg_skip_argnorm ? ". The outputs from ARG screening tools were normalized to the antibiotic resistance ontology using argNorm (S. U. Perovic et al. 2024)," : "",
             ". The output from the antimicrobial resistance gene screening tools were standardised and summarised with hAMRonization (Maguire et al. 2023)."
         ].join(' ').trim().replaceAll(", +\\.", ".")
 
@@ -280,6 +281,7 @@ def toolBibliographyText() {
             !params.arg_skip_amrfinderplus ? "<li>Feldgarden, M., Brover, V., Gonzalez-Escalona, N., Frye, J. G., Haendiges, J., Haft, D. H., Hoffmann, M., Pettengill, J. B., Prasad, A. B., Tillman, G. E., Tyson, G. H., & Klimke, W. (2021). AMRFinderPlus and the Reference Gene Catalog facilitate examination of the genomic links among antimicrobial resistance, stress response, and virulence. Scientific reports, 11(1), 12728. DOI: <a href=\"https://doi.org/10.1038/s41598-021-91456-0\">10.1038/s41598-021-91456-0</a></li>" : "",
             !params.arg_skip_deeparg       ? "<li>Arango-Argoty, G., Garner, E., Pruden, A., Heath, L. S., Vikesland, P., & Zhang, L. (2018). DeepARG: a deep learning approach for predicting antibiotic resistance genes from metagenomic data. Microbiome, 6(1), 23. DOI: <a href=\"https://doi.org/10.1186/s40168-018-0401-z\">10.1186/s40168-018-0401-z" : "",
             !params.arg_skip_abricate      ? "<li>Seemann, T. (2020). ABRicate. Github <a href=\"https://github.com/tseemann/abricate\">https://github.com/tseemann/abricate</a>.</li>" : "",
+            !params.arg_skip_argnorm       ? "<li> Svetlana Ugarcina Perovic, Vedanth Ramji, Hui Chong, Yiqian Duan, Finlay Maguire, Luis Pedro Coelho. (2024). argNorm. Github <a href=\"https://github.com/BigDataBiology/argNorm\"https://github.com/BigDataBiology/argnorm</a>.</li>" : "",
             "<li>Public Health Alliance for Genomic Epidemiology (pha4ge). (2022). Parse multiple Antimicrobial Resistance Analysis Reports into a common data structure. Github. Retrieved October 5, 2022, from <a href=\"https://github.com/pha4ge/hAMRonization\">https://github.com/pha4ge/hAMRonization</a></li>"
         ].join(' ').trim().replaceAll(", +\\.", ".")
 
