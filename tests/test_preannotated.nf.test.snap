@@ -1,13 +1,13 @@
 {
     "hamronization_summarize": {
         "content": [
-            "hamronization_combined_report.tsv:md5,d86ae2e8d42ed6090234b8f5aa7c6a18"
+            "hamronization_combined_report.tsv:md5,73319083b96e31632253fe9a5c4c1436"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.891751"
+        "timestamp": "2024-07-21T00:10:18.532355081"
     },
     "deeparg": {
         "content": [
@@ -92,9 +92,9 @@
             "sample_1.macrel.smorfs.faa.gz:md5,9cddad1e4b6dbcb76888f1a87db388ec",
             "sample_2.macrel.smorfs.faa.gz:md5,e055dd2a9e44f3dcaa8af7198600349c",
             "sample_3.macrel.smorfs.faa.gz:md5,9cddad1e4b6dbcb76888f1a87db388ec",
-            "sample_1.macrel.all_orfs.faa.gz:md5,c276fb1ec494ff53ded1e6fc118e25b9",
-            "sample_2.macrel.all_orfs.faa.gz:md5,e75e434a30922d80169d0666fd07e446",
-            "sample_3.macrel.all_orfs.faa.gz:md5,c276fb1ec494ff53ded1e6fc118e25b9",
+            "sample_1.macrel.all_orfs.faa.gz:md5,382803053f9532d3c970c5db940eb616",
+            "sample_2.macrel.all_orfs.faa.gz:md5,1545ad5aca0fef9c85d8002131cbabef",
+            "sample_3.macrel.all_orfs.faa.gz:md5,382803053f9532d3c970c5db940eb616",
             "sample_1.macrel.prediction.gz:md5,0277725512f7d2954a99692bb65f1475",
             "sample_2.macrel.prediction.gz:md5,06f7ce99cfe6f364d38743aae094402a",
             "sample_3.macrel.prediction.gz:md5,0277725512f7d2954a99692bb65f1475",
@@ -107,9 +107,9 @@
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.606679"
+        "timestamp": "2024-07-21T00:10:18.372591929"
     },
     "abricate": {
         "content": [
