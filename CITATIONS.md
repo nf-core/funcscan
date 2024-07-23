@@ -32,7 +32,7 @@
 
 - [argNorm](https://github.com/BigDataBiology/argNorm)
 
-  > Svetlana Ugarcina Perovic, Vedanth Ramji, Hui Chong, Yiqian Duan, Finlay Maguire, Luis Pedro Coelho (2024). [DOI:10.5281/zenodo.10963591](https://zenodo.org/doi/10.5281/zenodo.10963591)
+  > Svetlana Ugarcina Perovic, Vedanth Ramji, Hui Chong, Yiqian Duan, Finlay Maguire, Luis Pedro Coelho (2024). BigDataBiology/argNorm: Version 0.5.0 (v0.5.0). GitHub. https://github.com/BigDataBiology/argNorm. Zenodo. [DOI:10.5281/zenodo.10963591](https://zenodo.org/doi/10.5281/zenodo.10963591)
 
 - [Bakta](https://doi.org/10.1099/mgen.0.000685)
 
