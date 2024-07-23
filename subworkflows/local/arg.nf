@@ -57,9 +57,9 @@ workflow ARG {
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_AMRFINDERPLUS.out.tsv )
 
         if ( !params.arg_skip_argnorm ) {
-            ch_input_to_argnorm_amrfinderplus = HAMRONIZATION_AMRFINDERPLUS.out.tsv.filter{meta, file -> !file.isEmpty()}
+            ch_input_to_argnorm_amrfinderplus = HAMRONIZATION_AMRFINDERPLUS.out.tsv.filter{ meta, file -> !file.isEmpty() }
             ARGNORM_AMRFINDERPLUS ( ch_input_to_argnorm_amrfinderplus, 'amrfinderplus', 'ncbi' )
-            ch_versions = ch_versions.mix(ARGNORM_AMRFINDERPLUS.out.versions)
+            ch_versions = ch_versions.mix( ARGNORM_AMRFINDERPLUS.out.versions )
         }
     }
 
@@ -156,9 +156,9 @@ workflow ARG {
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_DEEPARG.out.tsv )
 
         if ( !params.arg_skip_argnorm ) {
-            ch_input_to_argnorm_deeparg = HAMRONIZATION_DEEPARG.out.tsv.filter{meta, file -> !file.isEmpty()}
+            ch_input_to_argnorm_deeparg = HAMRONIZATION_DEEPARG.out.tsv.filter{ meta, file -> !file.isEmpty() }
             ARGNORM_DEEPARG ( ch_input_to_argnorm_deeparg, 'deeparg', 'deeparg' )
-            ch_versions = ch_versions.mix(ARGNORM_DEEPARG.out.versions)
+            ch_versions = ch_versions.mix( ARGNORM_DEEPARG.out.versions )
         }
     }
 
@@ -172,13 +172,13 @@ workflow ARG {
         ch_versions = ch_versions.mix( HAMRONIZATION_ABRICATE.out.versions )
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_ABRICATE.out.tsv )
 
-        if ((params.arg_abricate_db_id == 'ncbi' ||
+        if ( ( params.arg_abricate_db_id == 'ncbi' ||
             params.arg_abricate_db_id == 'resfinder' ||
             params.arg_abricate_db_id == 'argannot' ||
-            params.arg_abricate_db_id == 'megares') && !params.arg_skip_argnorm) {
-            ch_input_to_argnorm_abricate = HAMRONIZATION_ABRICATE.out.tsv.filter{meta, file -> !file.isEmpty()}
+            params.arg_abricate_db_id == 'megares') && !params.arg_skip_argnorm ) {
+            ch_input_to_argnorm_abricate = HAMRONIZATION_ABRICATE.out.tsv.filter{ meta, file -> !file.isEmpty() }
             ARGNORM_ABRICATE ( ch_input_to_argnorm_abricate, 'abricate', params.arg_abricate_db_id )
-            ch_versions = ch_versions.mix(ARGNORM_ABRICATE.out.versions)
+            ch_versions = ch_versions.mix( ARGNORM_ABRICATE.out.versions )
         }
     }
 

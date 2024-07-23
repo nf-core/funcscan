@@ -4,7 +4,7 @@
 
 The output of nf-core/funcscan provides reports for each of the functional groups:
 
-- antibiotic resistance genes (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) – summarised by [hAMRonization](https://github.com/pha4ge/hAMRonization) and ABRicate/AMRFinderPlus/DeepARG are normalized to ARO by [argNorm](https://github.com/BigDataBiology/argNorm))
+- antibiotic resistance genes (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) – summarised by [hAMRonization](https://github.com/pha4ge/hAMRonization) and ABRicate/AMRFinderPlus/DeepARG are normalised to ARO by [argNorm](https://github.com/BigDataBiology/argNorm))
 - antimicrobial peptides (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) – summarised by [AMPcombi](https://github.com/Darcy220606/AMPcombi))
 - biosynthetic gene clusters (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org) – summarised by [comBGC](#combgc))
 
@@ -81,7 +81,6 @@ Antimicrobial Resistance Genes (ARGs):
 - [DeepARG](#deeparg) – antimicrobial resistance gene detection, using a deep learning model.
 - [fARGene](#fargene) – antimicrobial resistance gene detection, using Hidden Markov Models.
 - [RGI](#rgi) – antimicrobial resistance gene detection, based on alignment to the CARD database.
-- [argNorm](#argNorm) - Normalize ARG annotations from [ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), [DeepARG](#deeparg) to the ARO
 
 Antimicrobial Peptides (AMPs):
 
@@ -101,6 +100,7 @@ Output Summaries:
 
 - [AMPcombi](#ampcombi) – summary report of antimicrobial peptide gene output from various detection tools.
 - [hAMRonization](#hamronization) – summary of antimicrobial resistance gene output from various detection tools.
+- [argNorm](#argNorm) - Normalize ARG annotations from [ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), and [DeepARG](#deeparg) to the ARO
 - [comBGC](#combgc) – summary of biosynthetic gene cluster output from various detection tools.
 - [MultiQC](#multiqc) – report of all software and versions used in the pipeline.
 - [Pipeline information](#pipeline-information) – report metrics generated during the workflow execution.
@@ -278,8 +278,6 @@ Output Summaries:
 
 [ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), [DeepARG](#deeparg), [fARGene](#fargene), [RGI](#rgi).
 
-Post processing, normalization and drug categorization with [argNorm](#argnorm) for [ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), [DeepARG](#deeparg).
-
 #### ABRicate
 
 <details markdown="1">
@@ -360,31 +358,6 @@ Post processing, normalization and drug categorization with [argNorm](#argnorm) 
 </details>
 
 [RGI](https://github.com/arpcard/rgi) (**R**esistance **G**ene **I**dentifier) predicts resistome(s) from protein or nucleotide data based on homology and SNP models. It uses reference data from the Comprehensive Antibiotic Resistance Database (CARD).
-
-#### argNorm
-
-<details markdown="1">
-<summary>Output files</summary>
-
-- `normalized/`
-  - `*.{tsv}`: search results in tabular format
-  </details>
-  <details markdown="1">
-  <summary>ARG summary table headers</summary>
-
-| Table column                 | Description                                                                      |
-| ---------------------------- | -------------------------------------------------------------------------------- |
-| `ARO`                        | ARO accessions of ARG                                                            |
-| `confers_resistance_to`      | ARO accessions of drugs to which ARGs confer resistance to                       |
-| `resistance_to_drug_classes` | ARO accessions of drugs classes to which drugs in `confers_resistance_to` belong |
-
-</details>
-
-[argnorm](https://github.com/BigDataBiology/argNorm) is a tool to normalize antibiotic resistance genes (ARGs) by mapping them to the antibiotic resistance ontology (ARO) created by the CARD database. argNorm also enhances antibiotic resistance gene annotations by providing drug categorization of the drugs that antibiotic resistance genes confer resistance to.
-
-argNorm in funcscan is available for [ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), [DeepARG](#deeparg)
-
-argNorm takes the output of the [hAMRonization](#hamronization) tool and normalizes ARGs in the hAMRonization output to the ARO.
 
 ### BGC detection tools
 
@@ -470,7 +443,7 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 
 ### Summary tools
 
-[AMPcombi](#ampcombi), [hAMRonization](#hamronization), [comBGC](#combgc), [MultiQC](#multiqc), [pipeline information](#pipeline-information)
+[AMPcombi](#ampcombi), [hAMRonization](#hamronization), [comBGC](#combgc), [MultiQC](#multiqc), [pipeline information](#pipeline-information), [argNorm](#argnorm)
 
 #### AMPcombi
 
@@ -594,6 +567,29 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 </details>
 
 [hAMRonization](https://github.com/pha4ge/hAMRonization) summarizes the outputs of the **antimicrobial resistance gene** detection tools (ABRicate, AMRFinderPlus, DeepARG, fARGene, RGI) into a single unified tabular format. It supports a variety of summary options including an interactive summary.
+
+#### argNorm
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `normalized/`
+  - `*.{tsv}`: search results in tabular format
+  </details>
+  <details markdown="1">
+  <summary>ARG summary table headers</summary>
+
+| Table column                 | Description                                                                      |
+| ---------------------------- | -------------------------------------------------------------------------------- |
+| `ARO`                        | ARO accessions of ARG                                                            |
+| `confers_resistance_to`      | ARO accessions of drugs to which ARGs confer resistance to                       |
+| `resistance_to_drug_classes` | ARO accessions of drugs classes to which drugs in `confers_resistance_to` belong |
+
+</details>
+
+[argnorm](https://github.com/BigDataBiology/argNorm) is a tool to normalize antibiotic resistance genes (ARGs) by mapping them to the antibiotic resistance ontology (ARO) created by the CARD database. argNorm also enhances antibiotic resistance gene annotations by providing categorization of the drugs that antibiotic resistance genes confer resistance to.
+
+argNorm takes the outputs of the [hAMRonization](#hamronization) tool of [ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), and [DeepARG](#deeparg) and normalizes ARGs in the hAMRonization output to the ARO.
 
 #### comBGC
 
