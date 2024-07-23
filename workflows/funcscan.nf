@@ -122,7 +122,7 @@ workflow FUNCSCAN {
     */
 
     // Some tools require annotated FASTAs
-    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening && ( params.amp_run_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir ) ) || ( params.run_bgc_screening ) ) {
+    if ( ( params.run_arg_screening && !params.arg_skip_deeparg ) || ( params.run_amp_screening ) || ( params.run_bgc_screening ) ) {
         ANNOTATION( ch_input_for_annotation )
         ch_versions = ch_versions.mix( ANNOTATION.out.versions )
 
@@ -131,7 +131,7 @@ workflow FUNCSCAN {
                                 .join( ANNOTATION.out.gbk )
 
     } else {
-        ch_new_annotation = Channel.empty()
+        ch_new_annotation = ch_intermediate_input.fastas
     }
 
     // Mix back the preannotated samples with the newly annotated ones
