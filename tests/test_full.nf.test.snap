@@ -1,147 +1,63 @@
 {
     "hamronization_summarize": {
         "content": [
-            "hamronization_combined_report.tsv:md5,5a75323ff27acde627a2c3b6a8dc1539"
+            "hamronization_combined_report.tsv:md5,82a55c4e9699bb7fb97d672742389813"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-12T08:17:19.099809903"
-    },
-    "abricate": {
-        "content": [
-            "ERZ1664501.txt:md5,1ace32d2d44194d635db31daa89a6fae",
-            "ERZ1664503.txt:md5,da890e2cef1b1a34ec035f6198f0a60b",
-            "ERZ1664504.txt:md5,3db1864a6efe5321379e89dcee34d505",
-            "ERZ1664505.txt:md5,317354f6091bad44ab5852399d48eb4a",
-            "ERZ1664506.txt:md5,8fcc568d6a15d1c3ac889169ce884093",
-            "ERZ1664507.txt:md5,0be8f76b35aca900f8f7fa6d2e7fc1f9",
-            "ERZ1664508.txt:md5,357da5e192d9a17b501446e181f41942",
-            "ERZ1664509.txt:md5,c14f4aef2c96e8c4f6688af35fe07a2c",
-            "ERZ1664510.txt:md5,0d88060e28b267a308271a2a2af38b12",
-            "ERZ1664511.txt:md5,46adf11d5d3952e3709ba05ec76b5e8a",
-            "ERZ1664515.txt:md5,4b7a0db47ac6e9baf723e6b2ef31bfc4",
-            "ERZ1664516.txt:md5,1ccfd94077fe329f7b30351aa846b327",
-            "ERZ1664517.txt:md5,8137ab84373a5300c9626a9459a2c935",
-            "ERZ1664518.txt:md5,db514f4bef8de0d4799f478e1807adc6",
-            "ERZ1664520.txt:md5,a3afa2368c941cdb0c4abd8efa855f0e",
-            "ERZ1664521.txt:md5,2849a78188c4793d4608ba1775da1d58",
-            "ERZ1664523.txt:md5,507e1710e7220965010ad8375b4c434a",
-            "ERZ1664524.txt:md5,b7d380fe3fbcb0fe2ac23823cb6b35e8",
-            "ERZ1664528.txt:md5,64aff1aaaab8b3d009edd40527446c08"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
-        },
-        "timestamp": "2024-07-02T20:18:29.527514564"
-    },
-    "fargene": {
-        "content": [
-            "results_summary.txt:md5,3061d75086b3d25605eda0ea05e1c927",
-            "results_summary.txt:md5,ea00de6524c521e06583ee13ffbcf338",
-            "results_summary.txt:md5,c5a6205a249cb6112b6235bbab51c60d",
-            "results_summary.txt:md5,c5a6205a249cb6112b6235bbab51c60d",
-            "results_summary.txt:md5,cc647b7810c7335edb6aa939f9f0fbde",
-            "results_summary.txt:md5,fa58a7f510100be20ce22fe3f6b036e3",
-            "results_summary.txt:md5,33b51ce0c8ba7c65bdb8bfe1480d85cb",
-            "results_summary.txt:md5,fa58a7f510100be20ce22fe3f6b036e3",
-            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
-            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
-            "results_summary.txt:md5,657d012f697a1a9e3ce7f8a0f675aed0",
-            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
-            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
-            "results_summary.txt:md5,c5a6205a249cb6112b6235bbab51c60d",
-            "results_summary.txt:md5,33b51ce0c8ba7c65bdb8bfe1480d85cb",
-            "results_summary.txt:md5,54ba6a1a657fea6b78abac50820c2c24",
-            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
-            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
-            "results_summary.txt:md5,cc647b7810c7335edb6aa939f9f0fbde"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
-        },
-        "timestamp": "2024-07-02T20:18:41.345458618"
-    },
-    "rgi": {
-        "content": [
-            "ERZ1664501.txt:md5,631580295a01dfa9942a84ec6daddb7e",
-            "ERZ1664503.txt:md5,19b414d2f84d99e7da99558f13ddc3e5",
-            "ERZ1664504.txt:md5,35cfd6af482966669d98a65b56331a3d",
-            "ERZ1664505.txt:md5,d9f983090909140617bc784635220c4b",
-            "ERZ1664506.txt:md5,7a52f37f5672b06b05741ee058391f8f",
-            "ERZ1664507.txt:md5,721b11a0d9a16cbcbfd9004478b00600",
-            "ERZ1664508.txt:md5,b216d24eb67e17b00176fd0e9fddee2d",
-            "ERZ1664509.txt:md5,a83a12f5eee2817adde168ceea2918c5",
-            "ERZ1664510.txt:md5,648ff158c4eb26a5ea32d784f035919e",
-            "ERZ1664511.txt:md5,9bae24f90a3ec78bf949a98fdf22a497",
-            "ERZ1664515.txt:md5,2d0d0b2f048fa6c28840b1b6a2c9454d",
-            "ERZ1664516.txt:md5,eb69d148d8dad471c8d9a36dd915f4a4",
-            "ERZ1664517.txt:md5,79b0f80950eb5f0f51542b394a77a173",
-            "ERZ1664518.txt:md5,887de51b7632b0c635b0fe6deda75266",
-            "ERZ1664520.txt:md5,3caf2e1b0afcbfb73522bfa1cee1d06e",
-            "ERZ1664521.txt:md5,19334a653a98bbced73f1f2ec92e4eb8",
-            "ERZ1664523.txt:md5,0e47ce5c41d4d0d39d270a18ce62773a",
-            "ERZ1664524.txt:md5,8ca49d7dee9c7de25910de130de93859",
-            "ERZ1664528.txt:md5,6a10752196f2f33bcee972d15d669803"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
-        },
-        "timestamp": "2024-07-02T20:18:37.337052941"
+        "timestamp": "2024-07-24T00:54:38.23213575"
     },
     "deeparg": {
         "content": [
-            "ERZ1664501.mapping.ARG:md5,a4641ca28291c73f4ce664af575a4811",
-            "ERZ1664503.mapping.ARG:md5,c217c176a55170cf7f342dd6b082bec6",
+            "ERZ1664501.mapping.ARG:md5,d120b17e12f348a3e06c6b3131a98c1c",
+            "ERZ1664503.mapping.ARG:md5,53dd07b47ce011bd22df3a76c837ffbd",
             "ERZ1664504.mapping.ARG:md5,2f2a6297dc8752766f65f2b3e966158d",
-            "ERZ1664505.mapping.ARG:md5,be741b562796026b46f649c8fbe6e73d",
-            "ERZ1664506.mapping.ARG:md5,17122078c5b1821ea9d841eb1775e987",
+            "ERZ1664505.mapping.ARG:md5,aa42314a4749dea3d36bbabce8bd7e5a",
+            "ERZ1664506.mapping.ARG:md5,1871484c933ae1d5235fa36d59b2d328",
             "ERZ1664507.mapping.ARG:md5,6dbd85abafa0f892c4b557eb8f93b788",
-            "ERZ1664508.mapping.ARG:md5,9a824269207740c926eb7d1ade69cd89",
-            "ERZ1664509.mapping.ARG:md5,fa8ffd39d8405bd167bb1676b5a29db7",
+            "ERZ1664508.mapping.ARG:md5,54342268135802d8a68614141ea4d4f7",
+            "ERZ1664509.mapping.ARG:md5,ec6ebc4e4f84dc7373f51df63536a7a5",
             "ERZ1664510.mapping.ARG:md5,16f2e41c2378645dbbdf9867f9000acf",
-            "ERZ1664511.mapping.ARG:md5,7f2bd09ed161162a82c3c10c06bf1ee8",
+            "ERZ1664511.mapping.ARG:md5,b489dbfc72ca7ee37aecbb079d8c9241",
             "ERZ1664515.mapping.ARG:md5,a4bb295a414b9a26c4e2d032bb25624f",
             "ERZ1664516.mapping.ARG:md5,e3ec14da3e206782e1151593d801015d",
             "ERZ1664517.mapping.ARG:md5,9f22fec9df39231f0a52865ca9245451",
             "ERZ1664518.mapping.ARG:md5,821fd592c54795e2666277e3a2c84169",
-            "ERZ1664520.mapping.ARG:md5,24942a7fadad6af031c116e8f9ea848e",
-            "ERZ1664521.mapping.ARG:md5,d61ee33f0395ab5dbb6b65f816186d77",
+            "ERZ1664520.mapping.ARG:md5,6990cc2d982ee428f42c0109e2ba0bff",
+            "ERZ1664521.mapping.ARG:md5,988d0eb6173e50ea4826ed24691d3faa",
             "ERZ1664523.mapping.ARG:md5,2ba512cfd091a9ab18825cd4d9560a83",
-            "ERZ1664524.mapping.ARG:md5,d3fd9b70a667f37478c901c4ec5c69be",
-            "ERZ1664528.mapping.ARG:md5,1da3f34f173fabe34ff5bc122d9ec7e8"
+            "ERZ1664524.mapping.ARG:md5,d025525beba8bdd2f66f4506d584cc14",
+            "ERZ1664528.mapping.ARG:md5,fc7a147f7741d85489002c5f305971a1"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-02T20:18:25.679296582"
+        "timestamp": "2024-07-24T00:54:22.000195146"
     },
     "ampir": {
         "content": [
-            "ERZ1664501.ampir.tsv:md5,ef78b10c6f4c6a555eb9ef8d93291aad",
-            "ERZ1664503.ampir.tsv:md5,7354b3c583443d9d3cab33ce3cb6327e",
-            "ERZ1664504.ampir.tsv:md5,506a55b7dc97b33b5533febabde8b0cf",
-            "ERZ1664505.ampir.tsv:md5,27f72ca9213aac5b0d857df638db692b",
-            "ERZ1664506.ampir.tsv:md5,1c5df79369a889b136cdef0e89f3f120",
-            "ERZ1664507.ampir.tsv:md5,a44751ce33a3384583dd43795d729245",
-            "ERZ1664508.ampir.tsv:md5,a9267c72360b01116bc61ab360f01ab4",
-            "ERZ1664509.ampir.tsv:md5,c0d8115529d6d8ee4989bd1e9dfe5766",
-            "ERZ1664510.ampir.tsv:md5,2a6d6563be682769a83208fe025ed946",
-            "ERZ1664511.ampir.tsv:md5,b96317516b603ea796d58366693e6b96",
-            "ERZ1664515.ampir.tsv:md5,9fbeb531294e951336e4c91257d44e30",
-            "ERZ1664516.ampir.tsv:md5,44dcbd1371c1fcfe0e98e756d6a74996",
-            "ERZ1664517.ampir.tsv:md5,35a42d7aabc1edef65a0c0f2129530bc",
-            "ERZ1664518.ampir.tsv:md5,c7c9157000642e158b6746c719d65a85",
-            "ERZ1664520.ampir.tsv:md5,62f2e109031048fc593aa525405a19b4",
-            "ERZ1664521.ampir.tsv:md5,91bebaf23d2a63192359178af8ae1d42",
-            "ERZ1664523.ampir.tsv:md5,1e01f9649dc2e9bebd8ce635e051e3df",
-            "ERZ1664524.ampir.tsv:md5,8ea8ca6483c416695ad2307e7a939f8d",
-            "ERZ1664528.ampir.tsv:md5,a239169a2cd41265693442694bb5e329",
+            "ERZ1664501.ampir.tsv:md5,c5cd2500f52317b24aac1196dc64adad",
+            "ERZ1664503.ampir.tsv:md5,f644d4340beb83a16ae9bc010dd48cee",
+            "ERZ1664504.ampir.tsv:md5,69664970cb99371d8be354b21eebc0df",
+            "ERZ1664505.ampir.tsv:md5,c4b57cfea1af7197e9bd2cf8378d098a",
+            "ERZ1664506.ampir.tsv:md5,9eddfca6ff0fe1989e316f543b88eca7",
+            "ERZ1664507.ampir.tsv:md5,846a9afa426082044aac0188ae882aa0",
+            "ERZ1664508.ampir.tsv:md5,740ea41ca7c72598ce7d6afb0aaf9613",
+            "ERZ1664509.ampir.tsv:md5,6821002c6c9f7dc021d998a8d418e211",
+            "ERZ1664510.ampir.tsv:md5,54d2fd1029227d8534e61988d4d99f7e",
+            "ERZ1664511.ampir.tsv:md5,553bd20088cfdd666b34b74044a24424",
+            "ERZ1664515.ampir.tsv:md5,fe7e186d1e6aa5e64ff5206d413db815",
+            "ERZ1664516.ampir.tsv:md5,89aac82302df3ff46a6b125398391650",
+            "ERZ1664517.ampir.tsv:md5,8de33575e894545d37968ae3cfc87f72",
+            "ERZ1664518.ampir.tsv:md5,464dabb48ef58da4bc8359e1dc47ee8f",
+            "ERZ1664520.ampir.tsv:md5,44ccd85368921ffb50db035b2bbb571e",
+            "ERZ1664521.ampir.tsv:md5,00adfebd002be166f8594d5643362bcf",
+            "ERZ1664523.ampir.tsv:md5,1c278369c49e99253fdbc6d21b7f851e",
+            "ERZ1664524.ampir.tsv:md5,673638a06306d6c22e1668a5820e38cc",
+            "ERZ1664528.ampir.tsv:md5,639ca9073d9a817a3be224203e09fe47",
             "ERZ1664501.ampir.faa:md5,88d04f76764566e029f1a0eb7481bd50",
             "ERZ1664503.ampir.faa:md5,754b00982b99d20d24ddd2c39e3db060",
             "ERZ1664504.ampir.faa:md5,c6e84c9ee141c097decb89def230a70b",
@@ -164,36 +80,92 @@
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-02T20:18:12.786462549"
+        "timestamp": "2024-07-24T00:54:11.315500114"
     },
-    "gecco": {
+    "argnorm_amrfinderplus": {
         "content": [
-            "ERZ1664504.220-NODE-220-length-4587-cov-2.552957_cluster_1.gbk:md5,69eeb368a6f89a268d069fa07ecee1d6",
-            "ERZ1664504.48-NODE-48-length-9582-cov-5.239425_cluster_1.gbk:md5,357eb07ba90c9bcdc9cedef796bcfca0",
-            "ERZ1664506.42-NODE-42-length-11967-cov-6.006380_cluster_1.gbk:md5,0a260a4ba3de321dd3c700019bbcdedc",
-            "ERZ1664508.3061-NODE-3061-length-1263-cov-3.647351_cluster_1.gbk:md5,ad50f411e0e6b53a4326d0383f8b22c2",
-            "ERZ1664510.123-NODE-123-length-8863-cov-8.649410_cluster_1.gbk:md5,c9692f950285789af64fa69fb871841f",
-            "ERZ1664510.210-NODE-210-length-5173-cov-7.860688_cluster_1.gbk:md5,5fa9a892c2f8f6473317cbfe801e7e95",
-            "ERZ1664511.16-NODE-16-length-49668-cov-9.810473_cluster_1.gbk:md5,ac5f4682cfe60b4038aa39f5f42a117b",
-            "ERZ1664515.9-NODE-9-length-49063-cov-10.926196_cluster_1.gbk:md5,96752064bd4b32f741ae7b5d00c4f37c",
-            "ERZ1664516.158-NODE-158-length-6232-cov-9.863850_cluster_1.gbk:md5,7f58f99bf974d10efa760048552fe2e5",
-            "ERZ1664517.38-NODE-38-length-19981-cov-8.613771_cluster_1.gbk:md5,c876ab59dd943efd8e7838f9b1f665e6",
-            "ERZ1664518.217-NODE-217-length-4457-cov-6.415947_cluster_1.gbk:md5,f01dee924cd2dc677d494d0d4db07f8a",
-            "ERZ1664521.1871-NODE-1871-length-1473-cov-1.858251_cluster_1.gbk:md5,041c705e5ad5d4a6168b3d71fb157667",
-            "ERZ1664521.895-NODE-895-length-1964-cov-2.221058_cluster_1.gbk:md5,e08f19ed77e3ec2ad9b941b5a03ffb82",
-            "ERZ1664523.16-NODE-16-length-15072-cov-6.654591_cluster_1.gbk:md5,a99d1cc8d565ff2fb478363e1d830511",
-            "ERZ1664524.1150-NODE-1150-length-2386-cov-3.450879_cluster_1.gbk:md5,4b9b9b88b428357d510e652a47de957b",
-            "ERZ1664524.54-NODE-54-length-9607-cov-5.345582_cluster_1.gbk:md5,ec9f06b06ea5921e2e1c37acd9f6260b",
-            "ERZ1664528.138-NODE-138-length-5805-cov-4.599304_cluster_1.gbk:md5,2fb5b5e4f7042e66ce04d077386c790f",
-            "ERZ1664528.1641-NODE-1641-length-2049-cov-4.697091_cluster_1.gbk:md5,cbf89f809d489e3a0c8a9c2576b2cd47"
+            "ERZ1664501.normalized.tsv:md5,e5ba7dd3826b1aee7cac90696ba2796d",
+            "ERZ1664503.normalized.tsv:md5,ef01c4d87ee2e9dbf72d6835d2feff28",
+            "ERZ1664504.normalized.tsv:md5,bf9b48377637a1251e0e26bf07e789e6",
+            "ERZ1664505.normalized.tsv:md5,df927003750df1df3f1114dd348c5e96",
+            "ERZ1664506.normalized.tsv:md5,732b93972f54066050f5492840da48f9",
+            "ERZ1664507.normalized.tsv:md5,6aa6f5fc75c435664d725bc0ecd102bd",
+            "ERZ1664508.normalized.tsv:md5,5a87f1180cf1debfd3d8cf9f808857c7",
+            "ERZ1664509.normalized.tsv:md5,331498dc38133d6336e457b56a3cee58",
+            "ERZ1664510.normalized.tsv:md5,1c773ae48cd58f45b53af35fce7458df",
+            "ERZ1664511.normalized.tsv:md5,325ceb08275edcce6a3b24d1edd29453",
+            "ERZ1664515.normalized.tsv:md5,7476f361e2a753aa22cca0fc4c837def",
+            "ERZ1664516.normalized.tsv:md5,9a93c4664d23a9a1bbba177b82b106c1",
+            "ERZ1664517.normalized.tsv:md5,a29b092b7aaf90c342698d8ed7f86b13",
+            "ERZ1664518.normalized.tsv:md5,decbeba1809aa905873892e4c0c7032c",
+            "ERZ1664520.normalized.tsv:md5,7f0b98078e19fcf4b8f2b446ec00eff3",
+            "ERZ1664521.normalized.tsv:md5,725d5aa30f6de86595a4fcaa06d38b2a",
+            "ERZ1664523.normalized.tsv:md5,bcbe12f015733dac4fc6f0c1e73117df",
+            "ERZ1664524.normalized.tsv:md5,28c96b6c2d92e89197430b539c4eb388",
+            "ERZ1664528.normalized.tsv:md5,f9241bd6b04d4e79b09ef67d97243b43"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-12T08:17:29.27350638"
+        "timestamp": "2024-07-24T00:54:48.401991887"
+    },
+    "argnorm_abricate": {
+        "content": [
+            "ERZ1664501.normalized.tsv:md5,618aa19dcaed5d3a5909cb84393d90cb",
+            "ERZ1664503.normalized.tsv:md5,f2ee4aeafc929e3893677c271b3a04d4",
+            "ERZ1664504.normalized.tsv:md5,88b9a76d726402b95b2cd348459f0666",
+            "ERZ1664505.normalized.tsv:md5,817218f39d51d6f327623b26512e2e2d",
+            "ERZ1664506.normalized.tsv:md5,66806a70c95b2186f085f27661639738",
+            "ERZ1664507.normalized.tsv:md5,47e109f815e4b8e8d28aaeb75e4947b7",
+            "ERZ1664508.normalized.tsv:md5,60990fe382f0b43a288a8f66bcbde19f",
+            "ERZ1664509.normalized.tsv:md5,9710235350f4ff66c06b4abb78c23f80",
+            "ERZ1664510.normalized.tsv:md5,520f6eff7afdc9c52b9a1a8bb363fe85",
+            "ERZ1664511.normalized.tsv:md5,893ce88576218cd6acb246046eadb1af",
+            "ERZ1664515.normalized.tsv:md5,f88c35c590379f3a8a62664679d7404b",
+            "ERZ1664516.normalized.tsv:md5,b0499afcad11e34f3224e58431fd1aff",
+            "ERZ1664517.normalized.tsv:md5,79d79caa0a5a87a8dfb48eb67e4bf3f1",
+            "ERZ1664518.normalized.tsv:md5,8cee92e968b380c2c1ab6b5707608092",
+            "ERZ1664520.normalized.tsv:md5,4ba7e4daeeaf7f5d064131a742225152",
+            "ERZ1664521.normalized.tsv:md5,b724f087cc957400a5ff404a11535e29",
+            "ERZ1664523.normalized.tsv:md5,6cbe41ccfb7660e70aec3b711a33e18d",
+            "ERZ1664524.normalized.tsv:md5,658d14b9cfd773bc0ada2da2f44252cd",
+            "ERZ1664528.normalized.tsv:md5,a3db7b884b5fe91a59cf55c332fd0337"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:44.957353948"
+    },
+    "gecco": {
+        "content": [
+            "ERZ1664504.220-NODE-220-length-4587-cov-2.552957_cluster_1.gbk:md5,f806ad3df5d8d6d10b0996afaf288ba1",
+            "ERZ1664504.48-NODE-48-length-9582-cov-5.239425_cluster_1.gbk:md5,1909c78bc2f919ad28e7b80d843d31c5",
+            "ERZ1664506.42-NODE-42-length-11967-cov-6.006380_cluster_1.gbk:md5,6284adbf1446fcb4055a2a1a3b8d5daf",
+            "ERZ1664508.3061-NODE-3061-length-1263-cov-3.647351_cluster_1.gbk:md5,a5489abcf3572e84aaadddfaba169df2",
+            "ERZ1664510.123-NODE-123-length-8863-cov-8.649410_cluster_1.gbk:md5,a1c8c9d3b78859f8c0cfd6dfc58d4461",
+            "ERZ1664510.210-NODE-210-length-5173-cov-7.860688_cluster_1.gbk:md5,80c3d7bea1402ce04a531cebc040cdc2",
+            "ERZ1664511.16-NODE-16-length-49668-cov-9.810473_cluster_1.gbk:md5,9fdf8845bb6e7bccce086209254c80e6",
+            "ERZ1664515.9-NODE-9-length-49063-cov-10.926196_cluster_1.gbk:md5,0e03886155dd02c9f031ff767d42ef56",
+            "ERZ1664516.158-NODE-158-length-6232-cov-9.863850_cluster_1.gbk:md5,30e583235f44a0b83f5b190ed5ac0f20",
+            "ERZ1664517.38-NODE-38-length-19981-cov-8.613771_cluster_1.gbk:md5,bdcaa50dc14c58c671ce6e9a006c5ed0",
+            "ERZ1664518.217-NODE-217-length-4457-cov-6.415947_cluster_1.gbk:md5,dac8e33a9203e26eac76c3c02fcacc85",
+            "ERZ1664521.1871-NODE-1871-length-1473-cov-1.858251_cluster_1.gbk:md5,79f4f46c6d617f00128c9dd6871566f9",
+            "ERZ1664521.895-NODE-895-length-1964-cov-2.221058_cluster_1.gbk:md5,0fdd9dca805af50828dafe406aa8606d",
+            "ERZ1664523.16-NODE-16-length-15072-cov-6.654591_cluster_1.gbk:md5,72e21b8ad729f0c49c97c895a42c3cc7",
+            "ERZ1664524.1150-NODE-1150-length-2386-cov-3.450879_cluster_1.gbk:md5,d20be4ec979df18abea8d6273ba66025",
+            "ERZ1664524.54-NODE-54-length-9607-cov-5.345582_cluster_1.gbk:md5,1218bb916133dccde2e6337be87f6cce",
+            "ERZ1664528.138-NODE-138-length-5805-cov-4.599304_cluster_1.gbk:md5,8de600165f90291999bfc9d7047bf838",
+            "ERZ1664528.1641-NODE-1641-length-2049-cov-4.697091_cluster_1.gbk:md5,b86b34eac746aa4e128526b3458887ac"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:55:03.428411261"
     },
     "antismash": {
         "content": [
@@ -219,37 +191,149 @@
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-02T20:18:53.947865807"
+        "timestamp": "2024-07-24T00:54:59.889179408"
+    },
+    "argnorm_deeparg": {
+        "content": [
+            "ERZ1664501.normalized.tsv:md5,9b5e6ed2b401e04d2b1217e04dfc9eac",
+            "ERZ1664503.normalized.tsv:md5,51cbe8f9f6a7d986b020f44ac2f9eb07",
+            "ERZ1664504.normalized.tsv:md5,e9a396c3301588ceae843e60e4dbd60f",
+            "ERZ1664505.normalized.tsv:md5,fb2662f9f2f0179e5d5fe85b83d86051",
+            "ERZ1664506.normalized.tsv:md5,45d6cae38adbe0134f8390f66c0b788c",
+            "ERZ1664507.normalized.tsv:md5,19e545c04f0f3304499baefdcb8ff998",
+            "ERZ1664508.normalized.tsv:md5,11c852b8d65e85d0e7d85904dbb3ea0a",
+            "ERZ1664509.normalized.tsv:md5,09da6cea30007c21dcbe3e4dd555082f",
+            "ERZ1664510.normalized.tsv:md5,8dbc280dbee4028920f003ec3e0fff72",
+            "ERZ1664511.normalized.tsv:md5,236759216c2583778a7861d79324cf11",
+            "ERZ1664515.normalized.tsv:md5,1250b63151b5b45d402c55a55f07696a",
+            "ERZ1664516.normalized.tsv:md5,d3807e4fd62d35aac6eb0e03500ebbdc",
+            "ERZ1664517.normalized.tsv:md5,fc35af88f64e01ac5b811e8a366e933b",
+            "ERZ1664518.normalized.tsv:md5,4803c3f0ed8fa1d1dde7d02fed064a6a",
+            "ERZ1664520.normalized.tsv:md5,aa897ab8540391a484d6c9d1fa8825fd",
+            "ERZ1664521.normalized.tsv:md5,7731d0997da1801863aa4b9c2231a87a",
+            "ERZ1664523.normalized.tsv:md5,f80e86302958d41163e08c8c0109280c",
+            "ERZ1664524.normalized.tsv:md5,c3701f0136ed40d4301b46259d79a151",
+            "ERZ1664528.normalized.tsv:md5,2fdb5e4fc1f7840586a451c088c779ec"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:41.54962868"
     },
     "macrel": {
         "content": [
-            "ERZ1664501.macrel.prediction.gz:md5,a553cb5d0745a01816c7b9c75822df29",
-            "ERZ1664503.macrel.prediction.gz:md5,3ca2cd9a6d999725b4a487c13ddb7fd9",
+            "ERZ1664501.macrel.prediction.gz:md5,20dc3b7d8b42111f56d47cfbf02a61b0",
+            "ERZ1664503.macrel.prediction.gz:md5,f9604770f6f0c0dd0d673f2d9a54dc45",
             "ERZ1664504.macrel.prediction.gz:md5,52e9c1ec54f486765dea07d97b1c97b7",
-            "ERZ1664505.macrel.prediction.gz:md5,94fa17cce88549aab16555ee598c02bb",
+            "ERZ1664505.macrel.prediction.gz:md5,a3551632e05fa673bd75b3d8663e6d05",
             "ERZ1664506.macrel.prediction.gz:md5,732be08d0236cf63641ef445a02cf1ee",
-            "ERZ1664507.macrel.prediction.gz:md5,eab2d426cf31a47597e61ddb25bf3d49",
-            "ERZ1664508.macrel.prediction.gz:md5,a0e40483e0136c3bb4abea9c9cba7d4b",
-            "ERZ1664509.macrel.prediction.gz:md5,47ca65c261cf402b390f6951bb1ed9dc",
-            "ERZ1664510.macrel.prediction.gz:md5,3e6ca785e579757616fe515efef1537e",
+            "ERZ1664507.macrel.prediction.gz:md5,841629223f30496a8875eac29e8ead51",
+            "ERZ1664508.macrel.prediction.gz:md5,5a930e35dedf92cf4f6081932f90740d",
+            "ERZ1664509.macrel.prediction.gz:md5,9b152a80d45039a8c20033cf3af11798",
+            "ERZ1664510.macrel.prediction.gz:md5,aaf48021a9ddeba74a7aa1df3004ecff",
             "ERZ1664511.macrel.prediction.gz:md5,df36fa0448591690fc6b7ded2517256e",
             "ERZ1664515.macrel.prediction.gz:md5,b896ac50f6ebec1e725cff67bdff8fed",
-            "ERZ1664516.macrel.prediction.gz:md5,5dcbc87c6a44e8783dfe48b6385dfca8",
+            "ERZ1664516.macrel.prediction.gz:md5,d5edd36c57eedd86086d9a1263d064dd",
             "ERZ1664517.macrel.prediction.gz:md5,02373e1b4383dc7501e7e142c9443b7a",
-            "ERZ1664518.macrel.prediction.gz:md5,7290477960af29a76563e8ded5d4a623",
-            "ERZ1664520.macrel.prediction.gz:md5,bdf1a379ee49e34b9a448762e5301926",
-            "ERZ1664521.macrel.prediction.gz:md5,91bd81f6c4e5c8ff4cc684ec04fa0a30",
+            "ERZ1664518.macrel.prediction.gz:md5,f1fcc0ba109a9b6ac28704ac3954d6d2",
+            "ERZ1664520.macrel.prediction.gz:md5,850056f716a79694938c0c7a2ebee29b",
+            "ERZ1664521.macrel.prediction.gz:md5,a07785c30e377e1becc87281afa9fac4",
             "ERZ1664523.macrel.prediction.gz:md5,cee5ae9ba4a8a3879ab245b767815394",
-            "ERZ1664524.macrel.prediction.gz:md5,73f21254f4e4056a71ebf43851af3698",
+            "ERZ1664524.macrel.prediction.gz:md5,e470e0fe492ffbb93da822d167216deb",
             "ERZ1664528.macrel.prediction.gz:md5,2e957f217c570a58ee61d97c690c1424"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.1"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-12T08:17:17.980360618"
+        "timestamp": "2024-07-24T00:54:18.821987885"
+    },
+    "abricate": {
+        "content": [
+            "ERZ1664501.txt:md5,1ace32d2d44194d635db31daa89a6fae",
+            "ERZ1664503.txt:md5,da890e2cef1b1a34ec035f6198f0a60b",
+            "ERZ1664504.txt:md5,3db1864a6efe5321379e89dcee34d505",
+            "ERZ1664505.txt:md5,317354f6091bad44ab5852399d48eb4a",
+            "ERZ1664506.txt:md5,8fcc568d6a15d1c3ac889169ce884093",
+            "ERZ1664507.txt:md5,0be8f76b35aca900f8f7fa6d2e7fc1f9",
+            "ERZ1664508.txt:md5,357da5e192d9a17b501446e181f41942",
+            "ERZ1664509.txt:md5,c14f4aef2c96e8c4f6688af35fe07a2c",
+            "ERZ1664510.txt:md5,0d88060e28b267a308271a2a2af38b12",
+            "ERZ1664511.txt:md5,46adf11d5d3952e3709ba05ec76b5e8a",
+            "ERZ1664515.txt:md5,4b7a0db47ac6e9baf723e6b2ef31bfc4",
+            "ERZ1664516.txt:md5,1ccfd94077fe329f7b30351aa846b327",
+            "ERZ1664517.txt:md5,8137ab84373a5300c9626a9459a2c935",
+            "ERZ1664518.txt:md5,db514f4bef8de0d4799f478e1807adc6",
+            "ERZ1664520.txt:md5,a3afa2368c941cdb0c4abd8efa855f0e",
+            "ERZ1664521.txt:md5,2849a78188c4793d4608ba1775da1d58",
+            "ERZ1664523.txt:md5,507e1710e7220965010ad8375b4c434a",
+            "ERZ1664524.txt:md5,b7d380fe3fbcb0fe2ac23823cb6b35e8",
+            "ERZ1664528.txt:md5,64aff1aaaab8b3d009edd40527446c08"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:25.215727223"
+    },
+    "fargene": {
+        "content": [
+            "results_summary.txt:md5,3061d75086b3d25605eda0ea05e1c927",
+            "results_summary.txt:md5,ea00de6524c521e06583ee13ffbcf338",
+            "results_summary.txt:md5,c5a6205a249cb6112b6235bbab51c60d",
+            "results_summary.txt:md5,c5a6205a249cb6112b6235bbab51c60d",
+            "results_summary.txt:md5,cc647b7810c7335edb6aa939f9f0fbde",
+            "results_summary.txt:md5,fa58a7f510100be20ce22fe3f6b036e3",
+            "results_summary.txt:md5,33b51ce0c8ba7c65bdb8bfe1480d85cb",
+            "results_summary.txt:md5,fa58a7f510100be20ce22fe3f6b036e3",
+            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
+            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
+            "results_summary.txt:md5,657d012f697a1a9e3ce7f8a0f675aed0",
+            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
+            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
+            "results_summary.txt:md5,c5a6205a249cb6112b6235bbab51c60d",
+            "results_summary.txt:md5,33b51ce0c8ba7c65bdb8bfe1480d85cb",
+            "results_summary.txt:md5,54ba6a1a657fea6b78abac50820c2c24",
+            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
+            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
+            "results_summary.txt:md5,cc647b7810c7335edb6aa939f9f0fbde"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:34.896363945"
+    },
+    "rgi": {
+        "content": [
+            "ERZ1664501.txt:md5,631580295a01dfa9942a84ec6daddb7e",
+            "ERZ1664503.txt:md5,19b414d2f84d99e7da99558f13ddc3e5",
+            "ERZ1664504.txt:md5,35cfd6af482966669d98a65b56331a3d",
+            "ERZ1664505.txt:md5,d9f983090909140617bc784635220c4b",
+            "ERZ1664506.txt:md5,7a52f37f5672b06b05741ee058391f8f",
+            "ERZ1664507.txt:md5,721b11a0d9a16cbcbfd9004478b00600",
+            "ERZ1664508.txt:md5,b216d24eb67e17b00176fd0e9fddee2d",
+            "ERZ1664509.txt:md5,a83a12f5eee2817adde168ceea2918c5",
+            "ERZ1664510.txt:md5,648ff158c4eb26a5ea32d784f035919e",
+            "ERZ1664511.txt:md5,9bae24f90a3ec78bf949a98fdf22a497",
+            "ERZ1664515.txt:md5,2d0d0b2f048fa6c28840b1b6a2c9454d",
+            "ERZ1664516.txt:md5,eb69d148d8dad471c8d9a36dd915f4a4",
+            "ERZ1664517.txt:md5,79b0f80950eb5f0f51542b394a77a173",
+            "ERZ1664518.txt:md5,887de51b7632b0c635b0fe6deda75266",
+            "ERZ1664520.txt:md5,3caf2e1b0afcbfb73522bfa1cee1d06e",
+            "ERZ1664521.txt:md5,19334a653a98bbced73f1f2ec92e4eb8",
+            "ERZ1664523.txt:md5,0e47ce5c41d4d0d39d270a18ce62773a",
+            "ERZ1664524.txt:md5,8ca49d7dee9c7de25910de130de93859",
+            "ERZ1664528.txt:md5,6a10752196f2f33bcee972d15d669803"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:31.62460906"
     },
     "amrfinderplus": {
         "content": [
@@ -275,8 +359,8 @@
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-02T20:18:33.421040838"
+        "timestamp": "2024-07-24T00:54:28.386682111"
     }
 }
