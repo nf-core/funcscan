@@ -12,10 +12,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T17:16:00.343547789"
+        "timestamp": "2024-07-24T10:49:00.343547789"
     },
     "deepbgc_bgc_gbk": {
         "content": [
@@ -24,10 +24,10 @@
             "sample_3.bgc.gbk:md5,c9028aca1282b314d296091e1f0b8e52"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T17:16:00.388012579"
+        "timestamp": "2024-07-24T11:06:00.388012579"
     },
     "gecco": {
         "content": [
@@ -39,9 +39,9 @@
             "sample_3.features.tsv:md5,490f98655089b3c73f88b93347cca465"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T17:16:00.44526019"
+        "timestamp": "2024-07-24T10:49:00.44526019"
     }
 }

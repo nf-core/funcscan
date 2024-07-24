@@ -1,14 +1,4 @@
 {
-    "hamronization_summarize": {
-        "content": [
-            "hamronization_combined_report.tsv:md5,73319083b96e31632253fe9a5c4c1436"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
-        },
-        "timestamp": "2024-07-21T00:10:18.532355081"
-    },
     "deeparg": {
         "content": [
             "sample_1.align.daa.tsv:md5,0e71c37318bdc6cba792196d0455293d",
@@ -19,10 +9,10 @@
             true
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.699516"
+        "timestamp": "2024-07-24T12:16:20.699516"
     },
     "ampir": {
         "content": [
@@ -34,34 +24,10 @@
             "sample_3.ampir.faa:md5,0a36691485930a1b77c4b68a738fd98d"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
-        },
-        "timestamp": "2024-07-04T22:23:20.560802"
-    },
-    "argnorm_amrfinderplus": {
-        "content": [
-            "sample_1.normalized.tsv:md5,d39cb04c2bad3b6e984a44020241f48b",
-            "sample_2.normalized.tsv:md5,ff109a44444eaeac6f9026ac31fb49a1",
-            "sample_3.normalized.tsv:md5,067021794971336422fedc749be41dca"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
+            "nf-test": "0.9.0",
             "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-18T12:32:12.938861179"
-    },
-    "argnorm_abricate": {
-        "content": [
-            "sample_1.normalized.tsv:md5,ddd8d454672c57b798f477ca32504a42",
-            "sample_2.normalized.tsv:md5,0323fc890a8f698ac4b0ac25f5e65964",
-            "sample_3.normalized.tsv:md5,f71490c27790071bd5974ecc5502cf73"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
-        },
-        "timestamp": "2024-07-18T12:32:12.988655823"
+        "timestamp": "2024-07-24T12:16:20.560802"
     },
     "amplify": {
         "content": [
@@ -70,22 +36,10 @@
             true
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
-        },
-        "timestamp": "2024-07-04T22:23:20.593242"
-    },
-    "argnorm_deeparg": {
-        "content": [
-            "sample_1.normalized.tsv:md5,4a1807992bab9ed4ee9384d237d77e59",
-            "sample_2.normalized.tsv:md5,a922864845c3a894fa8f5c43cf2e23dc",
-            "sample_3.normalized.tsv:md5,1bb503373085539ae81c31edfdb2ef34"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
+            "nf-test": "0.9.0",
             "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-18T12:32:12.966214504"
+        "timestamp": "2024-07-24T12:16:20.593242"
     },
     "macrel": {
         "content": [
@@ -106,10 +60,10 @@
             "sample_3.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
         ],
         "meta": {
-            "nf-test": "0.8.4",
+            "nf-test": "0.9.0",
             "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-21T00:10:18.372591929"
+        "timestamp": "2024-07-24T12:16:18.372591929"
     },
     "abricate": {
         "content": [
@@ -118,10 +72,10 @@
             "sample_3.txt:md5,d6534efe3d03173749d003bf9e624e68"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.743136"
+        "timestamp": "2024-07-24T12:16:20.743136"
     },
     "fargene": {
         "content": [
@@ -133,10 +87,10 @@
             "results_summary.txt:md5,59f2e69c670d72f0c0a401e0dc90cbeb"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.849995"
+        "timestamp": "2024-07-24T12:16:20.849995"
     },
     "rgi": {
         "content": [
@@ -145,10 +99,10 @@
             "sample_3.txt:md5,dde77ae2dc240ee4717d8d33a92dfb66"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.809033"
+        "timestamp": "2024-07-24T12:16:20.809033"
     },
     "ampcombi": {
         "content": [
@@ -158,10 +112,10 @@
             true
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.663035"
+        "timestamp": "2024-07-24T12:16:20.663035"
     },
     "amrfinderplus": {
         "content": [
@@ -170,9 +124,9 @@
             "sample_3.tsv:md5,29cfb6f34f420d802eda95c6d9daa361"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.777384"
+        "timestamp": "2024-07-24T12:16:20.777384"
     }
 }
