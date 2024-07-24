@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#397](https://github.com/nf-core/funcscan/pull/397) Removed deprecated AMPcombi module, fixed variable name in BGC workflow, updated minor parts in docs (usage, parameter schema). (by @jasmezz)
 - [#402](https://github.com/nf-core/funcscan/pull/402) Fixed BGC length calculation for antiSMASH hits by comBGC. (by @jasmezz)
 - [#406](https://github.com/nf-core/funcscan/pull/406) Fixed prediction tools not being executed if annotation workflow skipped. (by @jasmezz)
+- [#407](https://github.com/nf-core/funcscan/pull/407) Fixed comBGC bug when parsing multiple antiSMASH files. (by @jasmezz)
 
 ### `Dependencies`
 
