@@ -4,9 +4,9 @@
 
 The output of nf-core/funcscan provides reports for each of the functional groups:
 
-- antibiotic resistance genes (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) – summarised by [hAMRonization](https://github.com/pha4ge/hAMRonization) and ABRicate/AMRFinderPlus/DeepARG are normalised to ARO by [argNorm](https://github.com/BigDataBiology/argNorm))
-- antimicrobial peptides (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) – summarised by [AMPcombi](https://github.com/Darcy220606/AMPcombi))
-- biosynthetic gene clusters (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org) – summarised by [comBGC](#combgc))
+- **antibiotic resistance genes** (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) – summarised by [hAMRonization](https://github.com/pha4ge/hAMRonization). Results from ABRicate, AMRFinderPlus, and DeepARG are normalised to [ARO](https://obofoundry.org/ontology/aro.html) by [argNorm](https://github.com/BigDataBiology/argNorm).)
+- **antimicrobial peptides** (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) – summarised by [AMPcombi](https://github.com/Darcy220606/AMPcombi))
+- **biosynthetic gene clusters** (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org) – summarised by [comBGC](#combgc))
 
 As a general workflow, we recommend to first look at the summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each result. The tool-specific output directories also includes the output from the functional annotation steps of either [prokka](https://github.com/tseemann/prokka), [pyrodigal](https://github.com/althonos/pyrodigal), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set. Additionally, taxonomic classifications from [MMseqs2](https://github.com/soedinglab/MMseqs2) are saved if the `--taxa_classification_mmseqs_db_savetmp` and `--taxa_classification_mmseqs_taxonomy_savetmp` flags are set.
 
@@ -587,7 +587,7 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 
 </details>
 
-[argnorm](https://github.com/BigDataBiology/argNorm) is a tool to normalize antibiotic resistance genes (ARGs) by mapping them to the antibiotic resistance ontology (ARO) created by the CARD database. argNorm also enhances antibiotic resistance gene annotations by providing categorization of the drugs that antibiotic resistance genes confer resistance to.
+[argnorm](https://github.com/BigDataBiology/argNorm) is a tool to normalize antibiotic resistance genes (ARGs) by mapping them to the antibiotic resistance ontology ([ARO](https://obofoundry.org/ontology/aro.html)) created by the CARD database. argNorm also enhances antibiotic resistance gene annotations by providing categorization of the drugs that antibiotic resistance genes confer resistance to.
 
 argNorm takes the outputs of the [hAMRonization](#hamronization) tool of [ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), and [DeepARG](#deeparg) and normalizes ARGs in the hAMRonization output to the ARO.
 
