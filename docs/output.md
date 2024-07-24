@@ -443,7 +443,7 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 
 ### Summary tools
 
-[AMPcombi](#ampcombi), [hAMRonization](#hamronization), [comBGC](#combgc), [MultiQC](#multiqc), [pipeline information](#pipeline-information), [argNorm](#argnorm)
+[AMPcombi](#ampcombi), [hAMRonization](#hamronization), [comBGC](#combgc), [MultiQC](#multiqc), [pipeline information](#pipeline-information), [argNorm](#argnorm).
 
 #### AMPcombi
 
