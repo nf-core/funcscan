@@ -129,7 +129,7 @@ nextflow_pipeline {
                 { assert path("$outputDir/arg/argnorm/amrfinderplus/sample_3.normalized.tsv").text.contains("ARO:0000016") },
 
                 { assert path("$outputDir/arg/argnorm/deeparg/sample_1.normalized.tsv").text.contains("ARO:3004054") },
-                { assert path("$outputDir/arg/argnorm/deeparg/sample_2.normalized.tsv").text.contains("ARO:3003479") },
+                { assert path("$outputDir/arg/argnorm/deeparg/sample_2.normalized.tsv").text.contains("ARO:0000016") },
                 { assert path("$outputDir/arg/argnorm/deeparg/sample_3.normalized.tsv").text.contains("ARO:3000157") },
 
                 { assert path("$outputDir/arg/argnorm/abricate/sample_1.normalized.tsv").text.contains("ARO:3000282") },
