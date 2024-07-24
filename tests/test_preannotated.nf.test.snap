@@ -1,70 +1,4 @@
 {
-    "deeparg": {
-        "content": [
-            "sample_1.align.daa.tsv:md5,0e71c37318bdc6cba792196d0455293d",
-            "sample_2.align.daa.tsv:md5,1092ecd3cd6931653168b46c7afeb9e3",
-            "sample_3.align.daa.tsv:md5,b79070fe26acd1a10ae3aaf06b0d5901",
-            true,
-            true,
-            true
-        ],
-        "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
-        },
-        "timestamp": "2024-07-24T12:16:20.699516"
-    },
-    "ampir": {
-        "content": [
-            true,
-            "sample_1.ampir.faa:md5,ab02c6e9c5f36ba9c31af97f95f9c317",
-            true,
-            "sample_2.ampir.faa:md5,12826875bd18623da78770187a7bbd2c",
-            true,
-            "sample_3.ampir.faa:md5,0a36691485930a1b77c4b68a738fd98d"
-        ],
-        "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
-        },
-        "timestamp": "2024-07-24T12:16:20.560802"
-    },
-    "amplify": {
-        "content": [
-            true,
-            true,
-            true
-        ],
-        "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
-        },
-        "timestamp": "2024-07-24T12:16:20.593242"
-    },
-    "macrel": {
-        "content": [
-            "sample_1.macrel.smorfs.faa.gz:md5,9cddad1e4b6dbcb76888f1a87db388ec",
-            "sample_2.macrel.smorfs.faa.gz:md5,e055dd2a9e44f3dcaa8af7198600349c",
-            "sample_3.macrel.smorfs.faa.gz:md5,9cddad1e4b6dbcb76888f1a87db388ec",
-            "sample_1.macrel.all_orfs.faa.gz:md5,c276fb1ec494ff53ded1e6fc118e25b9",
-            "sample_2.macrel.all_orfs.faa.gz:md5,e75e434a30922d80169d0666fd07e446",
-            "sample_3.macrel.all_orfs.faa.gz:md5,c276fb1ec494ff53ded1e6fc118e25b9",
-            "sample_1.macrel.prediction.gz:md5,0277725512f7d2954a99692bb65f1475",
-            "sample_2.macrel.prediction.gz:md5,06f7ce99cfe6f364d38743aae094402a",
-            "sample_3.macrel.prediction.gz:md5,0277725512f7d2954a99692bb65f1475",
-            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
-            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
-            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
-            "sample_1.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-            "sample_2.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-            "sample_3.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
-        ],
-        "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
-        },
-        "timestamp": "2024-07-24T12:16:18.372591929"
-    },
     "abricate": {
         "content": [
             "sample_1.txt:md5,427cec26e354ac6b0ab6047ec6621202",
@@ -104,6 +38,36 @@
         },
         "timestamp": "2024-07-24T12:16:20.809033"
     },
+    "deeparg": {
+        "content": [
+            "sample_1.align.daa.tsv:md5,0e71c37318bdc6cba792196d0455293d",
+            "sample_2.align.daa.tsv:md5,1092ecd3cd6931653168b46c7afeb9e3",
+            "sample_3.align.daa.tsv:md5,b79070fe26acd1a10ae3aaf06b0d5901",
+            true,
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T12:16:20.699516"
+    },
+    "ampir": {
+        "content": [
+            true,
+            "sample_1.ampir.faa:md5,ab02c6e9c5f36ba9c31af97f95f9c317",
+            true,
+            "sample_2.ampir.faa:md5,12826875bd18623da78770187a7bbd2c",
+            true,
+            "sample_3.ampir.faa:md5,0a36691485930a1b77c4b68a738fd98d"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T12:16:20.560802"
+    },
     "ampcombi": {
         "content": [
             "Ampcombi_cluster.log:md5,4c78f5f134edf566f39e04e3ab7d8558",
@@ -116,6 +80,42 @@
             "nextflow": "24.04.3"
         },
         "timestamp": "2024-07-24T12:16:20.663035"
+    },
+    "amplify": {
+        "content": [
+            true,
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T12:16:20.593242"
+    },
+    "macrel": {
+        "content": [
+            "sample_1.macrel.smorfs.faa.gz:md5,9cddad1e4b6dbcb76888f1a87db388ec",
+            "sample_2.macrel.smorfs.faa.gz:md5,e055dd2a9e44f3dcaa8af7198600349c",
+            "sample_3.macrel.smorfs.faa.gz:md5,9cddad1e4b6dbcb76888f1a87db388ec",
+            "sample_1.macrel.all_orfs.faa.gz:md5,382803053f9532d3c970c5db940eb616",
+            "sample_2.macrel.all_orfs.faa.gz:md5,1545ad5aca0fef9c85d8002131cbabef",
+            "sample_3.macrel.all_orfs.faa.gz:md5,382803053f9532d3c970c5db940eb616",
+            "sample_1.macrel.prediction.gz:md5,0277725512f7d2954a99692bb65f1475",
+            "sample_2.macrel.prediction.gz:md5,06f7ce99cfe6f364d38743aae094402a",
+            "sample_3.macrel.prediction.gz:md5,0277725512f7d2954a99692bb65f1475",
+            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
+            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
+            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
+            "sample_1.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "sample_2.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "sample_3.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T20:37:52.576447033"
     },
     "amrfinderplus": {
         "content": [
