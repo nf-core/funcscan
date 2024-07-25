@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#382](https://github.com/nf-core/funcscan/pull/382) Optimised BGC screening run time and prevent crashes due to too-short contigs by adding contig length filtering for BGC workflow only. (by @jfy133, @darcy220606)
 - [#366](https://github.com/nf-core/funcscan/pull/366) Added nf-test on pipeline level. (by @jfy133, @Darcy220606, @jasmezz)
 - [#403](https://github.com/nf-core/funcscan/pull/403) Added antiSMASH parameters `--pfam2go`, `--rre`, and `--tfbs`. (reported by @Darcy220606, added by @jasmezz)
+- [#405](https://github.com/nf-core/funcscan/pull/405) Added argNorm to ARG subworkflow. (by @Vedanth-Ramji)
 
 ### `Fixed`
 
@@ -46,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | AMPlify       | 1.1.0            | 2.0.0       |
 | AMRFinderPlus | 3.11.18          | 3.12.8      |
 | antiSMASH     | 6.1.1            | 7.1.0       |
+| argNorm       | NA               | 0.5.0       |
 | bioawk        | 1.0              | NA          |
 | comBGC        | 1.6.1            | 1.6.2       |
 | DeepARG       | 1.0.2            | 1.0.4       |

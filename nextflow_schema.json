@@ -1087,6 +1087,20 @@
             "fa_icon": "fas fa-bacteria",
             "help_text": ""
         },
+        "arg_argnorm": {
+            "title": "ARG: argNorm",
+            "type": "object",
+            "description": "Influences parameters required for the normalization of ARG annotations by argNorm. More info: https://github.com/BigDataBiology/argNorm",
+            "default": "",
+            "properties": {
+                "arg_skip_argnorm": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-ban",
+                    "description": "Skip argNorm during ARG screening."
+                }
+            },
+            "fa_icon": "fas fa-bacteria"
+        },
         "bgc_general_options": {
             "title": "BGC: general options",
             "type": "object",
@@ -1648,6 +1662,9 @@
         },
         {
             "$ref": "#/definitions/arg_hamronization"
+        },
+        {
+            "$ref": "#/definitions/arg_argnorm"
         },
         {
             "$ref": "#/definitions/bgc_general_options"

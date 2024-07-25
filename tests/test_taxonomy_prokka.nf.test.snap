@@ -5,10 +5,10 @@
             true
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-05T09:31:30.025771"
+        "timestamp": "2024-07-24T13:05:30.025771"
     },
     "fargene": {
         "content": [
@@ -17,10 +17,10 @@
             true
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-05T09:31:30.025771"
+        "timestamp": "2024-07-24T13:05:30.025771"
     },
     "rgi": {
         "content": [
@@ -28,10 +28,10 @@
             "sample_2.txt:md5,fce130af51f93cccfc09ddaf9caf623f"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-05T09:31:30.025771"
+        "timestamp": "2024-07-24T13:05:30.025771"
     },
     "ampir": {
         "content": [
@@ -41,10 +41,10 @@
             true
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-05T09:31:30.025771"
+        "timestamp": "2024-07-24T13:05:30.025771"
     },
     "gecco": {
         "content": [
@@ -52,20 +52,20 @@
             true
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-05T09:31:30.025771"
+        "timestamp": "2024-07-24T13:05:30.025771"
     },
     "ampcombi": {
         "content": [
             true
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-05T09:31:30.025771"
+        "timestamp": "2024-07-24T13:05:30.025771"
     },
     "antismash": {
         "content": [
@@ -73,10 +73,10 @@
             true
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-05T09:31:30.025771"
+        "timestamp": "2024-07-24T13:05:30.025771"
     },
     "amplify": {
         "content": [
@@ -84,10 +84,10 @@
             true
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-09T13:10:06.451885596"
+        "timestamp": "2024-07-24T13:05:06.451885596"
     },
     "macrel": {
         "content": [
@@ -103,9 +103,9 @@
             "sample_2.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-05T09:31:30.025771"
+        "timestamp": "2024-07-24T13:05:30.025771"
     }
 }

@@ -8,17 +8,20 @@ include { AMRFINDERPLUS_RUN                 }  from '../../modules/nf-core/amrfi
 include { DEEPARG_DOWNLOADDATA              }  from '../../modules/nf-core/deeparg/downloaddata/main'
 include { DEEPARG_PREDICT                   }  from '../../modules/nf-core/deeparg/predict/main'
 include { FARGENE                           }  from '../../modules/nf-core/fargene/main'
-include { HAMRONIZATION_ABRICATE            }  from '../../modules/nf-core/hamronization/abricate/main'
-include { HAMRONIZATION_RGI                 }  from '../../modules/nf-core/hamronization/rgi/main'
-include { HAMRONIZATION_DEEPARG             }  from '../../modules/nf-core/hamronization/deeparg/main'
-include { HAMRONIZATION_AMRFINDERPLUS       }  from '../../modules/nf-core/hamronization/amrfinderplus/main'
-include { HAMRONIZATION_FARGENE             }  from '../../modules/nf-core/hamronization/fargene/main'
-include { HAMRONIZATION_SUMMARIZE           }  from '../../modules/nf-core/hamronization/summarize/main'
 include { RGI_CARDANNOTATION                }  from '../../modules/nf-core/rgi/cardannotation/main'
 include { RGI_MAIN                          }  from '../../modules/nf-core/rgi/main/main'
 include { UNTAR as UNTAR_CARD               }  from '../../modules/nf-core/untar/main'
 include { TABIX_BGZIP as ARG_TABIX_BGZIP    }  from '../../modules/nf-core/tabix/bgzip/main'
 include { MERGE_TAXONOMY_HAMRONIZATION      }  from '../../modules/local/merge_taxonomy_hamronization'
+include { HAMRONIZATION_RGI                 }  from '../../modules/nf-core/hamronization/rgi/main'
+include { HAMRONIZATION_FARGENE             }  from '../../modules/nf-core/hamronization/fargene/main'
+include { HAMRONIZATION_SUMMARIZE           }  from '../../modules/nf-core/hamronization/summarize/main'
+include { HAMRONIZATION_ABRICATE            }  from '../../modules/nf-core/hamronization/abricate/main'
+include { HAMRONIZATION_DEEPARG             }  from '../../modules/nf-core/hamronization/deeparg/main'
+include { HAMRONIZATION_AMRFINDERPLUS       }  from '../../modules/nf-core/hamronization/amrfinderplus/main'
+include { ARGNORM as ARGNORM_DEEPARG        }  from '../../modules/nf-core/argnorm/main'
+include { ARGNORM as ARGNORM_ABRICATE       }  from '../../modules/nf-core/argnorm/main'
+include { ARGNORM as ARGNORM_AMRFINDERPLUS  }  from '../../modules/nf-core/argnorm/main'
 
 workflow ARG {
     take:
@@ -49,14 +52,19 @@ workflow ARG {
         ch_versions = ch_versions.mix( AMRFINDERPLUS_RUN.out.versions )
 
     // Reporting
-        HAMRONIZATION_AMRFINDERPLUS ( AMRFINDERPLUS_RUN.out.report, 'json', AMRFINDERPLUS_RUN.out.tool_version, AMRFINDERPLUS_RUN.out.db_version )
+        HAMRONIZATION_AMRFINDERPLUS ( AMRFINDERPLUS_RUN.out.report, 'tsv', AMRFINDERPLUS_RUN.out.tool_version, AMRFINDERPLUS_RUN.out.db_version )
         ch_versions = ch_versions.mix( HAMRONIZATION_AMRFINDERPLUS.out.versions )
-        ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_AMRFINDERPLUS.out.json )
+        ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_AMRFINDERPLUS.out.tsv )
+
+        if ( !params.arg_skip_argnorm ) {
+            ch_input_to_argnorm_amrfinderplus = HAMRONIZATION_AMRFINDERPLUS.out.tsv.filter{ meta, file -> !file.isEmpty() }
+            ARGNORM_AMRFINDERPLUS ( ch_input_to_argnorm_amrfinderplus, 'amrfinderplus', 'ncbi' )
+            ch_versions = ch_versions.mix( ARGNORM_AMRFINDERPLUS.out.versions )
+        }
     }
 
     // fARGene run
     if ( !params.arg_skip_fargene ) {
-
         ch_fargene_classes = Channel.fromList( params.arg_fargene_hmmmodel.tokenize(',') )
 
         ch_fargene_input = fastas
@@ -77,9 +85,9 @@ workflow ARG {
 
         // Reporting
         // Note: currently hardcoding versions, has to be updated with every fARGene-update
-        HAMRONIZATION_FARGENE( FARGENE.out.hmm.transpose(), 'json', '0.1', '0.1' )
+        HAMRONIZATION_FARGENE( FARGENE.out.hmm.transpose(), 'tsv', '0.1', '0.1' )
         ch_versions = ch_versions.mix( HAMRONIZATION_FARGENE.out.versions )
-        ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_FARGENE.out.json )
+        ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_FARGENE.out.tsv )
     }
 
     // RGI run
@@ -106,9 +114,9 @@ workflow ARG {
         ch_versions = ch_versions.mix( RGI_MAIN.out.versions )
 
         // Reporting
-        HAMRONIZATION_RGI ( RGI_MAIN.out.tsv, 'json', RGI_MAIN.out.tool_version, RGI_MAIN.out.db_version )
+        HAMRONIZATION_RGI ( RGI_MAIN.out.tsv, 'tsv', RGI_MAIN.out.tool_version, RGI_MAIN.out.db_version )
         ch_versions = ch_versions.mix( HAMRONIZATION_RGI.out.versions )
-        ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_RGI.out.json )
+        ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_RGI.out.tsv )
     }
 
     // DeepARG prepare download
@@ -142,9 +150,16 @@ workflow ARG {
         // Reporting
         // Note: currently hardcoding versions as unreported by DeepARG
         // Make sure to update on version bump.
-        HAMRONIZATION_DEEPARG ( DEEPARG_PREDICT.out.arg.mix( DEEPARG_PREDICT.out.potential_arg ), 'json', '1.0.2', params.arg_deeparg_db_version )
+        ch_input_to_hamronization_deeparg = DEEPARG_PREDICT.out.arg.mix( DEEPARG_PREDICT.out.potential_arg )
+        HAMRONIZATION_DEEPARG ( ch_input_to_hamronization_deeparg, 'tsv', '1.0.2', params.arg_deeparg_db_version )
         ch_versions = ch_versions.mix( HAMRONIZATION_DEEPARG.out.versions )
-        ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_DEEPARG.out.json )
+        ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_DEEPARG.out.tsv )
+
+        if ( !params.arg_skip_argnorm ) {
+            ch_input_to_argnorm_deeparg = HAMRONIZATION_DEEPARG.out.tsv.filter{ meta, file -> !file.isEmpty() }
+            ARGNORM_DEEPARG ( ch_input_to_argnorm_deeparg, 'deeparg', 'deeparg' )
+            ch_versions = ch_versions.mix( ARGNORM_DEEPARG.out.versions )
+        }
     }
 
     // ABRicate run
@@ -153,9 +168,18 @@ workflow ARG {
         ABRICATE_RUN ( fastas, abricate_dbdir )
         ch_versions = ch_versions.mix( ABRICATE_RUN.out.versions )
 
-        HAMRONIZATION_ABRICATE ( ABRICATE_RUN.out.report, 'json', '1.0.1', '2021-Mar-27' )
+        HAMRONIZATION_ABRICATE ( ABRICATE_RUN.out.report, 'tsv', '1.0.1', '2021-Mar-27' )
         ch_versions = ch_versions.mix( HAMRONIZATION_ABRICATE.out.versions )
-        ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_ABRICATE.out.json )
+        ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_ABRICATE.out.tsv )
+
+        if ( ( params.arg_abricate_db_id == 'ncbi' ||
+            params.arg_abricate_db_id == 'resfinder' ||
+            params.arg_abricate_db_id == 'argannot' ||
+            params.arg_abricate_db_id == 'megares') && !params.arg_skip_argnorm ) {
+            ch_input_to_argnorm_abricate = HAMRONIZATION_ABRICATE.out.tsv.filter{ meta, file -> !file.isEmpty() }
+            ARGNORM_ABRICATE ( ch_input_to_argnorm_abricate, 'abricate', params.arg_abricate_db_id )
+            ch_versions = ch_versions.mix( ARGNORM_ABRICATE.out.versions )
+        }
     }
 
     ch_input_to_hamronization_summarize

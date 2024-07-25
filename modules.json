@@ -205,6 +205,11 @@
                         "git_sha": "4e5f4687318f24ba944a13609d3ea6ebd890737d",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/untar/untar.diff"
+                    },
+                    "argnorm": {
+                        "branch": "master",
+                        "git_sha": "e4fc46af5ec30070e6aef780aba14f89a28caa88",
+                        "installed_by": ["modules"]
                     }
                 }
             },

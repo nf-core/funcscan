@@ -30,13 +30,17 @@
 
   > Blin, K., Shaw, S., Kloosterman, A. M., Charlop-Powers, Z., van Wezel, G. P., Medema, M. H., & Weber, T. (2021). antiSMASH 6.0: improving cluster detection and comparison capabilities. Nucleic acids research, 49(W1), W29–W35. [DOI: 10.1093/nar/gkab335](https://doi.org/10.1093/nar/gkab335)
 
+- [argNorm](https://github.com/BigDataBiology/argNorm)
+
+  > Perovic, S. U., Ramji, V., Chong, H., Duan, Y., Maguire, F., Coelho, L. P. (2024). BigDataBiology/argNorm. [DOI: 10.5281/zenodo.10963591](https://zenodo.org/doi/10.5281/zenodo.10963591)
+
 - [Bakta](https://doi.org/10.1099/mgen.0.000685)
 
   > Schwengers, O., Jelonek, L., Dieckmann, M. A., Beyvers, S., Blom, J., & Goesmann, A. (2021). Bakta: rapid and standardized annotation of bacterial genomes via alignment-free sequence identification. Microbial Genomics, 7(11). [DOI: 10.1099/mgen.0.000685](https://doi.org/10.1099/mgen.0.000685)
 
 - [comBGC](https://github.com/nf-core/funcscan)
 
-  > Frangenberg, J., Fellows Yates, J. A., Ibrahim, A., Perelo, L., & Beber, M. E. (2023). nf-core/funcscan: 1.0.0 - German Rollmops - 2023-02-15. https://doi.org/10.5281/zenodo.7643100
+  > Frangenberg, J., Fellows Yates, J. A., Ibrahim, A., Perelo, L., & Beber, M. E. (2023). nf-core/funcscan: 1.0.0 - German Rollmops - 2023-02-15. [DOI: 10.5281/zenodo.7643100](https://doi.org/10.5281/zenodo.7643099)
 
 - [DeepARG](https://doi.org/10.1186/s40168-018-0401-z)
 

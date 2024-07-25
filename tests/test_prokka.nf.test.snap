@@ -4,10 +4,10 @@
             "hamronization_combined_report.tsv:md5,864466b0fb1acfc0e6b3425271f78ecb"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:06:45.990722943"
+        "timestamp": "2024-07-24T12:53:09.990722943"
     },
     "abricate": {
         "content": [
@@ -15,10 +15,10 @@
             "sample_2.txt:md5,69af3321b0bc808b7ef85f102395736f"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:06:45.941179691"
+        "timestamp": "2024-07-24T12:53:09.941179691"
     },
     "fargene": {
         "content": [
@@ -28,10 +28,10 @@
             "results_summary.txt:md5,f69af9b0e18a0cfc934eb18b7e4bffe1"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:06:45.978326519"
+        "timestamp": "2024-07-24T12:53:09.978326519"
     },
     "rgi": {
         "content": [
@@ -39,10 +39,10 @@
             "sample_2.txt:md5,fce130af51f93cccfc09ddaf9caf623f"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:06:45.964420301"
+        "timestamp": "2024-07-24T12:53:09.964420301"
     },
     "deeparg_tsv_ARG": {
         "content": [
@@ -52,10 +52,10 @@
             "sample_2.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:06:45.928505029"
+        "timestamp": "2024-07-24T12:53:09.928505029"
     },
     "ampir": {
         "content": [
@@ -65,10 +65,10 @@
             false
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:06:45.879791305"
+        "timestamp": "2024-07-24T12:53:09.879791305"
     },
     "ampcombi_logfiles": {
         "content": [
@@ -77,10 +77,10 @@
             "Ampcombi_parse_tables.log:md5,1e2b5abad7d17e03428066f345b91117"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:06:45.914363724"
+        "timestamp": "2024-07-24T12:53:09.914363724"
     },
     "amplify": {
         "content": [
@@ -88,10 +88,10 @@
             false
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:06:45.889521968"
+        "timestamp": "2024-07-24T12:53:09.889521968"
     },
     "macrel": {
         "content": [
@@ -107,10 +107,10 @@
             "sample_2.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:06:45.892460736"
+        "timestamp": "2024-07-24T12:53:09.892460736"
     },
     "amrfinderplus": {
         "content": [
@@ -118,9 +118,9 @@
             "sample_2.tsv:md5,b4d261ace9be7d013c19d1f5c0005bfe"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:06:45.952983609"
+        "timestamp": "2024-07-24T12:53:09.952983609"
     }
 }

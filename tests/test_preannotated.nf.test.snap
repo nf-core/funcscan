@@ -1,14 +1,4 @@
 {
-    "hamronization_summarize": {
-        "content": [
-            "hamronization_combined_report.tsv:md5,d86ae2e8d42ed6090234b8f5aa7c6a18"
-        ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
-        },
-        "timestamp": "2024-07-04T22:23:20.891751"
-    },
     "abricate": {
         "content": [
             "sample_1.txt:md5,427cec26e354ac6b0ab6047ec6621202",
@@ -16,10 +6,10 @@
             "sample_3.txt:md5,d6534efe3d03173749d003bf9e624e68"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.743136"
+        "timestamp": "2024-07-24T12:16:20.743136"
     },
     "fargene": {
         "content": [
@@ -31,10 +21,10 @@
             "results_summary.txt:md5,59f2e69c670d72f0c0a401e0dc90cbeb"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.849995"
+        "timestamp": "2024-07-24T12:16:20.849995"
     },
     "rgi": {
         "content": [
@@ -43,10 +33,10 @@
             "sample_3.txt:md5,dde77ae2dc240ee4717d8d33a92dfb66"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.809033"
+        "timestamp": "2024-07-24T12:16:20.809033"
     },
     "deeparg": {
         "content": [
@@ -58,10 +48,10 @@
             true
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.699516"
+        "timestamp": "2024-07-24T12:16:20.699516"
     },
     "ampir": {
         "content": [
@@ -73,10 +63,10 @@
             "sample_3.ampir.faa:md5,0a36691485930a1b77c4b68a738fd98d"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.560802"
+        "timestamp": "2024-07-24T12:16:20.560802"
     },
     "ampcombi": {
         "content": [
@@ -86,10 +76,10 @@
             true
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.663035"
+        "timestamp": "2024-07-24T12:16:20.663035"
     },
     "amplify": {
         "content": [
@@ -98,10 +88,10 @@
             true
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.593242"
+        "timestamp": "2024-07-24T12:16:20.593242"
     },
     "macrel": {
         "content": [
@@ -123,9 +113,9 @@
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.606679"
+        "timestamp": "2024-07-24T20:37:52.576447033"
     },
     "amrfinderplus": {
         "content": [
@@ -134,9 +124,9 @@
             "sample_3.tsv:md5,29cfb6f34f420d802eda95c6d9daa361"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-04T22:23:20.777384"
+        "timestamp": "2024-07-24T12:16:20.777384"
     }
 }

@@ -4,10 +4,10 @@
             "hamronization_combined_report.tsv:md5,864466b0fb1acfc0e6b3425271f78ecb"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:01:38.641163055"
+        "timestamp": "2024-07-23T15:33:45.641163055"
     },
     "abricate": {
         "content": [
@@ -15,10 +15,10 @@
             "sample_2.txt:md5,69af3321b0bc808b7ef85f102395736f"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:01:38.590739146"
+        "timestamp": "2024-07-23T15:33:45.590739146"
     },
     "fargene": {
         "content": [
@@ -28,10 +28,10 @@
             "results_summary.txt:md5,f69af9b0e18a0cfc934eb18b7e4bffe1"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:01:38.625398198"
+        "timestamp": "2024-07-23T15:33:45.625398198"
     },
     "rgi": {
         "content": [
@@ -39,10 +39,10 @@
             "sample_2.txt:md5,fce130af51f93cccfc09ddaf9caf623f"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:01:38.614473482"
+        "timestamp": "2024-07-23T15:33:45.614473482"
     },
     "deeparg_tsv_ARG": {
         "content": [
@@ -52,10 +52,10 @@
             "sample_2.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:01:38.575881231"
+        "timestamp": "2024-07-23T15:33:45.575881231"
     },
     "ampir": {
         "content": [
@@ -65,10 +65,10 @@
             true
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:01:38.512274661"
+        "timestamp": "2024-07-23T15:33:45.512274661"
     },
     "ampcombi_logfiles": {
         "content": [
@@ -77,10 +77,10 @@
             "Ampcombi_parse_tables.log:md5,cb5dc95f6b64edc2f0eb56bb541660d5"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:01:38.560675596"
+        "timestamp": "2024-07-23T15:33:45.560675596"
     },
     "amplify": {
         "content": [
@@ -88,10 +88,10 @@
             true
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:01:38.522977776"
+        "timestamp": "2024-07-23T15:33:45.522977776"
     },
     "macrel": {
         "content": [
@@ -107,10 +107,10 @@
             "sample_2.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:01:38.525854315"
+        "timestamp": "2024-07-23T15:33:45.525854315"
     },
     "amrfinderplus": {
         "content": [
@@ -118,9 +118,9 @@
             "sample_2.tsv:md5,b4d261ace9be7d013c19d1f5c0005bfe"
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-07-03T11:01:38.603392278"
+        "timestamp": "2024-07-23T15:33:45.603392278"
     }
 }
