@@ -151,7 +151,7 @@ workflow ARG {
         // Note: currently hardcoding versions as unreported by DeepARG
         // Make sure to update on version bump.
         ch_input_to_hamronization_deeparg = DEEPARG_PREDICT.out.arg.mix( DEEPARG_PREDICT.out.potential_arg )
-        HAMRONIZATION_DEEPARG ( ch_input_to_hamronization_deeparg, 'tsv', '1.0.2', params.arg_deeparg_db_version )
+        HAMRONIZATION_DEEPARG ( ch_input_to_hamronization_deeparg, 'tsv', '1.0.4', params.arg_deeparg_db_version )
         ch_versions = ch_versions.mix( HAMRONIZATION_DEEPARG.out.versions )
         ch_input_to_hamronization_summarize = ch_input_to_hamronization_summarize.mix( HAMRONIZATION_DEEPARG.out.tsv )
 
