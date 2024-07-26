@@ -121,22 +121,28 @@ nextflow_pipeline {
                 { assert path("$outputDir/arg/fargene/sample_3/fargene_analysis.log").text.contains("fARGene is done.") },
 
                 // hAMRonization
-                { assert path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv").text.contains("NODE_5471_length_1861_cov_6.744186") },
+                { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv")).match("hamronization") },
 
                 // argNorm
-                { assert path("$outputDir/arg/argnorm/amrfinderplus/sample_1.normalized.tsv").text.contains("ARO:0000016") },
-                { assert path("$outputDir/arg/argnorm/amrfinderplus/sample_2.normalized.tsv").text.contains("ARO:0000016") },
-                { assert path("$outputDir/arg/argnorm/amrfinderplus/sample_3.normalized.tsv").text.contains("ARO:0000016") },
+                { assert snapshot(
+                    path("$outputDir/arg/argnorm/amrfinderplus/sample_1.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/amrfinderplus/sample_2.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/amrfinderplus/sample_3.normalized.tsv")
+                ).match("argnorm_amrfinderplus") },
 
-                { assert path("$outputDir/arg/argnorm/deeparg/sample_1.normalized.tsv").text.contains("ARO:3004054") },
-                { assert path("$outputDir/arg/argnorm/deeparg/sample_2.normalized.tsv").text.contains("ARO") },
-                { assert path("$outputDir/arg/argnorm/deeparg/sample_2.normalized.tsv").text.contains("confers_resistance_to") },
-                { assert path("$outputDir/arg/argnorm/deeparg/sample_2.normalized.tsv").text.contains("resistance_to_drug_classes") },
-                { assert path("$outputDir/arg/argnorm/deeparg/sample_3.normalized.tsv").text.contains("ARO:3000157") },
+                { assert snapshot(
+                    path("$outputDir/arg/argnorm/deeparg/sample_1.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/deeparg/sample_2.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/deeparg/sample_2.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/deeparg/sample_2.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/deeparg/sample_3.normalized.tsv")
+                ).match("argnorm_deeparg") },
 
-                { assert path("$outputDir/arg/argnorm/abricate/sample_1.normalized.tsv").text.contains("ARO:3000282") },
-                { assert path("$outputDir/arg/argnorm/abricate/sample_2.normalized.tsv").text.contains("ARO:3000282") },
-                { assert path("$outputDir/arg/argnorm/abricate/sample_3.normalized.tsv").text.contains("ARO:3000282") }
+                { assert snapshot(
+                    path("$outputDir/arg/argnorm/abricate/sample_1.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/abricate/sample_2.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/abricate/sample_3.normalized.tsv")
+                ).match("argnorm_abricate") }
             )
         }
     }
