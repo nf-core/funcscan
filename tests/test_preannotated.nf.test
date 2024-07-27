@@ -131,11 +131,12 @@ nextflow_pipeline {
                 ).match("argnorm_amrfinderplus") },
 
                 { assert snapshot(
-                    path("$outputDir/arg/argnorm/deeparg/sample_1.normalized.tsv"),
-                    path("$outputDir/arg/argnorm/deeparg/sample_2.normalized.tsv"),
-                    path("$outputDir/arg/argnorm/deeparg/sample_2.normalized.tsv"),
-                    path("$outputDir/arg/argnorm/deeparg/sample_2.normalized.tsv"),
-                    path("$outputDir/arg/argnorm/deeparg/sample_3.normalized.tsv")
+                    path("$outputDir/arg/argnorm/deeparg/sample_1.ARG.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/deeparg/sample_1.potential.ARG.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/deeparg/sample_2.ARG.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/deeparg/sample_2.potential.ARG.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/deeparg/sample_3.ARG.normalized.tsv"),
+                    path("$outputDir/arg/argnorm/deeparg/sample_3.potential.ARG.normalized.tsv")
                 ).match("argnorm_deeparg") },
 
                 { assert snapshot(
