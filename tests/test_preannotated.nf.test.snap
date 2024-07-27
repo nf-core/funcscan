@@ -31,9 +31,9 @@
     },
     "argnorm_amrfinderplus": {
         "content": [
-            "sample_1.normalized.tsv:md5,d5f2f858736b6e2785039625d4911099",
-            "sample_2.normalized.tsv:md5,fa68dcd336316ffe29c04225bd60641b",
-            "sample_3.normalized.tsv:md5,37021a78989a32c935b249d362ab4dc7"
+            "sample_1.normalized.tsv:md5,0a7f76ceb606ac46730a51dd57290768",
+            "sample_2.normalized.tsv:md5,602afce3ee0ee179855c848bd87208fe",
+            "sample_3.normalized.tsv:md5,d4fb8fbd890217eb4d667d7a4dd80c9b"
         ],
         "meta": {
             "nf-test": "0.9.0",
@@ -106,7 +106,7 @@
     },
     "hamronization": {
         "content": [
-            "hamronization_combined_report.tsv:md5,de1d034a8ae98e249b6f61f9a519b7ee"
+            "hamronization_combined_report.tsv:md5,bded2a60a7c2cb28ec35aa5cdcb85de5"
         ],
         "meta": {
             "nf-test": "0.9.0",
