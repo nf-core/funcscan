@@ -77,7 +77,7 @@
                 "run_taxa_classification": {
                     "type": "boolean",
                     "description": "Activates the taxonomic classification of input nucleotide sequences.",
-                    "help_text": "This flag turns on the taxonomic classification of input nucleotide sequences. The taxonomic annotations should be turned on if the input metagenomes' bacterial sources are unknown, which can help identify the source of the AMP, BGC or ARG hit obtained for laboratory experiments. This flag should be turned off (which is by default) if the input nucleotide sequences represent a single known genome or *nf-core/mag* was run beforehand. Turning on this flag relatively decreases the pipeline speed and requires >8GB RAM. Due to the size of the resulting table, the final complete summary is in a zipped format.",
+                    "help_text": "This flag turns on the taxonomic classification of input nucleotide sequences. The taxonomic annotations should be turned on if the input metagenomes' bacterial sources are unknown, which can help identify the source of the AMP, BGC or ARG hit obtained for laboratory experiments. This flag should be turned off (which is by default) if the input nucleotide sequences represent a single known genome or *nf-core/mag* was run beforehand. Turning on this flag relatively decreases the pipeline speed and requires >8GB RAM. Due to the size of the resulting table, the final summary is in a zipped format.",
                     "fa_icon": "fas fa-check-circle"
                 },
                 "taxa_classification_tool": {
@@ -227,8 +227,6 @@
                     "type": "boolean",
                     "description": "Use the default genome-length optimised mode (rather than the metagenome mode).",
                     "help_text": "By default, Bakta's `--meta` mode is used in the pipeline to improve the gene prediction of highly fragmented metagenomes.\n\nBy specifying this parameter Bakta will instead use its default mode that is optimised for singular 'complete' genome sequences.\n\nMore details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--meta`",
-                    "minimum": 1,
-                    "maximum": 25,
                     "fa_icon": "fas fa-dna"
                 },
                 "annotation_bakta_mincontiglen": {
@@ -665,7 +663,7 @@
                     "type": "integer",
                     "default": 60,
                     "description": "Assign the number of codons used to look for stop codons, upstream and downstream of the AMP hit.",
-                    "help_text": "This assigns the length of the window size required to look for stop codons downstream and upstream of the CDS hits. In the default case, it looks 10 codons downstream and upstream of the AMP hit and reports whether a stop codon was found.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--window_size_stop_codon`",
+                    "help_text": "This assigns the length of the window size required to look for stop codons downstream and upstream of the CDS hits. In the default case, it looks 60 codons downstream and upstream of the AMP hit and reports whether a stop codon was found.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--window_size_stop_codon`",
                     "fa_icon": "fas fa-stop-circle"
                 },
                 "amp_ampcombi_parsetables_windowtransport": {

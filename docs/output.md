@@ -16,7 +16,7 @@ Furthermore, for reproducibility, versions of all software used in the run is pr
 
 The directories listed below will be created in the results directory (specified by the `--outdir` flag) after the pipeline has finished. All paths are relative to this top-level output directory. The default directory structure of nf-core/funcscan is:
 
-```console
+```tree
 results/
 ├── taxonomic_classification/
 |   └── mmseqs_createtsv/
@@ -107,7 +107,11 @@ Output Summaries:
 
 ## Tool details
 
-### Taxonomic classification tool
+### Taxonomic classification tools
+
+[MMseqs2](#mmseqs2)
+
+#### MMseqs2
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -123,8 +127,6 @@ Output Summaries:
 ### Annotation tools
 
 [Pyrodigal](#pyrodigal), [Prodigal](#prodigal), [Prokka](#prokka), [Bakta](#bakta)
-
-### Annotation tools
 
 #### Prodigal
 

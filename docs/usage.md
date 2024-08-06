@@ -25,7 +25,7 @@ To run any of the three screening workflows (AMP, ARG, and/or BGC) or taxonomic 
 - `--run_bgc_screening`
 - `--run_taxa_classification`
 
-When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them. The exception is HMMsearch, which needs to be explicitly switched on and provided with HMM screening files (AMP and BGC workflows, see parameter documentation). For the taxonomic classification, MMseqs2 is currently the only tool implemented in the pipline.
+When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them. The exception is HMMsearch, which needs to be explicitly switched on and provided with HMM screening files (AMP and BGC workflows, see [parameter documentation](/funcscan/parameters)). For the taxonomic classification, MMseqs2 is currently the only tool implemented in the pipline.
 
 **Example:** You want to run AMP and ARG screening but you don't need the DeepARG tool of the ARG workflow and the Macrel tool of the AMP workflow. Your command would be:
 
@@ -159,7 +159,7 @@ nf-core/funcscan allows screening of sequences for functional genes associated w
 
 This requires supplying a list of HMM files ending in `.hmm`, that have models for the particular molecule(s) or BGCs you are interested in. You can download these files from places such as [PFAM](https://www.ebi.ac.uk/interpro/download/Pfam/) for antimicrobial peptides (AMP), or the antiSMASH GitHub repository for [biosynthetic gene cluster](https://github.com/antismash/antismash/tree/master/antismash/detection/hmm_detection/data) related HMMs, or create them yourself.
 
-You should place all HMMs in a directory, supply them to the AMP or BGC workflow and switch hmmsearch on like:
+You should place all HMMs in a directory, supply them to the AMP or BGC workflow and switch hmmsearch on:
 
 ```bash
 --amp_run_hmmsearch --amp_hmmsearch_models "/<path>/<to>/<amp>/*.hmm"
@@ -233,7 +233,7 @@ To obtain a local version of the database:
 <details markdown="1">
 <summary>AMR related files in the database folder</summary>
 
-```console
+```tree
 <YYYY-MM-DD.v>/
 ├── AMR_CDS.*
 ├── AMR_DNA-Campylobacter.*
@@ -286,6 +286,7 @@ You can then supply the path to resulting database directory with:
 
 Note that if you supply your own database that is not downloaded by the pipeline, make sure to also supply `--arg_deeparg_db_version` along
 with the version number so hAMRonization will correctly display the database version in the summary report.
+
 :::info
 The flag `--save_db` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
 :::

@@ -19,15 +19,15 @@
                 "format": "file-path",
                 "exists": true,
                 "pattern": "^\\S+\\.(fasta|fas|fna|fa)(\\.gz)?$",
-                "errorMessage": "Fasta file for reads must be provided, cannot contain spaces and must have extension '.fa.gz', '.fna.gz' or '.fasta.gz'",
+                "errorMessage": "Fasta file for reads must be provided, cannot contain spaces and must have extension `.fa.gz`, `.fna.gz` or `.fasta.gz`",
                 "unique": true
             },
             "protein": {
                 "type": "string",
                 "format": "file-path",
                 "exists": true,
-                "pattern": "^\\S+\\.(faa)(\\.gz)?$",
-                "errorMessage": "Input file for peptide annotations has incorrect file format. File must end in .fasta, .faa",
+                "pattern": "^\\S+\\.(faa|fasta)(\\.gz)?$",
+                "errorMessage": "Input file for peptide annotations has incorrect file format. File must end in `.fasta` or `.faa`",
                 "unique": true,
                 "dependentRequired": ["gbk"]
             },
@@ -36,7 +36,7 @@
                 "format": "file-path",
                 "exists": true,
                 "pattern": "^\\S+\\.(gbk|gbff)(\\.gz)?$",
-                "errorMessage": "Input file for feature annotations has incorrect file format. File must end in .gbk or .gbff",
+                "errorMessage": "Input file for feature annotations has incorrect file format. File must end in `.gbk.gz` or `.gbff.gz`",
                 "unique": true,
                 "dependentRequired": ["protein"]
             }
