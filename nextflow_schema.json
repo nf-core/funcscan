@@ -97,6 +97,7 @@
             "default": "",
             "properties": {
                 "taxa_classification_mmseqs_db": {
+                    "type": "string",
                     "description": "Specify a path to MMseqs2-formatted database.",
                     "help_text": "Specify a path to a database that is prepared in MMseqs2 format as detailed in the [documentation](https://mmseqs.com/latest/userguide.pdf).",
                     "fa_icon": "fas fa-database"
@@ -908,6 +909,7 @@
                 "arg_fargene_hmmmodel": {
                     "type": "string",
                     "default": "class_a,class_b_1_2,class_b_3,class_c,class_d_1,class_d_2,qnr,tet_efflux,tet_rpg,tet_enzyme",
+                    "pattern": "^(class_a|class_b_1_2|class_b_3|class_c|class_d_1|class_d_2|qnr|tet_efflux|tet_rpg|tet_enzyme)(,(class_a|class_b_1_2|class_b_3|class_c|class_d_1|class_d_2|qnr|tet_efflux|tet_rpg|tet_enzyme))*$",
                     "description": "Specify comma-separated list of which pre-defined HMM models to screen against",
                     "help_text": "Specify via a comma separated list any of the hmm-models of the pre-defined models:\n- Class A beta-lactamases: `class_a`\n- Subclass B1 and B2 beta-lactamases: `class_b_1_2`\n- Subclass B3 beta-lactamases: `class_b_3`\n- Class C beta-lactamases: `class_c`\n- Class D beta-lactamases: `class_d_1`, `class_d_2`\n- qnr: `qnr`\n- Tetracycline resistance genes `tet_efflux`, `tet_rpg`, `tet_enzyme`\n\nFor more information check the fARGene [documentation](https://github.com/fannyhb/fargene).\n\n For example: `--arg_fargenemodel 'class_a,qnr,tet_enzyme'`\n\n>Modifies tool parameter(s):\n> - fARGene: `--hmm-model`",
                     "fa_icon": "fas fa-layer-group"

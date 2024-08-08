@@ -89,7 +89,7 @@ nf-core/funcscan was originally written by Jasmin Frangenberg, Anan Ibrahim, Lou
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
-Rosa Herbst, Martin Klapper.
+Adam Talbot, Alexandru Mizeranschi, Hugo Tavares, Júlia Mir Pedrol, Martin Klapper, Mehrdad Jaberi, Robert Syme, Rosa Herbst, Vedanth Ramji, @Microbion.
 
 ## Contributions and Support
 
