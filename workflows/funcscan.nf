@@ -105,13 +105,13 @@ workflow FUNCSCAN {
     if ( params.run_bgc_screening ){
         SEQKIT_SEQ ( ch_intermediate_input.fastas.map{meta, fasta, faa, gbk -> [ meta, fasta ]} )
         ch_input_for_annotation = ch_intermediate_input.fastas
-                                    .map { meta, fasta, protein, gbk ->  [ meta, fasta ] }
-                                    .mix( SEQKIT_SEQ.out.fastx.map{ meta, fasta -> [ meta + [category: 'long'], fasta ] } )
-                                    .filter {
-                                        meta, fasta ->
-                                            if ( fasta != [] && fasta.isEmpty() ) log.warn("[nf-core/funcscan] Sample ${meta.id} does not have contigs longer than ${params.bgc_mincontiglength} bp. Will not be screened for BGCs.")
-                                            !fasta.isEmpty()
-                                    }
+            .map { meta, fasta, protein, gbk ->  [ meta, fasta ] }
+            .mix( SEQKIT_SEQ.out.fastx.map{ meta, fasta -> [ meta + [category: 'long'], fasta ] } )
+            .filter {
+                meta, fasta ->
+                    if ( fasta != [] && fasta.isEmpty() ) log.warn("[nf-core/funcscan] Sample ${meta.id} does not have contigs longer than ${params.bgc_mincontiglength} bp. Will not be screened for BGCs.")
+                    !fasta.isEmpty()
+            }
         ch_versions = ch_versions.mix( SEQKIT_SEQ.out.versions )
     } else {
         ch_input_for_annotation = ch_intermediate_input.fastas.map { meta, fasta, protein, gbk ->  [ meta, fasta ] }
