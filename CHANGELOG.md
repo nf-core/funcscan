@@ -3,7 +3,29 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.0.0 - [2024-07]
+## v2.0.0 - [2024-08]
+
+### `Breaking change`
+
+[#391](https://github.com/nf-core/funcscan/pull/391) Made all "database" parameter names consistent, skip hmmsearch by default. (by @jasmezz)
+
+| Old parameter                                    | New parameter                           |
+| ------------------------------------------------ | --------------------------------------- |
+| `annotation_bakta_db_localpath`                  | `annotation_bakta_db`                   |
+| `arg_abricate_db`                                | `arg_abricate_db_id`                    |
+| `arg_abricate_localdbdir`                        | `arg_abricate_db`                       |
+| `arg_deeparg_data`                               | `arg_deeparg_db`                        |
+| `arg_deeparg_data_version`                       | `arg_deeparg_db_version`                |
+| `arg_rgi_database`                               | `arg_rgi_db`                            |
+| `bgc_antismash_databases`                        | `bgc_antismash_db`                      |
+| `bgc_antismash_installationdirectory`            | `bgc_antismash_installdir`              |
+| `bgc_deepbgc_database`                           | `bgc_deepbgc_db`                        |
+| `save_databases`                                 | `save_db`                               |
+| `taxa_classification_mmseqs_databases_localpath` | `taxa_classification_mmseqs_db`         |
+| `taxa_classification_mmseqs_databases_id`        | `taxa_classification_mmseqs_db_id`      |
+| `taxa_classification_mmseqs_databases_savetmp`   | `taxa_classification_mmseqs_db_savetmp` |
+| `amp_skip_hmmsearch`                             | `amp_run_hmmsearch`                     |
+| `bgc_skip_hmmsearch`                             | `bgc_run_hmmsearch`                     |
 
 ### `Added`
 
@@ -33,7 +55,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#392](https://github.com/nf-core/funcscan/pull/392) & [#397](https://github.com/nf-core/funcscan/pull/397) Fixed a docker/singularity only error appearing when running with conda. (❤️ to @ewissel for reporting, fix by @jfy33 & @jasmezz)
 - [#394](https://github.com/nf-core/funcscan/pull/394) Fixed BGC input channel: pre-annotated input is picked up correctly now. (by @jfy133, @jasmezz)
 - [#391](https://github.com/nf-core/funcscan/pull/391) Skip hmmmsearch by default to not crash pipeline if user provides no HMM files, updated docs. (by @jasmezz)
-- **BREAKING CHANGE:** [#391](https://github.com/nf-core/funcscan/pull/391) Made all "database" parameter names consistent. (by @jasmezz)
 - [#397](https://github.com/nf-core/funcscan/pull/397) Removed deprecated AMPcombi module, fixed variable name in BGC workflow, updated minor parts in docs (usage, parameter schema). (by @jasmezz)
 - [#402](https://github.com/nf-core/funcscan/pull/402) Fixed BGC length calculation for antiSMASH hits by comBGC. (by @jasmezz)
 - [#406](https://github.com/nf-core/funcscan/pull/406) Fixed prediction tools not being executed if annotation workflow skipped. (by @jasmezz)
