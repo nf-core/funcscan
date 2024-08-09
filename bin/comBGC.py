@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# Written by Jasmin Frangenberg and released under the MIT license.
+# See below for full license text.
+
 from Bio import SeqIO
 import pandas as pd
 import argparse
@@ -32,22 +35,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-tool_version = "0.6.1"
+tool_version = "0.6.3"
 welcome = """\
                 ........................
                     * comBGC v.{version} *
                 ........................
     This tool aggregates the results of BGC prediction tools:
                 antiSMASH, deepBGC, and GECCO
-           For detailed usage documentation please
-             refer to https://nf-co.re/funcscan
+    For detailed usage documentation please refer
+    to https://nf-co.re/funcscan
     .........................................................""".format(
     version=tool_version
 )
 
 # Initialize parser
 parser = argparse.ArgumentParser(
-    prog="comBGC", formatter_class=argparse.RawTextHelpFormatter, description=(welcome), add_help=True
+    prog="comBGC",
+    formatter_class=argparse.RawTextHelpFormatter,
+    description=(welcome),
+    add_help=True,
 )
 
 # Input options
@@ -85,8 +91,12 @@ parser.add_argument(
 sample). Can only be used if --input is not specified.""",
     type=str,
 )
-parser.add_argument("-vv", "--verbose", help="increase output verbosity", action="store_true")
-parser.add_argument("-v", "--version", help="show version number and exit", action="store_true")
+parser.add_argument(
+    "-vv", "--verbose", help="increase output verbosity", action="store_true"
+)
+parser.add_argument(
+    "-v", "--version", help="show version number and exit", action="store_true"
+)
 
 # Get command line arguments
 args = parser.parse_args()
@@ -108,7 +118,7 @@ input_gecco = []
 # Assign input files to respective tools
 if input:
     for path in input:
-        if path.endswith(".gbk"):
+        if path.endswith(".gbk") and not re.search("region\d\d\d\.gbk$", path): # Make sure to only fetch relevant GBK files, i.e. those containing all collective antiSMASH BGCs
             with open(path) as infile:
                 for line in infile:
                     if re.search("##GECCO-Data-START##", line):
@@ -131,7 +141,9 @@ if input and dir_antismash:
 
 # Make sure that at least one input argument is given
 if not (input_antismash or input_gecco or input_deepbgc or dir_antismash):
-    exit("Please specify at least one input file (i.e. output from antismash, deepbgc, or gecco) or see --help")
+    exit(
+        "Please specify at least one input file (i.e. output from antismash, deepbgc, or gecco) or see --help"
+    )
 
 ########################
 # ANTISMASH FUNCTIONS
@@ -213,131 +225,155 @@ def antismash_workflow(antismash_paths):
         else:
             gbk_path = path
 
-    kcb_files = []
-    if kcb_path:
-        kcb_files = [file for file in os.listdir(kcb_path) if file.startswith("c") and file.endswith(".txt")]
+        kcb_files = []
+        if kcb_path:
+            kcb_files = [
+                file
+                for file in os.listdir(kcb_path)
+                if file.startswith("c") and file.endswith(".txt")
+            ]
 
-    # Aggregate information
-    Sample_ID = gbk_path.split("/")[-1].split(".gbk")[-2]  # Assuming file name equals sample name
-    if verbose:
-        print("\nParsing antiSMASH file(s): " + Sample_ID + "\n... ", end="")
+        # Aggregate information
+        Sample_ID = gbk_path.split("/")[-1].split(".gbk")[
+            -2
+        ]  # Assuming file name equals sample name
+        if verbose:
+            print("\nParsing antiSMASH file(s): " + Sample_ID + "\n... ", end="")
 
-    with open(gbk_path) as gbk:
-        for record in SeqIO.parse(gbk, "genbank"):  # GBK records are contigs in this case
-            # Initiate variables per contig
-            cluster_num = 1
-            antismash_out_line = {}
-            Contig_ID = record.id
-            Product_class = ""
-            BGC_complete = ""
-            BGC_start = ""
-            BGC_end = ""
-            BGC_length = ""
-            PFAM_domains = []
-            MIBiG_ID = "NA"
-
-            for feature in record.features:
-                # Extract relevant infos from the first protocluster feature from the contig record
-                if feature.type == "protocluster":
-                    if (
-                        antismash_out_line
-                    ):  # If there is more than 1 BGC per contig, reset the output line for new BGC. Assuming that BGCs do not overlap.
-                        if not CDS_ID:
-                            CDS_ID = ["NA"]
-                        antismash_out_line = {  # Create dictionary of BGC info
-                            "Sample_ID": Sample_ID,
-                            "Prediction_tool": "antiSMASH",
-                            "Contig_ID": Contig_ID,
-                            "Product_class": ";".join(Product_class),
-                            "BGC_probability": "NA",
-                            "BGC_complete": BGC_complete,
-                            "BGC_start": BGC_start,
-                            "BGC_end": BGC_end,
-                            "BGC_length": BGC_length,
-                            "CDS_ID": ";".join(CDS_ID),
-                            "CDS_count": CDS_count,
-                            "PFAM_domains": ";".join(PFAM_domains),
-                            "MIBiG_ID": MIBiG_ID,
-                            "InterPro_ID": "NA",
-                        }
-                        antismash_out_line = pd.DataFrame([antismash_out_line])
-                        antismash_out = pd.concat([antismash_out, antismash_out_line], ignore_index=True)
-                        antismash_out_line = {}
-
-                        # Reset variables per BGC
-                        CDS_ID = []
-                        CDS_count = 0
-                        PFAM_domains = []
-
-                    # Extract all the BGC info
-                    Product_class = feature.qualifiers["product"]
-                    for i in range(len(Product_class)):
-                        Product_class[i] = (
-                            Product_class[i][0].upper() + Product_class[i][1:]
-                        )  # Make first letters uppercase, e.g. lassopeptide -> Lassopeptide
-
-                    if feature.qualifiers["contig_edge"] == ["True"]:
-                        BGC_complete = "No"
-                    elif feature.qualifiers["contig_edge"] == ["False"]:
-                        BGC_complete = "Yes"
-
-                    BGC_start = feature.location.start + 1  # +1 because zero-based start position
-                    BGC_end = feature.location.end
-                    BGC_length = feature.location.end - feature.location.start + 1
-
-                    # If there are knownclusterblast files for the BGC, get MIBiG IDs of their homologs
-                    if kcb_files:
-                        print(kcb_files)
-                        kcb_file = "{}_c{}.txt".format(
-                            record.id, str(cluster_num)
-                        )  # Check if this filename is among the knownclusterblast files
-                        if kcb_file in kcb_files:
-                            MIBiG_IDs = ";".join(parse_knownclusterblast(os.path.join(kcb_path, kcb_file)))
-                            if MIBiG_IDs != "":
-                                MIBiG_ID = MIBiG_IDs
-                            cluster_num += 1
-
-                # Count functional CDSs (no pseudogenes) and get the PFAM annotation
-                elif (
-                    feature.type == "CDS" and "translation" in feature.qualifiers.keys() and BGC_start != ""
-                ):  # Make sure not to count pseudogenes (which would have no "translation tag") and count no CDSs before first BGC
-                    if feature.location.end <= BGC_end:  # Make sure CDS is within the current BGC region
-                        if "locus_tag" in feature.qualifiers:
-                            CDS_ID.append(feature.qualifiers["locus_tag"][0])
-                        CDS_count += 1
-                        if "sec_met_domain" in feature.qualifiers.keys():
-                            for PFAM_domain in feature.qualifiers["sec_met_domain"]:
-                                PFAM_domain_name = re.search("(.+) \(E-value", PFAM_domain).group(1)
-                                PFAM_domains.append(PFAM_domain_name)
-
-            # Create dictionary of BGC info
-            if not CDS_ID:
-                CDS_ID = ["NA"]
-            antismash_out_line = {
-                "Sample_ID": Sample_ID,
-                "Prediction_tool": "antiSMASH",
-                "Contig_ID": Contig_ID,
-                "Product_class": ";".join(Product_class),
-                "BGC_probability": "NA",
-                "BGC_complete": BGC_complete,
-                "BGC_start": BGC_start,
-                "BGC_end": BGC_end,
-                "BGC_length": BGC_length,
-                "CDS_ID": ";".join(CDS_ID),
-                "CDS_count": CDS_count,
-                "PFAM_domains": ";".join(PFAM_domains),
-                "MIBiG_ID": MIBiG_ID,
-                "InterPro_ID": "NA",
-            }
-
-            if BGC_start != "":  # Only keep records with BGCs
-                antismash_out_line = pd.DataFrame([antismash_out_line])
-                antismash_out = pd.concat([antismash_out, antismash_out_line], ignore_index=True)
-
-                # Reset variables per BGC
-                CDS_ID = []
-                CDS_count = 0
+        with open(gbk_path) as gbk:
+            for record in SeqIO.parse(
+                gbk, "genbank"
+            ):  # GBK records are contigs in this case
+                # Initiate variables per contig
+                cluster_num = 1
+                antismash_out_line = {}
+                Contig_ID = record.id
+                Product_class = ""
+                BGC_complete = ""
+                BGC_start = ""
+                BGC_end = ""
+                BGC_length = ""
                 PFAM_domains = []
+                MIBiG_ID = "NA"
+
+                for feature in record.features:
+                    # Extract relevant infos from the first protocluster feature from the contig record
+                    if feature.type == "protocluster":
+                        if (
+                            antismash_out_line
+                        ):  # If there is more than 1 BGC per contig, reset the output line for new BGC. Assuming that BGCs do not overlap.
+                            if not CDS_ID:
+                                CDS_ID = ["NA"]
+                            antismash_out_line = {  # Create dictionary of BGC info
+                                "Sample_ID": Sample_ID,
+                                "Prediction_tool": "antiSMASH",
+                                "Contig_ID": Contig_ID,
+                                "Product_class": ";".join(Product_class),
+                                "BGC_probability": "NA",
+                                "BGC_complete": BGC_complete,
+                                "BGC_start": BGC_start,
+                                "BGC_end": BGC_end,
+                                "BGC_length": BGC_length,
+                                "CDS_ID": ";".join(CDS_ID),
+                                "CDS_count": CDS_count,
+                                "PFAM_domains": ";".join(PFAM_domains),
+                                "MIBiG_ID": MIBiG_ID,
+                                "InterPro_ID": "NA",
+                            }
+                            antismash_out_line = pd.DataFrame([antismash_out_line])
+                            antismash_out = pd.concat(
+                                [antismash_out, antismash_out_line], ignore_index=True
+                            )
+                            antismash_out_line = {}
+
+                            # Reset variables per BGC
+                            CDS_ID = []
+                            CDS_count = 0
+                            PFAM_domains = []
+
+                        # Extract all the BGC info
+                        Product_class = feature.qualifiers["product"]
+                        for i in range(len(Product_class)):
+                            Product_class[i] = (
+                                Product_class[i][0].upper() + Product_class[i][1:]
+                            )  # Make first letters uppercase, e.g. lassopeptide -> Lassopeptide
+
+                        if feature.qualifiers["contig_edge"] == ["True"]:
+                            BGC_complete = "No"
+                        elif feature.qualifiers["contig_edge"] == ["False"]:
+                            BGC_complete = "Yes"
+
+                        BGC_start = (
+                            feature.location.start + 1
+                        )  # +1 because zero-based start position
+                        BGC_end = feature.location.end
+                        BGC_length = feature.location.end - feature.location.start
+
+                        # If there are knownclusterblast files for the BGC, get MIBiG IDs of their homologs
+                        if kcb_files:
+                            print(kcb_files)
+                            kcb_file = "{}_c{}.txt".format(
+                                record.id, str(cluster_num)
+                            )  # Check if this filename is among the knownclusterblast files
+                            if kcb_file in kcb_files:
+                                MIBiG_IDs = ";".join(
+                                    parse_knownclusterblast(
+                                        os.path.join(kcb_path, kcb_file)
+                                    )
+                                )
+                                if MIBiG_IDs != "":
+                                    MIBiG_ID = MIBiG_IDs
+                                cluster_num += 1
+
+                    # Count functional CDSs (no pseudogenes) and get the PFAM annotation
+                    elif (
+                        feature.type == "CDS"
+                        and "translation" in feature.qualifiers.keys()
+                        and BGC_start != ""
+                    ):  # Make sure not to count pseudogenes (which would have no "translation tag") and count no CDSs before first BGC
+                        if (
+                            feature.location.end <= BGC_end
+                        ):  # Make sure CDS is within the current BGC region
+                            if "locus_tag" in feature.qualifiers:
+                                CDS_ID.append(feature.qualifiers["locus_tag"][0])
+                            CDS_count += 1
+                            if "sec_met_domain" in feature.qualifiers.keys():
+                                for PFAM_domain in feature.qualifiers["sec_met_domain"]:
+                                    PFAM_domain_name = re.search(
+                                        "(.+) \(E-value", PFAM_domain
+                                    ).group(1)
+                                    PFAM_domains.append(PFAM_domain_name)
+
+                # Create dictionary of BGC info
+                if not CDS_ID:
+                    CDS_ID = ["NA"]
+                antismash_out_line = {
+                    "Sample_ID": Sample_ID,
+                    "Prediction_tool": "antiSMASH",
+                    "Contig_ID": Contig_ID,
+                    "Product_class": ";".join(Product_class),
+                    "BGC_probability": "NA",
+                    "BGC_complete": BGC_complete,
+                    "BGC_start": BGC_start,
+                    "BGC_end": BGC_end,
+                    "BGC_length": BGC_length,
+                    "CDS_ID": ";".join(CDS_ID),
+                    "CDS_count": CDS_count,
+                    "PFAM_domains": ";".join(PFAM_domains),
+                    "MIBiG_ID": MIBiG_ID,
+                    "InterPro_ID": "NA",
+                }
+
+                if BGC_start != "":  # Only keep records with BGCs
+                    antismash_out_line = pd.DataFrame([antismash_out_line])
+                    antismash_out = pd.concat(
+                        [antismash_out, antismash_out_line], ignore_index=True
+                    )
+
+                    # Reset variables per BGC
+                    CDS_ID = []
+                    CDS_count = 0
+                    PFAM_domains = []
 
     if verbose:
         print("Done.")
@@ -413,7 +449,11 @@ def deepbgc_workflow(deepbgc_path):
     deepbgc_out = pd.DataFrame(columns=deepbgc_sum_cols)
 
     # Add relevant deepBGC output columns per BGC
-    deepbgc_df = pd.read_csv(deepbgc_path, sep="\t").drop(deepbgc_unused_cols, axis=1).rename(columns=deepbgc_map_dict)
+    deepbgc_df = (
+        pd.read_csv(deepbgc_path, sep="\t")
+        .drop(deepbgc_unused_cols, axis=1)
+        .rename(columns=deepbgc_map_dict)
+    )
     deepbgc_df["Sample_ID"] = sample
     deepbgc_df["Prediction_tool"] = "deepBGC"
     deepbgc_df["BGC_complete"] = "NA"
@@ -511,7 +551,11 @@ def gecco_workflow(gecco_paths):
 
     # Add sample information
     sample = tsv_path.split("/")[-1].split(".")[0]
-    gecco_df = pd.read_csv(tsv_path, sep="\t").drop(unused_cols, axis=1).rename(columns=map_dict)
+    gecco_df = (
+        pd.read_csv(tsv_path, sep="\t")
+        .drop(unused_cols, axis=1)
+        .rename(columns=map_dict)
+    )
 
     # Fill columns (1 row per BGC)
     gecco_df["Sample_ID"] = sample
@@ -524,7 +568,9 @@ def gecco_workflow(gecco_paths):
     # Add column 'InterPro_ID'
     for gbk_path in gbk_paths:
         bgc_id = gbk_path.split("/")[-1][0:-4]
-        gecco_df.loc[gecco_df["cluster_id"] == bgc_id, "InterPro_ID"] = getInterProID(gbk_path)
+        gecco_df.loc[gecco_df["cluster_id"] == bgc_id, "InterPro_ID"] = getInterProID(
+            gbk_path
+        )
 
     # Add empty columns with no output from GECCO
     gecco_df["BGC_complete"] = "NA"
@@ -551,7 +597,11 @@ def gecco_workflow(gecco_paths):
 
 if __name__ == "__main__":
     if input_antismash:
-        tools = {"antiSMASH": input_antismash, "deepBGC": input_deepbgc, "GECCO": input_gecco}
+        tools = {
+            "antiSMASH": input_antismash,
+            "deepBGC": input_deepbgc,
+            "GECCO": input_gecco,
+        }
     elif dir_antismash:
         tools = {"antiSMASH": dir_antismash}
     else:
@@ -578,7 +628,9 @@ if __name__ == "__main__":
                 antismash_paths = prepare_multisample_input_antismash(dir_antismash)
                 for input_antismash in antismash_paths:
                     summary_antismash_temp = antismash_workflow(input_antismash)
-                    summary_antismash = pd.concat([summary_antismash, summary_antismash_temp])
+                    summary_antismash = pd.concat(
+                        [summary_antismash, summary_antismash_temp]
+                    )
             else:
                 summary_antismash = antismash_workflow(input_antismash)
         elif tool == "deepBGC":
@@ -589,11 +641,19 @@ if __name__ == "__main__":
     # Summarize and sort data frame
     summary_all = pd.concat([summary_antismash, summary_deepbgc, summary_gecco])
     summary_all.sort_values(
-        by=["Sample_ID", "Contig_ID", "BGC_start", "BGC_length", "Prediction_tool"], axis=0, inplace=True
+        by=["Sample_ID", "Contig_ID", "BGC_start", "BGC_length", "Prediction_tool"],
+        axis=0,
+        inplace=True,
     )
+
+    # Rearrange and rename the columns in the summary df
+    summary_all = summary_all.iloc[:, [0, 2, 1] + list(range(3, len(summary_all.columns)))]
+    summary_all.rename(columns={'Sample_ID':'sample_id', 'Contig_ID':'contig_id', 'CDS_ID':'BGC_region_contig_ids'}, inplace=True)
 
     # Write results to TSV
     if not os.path.exists(outdir):
         os.makedirs(outdir)
-    summary_all.to_csv(os.path.join(outdir, "combgc_summary.tsv"), sep="\t", index=False)
+    summary_all.to_csv(
+        os.path.join(outdir, "combgc_summary.tsv"), sep="\t", index=False
+    )
     print("Your BGC summary file is: " + os.path.join(outdir, "combgc_summary.tsv"))

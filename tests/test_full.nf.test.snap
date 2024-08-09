@@ -1,0 +1,366 @@
+{
+    "hamronization_summarize": {
+        "content": [
+            "hamronization_combined_report.tsv:md5,82a55c4e9699bb7fb97d672742389813"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:38.23213575"
+    },
+    "deeparg": {
+        "content": [
+            "ERZ1664501.mapping.ARG:md5,d120b17e12f348a3e06c6b3131a98c1c",
+            "ERZ1664503.mapping.ARG:md5,53dd07b47ce011bd22df3a76c837ffbd",
+            "ERZ1664504.mapping.ARG:md5,2f2a6297dc8752766f65f2b3e966158d",
+            "ERZ1664505.mapping.ARG:md5,aa42314a4749dea3d36bbabce8bd7e5a",
+            "ERZ1664506.mapping.ARG:md5,1871484c933ae1d5235fa36d59b2d328",
+            "ERZ1664507.mapping.ARG:md5,6dbd85abafa0f892c4b557eb8f93b788",
+            "ERZ1664508.mapping.ARG:md5,54342268135802d8a68614141ea4d4f7",
+            "ERZ1664509.mapping.ARG:md5,ec6ebc4e4f84dc7373f51df63536a7a5",
+            "ERZ1664510.mapping.ARG:md5,16f2e41c2378645dbbdf9867f9000acf",
+            "ERZ1664511.mapping.ARG:md5,b489dbfc72ca7ee37aecbb079d8c9241",
+            "ERZ1664515.mapping.ARG:md5,a4bb295a414b9a26c4e2d032bb25624f",
+            "ERZ1664516.mapping.ARG:md5,e3ec14da3e206782e1151593d801015d",
+            "ERZ1664517.mapping.ARG:md5,9f22fec9df39231f0a52865ca9245451",
+            "ERZ1664518.mapping.ARG:md5,821fd592c54795e2666277e3a2c84169",
+            "ERZ1664520.mapping.ARG:md5,6990cc2d982ee428f42c0109e2ba0bff",
+            "ERZ1664521.mapping.ARG:md5,988d0eb6173e50ea4826ed24691d3faa",
+            "ERZ1664523.mapping.ARG:md5,2ba512cfd091a9ab18825cd4d9560a83",
+            "ERZ1664524.mapping.ARG:md5,d025525beba8bdd2f66f4506d584cc14",
+            "ERZ1664528.mapping.ARG:md5,fc7a147f7741d85489002c5f305971a1"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:22.000195146"
+    },
+    "ampir": {
+        "content": [
+            "ERZ1664501.ampir.tsv:md5,c5cd2500f52317b24aac1196dc64adad",
+            "ERZ1664503.ampir.tsv:md5,f644d4340beb83a16ae9bc010dd48cee",
+            "ERZ1664504.ampir.tsv:md5,69664970cb99371d8be354b21eebc0df",
+            "ERZ1664505.ampir.tsv:md5,c4b57cfea1af7197e9bd2cf8378d098a",
+            "ERZ1664506.ampir.tsv:md5,9eddfca6ff0fe1989e316f543b88eca7",
+            "ERZ1664507.ampir.tsv:md5,846a9afa426082044aac0188ae882aa0",
+            "ERZ1664508.ampir.tsv:md5,740ea41ca7c72598ce7d6afb0aaf9613",
+            "ERZ1664509.ampir.tsv:md5,6821002c6c9f7dc021d998a8d418e211",
+            "ERZ1664510.ampir.tsv:md5,54d2fd1029227d8534e61988d4d99f7e",
+            "ERZ1664511.ampir.tsv:md5,553bd20088cfdd666b34b74044a24424",
+            "ERZ1664515.ampir.tsv:md5,fe7e186d1e6aa5e64ff5206d413db815",
+            "ERZ1664516.ampir.tsv:md5,89aac82302df3ff46a6b125398391650",
+            "ERZ1664517.ampir.tsv:md5,8de33575e894545d37968ae3cfc87f72",
+            "ERZ1664518.ampir.tsv:md5,464dabb48ef58da4bc8359e1dc47ee8f",
+            "ERZ1664520.ampir.tsv:md5,44ccd85368921ffb50db035b2bbb571e",
+            "ERZ1664521.ampir.tsv:md5,00adfebd002be166f8594d5643362bcf",
+            "ERZ1664523.ampir.tsv:md5,1c278369c49e99253fdbc6d21b7f851e",
+            "ERZ1664524.ampir.tsv:md5,673638a06306d6c22e1668a5820e38cc",
+            "ERZ1664528.ampir.tsv:md5,639ca9073d9a817a3be224203e09fe47",
+            "ERZ1664501.ampir.faa:md5,88d04f76764566e029f1a0eb7481bd50",
+            "ERZ1664503.ampir.faa:md5,754b00982b99d20d24ddd2c39e3db060",
+            "ERZ1664504.ampir.faa:md5,c6e84c9ee141c097decb89def230a70b",
+            "ERZ1664505.ampir.faa:md5,7519e8f28ca3c3e8b33e65a672b6f418",
+            "ERZ1664506.ampir.faa:md5,39162c25303085463d893acee70c2921",
+            "ERZ1664507.ampir.faa:md5,8119bbc3daa1fc93cf3760b359001212",
+            "ERZ1664508.ampir.faa:md5,369131964554c5d7b7b56a99a4eeb851",
+            "ERZ1664509.ampir.faa:md5,2594cd39d2d0cf96d303955528e9c962",
+            "ERZ1664510.ampir.faa:md5,9bf556234e1a9843d7155118cb8b6afb",
+            "ERZ1664511.ampir.faa:md5,5ddc4c648af3db91d1aba27527c13622",
+            "ERZ1664515.ampir.faa:md5,a7830a1af51b290793af9ac83d8c3296",
+            "ERZ1664516.ampir.faa:md5,6c5b07f03f6f1bc55a44e0a8cbc18cb3",
+            "ERZ1664517.ampir.faa:md5,2c59abb9b9bfc690f97fefe10a6bc4ce",
+            "ERZ1664518.ampir.faa:md5,7f5519edb85db37903f3665541219c69",
+            "ERZ1664520.ampir.faa:md5,f3314a405c3c33e05722a8ab6021cb64",
+            "ERZ1664521.ampir.faa:md5,139303c88f5f5a4041ee059519ba7f98",
+            "ERZ1664523.ampir.faa:md5,fb34351d27a405e4a9968664878a0fd4",
+            "ERZ1664524.ampir.faa:md5,e4660c8d3ac00779a26ee2f0105bba2a",
+            "ERZ1664528.ampir.faa:md5,36fd7ea6830c3068015105d20b4404a7"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:11.315500114"
+    },
+    "argnorm_amrfinderplus": {
+        "content": [
+            "ERZ1664501.normalized.tsv:md5,e5ba7dd3826b1aee7cac90696ba2796d",
+            "ERZ1664503.normalized.tsv:md5,ef01c4d87ee2e9dbf72d6835d2feff28",
+            "ERZ1664504.normalized.tsv:md5,bf9b48377637a1251e0e26bf07e789e6",
+            "ERZ1664505.normalized.tsv:md5,df927003750df1df3f1114dd348c5e96",
+            "ERZ1664506.normalized.tsv:md5,732b93972f54066050f5492840da48f9",
+            "ERZ1664507.normalized.tsv:md5,6aa6f5fc75c435664d725bc0ecd102bd",
+            "ERZ1664508.normalized.tsv:md5,5a87f1180cf1debfd3d8cf9f808857c7",
+            "ERZ1664509.normalized.tsv:md5,331498dc38133d6336e457b56a3cee58",
+            "ERZ1664510.normalized.tsv:md5,1c773ae48cd58f45b53af35fce7458df",
+            "ERZ1664511.normalized.tsv:md5,325ceb08275edcce6a3b24d1edd29453",
+            "ERZ1664515.normalized.tsv:md5,7476f361e2a753aa22cca0fc4c837def",
+            "ERZ1664516.normalized.tsv:md5,9a93c4664d23a9a1bbba177b82b106c1",
+            "ERZ1664517.normalized.tsv:md5,a29b092b7aaf90c342698d8ed7f86b13",
+            "ERZ1664518.normalized.tsv:md5,decbeba1809aa905873892e4c0c7032c",
+            "ERZ1664520.normalized.tsv:md5,7f0b98078e19fcf4b8f2b446ec00eff3",
+            "ERZ1664521.normalized.tsv:md5,725d5aa30f6de86595a4fcaa06d38b2a",
+            "ERZ1664523.normalized.tsv:md5,bcbe12f015733dac4fc6f0c1e73117df",
+            "ERZ1664524.normalized.tsv:md5,28c96b6c2d92e89197430b539c4eb388",
+            "ERZ1664528.normalized.tsv:md5,f9241bd6b04d4e79b09ef67d97243b43"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:48.401991887"
+    },
+    "argnorm_abricate": {
+        "content": [
+            "ERZ1664501.normalized.tsv:md5,618aa19dcaed5d3a5909cb84393d90cb",
+            "ERZ1664503.normalized.tsv:md5,f2ee4aeafc929e3893677c271b3a04d4",
+            "ERZ1664504.normalized.tsv:md5,88b9a76d726402b95b2cd348459f0666",
+            "ERZ1664505.normalized.tsv:md5,817218f39d51d6f327623b26512e2e2d",
+            "ERZ1664506.normalized.tsv:md5,66806a70c95b2186f085f27661639738",
+            "ERZ1664507.normalized.tsv:md5,47e109f815e4b8e8d28aaeb75e4947b7",
+            "ERZ1664508.normalized.tsv:md5,60990fe382f0b43a288a8f66bcbde19f",
+            "ERZ1664509.normalized.tsv:md5,9710235350f4ff66c06b4abb78c23f80",
+            "ERZ1664510.normalized.tsv:md5,520f6eff7afdc9c52b9a1a8bb363fe85",
+            "ERZ1664511.normalized.tsv:md5,893ce88576218cd6acb246046eadb1af",
+            "ERZ1664515.normalized.tsv:md5,f88c35c590379f3a8a62664679d7404b",
+            "ERZ1664516.normalized.tsv:md5,b0499afcad11e34f3224e58431fd1aff",
+            "ERZ1664517.normalized.tsv:md5,79d79caa0a5a87a8dfb48eb67e4bf3f1",
+            "ERZ1664518.normalized.tsv:md5,8cee92e968b380c2c1ab6b5707608092",
+            "ERZ1664520.normalized.tsv:md5,4ba7e4daeeaf7f5d064131a742225152",
+            "ERZ1664521.normalized.tsv:md5,b724f087cc957400a5ff404a11535e29",
+            "ERZ1664523.normalized.tsv:md5,6cbe41ccfb7660e70aec3b711a33e18d",
+            "ERZ1664524.normalized.tsv:md5,658d14b9cfd773bc0ada2da2f44252cd",
+            "ERZ1664528.normalized.tsv:md5,a3db7b884b5fe91a59cf55c332fd0337"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:44.957353948"
+    },
+    "gecco": {
+        "content": [
+            "ERZ1664504.220-NODE-220-length-4587-cov-2.552957_cluster_1.gbk:md5,f806ad3df5d8d6d10b0996afaf288ba1",
+            "ERZ1664504.48-NODE-48-length-9582-cov-5.239425_cluster_1.gbk:md5,1909c78bc2f919ad28e7b80d843d31c5",
+            "ERZ1664506.42-NODE-42-length-11967-cov-6.006380_cluster_1.gbk:md5,6284adbf1446fcb4055a2a1a3b8d5daf",
+            "ERZ1664508.3061-NODE-3061-length-1263-cov-3.647351_cluster_1.gbk:md5,a5489abcf3572e84aaadddfaba169df2",
+            "ERZ1664510.123-NODE-123-length-8863-cov-8.649410_cluster_1.gbk:md5,a1c8c9d3b78859f8c0cfd6dfc58d4461",
+            "ERZ1664510.210-NODE-210-length-5173-cov-7.860688_cluster_1.gbk:md5,80c3d7bea1402ce04a531cebc040cdc2",
+            "ERZ1664511.16-NODE-16-length-49668-cov-9.810473_cluster_1.gbk:md5,9fdf8845bb6e7bccce086209254c80e6",
+            "ERZ1664515.9-NODE-9-length-49063-cov-10.926196_cluster_1.gbk:md5,0e03886155dd02c9f031ff767d42ef56",
+            "ERZ1664516.158-NODE-158-length-6232-cov-9.863850_cluster_1.gbk:md5,30e583235f44a0b83f5b190ed5ac0f20",
+            "ERZ1664517.38-NODE-38-length-19981-cov-8.613771_cluster_1.gbk:md5,bdcaa50dc14c58c671ce6e9a006c5ed0",
+            "ERZ1664518.217-NODE-217-length-4457-cov-6.415947_cluster_1.gbk:md5,dac8e33a9203e26eac76c3c02fcacc85",
+            "ERZ1664521.1871-NODE-1871-length-1473-cov-1.858251_cluster_1.gbk:md5,79f4f46c6d617f00128c9dd6871566f9",
+            "ERZ1664521.895-NODE-895-length-1964-cov-2.221058_cluster_1.gbk:md5,0fdd9dca805af50828dafe406aa8606d",
+            "ERZ1664523.16-NODE-16-length-15072-cov-6.654591_cluster_1.gbk:md5,72e21b8ad729f0c49c97c895a42c3cc7",
+            "ERZ1664524.1150-NODE-1150-length-2386-cov-3.450879_cluster_1.gbk:md5,d20be4ec979df18abea8d6273ba66025",
+            "ERZ1664524.54-NODE-54-length-9607-cov-5.345582_cluster_1.gbk:md5,1218bb916133dccde2e6337be87f6cce",
+            "ERZ1664528.138-NODE-138-length-5805-cov-4.599304_cluster_1.gbk:md5,8de600165f90291999bfc9d7047bf838",
+            "ERZ1664528.1641-NODE-1641-length-2049-cov-4.697091_cluster_1.gbk:md5,b86b34eac746aa4e128526b3458887ac"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:55:03.428411261"
+    },
+    "antismash": {
+        "content": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:59.889179408"
+    },
+    "argnorm_deeparg": {
+        "content": [
+            "ERZ1664501.normalized.tsv:md5,9b5e6ed2b401e04d2b1217e04dfc9eac",
+            "ERZ1664503.normalized.tsv:md5,51cbe8f9f6a7d986b020f44ac2f9eb07",
+            "ERZ1664504.normalized.tsv:md5,e9a396c3301588ceae843e60e4dbd60f",
+            "ERZ1664505.normalized.tsv:md5,fb2662f9f2f0179e5d5fe85b83d86051",
+            "ERZ1664506.normalized.tsv:md5,45d6cae38adbe0134f8390f66c0b788c",
+            "ERZ1664507.normalized.tsv:md5,19e545c04f0f3304499baefdcb8ff998",
+            "ERZ1664508.normalized.tsv:md5,11c852b8d65e85d0e7d85904dbb3ea0a",
+            "ERZ1664509.normalized.tsv:md5,09da6cea30007c21dcbe3e4dd555082f",
+            "ERZ1664510.normalized.tsv:md5,8dbc280dbee4028920f003ec3e0fff72",
+            "ERZ1664511.normalized.tsv:md5,236759216c2583778a7861d79324cf11",
+            "ERZ1664515.normalized.tsv:md5,1250b63151b5b45d402c55a55f07696a",
+            "ERZ1664516.normalized.tsv:md5,d3807e4fd62d35aac6eb0e03500ebbdc",
+            "ERZ1664517.normalized.tsv:md5,fc35af88f64e01ac5b811e8a366e933b",
+            "ERZ1664518.normalized.tsv:md5,4803c3f0ed8fa1d1dde7d02fed064a6a",
+            "ERZ1664520.normalized.tsv:md5,aa897ab8540391a484d6c9d1fa8825fd",
+            "ERZ1664521.normalized.tsv:md5,7731d0997da1801863aa4b9c2231a87a",
+            "ERZ1664523.normalized.tsv:md5,f80e86302958d41163e08c8c0109280c",
+            "ERZ1664524.normalized.tsv:md5,c3701f0136ed40d4301b46259d79a151",
+            "ERZ1664528.normalized.tsv:md5,2fdb5e4fc1f7840586a451c088c779ec"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:41.54962868"
+    },
+    "macrel": {
+        "content": [
+            "ERZ1664501.macrel.prediction.gz:md5,20dc3b7d8b42111f56d47cfbf02a61b0",
+            "ERZ1664503.macrel.prediction.gz:md5,f9604770f6f0c0dd0d673f2d9a54dc45",
+            "ERZ1664504.macrel.prediction.gz:md5,52e9c1ec54f486765dea07d97b1c97b7",
+            "ERZ1664505.macrel.prediction.gz:md5,a3551632e05fa673bd75b3d8663e6d05",
+            "ERZ1664506.macrel.prediction.gz:md5,732be08d0236cf63641ef445a02cf1ee",
+            "ERZ1664507.macrel.prediction.gz:md5,841629223f30496a8875eac29e8ead51",
+            "ERZ1664508.macrel.prediction.gz:md5,5a930e35dedf92cf4f6081932f90740d",
+            "ERZ1664509.macrel.prediction.gz:md5,9b152a80d45039a8c20033cf3af11798",
+            "ERZ1664510.macrel.prediction.gz:md5,aaf48021a9ddeba74a7aa1df3004ecff",
+            "ERZ1664511.macrel.prediction.gz:md5,df36fa0448591690fc6b7ded2517256e",
+            "ERZ1664515.macrel.prediction.gz:md5,b896ac50f6ebec1e725cff67bdff8fed",
+            "ERZ1664516.macrel.prediction.gz:md5,d5edd36c57eedd86086d9a1263d064dd",
+            "ERZ1664517.macrel.prediction.gz:md5,02373e1b4383dc7501e7e142c9443b7a",
+            "ERZ1664518.macrel.prediction.gz:md5,f1fcc0ba109a9b6ac28704ac3954d6d2",
+            "ERZ1664520.macrel.prediction.gz:md5,850056f716a79694938c0c7a2ebee29b",
+            "ERZ1664521.macrel.prediction.gz:md5,a07785c30e377e1becc87281afa9fac4",
+            "ERZ1664523.macrel.prediction.gz:md5,cee5ae9ba4a8a3879ab245b767815394",
+            "ERZ1664524.macrel.prediction.gz:md5,e470e0fe492ffbb93da822d167216deb",
+            "ERZ1664528.macrel.prediction.gz:md5,2e957f217c570a58ee61d97c690c1424"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:18.821987885"
+    },
+    "abricate": {
+        "content": [
+            "ERZ1664501.txt:md5,1ace32d2d44194d635db31daa89a6fae",
+            "ERZ1664503.txt:md5,da890e2cef1b1a34ec035f6198f0a60b",
+            "ERZ1664504.txt:md5,3db1864a6efe5321379e89dcee34d505",
+            "ERZ1664505.txt:md5,317354f6091bad44ab5852399d48eb4a",
+            "ERZ1664506.txt:md5,8fcc568d6a15d1c3ac889169ce884093",
+            "ERZ1664507.txt:md5,0be8f76b35aca900f8f7fa6d2e7fc1f9",
+            "ERZ1664508.txt:md5,357da5e192d9a17b501446e181f41942",
+            "ERZ1664509.txt:md5,c14f4aef2c96e8c4f6688af35fe07a2c",
+            "ERZ1664510.txt:md5,0d88060e28b267a308271a2a2af38b12",
+            "ERZ1664511.txt:md5,46adf11d5d3952e3709ba05ec76b5e8a",
+            "ERZ1664515.txt:md5,4b7a0db47ac6e9baf723e6b2ef31bfc4",
+            "ERZ1664516.txt:md5,1ccfd94077fe329f7b30351aa846b327",
+            "ERZ1664517.txt:md5,8137ab84373a5300c9626a9459a2c935",
+            "ERZ1664518.txt:md5,db514f4bef8de0d4799f478e1807adc6",
+            "ERZ1664520.txt:md5,a3afa2368c941cdb0c4abd8efa855f0e",
+            "ERZ1664521.txt:md5,2849a78188c4793d4608ba1775da1d58",
+            "ERZ1664523.txt:md5,507e1710e7220965010ad8375b4c434a",
+            "ERZ1664524.txt:md5,b7d380fe3fbcb0fe2ac23823cb6b35e8",
+            "ERZ1664528.txt:md5,64aff1aaaab8b3d009edd40527446c08"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:25.215727223"
+    },
+    "fargene": {
+        "content": [
+            "results_summary.txt:md5,3061d75086b3d25605eda0ea05e1c927",
+            "results_summary.txt:md5,ea00de6524c521e06583ee13ffbcf338",
+            "results_summary.txt:md5,c5a6205a249cb6112b6235bbab51c60d",
+            "results_summary.txt:md5,c5a6205a249cb6112b6235bbab51c60d",
+            "results_summary.txt:md5,cc647b7810c7335edb6aa939f9f0fbde",
+            "results_summary.txt:md5,fa58a7f510100be20ce22fe3f6b036e3",
+            "results_summary.txt:md5,33b51ce0c8ba7c65bdb8bfe1480d85cb",
+            "results_summary.txt:md5,fa58a7f510100be20ce22fe3f6b036e3",
+            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
+            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
+            "results_summary.txt:md5,657d012f697a1a9e3ce7f8a0f675aed0",
+            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
+            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
+            "results_summary.txt:md5,c5a6205a249cb6112b6235bbab51c60d",
+            "results_summary.txt:md5,33b51ce0c8ba7c65bdb8bfe1480d85cb",
+            "results_summary.txt:md5,54ba6a1a657fea6b78abac50820c2c24",
+            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
+            "results_summary.txt:md5,f3f36761cda3fbb23e0250f9b0b6657a",
+            "results_summary.txt:md5,cc647b7810c7335edb6aa939f9f0fbde"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:34.896363945"
+    },
+    "rgi": {
+        "content": [
+            "ERZ1664501.txt:md5,631580295a01dfa9942a84ec6daddb7e",
+            "ERZ1664503.txt:md5,19b414d2f84d99e7da99558f13ddc3e5",
+            "ERZ1664504.txt:md5,35cfd6af482966669d98a65b56331a3d",
+            "ERZ1664505.txt:md5,d9f983090909140617bc784635220c4b",
+            "ERZ1664506.txt:md5,7a52f37f5672b06b05741ee058391f8f",
+            "ERZ1664507.txt:md5,721b11a0d9a16cbcbfd9004478b00600",
+            "ERZ1664508.txt:md5,b216d24eb67e17b00176fd0e9fddee2d",
+            "ERZ1664509.txt:md5,a83a12f5eee2817adde168ceea2918c5",
+            "ERZ1664510.txt:md5,648ff158c4eb26a5ea32d784f035919e",
+            "ERZ1664511.txt:md5,9bae24f90a3ec78bf949a98fdf22a497",
+            "ERZ1664515.txt:md5,2d0d0b2f048fa6c28840b1b6a2c9454d",
+            "ERZ1664516.txt:md5,eb69d148d8dad471c8d9a36dd915f4a4",
+            "ERZ1664517.txt:md5,79b0f80950eb5f0f51542b394a77a173",
+            "ERZ1664518.txt:md5,887de51b7632b0c635b0fe6deda75266",
+            "ERZ1664520.txt:md5,3caf2e1b0afcbfb73522bfa1cee1d06e",
+            "ERZ1664521.txt:md5,19334a653a98bbced73f1f2ec92e4eb8",
+            "ERZ1664523.txt:md5,0e47ce5c41d4d0d39d270a18ce62773a",
+            "ERZ1664524.txt:md5,8ca49d7dee9c7de25910de130de93859",
+            "ERZ1664528.txt:md5,6a10752196f2f33bcee972d15d669803"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:31.62460906"
+    },
+    "amrfinderplus": {
+        "content": [
+            "ERZ1664501.tsv:md5,dd81ffbf4ceddfd08df9c93d350d19fa",
+            "ERZ1664503.tsv:md5,7b1e3c4be2e369a2ca04fcd63da1acaa",
+            "ERZ1664504.tsv:md5,34f751f50617c9612b2e84ee61182ace",
+            "ERZ1664505.tsv:md5,195ee9875c095324bf9da03627551f71",
+            "ERZ1664506.tsv:md5,ab833bb2d72e4165130c590feeb81abc",
+            "ERZ1664507.tsv:md5,a416a831bcc9f2334064c45b04b65893",
+            "ERZ1664508.tsv:md5,7bf5af85e96374b92dec02986f55cd29",
+            "ERZ1664509.tsv:md5,90090405b63b9e4e6b115ad4d7658681",
+            "ERZ1664510.tsv:md5,5cf184c3f55fca8b2ab74fd8e2c68c8b",
+            "ERZ1664511.tsv:md5,caac6335c1ef383c33173a8a627c0a95",
+            "ERZ1664515.tsv:md5,cc8b7e5d2df434729a08b0aabefba91c",
+            "ERZ1664516.tsv:md5,1a92c5bec7ff819a6f830a1726894f7c",
+            "ERZ1664517.tsv:md5,d8c4989f198d6853e35820da21feffe2",
+            "ERZ1664518.tsv:md5,709d6bfb280c509b74f3c1b4d8a1c4bc",
+            "ERZ1664520.tsv:md5,2367abb0f961e00bf8dcdfe7e6083c2c",
+            "ERZ1664521.tsv:md5,12f6aee5987e86669534d3b64a62a840",
+            "ERZ1664523.tsv:md5,ba69795aaea671108bfa1e48c509dd79",
+            "ERZ1664524.tsv:md5,b0aa6f732ca2b922d2291deaba0d1312",
+            "ERZ1664528.tsv:md5,93249b05df4a0587db305684da8a1f8e"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T00:54:28.386682111"
+    }
+}
