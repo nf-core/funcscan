@@ -327,7 +327,7 @@ Output Summaries:
 - `fargene/`
   - `fargene_analysis.log`: logging output that fARGene produced during its run
   - `<sample_name>/`:
-    - `hmmsearchresults/`: output from intermediate hmmsearch step (only if `--arg_fargene_savetmpfiles` supplied)
+    - `hmmsearchresults/`: output from intermediate hmmsearch step
     - `predictedGenes/`:
       - `*-filtered.fasta`: nucleotide sequences of predicted ARGs
       - `*-filtered-peptides.fasta`: amino acid sequences of predicted ARGs
