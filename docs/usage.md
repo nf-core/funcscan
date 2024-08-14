@@ -281,10 +281,10 @@ To obtain a local version of the database:
 1. Install AMRFinderPlus from [bioconda](https://bioconda.github.io/recipes/ncbi-amrfinderplus/README.html?highlight=amrfinderplus).
    To ensure database compatibility, please use the same version as is used in your nf-core/funcscan release (check version in file `<installation>/<path>/funcscan/modules/nf-core/amrfinderplus/run/environment.yml`).
 
-  ```bash
-  conda create -n amrfinderplus -c bioconda ncbi-amrfinderplus=3.12.8
-  conda activate amrfinderplus
-  ```
+```bash
+conda create -n amrfinderplus -c bioconda ncbi-amrfinderplus=3.12.8
+conda activate amrfinderplus
+```
 
 2. Run `amrfinder --update`, which will download the latest version of the AMRFinderPlus database to the default location (location of the AMRFinderPlus binaries/data).
    It creates a directory in the format YYYY-MM-DD.version (e.g., `<installation>/<path>/data/2024-01-31.1/`).
@@ -328,11 +328,11 @@ nf-core/funcscan can download this database for you, however it is very slow and
 You can either:
 
 1. Install DeepARG from [bioconda](https://bioconda.github.io/recipes/deeparg/README.html?highlight=deeparg)
-  
-  ```bash
-  conda create -n deeparg -c bioconda deeparg
-  conda activate deeparg
-  ```
+
+```bash
+conda create -n deeparg -c bioconda deeparg
+conda activate deeparg
+```
 
 2. Run `deeparg download_data -o /<path>/<to>/<database_location>/`
 
@@ -363,15 +363,15 @@ To download and supply the database yourself, do:
 
 1. Download [CARD](https://card.mcmaster.ca/latest/data)
 
-  ```bash
-  wget https://card.mcmaster.ca/latest/data
-  ```
+```bash
+wget https://card.mcmaster.ca/latest/data
+```
 
 2. Extract the (`.tar.bz2`) archive.
 
-  ```bash
-  tar -xjvf data
-  ```
+```bash
+tar -xjvf data
+```
 
 You can then supply the path to resulting database directory with:
 
@@ -396,10 +396,10 @@ To supply the database directories to the pipeline:
 
 1. Install antiSMASH from [bioconda](https://bioconda.github.io/recipes/antismash-lite/README.html) (To ensure database compatibility, please use the same version as is used in your nf-core/funcscan release - check version in file `<pipeline_installation>/<path>/funcscan/modules/nf-core/amrfinderplus/run/environment.yml`)
 
-  ```bash
-  conda create -n antismash-lite -c bioconda antismash-lite
-  conda activate antismash-lite
-  ```
+```bash
+conda create -n antismash-lite -c bioconda antismash-lite
+conda activate antismash-lite
+```
 
 2. Run the following command `download-antismash-databases`. Use `--database-dir` to specify a new location.
 3. You can then supply the paths to the resulting databases and the whole installation directory with:
@@ -433,7 +433,7 @@ conda activate deepbgc
 export DEEPBGC_DOWNLOADS_DIR=<PREFERRED_CACHE_DIRECTORY>
 deepbgc download
 
-````
+```
 
 You can then indicate the path to the database folder in the pipeline with `--bgc_deepbgc_db <path>/<to>/<deepbgc_db>/`.
 The folder has to contain the subfolders as in the database folder downloaded by `deepbgc download`:
