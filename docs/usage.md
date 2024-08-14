@@ -356,6 +356,25 @@ The flag `--save_db` saves the pipeline-downloaded databases in your results dir
 You can then move these to a central cache directory of your choice for re-use in the future.
 :::
 
+### MMSeqs2
+
+To download MMSeqs2 databases for taxonomic classification, you can install `mmseqs` via conda:
+
+```bash
+conda create -n mmseqs2 -c bioconda mmseqs2
+conda activate mmseqs2
+```
+
+Then to download the database of your choice
+
+```bash
+mmseqs databases <DATABASE_NAME> <LOCATION_TO_STORE> tmp/
+```
+
+:::info
+You may want to specify a different location for `tmp/`, we just borrowed here from the official `mmseqs` [documentation](https://github.com/soedinglab/mmseqs2/wiki#downloading-databases)
+:::
+
 ### RGI
 
 RGI requires the database CARD which can be downloaded by nf-core/funcscan or supplied by the user manually.
