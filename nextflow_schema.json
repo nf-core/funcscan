@@ -99,7 +99,7 @@
                 "taxa_classification_mmseqs_db": {
                     "type": "string",
                     "description": "Specify a path to MMseqs2-formatted database.",
-                    "help_text": "Specify a path to a database that is prepared in MMseqs2 format as detailed in the [documentation](https://mmseqs.com/latest/userguide.pdf).",
+                    "help_text": "Specify a path to a database that is prepared in MMseqs2 format as detailed in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\nThe contents of the directory should have files such as `<dbname>.version` and `<dbname>.taxonomy` in the top level.",
                     "fa_icon": "fas fa-database"
                 },
                 "taxa_classification_mmseqs_db_id": {
@@ -214,7 +214,7 @@
                     "type": "string",
                     "fa_icon": "fas fa-database",
                     "description": "Specify a path to a local copy of a BAKTA database.",
-                    "help_text": "If a local copy of a BAKTA database exists, specify the path to that database which is prepared in a BAKTA format. Otherwise this will be downloaded for you."
+                    "help_text": "If a local copy of a BAKTA database exists, specify the path to that database which is prepared in a BAKTA format. Otherwise this will be downloaded for you.\n\nThe contents of the directory should have files such as `*.dmnd` in the top level."
                 },
                 "annotation_bakta_db_downloadtype": {
                     "type": "string",
@@ -371,7 +371,7 @@
                     "default": "Bacteria",
                     "fa_icon": "fas fa-crown",
                     "description": "Specify the kingdom that the input represents.",
-                    "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n> ⚠️ Prokka cannot annotate Eukaryotes.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--kingdom`",
+                    "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n> \u26a0\ufe0f Prokka cannot annotate Eukaryotes.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--kingdom`",
                     "enum": ["Archaea", "Bacteria", "Mitochondria", "Viruses"]
                 },
                 "annotation_prokka_gcode": {
@@ -387,12 +387,12 @@
                     "type": "integer",
                     "default": 1,
                     "description": "Minimum contig size required for annotation (bp).",
-                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend that this should be ≥ 200 bp, if you plan to submit such annotations to NCBI.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--mincontiglen`",
+                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend that this should be \u2265 200 bp, if you plan to submit such annotations to NCBI.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--mincontiglen`",
                     "fa_icon": "fas fa-ruler-horizontal"
                 },
                 "annotation_prokka_evalue": {
                     "type": "number",
-                    "default": 0.000001,
+                    "default": 1e-6,
                     "description": "E-value cut-off.",
                     "help_text": "Specifiy the maximum E-value used for filtering the alignment hits.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--evalue`",
                     "fa_icon": "fas fa-sort-amount-down"
@@ -629,7 +629,7 @@
                 "amp_ampcombi_db": {
                     "type": "string",
                     "description": "Path to AMPcombi reference database directory (DRAMP).",
-                    "help_text": "AMPcombi uses the 'general AMPs' dataset of the [DRAMP database](http://dramp.cpu-bioinfor.org/downloads/) for taxonomic classification. If you have a local version of it, you can provide the path to the directory(!) that contains the following reference database files:\n1. fasta file with `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nFor more information check the AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).",
+                    "help_text": "AMPcombi uses the 'general AMPs' dataset of the [DRAMP database](http://dramp.cpu-bioinfor.org/downloads/) for taxonomic classification. If you have a local version of it, you can provide the path to the directory(!) that contains the following reference database files:\n1. fasta file with `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nThe contents of the directory should have files such as `*.dmnd` and `*.fasta` in the top level.\n\nFor more information check the AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).",
                     "fa_icon": "fas fa-address-book"
                 },
                 "amp_ampcombi_parsetables_cutoff": {
@@ -783,7 +783,7 @@
                 "arg_amrfinderplus_db": {
                     "type": "string",
                     "fa_icon": "fas fa-layer-group",
-                    "help_text": "Specify the path to a local version of the ARMFinderPlus database. If no input is given, the pipeline will download the database for you.\n\n See the nf-core/funcscan usage [documentation](https://nf-co.re/funcscan/usage) for more information.\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--database`",
+                    "help_text": "Specify the path to a local version of the ARMFinderPlus database.\n\nYou must give the `latest` directory to the pipeline, and the contents of the directory should include files such as `*.nbd`, `*.nhr`, `versions.txt` etc. in the top level.\n\nIf no input is given, the pipeline will download the database for you.\n\n See the nf-core/funcscan usage [documentation](https://nf-co.re/funcscan/usage) for more information.\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--database`",
                     "description": "Specify the path to a local version of the ARMFinderPlus database."
                 },
                 "arg_amrfinderplus_identmin": {
@@ -840,7 +840,7 @@
                     "type": "string",
                     "fa_icon": "fas fa-database",
                     "description": "Specify the path to the DeepARG database.",
-                    "help_text": "Specify the path to a local version of the DeepARG database (see the pipelines' usage [documentation](https://nf-co.re/funcscan/dev/docs/usage#databases-and-reference-files)). If no input is given, the module will download the database for you, however this is not recommended, as the database is large and this will take time.\n\n> Modifies tool parameter(s):\n> - DeepARG: `--data-path`"
+                    "help_text": "Specify the path to a local version of the DeepARG database (see the pipelines' usage [documentation](https://nf-co.re/funcscan/dev/docs/usage#databases-and-reference-files)).\n\nThe contents of the directory should include directories such as `database`, `moderl`, and files such as `deeparg.gz` etc. in the top level.\n\nIf no input is given, the module will download the database for you, however this is not recommended, as the database is large and this will take time.\n\n> Modifies tool parameter(s):\n> - DeepARG: `--data-path`"
                 },
                 "arg_deeparg_db_version": {
                     "type": "integer",
@@ -966,7 +966,7 @@
                     "type": "string",
                     "description": "Path to user-defined local CARD database.",
                     "fa_icon": "fas fa-database",
-                    "help_text": "You can pre-download the CARD database to your machine and pass the path of it to this parameter.\n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#rgi) for details on how to download this.\n\n>  Modifies tool parameter(s):\n> - RGI_CARDANNOTATION: `--input`"
+                    "help_text": "You can pre-download the CARD database to your machine and pass the path of it to this parameter.\n\nThe contents of the directory should include files such as `card.json`, `aro_index.tsv`, `snps.txt` etc. in the top level.\n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#rgi) for details on how to download this.\n\n>  Modifies tool parameter(s):\n> - RGI_CARDANNOTATION: `--input`"
                 },
                 "arg_rgi_savejson": {
                     "type": "boolean",
@@ -990,14 +990,14 @@
                 },
                 "arg_rgi_includeloose": {
                     "type": "boolean",
-                    "description": "Include all of loose, strict and perfect hits (i.e. ≥ 95% identity) found by RGI.",
+                    "description": "Include all of loose, strict and perfect hits (i.e. \u2265 95% identity) found by RGI.",
                     "help_text": "When activated RGI output will include 'Loose' hits in addition to 'Strict' and 'Perfect' hits. The 'Loose' algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_loose`",
                     "fa_icon": "far fa-hand-scissors"
                 },
                 "arg_rgi_includenudge": {
                     "type": "boolean",
                     "description": "Suppresses the default behaviour of RGI with `--arg_rgi_includeloose`.",
-                    "help_text": "This flag suppresses the default behaviour of RGI, by listing all 'Loose' matches of ≥ 95% identity as 'Strict' or 'Perfect', regardless of alignment length.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_nudge`",
+                    "help_text": "This flag suppresses the default behaviour of RGI, by listing all 'Loose' matches of \u2265 95% identity as 'Strict' or 'Perfect', regardless of alignment length.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_nudge`",
                     "fa_icon": "fas fa-hand-scissors"
                 },
                 "arg_rgi_lowquality": {
@@ -1047,7 +1047,7 @@
                     "type": "string",
                     "description": "Path to user-defined local ABRicate database directory for using custom databases.",
                     "fa_icon": "far fa-folder-open",
-                    "help_text": "Supply this only if you want to use additional custom databases you yourself have added to your ABRicate installation following the instructions [here](https://github.com/tseemann/abricate?tab=readme-ov-file#making-your-own-database).You must also specify the name of the custom database with `--arg_abricate_db_id`.\n\n> Modifies tool parameter(s):\n> - ABRicate: `--datadir`"
+                    "help_text": "Supply this only if you want to use additional custom databases you yourself have added to your ABRicate installation following the instructions [here](https://github.com/tseemann/abricate?tab=readme-ov-file#making-your-own-database).\n\nThe contents of the directory should have a directory named with the database name in the top level (e.g. `bacmet2/`).\n\nYou must also specify the name of the custom database with `--arg_abricate_db_id`.\n\n> Modifies tool parameter(s):\n> - ABRicate: `--datadir`"
                 },
                 "arg_abricate_minid": {
                     "type": "integer",
@@ -1137,13 +1137,13 @@
                     "type": "string",
                     "description": "Path to user-defined local antiSMASH database.",
                     "fa_icon": "fas fa-database",
-                    "help_text": "It is recommend to pre-download the antiSMASH databases to your machine and pass the path of it to this parameter, as this can take a long time to download - particularly when running lots of pipeline runs. \n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#antismash-1) for details on how to download this. If running with docker or singularity, please also check `--bgc_antismash_installdir` for important information."
+                    "help_text": "It is recommend to pre-download the antiSMASH databases to your machine and pass the path of it to this parameter, as this can take a long time to download - particularly when running lots of pipeline runs.\n\nThe contents of the database directory should include directories such as `as-js/`, `clusterblast/`, `clustercompare/` etc. in the top level.\n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#antismash-1) for details on how to download this. If running with docker or singularity, please also check `--bgc_antismash_installdir` for important information."
                 },
                 "bgc_antismash_installdir": {
                     "type": "string",
                     "description": "Path to user-defined local antiSMASH directory. Only required when running with docker/singularity.",
                     "fa_icon": "far fa-folder-open",
-                    "help_text": "This is required when running with **docker and singularity** (not required for conda), due to attempted 'modifications' of files during database checks in the installation directory, something that cannot be done in immutable docker/singularity containers.\n\nTherefore, a local installation directory needs to be mounted (including all modified files from the downloading step) to the container as a workaround.\n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#antismash-1) for details on how to download this. If running with docker or singularity, please also check `--bgc_antismash_installdir` for important information."
+                    "help_text": "This is required when running with **docker and singularity** (not required for conda), due to attempted 'modifications' of files during database checks in the installation directory, something that cannot be done in immutable docker/singularity containers.\n\nTherefore, a local installation directory needs to be mounted (including all modified files from the downloading step) to the container as a workaround.\n\nThe contents of the installation directory should include directories such as `common/` `config/` and files such as `custom_typing.py` `custom_typing.pyi` etc. in the top level.\n\nSee the pipeline [documentation](https://nf-co.re/funcscan/usage#antismash-1) for details on how to download this. If running with docker or singularity, please also check `--bgc_antismash_installdir` for important information."
                 },
                 "bgc_antismash_contigminlength": {
                     "type": "integer",
@@ -1192,14 +1192,14 @@
                 },
                 "bgc_antismash_pfam2go": {
                     "type": "boolean",
-                    "default": "false",
+                    "default": false,
                     "description": "Run Pfam to Gene Ontology mapping module.",
                     "help_text": "This maps the proteins to Pfam database to annotate BGC modules with functional information based on the protein families they contain. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--pfam2go`",
                     "fa_icon": "fas fa-search"
                 },
                 "bgc_antismash_rre": {
                     "type": "boolean",
-                    "default": "false",
+                    "default": false,
                     "description": "Run RREFinder precision mode on all RiPP gene clusters.",
                     "help_text": "This enables the prediction of regulatory elements on the BGC that help in the control of protein expression. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--rre`",
                     "fa_icon": "fas fa-search"
@@ -1214,7 +1214,7 @@
                 },
                 "bgc_antismash_tfbs": {
                     "type": "boolean",
-                    "default": "false",
+                    "default": false,
                     "description": "Run TFBS finder on all gene clusters.",
                     "help_text": "This enables the prediction of transcription factor binding sites which control the gene expression. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--tfbs`",
                     "fa_icon": "fas fa-search"
@@ -1237,7 +1237,7 @@
                     "type": "string",
                     "fa_icon": "fas fa-database",
                     "description": "Path to local DeepBGC database folder.",
-                    "help_text": "For more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: environment variable `DEEPBGC_DOWNLOADS_DIR`"
+                    "help_text": "The contents of the database directory should include directories such as `common`, `0.1.0` in the top level.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: environment variable `DEEPBGC_DOWNLOADS_DIR`"
                 },
                 "bgc_deepbgc_score": {
                     "type": "number",
@@ -1332,7 +1332,7 @@
                     "type": "number",
                     "description": "The p-value cutoff for protein domains to be included.",
                     "fa_icon": "fas fa-filter",
-                    "default": 0.000000001,
+                    "default": 1e-9,
                     "help_text": "The p-value cutoff for protein domains to be included.\n\nFor more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--pfilter`"
                 },
                 "bgc_gecco_threshold": {
