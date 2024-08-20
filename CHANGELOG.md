@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Breaking change`
 
-[#391](https://github.com/nf-core/funcscan/pull/391) Made all "database" parameter names consistent, skip hmmsearch by default. (by @jasmezz)
+- [#391](https://github.com/nf-core/funcscan/pull/391) Made all "database" parameter names consistent, skip hmmsearch by default. (by @jasmezz)
 
 | Old parameter                                    | New parameter                           |
 | ------------------------------------------------ | --------------------------------------- |
@@ -27,6 +27,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | `amp_skip_hmmsearch`                             | `amp_run_hmmsearch`                     |
 | `bgc_skip_hmmsearch`                             | `bgc_run_hmmsearch`                     |
 
+- [#343](https://github.com/nf-core/funcscan/pull/343) Standardized the resulting workflow summary tables to always start with 'sample_id\tcontig_id\t..'. Reformatted the output of `hamronization/summarize` module. (by @darcy220606)
+- [#411](https://github.com/nf-core/funcscan/pull/411) Optimised hAMRonization input: only high-quality hits from fARGene output are reported. (by @jasmezz, @jfy133)
+
 ### `Added`
 
 - [#322](https://github.com/nf-core/funcscan/pull/322) Updated all modules: introduce environment.yml files. (by @jasmezz)
@@ -44,7 +47,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#343](https://github.com/nf-core/funcscan/pull/343) Standardized the resulting workflow summary tables to always start with 'sample_id\tcontig_id\t..'. Reformatted the output of `hamronization/summarize` module. (by @darcy220606)
 - [#348](https://github.com/nf-core/funcscan/pull/348) Updated samplesheet for pipeline tests to 'samplesheet_reduced.csv' with smaller datasets to reduce resource consumption. Updated prodigal module to fix pigz issue. Removed `tests/` from `.gitignore`. (by @darcy220606)
 - [#362](https://github.com/nf-core/funcscan/pull/362) Save annotations from bakta in subdirectories per sample. (by @jasmezz)
 - [#363](https://github.com/nf-core/funcscan/pull/363) Removed warning from DeepBGC usage docs. (by @jasmezz)
@@ -53,7 +55,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#376](https://github.com/nf-core/funcscan/pull/376) Fixed an occasional RGI process failure when certain files not produced. (❤️ to @amizeranschi for reporting, fix by @amizeranschi & @jfy133)
 - [#386](https://github.com/nf-core/funcscan/pull/386) Updated DeepBGC module to fix output file names, separate annotation step for all BGC tools, add warning if no BGCs found, fix MultiQC reporting of annotation workflow. (by @jfy133, @jasmezz)
 - [#392](https://github.com/nf-core/funcscan/pull/392) & [#397](https://github.com/nf-core/funcscan/pull/397) Fixed a docker/singularity only error appearing when running with conda. (❤️ to @ewissel for reporting, fix by @jfy33 & @jasmezz)
-- [#394](https://github.com/nf-core/funcscan/pull/394) Fixed BGC input channel: pre-annotated input is picked up correctly now. (by @jfy133, @jasmezz)
 - [#391](https://github.com/nf-core/funcscan/pull/391) Skip hmmmsearch by default to not crash pipeline if user provides no HMM files, updated docs. (by @jasmezz)
 - [#397](https://github.com/nf-core/funcscan/pull/397) Removed deprecated AMPcombi module, fixed variable name in BGC workflow, updated minor parts in docs (usage, parameter schema). (by @jasmezz)
 - [#402](https://github.com/nf-core/funcscan/pull/402) Fixed BGC length calculation for antiSMASH hits by comBGC. (by @jasmezz)
