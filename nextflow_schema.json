@@ -1040,7 +1040,7 @@
                     "type": "string",
                     "default": "ncbi",
                     "fa_icon": "fas fa-database",
-                    "description": "Specify the name of the ABRicate database to use. Names of non-default databases can be supplied if `--arg_abricate_localdbdir` provided.",
+                    "description": "Specify the name of the ABRicate database to use. Names of non-default databases can be supplied if `--arg_abricate_db` provided.",
                     "help_text": "Specifies which database to use from dedicated list of databases available by ABRicate.\n\nDefault supported are one of: `argannot`, `card`, `ecoh`, `ecoli_vf`, `megares`, `ncbi`, `plasmidfinder`, `resfinder`, `vfdb`. Other options can be supplied if you have installed a custom one within the directory you have supplied to `--arg_abricate_db`.\n\nFor more information check the ABRicate [documentation](https://github.com/tseemann/abricate).\n\n> Modifies tool parameter(s):\n> - ABRicate: `--db`"
                 },
                 "arg_abricate_db": {
