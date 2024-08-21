@@ -61,6 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#406](https://github.com/nf-core/funcscan/pull/406) Fixed prediction tools not being executed if annotation workflow skipped. (by @jasmezz)
 - [#407](https://github.com/nf-core/funcscan/pull/407) Fixed comBGC bug when parsing multiple antiSMASH files. (by @jasmezz)
 - [#409](https://github.com/nf-core/funcscan/pull/409) Fixed argNorm overwriting its output for DeepARG. (by @jasmezz, @jfy133)
+- [#412](https://github.com/nf-core/funcscan/pull/412) Improve all pre-run database download documentation. (by @jfy133)
 
 ### `Dependencies`
 

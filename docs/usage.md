@@ -162,7 +162,19 @@ As a reference, we will describe below where and how you can obtain databases an
 
 nf-core/funcscan offers multiple tools for annotating input sequences. Bakta is a new tool touted as a bacteria-only successor to the well-established Prokka.
 
-To supply the preferred Bakta database (and not have the pipeline download it for every new run), use the flag `--annotation_bakta_db`. The full or light Bakta database must be downloaded from the Bakta Zenodo archive, the link of which can be found on the [Bakta GitHub repository](https://github.com/oschwengers/bakta#database-download).
+To supply the preferred Bakta database (and not have the pipeline download it for every new run), use the flag `--annotation_bakta_db`.
+The full or light Bakta database must be downloaded from the Bakta Zenodo archive.
+
+You can do this by installing via conda and using the dedicated command
+
+```bash
+conda create -n bakta -c bioconda bakta
+conda activate bakta
+
+bakta_db download --output <LOCATION_TO_STORE> --type <full|light>
+```
+
+Alternatively, you can manually download the files via the links which can be found on the [Bakta GitHub repository](https://github.com/oschwengers/bakta#database-download).
 
 Once downloaded this must be untarred:
 
@@ -186,7 +198,8 @@ The flag `--save_db` saves the pipeline-downloaded databases in your results dir
 
 nf-core/funcscan allows screening of sequences for functional genes associated with various natural product types via Hidden Markov Models (HMMs) using hmmsearch.
 
-This requires supplying a list of HMM files ending in `.hmm`, that have models for the particular molecule(s) or BGCs you are interested in. You can download these files from places such as [PFAM](https://www.ebi.ac.uk/interpro/download/Pfam/) for antimicrobial peptides (AMP), or the antiSMASH GitHub repository for [biosynthetic gene cluster](https://github.com/antismash/antismash/tree/master/antismash/detection/hmm_detection/data) related HMMs, or create them yourself.
+This requires supplying a list of HMM files ending in `.hmm`, that have models for the particular molecule(s) or BGCs you are interested in.
+You can download these files from places such as [PFAM](https://www.ebi.ac.uk/interpro/download/Pfam/) for antimicrobial peptides (AMP), or the antiSMASH GitHub repository for [biosynthetic gene cluster](https://github.com/antismash/antismash/tree/master/antismash/detection/hmm_detection/data) related HMMs, or create them yourself.
 
 You should place all HMMs in a directory, supply them to the AMP or BGC workflow and switch hmmsearch on:
 
@@ -200,7 +213,19 @@ Ensure to wrap this path in double quotes if using an asterisk, to ensure Nextfl
 
 ### AMPcombi
 
-For AMPcombi, nf-core/funcscan will by default download the most recent version of the [DRAMP](http://dramp.cpu-bioinfor.org/) database as a reference database for aligning the AMP hits in the AMP workflow. However, the user can also supply their own custom AMP database by following the guidelines in [AMPcombi](https://github.com/Darcy220606/AMPcombi). This can then be passed to the pipeline with:
+For AMPcombi, nf-core/funcscan will by default download the most recent version of the [DRAMP](http://dramp.cpu-bioinfor.org/) database as a reference database, and modifies the files for aligning the AMP hits in the AMP workflow.
+
+nf-core/funcscan currently provides a python3 helper script to do these steps.
+
+```bash
+mkdir -p ampcombi/amp_ref_database
+cd ampcombi/
+wget https://github.com/nf-core/funcscan/raw/<PIPELINE_VERSION>/bin/ampcombi_download.py
+python3 ampcombi_download.py
+```
+
+However, the user can also supply their own custom AMP database by following the guidelines in [AMPcombi](https://github.com/Darcy220606/AMPcombi).
+This can then be passed to the pipeline with:
 
 ```bash
 --amp_ampcombi_db '/<path>/<to>/<ampcombi_database>
@@ -209,7 +234,8 @@ For AMPcombi, nf-core/funcscan will by default download the most recent version 
 The contents of the directory should have files such as `*.dmnd` and `*.fasta` in the top level.
 
 :::warning
-The pipeline will automatically run Pyrodigal instead of Prodigal if the parameters `--run_annotation_tool prodigal --run_amp_screening` are both provided. This is due to an incompatibility issue of Prodigal's output `.gbk` file with multiple downstream tools.
+The pipeline will automatically run Pyrodigal instead of Prodigal if the parameters `--run_annotation_tool prodigal --run_amp_screening` are both provided.
+This is due to an incompatibility issue of Prodigal's output `.gbk` file with multiple downstream tools.
 :::
 
 ### Abricate
@@ -265,8 +291,16 @@ You must give the `latest` directory to the pipeline, and the contents of the di
 
 To obtain a local version of the database:
 
-1. Install AMRFinderPlus from [bioconda](https://bioconda.github.io/recipes/ncbi-amrfinderplus/README.html?highlight=amrfinderplus). To ensure database compatibility, please use the same version as is used in your nf-core/funcscan release (check version in file `<installation>/<path>/funcscan/modules/nf-core/amrfinderplus/run/environment.yml`).
-2. Run `amrfinder --update`, which will download the latest version of the AMRFinderPlus database to the default location (location of the AMRFinderPlus binaries/data). It creates a directory in the format YYYY-MM-DD.version (e.g., `<installation>/<path>/data/2024-01-31.1/`).
+1. Install AMRFinderPlus from [bioconda](https://bioconda.github.io/recipes/ncbi-amrfinderplus/README.html?highlight=amrfinderplus).
+   To ensure database compatibility, please use the same version as is used in your nf-core/funcscan release (check version in file `<installation>/<path>/funcscan/modules/nf-core/amrfinderplus/run/environment.yml`).
+
+```bash
+conda create -n amrfinderplus -c bioconda ncbi-amrfinderplus=3.12.8
+conda activate amrfinderplus
+```
+
+2. Run `amrfinder --update`, which will download the latest version of the AMRFinderPlus database to the default location (location of the AMRFinderPlus binaries/data).
+   It creates a directory in the format YYYY-MM-DD.version (e.g., `<installation>/<path>/data/2024-01-31.1/`).
 
 <details markdown="1">
 <summary>AMR related files in the database folder</summary>
@@ -307,6 +341,12 @@ nf-core/funcscan can download this database for you, however it is very slow and
 You can either:
 
 1. Install DeepARG from [bioconda](https://bioconda.github.io/recipes/deeparg/README.html?highlight=deeparg)
+
+```bash
+conda create -n deeparg -c bioconda deeparg
+conda activate deeparg
+```
+
 2. Run `deeparg download_data -o /<path>/<to>/<database_location>/`
 
 Or download the files directly from
@@ -322,21 +362,51 @@ You can then supply the path to resulting database directory with:
 --arg_deeparg_db '/<path>/<to>/<deeparg>/<db>/'
 ```
 
-The contents of the directory should include directories such as `database`, `moderl`, and files such as `deeparg.gz` etc. in the top level.
+The contents of the directory should include directories such as `database`, `model`, and files such as `deeparg.gz` etc. in the top level.
 
 Note that if you supply your own database that is not downloaded by the pipeline, make sure to also supply `--arg_deeparg_db_version` along
 with the version number so hAMRonization will correctly display the database version in the summary report.
 
 :::info
-The flag `--save_db` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+The flag `--save_db` saves the pipeline-downloaded databases in your results directory.
+You can then move these to a central cache directory of your choice for re-use in the future.
+:::
+
+### MMSeqs2
+
+To download MMSeqs2 databases for taxonomic classification, you can install `mmseqs` via conda:
+
+```bash
+conda create -n mmseqs2 -c bioconda mmseqs2
+conda activate mmseqs2
+```
+
+Then to download the database of your choice
+
+```bash
+mmseqs databases <DATABASE_NAME> <LOCATION_TO_STORE> tmp/
+```
+
+:::info
+You may want to specify a different location for `tmp/`, we just borrowed here from the official `mmseqs` [documentation](https://github.com/soedinglab/mmseqs2/wiki#downloading-databases).
 :::
 
 ### RGI
 
-RGI requires the database CARD which can be downloaded by nf-core/funcscan or supplied by the user manually. To download and supply the database yourself, do:
+RGI requires the database CARD which can be downloaded by nf-core/funcscan or supplied by the user manually.
+To download and supply the database yourself, do:
 
 1. Download [CARD](https://card.mcmaster.ca/latest/data)
-2. Extract the archive.
+
+```bash
+wget https://card.mcmaster.ca/latest/data
+```
+
+2. Extract the (`.tar.bz2`) archive.
+
+```bash
+tar -xjvf data
+```
 
 You can then supply the path to resulting database directory with:
 
@@ -347,7 +417,8 @@ You can then supply the path to resulting database directory with:
 The contents of the directory should include files such as `card.json`, `aro_index.tsv`, `snps.txt` etc. in the top level.
 
 :::info
-The flag `--save_db` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
+The flag `--save_db` saves the pipeline-downloaded databases in your results directory.
+You can then move these to a central cache directory of your choice for re-use in the future.
 :::
 
 ### antiSMASH
@@ -360,8 +431,14 @@ The same applies for the antiSMASH installation directory, which is also a requi
 
 To supply the database directories to the pipeline:
 
-1. Install antiSMASH from [bioconda](https://bioconda.github.io/recipes/antismash-lite/README.html)
-2. Run `download-antismash-databases`
+1. Install antiSMASH from [bioconda](https://bioconda.github.io/recipes/antismash-lite/README.html). To ensure database compatibility, please use the same version as is used in your nf-core/funcscan release (check version in file `<pipeline_installation>/<path>/funcscan/modules/nf-core/antismash/antismashlite/environment.yml`).
+
+```bash
+conda create -n antismash-lite -c bioconda antismash-lite
+conda activate antismash-lite
+```
+
+2. Run the command `download-antismash-databases`. Use `--database-dir` to specify a new location.
 3. You can then supply the paths to the resulting databases and the whole installation directory with:
 
 ```bash
@@ -369,6 +446,7 @@ To supply the database directories to the pipeline:
 --bgc_antismash_installdir '/<path>/<to>/<antismash>/<dir>/antismash'
 ```
 
+Note that the names of the supplied folders must differ from each other (e.g. `antismash_db` and `antismash_dir`).
 The contents of the database directory should include directories such as `as-js/`, `clusterblast/`, `clustercompare/` etc. in the top level.
 The contents of the installation directory should include directories such as `common/` `config/` and files such as `custom_typing.py` `custom_typing.pyi` etc. in the top level.
 
@@ -385,15 +463,20 @@ The flag `--save_db` saves the pipeline-downloaded databases in your results dir
 
 ### DeepBGC
 
-DeepBGC relies on trained models and Pfams to run its analysis. nf-core/funcscan will download these databases for you. If the flag `--save_db` is set, the downloaded files will be stored in the output directory under `databases/deepbgc/`.
+DeepBGC relies on trained models and Pfams to run its analysis.
+nf-core/funcscan will download these databases for you. If the flag `--save_db` is set, the downloaded files will be stored in the output directory under `databases/deepbgc/`.
 
-Alternatively, if you already downloaded the database locally with `deepbgc download`, you can indicate the path to the database folder with:
+Alternatively, you can download the database locally with:
 
 ```bash
---bgc_deepbgc_db <path>/<to>/<deepbgc_db>/
+conda create -n deepbgc -c bioconda deepbgc
+conda activate deepbgc
+export DEEPBGC_DOWNLOADS_DIR=<PREFERRED_CACHE_DIRECTORY>
+deepbgc download
 ```
 
-The contents of the database directory should include directories such as `common`, `0.1.0` in the top level.
+You can then indicate the path to the database folder in the pipeline with `--bgc_deepbgc_db <path>/<to>/<deepbgc_db>/`.
+The contents of the database directory should include directories such as `common`, `0.1.0` in the top level:
 
 ```console
 deepbgc_db/
