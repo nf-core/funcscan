@@ -171,10 +171,10 @@ You can do this by installing via conda and using the dedicated command
 conda create -n bakta -c bioconda bakta
 conda activate bakta
 
-bakta_db download --output <LOCATION_TO_STORE --type <full|light>
+bakta_db download --output <LOCATION_TO_STORE> --type <full|light>
 ```
 
-Alternatively, you can manually download the filesvia the links of which can be found on the [Bakta GitHub repository](https://github.com/oschwengers/bakta#database-download).
+Alternatively, you can manually download the files via the links which can be found on the [Bakta GitHub repository](https://github.com/oschwengers/bakta#database-download).
 
 Once downloaded this must be untarred:
 
@@ -388,7 +388,7 @@ mmseqs databases <DATABASE_NAME> <LOCATION_TO_STORE> tmp/
 ```
 
 :::info
-You may want to specify a different location for `tmp/`, we just borrowed here from the official `mmseqs` [documentation](https://github.com/soedinglab/mmseqs2/wiki#downloading-databases)
+You may want to specify a different location for `tmp/`, we just borrowed here from the official `mmseqs` [documentation](https://github.com/soedinglab/mmseqs2/wiki#downloading-databases).
 :::
 
 ### RGI
@@ -431,14 +431,14 @@ The same applies for the antiSMASH installation directory, which is also a requi
 
 To supply the database directories to the pipeline:
 
-1. Install antiSMASH from [bioconda](https://bioconda.github.io/recipes/antismash-lite/README.html) (To ensure database compatibility, please use the same version as is used in your nf-core/funcscan release - check version in file `<pipeline_installation>/<path>/funcscan/modules/nf-core/amrfinderplus/run/environment.yml`)
+1. Install antiSMASH from [bioconda](https://bioconda.github.io/recipes/antismash-lite/README.html). To ensure database compatibility, please use the same version as is used in your nf-core/funcscan release (check version in file `<pipeline_installation>/<path>/funcscan/modules/nf-core/antismash/antismashlite/environment.yml`).
 
 ```bash
 conda create -n antismash-lite -c bioconda antismash-lite
 conda activate antismash-lite
 ```
 
-2. Run the following command `download-antismash-databases`. Use `--database-dir` to specify a new location.
+2. Run the command `download-antismash-databases`. Use `--database-dir` to specify a new location.
 3. You can then supply the paths to the resulting databases and the whole installation directory with:
 
 ```bash
