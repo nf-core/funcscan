@@ -120,13 +120,15 @@ The implementation of some tools in the pipeline may have some particular behavi
 
 MMseqs2 is currently the only taxonomic classification tool used in the pipeline to assign a taxonomic lineage to the input contigs. The database used to assign the taxonomic lineage can either be:
 
-- a custom based database created by the user using `mmseqs createdb` externally and beforehand. If this flag is assigned, this database takes precedence over the default database in `--mmseqs_db_id`.
+- A custom based database created by the user using `mmseqs createdb` externally and beforehand. If this flag is assigned, this database takes precedence over the default database in `--mmseqs_db_id`.
 
   ```bash
-  --taxa_classification_mmseqs_db 'path/to/mmsesqs_custom_database/dir'
+  --taxa_classification_mmseqs_db '<path>/<to>/<mmsesqs_custom_database>/<directory>'
   ```
 
-- an MMseqs2 ready database. These databases were compiled by the developers of MMseqs2 and can be called using their labels. All available options can be found [here](https://github.com/soedinglab/MMseqs2/wiki#downloading-databases). Only use those databases that have taxonomy files available (i.e., Taxonomy == Yes). By default mmseqs2 in the pipeline uses '[Kalamari](https://github.com/lskatz/Kalamari)', and runs an aminoacid based alignment. However, if the user requires a more comprehensive taxonomic classification, we recommend the use of [GTDB](https://gtdb.ecogenomic.org/), but for that please remember to increase the memory, CPU threads and time required for the process `MMSEQS_TAXONOMY`.
+  The contents of the directory should have files such as `<dbname>.version` and `<dbname>.taxonomy` in the top level.
+
+- An MMseqs2 ready database. These databases were compiled by the developers of MMseqs2 and can be called using their labels. All available options can be found [here](https://github.com/soedinglab/MMseqs2/wiki#downloading-databases). Only use those databases that have taxonomy files available (i.e., Taxonomy == Yes). By default mmseqs2 in the pipeline uses '[Kalamari](https://github.com/lskatz/Kalamari)', and runs an aminoacid based alignment. However, if the user requires a more comprehensive taxonomic classification, we recommend the use of [GTDB](https://gtdb.ecogenomic.org/), but for that please remember to increase the memory, CPU threads and time required for the process `MMSEQS_TAXONOMY`.
 
   ```bash
   --taxa_classification_mmseqs_db_id 'Kalamari'
@@ -183,8 +185,10 @@ tar xvzf db.tar.gz
 And then passed to the pipeline with:
 
 ```bash
---annotation_bakta_db /<path>/<to>/db/
+--annotation_bakta_db /<path>/<to>/<db>/
 ```
+
+The contents of the directory should have files such as `*.dmnd` in the top level.
 
 :::info
 The flag `--save_db` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
@@ -224,8 +228,10 @@ However, the user can also supply their own custom AMP database by following the
 This can then be passed to the pipeline with:
 
 ```bash
---amp_ampcombi_db '/<path>/<to>/<amp_ref_database>
+--amp_ampcombi_db '/<path>/<to>/<ampcombi_database>
 ```
+
+The contents of the directory should have files such as `*.dmnd` and `*.fasta` in the top level.
 
 :::warning
 The pipeline will automatically run Pyrodigal instead of Prodigal if the parameters `--run_annotation_tool prodigal --run_amp_screening` are both provided.
@@ -261,10 +267,15 @@ conda activate abricate
 
 ## Download the bacmet2 database
 abricate-get_db --db bacmet2 ## the logging will tell you where the database is downloaded to, e.g. /home/<user>/bin/miniconda3/envs/abricate/db/bacmet2/sequences
-
-## Run nextflow
-nextflow run nf-core/funcscan -r <version> -profile docker --input samplesheet.csv --outdir <outdir> --run_arg_screening --arg_abricate_db /home/<user>/bin/miniconda3/envs/abricate/db/ --arg_abricate_db_id bacmet2
 ```
+
+The resulting directory and database name can be passed to the pipeline as follows
+
+```bash
+--arg_abricate_db /<path>/<to>/<abricate>/db/ --arg_abricate_db_id bacmet2
+```
+
+The contents of the directory should have a directory named with the database name in the top level (e.g. `bacmet2/`).
 
 ### AMRFinderPlus
 
@@ -273,8 +284,10 @@ AMRFinderPlus relies on NCBI's curated Reference Gene Database and curated colle
 nf-core/funcscan will download this database for you, unless the path to a local version is given with:
 
 ```bash
---arg_amrfinderplus_db '/<path>/<to>/<amrfinderplus_db>/'
+--arg_amrfinderplus_db '/<path>/<to>/<amrfinderplus_db>/latest'
 ```
+
+You must give the `latest` directory to the pipeline, and the contents of the directory should include files such as `*.nbd`, `*.nhr`, `versions.txt` etc. in the top level.
 
 To obtain a local version of the database:
 
@@ -349,7 +362,10 @@ You can then supply the path to resulting database directory with:
 --arg_deeparg_db '/<path>/<to>/<deeparg>/<db>/'
 ```
 
-Note that if you supply your own database that is not downloaded by the pipeline, make sure to also supply `--arg_deeparg_db_version` along with the version number so hAMRonization will correctly display the database version in the summary report.
+The contents of the directory should include directories such as `database`, `model`, and files such as `deeparg.gz` etc. in the top level.
+
+Note that if you supply your own database that is not downloaded by the pipeline, make sure to also supply `--arg_deeparg_db_version` along
+with the version number so hAMRonization will correctly display the database version in the summary report.
 
 :::info
 The flag `--save_db` saves the pipeline-downloaded databases in your results directory.
@@ -398,6 +414,8 @@ You can then supply the path to resulting database directory with:
 --arg_rgi_db '/<path>/<to>/<card>/'
 ```
 
+The contents of the directory should include files such as `card.json`, `aro_index.tsv`, `snps.txt` etc. in the top level.
+
 :::info
 The flag `--save_db` saves the pipeline-downloaded databases in your results directory.
 You can then move these to a central cache directory of your choice for re-use in the future.
@@ -425,18 +443,22 @@ conda activate antismash-lite
 
 ```bash
 --bgc_antismash_db '/<path>/<to>/<antismash>/<db>/'
---bgc_antismash_installdir '/<path>/<to>/<antismash>/<dir>/'
+--bgc_antismash_installdir '/<path>/<to>/<antismash>/<dir>/antismash'
 ```
 
 Note that the names of the supplied folders must differ from each other (e.g. `antismash_db` and `antismash_dir`).
+The contents of the database directory should include directories such as `as-js/`, `clusterblast/`, `clustercompare/` etc. in the top level.
+The contents of the installation directory should include directories such as `common/` `config/` and files such as `custom_typing.py` `custom_typing.pyi` etc. in the top level.
+
+:::info
+If installing with conda, the installation directory will be `lib/python3.10/site-packages/antismash` from the base directory of your conda install or conda environment directory.
+:::
+
+Note that the names of the two required folders must differ from each other (i.e., the `--bgc_antismash_db` directory must not be called `antismash`).
 If they are not provided, the databases will be auto-downloaded upon each BGC screening run of the pipeline.
 
 :::info
 The flag `--save_db` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.
-:::
-
-:::info
-If installing with conda, the installation directory will be `lib/python3.10/site-packages/antismash` from the base directory of your conda install or conda environment directory.
 :::
 
 ### DeepBGC
@@ -444,18 +466,17 @@ If installing with conda, the installation directory will be `lib/python3.10/sit
 DeepBGC relies on trained models and Pfams to run its analysis.
 nf-core/funcscan will download these databases for you. If the flag `--save_db` is set, the downloaded files will be stored in the output directory under `databases/deepbgc/`.
 
-Alternatively, you downloaded the database locally with:
+Alternatively, you can download the database locally with:
 
 ```bash
 conda create -n deepbgc -c bioconda deepbgc
 conda activate deepbgc
 export DEEPBGC_DOWNLOADS_DIR=<PREFERRED_CACHE_DIRECTORY>
 deepbgc download
-
 ```
 
 You can then indicate the path to the database folder in the pipeline with `--bgc_deepbgc_db <path>/<to>/<deepbgc_db>/`.
-The folder has to contain the subfolders as in the database folder downloaded by `deepbgc download`:
+The contents of the database directory should include directories such as `common`, `0.1.0` in the top level:
 
 ```console
 deepbgc_db/

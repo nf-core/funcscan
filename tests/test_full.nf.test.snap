@@ -1,63 +1,63 @@
 {
     "hamronization_summarize": {
         "content": [
-            "hamronization_combined_report.tsv:md5,82a55c4e9699bb7fb97d672742389813"
+            "hamronization_combined_report.tsv:md5,69e71df9685cbd70579ac0030f624ca4"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nextflow": "24.04.1"
         },
-        "timestamp": "2024-07-24T00:54:38.23213575"
+        "timestamp": "2024-08-16T21:42:15.219521746"
     },
     "deeparg": {
         "content": [
-            "ERZ1664501.mapping.ARG:md5,d120b17e12f348a3e06c6b3131a98c1c",
-            "ERZ1664503.mapping.ARG:md5,53dd07b47ce011bd22df3a76c837ffbd",
+            "ERZ1664501.mapping.ARG:md5,a4641ca28291c73f4ce664af575a4811",
+            "ERZ1664503.mapping.ARG:md5,c217c176a55170cf7f342dd6b082bec6",
             "ERZ1664504.mapping.ARG:md5,2f2a6297dc8752766f65f2b3e966158d",
-            "ERZ1664505.mapping.ARG:md5,aa42314a4749dea3d36bbabce8bd7e5a",
-            "ERZ1664506.mapping.ARG:md5,1871484c933ae1d5235fa36d59b2d328",
+            "ERZ1664505.mapping.ARG:md5,be741b562796026b46f649c8fbe6e73d",
+            "ERZ1664506.mapping.ARG:md5,17122078c5b1821ea9d841eb1775e987",
             "ERZ1664507.mapping.ARG:md5,6dbd85abafa0f892c4b557eb8f93b788",
-            "ERZ1664508.mapping.ARG:md5,54342268135802d8a68614141ea4d4f7",
-            "ERZ1664509.mapping.ARG:md5,ec6ebc4e4f84dc7373f51df63536a7a5",
+            "ERZ1664508.mapping.ARG:md5,9a824269207740c926eb7d1ade69cd89",
+            "ERZ1664509.mapping.ARG:md5,fa8ffd39d8405bd167bb1676b5a29db7",
             "ERZ1664510.mapping.ARG:md5,16f2e41c2378645dbbdf9867f9000acf",
-            "ERZ1664511.mapping.ARG:md5,b489dbfc72ca7ee37aecbb079d8c9241",
+            "ERZ1664511.mapping.ARG:md5,7f2bd09ed161162a82c3c10c06bf1ee8",
             "ERZ1664515.mapping.ARG:md5,a4bb295a414b9a26c4e2d032bb25624f",
             "ERZ1664516.mapping.ARG:md5,e3ec14da3e206782e1151593d801015d",
             "ERZ1664517.mapping.ARG:md5,9f22fec9df39231f0a52865ca9245451",
             "ERZ1664518.mapping.ARG:md5,821fd592c54795e2666277e3a2c84169",
-            "ERZ1664520.mapping.ARG:md5,6990cc2d982ee428f42c0109e2ba0bff",
-            "ERZ1664521.mapping.ARG:md5,988d0eb6173e50ea4826ed24691d3faa",
+            "ERZ1664520.mapping.ARG:md5,24942a7fadad6af031c116e8f9ea848e",
+            "ERZ1664521.mapping.ARG:md5,d61ee33f0395ab5dbb6b65f816186d77",
             "ERZ1664523.mapping.ARG:md5,2ba512cfd091a9ab18825cd4d9560a83",
-            "ERZ1664524.mapping.ARG:md5,d025525beba8bdd2f66f4506d584cc14",
-            "ERZ1664528.mapping.ARG:md5,fc7a147f7741d85489002c5f305971a1"
+            "ERZ1664524.mapping.ARG:md5,d3fd9b70a667f37478c901c4ec5c69be",
+            "ERZ1664528.mapping.ARG:md5,1da3f34f173fabe34ff5bc122d9ec7e8"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nextflow": "24.04.1"
         },
-        "timestamp": "2024-07-24T00:54:22.000195146"
+        "timestamp": "2024-08-16T21:42:11.887062467"
     },
     "ampir": {
         "content": [
-            "ERZ1664501.ampir.tsv:md5,c5cd2500f52317b24aac1196dc64adad",
-            "ERZ1664503.ampir.tsv:md5,f644d4340beb83a16ae9bc010dd48cee",
-            "ERZ1664504.ampir.tsv:md5,69664970cb99371d8be354b21eebc0df",
-            "ERZ1664505.ampir.tsv:md5,c4b57cfea1af7197e9bd2cf8378d098a",
-            "ERZ1664506.ampir.tsv:md5,9eddfca6ff0fe1989e316f543b88eca7",
-            "ERZ1664507.ampir.tsv:md5,846a9afa426082044aac0188ae882aa0",
-            "ERZ1664508.ampir.tsv:md5,740ea41ca7c72598ce7d6afb0aaf9613",
-            "ERZ1664509.ampir.tsv:md5,6821002c6c9f7dc021d998a8d418e211",
-            "ERZ1664510.ampir.tsv:md5,54d2fd1029227d8534e61988d4d99f7e",
-            "ERZ1664511.ampir.tsv:md5,553bd20088cfdd666b34b74044a24424",
-            "ERZ1664515.ampir.tsv:md5,fe7e186d1e6aa5e64ff5206d413db815",
-            "ERZ1664516.ampir.tsv:md5,89aac82302df3ff46a6b125398391650",
-            "ERZ1664517.ampir.tsv:md5,8de33575e894545d37968ae3cfc87f72",
-            "ERZ1664518.ampir.tsv:md5,464dabb48ef58da4bc8359e1dc47ee8f",
-            "ERZ1664520.ampir.tsv:md5,44ccd85368921ffb50db035b2bbb571e",
-            "ERZ1664521.ampir.tsv:md5,00adfebd002be166f8594d5643362bcf",
-            "ERZ1664523.ampir.tsv:md5,1c278369c49e99253fdbc6d21b7f851e",
-            "ERZ1664524.ampir.tsv:md5,673638a06306d6c22e1668a5820e38cc",
-            "ERZ1664528.ampir.tsv:md5,639ca9073d9a817a3be224203e09fe47",
+            "ERZ1664501.ampir.tsv:md5,ef78b10c6f4c6a555eb9ef8d93291aad",
+            "ERZ1664503.ampir.tsv:md5,7354b3c583443d9d3cab33ce3cb6327e",
+            "ERZ1664504.ampir.tsv:md5,506a55b7dc97b33b5533febabde8b0cf",
+            "ERZ1664505.ampir.tsv:md5,27f72ca9213aac5b0d857df638db692b",
+            "ERZ1664506.ampir.tsv:md5,1c5df79369a889b136cdef0e89f3f120",
+            "ERZ1664507.ampir.tsv:md5,a44751ce33a3384583dd43795d729245",
+            "ERZ1664508.ampir.tsv:md5,a9267c72360b01116bc61ab360f01ab4",
+            "ERZ1664509.ampir.tsv:md5,c0d8115529d6d8ee4989bd1e9dfe5766",
+            "ERZ1664510.ampir.tsv:md5,2a6d6563be682769a83208fe025ed946",
+            "ERZ1664511.ampir.tsv:md5,b96317516b603ea796d58366693e6b96",
+            "ERZ1664515.ampir.tsv:md5,9fbeb531294e951336e4c91257d44e30",
+            "ERZ1664516.ampir.tsv:md5,44dcbd1371c1fcfe0e98e756d6a74996",
+            "ERZ1664517.ampir.tsv:md5,35a42d7aabc1edef65a0c0f2129530bc",
+            "ERZ1664518.ampir.tsv:md5,c7c9157000642e158b6746c719d65a85",
+            "ERZ1664520.ampir.tsv:md5,62f2e109031048fc593aa525405a19b4",
+            "ERZ1664521.ampir.tsv:md5,91bebaf23d2a63192359178af8ae1d42",
+            "ERZ1664523.ampir.tsv:md5,1e01f9649dc2e9bebd8ce635e051e3df",
+            "ERZ1664524.ampir.tsv:md5,8ea8ca6483c416695ad2307e7a939f8d",
+            "ERZ1664528.ampir.tsv:md5,a239169a2cd41265693442694bb5e329",
             "ERZ1664501.ampir.faa:md5,88d04f76764566e029f1a0eb7481bd50",
             "ERZ1664503.ampir.faa:md5,754b00982b99d20d24ddd2c39e3db060",
             "ERZ1664504.ampir.faa:md5,c6e84c9ee141c097decb89def230a70b",
@@ -80,37 +80,37 @@
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nextflow": "24.04.1"
         },
-        "timestamp": "2024-07-24T00:54:11.315500114"
+        "timestamp": "2024-08-16T21:42:05.572253729"
     },
     "argnorm_amrfinderplus": {
         "content": [
-            "ERZ1664501.normalized.tsv:md5,e5ba7dd3826b1aee7cac90696ba2796d",
-            "ERZ1664503.normalized.tsv:md5,ef01c4d87ee2e9dbf72d6835d2feff28",
-            "ERZ1664504.normalized.tsv:md5,bf9b48377637a1251e0e26bf07e789e6",
-            "ERZ1664505.normalized.tsv:md5,df927003750df1df3f1114dd348c5e96",
-            "ERZ1664506.normalized.tsv:md5,732b93972f54066050f5492840da48f9",
-            "ERZ1664507.normalized.tsv:md5,6aa6f5fc75c435664d725bc0ecd102bd",
-            "ERZ1664508.normalized.tsv:md5,5a87f1180cf1debfd3d8cf9f808857c7",
-            "ERZ1664509.normalized.tsv:md5,331498dc38133d6336e457b56a3cee58",
-            "ERZ1664510.normalized.tsv:md5,1c773ae48cd58f45b53af35fce7458df",
-            "ERZ1664511.normalized.tsv:md5,325ceb08275edcce6a3b24d1edd29453",
-            "ERZ1664515.normalized.tsv:md5,7476f361e2a753aa22cca0fc4c837def",
-            "ERZ1664516.normalized.tsv:md5,9a93c4664d23a9a1bbba177b82b106c1",
-            "ERZ1664517.normalized.tsv:md5,a29b092b7aaf90c342698d8ed7f86b13",
-            "ERZ1664518.normalized.tsv:md5,decbeba1809aa905873892e4c0c7032c",
-            "ERZ1664520.normalized.tsv:md5,7f0b98078e19fcf4b8f2b446ec00eff3",
-            "ERZ1664521.normalized.tsv:md5,725d5aa30f6de86595a4fcaa06d38b2a",
-            "ERZ1664523.normalized.tsv:md5,bcbe12f015733dac4fc6f0c1e73117df",
-            "ERZ1664524.normalized.tsv:md5,28c96b6c2d92e89197430b539c4eb388",
-            "ERZ1664528.normalized.tsv:md5,f9241bd6b04d4e79b09ef67d97243b43"
+            "ERZ1664501.normalized.tsv:md5,ef07ef517f4e73b6cfd4155d14f1a459",
+            "ERZ1664503.normalized.tsv:md5,4a6be3b2878c77c351581283a3c6cb92",
+            "ERZ1664504.normalized.tsv:md5,8e984c4365df778d75e80c2928bad20d",
+            "ERZ1664505.normalized.tsv:md5,cbe3ce3a810cc6c628268617d2924f51",
+            "ERZ1664506.normalized.tsv:md5,14225d75f1af11a6b667d1a80a14e9d4",
+            "ERZ1664507.normalized.tsv:md5,8febe711ddd369571c5dd071d77fdbeb",
+            "ERZ1664508.normalized.tsv:md5,973d098a82e9d67e87a1bd7a2684299a",
+            "ERZ1664509.normalized.tsv:md5,e0a387b6727320a712e204af4776bd79",
+            "ERZ1664510.normalized.tsv:md5,949b8524b11e281d53fa67037a346497",
+            "ERZ1664511.normalized.tsv:md5,810ff27b0c8664f2350ade9e76095574",
+            "ERZ1664515.normalized.tsv:md5,64847a921608f2b37ecfbc324fec1cb1",
+            "ERZ1664516.normalized.tsv:md5,d25d1d43562344b463802dc5dfaccf52",
+            "ERZ1664517.normalized.tsv:md5,4d8e73eccd1001ebc6225167df6a2374",
+            "ERZ1664518.normalized.tsv:md5,f8b744ae41b1d0ba101ae9a228529d05",
+            "ERZ1664520.normalized.tsv:md5,f036a7211ad6df9b874bad4c99c5ddda",
+            "ERZ1664521.normalized.tsv:md5,e41c50f9524dfdde17bf782dfc6c7eea",
+            "ERZ1664523.normalized.tsv:md5,8590e4c5437121a93f527f55125291c5",
+            "ERZ1664524.normalized.tsv:md5,951d29c42bd2890bc1a28d91a3f9bb84",
+            "ERZ1664528.normalized.tsv:md5,52495202c208557c2c9ee0c7b7ef5497"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nextflow": "24.04.1"
         },
-        "timestamp": "2024-07-24T00:54:48.401991887"
+        "timestamp": "2024-08-19T17:43:22.768320462"
     },
     "argnorm_abricate": {
         "content": [
@@ -142,30 +142,30 @@
     },
     "gecco": {
         "content": [
-            "ERZ1664504.220-NODE-220-length-4587-cov-2.552957_cluster_1.gbk:md5,f806ad3df5d8d6d10b0996afaf288ba1",
-            "ERZ1664504.48-NODE-48-length-9582-cov-5.239425_cluster_1.gbk:md5,1909c78bc2f919ad28e7b80d843d31c5",
-            "ERZ1664506.42-NODE-42-length-11967-cov-6.006380_cluster_1.gbk:md5,6284adbf1446fcb4055a2a1a3b8d5daf",
-            "ERZ1664508.3061-NODE-3061-length-1263-cov-3.647351_cluster_1.gbk:md5,a5489abcf3572e84aaadddfaba169df2",
-            "ERZ1664510.123-NODE-123-length-8863-cov-8.649410_cluster_1.gbk:md5,a1c8c9d3b78859f8c0cfd6dfc58d4461",
-            "ERZ1664510.210-NODE-210-length-5173-cov-7.860688_cluster_1.gbk:md5,80c3d7bea1402ce04a531cebc040cdc2",
-            "ERZ1664511.16-NODE-16-length-49668-cov-9.810473_cluster_1.gbk:md5,9fdf8845bb6e7bccce086209254c80e6",
-            "ERZ1664515.9-NODE-9-length-49063-cov-10.926196_cluster_1.gbk:md5,0e03886155dd02c9f031ff767d42ef56",
-            "ERZ1664516.158-NODE-158-length-6232-cov-9.863850_cluster_1.gbk:md5,30e583235f44a0b83f5b190ed5ac0f20",
-            "ERZ1664517.38-NODE-38-length-19981-cov-8.613771_cluster_1.gbk:md5,bdcaa50dc14c58c671ce6e9a006c5ed0",
-            "ERZ1664518.217-NODE-217-length-4457-cov-6.415947_cluster_1.gbk:md5,dac8e33a9203e26eac76c3c02fcacc85",
-            "ERZ1664521.1871-NODE-1871-length-1473-cov-1.858251_cluster_1.gbk:md5,79f4f46c6d617f00128c9dd6871566f9",
-            "ERZ1664521.895-NODE-895-length-1964-cov-2.221058_cluster_1.gbk:md5,0fdd9dca805af50828dafe406aa8606d",
-            "ERZ1664523.16-NODE-16-length-15072-cov-6.654591_cluster_1.gbk:md5,72e21b8ad729f0c49c97c895a42c3cc7",
-            "ERZ1664524.1150-NODE-1150-length-2386-cov-3.450879_cluster_1.gbk:md5,d20be4ec979df18abea8d6273ba66025",
-            "ERZ1664524.54-NODE-54-length-9607-cov-5.345582_cluster_1.gbk:md5,1218bb916133dccde2e6337be87f6cce",
-            "ERZ1664528.138-NODE-138-length-5805-cov-4.599304_cluster_1.gbk:md5,8de600165f90291999bfc9d7047bf838",
-            "ERZ1664528.1641-NODE-1641-length-2049-cov-4.697091_cluster_1.gbk:md5,b86b34eac746aa4e128526b3458887ac"
+            "ERZ1664504.220-NODE-220-length-4587-cov-2.552957_cluster_1.gbk:md5,261a667aef6a1fed0aab0a1e6c4c396f",
+            "ERZ1664504.48-NODE-48-length-9582-cov-5.239425_cluster_1.gbk:md5,1b0d356ed26b09b3c62e7bf06b003c1a",
+            "ERZ1664506.42-NODE-42-length-11967-cov-6.006380_cluster_1.gbk:md5,1c2e2d8033286841b412399039bbfd24",
+            "ERZ1664508.3061-NODE-3061-length-1263-cov-3.647351_cluster_1.gbk:md5,fc75b2afba00fa0c08fc677920c3dab5",
+            "ERZ1664510.123-NODE-123-length-8863-cov-8.649410_cluster_1.gbk:md5,1ebcc9f338bf402483f671b9e641b9f3",
+            "ERZ1664510.210-NODE-210-length-5173-cov-7.860688_cluster_1.gbk:md5,e11a7207dae596faa24f3ccc3bd4078d",
+            "ERZ1664511.16-NODE-16-length-49668-cov-9.810473_cluster_1.gbk:md5,611d4b75a1206df0ced28fb49de5d970",
+            "ERZ1664515.9-NODE-9-length-49063-cov-10.926196_cluster_1.gbk:md5,b4c89821cb6f28be3408e88490d38ae9",
+            "ERZ1664516.158-NODE-158-length-6232-cov-9.863850_cluster_1.gbk:md5,110480bf384c530e7aff3ad42be5e9fd",
+            "ERZ1664517.38-NODE-38-length-19981-cov-8.613771_cluster_1.gbk:md5,e2adfe2599cc481c84ef41167ef0192e",
+            "ERZ1664518.217-NODE-217-length-4457-cov-6.415947_cluster_1.gbk:md5,2c34b0b6e3611bba535afdea3b5d8f5a",
+            "ERZ1664521.1871-NODE-1871-length-1473-cov-1.858251_cluster_1.gbk:md5,9b91e8a5adc522ffa4a5fc47a2fbb570",
+            "ERZ1664521.895-NODE-895-length-1964-cov-2.221058_cluster_1.gbk:md5,f39ce0627a18c84feba727596b5e9b69",
+            "ERZ1664523.16-NODE-16-length-15072-cov-6.654591_cluster_1.gbk:md5,4e1c5e95f7d4c6e1e61a8ceddfa3137e",
+            "ERZ1664524.1150-NODE-1150-length-2386-cov-3.450879_cluster_1.gbk:md5,78b7101cad30b392a7bbf6d9be7c5152",
+            "ERZ1664524.54-NODE-54-length-9607-cov-5.345582_cluster_1.gbk:md5,56a8f6598d928e7514ab2a5ab663f076",
+            "ERZ1664528.138-NODE-138-length-5805-cov-4.599304_cluster_1.gbk:md5,096bf5dc83df18507982bd9b3dc0cf72",
+            "ERZ1664528.1641-NODE-1641-length-2049-cov-4.697091_cluster_1.gbk:md5,c122763612b7cbe1967d98784cb11273"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nextflow": "24.04.1"
         },
-        "timestamp": "2024-07-24T00:55:03.428411261"
+        "timestamp": "2024-08-19T17:43:36.771956416"
     },
     "antismash": {
         "content": [
@@ -197,59 +197,59 @@
     },
     "argnorm_deeparg": {
         "content": [
-            "ERZ1664501.normalized.tsv:md5,9b5e6ed2b401e04d2b1217e04dfc9eac",
-            "ERZ1664503.normalized.tsv:md5,51cbe8f9f6a7d986b020f44ac2f9eb07",
-            "ERZ1664504.normalized.tsv:md5,e9a396c3301588ceae843e60e4dbd60f",
-            "ERZ1664505.normalized.tsv:md5,fb2662f9f2f0179e5d5fe85b83d86051",
-            "ERZ1664506.normalized.tsv:md5,45d6cae38adbe0134f8390f66c0b788c",
-            "ERZ1664507.normalized.tsv:md5,19e545c04f0f3304499baefdcb8ff998",
-            "ERZ1664508.normalized.tsv:md5,11c852b8d65e85d0e7d85904dbb3ea0a",
-            "ERZ1664509.normalized.tsv:md5,09da6cea30007c21dcbe3e4dd555082f",
-            "ERZ1664510.normalized.tsv:md5,8dbc280dbee4028920f003ec3e0fff72",
-            "ERZ1664511.normalized.tsv:md5,236759216c2583778a7861d79324cf11",
-            "ERZ1664515.normalized.tsv:md5,1250b63151b5b45d402c55a55f07696a",
-            "ERZ1664516.normalized.tsv:md5,d3807e4fd62d35aac6eb0e03500ebbdc",
-            "ERZ1664517.normalized.tsv:md5,fc35af88f64e01ac5b811e8a366e933b",
-            "ERZ1664518.normalized.tsv:md5,4803c3f0ed8fa1d1dde7d02fed064a6a",
-            "ERZ1664520.normalized.tsv:md5,aa897ab8540391a484d6c9d1fa8825fd",
-            "ERZ1664521.normalized.tsv:md5,7731d0997da1801863aa4b9c2231a87a",
-            "ERZ1664523.normalized.tsv:md5,f80e86302958d41163e08c8c0109280c",
-            "ERZ1664524.normalized.tsv:md5,c3701f0136ed40d4301b46259d79a151",
-            "ERZ1664528.normalized.tsv:md5,2fdb5e4fc1f7840586a451c088c779ec"
+            "ERZ1664501.ARG.normalized.tsv:md5,b1112b8509e77e01b6810b71c9ab4cd2",
+            "ERZ1664503.ARG.normalized.tsv:md5,b736252e5dafbea27284d73650a1fae2",
+            "ERZ1664504.ARG.normalized.tsv:md5,6e8daa74f53ed59b99e2e281153a2a1b",
+            "ERZ1664505.ARG.normalized.tsv:md5,1ca35eca67e9d8cb61acaf80a0b27425",
+            "ERZ1664506.ARG.normalized.tsv:md5,2bba2c688159baff5b48d7547d330444",
+            "ERZ1664507.ARG.normalized.tsv:md5,63e96001b1ab9a64724f4c3c38c21004",
+            "ERZ1664508.ARG.normalized.tsv:md5,59764d22d08c34e3a5cefd682257b5f6",
+            "ERZ1664509.ARG.normalized.tsv:md5,86730f7950d84ef4a48e2042d92d9abc",
+            "ERZ1664510.ARG.normalized.tsv:md5,361e6f9a96d923f97d685df86492068a",
+            "ERZ1664511.ARG.normalized.tsv:md5,87628e85f45fd91c51c4fa1fe40a4150",
+            "ERZ1664515.ARG.normalized.tsv:md5,4e38fecd8c8ad0242e1b1907072af64b",
+            "ERZ1664516.ARG.normalized.tsv:md5,79ef10afc7673dcc633861d1e5871b24",
+            "ERZ1664517.ARG.normalized.tsv:md5,abed6aef4acab35851fb2e12f276a9e0",
+            "ERZ1664518.ARG.normalized.tsv:md5,6d8c2154cad737d01eceb497ee3482b3",
+            "ERZ1664520.ARG.normalized.tsv:md5,fd60cd7748be9074357033907053a0b0",
+            "ERZ1664521.ARG.normalized.tsv:md5,d4a368c0125cad652e07065516da794b",
+            "ERZ1664523.ARG.normalized.tsv:md5,6473552807041db9b4fd0cd17a81659c",
+            "ERZ1664524.ARG.normalized.tsv:md5,03840f3b0030f196bd890fb1e576d952",
+            "ERZ1664528.ARG.normalized.tsv:md5,473d63c133be0c8d402af3bcf0fbfda9"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nextflow": "24.04.1"
         },
-        "timestamp": "2024-07-24T00:54:41.54962868"
+        "timestamp": "2024-08-19T17:43:22.511288416"
     },
     "macrel": {
         "content": [
-            "ERZ1664501.macrel.prediction.gz:md5,20dc3b7d8b42111f56d47cfbf02a61b0",
-            "ERZ1664503.macrel.prediction.gz:md5,f9604770f6f0c0dd0d673f2d9a54dc45",
+            "ERZ1664501.macrel.prediction.gz:md5,a553cb5d0745a01816c7b9c75822df29",
+            "ERZ1664503.macrel.prediction.gz:md5,3ca2cd9a6d999725b4a487c13ddb7fd9",
             "ERZ1664504.macrel.prediction.gz:md5,52e9c1ec54f486765dea07d97b1c97b7",
-            "ERZ1664505.macrel.prediction.gz:md5,a3551632e05fa673bd75b3d8663e6d05",
+            "ERZ1664505.macrel.prediction.gz:md5,94fa17cce88549aab16555ee598c02bb",
             "ERZ1664506.macrel.prediction.gz:md5,732be08d0236cf63641ef445a02cf1ee",
-            "ERZ1664507.macrel.prediction.gz:md5,841629223f30496a8875eac29e8ead51",
-            "ERZ1664508.macrel.prediction.gz:md5,5a930e35dedf92cf4f6081932f90740d",
-            "ERZ1664509.macrel.prediction.gz:md5,9b152a80d45039a8c20033cf3af11798",
-            "ERZ1664510.macrel.prediction.gz:md5,aaf48021a9ddeba74a7aa1df3004ecff",
+            "ERZ1664507.macrel.prediction.gz:md5,eab2d426cf31a47597e61ddb25bf3d49",
+            "ERZ1664508.macrel.prediction.gz:md5,a0e40483e0136c3bb4abea9c9cba7d4b",
+            "ERZ1664509.macrel.prediction.gz:md5,47ca65c261cf402b390f6951bb1ed9dc",
+            "ERZ1664510.macrel.prediction.gz:md5,3e6ca785e579757616fe515efef1537e",
             "ERZ1664511.macrel.prediction.gz:md5,df36fa0448591690fc6b7ded2517256e",
             "ERZ1664515.macrel.prediction.gz:md5,b896ac50f6ebec1e725cff67bdff8fed",
-            "ERZ1664516.macrel.prediction.gz:md5,d5edd36c57eedd86086d9a1263d064dd",
+            "ERZ1664516.macrel.prediction.gz:md5,5dcbc87c6a44e8783dfe48b6385dfca8",
             "ERZ1664517.macrel.prediction.gz:md5,02373e1b4383dc7501e7e142c9443b7a",
-            "ERZ1664518.macrel.prediction.gz:md5,f1fcc0ba109a9b6ac28704ac3954d6d2",
-            "ERZ1664520.macrel.prediction.gz:md5,850056f716a79694938c0c7a2ebee29b",
-            "ERZ1664521.macrel.prediction.gz:md5,a07785c30e377e1becc87281afa9fac4",
+            "ERZ1664518.macrel.prediction.gz:md5,7290477960af29a76563e8ded5d4a623",
+            "ERZ1664520.macrel.prediction.gz:md5,bdf1a379ee49e34b9a448762e5301926",
+            "ERZ1664521.macrel.prediction.gz:md5,91bd81f6c4e5c8ff4cc684ec04fa0a30",
             "ERZ1664523.macrel.prediction.gz:md5,cee5ae9ba4a8a3879ab245b767815394",
-            "ERZ1664524.macrel.prediction.gz:md5,e470e0fe492ffbb93da822d167216deb",
+            "ERZ1664524.macrel.prediction.gz:md5,73f21254f4e4056a71ebf43851af3698",
             "ERZ1664528.macrel.prediction.gz:md5,2e957f217c570a58ee61d97c690c1424"
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
+            "nextflow": "24.04.1"
         },
-        "timestamp": "2024-07-24T00:54:18.821987885"
+        "timestamp": "2024-08-16T21:42:08.697655199"
     },
     "abricate": {
         "content": [
