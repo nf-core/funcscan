@@ -4,23 +4,25 @@
 
 The output of nf-core/funcscan provides reports for each of the functional groups:
 
-- antibiotic resistance genes (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) – summarised by [hAMRonization](https://github.com/pha4ge/hAMRonization))
-- antimicrobial peptides (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) – summarised by [AMPcombi](https://github.com/Darcy220606/AMPcombi))
-- biosynthetic gene clusters (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org) – summarised by [comBGC](#combgc))
+- **antibiotic resistance genes** (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) – summarised by [hAMRonization](https://github.com/pha4ge/hAMRonization). Results from ABRicate, AMRFinderPlus, and DeepARG are normalised to [ARO](https://obofoundry.org/ontology/aro.html) by [argNorm](https://github.com/BigDataBiology/argNorm).)
+- **antimicrobial peptides** (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) – summarised by [AMPcombi](https://github.com/Darcy220606/AMPcombi))
+- **biosynthetic gene clusters** (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org) – summarised by [comBGC](#combgc))
 
-As a general workflow, we recommend to first look at the summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each result. The tool-specific output directories also includes the output from the functional annotation steps of either [prokka](https://github.com/tseemann/prokka), [pyrodigal](https://github.com/althonos/pyrodigal), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set.
+As a general workflow, we recommend to first look at the summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each result. The tool-specific output directories also includes the output from the functional annotation steps of either [prokka](https://github.com/tseemann/prokka), [pyrodigal](https://github.com/althonos/pyrodigal), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set. Additionally, taxonomic classifications from [MMseqs2](https://github.com/soedinglab/MMseqs2) are saved if the `--taxa_classification_mmseqs_db_savetmp` and `--taxa_classification_mmseqs_taxonomy_savetmp` flags are set.
 
-Similarly, all downloaded databases are saved (i.e. from [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), and/or [AMPcombi](https://github.com/Darcy220606/AMPcombi)) into the output directory `<outdir>/downloads/` if the `--save_databases` flag was set.
+Similarly, all downloaded databases are saved (i.e. from [MMseqs2](https://github.com/soedinglab/MMseqs2), [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [RGI](https://github.com/arpcard/rgi), and/or [AMPcombi](https://github.com/Darcy220606/AMPcombi)) into the output directory `<outdir>/databases/` if the `--save_db` flag was set.
 
 Furthermore, for reproducibility, versions of all software used in the run is presented in a [MultiQC](http://multiqc.info) report.
 
 The directories listed below will be created in the results directory (specified by the `--outdir` flag) after the pipeline has finished. All paths are relative to this top-level output directory. The default directory structure of nf-core/funcscan is:
 
-```console
+```tree
 results/
+├── taxonomic_classification/
+|   └── mmseqs_createtsv/
 ├── annotation/
 |   ├── bakta/
-|   ├── prodigal
+|   ├── prodigal/
 |   ├── prokka/
 |   └── pyrodigal/
 ├── amp/
@@ -33,16 +35,19 @@ results/
 |   ├── amrfinderplus/
 |   ├── deeparg/
 |   ├── fargene/
+|   ├── rgi/
 |   ├── hamronization/
-|   └── rgi/
+|   └── argnorm/
 ├── bgc/
 |   ├── antismash/
 |   ├── deepbgc/
 |   ├── gecco/
 |   └── hmmsearch/
+├── qc/
+|   └── seqkit/
 ├── reports/
 |   ├── ampcombi/
-|   ├── comBGC/
+|   ├── combgc/
 |   └── hamronization_summarize/
 ├── databases/
 ├── multiqc/
@@ -53,6 +58,14 @@ work/
 ## Pipeline overview
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes prokaryotic sequence data through the following steps:
+
+Input contig QC with:
+
+- [SeqKit](https://bioinf.shenwei.me/seqkit/) (default) - for separating into long- and short- categories
+
+Taxonomy classification of nucleotide sequences with:
+
+- [MMseqs2](https://github.com/soedinglab/MMseqs2) (default) - for contig taxonomic classification using 2bLCA.
 
 ORF prediction and annotation with any of:
 
@@ -85,13 +98,31 @@ Biosynthetic Gene Clusters (BGCs):
 
 Output Summaries:
 
-- [AMPcombi](#ampcombi) – summary of antimicrobial peptide gene output from various detection tools.
+- [AMPcombi](#ampcombi) – summary report of antimicrobial peptide gene output from various detection tools.
 - [hAMRonization](#hamronization) – summary of antimicrobial resistance gene output from various detection tools.
+- [argNorm](#argNorm) - Normalize ARG annotations from [ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), and [DeepARG](#deeparg) to the ARO
 - [comBGC](#combgc) – summary of biosynthetic gene cluster output from various detection tools.
 - [MultiQC](#multiqc) – report of all software and versions used in the pipeline.
 - [Pipeline information](#pipeline-information) – report metrics generated during the workflow execution.
 
 ## Tool details
+
+### Taxonomic classification tools
+
+[MMseqs2](#mmseqs2)
+
+#### MMseqs2
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `taxonomic_classification/mmseqs2_createtsv/`
+  - `<samplename>/`:
+    - `*.tsv`: tab-separated table containing the taxonomic lineage of every contig. When a contig cannot be classified according to the database, it is assigned in the 'lineage' column as 'no rank | unclassified'.
+- `reports/<workflow>/<workflow>_complete_summary_taxonomy.tsv.gz`: tab-separated table containing the concatenated results from the <workflow> summary tables along with the taxonomic classification if the parameter `--run_taxa_classification` is called.
+</details>
+
+[MMseqs2](https://github.com/soedinglab/MMseqs2) classifies the taxonomic lineage of contigs based on the last common ancestor. The inferred taxonomic lineages are included in the final workflow summaries to annotate the potential source bacteria of the identified AMPs, ARGs, and/or BGCs.
 
 ### Annotation tools
 
@@ -103,11 +134,11 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `prodigal/`
-  - `<samplename>/`:
-    - `*.gff`: annotation in GFF3 format, containing both sequences and annotations
-    - `*.fna`: nucleotide FASTA file of the input contig sequences
-    - `*.faa`: protein FASTA file of the translated CDS sequences
-    - `*.gbk`: annotation in GBK format, containing both sequences and annotations
+  - `category/`: indicates whether annotation files are of all contigs or `long`-only contigs (BGC subworkflow only)
+    - `<samplename>/`:
+      - `*.fna`: nucleotide FASTA file of the input contig sequences
+      - `*.faa`: protein FASTA file of the translated CDS sequences
+      - `*.gbk`: annotation in GBK format, containing both sequences and annotations
 
 > Descriptions taken from the [Prodigal documentation](https://github.com/hyattpd/prodigal/wiki)
 
@@ -121,10 +152,11 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `pyrodigal/`
-  - `<samplename>/`:
-    - `*.gff`: annotation in GFF3 format, containing both sequences and annotations
-    - `*.fna`: nucleotide FASTA file of the input contig sequences
-    - `*.faa`: protein FASTA file of the translated CDS sequences
+  - `category/`: indicates whether annotation files are of all contigs or `long`-only contigs (BGC subworkflow only)
+    - `<samplename>/`:
+      - `*.gbk`: annotation in GBK format, containing both sequences and annotations
+      - `*.fna`: nucleotide FASTA file of the annotated CDS sequences
+      - `*.faa`: protein FASTA file of the translated CDS sequences
 
 > Descriptions taken from the [Pyrodigal documentation](https://pyrodigal.readthedocs.io/)
 
@@ -138,19 +170,20 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `prokka/`
-  - `<samplename>/`
-    - `*.gff`: annotation in GFF3 format, containing both sequences and annotations
-    - `*.gbk`: standard Genbank file derived from the master .gff
-    - `*.fna`: nucleotide FASTA file of the input contig sequences
-    - `*.faa`: protein FASTA file of the translated CDS sequences
-    - `*.ffn`: nucleotide FASTA file of all the prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
-    - `*.sqn`: an ASN1 format "Sequin" file for submission to Genbank
-    - `*.fsa`: nucleotide FASTA file of the input contig sequences, used by "tbl2asn" to create the .sqn file
-    - `*.tbl`: feature Table file, used by "tbl2asn" to create the .sqn file
-    - `*.err`: unacceptable annotations - the NCBI discrepancy report
-    - `*.log`: logging output that Prokka produced during its run
-    - `*.txt`: statistics relating to the annotated features found
-    - `*.tsv`: tab-separated file of all features
+  - `category/`: indicates whether annotation files are of all contigs or `long`-only contigs (BGC subworkflow only)
+    - `<samplename>/`
+      - `*.gff`: annotation in GFF3 format, containing both sequences and annotations
+      - `*.gbk`: standard Genbank file derived from the master .gff
+      - `*.fna`: nucleotide FASTA file of the input contig sequences
+      - `*.faa`: protein FASTA file of the translated CDS sequences
+      - `*.ffn`: nucleotide FASTA file of all the prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
+      - `*.sqn`: an ASN1 format "Sequin" file for submission to Genbank
+      - `*.fsa`: nucleotide FASTA file of the input contig sequences, used by "tbl2asn" to create the .sqn file
+      - `*.tbl`: feature Table file, used by "tbl2asn" to create the .sqn file
+      - `*.err`: unacceptable annotations - the NCBI discrepancy report
+      - `*.log`: logging output that Prokka produced during its run
+      - `*.txt`: statistics relating to the annotated features found
+      - `*.tsv`: tab-separated file of all features
 
 > Descriptions directly from the [Prokka documentation](https://github.com/tseemann/prokka#output-files)
 
@@ -164,18 +197,20 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `bakta/`
-  - `<samplename>.gff3`: annotations & sequences in GFF3 format
-  - `<samplename>.gbff`: annotations & sequences in (multi) GenBank format
-  - `<samplename>.ffn`: feature nucleotide sequences as FASTA
-  - `<samplename>.fna`: replicon/contig DNA sequences as FASTA
-  - `<samplename>.embl`: annotations & sequences in (multi) EMBL format
-  - `<samplename>.faa`: CDS/sORF amino acid sequences as FASTA
-  - `<samplename>_hypothetical.faa`: further information on hypothetical protein CDS as simple human readble tab separated values
-  - `<samplename>_hypothetical.tsv`: hypothetical protein CDS amino acid sequences as FASTA
-  - `<samplename>.tsv`: annotations as simple human readble TSV
-  - `<samplename>.txt`: summary in TXT format
+  - `category/`: indicates whether annotation files are of all contigs or `long`-only contigs (BGC only)
+    - `<samplename>`
+      - `<samplename>.gff3`: annotations & sequences in GFF3 format
+      - `<samplename>.gbff`: annotations & sequences in (multi) GenBank format
+      - `<samplename>.ffn`: feature nucleotide sequences as FASTA
+      - `<samplename>.fna`: replicon/contig DNA sequences as FASTA
+      - `<samplename>.embl`: annotations & sequences in (multi) EMBL format
+      - `<samplename>.faa`: CDS/sORF amino acid sequences as FASTA
+      - `<samplename>_hypothetical.faa`: further information on hypothetical protein CDS as simple human readble tab separated values
+      - `<samplename>_hypothetical.tsv`: hypothetical protein CDS amino acid sequences as FASTA
+      - `<samplename>.tsv`: annotations as simple human readble TSV
+      - `<samplename>.txt`: summary in TXT format
 
-> Descriptions directly from the [Bakta documentation](https://github.com/oschwengers/bakta#output).
+> Descriptions taken from the [Bakta documentation](https://github.com/oschwengers/bakta#output).
 
 </details>
 
@@ -243,7 +278,7 @@ Output Summaries:
 
 ### ARG detection tools
 
-[ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), [DeepARG](#deeparg), [fARGene](#fargene), [RGI](#rgi)
+[ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), [DeepARG](#deeparg), [fARGene](#fargene), [RGI](#rgi).
 
 #### ABRicate
 
@@ -292,7 +327,7 @@ Output Summaries:
 - `fargene/`
   - `fargene_analysis.log`: logging output that fARGene produced during its run
   - `<sample_name>/`:
-    - `hmmsearchresults/`: output from intermediate hmmsearch step (only if `--arg_fargene_savetmpfiles` supplied)
+    - `hmmsearchresults/`: output from intermediate hmmsearch step
     - `predictedGenes/`:
       - `*-filtered.fasta`: nucleotide sequences of predicted ARGs
       - `*-filtered-peptides.fasta`: amino acid sequences of predicted ARGs
@@ -328,7 +363,22 @@ Output Summaries:
 
 ### BGC detection tools
 
-[antiSMASH](#antismash), [deepBGC](#deepbgc), [GECCO](#gecco), [hmmsearch](#hmmsearch)
+[antiSMASH](#antismash), [deepBGC](#deepbgc), [GECCO](#gecco), [hmmsearch](#hmmsearch).
+
+Note that the BGC tools are run on a set of annotations generated on only long contigs (3000 bp or longer) by default. These specific filtered FASTA files are under `bgc/seqkit/`, and annotations files are under `annotation/<annotation_tool>/long/`, if the corresponding saving flags are specified (see [parameter docs](https://nf-co.re/funcscan/parameters)). However the same annotations _should_ also be annotation files in the sister `all/` directory.
+
+### Input contig QC
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `seqkit/`
+  - `<samplename>_long.fasta`: FASTA file containing contigs equal or longer than the threshold set by `--contig_qc_lengththreshold` used in BGC subworkflow
+  </details>
+
+[SeqKit](https://bioinf.shenwei.me/seqkit/) is a cross-platform and ultrafast toolkit for FASTA/Q file manipulation.
+
+Note that filtered FASTA is only used for BGC workflow for run-time optimisation and biological reasons. All contigs are otherwise screened in ARG/AMP workflows.
 
 #### antiSMASH
 
@@ -395,7 +445,7 @@ Output Summaries:
 
 ### Summary tools
 
-[AMPcombi](#ampcombi), [hAMRonization](#hamronization), [comBGC](#combgc), [MultiQC](#multiqc), [pipeline information](#pipeline-information)
+[AMPcombi](#ampcombi), [hAMRonization](#hamronization), [comBGC](#combgc), [MultiQC](#multiqc), [pipeline information](#pipeline-information), [argNorm](#argnorm).
 
 #### AMPcombi
 
@@ -403,16 +453,19 @@ Output Summaries:
 <summary>Output files</summary>
 
 - `ampcombi/`
-  - `ampcombi_complete_summary.csv.gz`: summarised output from all AMP workflow tools (except hmmer_hmmsearch) in compressed csv format
-  - `ampcombi.log`: a log file generated by ampcombi
-  - `*_ampcombi.csv`: summarised output in csv for each sample
-  - `*_amp.faa*`: fasta file containing the amino acid sequences for all AMP hits for each sample
-  - `*_diamond_matches.txt*`: alignment file generated by DIAMOND for each sample
-
-</details>
-
-<details markdown="1">
-<summary>AMP summary table header descriptions</summary>
+  - `Ampcombi_summary.tsv`: tab-separated table containing the concatenated and filtered results from each AMPcombi summary table. This is the output given when the taxonomic classification is not activated (pipeline default).
+  - `Ampcombi_parse_tables.log`: log file containing the run information from AMPcombi submodule `ampcombi2/parsetables`
+  - `Ampcombi_complete.log`: log file containing the run information from AMPcombi submodule `ampcombi2/complete`
+  - `Ampcombi_summary_cluster.tsv`: tab-separated table containing the clustered AMP hits. This is the output given when the taxonomic classification is not activated (pipeline default).
+  - `Ampcombi_summary_cluster_representative_seq.tsv`: tab-separated table containing the representative sequence of each cluster. This can be used in AMPcombi for constructing 3D structures using ColabFold. For more details on how to do this, please refer to the [AMPcombi documentation](https://github.com/Darcy220606/AMPcombi/blob/main/README.md).
+  - `Ampcombi_cluster.log`: log file containing the run information from AMPcombi submodule `ampcombi2/cluster`
+  - `ampcombi_complete_summary_taxonomy.tsv.gz`: summarised output from all AMP workflow tools with taxonomic assignment in compressed tsv format. This is the same output as `Ampcombi_summary_cluster.tsv` file but with taxonomic classification of the contig.
+  - `<sample>/contig_gbks`: contains all the contigs in gbk format that an AMP was found on using the custom parameters
+  - `<sample>/*_ampcombi.log`: a log file generated by AMPcombi
+  - `<sample>/*_ampcombi.tsv`: summarised output in tsv format for each sample
+  - `<sample>/*_amp.faa*`: fasta file containing the amino acid sequences for all AMP hits for each sample
+  - `<sample>/*_diamond_matches.txt*`: alignment file generated by DIAMOND for each sample
+  <summary>AMP summary table header descriptions</summary>
 
 | Table column              | Description                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -453,19 +506,21 @@ Output Summaries:
 | `Reference`               | Citation of the associated publication if available                                                                                                                                                                                                                                                                                                                                                                                |
 | `Author`                  | Authors' names associated with the publication or who have uploaded the peptide                                                                                                                                                                                                                                                                                                                                                    |
 | `Title`                   | Publication title if available                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `...`                     |                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 
 </details>
 
-[AMPcombi](https://github.com/Darcy220606/AMPcombi) summarizes the results of **antimicrobial peptide (AMP)** prediction tools (AMPIR, AMPLIFY, MACREL, and other non nf-core tools) into a single table and aligns the hits against a reference AMP database for functional and taxonomic classification.
+[AMPcombi](https://github.com/Darcy220606/AMPcombi) summarizes the results of **antimicrobial peptide (AMP)** prediction tools (ampir, AMPlify, Macrel, and other non-nf-core tools) into a single table and aligns the hits against a reference AMP database for functional and taxonomic classification. It assigns the physiochemical properties (e.g. hydrophobicity, molecular weight) using the [Biopython toolkit](https://github.com/biopython/biopython). Additionally, it clusters the resulting AMP hits from all samples using [MMseqs2](https://github.com/soedinglab/MMseqs2). For further filtering for AMPs with signaling peptides, the output file `Ampcombi_summary_cluster.tsv` or `ampcombi_complete_summary_taxonomy.tsv.gz` can be used downstream as detailed [here](https://github.com/Darcy220606/AMPcombi/blob/main/README.md).
 
 #### hAMRonization
 
 <details markdown="1">
 <summary>Output files</summary>
 
-- `hamronization/` one of the following:
+- `hamronization_summarize/` one of the following:
   - `hamronization_combined_report.json`: summarised output in .json format
-  - `hamronization_combined_report.tsv`: summarised output in .tsv format
+  - `hamronization_combined_report.tsv`: summarised output in .tsv format when the taxonomic classification is turned off (pipeline default).
+  - `hamronization_combined_report.tsv.gz`: summarised output in gzipped format when the taxonomic classification is turned on by `--run_taxa_classification`.
   - `hamronization_combined_report.html`: interactive output in .html format
 
 </details>
@@ -515,13 +570,37 @@ Output Summaries:
 
 [hAMRonization](https://github.com/pha4ge/hAMRonization) summarizes the outputs of the **antimicrobial resistance gene** detection tools (ABRicate, AMRFinderPlus, DeepARG, fARGene, RGI) into a single unified tabular format. It supports a variety of summary options including an interactive summary.
 
+#### argNorm
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `normalized/`
+  - `*.{tsv}`: search results in tabular format
+  </details>
+  <details markdown="1">
+  <summary>ARG summary table headers</summary>
+
+| Table column                 | Description                                                                      |
+| ---------------------------- | -------------------------------------------------------------------------------- |
+| `ARO`                        | ARO accessions of ARG                                                            |
+| `confers_resistance_to`      | ARO accessions of drugs to which ARGs confer resistance to                       |
+| `resistance_to_drug_classes` | ARO accessions of drugs classes to which drugs in `confers_resistance_to` belong |
+
+</details>
+
+[argnorm](https://github.com/BigDataBiology/argNorm) is a tool to normalize antibiotic resistance genes (ARGs) by mapping them to the antibiotic resistance ontology ([ARO](https://obofoundry.org/ontology/aro.html)) created by the CARD database. argNorm also enhances antibiotic resistance gene annotations by providing categorization of the drugs that antibiotic resistance genes confer resistance to.
+
+argNorm takes the outputs of the [hAMRonization](#hamronization) tool of [ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), and [DeepARG](#deeparg) and normalizes ARGs in the hAMRonization output to the ARO.
+
 #### comBGC
 
 <details markdown="1">
 <summary>Output files</summary>
 
 - `comBGC/`
-  - `combgc_complete_summary.tsv`: summarised output from all BGC detection tools used in tsv format (all samples concatenated).
+  - `combgc_complete_summary.tsv`: summarised output from all BGC detection tools used in tsv format (all samples concatenated). This is the output given when the taxonomic classification is not activated (pipeline default).
+  - `combgc_complete_summary.tsv.gz`: summarised output in gzipped format from all BGC detection tools used in tsv format (all samples concatenated) along with the taxonomic classification obtained when `--run_taxa_classification` is activated.
   - `*/combgc_summary.tsv`: summarised output from all applied BGC detection tools in tsv format for each sample.
 
 </details>

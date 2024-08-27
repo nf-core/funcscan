@@ -3,6 +3,94 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.0.0 - [2024-08]
+
+### `Breaking change`
+
+- [#391](https://github.com/nf-core/funcscan/pull/391) Made all "database" parameter names consistent, skip hmmsearch by default. (by @jasmezz)
+
+| Old parameter                                    | New parameter                           |
+| ------------------------------------------------ | --------------------------------------- |
+| `annotation_bakta_db_localpath`                  | `annotation_bakta_db`                   |
+| `arg_abricate_db`                                | `arg_abricate_db_id`                    |
+| `arg_abricate_localdbdir`                        | `arg_abricate_db`                       |
+| `arg_deeparg_data`                               | `arg_deeparg_db`                        |
+| `arg_deeparg_data_version`                       | `arg_deeparg_db_version`                |
+| `arg_rgi_database`                               | `arg_rgi_db`                            |
+| `bgc_antismash_databases`                        | `bgc_antismash_db`                      |
+| `bgc_antismash_installationdirectory`            | `bgc_antismash_installdir`              |
+| `bgc_deepbgc_database`                           | `bgc_deepbgc_db`                        |
+| `save_databases`                                 | `save_db`                               |
+| `taxa_classification_mmseqs_databases_localpath` | `taxa_classification_mmseqs_db`         |
+| `taxa_classification_mmseqs_databases_id`        | `taxa_classification_mmseqs_db_id`      |
+| `taxa_classification_mmseqs_databases_savetmp`   | `taxa_classification_mmseqs_db_savetmp` |
+| `amp_skip_hmmsearch`                             | `amp_run_hmmsearch`                     |
+| `bgc_skip_hmmsearch`                             | `bgc_run_hmmsearch`                     |
+
+- [#343](https://github.com/nf-core/funcscan/pull/343) Standardized the resulting workflow summary tables to always start with 'sample_id\tcontig_id\t..'. Reformatted the output of `hamronization/summarize` module. (by @darcy220606)
+- [#411](https://github.com/nf-core/funcscan/pull/411) Optimised hAMRonization input: only high-quality hits from fARGene output are reported. (by @jasmezz, @jfy133)
+
+### `Added`
+
+- [#322](https://github.com/nf-core/funcscan/pull/322) Updated all modules: introduce environment.yml files. (by @jasmezz)
+- [#324](https://github.com/nf-core/funcscan/pull/324) Removed separate DeepARG test profile because database download is now stable. (by @jasmezz)
+- [#332](https://github.com/nf-core/funcscan/pull/332) & [#327](https://github.com/nf-core/funcscan/pull/327) Merged pipeline template of nf-core/tools version 2.12.1 (by @jfy133, @jasmezz)
+- [#338](https://github.com/nf-core/funcscan/pull/338) Set `--meta` parameter to default for Bakta, with singlemode optional. (by @jasmezz)
+- [#343](https://github.com/nf-core/funcscan/pull/343) Added contig taxonomic classification using [MMseqs2](https://github.com/soedinglab/MMseqs2/). (by @darcy220606)
+- [#358](https://github.com/nf-core/funcscan/pull/358) Improved RGI databases handling, users can supply their own CARD now. (by @jasmezz)
+- [#375](https://github.com/nf-core/funcscan/pull/375) Merged pipeline template of nf-core/tools version 2.14.1. (by @jfy133)
+- [#381](https://github.com/nf-core/funcscan/pull/381) Added support for supplying pre-annotated sequences to the pipeline. (by @jfy133, @jasmezz)
+- [#382](https://github.com/nf-core/funcscan/pull/382) Optimised BGC screening run time and prevent crashes due to too-short contigs by adding contig length filtering for BGC workflow only. (by @jfy133, @darcy220606)
+- [#366](https://github.com/nf-core/funcscan/pull/366) Added nf-test on pipeline level. (by @jfy133, @Darcy220606, @jasmezz)
+- [#403](https://github.com/nf-core/funcscan/pull/403) Added antiSMASH parameters `--pfam2go`, `--rre`, and `--tfbs`. (reported by @Darcy220606, added by @jasmezz)
+- [#405](https://github.com/nf-core/funcscan/pull/405) Added argNorm to ARG subworkflow. (by @Vedanth-Ramji)
+
+### `Fixed`
+
+- [#348](https://github.com/nf-core/funcscan/pull/348) Updated samplesheet for pipeline tests to 'samplesheet_reduced.csv' with smaller datasets to reduce resource consumption. Updated prodigal module to fix pigz issue. Removed `tests/` from `.gitignore`. (by @darcy220606)
+- [#362](https://github.com/nf-core/funcscan/pull/362) Save annotations from bakta in subdirectories per sample. (by @jasmezz)
+- [#363](https://github.com/nf-core/funcscan/pull/363) Removed warning from DeepBGC usage docs. (by @jasmezz)
+- [#365](https://github.com/nf-core/funcscan/pull/365) Fixed AMRFinderPlus module and usage docs for manual database download. (by @jasmezz)
+- [#371](https://github.com/nf-core/funcscan/pull/371) Fixed AMRFinderPlus parameter `arg_amrfinderplus_name`. (by @m3hdad)
+- [#377](https://github.com/nf-core/funcscan/pull/377) Fixed an occasional RGI process failure when certain files not produced. (❤️ to @amizeranschi for reporting, fix by @amizeranschi & @jfy133)
+- [#386](https://github.com/nf-core/funcscan/pull/386) Updated DeepBGC module to fix output file names, separate annotation step for all BGC tools, add warning if no BGCs found, fix MultiQC reporting of annotation workflow. (by @jfy133, @jasmezz)
+- [#393](https://github.com/nf-core/funcscan/pull/393) & [#397](https://github.com/nf-core/funcscan/pull/397) Fixed a docker/singularity only error appearing when running with conda. (❤️ to @ewissel for reporting, fix by @jfy33 & @jasmezz)
+- [#391](https://github.com/nf-core/funcscan/pull/391) Skip hmmmsearch by default to not crash pipeline if user provides no HMM files, updated docs. (by @jasmezz)
+- [#397](https://github.com/nf-core/funcscan/pull/397) Removed deprecated AMPcombi module, fixed variable name in BGC workflow, updated minor parts in docs (usage, parameter schema). (by @jasmezz)
+- [#402](https://github.com/nf-core/funcscan/pull/402) Fixed BGC length calculation for antiSMASH hits by comBGC. (by @jasmezz)
+- [#406](https://github.com/nf-core/funcscan/pull/406) Fixed prediction tools not being executed if annotation workflow skipped. (by @jasmezz)
+- [#407](https://github.com/nf-core/funcscan/pull/407) Fixed comBGC bug when parsing multiple antiSMASH files. (by @jasmezz)
+- [#409](https://github.com/nf-core/funcscan/pull/409) Fixed argNorm overwriting its output for DeepARG. (by @jasmezz, @jfy133)
+- [#412](https://github.com/nf-core/funcscan/pull/412) Improve all pre-run database download documentation. (by @jfy133)
+
+### `Dependencies`
+
+| Tool          | Previous version | New version |
+| ------------- | ---------------- | ----------- |
+| AMPcombi      | 0.1.7            | 0.2.2       |
+| AMPlify       | 1.1.0            | 2.0.0       |
+| AMRFinderPlus | 3.11.18          | 3.12.8      |
+| antiSMASH     | 6.1.1            | 7.1.0       |
+| argNorm       | NA               | 0.5.0       |
+| bioawk        | 1.0              | NA          |
+| comBGC        | 1.6.1            | 1.6.2       |
+| DeepARG       | 1.0.2            | 1.0.4       |
+| DeepBGC       | 0.1.30           | 0.1.31      |
+| GECCO         | 0.9.8            | 0.9.10      |
+| hAMRonization | 1.1.1            | 1.1.4       |
+| HMMER         | 3.3.2            | 3.4         |
+| MMSeqs        | NA               | 2:15.6f452  |
+| MultiQC       | 1.15             | 1.24        |
+| Pyrodigal     | 2.1.0            | 3.3.0       |
+| RGI           | 5.2.1            | 6.0.3       |
+| seqkit        | NA               | 2.8.1       |
+| tabix/htslib  | 1.11             | 1.20        |
+
+### `Deprecated`
+
+- [#384](https://github.com/nf-core/funcscan/pull/384) Deprecated AMPcombi and exchanged it with full suite of AMPcombi2 submodules. (by @darcy220606)
+- [#382](https://github.com/nf-core/funcscan/pull/382) Optimised BGC screening run time and prevent crashes due to too-short contigs by adding contig length filtering for BGC workflow only. Bioawk is replaced with seqkit. (by @jfy133, @darcy220606)
+
 ## v1.1.6 - [2024-07-08]
 
 ### `Added`
@@ -37,7 +125,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#306](https://github.com/nf-core/funcscan/pull/306) Added new parameter `annotation_prokka_retaincontigheaders` to allow prokka to retain the original contig headers/locus tag. (by @darcy220606)
-- [#307](https://github.com/nf-core/funcscan/pull/307) Fixed stability of deepARG tests by using Zenodo copy of database (❤️ to Gustavo Arango and Liqing Zhang for uploading, fix by @jfy133)
+- [#307](https://github.com/nf-core/funcscan/pull/307) Fixed stability of deepARG tests by using Zenodo copy of database. (❤️ to Gustavo Arango and Liqing Zhang for uploading, fix by @jfy133)
 - [#310](https://github.com/nf-core/funcscan/pull/310) Fixed error when supplying uncompressed input; added "fas" file extension for FASTA files. (by @tavareshugo)
 - [#311](https://github.com/nf-core/funcscan/pull/311) Merged pipeline template of nf-core/tools version 2.10. (by @jasmezz)
 
