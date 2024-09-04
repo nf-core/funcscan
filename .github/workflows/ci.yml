@@ -97,7 +97,7 @@ jobs:
       - name: Zip hamronization results
         if: failure()
         run: |
-          tar czf harmonizationresults.tar.gz .nf-test/tests/*/output/arg/hamronization/
+          tar czf harmonizationresults.tar.gz .nf-test/tests/*/output/reports/hamronization_summarize/hamronization_combined_report.tsv
 
       - name: Upload linting log file artifact HARMIIZATIONFAILURE
         if: ${{ always() }}
