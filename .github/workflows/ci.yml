@@ -94,6 +94,20 @@ jobs:
           sudo apt install bat > /dev/null
           batcat --decorations=always --color=always ${{ github.workspace }}/.nf-test/*/tests/output/pipeline_info/software_versions.yml
 
+      - name: Zip hamronization results
+        if: failure()
+        run: |
+          tar czf harmonizationresults.tar.gz .nf-test/tests/*/output/arg/hamronization/
+
+      - name: Upload linting log file artifact HARMIIZATIONFAILURE
+        if: ${{ always() }}
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4
+        with:
+          name: linting-logs-harmonization
+          path: |
+            .nextflow.log
+            harmonizationresults.tar.gz
+
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v3
         if: always() # always run even if the previous step fails
