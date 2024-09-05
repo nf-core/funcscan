@@ -106,13 +106,13 @@
     },
     "hamronization": {
         "content": [
-            "hamronization_combined_report.tsv:md5,69a16cdf66a817c2ed1a725ecce02d5b"
+            246
         ],
         "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.4"
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
         },
-        "timestamp": "2024-08-13T14:22:38.851885764"
+        "timestamp": "2024-09-05T10:17:06.711064611"
     },
     "abricate": {
         "content": [
