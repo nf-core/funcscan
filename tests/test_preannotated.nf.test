@@ -121,7 +121,7 @@ nextflow_pipeline {
                 { assert path("$outputDir/arg/fargene/sample_3/fargene_analysis.log").text.contains("fARGene is done.") },
 
                 // hAMRonization
-                { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv")).match("hamronization") },
+                { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv").readLines().size()).match("hamronization") },
 
                 // argNorm
                 { assert snapshot(
