@@ -26,13 +26,13 @@
 
   > Feldgarden, M., Brover, V., Gonzalez-Escalona, N., Frye, J. G., Haendiges, J., Haft, D. H., Hoffmann, M., Pettengill, J. B., Prasad, A. B., Tillman, G. E., Tyson, G. H., & Klimke, W. (2021). AMRFinderPlus and the Reference Gene Catalog facilitate examination of the genomic links among antimicrobial resistance, stress response, and virulence. Scientific reports, 11(1), 12728. [DOI: 10.1038/s41598-021-91456-0](https://doi.org/10.1038/s41598-021-91456-0)
 
-- [AntiSMASH](https://doi.org/10.1093/nar/gkab335)
+- [AntiSMASH](https://doi.org/10.1093/nar/gkad344)
 
-  > Blin, K., Shaw, S., Kloosterman, A. M., Charlop-Powers, Z., van Wezel, G. P., Medema, M. H., & Weber, T. (2021). antiSMASH 6.0: improving cluster detection and comparison capabilities. Nucleic acids research, 49(W1), W29–W35. [DOI: 10.1093/nar/gkab335](https://doi.org/10.1093/nar/gkab335)
+  > Blin, K., Shaw, S., Augustijn, H. E., Reitz, Z. L., Biermann, F., Alanjary, M., Fetter, A., Terlouw B. R., Metcalf, W. W., Helfrich, E. J. N., van Wezel, G. P., Medema, M. H., & Weber, T. (2023). antiSMASH 7.0: new and improved predictions for detection, regulation, chemical structures and visualisation. Nucleic acids research, 51(W1), W46–W50. [DOI: 10.1093/nar/gkad344](https://doi.org/10.1093/nar/gkad344)
 
-- [argNorm](https://github.com/BigDataBiology/argNorm)
+- [argNorm](https://doi.org/10.5204/rep.eprints.252448)
 
-  > Perovic, S. U., Ramji, V., Chong, H., Duan, Y., Maguire, F., Coelho, L. P. (2024). BigDataBiology/argNorm. [DOI: 10.5281/zenodo.10963591](https://zenodo.org/doi/10.5281/zenodo.10963591)
+  > Ugarcina Perovic, S., Ramji, V., Chong, H., Duan, Y., Maguire, F., Coelho, L. P. (2024). argNorm: Normalization of antibiotic resistance gene annotations to the Antibiotic Resistance Ontology (ARO).	[Preprint] (Unpublished) [DOI: 10.5204/rep.eprints.252448](https://doi.org/10.5204/rep.eprints.252448)
 
 - [Bakta](https://doi.org/10.1099/mgen.0.000685)
 
@@ -90,7 +90,7 @@
 
   > Larralde, M. (2022). Pyrodigal: Python bindings and interface to Prodigal, an efficient method for gene prediction in prokaryotes. Journal of Open Source Software, 7(72), 4296. [DOI: 10.21105/joss.04296](https://doi.org/10.21105/joss.04296)
 
-- [RGI](https://doi.org/10.1093/nar/gkz935)
+- [RGI](https://doi.org/10.1093/nar/gkac920)
 
   > Alcock, B. P., Huynh, W., Chalil, R., Smith, K. W., Raphenya, A. R., Wlodarski, M. A., Edalatmand, A., Petkau, A., Syed, S. A., Tsang, K. K., Baker, S. J. C., Dave, M., McCarthy, M. C., Mukiri, K. M., Nasir, J. A., Golbon, B., Imtiaz, H., Jiang, X., Kaur, K., Kwong, M., Liang, Z. C., Niu, K. C., Shan, P., Yang, J. Y. J., Gray, K. L., Hoad, G. R., Jia, B., Bhando, T., Carfrae, L. A., Farha, M. A., French, S., Gordzevich, R., Rachwalski, K., Tu, M. M., Bordeleau, E., Dooley, D., Griffiths, E., Zubyk, H. L., Brown, E. D., Maguire, F., Beiko, R. G., Hsiao, W. W. L., Brinkman F. S. L., Van Domselaar, G., McArthur, A. G. (2023). CARD 2023: expanded curation, support for machine learning, and resistome prediction at the Comprehensive Antibiotic Resistance Database. Nucleic acids research, 51(D1):D690-D699. [DOI: 10.1093/nar/gkac920](https://doi.org/10.1093/nar/gkac920)
 
