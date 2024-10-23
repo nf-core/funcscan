@@ -11,23 +11,36 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
-                "meta": ["id"]
+                "meta": ["id"],
+                "unique": true
             },
-            "fastq_1": {
+            "fasta": {
                 "type": "string",
                 "format": "file-path",
                 "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "pattern": "^\\S+\\.(fasta|fas|fna|fa)(\\.gz)?$",
+                "errorMessage": "Fasta file for reads must be provided, cannot contain spaces and must have extension `.fa.gz`, `.fna.gz` or `.fasta.gz`",
+                "unique": true
             },
-            "fastq_2": {
+            "protein": {
                 "type": "string",
                 "format": "file-path",
                 "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "pattern": "^\\S+\\.(faa|fasta)(\\.gz)?$",
+                "errorMessage": "Input file for peptide annotations has incorrect file format. File must end in `.fasta` or `.faa`",
+                "unique": true,
+                "dependentRequired": ["gbk"]
+            },
+            "gbk": {
+                "type": "string",
+                "format": "file-path",
+                "exists": true,
+                "pattern": "^\\S+\\.(gbk|gbff)(\\.gz)?$",
+                "errorMessage": "Input file for feature annotations has incorrect file format. File must end in `.gbk.gz` or `.gbff.gz`",
+                "unique": true,
+                "dependentRequired": ["protein"]
             }
         },
-        "required": ["sample", "fastq_1"]
+        "required": ["sample", "fasta"]
     }
 }

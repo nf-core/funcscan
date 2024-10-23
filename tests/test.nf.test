@@ -1,0 +1,109 @@
+nextflow_pipeline {
+
+    name "Test pipeline: NFCORE_FUNCSCAN"
+    script "main.nf"
+    tag "pipeline"
+    tag "nfcore_funcscan"
+    tag "test"
+
+    test("test_profile") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert new File("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+
+                // AMPir
+                { assert snapshot(
+                    file("$outputDir/amp/ampir/sample_1/sample_1.ampir.tsv").text.contains("NODE_882919_length_258_cov_0.935961_1"),
+                    file("$outputDir/amp/ampir/sample_1/sample_1.ampir.faa").text.contains("NODE_882919_length_258_cov_0.935961_1"),
+                    file("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv").text.contains("NODE_882919_length_258_cov_0.935961_1"),
+                    file("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa").text.contains("NODE_882919_length_258_cov_0.935961_1"),
+                ).match("ampir") },
+
+                // AMPlify
+                { assert snapshot(
+                    file("$outputDir/amp/amplify/sample_1/sample_1.amplify.tsv").text.contains("NODE_882919_length_258_cov_0.935961_1"),
+                    file("$outputDir/amp/amplify/sample_2/sample_2.amplify.tsv").text.contains("NODE_882919_length_258_cov_0.935961_1")
+                ).match("amplify") },
+
+                // HMMsearch
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_1/sample_1_mybacteriocin.hmmer_hmmsearch.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_2/sample_2_mybacteriocin.hmmer_hmmsearch.txt.gz").exists() },
+
+                // Macrel
+                { assert snapshot(
+                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.smorfs.faa.gz"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.smorfs.faa.gz"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.all_orfs.faa.gz"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.all_orfs.faa.gz"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/README.md"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/README.md"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel_log.txt"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel_log.txt")
+                ).match("macrel") },
+
+                // AMPcombi
+                { assert path("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("NODE_515831_length_303_cov_1.532258_1") },
+                { assert snapshot(
+                    path("$outputDir/reports/ampcombi2/Ampcombi_cluster.log"),
+                    path("$outputDir/reports/ampcombi2/Ampcombi_complete.log"),
+                    path("$outputDir/reports/ampcombi2/Ampcombi_parse_tables.log")
+                ).match("ampcombi_logfiles") },
+
+                // DeepARG
+                { assert snapshot(
+                    path("$outputDir/arg/deeparg/sample_1/sample_1.align.daa.tsv"),
+                    path("$outputDir/arg/deeparg/sample_2/sample_2.align.daa.tsv"),
+                    path("$outputDir/arg/deeparg/sample_1/sample_1.mapping.ARG"),
+                    path("$outputDir/arg/deeparg/sample_2/sample_2.mapping.ARG")
+                ).match("deeparg_tsv_ARG") },
+                { assert file("$outputDir/arg/deeparg/sample_1/sample_1.align.daa").name },
+                { assert file("$outputDir/arg/deeparg/sample_2/sample_2.align.daa").name },
+                { assert path("$outputDir/arg/deeparg/sample_1/sample_1.mapping.potential.ARG").text.contains("#ARG") },
+                { assert path("$outputDir/arg/deeparg/sample_2/sample_2.mapping.potential.ARG").text.contains("#ARG") },
+
+                // ABRicate
+                { assert snapshot(
+                    path("$outputDir/arg/abricate/sample_1/sample_1.txt"),
+                    path("$outputDir/arg/abricate/sample_2/sample_2.txt"),
+                ).match("abricate") },
+
+                // AMRFinderPlus
+                { assert snapshot(
+                    path("$outputDir/arg/amrfinderplus/sample_1/sample_1.tsv"),
+                    path("$outputDir/arg/amrfinderplus/sample_2/sample_2.tsv"),
+                ).match("amrfinderplus") },
+
+                // RGI
+                { assert snapshot(
+                    path("$outputDir/arg/rgi/sample_1/sample_1.txt"),
+                    path("$outputDir/arg/rgi/sample_2/sample_2.txt"),
+                ).match("rgi") },
+
+                // fARGene
+                { assert snapshot(
+                    path("$outputDir/arg/fargene/sample_1/class_a/results_summary.txt"),
+                    path("$outputDir/arg/fargene/sample_2/class_a/results_summary.txt"),
+                    path("$outputDir/arg/fargene/sample_1/class_b_1_2/results_summary.txt"),
+                    path("$outputDir/arg/fargene/sample_2/class_b_1_2/results_summary.txt")
+                ).match("fargene")
+                },
+                { assert path("$outputDir/arg/fargene/sample_1/fargene_analysis.log").text.contains("fARGene is done.") },
+                { assert path("$outputDir/arg/fargene/sample_2/fargene_analysis.log").text.contains("fARGene is done.") },
+
+                // hAMRonization
+                { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv")).match("hamronization_summarize") }
+            )
+        }
+    }
+}
