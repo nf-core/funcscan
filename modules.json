@@ -12,7 +12,7 @@
                     },
                     "ampcombi2/cluster": {
                         "branch": "master",
-                        "git_sha": "900f6c970712e41b783e21e5dfc30f052174b5cd",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
                         "installed_by": ["modules"]
                     },
                     "ampcombi2/complete": {
