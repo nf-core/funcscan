@@ -13,6 +13,8 @@ template:
   name: funcscan
   org: nf-core
   outdir: .
-  skip_features: null
+  skip_features:
+    - igenomes
+    - fastqc
   version: 2.1.0dev
 update: null
