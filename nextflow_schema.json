@@ -152,15 +152,15 @@
                     "fa_icon": "fab fa-audible"
                 },
                 "taxa_classification_mmseqs_taxonomy_sensitivity": {
-                    "type": "string",
-                    "default": "5.0",
-                    "help_text": "This flag specifies the speed and sensitivity of the taxonomic search. It stands for how many kmers should be produced during the preliminary seeding stage. A very fast search requires a low value e.g. '1.0' and a a very sensitive search requires e.g. '7.0'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--s`",
+                    "type": "number",
+                    "default": 5.0,
+                    "help_text": "This flag specifies the speed and sensitivity of the taxonomic search. It stands for how many kmers should be produced during the preliminary seeding stage. A very fast search requires a low value e.g. '1.0' and a a very sensitive search requires e.g. '7.0'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `-s`",
                     "description": "Specify the speed and sensitivity for taxonomy assignment.",
                     "fa_icon": "fas fa-history"
                 },
                 "taxa_classification_mmseqs_taxonomy_orffilters": {
-                    "type": "string",
-                    "default": "2.0",
+                    "type": "number",
+                    "default": 2.0,
                     "help_text": "This flag specifies the sensitivity used for prefiltering the query ORF. Before the taxonomy-assigning step, MMseqs2 searches the predicted ORFs against the provided database. This value influences the speed with which the search is carried out. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--orf-filter-s`",
                     "description": "Specify the ORF search sensitivity in the prefilter step.",
                     "fa_icon": "fas fa-history"
@@ -1192,14 +1192,12 @@
                 },
                 "bgc_antismash_pfam2go": {
                     "type": "boolean",
-                    "default": false,
                     "description": "Run Pfam to Gene Ontology mapping module.",
                     "help_text": "This maps the proteins to Pfam database to annotate BGC modules with functional information based on the protein families they contain. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--pfam2go`",
                     "fa_icon": "fas fa-search"
                 },
                 "bgc_antismash_rre": {
                     "type": "boolean",
-                    "default": false,
                     "description": "Run RREFinder precision mode on all RiPP gene clusters.",
                     "help_text": "This enables the prediction of regulatory elements on the BGC that help in the control of protein expression. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--rre`",
                     "fa_icon": "fas fa-search"
@@ -1214,7 +1212,6 @@
                 },
                 "bgc_antismash_tfbs": {
                     "type": "boolean",
-                    "default": false,
                     "description": "Run TFBS finder on all gene clusters.",
                     "help_text": "This enables the prediction of transcription factor binding sites which control the gene expression. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--tfbs`",
                     "fa_icon": "fas fa-search"
