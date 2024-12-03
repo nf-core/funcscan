@@ -1,4 +1,4 @@
-process DRAMP_DOWNLOAD {
+process AMP_DATABASE_DOWNLOAD {
     label 'process_single'
 
     conda "bioconda::ampcombi=2.0.1"
@@ -8,11 +8,10 @@ process DRAMP_DOWNLOAD {
 
     input:
     val database_id
-    val threads
 
     output:
-    path "amp_${database_id}_database" , emit: db
-    path "versions.yml"             , emit: versions
+    path "amp_${database_id}_database"  , emit: db
+    path "versions.yml"                 , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -21,7 +20,7 @@ process DRAMP_DOWNLOAD {
     """
     ampcombi_download.py \\
         --database_id $database_id \\
-        --threads $threads
+        --threads ${task.cpus}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
