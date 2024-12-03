@@ -153,14 +153,14 @@
                 },
                 "taxa_classification_mmseqs_taxonomy_sensitivity": {
                     "type": "number",
-                    "default": 5,
+                    "default": 5.0,
                     "help_text": "This flag specifies the speed and sensitivity of the taxonomic search. It stands for how many kmers should be produced during the preliminary seeding stage. A very fast search requires a low value e.g. '1.0' and a a very sensitive search requires e.g. '7.0'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `-s`",
                     "description": "Specify the speed and sensitivity for taxonomy assignment.",
                     "fa_icon": "fas fa-history"
                 },
                 "taxa_classification_mmseqs_taxonomy_orffilters": {
                     "type": "number",
-                    "default": 2,
+                    "default": 2.0,
                     "help_text": "This flag specifies the sensitivity used for prefiltering the query ORF. Before the taxonomy-assigning step, MMseqs2 searches the predicted ORFs against the provided database. This value influences the speed with which the search is carried out. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--orf-filter-s`",
                     "description": "Specify the ORF search sensitivity in the prefilter step.",
                     "fa_icon": "fas fa-history"
@@ -655,7 +655,7 @@
                 },
                 "amp_ampcombi_parsetables_dbevalue": {
                     "type": "number",
-                    "default": 5,
+                    "default": 5.0,
                     "description": "Remove all DRAMP annotations that have an e-value greater than this value.",
                     "help_text": "This e-value is used as a cut-off for the annotations from the internal Diamond alignment step (against the DRAMP database by default). Any e-value below this value will only remove the DRAMP classification and not the entire hit.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--db_evalue`",
                     "fa_icon": "fas fa-sort-numeric-down"
@@ -726,14 +726,14 @@
             "properties": {
                 "amp_ampcombi_cluster_covmode": {
                     "type": "number",
-                    "default": 0,
+                    "default": 0.0,
                     "description": "MMseqs2 coverage mode.",
                     "help_text": "This assigns the coverage mode to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More details can be found in the [MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_cov_mode`",
                     "fa_icon": "far fa-circle"
                 },
                 "amp_ampcombi_cluster_sensitivity": {
                     "type": "number",
-                    "default": 4,
+                    "default": 4.0,
                     "description": "Remove hits that have no stop codon upstream and downstream of the AMP.",
                     "help_text": "This assigns the sensitivity of alignment to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More information can be obtained in the [MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_sensitivity`",
                     "fa_icon": "fas fa-arrows-alt-h"
@@ -747,7 +747,7 @@
                 },
                 "amp_ampcombi_cluster_mode": {
                     "type": "number",
-                    "default": 1,
+                    "default": 1.0,
                     "description": "MMseqs2 clustering mode.",
                     "help_text": "This assigns the cluster mode to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More information can be obtained in the [MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_mode`",
                     "fa_icon": "fas fa-circle"
@@ -795,7 +795,7 @@
                 },
                 "arg_amrfinderplus_identmin": {
                     "type": "number",
-                    "default": -1,
+                    "default": -1.0,
                     "help_text": "Specify the minimum percentage amino-acid identity to reference protein or nucleotide identity for nucleotide reference must have if a BLAST alignment (based on methods: BLAST or PARTIAL) was detected, otherwise NA.\n\n If you specify `-1`, this means use a curated threshold if it exists and `0.9` otherwise.\n\nSetting this value to something other than `-1` will override any curated similarity cutoffs. For BLAST: alignment is > 90% of length and > 90% identity to a protein in the AMRFinderPlus database. For PARTIAL: alignment is > 50% of length, but < 90% of length and > 90% identity to the reference, and does not end at a contig boundary.\n\nFor more information check the AMRFinderPlus [documentation](https://github.com/ncbi/amr/wiki/Running-AMRFinderPlus#--organism-option).\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--ident_min`",
                     "description": "Minimum percent identity to reference sequence.",
                     "fa_icon": "fas fa-angle-left"
