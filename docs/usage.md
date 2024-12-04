@@ -224,7 +224,7 @@ wget https://github.com/nf-core/funcscan/raw/<PIPELINE_VERSION>/bin/ampcombi_dow
 python3 ampcombi_download.py
 ```
 
-IN addition to [DRAMP](http://dramp.cpu-bioinfor.org/), two more reference databases can be used to classify the recovered AMPs in the AMP workflow; [APD](https://aps.unmc.edu/) and [UniRef100](https://academic.oup.com/bioinformatics/article/23/10/1282/197795). Only one database can be used at a time using `--amp_ampcombi_db database_name`.
+In addition to [DRAMP](http://dramp.cpu-bioinfor.org/), two more reference databases can be used to classify the recovered AMPs in the AMP workflow; [APD](https://aps.unmc.edu/) and [UniRef100](https://academic.oup.com/bioinformatics/article/23/10/1282/197795). Only one database can be used at a time using `--amp_ampcombi_db database_name`.
 
 However, the user can also supply their own custom AMP database by following the guidelines in [AMPcombi](https://ampcombi.readthedocs.io/en/main/).
 This can then be passed to the pipeline with:
@@ -250,7 +250,10 @@ amp_DRAMP_database/
     └── ref_DB.source
 ```
 
-🗒️ **Note**: For both [DRAMP](http://dramp.cpu-bioinfor.org/) and [APD](https://aps.unmc.edu/), AMPcombi removes entries that contains any non amino acid residues by default.
+:::note{.fa-whale}
+For both [DRAMP](http://dramp.cpu-bioinfor.org/) and [APD](https://aps.unmc.edu/), AMPcombi removes entries that contains any non amino acid residues by default.
+:::
+
 
 :::warning
 The pipeline will automatically run Pyrodigal instead of Prodigal if the parameters `--run_annotation_tool prodigal --run_amp_screening` are both provided.

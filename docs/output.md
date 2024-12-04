@@ -443,7 +443,9 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 
 [GECCO](https://gecco.embl.de) is a fast and scalable method for identifying putative novel Biosynthetic Gene Clusters (BGCs) in genomic and metagenomic data using Conditional Random Fields (CRFs).
 
-### Summary too](#ampcombi), [hAMRonization](#hamronization), [comBGC](#combgc), [MultiQC](#multiqc), [pipeline information](#pipeline-information), [argNorm](#argnorm).
+### Summary tools
+
+[AMPcombi](#ampcombi), [hAMRonization](#hamronization), [comBGC](#combgc), [MultiQC](#multiqc), [pipeline information](#pipeline-information), [argNorm](#argnorm).
 
 #### AMPcombi
 
@@ -508,7 +510,7 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 
 </details>
 
-[AMPcombi](https://github.com/Darcy220606/AMPcombi) summarizes the results of **antimicrobial peptide (AMP)** prediction tools (ampir, AMPlify, Macrel, and other non-nf-core tools) into a single table and aligns the hits against a reference AMP database for functional, structural and taxonomic classification using [MMseqs2](https://github.com/soedinglab/MMseqs2). It further assigns the physiochemical properties (e.g. hydrophobicity, molecular weight) using the [Biopython toolkit](https://github.com/biopython/biopython) and clusters the resulting AMP hits from all samples using [MMseqs2](https://github.com/soedinglab/MMseqs2). To further filter the recovered AMPs using the presence of signaling peptides, the output file `Ampcombi_summary_cluster.tsv` or `ampcombi_complete_summary_taxonomy.tsv.gz` can be used downstream as detailed [here](https://ampcombi.readthedocs.io/en/main/usage.html#signal-peptide). The final tables generated may also be visualized and explored using an interactive [user interface](https://ampcombi.readthedocs.io/en/main/visualization.html).
+[AMPcombi](https://github.com/Darcy220606/AMPcombi) summarizes the results of **antimicrobial peptide (AMP)** prediction tools (ampir, AMPlify, Macrel, and other non-nf-core supported tools) into a single table and aligns the hits against a reference AMP database for functional, structural and taxonomic classification using [MMseqs2](https://github.com/soedinglab/MMseqs2). It further assigns the physiochemical properties (e.g. hydrophobicity, molecular weight) using the [Biopython toolkit](https://github.com/biopython/biopython) and clusters the resulting AMP hits from all samples using [MMseqs2](https://github.com/soedinglab/MMseqs2). To further filter the recovered AMPs using the presence of signaling peptides, the output file `Ampcombi_summary_cluster.tsv` or `ampcombi_complete_summary_taxonomy.tsv.gz` can be used downstream as detailed [here](https://ampcombi.readthedocs.io/en/main/usage.html#signal-peptide). The final tables generated may also be visualized and explored using an interactive [user interface](https://ampcombi.readthedocs.io/en/main/visualization.html).
 
 <img src="https://raw.githubusercontent.com/Darcy220606/AMPcombi/main/docs/ampcombi_interface_screenshot2.png" alt="AMPcombi interface" width="650" height="300">
 
