@@ -7,9 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#427](https://github.com/nf-core/funcscan/pull/427) Updated AMPcombi from v0.2.2 to v2.0.1. AMP now can use multiple other databases for classifications. (by @darcy220606)
+
 ### `Fixed`
 
+- [#427](https://github.com/nf-core/funcscan/pull/427) Fixed the AMP reference database issues reported by users, due to non-ASCII characters. (by @darcy220606)
+
 ### `Dependencies`
+
+| Tool          | Previous version | New version |
+| ------------- | ---------------- | ----------- |
+| AMPcombi      | 0.2.2            | 2.0.1       |
 
 ### `Deprecated`
 

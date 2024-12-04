@@ -224,14 +224,35 @@ wget https://github.com/nf-core/funcscan/raw/<PIPELINE_VERSION>/bin/ampcombi_dow
 python3 ampcombi_download.py
 ```
 
-However, the user can also supply their own custom AMP database by following the guidelines in [AMPcombi](https://github.com/Darcy220606/AMPcombi).
+IN addition to [DRAMP](http://dramp.cpu-bioinfor.org/), two more reference databases can be used to classify the recovered AMPs in the AMP workflow; [APD](https://aps.unmc.edu/) and [UniRef100](https://academic.oup.com/bioinformatics/article/23/10/1282/197795). Only one database can be used at a time using `--amp_ampcombi_db database_name`.
+
+However, the user can also supply their own custom AMP database by following the guidelines in [AMPcombi](https://ampcombi.readthedocs.io/en/main/).
 This can then be passed to the pipeline with:
 
 ```bash
---amp_ampcombi_db '/<path>/<to>/<ampcombi_database>
+--amp_ampcombi_db_dir_path '/<path>/<to>/<ampcombi_database>
 ```
 
-The contents of the directory should have files such as `*.dmnd` and `*.fasta` in the top level.
+The contents of the directory should have files such as `*.fasta` and `*.tsv` in the top level; a fasta file and the corresponding table with structural, functional and (if reported) taxonomic classifications. AMPcombi will then generate the corresponding `mmseqs2` directory, in which all binary files are prepared for downstream alignment of the recovered AMPs with [MMseqs2](https://github.com/soedinglab/MMseqs2). These can also be provided by the user by setting up an mmseqs2 compatible database using `mmseqs createdb *.fasta` in a directory called `mmseqs2`. An example file structure for [DRAMP](http://dramp.cpu-bioinfor.org/) used as the reference database:
+
+```bash
+amp_DRAMP_database/
+├── general_amps_2024_11_13.fasta
+├── general_amps_2024_11_13.txt
+└── mmseqs2
+    ├── ref_DB
+    ├── ref_DB.dbtype
+    ├── ref_DB_h
+    ├── ref_DB_h.dbtype
+    ├── ref_DB_h.index
+    ├── ref_DB.index
+    ├── ref_DB.lookup
+    └── ref_DB.source
+```
+
+🗒️ **Note**: For both [DRAMP](http://dramp.cpu-bioinfor.org/) and [APD](https://aps.unmc.edu/), AMPcombi removes entries that contains any non amino acid residues by default.
+
+
 
 :::warning
 The pipeline will automatically run Pyrodigal instead of Prodigal if the parameters `--run_annotation_tool prodigal --run_amp_screening` are both provided.
