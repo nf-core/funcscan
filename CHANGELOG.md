@@ -15,9 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool          | Previous version | New version |
-| ------------- | ---------------- | ----------- |
-| AMPcombi      | 0.2.2            | 2.0.1       |
+| Tool     | Previous version | New version |
+| -------- | ---------------- | ----------- |
+| AMPcombi | 0.2.2            | 2.0.1       |
 
 ### `Deprecated`
 

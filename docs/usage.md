@@ -252,8 +252,6 @@ amp_DRAMP_database/
 
 🗒️ **Note**: For both [DRAMP](http://dramp.cpu-bioinfor.org/) and [APD](https://aps.unmc.edu/), AMPcombi removes entries that contains any non amino acid residues by default.
 
-
-
 :::warning
 The pipeline will automatically run Pyrodigal instead of Prodigal if the parameters `--run_annotation_tool prodigal --run_amp_screening` are both provided.
 This is due to an incompatibility issue of Prodigal's output `.gbk` file with multiple downstream tools.

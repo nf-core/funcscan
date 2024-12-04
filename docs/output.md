@@ -512,7 +512,6 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 
 <img src="https://raw.githubusercontent.com/Darcy220606/AMPcombi/main/docs/ampcombi_interface_screenshot2.png" alt="AMPcombi interface" width="650" height="300">
 
-
 #### hAMRonization
 
 <details markdown="1">
