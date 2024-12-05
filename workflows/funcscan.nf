@@ -20,6 +20,7 @@ include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 include { ANNOTATION                  } from '../subworkflows/local/annotation'
+include { FUNCTION                    } from '../subworkflows/local/function'
 include { AMP                         } from '../subworkflows/local/amp'
 include { ARG                         } from '../subworkflows/local/arg'
 include { BGC                         } from '../subworkflows/local/bgc'
@@ -172,6 +173,19 @@ workflow FUNCSCAN {
         ch_taxonomy_querydb = Channel.empty()
         ch_taxonomy_querydb_taxdb = Channel.empty()
         ch_taxonomy_tsv = Channel.empty()
+    }
+
+    /*
+        FUNCTION
+    */
+    if ( params.run_function_interproscan ) {
+        ch_prepped_input.faas.filter { meta, file ->
+            if (file != [] && file.isEmpty()) {
+                log.warn("[nf-core/funcscan] Annotation of following sample produced an empty FAA file. InterProScan classification of the CDS requiring this file will not be executed: ${meta.id}")
+            }
+            !file.isEmpty()
+        }
+        ch_versions = ch_versions.mix(FUNCTION.out.versions)
     }
 
     /*
