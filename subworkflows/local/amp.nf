@@ -17,10 +17,11 @@ include { MERGE_TAXONOMY_AMPCOMBI                                     } from '..
 
 workflow AMP {
     take:
-    fastas // tuple val(meta), path(contigs)
-    faas   // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
-    tsvs   // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
-    gbks   // tuple val(meta), path(ANNOTATION_ANNOTATION_TOOL.out.gbk)
+    fastas          // tuple val(meta), path(contigs)
+    faas            // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
+    tsvs            // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
+    gbks            // tuple val(meta), path(ANNOTATION_ANNOTATION_TOOL.out.gbk)
+    tsvs_interpro   // tuple val(meta), path(INTERPROSCAN.out.tsv)'
 
     main:
     ch_versions                    = Channel.empty()
@@ -110,8 +111,40 @@ workflow AMP {
             gbk: it[3]
         }
 
+    // INTERPROSCAN INPUT CHECK
+    // Check if tsv_interpro is empty, if not empty update the params.dynamic_extra_ergs and if empty dont update that and continue the commands
+    // dynamik arg
+    ampcombi_parse_optional_args = tsvs_interpro
+        .map { meta, file ->
+            "--interproscan_input ${file}"
+        }
+    // pass dynamik arg
+    ampcombi_parse_optional_args
+        .first()
+        .ifEmpty {} // just silently skip if empty
+        .subscribe { dynamik_arg -> // terminal, consumes value
+           //  log.info "Resolved dynamic argument: ${dynamik_arg}" // only for debugging
+            params.dynamic_extra_args = dynamik_arg
+        }
+    // Pass combined args to ext.args in modules.config
+
     if ( params.amp_ampcombi_db != null ) {
-        AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input,  ch_input_for_ampcombi.faa,  ch_input_for_ampcombi.gbk, params.amp_ampcombi_db )
+        //AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input,  ch_input_for_ampcombi.faa,  ch_input_for_ampcombi.gbk, params.amp_ampcombi_db )
+        //// dynamik arg
+        //ampcombi_parse_optional_args = tsvs_interpro
+        //    .map { meta, file ->
+        //        "--interproscan_input ${file}"
+        //    }
+        //// pass dynamik arg
+        //ampcombi_parse_optional_args
+        //    .first()
+        //    .ifEmpty {} // just silently skip if empty
+        //    .subscribe { dynamik_arg -> // terminal, consumes value
+        //       //  log.info "Resolved dynamic argument: ${dynamik_arg}" // only for debugging
+        //        params.dynamic_extra_args = dynamik_arg
+        //    }
+        // Pass combined args to ext.args in modules.config
+        AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input,  ch_input_for_ampcombi.faa,  ch_input_for_ampcombi.gbk, params.amp_ampcombi_db)
         } else {
             DRAMP_DOWNLOAD()
             ch_versions = ch_versions.mix( DRAMP_DOWNLOAD.out.versions )
