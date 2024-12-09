@@ -35,8 +35,9 @@ include { TAXA_CLASS                  } from '../subworkflows/local/taxa_class'
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { GUNZIP as GUNZIP_INPUT_PREP } from '../modules/nf-core/gunzip/main'
-include { SEQKIT_SEQ                  } from '../modules/nf-core/seqkit/seq/main'
+include { GUNZIP as GUNZIP_INPUT_PREP     } from '../modules/nf-core/gunzip/main'
+include { SEQKIT_SEQ as SEQKIT_SEQ_LENGTH } from '../modules/nf-core/seqkit/seq/main'
+include { SEQKIT_SEQ as SEQKIT_SEQ_FILTER } from '../modules/nf-core/seqkit/seq/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -100,17 +101,17 @@ workflow FUNCSCAN {
     // Duplicate and filter the duplicated file for long contigs only for BGC
     // This is to speed up BGC run and prevent 'no hits found'  fails
     if (params.run_bgc_screening) {
-        SEQKIT_SEQ(ch_intermediate_input.fastas.map { meta, fasta, faa, gbk -> [meta, fasta] })
+        SEQKIT_SEQ_LENGTH(ch_intermediate_input.fastas.map { meta, fasta, faa, gbk -> [meta, fasta] })
         ch_input_for_annotation = ch_intermediate_input.fastas
             .map { meta, fasta, protein, gbk -> [meta, fasta] }
-            .mix(SEQKIT_SEQ.out.fastx.map { meta, fasta -> [meta + [category: 'long'], fasta] })
+            .mix(SEQKIT_SEQ_LENGTH.out.fastx.map { meta, fasta -> [meta + [category: 'long'], fasta] })
             .filter { meta, fasta ->
                 if (fasta != [] && fasta.isEmpty()) {
                     log.warn("[nf-core/funcscan] Sample ${meta.id} does not have contigs longer than ${params.bgc_mincontiglength} bp. Will not be screened for BGCs.")
                 }
                 !fasta.isEmpty()
             }
-        ch_versions = ch_versions.mix(SEQKIT_SEQ.out.versions)
+        ch_versions = ch_versions.mix(SEQKIT_SEQ_LENGTH.out.versions)
     }
     else {
         ch_input_for_annotation = ch_intermediate_input.fastas.map { meta, fasta, protein, gbk -> [meta, fasta] }
@@ -178,14 +179,40 @@ workflow FUNCSCAN {
     /*
         FUNCTION
     */
-    if ( params.run_function_interproscan ) {
-        ch_prepped_input.faas.filter { meta, file ->
+    if (params.run_function_interproscan) {
+        // TODO:: fix this
+        def filtered_faas = ch_prepped_input.faas.filter { meta, file ->
             if (file != [] && file.isEmpty()) {
-                log.warn("[nf-core/funcscan] Annotation of following sample produced an empty FAA file. InterProScan classification of the CDS requiring this file will not be executed: ${meta.id}")
+                log.warn("[nf-core/funcscan] Annotation of the following sample produced an empty FAA file. InterProScan classification of the CDS requiring this file will not be executed: ${meta.id}")
             }
-            !file.isEmpty()
+            !file.isEmpty() // Ensure this is the last statement for implicit return value
         }
+        SEQKIT_SEQ_FILTER(filtered_faas)
+        ch_versions = ch_versions.mix(SEQKIT_SEQ_FILTER.out.versions)
+        ch_input_for_function =  SEQKIT_SEQ_FILTER.out.fastx
+        FUNCTION (
+            ch_input_for_function
+        )
+        //FUNCTION (
+        //    ch_prepped_input.faas.filter { meta, file ->
+        //        if (file != [] && file.isEmpty()) {
+        //            log.warn("[nf-core/funcscan] Annotation of the following sample produced an empty FAA file. InterProScan classification of the CDS requiring this file will not be executed: ${meta.id}")
+        //        }
+        //        !file.isEmpty() // Ensure this is the last statement for implicit return value
+        //    }
+        //    .map { meta, file ->
+        //        SEQKIT_SEQ_FILTER([meta, file])
+        //    }.filter { meta, filtered_file ->
+        //        if (filtered_file.isEmpty()) {
+        //            log.warn("[nf-core/funcscan] SEQKIT_SEQ_FILTER produced an empty FAA file. InterProScan classification of the CDS requiring this file will not be executed: ${meta.id}")
+        //        }
+        //        !filtered_file.isEmpty() // Ensure this is the last statement for implicit return value
+        //    }
+        //)
         ch_versions = ch_versions.mix(FUNCTION.out.versions)
+        ch_interproscan_tsv = FUNCTION.out.tsv
+    } else {
+        ch_interproscan_tsv = Channel.empty()
     }
 
     /*

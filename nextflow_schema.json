@@ -1622,5 +1622,23 @@
         {
             "$ref": "#/$defs/generic_options"
         }
-    ]
+    ],
+    "properties": {
+        "run_function_interproscan": {
+            "type": "boolean"
+        },
+        "function_interproscan_applications": {
+            "type": "string",
+            "default": "Pfam"
+        },
+        "function_interproscan_enableprecalc": {
+            "type": "boolean"
+        },
+        "function_interproscan_enableresidueannot": {
+            "type": "boolean"
+        },
+        "function_interproscan_disableresidueannottsv": {
+            "type": "boolean"
+        }
+    }
 }

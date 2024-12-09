@@ -2,7 +2,8 @@
     RUN FUNCTIONAL CLASSIFICATION
 */
 
-include { INTERPROSCAN  } from '../../modules/nf-core/interproscan/main'
+include { INTERPROSCAN }          from '../../modules/nf-core/interproscan/main'
+include { INTERPROSCAN_DATABASE } from '../../modules/local/interproscan_download'
 
 workflow FUNCTION {
     take:
@@ -11,16 +12,29 @@ workflow FUNCTION {
     main:
     ch_versions                 = Channel.empty()
     ch_interproscan_tsv         = Channel.empty()
+    ch_interproscan_db          = Channel.empty()
 
     ch_faa_for_interproscan     = faas
 
-    INTERPROSCAN( ch_faa_for_interproscan, [] )
+    //TODO: Download DB if not supplied by user
+    if ( params.function_interproscan_db != null ) {
+        ch_interproscan_db = Channel
+            .fromPath( params.function_interproscan_db )
+            .first() // i dont know if this is required
+    } else {
+        INTERPROSCAN_DATABASE ('http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.59-91.0/interproscan-5.59-91.0-64-bit.tar.gz')
+        ch_versions  = ch_versions.mix( INTERPROSCAN_DATABASE.out.versions )
+        ch_interproscan_db = ( INTERPROSCAN_DATABASE.out.db )
+    }
 
+    INTERPROSCAN( ch_faa_for_interproscan, [] ) // change to this: ch_interproscan_db
+    //INTERPROSCAN( ch_faa_for_interproscan, [] ) // change to this: ch_interproscan_db
     ch_interproscan_tsv = ch_interproscan_tsv.mix(INTERPROSCAN.out.tsv)
 
     ch_versions = ch_versions.mix(INTERPROSCAN.out.versions)
 
     emit:
-    versions         = ch_versions
-    interproscan_tsv = ch_interproscan_tsv // channel: [ val(meta), tsv ]
+    versions    = ch_versions
+    tsv         = ch_interproscan_tsv // channel: [ val(meta), tsv ]
+    db          = INTERPROSCAN_DATABASE.out.db
 }
