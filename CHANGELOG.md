@@ -6,10 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## v2.1.0 - [unreleased]
 
 ### `Added`
+- - [#XXX](https://github.com/nf-core/funcscan/pull/XXX) Added InterProScan annotation workflow to the pipeline, which is also integrated in AMPcombi results. (by @darcy220606)
 
 ### `Fixed`
 
 ### `Dependencies`
+
+| Tool          | Previous version | New version |
+| ------------- | ---------------- | ----------- |
+| InterProScan  |        -         | 5.59_91.0   |
 
 ### `Deprecated`
 
