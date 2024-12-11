@@ -9,21 +9,23 @@ process INTERPROSCAN_DATABASE {
         'biocontainers/curl:7.80.0' }"
 
     input:
-    val (database_url)
+    val database_url
 
     output:
-    path("interproscan_db/*")    , emit: db
-    path "versions.yml"          , emit: versions
+    path("interproscan_db/*")   , emit: db
+    path "versions.yml"         , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
 
     script:
     """
-    mkdir interproscan_db/
+    mkdir -p interproscan_db/
 
-    curl -L ${database_url} -o interproscan_db/interproscan-5.59-91.0-64-bit.tar.gz
-    tar -xzf interproscan_db/interproscan-5.59-91.0-64-bit.tar.gz -C interproscan_db/
+    filename=\$(basename ${database_url})
+
+    curl -L ${database_url} -o interproscan_db/\$filename
+    tar -xzf interproscan_db/\$filename -C interproscan_db/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

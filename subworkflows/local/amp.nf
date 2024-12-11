@@ -39,6 +39,7 @@ workflow AMP {
     ch_faa_for_ampir               = faas
     ch_faa_for_ampcombi            = faas
     ch_gbk_for_ampcombi            = gbks
+    ch_interpro_for_ampcombi       = tsvs_interpro
 
     // AMPLIFY
     if ( !params.amp_skip_amplify ) {
@@ -105,51 +106,38 @@ workflow AMP {
         .groupTuple()
         .join( ch_faa_for_ampcombi )
         .join( ch_gbk_for_ampcombi )
+        .join( ch_interpro_for_ampcombi )
         .multiMap{
             input: [ it[0], it[1] ]
             faa: it[2]
             gbk: it[3]
+            interpro: it [4]
         }
 
     // INTERPROSCAN INPUT CHECK
-    // Check if tsv_interpro is empty, if not empty update the params.dynamic_extra_ergs and if empty dont update that and continue the commands
-    // dynamik arg
-    ampcombi_parse_optional_args = tsvs_interpro
-        .map { meta, file ->
-            "--interproscan_input ${file}"
-        }
-    // pass dynamik arg
-    ampcombi_parse_optional_args
-        .first()
-        .ifEmpty {} // just silently skip if empty
-        .subscribe { dynamik_arg -> // terminal, consumes value
-           //  log.info "Resolved dynamic argument: ${dynamik_arg}" // only for debugging
-            params.dynamic_extra_args = dynamik_arg
-        }
-    // Pass combined args to ext.args in modules.config
+    // // Check if tsv_interpro is empty, if not empty update the params.dynamic_extra_ergs and if empty dont update that and continue the commands
+    // // dynamik arg
+    // ampcombi_parse_optional_args = tsvs_interpro
+    //     .map { meta, file ->
+    //         "--interproscan_input ${file}"
+    //     }
+    // // pass dynamik arg
+    // ampcombi_parse_optional_args
+    //     .first()
+    //     .ifEmpty {} // just silently skip if empty
+    //     .subscribe { dynamik_arg -> // terminal, consumes value
+    //        //  log.info "Resolved dynamic argument: ${dynamik_arg}" // only for debugging
+    //         params.dynamic_extra_args = dynamik_arg
+    //     }
+    // // Pass combined args to ext.args in modules.config
 
     if ( params.amp_ampcombi_db != null ) {
-        //AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input,  ch_input_for_ampcombi.faa,  ch_input_for_ampcombi.gbk, params.amp_ampcombi_db )
-        //// dynamik arg
-        //ampcombi_parse_optional_args = tsvs_interpro
-        //    .map { meta, file ->
-        //        "--interproscan_input ${file}"
-        //    }
-        //// pass dynamik arg
-        //ampcombi_parse_optional_args
-        //    .first()
-        //    .ifEmpty {} // just silently skip if empty
-        //    .subscribe { dynamik_arg -> // terminal, consumes value
-        //       //  log.info "Resolved dynamic argument: ${dynamik_arg}" // only for debugging
-        //        params.dynamic_extra_args = dynamik_arg
-        //    }
-        // Pass combined args to ext.args in modules.config
-        AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input,  ch_input_for_ampcombi.faa,  ch_input_for_ampcombi.gbk, params.amp_ampcombi_db)
+        AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input,  ch_input_for_ampcombi.faa,  ch_input_for_ampcombi.gbk, params.amp_ampcombi_db, ch_input_for_ampcombi.interpro )
         } else {
             DRAMP_DOWNLOAD()
             ch_versions = ch_versions.mix( DRAMP_DOWNLOAD.out.versions )
             ch_ampcombi_input_db = DRAMP_DOWNLOAD.out.db
-            AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_input_for_ampcombi.gbk, ch_ampcombi_input_db )
+            AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_input_for_ampcombi.gbk, ch_ampcombi_input_db, ch_input_for_ampcombi.interpro )
         }
     ch_versions = ch_versions.mix( AMPCOMBI2_PARSETABLES.out.versions )
 

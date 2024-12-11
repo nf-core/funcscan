@@ -21,8 +21,7 @@ workflow FUNCTION {
             .fromPath( params.function_interproscan_db )
             .first() // i dont know if this is required!!!?
     } else {
-        // NOTE: when url is changed here also change in 'funcscan/modules/local/interproscan_download.nf'
-        INTERPROSCAN_DATABASE ('http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.59-91.0/interproscan-5.59-91.0-64-bit.tar.gz') //change to the newest version tested with AMP: http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.67-99.0/interproscan-5.67-99.0-64-bit.tar.gz
+        INTERPROSCAN_DATABASE ( params.function_interproscan_db_url )
         ch_versions  = ch_versions.mix( INTERPROSCAN_DATABASE.out.versions )
         ch_interproscan_db = ( INTERPROSCAN_DATABASE.out.db )
     }
