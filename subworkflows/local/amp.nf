@@ -111,13 +111,13 @@ workflow AMP {
         }
 
     if ( params.amp_ampcombi_db != null ) {
-        ch_ampcombi_input_db = Channel.of( file(params.amp_ampcombi_db) )
+        AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_input_for_ampcombi.gbk, params.amp_ampcombi_db_id, params.amp_ampcombi_db, [] )
     } else {
         AMP_DATABASE_DOWNLOAD( params.amp_ampcombi_db_id )
         ch_versions = ch_versions.mix( AMP_DATABASE_DOWNLOAD.out.versions )
         ch_ampcombi_input_db = AMP_DATABASE_DOWNLOAD.out.db
+        AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_input_for_ampcombi.gbk, params.amp_ampcombi_db_id, ch_ampcombi_input_db, [] )
     }
-    AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_input_for_ampcombi.gbk, params.amp_ampcombi_db_id, ch_ampcombi_input_db )
     ch_versions = ch_versions.mix( AMPCOMBI2_PARSETABLES.out.versions )
 
     ch_ampcombi_summaries = AMPCOMBI2_PARSETABLES.out.tsv.map{ it[1] }.collect()
