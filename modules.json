@@ -192,7 +192,7 @@
                     },
                     "rgi/main": {
                         "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "git_sha": "41623bcb962bd02d1a45ad81c1853547ebd26f5f",
                         "installed_by": ["modules"]
                     },
                     "seqkit/seq": {
