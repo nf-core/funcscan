@@ -7,9 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#421](https://github.com/nf-core/funcscan/pull/421) Updated to nf-core template 3.0.2 (by @jfy133)
+
 ### `Fixed`
 
 ### `Dependencies`
+
+| Tool     | Previous version | New version |
+| -------- | ---------------- | ----------- |
+| AMPcombi | 0.2.2            | 2.0.1       |
+| Macrel   | 1.2.0            | 1.4.0       |
+| MultiQC  | 1.24.0           | 1.25.1      |
 
 ### `Deprecated`
 
