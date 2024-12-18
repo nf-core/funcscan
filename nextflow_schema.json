@@ -1,10 +1,10 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/funcscan/master/nextflow_schema.json",
     "title": "nf-core/funcscan pipeline parameters",
     "description": "Pipeline for screening for functional components of assembled contigs",
     "type": "object",
-    "definitions": {
+    "$defs": {
         "input_output_options": {
             "title": "Input/output options",
             "type": "object",
@@ -152,15 +152,15 @@
                     "fa_icon": "fab fa-audible"
                 },
                 "taxa_classification_mmseqs_taxonomy_sensitivity": {
-                    "type": "string",
-                    "default": "5.0",
-                    "help_text": "This flag specifies the speed and sensitivity of the taxonomic search. It stands for how many kmers should be produced during the preliminary seeding stage. A very fast search requires a low value e.g. '1.0' and a a very sensitive search requires e.g. '7.0'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--s`",
+                    "type": "number",
+                    "default": 5.0,
+                    "help_text": "This flag specifies the speed and sensitivity of the taxonomic search. It stands for how many kmers should be produced during the preliminary seeding stage. A very fast search requires a low value e.g. '1.0' and a a very sensitive search requires e.g. '7.0'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `-s`",
                     "description": "Specify the speed and sensitivity for taxonomy assignment.",
                     "fa_icon": "fas fa-history"
                 },
                 "taxa_classification_mmseqs_taxonomy_orffilters": {
-                    "type": "string",
-                    "default": "2.0",
+                    "type": "number",
+                    "default": 2.0,
                     "help_text": "This flag specifies the sensitivity used for prefiltering the query ORF. Before the taxonomy-assigning step, MMseqs2 searches the predicted ORFs against the provided database. This value influences the speed with which the search is carried out. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--orf-filter-s`",
                     "description": "Specify the ORF search sensitivity in the prefilter step.",
                     "fa_icon": "fas fa-history"
@@ -626,11 +626,18 @@
             "description": "Antimicrobial peptides parsing, filtering, and annotating submodule of AMPcombi2. More info: https://github.com/Darcy220606/AMPcombi",
             "default": "",
             "properties": {
+                "amp_ampcombi_db_id": {
+                    "type": "string",
+                    "description": "The name of the database used to classify the AMPs.",
+                    "help_text": "AMPcombi can use three different AMP databases to classify the recovered AMPS. These can either be: \n\n- [DRAMP database](http://dramp.cpu-bioinfor.org/downloads/): Only general AMPs are downloaded and filtered to remove any entry that has an instance of non amino acid residues in their sequence.\n\n- [APD](https://aps.unmc.edu/): Only experimentally validated AMPs are present.\n\n- [UniRef100](https://academic.oup.com/bioinformatics/article/23/10/1282/197795): Combines a more general protein dataset including curated and non curated AMPs. Helpful for identifying the clusters to remove any potential false positives. Beware: If the thresholds are for ampcombi are not strict enough, alignment with this database can take a long time. \n\nBy default this is set to 'DRAMP'. Other valid options include 'APD' or 'UniRef100'.\n\nFor more information check the AMPcombi [documentation](https://ampcombi.readthedocs.io/en/main/usage.html#parse-tables).",
+                    "fa_icon": "fas fa-address-book",
+                    "default": "DRAMP",
+                    "enum": ["DRAMP", "APD", "UniRef100"]
+                },
                 "amp_ampcombi_db": {
                     "type": "string",
-                    "description": "Path to AMPcombi reference database directory (DRAMP).",
-                    "help_text": "AMPcombi uses the 'general AMPs' dataset of the [DRAMP database](http://dramp.cpu-bioinfor.org/downloads/) for taxonomic classification. If you have a local version of it, you can provide the path to the directory(!) that contains the following reference database files:\n1. fasta file with `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nThe contents of the directory should have files such as `*.dmnd` and `*.fasta` in the top level.\n\nFor more information check the AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).",
-                    "fa_icon": "fas fa-address-book"
+                    "description": "The path to the folder containing the reference database files.",
+                    "help_text": "The path to the folder containing the reference database files (`*.fasta` and `*.tsv`); a fasta file and the corresponding table with structural, functional and if reported taxonomic classifications. AMPcombi will then generate the corresponding `mmseqs2` directory, in which all binary files are prepared for the downstream alignment of teh recovered AMPs with [MMseqs2](https://github.com/soedinglab/MMseqs2). These can also be provided by the user by setting up an mmseqs2 compatible database using `mmseqs createdb *.fasta` in a directory called `mmseqs2`.\n\nExample file structure for the reference database supplied by the user:\n\n```bash\namp_DRAMP_database/\n\u251c\u2500\u2500 general_amps_2024_11_13.fasta\n\u251c\u2500\u2500 general_amps_2024_11_13.txt\n\u2514\u2500\u2500 mmseqs2\n    \u251c\u2500\u2500 ref_DB\n    \u251c\u2500\u2500 ref_DB.dbtype\n    \u251c\u2500\u2500 ref_DB_h\n    \u251c\u2500\u2500 ref_DB_h.dbtype\n    \u251c\u2500\u2500 ref_DB_h.index\n    \u251c\u2500\u2500 ref_DB.index\n    \u251c\u2500\u2500 ref_DB.lookup\n    \u2514\u2500\u2500 ref_DB.source\n\nFor more information check the AMPcombi [documentation](https://ampcombi.readthedocs.io/en/main/usage.html#parse-tables)."
                 },
                 "amp_ampcombi_parsetables_cutoff": {
                     "type": "number",
@@ -641,7 +648,7 @@
                 },
                 "amp_ampcombi_parsetables_aalength": {
                     "type": "integer",
-                    "default": 100,
+                    "default": 120,
                     "description": "Filter out all amino acid fragments shorter than this number.",
                     "help_text": "Any AMP hit that does not satisfy this length cut-off will be removed from the final AMPcombi2 summary table.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--aminoacid_length`",
                     "fa_icon": "fas fa-ruler-horizontal"
@@ -1192,14 +1199,12 @@
                 },
                 "bgc_antismash_pfam2go": {
                     "type": "boolean",
-                    "default": false,
                     "description": "Run Pfam to Gene Ontology mapping module.",
                     "help_text": "This maps the proteins to Pfam database to annotate BGC modules with functional information based on the protein families they contain. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--pfam2go`",
                     "fa_icon": "fas fa-search"
                 },
                 "bgc_antismash_rre": {
                     "type": "boolean",
-                    "default": false,
                     "description": "Run RREFinder precision mode on all RiPP gene clusters.",
                     "help_text": "This enables the prediction of regulatory elements on the BGC that help in the control of protein expression. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--rre`",
                     "fa_icon": "fas fa-search"
@@ -1214,7 +1219,6 @@
                 },
                 "bgc_antismash_tfbs": {
                     "type": "boolean",
-                    "default": false,
                     "description": "Run TFBS finder on all gene clusters.",
                     "help_text": "This enables the prediction of transcription factor binding sites which control the gene expression. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--tfbs`",
                     "fa_icon": "fas fa-search"
@@ -1439,41 +1443,6 @@
                 }
             }
         },
-        "max_job_request_options": {
-            "title": "Max job request options",
-            "type": "object",
-            "fa_icon": "fab fa-acquisitions-incorporated",
-            "description": "Set the top limit for requested resources for any single job.",
-            "help_text": "If you are running on a smaller system, a pipeline step requesting more resources than are available may cause the Nextflow to stop the run with an error. These options allow you to cap the maximum resources requested by any single job so that the pipeline will run on your system.\n\nNote that you can not _increase_ the resources requested by any job using these options. For that you will need your own configuration file. See [the nf-core website](https://nf-co.re/usage/configuration) for details.",
-            "properties": {
-                "max_cpus": {
-                    "type": "integer",
-                    "description": "Maximum number of CPUs that can be requested for any single job.",
-                    "default": 16,
-                    "fa_icon": "fas fa-microchip",
-                    "hidden": true,
-                    "help_text": "Use to set an upper-limit for the CPU requirement for each process. Should be an integer e.g. `--max_cpus 1`"
-                },
-                "max_memory": {
-                    "type": "string",
-                    "description": "Maximum amount of memory that can be requested for any single job.",
-                    "default": "128.GB",
-                    "fa_icon": "fas fa-memory",
-                    "pattern": "^\\d+(\\.\\d+)?\\.?\\s*(K|M|G|T)?B$",
-                    "hidden": true,
-                    "help_text": "Use to set an upper-limit for the memory requirement for each process. Should be a string in the format integer-unit e.g. `--max_memory '8.GB'`"
-                },
-                "max_time": {
-                    "type": "string",
-                    "description": "Maximum amount of time that can be requested for any single job.",
-                    "default": "240.h",
-                    "fa_icon": "far fa-clock",
-                    "pattern": "^(\\d+\\.?\\s*(s|m|h|d|day)\\s*)+$",
-                    "hidden": true,
-                    "help_text": "Use to set an upper-limit for the time requirement for each process. Should be a string in the format integer-unit e.g. `--max_time '2.h'`"
-                }
-            }
-        },
         "generic_options": {
             "title": "Generic options",
             "type": "object",
@@ -1481,12 +1450,6 @@
             "description": "Less common options for the pipeline, typically set in a config file.",
             "help_text": "These options are common to all nf-core pipelines and allow you to customise some of the core preferences for how the pipeline runs.\n\nTypically these options would be set in a Nextflow config file loaded for all pipeline runs, such as `~/.nextflow/config`.",
             "properties": {
-                "help": {
-                    "type": "boolean",
-                    "description": "Display help text.",
-                    "fa_icon": "fas fa-question-circle",
-                    "hidden": true
-                },
                 "version": {
                     "type": "boolean",
                     "description": "Display version and exit.",
@@ -1562,27 +1525,6 @@
                     "fa_icon": "fas fa-check-square",
                     "hidden": true
                 },
-                "validationShowHiddenParams": {
-                    "type": "boolean",
-                    "fa_icon": "far fa-eye-slash",
-                    "description": "Show all params when using `--help`",
-                    "hidden": true,
-                    "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters."
-                },
-                "validationFailUnrecognisedParams": {
-                    "type": "boolean",
-                    "fa_icon": "far fa-check-circle",
-                    "description": "Validation of parameters fails when an unrecognised parameter is found.",
-                    "hidden": true,
-                    "help_text": "By default, when an unrecognised parameter is found, it returns a warinig."
-                },
-                "validationLenientMode": {
-                    "type": "boolean",
-                    "fa_icon": "far fa-check-circle",
-                    "description": "Validation of parameters in lenient more.",
-                    "hidden": true,
-                    "help_text": "Allows string values that are parseable as numbers or booleans. For further information see [JSONSchema docs](https://github.com/everit-org/json-schema#lenient-mode)."
-                },
                 "pipelines_testdata_base_path": {
                     "type": "string",
                     "fa_icon": "far fa-check-circle",
@@ -1595,100 +1537,97 @@
     },
     "allOf": [
         {
-            "$ref": "#/definitions/input_output_options"
+            "$ref": "#/$defs/input_output_options"
         },
         {
-            "$ref": "#/definitions/screening_type_activation"
+            "$ref": "#/$defs/screening_type_activation"
         },
         {
-            "$ref": "#/definitions/taxonomic_classification_general_options"
+            "$ref": "#/$defs/taxonomic_classification_general_options"
         },
         {
-            "$ref": "#/definitions/taxonomic_classification_mmseqs2_databases"
+            "$ref": "#/$defs/taxonomic_classification_mmseqs2_databases"
         },
         {
-            "$ref": "#/definitions/taxonomic_classification_mmseqs2_taxonomy"
+            "$ref": "#/$defs/taxonomic_classification_mmseqs2_taxonomy"
         },
         {
-            "$ref": "#/definitions/annotation_general_options"
+            "$ref": "#/$defs/annotation_general_options"
         },
         {
-            "$ref": "#/definitions/annotation_bakta"
+            "$ref": "#/$defs/annotation_bakta"
         },
         {
-            "$ref": "#/definitions/annotation_prokka"
+            "$ref": "#/$defs/annotation_prokka"
         },
         {
-            "$ref": "#/definitions/annotation_prodigal"
+            "$ref": "#/$defs/annotation_prodigal"
         },
         {
-            "$ref": "#/definitions/annotation_pyrodigal"
+            "$ref": "#/$defs/annotation_pyrodigal"
         },
         {
-            "$ref": "#/definitions/database_downloading_options"
+            "$ref": "#/$defs/database_downloading_options"
         },
         {
-            "$ref": "#/definitions/amp_amplify"
+            "$ref": "#/$defs/amp_amplify"
         },
         {
-            "$ref": "#/definitions/amp_ampir"
+            "$ref": "#/$defs/amp_ampir"
         },
         {
-            "$ref": "#/definitions/amp_hmmsearch"
+            "$ref": "#/$defs/amp_hmmsearch"
         },
         {
-            "$ref": "#/definitions/amp_macrel"
+            "$ref": "#/$defs/amp_macrel"
         },
         {
-            "$ref": "#/definitions/amp_ampcombi2_parsetables"
+            "$ref": "#/$defs/amp_ampcombi2_parsetables"
         },
         {
-            "$ref": "#/definitions/amp_ampcombi2_cluster"
+            "$ref": "#/$defs/amp_ampcombi2_cluster"
         },
         {
-            "$ref": "#/definitions/arg_amrfinderplus"
+            "$ref": "#/$defs/arg_amrfinderplus"
         },
         {
-            "$ref": "#/definitions/arg_deeparg"
+            "$ref": "#/$defs/arg_deeparg"
         },
         {
-            "$ref": "#/definitions/arg_fargene"
+            "$ref": "#/$defs/arg_fargene"
         },
         {
-            "$ref": "#/definitions/arg_rgi"
+            "$ref": "#/$defs/arg_rgi"
         },
         {
-            "$ref": "#/definitions/arg_abricate"
+            "$ref": "#/$defs/arg_abricate"
         },
         {
-            "$ref": "#/definitions/arg_hamronization"
+            "$ref": "#/$defs/arg_hamronization"
         },
         {
-            "$ref": "#/definitions/arg_argnorm"
+            "$ref": "#/$defs/arg_argnorm"
         },
         {
-            "$ref": "#/definitions/bgc_general_options"
+            "$ref": "#/$defs/bgc_general_options"
         },
         {
-            "$ref": "#/definitions/bgc_antismash"
+            "$ref": "#/$defs/bgc_antismash"
         },
         {
-            "$ref": "#/definitions/bgc_deepbgc"
+            "$ref": "#/$defs/bgc_deepbgc"
         },
         {
-            "$ref": "#/definitions/bgc_gecco"
+            "$ref": "#/$defs/bgc_gecco"
         },
         {
-            "$ref": "#/definitions/bgc_hmmsearch"
+            "$ref": "#/$defs/bgc_hmmsearch"
         },
         {
-            "$ref": "#/definitions/institutional_config_options"
+            "$ref": "#/$defs/institutional_config_options"
         },
         {
-            "$ref": "#/definitions/max_job_request_options"
-        },
-        {
-            "$ref": "#/definitions/generic_options"
+            "$ref": "#/$defs/generic_options"
         }
     ]
 }

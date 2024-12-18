@@ -1,22 +1,26 @@
-process DRAMP_DOWNLOAD {
+process AMP_DATABASE_DOWNLOAD {
     label 'process_single'
 
-    conda "bioconda::ampcombi=0.2.2"
+    conda "bioconda::ampcombi=2.0.1"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/ampcombi:0.2.2--pyhdfd78af_0':
-        'biocontainers/ampcombi:0.2.2--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/ampcombi:2.0.1--pyhdfd78af_0':
+        'biocontainers/ampcombi:2.0.1--pyhdfd78af_0' }"
+
+    input:
+    val database_id
 
     output:
-    path "amp_ref_database/"    , emit: db
-    path "versions.yml"         , emit: versions
+    path "amp_${database_id}_database"  , emit: db
+    path "versions.yml"                 , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
 
     script: // This script is bundled with the pipeline, in nf-core/funcscan/bin/
     """
-    mkdir amp_ref_database/
-    ampcombi_download.py
+    ampcombi_download.py \\
+        --database_id $database_id \\
+        --threads ${task.cpus}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

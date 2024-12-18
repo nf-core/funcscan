@@ -32,7 +32,7 @@
 
 - [argNorm](https://doi.org/10.5204/rep.eprints.252448)
 
-  > Ugarcina Perovic, S., Ramji, V., Chong, H., Duan, Y., Maguire, F., Coelho, L. P. (2024). argNorm: Normalization of antibiotic resistance gene annotations to the Antibiotic Resistance Ontology (ARO).	[Preprint] (Unpublished) [DOI: 10.5204/rep.eprints.252448](https://doi.org/10.5204/rep.eprints.252448)
+  > Ugarcina Perovic, S., Ramji, V., Chong, H., Duan, Y., Maguire, F., Coelho, L. P. (2024). argNorm: Normalization of antibiotic resistance gene annotations to the Antibiotic Resistance Ontology (ARO). [Preprint] (Unpublished) [DOI: 10.5204/rep.eprints.252448](https://doi.org/10.5204/rep.eprints.252448)
 
 - [Bakta](https://doi.org/10.1099/mgen.0.000685)
 

@@ -1,4 +1,7 @@
 Changes in module 'nf-core/untar'
+'modules/nf-core/untar/environment.yml' is unchanged
+'modules/nf-core/untar/meta.yml' is unchanged
+Changes in 'untar/main.nf':
 --- modules/nf-core/untar/main.nf
 +++ modules/nf-core/untar/main.nf
 @@ -4,8 +4,8 @@
@@ -13,4 +16,7 @@ Changes in module 'nf-core/untar'
      input:
      tuple val(meta), path(archive)
 
+'modules/nf-core/untar/tests/main.nf.test' is unchanged
+'modules/nf-core/untar/tests/tags.yml' is unchanged
+'modules/nf-core/untar/tests/main.nf.test.snap' is unchanged
 ************************************************************
