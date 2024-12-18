@@ -8,8 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - [#421](https://github.com/nf-core/funcscan/pull/421) Updated to nf-core template 3.0.2 (by @jfy133)
+- [#427](https://github.com/nf-core/funcscan/pull/427) AMPcombi now can use multiple other databases for classifications. (by @darcy220606)
 
 ### `Fixed`
+
+- [#427](https://github.com/nf-core/funcscan/pull/427) Fixed the AMP reference database issues reported by users, due to non-ASCII characters. (by @darcy220606)
 
 ### `Dependencies`
 
