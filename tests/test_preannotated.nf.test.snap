@@ -143,9 +143,9 @@
     },
     "rgi": {
         "content": [
-            "sample_1.txt:md5,dde77ae2dc240ee4717d8d33a92dfb66",
-            "sample_2.txt:md5,0e652d35ef6e9272aa194b55db609e75",
-            "sample_3.txt:md5,dde77ae2dc240ee4717d8d33a92dfb66"
+            "sample_1.txt:md5,ff8f179d06d8566d8cf779fc7d1f4955",
+            "sample_2.txt:md5,cc4ae1fb9e0d5f79ef5105d640c7b748",
+            "sample_3.txt:md5,ff8f179d06d8566d8cf779fc7d1f4955"
         ],
         "meta": {
             "nf-test": "0.9.0",
