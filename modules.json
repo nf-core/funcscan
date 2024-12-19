@@ -32,7 +32,7 @@
                     },
                     "amplify/predict": {
                         "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "git_sha": "ce35ce92566b3328b405253543b9b2b4d4e5f4f7",
                         "installed_by": ["modules"]
                     },
                     "amrfinderplus/run": {
@@ -82,12 +82,12 @@
                     },
                     "deepbgc/download": {
                         "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "git_sha": "ce35ce92566b3328b405253543b9b2b4d4e5f4f7",
                         "installed_by": ["modules"]
                     },
                     "deepbgc/pipeline": {
                         "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "git_sha": "ce35ce92566b3328b405253543b9b2b4d4e5f4f7",
                         "installed_by": ["modules"]
                     },
                     "fargene": {
@@ -102,7 +102,7 @@
                     },
                     "gunzip": {
                         "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "git_sha": "ce35ce92566b3328b405253543b9b2b4d4e5f4f7",
                         "installed_by": ["modules"]
                     },
                     "hamronization/abricate": {
@@ -182,12 +182,12 @@
                     },
                     "pyrodigal": {
                         "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "git_sha": "938e803109104e30773f76a7142442722498fef1",
                         "installed_by": ["modules"]
                     },
                     "rgi/cardannotation": {
                         "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "git_sha": "3e548877f25a5980a177cc4f81d2d2e8c24164ef",
                         "installed_by": ["modules"]
                     },
                     "rgi/main": {
@@ -207,7 +207,7 @@
                     },
                     "untar": {
                         "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "git_sha": "3e548877f25a5980a177cc4f81d2d2e8c24164ef",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/untar/untar.diff"
                     }
