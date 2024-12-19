@@ -1,8 +1,6 @@
-bump_version: null
 lint:
   actions_ci: false
-nf_core_version: 3.0.2
-org_path: null
+nf_core_version: 3.1.0
 repository_type: pipeline
 template:
   author: Jasmin Frangenberg, Anan Ibrahim, Louisa Perelo, Moritz E. Beber, James A. Fellows Yates
@@ -16,4 +14,3 @@ template:
     - igenomes
     - fastqc
   version: 2.1.0dev
-update: null
