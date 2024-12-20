@@ -1,0 +1,23 @@
+Changes in module 'nf-core/mmseqs/createtsv'
+'modules/nf-core/mmseqs/createtsv/meta.yml' is unchanged
+Changes in 'mmseqs/createtsv/main.nf':
+--- modules/nf-core/mmseqs/createtsv/main.nf
++++ modules/nf-core/mmseqs/createtsv/main.nf
+@@ -40,8 +40,7 @@
+         \$DB_RESULT_PATH_NAME \\
+         ${prefix}.tsv \\
+         $args \\
+-        --threads ${task.cpus} \\
+-        --compressed 1
++        --threads ${task.cpus}
+ 
+     cat <<-END_VERSIONS > versions.yml
+     "${task.process}":
+
+'modules/nf-core/mmseqs/createtsv/environment.yml' is unchanged
+'modules/nf-core/mmseqs/createtsv/tests/main.nf.test' is unchanged
+'modules/nf-core/mmseqs/createtsv/tests/cluster.nextflow.config' is unchanged
+'modules/nf-core/mmseqs/createtsv/tests/taxonomy.nextflow.config' is unchanged
+'modules/nf-core/mmseqs/createtsv/tests/tags.yml' is unchanged
+'modules/nf-core/mmseqs/createtsv/tests/main.nf.test.snap' is unchanged
+************************************************************

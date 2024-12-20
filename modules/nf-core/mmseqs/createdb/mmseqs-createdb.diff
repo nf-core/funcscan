@@ -1,0 +1,21 @@
+Changes in module 'nf-core/mmseqs/createdb'
+'modules/nf-core/mmseqs/createdb/meta.yml' is unchanged
+Changes in 'mmseqs/createdb/main.nf':
+--- modules/nf-core/mmseqs/createdb/main.nf
++++ modules/nf-core/mmseqs/createdb/main.nf
+@@ -33,8 +33,7 @@
+         createdb \\
+         ${sequence_name} \\
+         ${prefix}/${prefix} \\
+-        $args \\
+-        --compressed 1
++        $args
+ 
+     cat <<-END_VERSIONS > versions.yml
+     "${task.process}":
+
+'modules/nf-core/mmseqs/createdb/environment.yml' is unchanged
+'modules/nf-core/mmseqs/createdb/tests/main.nf.test' is unchanged
+'modules/nf-core/mmseqs/createdb/tests/tags.yml' is unchanged
+'modules/nf-core/mmseqs/createdb/tests/main.nf.test.snap' is unchanged
+************************************************************

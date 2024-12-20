@@ -1,0 +1,18 @@
+Changes in module 'nf-core/mmseqs/databases'
+'modules/nf-core/mmseqs/databases/meta.yml' is unchanged
+Changes in 'mmseqs/databases/main.nf':
+--- modules/nf-core/mmseqs/databases/main.nf
++++ modules/nf-core/mmseqs/databases/main.nf
+@@ -28,7 +28,6 @@
+         ${prefix}/database \\
+         tmp/ \\
+         --threads ${task.cpus} \\
+-        --compressed 1 \\
+         ${args}
+ 
+     cat <<-END_VERSIONS > versions.yml
+
+'modules/nf-core/mmseqs/databases/environment.yml' is unchanged
+'modules/nf-core/mmseqs/databases/tests/main.nf.test' is unchanged
+'modules/nf-core/mmseqs/databases/tests/main.nf.test.snap' is unchanged
+************************************************************
