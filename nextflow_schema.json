@@ -626,11 +626,18 @@
             "description": "Antimicrobial peptides parsing, filtering, and annotating submodule of AMPcombi2. More info: https://github.com/Darcy220606/AMPcombi",
             "default": "",
             "properties": {
+                "amp_ampcombi_db_id": {
+                    "type": "string",
+                    "description": "The name of the database used to classify the AMPs.",
+                    "help_text": "AMPcombi can use three different AMP databases to classify the recovered AMPS. These can either be: \n\n- [DRAMP database](http://dramp.cpu-bioinfor.org/downloads/): Only general AMPs are downloaded and filtered to remove any entry that has an instance of non amino acid residues in their sequence.\n\n- [APD](https://aps.unmc.edu/): Only experimentally validated AMPs are present.\n\n- [UniRef100](https://academic.oup.com/bioinformatics/article/23/10/1282/197795): Combines a more general protein dataset including curated and non curated AMPs. Helpful for identifying the clusters to remove any potential false positives. Beware: If the thresholds are for ampcombi are not strict enough, alignment with this database can take a long time. \n\nBy default this is set to 'DRAMP'. Other valid options include 'APD' or 'UniRef100'.\n\nFor more information check the AMPcombi [documentation](https://ampcombi.readthedocs.io/en/main/usage.html#parse-tables).",
+                    "fa_icon": "fas fa-address-book",
+                    "default": "DRAMP",
+                    "enum": ["DRAMP", "APD", "UniRef100"]
+                },
                 "amp_ampcombi_db": {
                     "type": "string",
-                    "description": "Path to AMPcombi reference database directory (DRAMP).",
-                    "help_text": "AMPcombi uses the 'general AMPs' dataset of the [DRAMP database](http://dramp.cpu-bioinfor.org/downloads/) for taxonomic classification. If you have a local version of it, you can provide the path to the directory(!) that contains the following reference database files:\n1. fasta file with `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nThe contents of the directory should have files such as `*.dmnd` and `*.fasta` in the top level.\n\nFor more information check the AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).",
-                    "fa_icon": "fas fa-address-book"
+                    "description": "The path to the folder containing the reference database files.",
+                    "help_text": "The path to the folder containing the reference database files (`*.fasta` and `*.tsv`); a fasta file and the corresponding table with structural, functional and if reported taxonomic classifications. AMPcombi will then generate the corresponding `mmseqs2` directory, in which all binary files are prepared for the downstream alignment of teh recovered AMPs with [MMseqs2](https://github.com/soedinglab/MMseqs2). These can also be provided by the user by setting up an mmseqs2 compatible database using `mmseqs createdb *.fasta` in a directory called `mmseqs2`.\n\nExample file structure for the reference database supplied by the user:\n\n```bash\namp_DRAMP_database/\n\u251c\u2500\u2500 general_amps_2024_11_13.fasta\n\u251c\u2500\u2500 general_amps_2024_11_13.txt\n\u2514\u2500\u2500 mmseqs2\n    \u251c\u2500\u2500 ref_DB\n    \u251c\u2500\u2500 ref_DB.dbtype\n    \u251c\u2500\u2500 ref_DB_h\n    \u251c\u2500\u2500 ref_DB_h.dbtype\n    \u251c\u2500\u2500 ref_DB_h.index\n    \u251c\u2500\u2500 ref_DB.index\n    \u251c\u2500\u2500 ref_DB.lookup\n    \u2514\u2500\u2500 ref_DB.source\n\nFor more information check the AMPcombi [documentation](https://ampcombi.readthedocs.io/en/main/usage.html#parse-tables)."
                 },
                 "amp_ampcombi_parsetables_cutoff": {
                     "type": "number",
@@ -641,7 +648,7 @@
                 },
                 "amp_ampcombi_parsetables_aalength": {
                     "type": "integer",
-                    "default": 100,
+                    "default": 120,
                     "description": "Filter out all amino acid fragments shorter than this number.",
                     "help_text": "Any AMP hit that does not satisfy this length cut-off will be removed from the final AMPcombi2 summary table.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--aminoacid_length`",
                     "fa_icon": "fas fa-ruler-horizontal"
@@ -1523,6 +1530,12 @@
                     "fa_icon": "far fa-check-circle",
                     "description": "Base URL or local path to location of pipeline test dataset files",
                     "default": "https://raw.githubusercontent.com/nf-core/test-datasets/",
+                    "hidden": true
+                },
+                "trace_report_suffix": {
+                    "type": "string",
+                    "fa_icon": "far calendar",
+                    "description": "Suffix to add to the trace report filename. Default is the date and time in the format yyyy-MM-dd_HH-mm-ss.",
                     "hidden": true
                 }
             }

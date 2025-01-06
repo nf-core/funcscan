@@ -17,7 +17,7 @@ nextflow_pipeline {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert new File("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/pipeline_info/nf_core_funcscan_software_mqc_versions.yml").exists() },
                 { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
 
                 // AMPir
@@ -54,6 +54,7 @@ nextflow_pipeline {
 
                 // AMPcombi
                 { assert path("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("NODE_515831_length_303_cov_1.532258_1") },
+                { assert path("$outputDir/reports/ampcombi2/Ampcombi_parse_tables.log").text.contains("amp_DRAMP_database is found and will be used") },
                 { assert snapshot(
                     path("$outputDir/reports/ampcombi2/Ampcombi_cluster.log"),
                     path("$outputDir/reports/ampcombi2/Ampcombi_complete.log"),
@@ -71,6 +72,8 @@ nextflow_pipeline {
                 { assert file("$outputDir/arg/deeparg/sample_2/sample_2.align.daa").name },
                 { assert path("$outputDir/arg/deeparg/sample_1/sample_1.mapping.potential.ARG").text.contains("#ARG") },
                 { assert path("$outputDir/arg/deeparg/sample_2/sample_2.mapping.potential.ARG").text.contains("#ARG") },
+                { assert path("$outputDir/arg/deeparg/sample_1/sample_1.align.daa.tsv").text.contains("rifampin_monooxygenase|rifamycin|rifampin_monooxygenase") },
+                { assert path("$outputDir/arg/deeparg/sample_2/sample_2.align.daa.tsv").text.contains("rifampin_monooxygenase|rifamycin|rifampin_monooxygenase") },
 
                 // ABRicate
                 { assert snapshot(

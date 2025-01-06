@@ -226,7 +226,7 @@ workflow FUNCSCAN {
             }
                 //file
                 !file.isEmpty()
-            }//.collect()
+            },//.collect()
         )
         ch_versions = ch_versions.mix(AMP.out.versions)
     }
@@ -253,7 +253,7 @@ workflow FUNCSCAN {
             }
                 //file
                 !file.isEmpty()
-            }//.collect()
+            },//.collect()
         )
         ch_versions = ch_versions.mix(AMP.out.versions)
     }
@@ -266,7 +266,7 @@ workflow FUNCSCAN {
             ARG(
                 ch_prepped_input.fastas,
                 [],
-                ch_taxonomy_tsv
+                ch_taxonomy_tsv,
             )
         }
         else {
@@ -278,7 +278,7 @@ workflow FUNCSCAN {
                     }
                     !file.isEmpty()
                 },
-                ch_taxonomy_tsv
+                ch_taxonomy_tsv,
             )
         }
         ch_versions = ch_versions.mix(ARG.out.versions)
@@ -293,7 +293,7 @@ workflow FUNCSCAN {
                         log.warn("[nf-core/funcscan] Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
                     }
                     !file.isEmpty()
-                }
+                },
             )
         }
         else {
@@ -310,7 +310,7 @@ workflow FUNCSCAN {
                         log.warn("[nf-core/funcscan] Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
                     }
                     !file.isEmpty()
-                }
+                },
             )
         }
         ch_versions = ch_versions.mix(ARG.out.versions)
@@ -334,7 +334,7 @@ workflow FUNCSCAN {
                 }
                 !file.isEmpty()
             },
-            ch_taxonomy_tsv
+            ch_taxonomy_tsv,
         )
         ch_versions = ch_versions.mix(BGC.out.versions)
     }
@@ -358,7 +358,7 @@ workflow FUNCSCAN {
                     log.warn("[nf-core/funcscan] Taxonomy classification of the following sample produced an empty TSV file. Taxonomy merging will not be executed: ${meta.id}")
                 }
                 !file.isEmpty()
-            }
+            },
         )
         ch_versions = ch_versions.mix(BGC.out.versions)
     }
@@ -369,9 +369,9 @@ workflow FUNCSCAN {
     softwareVersionsToYAML(ch_versions)
         .collectFile(
             storeDir: "${params.outdir}/pipeline_info",
-            name: 'nf_core_' + 'pipeline_software_' + 'mqc_' + 'versions.yml',
+            name: 'nf_core_' + 'funcscan_software_' + 'mqc_' + 'versions.yml',
             sort: true,
-            newLine: true
+            newLine: true,
         )
         .set { ch_collated_versions }
 
@@ -409,7 +409,7 @@ workflow FUNCSCAN {
     ch_multiqc_files = ch_multiqc_files.mix(
         ch_methods_description.collectFile(
             name: 'methods_description_mqc.yaml',
-            sort: true
+            sort: true,
         )
     )
 
@@ -423,7 +423,7 @@ workflow FUNCSCAN {
         ch_multiqc_custom_config.toList(),
         ch_multiqc_logo.toList(),
         [],
-        []
+        [],
     )
 
     emit:
