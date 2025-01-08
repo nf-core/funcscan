@@ -29,7 +29,7 @@ workflow AMP {
     ch_ampcombi_summaries          = Channel.empty()
     ch_macrel_faa                  = Channel.empty()
     ch_ampcombi_complete           = Channel.empty()
-    ch_ampcombi_for_cluster        = Channel.empty()
+    ch_ampcombi_summaries          = Channel.empty()
 
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
@@ -114,6 +114,7 @@ workflow AMP {
             interpro: it [4]
         }
 
+    // AMPCOMBI2::PARSETABLES
     if ( params.amp_ampcombi_db != null ) {
         AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input,  ch_input_for_ampcombi.faa,  ch_input_for_ampcombi.gbk, params.amp_ampcombi_db_id, params.amp_ampcombi_db, ch_input_for_ampcombi.interpro )
         } else {
@@ -125,13 +126,20 @@ workflow AMP {
     ch_versions = ch_versions.mix( AMPCOMBI2_PARSETABLES.out.versions )
 
     ch_ampcombi_summaries = AMPCOMBI2_PARSETABLES.out.tsv.map{ it[1] }.collect()
+    ch_ampcombi_summaries_count = ch_ampcombi_summaries.map{ it.size() }
 
-    AMPCOMBI2_COMPLETE ( ch_ampcombi_summaries )
+    // AMPCOMBI2::COMPLETE
+    ch_more_than_one = ch_ampcombi_summaries_count.filter { it > 1 }.map { ch_ampcombi_summaries }
+    AMPCOMBI2_COMPLETE(ch_more_than_one)
     ch_versions = ch_versions.mix( AMPCOMBI2_COMPLETE.out.versions )
-
     ch_ampcombi_complete = AMPCOMBI2_COMPLETE.out.tsv
                                 .filter { file -> file.countLines() > 1 }
 
+    ch_ampcombi_summaries_count.filter { it < 2  }.subscribe { count ->
+        log.warn("[nf-core/funcscan] AMPCOMBI2: $count file passed AMPCOMBI2:parsetables. Skipping AMPCOMBI2_COMPLETE, AMPCOMBI2_CLUSTER, and TAXONOMY MERGING steps.")
+    }
+
+    // AMPCOMBI2::CLUSTER
     if ( ch_ampcombi_complete != null )  {
         AMPCOMBI2_CLUSTER ( ch_ampcombi_complete )
         ch_versions = ch_versions.mix( AMPCOMBI2_CLUSTER.out.versions )

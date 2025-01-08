@@ -195,7 +195,6 @@ workflow FUNCSCAN {
             ch_input_for_function
         )
         ch_versions = ch_versions.mix(FUNCTION.out.versions)
-        //ch_interproscan_tsv = FUNCTION.out.tsv.map{ it[1] }.collect()
         ch_interproscan_tsv = FUNCTION.out.tsv
     } else {
         ch_interproscan_tsv = Channel.empty()
