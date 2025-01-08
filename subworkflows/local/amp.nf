@@ -114,23 +114,6 @@ workflow AMP {
             interpro: it [4]
         }
 
-    // INTERPROSCAN INPUT CHECK
-    // // Check if tsv_interpro is empty, if not empty update the params.dynamic_extra_ergs and if empty dont update that and continue the commands
-    // // dynamik arg
-    // ampcombi_parse_optional_args = tsvs_interpro
-    //     .map { meta, file ->
-    //         "--interproscan_input ${file}"
-    //     }
-    // // pass dynamik arg
-    // ampcombi_parse_optional_args
-    //     .first()
-    //     .ifEmpty {} // just silently skip if empty
-    //     .subscribe { dynamik_arg -> // terminal, consumes value
-    //        //  log.info "Resolved dynamic argument: ${dynamik_arg}" // only for debugging
-    //         params.dynamic_extra_args = dynamik_arg
-    //     }
-    // // Pass combined args to ext.args in modules.config
-
     if ( params.amp_ampcombi_db != null ) {
         AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input,  ch_input_for_ampcombi.faa,  ch_input_for_ampcombi.gbk, params.amp_ampcombi_db_id, params.amp_ampcombi_db, ch_input_for_ampcombi.interpro )
         } else {

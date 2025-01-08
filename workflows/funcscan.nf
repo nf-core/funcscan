@@ -218,15 +218,13 @@ workflow FUNCSCAN {
                 !file.isEmpty()
             },
             ch_taxonomy_tsv,
-            //ch_prepped_input.gbks
             ch_prepped_input.gbks,
             ch_interproscan_tsv.filter { meta, file ->
             if (file != [] && file.isEmpty()) {
                 log.warn("[nf-core/funcscan] Functional annotation with INTERPROSCAN produced an empty TSV file. No InterProScan classifications will be added in the final table: ${meta.id}")
             }
-                //file
                 !file.isEmpty()
-            },//.collect()
+            },
         )
         ch_versions = ch_versions.mix(AMP.out.versions)
     }
@@ -245,15 +243,13 @@ workflow FUNCSCAN {
                 }
                 !file.isEmpty()
             },
-            //ch_prepped_input.gbks
             ch_prepped_input.gbks,
             ch_interproscan_tsv.filter { meta, file ->
             if (file != [] && file.isEmpty()) {
                 log.warn("[nf-core/funcscan] Functional annotation with INTERPROSCAN produced an empty TSV file. No InterProScan classifications will be added in the final table: ${meta.id}")
             }
-                //file
                 !file.isEmpty()
-            },//.collect()
+            },
         )
         ch_versions = ch_versions.mix(AMP.out.versions)
     }
