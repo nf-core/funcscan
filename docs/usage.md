@@ -134,11 +134,13 @@ MMseqs2 is currently the only taxonomic classification tool used in the pipeline
   ```
 
 ### InterProScan
+
 [InterProScan](https://github.com/ebi-pf-team/interproscan) is currently the only functional classification tool that gives a snapshot of the protein families and domains for each coding region. By runnning this tool `--run_function_interproscan`, the [InterPro database](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.67-99.0/) v5.67-99.0 is by default downloaded and prepared. This can be changed by downloading and extracting the files from any [InterPro version](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/) and the path to the folder assigned.
 
-  ```bash
-  --function_interproscan_db 'path/to/InterPro_directory/'
-  ```
+```bash
+--function_interproscan_db 'path/to/InterPro_directory/'
+```
+
 :::info
 By default the databases used to assign the nearest protein domain is set as `PANTHER,ProSiteProfiles,ProSitePatterns,Pfam`. An addition of other application to the list, does not guarantee that the results will be integrated correctly within `AMPcombi`.
 :::

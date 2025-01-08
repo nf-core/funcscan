@@ -12,19 +12,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#429](https://github.com/nf-core/funcscan/pull/429) Updated to nf-core template 3.1.0. (by @jfy133 and @jasmezz)
 - [#428](https://github.com/nf-core/funcscan/pull/XXX) Added InterProScan annotation workflow to the pipeline. The results are coupled to AMPcombi final table. (by @darcy220606)
 
-
 ### `Fixed`
 
 - [#427](https://github.com/nf-core/funcscan/pull/427) Fixed the AMP reference database issues reported by users, due to non-ASCII characters. (by @darcy220606)
 - [#430](https://github.com/nf-core/funcscan/pull/430) Updated `rgi/main` module to fix incorrect variable name. (by @amizeranschi and @jasmezz)
 
 ### `Dependencies`
-| Tool          | Previous version | New version |
-| --------      | ---------------- | ----------- |
-| AMPcombi      | 0.2.2            | 2.0.1       |
-| Macrel        | 1.2.0            | 1.4.0       |
-| MultiQC       | 1.24.0           | 1.25.1      |
-| InterProScan  |        -         | 5.59_91.0   |
+
+| Tool         | Previous version | New version |
+| ------------ | ---------------- | ----------- |
+| AMPcombi     | 0.2.2            | 2.0.1       |
+| Macrel       | 1.2.0            | 1.4.0       |
+| MultiQC      | 1.24.0           | 1.25.1      |
+| InterProScan | -                | 5.59_91.0   |
 
 ### `Deprecated`
 

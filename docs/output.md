@@ -227,6 +227,7 @@ Output Summaries:
 [InterProScan](#interproscan)
 
 #### InterProScan
+
 <details markdown="1">
 <summary>Output files</summary>
 
