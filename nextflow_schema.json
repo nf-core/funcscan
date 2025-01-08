@@ -521,13 +521,12 @@
                 },
                 "function_interproscan_db_url": {
                     "type": "string",
-                    "default": "http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.59-91.0/interproscan-5.59-91.0-64-bit.tar.gz",
+                    "default": "http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.67-99.0/interproscan-5.67-99.0-64-bit.tar.gz",
                     "help_text": "This allows the user to change the default InterProScan version for coding region functional annotation, which allows for the latest release usage. By default this is set to `http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.67-99.0/interproscan-5.67-99.0-64-bit.tar.gz`. ",
                     "description": "Change the database version used for annotation."
                 },
                 "function_interproscan_db": {
                     "type": "string",
-                    "default": "/Net/Groups/ccdata/databases/interproscan_5.67-99.0/",
                     "help_text": "Use this to supply the path to a pre- downloaded InterProScan database. This can be any unziped InterProScan version. By default the database version '5.67-99.0' is downloaded. \n\nFor more details on where to find different InterProScan databases see tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/UserDocs.html#obtaining-a-copy-of-interproscan).\n",
                     "description": "Path to pre-downloaded database."
                 },
