@@ -195,10 +195,42 @@ workflow FUNCSCAN {
             ch_input_for_function
         )
         ch_versions = ch_versions.mix(FUNCTION.out.versions)
-        ch_interproscan_tsv = FUNCTION.out.tsv
+    //    ch_interproscan_tsv = FUNCTION.out.tsv
+    //} else {
+    //    ch_interproscan_tsv = Channel.empty()
+    //    //ch_interproscan_tsv = ch_prepped_input.faas.map { meta, _ -> [meta, []] }
+    //}
+
+    //if (params.run_function_interproscan) {
+    //    def filtered_faas = ch_prepped_input.faas.filter { meta, file ->
+    //        if (file != [] && file.isEmpty()) {
+    //            log.warn("[nf-core/funcscan] Annotation of the following sample produced an empty FAA file. InterProScan classification of the CDS requiring this file will not be executed: ${meta.id}")
+    //        }
+    //        !file.isEmpty()
+    //    }
+    //    SEQKIT_SEQ_FILTER(filtered_faas)
+    //    ch_versions = ch_versions.mix(SEQKIT_SEQ_FILTER.out.versions)
+    //    ch_input_for_function = SEQKIT_SEQ_FILTER.out.fastx
+//
+    //    FUNCTION(
+    //        ch_input_for_function
+    //    )
+    //    ch_versions = ch_versions.mix(FUNCTION.out.versions)
+
+        ch_interproscan_tsv = FUNCTION.out.tsv.map { meta, file ->
+            if (file == [] || file.isEmpty()) {
+                log.warn("[nf-core/funcscan] Functional annotation with INTERPROSCAN produced an empty TSV file. Passing empty file for ${meta.id}.")
+                [meta, []]
+            } else {
+                [meta, file]
+            }
+        }
     } else {
-        ch_interproscan_tsv = Channel.empty()
+        ch_interproscan_tsv = ch_prepped_input.faas.map { meta, _ ->
+            [meta, []]
+        }
     }
+
 
     /*
         SCREENING
@@ -218,12 +250,22 @@ workflow FUNCSCAN {
             },
             ch_taxonomy_tsv,
             ch_prepped_input.gbks,
-            ch_interproscan_tsv.filter { meta, file ->
-            if (file != [] && file.isEmpty()) {
-                log.warn("[nf-core/funcscan] Functional annotation with INTERPROSCAN produced an empty TSV file. No InterProScan classifications will be added in the final table: ${meta.id}")
-            }
-                !file.isEmpty()
-            },
+            //ch_interproscan_tsv.filter { meta, file ->
+            //if (file != [] && file.isEmpty()) {
+            //    log.warn("[nf-core/funcscan] Functional annotation with INTERPROSCAN produced an empty TSV file. No InterProScan classifications will be added in the final table: ${meta.id}")
+            //}
+            //    !file.isEmpty()
+            //},
+            //TODO!!!! AMPCOMBI is not running and interproscan is not turned on!!! FIX!
+            //ch_interproscan_tsv.filter { meta, file ->
+            //if (file == [] || file.isEmpty()) {
+            //    log.warn("[nf-core/funcscan] Functional annotation with INTERPROSCAN produced an empty TSV file. No InterProScan classifications will be added in the final table: ${meta.id}")
+            //    [meta, file]
+            //} else {
+            //    [meta, file]
+            //    }
+            //},
+            ch_interproscan_tsv
         )
         ch_versions = ch_versions.mix(AMP.out.versions)
     }
