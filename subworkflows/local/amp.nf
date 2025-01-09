@@ -125,10 +125,10 @@ workflow AMP {
     ch_versions = ch_versions.mix( AMPCOMBI2_PARSETABLES.out.versions )
 
     ch_ampcombi_summaries = AMPCOMBI2_PARSETABLES.out.tsv.map{ it[1] }.collect()
-    
+
     // AMPCOMBI2::PARSETABLES
     ch_summary_count = ch_ampcombi_summaries.map { it.size() }.sum()
-    
+
     if ( ch_summary_count == 0 || ch_summary_count == 1 )  {
         log.warn("[nf-core/funcscan] AMPCOMBI2: ${ch_summary_count} file passed. Skipping AMPCOMBI2_COMPLETE, AMPCOMBI2_CLUSTER, and TAXONOMY MERGING steps.")
     } else {

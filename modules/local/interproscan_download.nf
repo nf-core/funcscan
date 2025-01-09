@@ -1,7 +1,6 @@
 process INTERPROSCAN_DATABASE {
     tag "interproscan_database_download"
-    //label 'process_medium'
-    //TODO DOnt forget to change the link to the db :: the version optimized to AMPcombi
+    label 'process_medium'
 
     conda "conda-forge::sed=4.7"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
