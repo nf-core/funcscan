@@ -167,10 +167,10 @@
             },
             "url": [
                 "https://github.com/nf-core/funcscan",
-                "https://nf-co.re/funcscan/2.0.0/"
+                "https://nf-co.re/funcscan/2.1.0dev/"
             ],
             "version": [
-                "2.0.0"
+                "2.1.0dev"
             ]
         },
         {
