@@ -1,0 +1,35 @@
+{
+    "antismash_css": {
+        "content": [
+            [
+                "bacteria.css:md5,39c0ca9cbc64cb824dc958b26b5b4ab8"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T10:32:18.349501125"
+    },
+    "deepbgc_bgc_gbk": {
+        "content": [
+            "sample_2.bgc.gbk:md5,d41d8cd98f00b204e9800998ecf8427e"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T10:32:18.378687548"
+    },
+    "gecco": {
+        "content": [
+            "sample_2.genes.tsv:md5,66e3724c7e7da102bf58acd564211e8b",
+            "sample_2.features.tsv:md5,2ef146213836ca80d3079776f17c7cb2"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T10:32:18.404694725"
+    }
+}
