@@ -22,7 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | --------- | ---------------- | ----------- |
 | AMPcombi  | 0.2.2            | 2.0.1       |
 | Macrel    | 1.2.0            | 1.4.0       |
-| MultiQC   | 1.24.0           | 1.25.1      |
+| MMseqs2   | 15.6f452         | 16.747c6    |
+| MultiQC   | 1.24.0           | 1.26        |
 | Pyrodigal | 3.3.0            | 3.6.3       |
 
 ### `Deprecated`
@@ -103,7 +104,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | GECCO         | 0.9.8            | 0.9.10      |
 | hAMRonization | 1.1.1            | 1.1.4       |
 | HMMER         | 3.3.2            | 3.4         |
-| MMSeqs        | NA               | 2:15.6f452  |
+| MMseqs2       | NA               | 15.6f452    |
 | MultiQC       | 1.15             | 1.24        |
 | Pyrodigal     | 2.1.0            | 3.3.0       |
 | RGI           | 5.2.1            | 6.0.3       |
