@@ -107,10 +107,15 @@ workflow ARG {
 
         }
 
-        RGI_CARDANNOTATION ( rgi_db )
-        ch_versions = ch_versions.mix( RGI_CARDANNOTATION.out.versions )
+        if (! rgi_db.contains("card_database_processed") ) {
+            RGI_CARDANNOTATION ( rgi_db )
+            card = RGI_CARDANNOTATION.out.db
+            ch_versions = ch_versions.mix( RGI_CARDANNOTATION.out.versions )
+        } else {
+            card = rgi_db
+        }
 
-        RGI_MAIN ( fastas, RGI_CARDANNOTATION.out.db, [] )
+        RGI_MAIN ( fastas, card, [] )
         ch_versions = ch_versions.mix( RGI_MAIN.out.versions )
 
         // Reporting
