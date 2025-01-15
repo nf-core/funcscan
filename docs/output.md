@@ -522,7 +522,7 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 - `hamronization_summarize/` one of the following:
   - `hamronization_combined_report.json`: summarised output in .json format
   - `hamronization_combined_report.tsv`: summarised output in .tsv format when the taxonomic classification is turned off (pipeline default).
-  - `hamronization_combined_report.tsv.gz`: summarised output in gzipped format when the taxonomic classification is turned on by `--run_taxa_classification`.
+  - `hamronization_complete_summary_taxonomy.tsv.gz`: summarised output in gzipped format when the taxonomic classification is turned on by `--run_taxa_classification`.
   - `hamronization_combined_report.html`: interactive output in .html format
 
 </details>
