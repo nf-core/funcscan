@@ -252,7 +252,7 @@ def hamronization_taxa(args):
         # ensure strings
         subset_tool['contig_id'] = subset_tool['contig_id'].astype(str)
         subset_taxa['contig_id'] = subset_taxa['contig_id'].astype(str)
-        # rename columns to avoid droping of mutual ones
+        # rename columns to avoid dropping of mutual ones
         rename_dict = {col: f"{col}_taxa" for col in subset_taxa.columns if col in subset_tool.columns}
         subset_taxa = subset_taxa.rename(columns=rename_dict)
 
