@@ -153,7 +153,7 @@
                     },
                     "mmseqs/createtsv": {
                         "branch": "master",
-                        "git_sha": "a437c7940f903209eec932bd54663aa9cd1bbc01",
+                        "git_sha": "411a94f9cbb9219bb6ff778e5edcf95975ab28b2",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/mmseqs/createtsv/mmseqs-createtsv.diff"
                     },
@@ -181,7 +181,7 @@
                     },
                     "prokka": {
                         "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "git_sha": "bcfb2f7efd4444ab442ffc8a248afbd62bca5ae7",
                         "installed_by": ["modules"]
                     },
                     "pyrodigal": {
