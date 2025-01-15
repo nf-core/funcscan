@@ -205,7 +205,6 @@ def combgc_taxa(args):
 #########################################
 # FUNCTION: HAMRONIZATION
 #########################################
-# TODO : FIX THE MERGING in ARG pipeline
 def hamronization_taxa(args):
     """_summary_
     Merges hAMRonization tool output with taxonomy information.
