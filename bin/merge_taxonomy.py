@@ -73,7 +73,7 @@ def reformat_mmseqs_taxonomy(mmseqs_taxonomy):
         mmseqs_taxonomy (tsv): mmseqs output file per sample
 
     Returns:
-        data frame: reformated tables
+        data frame: reformatted tables
     """
     mmseqs2_df = pd.read_csv(mmseqs_taxonomy, sep='\t', header=None, names=['contig_id', 'taxid', 'rank_label', 'scientific_name', 'lineage', 'mmseqs_lineage_contig'])
     # remove the lineage column
