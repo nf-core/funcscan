@@ -16,6 +16,5 @@ Changes in 'mmseqs/createdb/main.nf':
 
 'modules/nf-core/mmseqs/createdb/environment.yml' is unchanged
 'modules/nf-core/mmseqs/createdb/tests/main.nf.test' is unchanged
-'modules/nf-core/mmseqs/createdb/tests/tags.yml' is unchanged
 'modules/nf-core/mmseqs/createdb/tests/main.nf.test.snap' is unchanged
 ************************************************************
