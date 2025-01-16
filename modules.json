@@ -147,25 +147,25 @@
                     },
                     "mmseqs/createdb": {
                         "branch": "master",
-                        "git_sha": "a437c7940f903209eec932bd54663aa9cd1bbc01",
+                        "git_sha": "83ba95cd93c6a8cc5e2d9226083c01aea5e80d2a",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/mmseqs/createdb/mmseqs-createdb.diff"
                     },
                     "mmseqs/createtsv": {
                         "branch": "master",
-                        "git_sha": "411a94f9cbb9219bb6ff778e5edcf95975ab28b2",
+                        "git_sha": "83ba95cd93c6a8cc5e2d9226083c01aea5e80d2a",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/mmseqs/createtsv/mmseqs-createtsv.diff"
                     },
                     "mmseqs/databases": {
                         "branch": "master",
-                        "git_sha": "a437c7940f903209eec932bd54663aa9cd1bbc01",
+                        "git_sha": "83ba95cd93c6a8cc5e2d9226083c01aea5e80d2a",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/mmseqs/databases/mmseqs-databases.diff"
                     },
                     "mmseqs/taxonomy": {
                         "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "git_sha": "83ba95cd93c6a8cc5e2d9226083c01aea5e80d2a",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/mmseqs/taxonomy/mmseqs-taxonomy.diff"
                     },
