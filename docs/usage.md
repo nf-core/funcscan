@@ -271,9 +271,10 @@ This is due to an incompatibility issue of Prodigal's output `.gbk` file with mu
 :::
 
 :::tip
+
 - If `--run_protein_annotation_interproscan` is given, protein and domain classifications of the coding regions are generated and the output is then integrated into the `AMPcombi parsetables` resulting table for every sample and the complete summary files e.g., `Ampcombi_summary.tsv`.
-- In some cases, when the AMP workflow is turned on, only the summary files per sample will be created in the output folder with **NO** `Ampcombi_summary.tsv` and `Ampcombi_summary_cluster.tsv` files and hence no taxonomic classifications will be merged (if the taxonomic classification subworkflow is turned on). This can occur when strictly setting parameters  which can lead to no AMP hits found in any of the samples or in only one sample. Look out for `[nf-core/funcscan] AMPCOMBI2: 0/1 file passed. Skipping AMPCOMBI2_COMPLETE, AMPCOMBI2_CLUSTER, and TAXONOMY MERGING steps.`in the stdout or `.nextflow.log` file.
-:::
+- In some cases, when the AMP workflow is turned on, only the summary files per sample will be created in the output folder with **NO** `Ampcombi_summary.tsv` and `Ampcombi_summary_cluster.tsv` files and hence no taxonomic classifications will be merged (if the taxonomic classification subworkflow is turned on). This can occur when strictly setting parameters which can lead to no AMP hits found in any of the samples or in only one sample. Look out for `[nf-core/funcscan] AMPCOMBI2: 0/1 file passed. Skipping AMPCOMBI2_COMPLETE, AMPCOMBI2_CLUSTER, and TAXONOMY MERGING steps.`in the stdout or `.nextflow.log` file.
+  :::
 
 ### Abricate
 
