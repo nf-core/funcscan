@@ -508,51 +508,51 @@
             },
             "fa_icon": "fas fa-file-signature"
         },
-        "function_interproscan": {
-            "title": "Function: INTERPROSCAN",
+        "protein_annotation": {
+            "title": "Protein Annotation: INTERPROSCAN",
             "type": "object",
             "description": "Functionally annotates all annotated coding regions.",
             "default": "",
             "properties": {
-                "run_function_interproscan": {
+                "run_protein_annotation_interproscan": {
                     "type": "boolean",
                     "description": "Activates the functional annotation of annotated coding regions.",
                     "help_text": "Activates the annotation of annotated coding regions using [InterProScan](https://github.com/ebi-pf-team/interproscan). These annotate the locus tags to protein and domain levels according to the InterPro database. \n\nMore details can be found in the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/index.html)."
                 },
-                "function_interproscan_db_url": {
+                "protein_annotation_interproscan_db_url": {
                     "type": "string",
                     "default": "http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.67-99.0/interproscan-5.67-99.0-64-bit.tar.gz",
-                    "help_text": "This allows the user to change the default InterProScan version for coding region functional annotation, which allows for the latest release usage. By default this is set to `http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.67-99.0/interproscan-5.67-99.0-64-bit.tar.gz`. ",
+                    "help_text": "This allows the user to change the InterProScan database version that for coding region functional annotation that the pipeline will download for you automatically if you don't supply a pre-supplied database to `--protein_annotation_interproscan_db`. Changing this URL allows for the use of the latest database release. By default this is set to `http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.67-99.0/interproscan-5.67-99.0-64-bit.tar.gz`. ",
                     "description": "Change the database version used for annotation."
                 },
-                "function_interproscan_db": {
+                "protein_annotation_interproscan_db": {
                     "type": "string",
-                    "help_text": "Use this to supply the path to a pre- downloaded InterProScan database. This can be any unziped InterProScan version. By default the database version '5.67-99.0' is downloaded. \n\nFor more details on where to find different InterProScan databases see tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/UserDocs.html#obtaining-a-copy-of-interproscan).\n",
+                    "help_text": "Use this to supply the path to a pre-downloaded InterProScan database. This can be any unzipped InterProScan version. By default the database version '5.67-99.0' is downloaded. \n\nFor more details on where to find different InterProScan databases see tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/UserDocs.html#obtaining-a-copy-of-interproscan).\n",
                     "description": "Path to pre-downloaded database."
                 },
-                "function_interproscan_applications": {
+                "protein_annotation_interproscan_applications": {
                     "type": "string",
                     "default": "PANTHER,ProSiteProfiles,ProSitePatterns,Pfam",
-                    "help_text": "Assigns the database /s to be used to annotate the coding regions annotated during the 'ANNOTATION' workflow of the pipeline. By default these include `PANTHER,ProSiteProfiles,ProSitePatterns,Pfam`.  \n- PANTHER (Protein ANalysis THrough Evolutionary Relationships): genes classified by their functions, using published scientific experimental evidence and evolutionary relationships. \n- PROSITE: protein domains, families, functional sites and specific patterns and profiles to identify them. \n- PFAM: protein families, represented by multiple sequence alignments and hidden Markov models (HMMs). \n\nThese databases were chosen based on the AMP workflow and therefore, with only these databases, do we guarantee the integration of the results to the AMPcombi final summary. \n\nNOTE: Currently, no integration of the results are implemented for the BGC and the ARG final summary tables. \n\nFor more information about all possible databases see the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `--applications`",
+                    "help_text": "A comma separated string specifying the database(s) to be used to annotate the coding regions annotated during the 'ANNOTATION' workflow of the pipeline. By default these include `PANTHER,ProSiteProfiles,ProSitePatterns,Pfam`.  \n- PANTHER (Protein ANalysis THrough Evolutionary Relationships): genes classified by their functions, using published scientific experimental evidence and evolutionary relationships. \n- PROSITE: protein domains, families, functional sites and specific patterns and profiles to identify them. \n- PFAM: protein families, represented by multiple sequence alignments and hidden Markov models (HMMs). \n\nThese databases were chosen based on the AMP workflow and therefore, with only these databases, do we guarantee the integration of the results to the AMPcombi final summary. \n\nNOTE: Currently, no integration of the results are implemented for the BGC and the ARG final summary tables. \n\nFor more information about all possible databases see the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `--applications`",
                     "description": "Assigns the database /s to be used to annotate the coding regions."
                 },
-                "function_interproscan_enableprecalc": {
+                "protein_annotation_interproscan_enableprecalc": {
                     "type": "boolean",
-                    "help_text": "This decreases the speed of functional annotation with InterProScan by pre-calculating matches found in the UniProtKB, thereby identifying unique matches in the query sequences for faster annotation. By default this is turned OFF.\n\nFor more information about this flag see the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `---diasable-precalc`",
+                    "help_text": "This increases the speed of functional annotation with InterProScan by pre-calculating matches found in the UniProtKB, thereby identifying unique matches in the query sequences for faster annotation. By default this is turned OFF.\n\nFor more information about this flag see the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `---diasable-precalc`",
                     "description": "Pre-calculates residue mutual matches."
                 },
-                "function_interproscan_enableresidueannot": {
+                "protein_annotation_interproscan_enableresidueannot": {
                     "type": "boolean",
-                    "help_text": "This removes the residue annotation from the final XML and JSON output files, which we do not supply as output files from InerProScan. This is by default turned OFF.\n\nFor more information about this flag see the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `--disable-residue-annot`",
+                    "help_text": "Activating this flag  will remove the residue annotation from the final XML and JSON output files, which we do not supply as output files from InerProScan. \n\nFor more information about this flag see the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `--disable-residue-annot`",
                     "description": "Enable residue annotation in XML and JSON files."
                 },
-                "function_interproscan_disableresidueannottsv": {
+                "protein_annotation_interproscan_disableresidueannottsv": {
                     "type": "boolean",
-                    "help_text": "This disables the addition of the annotations assigned according to the databases activated to the final `<sample>_interproscan.tsv` file.  Turning this ON will remove the annotations from the final table. We don't recommend turning this ON to ensure a successful run. \n\nFor more information about this flag see the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `--enable-tsv-residue-annot`\n",
+                    "help_text": "This disables the addition of the annotations assigned according to the databases activated to the final `<sample>_interproscan.tsv` file.  Turning this on will remove the annotations from the final table. It is not recommended to use this option, as it will cause a run failure because the format of the resulting files will no longer be adequate for integration in the final summary tables. Currently, only applicable for AMPcombi2. \n\nFor more information about this flag see the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `--enable-tsv-residue-annot`\n",
                     "description": "Removes annotations from TSV file."
                 }
             },
-            "help_text": "This subworkflow adds functional information to all annotated coding regions. Currently, only annotation with InterProScan is integrated in the subworkflow. "
+            "help_text": "This subworkflow adds additional protein annotations to all annotated coding regions. Currently, only annotation with InterProScan is integrated in the subworkflow. "
         },
         "database_downloading_options": {
             "title": "Database downloading options",
@@ -1619,7 +1619,7 @@
             "$ref": "#/$defs/annotation_pyrodigal"
         },
         {
-            "$ref": "#/$defs/function_interproscan"
+            "$ref": "#/$defs/protein_annotation"
         },
         {
             "$ref": "#/$defs/database_downloading_options"

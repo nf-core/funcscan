@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#421](https://github.com/nf-core/funcscan/pull/421) Updated to nf-core template 3.0.2. (by @jfy133)
 - [#427](https://github.com/nf-core/funcscan/pull/427) AMPcombi now can use multiple other databases for classifications. (by @darcy220606)
+- [#428](https://github.com/nf-core/funcscan/pull/428) Added InterProScan annotation workflow to the pipeline. The results are coupled to AMPcombi final table. (by @darcy220606)
 - [#429](https://github.com/nf-core/funcscan/pull/429) Updated to nf-core template 3.1.0. (by @jfy133 and @jasmezz)
-- [#428](https://github.com/nf-core/funcscan/pull/XXX) Added InterProScan annotation workflow to the pipeline. The results are coupled to AMPcombi final table. (by @darcy220606)
 
 ### `Fixed`
 

@@ -130,7 +130,7 @@ workflow AMP {
     ch_summary_count = ch_ampcombi_summaries.map { it.size() }.sum()
 
     if ( ch_summary_count == 0 || ch_summary_count == 1 )  {
-        log.warn("[nf-core/funcscan] AMPCOMBI2: ${ch_summary_count} file passed. Skipping AMPCOMBI2_COMPLETE, AMPCOMBI2_CLUSTER, and TAXONOMY MERGING steps.")
+        log.warn("[nf-core/funcscan] AMPCOMBI2: ${ch_summary_count} file(s) passed. Skipping AMPCOMBI2_COMPLETE, AMPCOMBI2_CLUSTER, and TAXONOMY MERGING steps.")
     } else {
         AMPCOMBI2_COMPLETE(ch_ampcombi_summaries)
         ch_versions = ch_versions.mix( AMPCOMBI2_COMPLETE.out.versions )

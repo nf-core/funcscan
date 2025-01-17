@@ -4,11 +4,11 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
-include { paramsSummaryMap            } from 'plugin/nf-schema'
-include { paramsSummaryMultiqc        } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { softwareVersionsToYAML      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore_funcscan_pipeline'
+include { MULTIQC                   } from '../modules/nf-core/multiqc/main'
+include { paramsSummaryMap          } from 'plugin/nf-schema'
+include { paramsSummaryMultiqc      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { softwareVersionsToYAML    } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { methodsDescriptionText    } from '../subworkflows/local/utils_nfcore_funcscan_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -19,12 +19,12 @@ include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { ANNOTATION                  } from '../subworkflows/local/annotation'
-include { FUNCTION                    } from '../subworkflows/local/function'
-include { AMP                         } from '../subworkflows/local/amp'
-include { ARG                         } from '../subworkflows/local/arg'
-include { BGC                         } from '../subworkflows/local/bgc'
-include { TAXA_CLASS                  } from '../subworkflows/local/taxa_class'
+include { ANNOTATION                } from '../subworkflows/local/annotation'
+include { PROTEIN_ANNOTATION        } from '../subworkflows/local/protein_annotation'
+include { AMP                       } from '../subworkflows/local/amp'
+include { ARG                       } from '../subworkflows/local/arg'
+include { BGC                       } from '../subworkflows/local/bgc'
+include { TAXA_CLASS                } from '../subworkflows/local/taxa_class'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -177,9 +177,9 @@ workflow FUNCSCAN {
     }
 
     /*
-        FUNCTION
+        PROTEIN ANNOTATION
     */
-    if (params.run_function_interproscan) {
+    if (params.run_protein_annotation_interproscan) {
         def filtered_faas = ch_prepped_input.faas.filter { meta, file ->
             if (file != [] && file.isEmpty()) {
                 log.warn("[nf-core/funcscan] Annotation of the following sample produced an empty FAA file. InterProScan classification of the CDS requiring this file will not be executed: ${meta.id}")
@@ -189,16 +189,16 @@ workflow FUNCSCAN {
 
         SEQKIT_SEQ_FILTER(filtered_faas)
         ch_versions = ch_versions.mix(SEQKIT_SEQ_FILTER.out.versions)
-        ch_input_for_function =  SEQKIT_SEQ_FILTER.out.fastx
+        ch_input_for_protein_annotation =  SEQKIT_SEQ_FILTER.out.fastx
 
-        FUNCTION (
-            ch_input_for_function
+        PROTEIN_ANNOTATION (
+            ch_input_for_protein_annotation
         )
-        ch_versions = ch_versions.mix(FUNCTION.out.versions)
+        ch_versions = ch_versions.mix(PROTEIN_ANNOTATION.out.versions)
 
-        ch_interproscan_tsv = FUNCTION.out.tsv.map { meta, file ->
+        ch_interproscan_tsv = PROTEIN_ANNOTATION.out.tsv.map { meta, file ->
             if (file == [] || file.isEmpty()) {
-                log.warn("[nf-core/funcscan] Functional annotation with INTERPROSCAN produced an empty TSV file. Passing empty file for ${meta.id}.")
+                log.warn("[nf-core/funcscan] Protein annotation with INTERPROSCAN produced an empty TSV file. No protein annotation will be added for ${meta.id}.")
                 [meta, []]
             } else {
                 [meta, file]

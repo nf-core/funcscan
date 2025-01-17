@@ -5,7 +5,7 @@
 include { INTERPROSCAN_DATABASE } from '../../modules/local/interproscan_download'
 include { INTERPROSCAN          } from '../../modules/nf-core/interproscan/main'
 
-workflow FUNCTION {
+workflow PROTEIN_ANNOTATION {
     take:
     faas // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
 
@@ -17,18 +17,19 @@ workflow FUNCTION {
 
     ch_faa_for_interproscan = faas
 
-    if ( params.function_interproscan_db != null ) {
+    if ( params.protein_annotation_interproscan_db != null ) {
         ch_interproscan_db = Channel
-            .fromPath( params.function_interproscan_db )
+            .fromPath( params.protein_annotation_interproscan_db )
             .first()
     } else {
-        INTERPROSCAN_DATABASE ( params.function_interproscan_db_url )
+        INTERPROSCAN_DATABASE ( params.protein_annotation_interproscan_db_url )
         ch_versions  = ch_versions.mix( INTERPROSCAN_DATABASE.out.versions )
         ch_interproscan_db = ( INTERPROSCAN_DATABASE.out.db )
     }
 
     INTERPROSCAN( ch_faa_for_interproscan, ch_interproscan_db )
-    ch_interproscan_tsv = ch_interproscan_tsv.mix(INTERPROSCAN.out.tsv)
+    ch_versions  = ch_versions.mix( INTERPROSCAN.out.versions )
+    ch_interproscan_tsv = ch_interproscan_tsv.mix( INTERPROSCAN.out.tsv )
 
     // Current INTERPROSCAN version 5.59_91.0 only includes 13 columns and not 15 which ampcombi expects, so we added them here
     ch_interproscan_tsv_modified = INTERPROSCAN.out.tsv
