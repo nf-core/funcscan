@@ -147,22 +147,22 @@
                     },
                     "mmseqs/createdb": {
                         "branch": "master",
-                        "git_sha": "83ba95cd93c6a8cc5e2d9226083c01aea5e80d2a",
+                        "git_sha": "2dc4c0474a77f5f8709eb970d890ad102e92af6f",
                         "installed_by": ["modules"]
                     },
                     "mmseqs/createtsv": {
                         "branch": "master",
-                        "git_sha": "0306f1e9cc93049a210f32b52da3b180192aa003",
+                        "git_sha": "2dc4c0474a77f5f8709eb970d890ad102e92af6f",
                         "installed_by": ["modules"]
                     },
                     "mmseqs/databases": {
                         "branch": "master",
-                        "git_sha": "83ba95cd93c6a8cc5e2d9226083c01aea5e80d2a",
+                        "git_sha": "2dc4c0474a77f5f8709eb970d890ad102e92af6f",
                         "installed_by": ["modules"]
                     },
                     "mmseqs/taxonomy": {
                         "branch": "master",
-                        "git_sha": "0306f1e9cc93049a210f32b52da3b180192aa003",
+                        "git_sha": "2dc4c0474a77f5f8709eb970d890ad102e92af6f",
                         "installed_by": ["modules"]
                     },
                     "multiqc": {

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#421](https://github.com/nf-core/funcscan/pull/421) Updated to nf-core template 3.0.2. (by @jfy133)
 - [#427](https://github.com/nf-core/funcscan/pull/427) AMPcombi now can use multiple other databases for classifications. (by @darcy220606)
 - [#429](https://github.com/nf-core/funcscan/pull/429) Updated to nf-core template 3.1.0. (by @jfy133 and @jasmezz)
+- [#431](https://github.com/nf-core/funcscan/pull/431) Updated all MMseqs modules to version 17, added `--taxa_classification_mmseqs_compressed` parameter. (by @jasmezz)
 
 ### `Fixed`
 
@@ -22,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | --------- | ---------------- | ----------- |
 | AMPcombi  | 0.2.2            | 2.0.1       |
 | Macrel    | 1.2.0            | 1.4.0       |
-| MMseqs2   | 15.6f452         | 16.747c6    |
+| MMseqs2   | 15.6f452         | 17.b804f    |
 | MultiQC   | 1.24.0           | 1.26        |
 | Pyrodigal | 3.3.0            | 3.6.3       |
 
