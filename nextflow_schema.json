@@ -140,7 +140,7 @@
                 },
                 "taxa_classification_mmseqs_taxonomy_searchtype": {
                     "type": "integer",
-                    "default": 3,
+                    "default": 2,
                     "help_text": "Specify the type of alignment to be carried out between the query database and the reference MMseqs2 database. This can be set to '0' for automatic detection, '1' for amino acid alignment, '2' for translating the inputs and running the alignment on the translated sequences, '3' nucleotide based alignment and '4' for the translated nucleotide sequences alignment. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--search-type`",
                     "description": "Specify the alignment type between database and query.",
                     "fa_icon": "fas fa-align-center"
