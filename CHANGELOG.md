@@ -10,12 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#421](https://github.com/nf-core/funcscan/pull/421) Updated to nf-core template 3.0.2. (by @jfy133)
 - [#427](https://github.com/nf-core/funcscan/pull/427) AMPcombi now can use multiple other databases for classifications. (by @darcy220606)
 - [#429](https://github.com/nf-core/funcscan/pull/429) Updated to nf-core template 3.1.0. (by @jfy133 and @jasmezz)
+- [#433](https://github.com/nf-core/funcscan/pull/433) Updated to nf-core template 3.1.1. (by @jfy133)
 - [#431](https://github.com/nf-core/funcscan/pull/431) Updated all MMseqs modules to version 17, added `--taxa_classification_mmseqs_compressed` parameter. (by @jasmezz)
 
 ### `Fixed`
 
 - [#427](https://github.com/nf-core/funcscan/pull/427) Fixed the AMP reference database issues reported by users, due to non-ASCII characters. (by @darcy220606)
 - [#430](https://github.com/nf-core/funcscan/pull/430) Updated `rgi/main` module to fix incorrect variable name. (by @amizeranschi and @jasmezz)
+- [#435](https://github.com/nf-core/funcscan/pull/435) Fixed dependency errors within taxonomy merging scripts, updated the code and output for all three workflows. Bumped to version 0.1.1. (by @darcy220606)
+- [#437](https://github.com/nf-core/funcscan/pull/437) Fixed file name error when supplying already preprocessed CARD database for ARG workflow. (by @jasmezz)
 
 ### `Dependencies`
 
