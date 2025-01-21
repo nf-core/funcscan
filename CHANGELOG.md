@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | MMseqs2   | 15.6f452         | 17.b804f    |
 | MultiQC   | 1.24.0           | 1.26        |
 | Pyrodigal | 3.3.0            | 3.6.3       |
+| seqkit    | 2.8.1            | 2.9.0       |
 
 ### `Deprecated`
 

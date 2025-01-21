@@ -197,7 +197,7 @@
                     },
                     "seqkit/seq": {
                         "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "git_sha": "60645c2b45e56579de0a0c89416805cae44c1f46",
                         "installed_by": ["modules"]
                     },
                     "tabix/bgzip": {
