@@ -1,0 +1,47 @@
+{
+    "antismash_css": {
+        "content": [
+            [
+                "bacteria.css:md5,39c0ca9cbc64cb824dc958b26b5b4ab8"
+            ],
+            [
+                "bacteria.css:md5,39c0ca9cbc64cb824dc958b26b5b4ab8"
+            ],
+            [
+                "bacteria.css:md5,39c0ca9cbc64cb824dc958b26b5b4ab8"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T10:49:00.343547789"
+    },
+    "deepbgc_bgc_gbk": {
+        "content": [
+            "sample_1.bgc.gbk:md5,e50e429959e9c4bf0c4b97d9dcd54a08",
+            "sample_2.bgc.gbk:md5,effe3cfc91772eb4e4b50ac46f13a941",
+            "sample_3.bgc.gbk:md5,41920a93524a1bb32ae1003d69327642"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T11:06:00.388012579"
+    },
+    "gecco": {
+        "content": [
+            "sample_1.genes.tsv:md5,804af8236a7148baf8919e3acf30947d",
+            "sample_1.features.tsv:md5,a84d59fd63e2593dc5872b4f9bb268b2",
+            "sample_2.genes.tsv:md5,5a2b20c5c1cd821a2af405229c4c0f78",
+            "sample_2.features.tsv:md5,579a27490188f5bc47a4deb4d1d1b8dc",
+            "sample_3.genes.tsv:md5,6874723404b3326f0f73e59f03b96837",
+            "sample_3.features.tsv:md5,490f98655089b3c73f88b93347cca465"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T10:49:00.44526019"
+    }
+}

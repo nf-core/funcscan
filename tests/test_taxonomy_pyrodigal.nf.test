@@ -1,0 +1,101 @@
+nextflow_pipeline {
+
+    name "Test pipeline: NFCORE_FUNCSCAN"
+    script "main.nf"
+    tag "pipeline"
+    tag "nfcore_funcscan"
+    tag "test_taxonomy_pyrodigal"
+
+    test("test_taxonomy_pyrodigal") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+                run_taxa_classification = true
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert new File("$outputDir/pipeline_info/nf_core_funcscan_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+
+                // ampir
+                { assert snapshot(
+                    file("$outputDir/amp/ampir/sample_1/sample_1.ampir.tsv").text.contains("NODE_882919_length_258_cov_0.935961_1"),
+                    file("$outputDir/amp/ampir/sample_1/sample_1.ampir.faa").text.contains("NODE_882919_length_258_cov_0.935961_1"),
+                    file("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv").text.contains("NODE_882919_length_258_cov_0.935961_1"),
+                    file("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa").text.contains("NODE_882919_length_258_cov_0.935961_1")
+                ).match("ampir") },
+
+                // AMPlify
+                { assert snapshot(
+                    file("$outputDir/amp/amplify/sample_1/sample_1.amplify.tsv").text.contains("NODE_882919_length_258_cov_0.935961_1"),
+                    file("$outputDir/amp/amplify/sample_2/sample_2.amplify.tsv").text.contains("NODE_882919_length_258_cov_0.935961_1")
+                ).match("amplify") },
+
+                // Macrel
+                { assert snapshot (
+                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.smorfs.faa.gz"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.smorfs.faa.gz"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.all_orfs.faa.gz"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.all_orfs.faa.gz"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.prediction.gz"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/README.md"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/README.md"),
+                    path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel_log.txt"),
+                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel_log.txt")
+                ).match("macrel") },
+
+                // hmmsearch (AMP)
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_1/sample_1_mybacteriocin.hmmer_hmmsearch.txt.gz").exists() },
+                { assert new File("$outputDir/amp/hmmer_hmmsearch/sample_2/sample_2_mybacteriocin.hmmer_hmmsearch.txt.gz").exists() },
+
+                // AMPcombi
+                { assert snapshot (
+                    file("$outputDir/reports/ampcombi2/sample_2/sample_2_ampcombi.tsv").text.contains("NODE_515831_length_303_cov_1.532258_1"),
+                ).match("ampcombi") },
+                { assert new File("$outputDir/reports/ampcombi2/ampcombi_complete_summary_taxonomy.tsv.gz").exists() },
+
+                // RGI
+                { assert snapshot (
+                    path("$outputDir/arg/rgi/sample_1/sample_1.txt"),
+                    path("$outputDir/arg/rgi/sample_2/sample_2.txt")
+                ).match("rgi") },
+
+                // ABRicate
+                { assert snapshot (
+                    file("$outputDir/arg/abricate/sample_1/sample_1.txt").text.contains("COVERAGE_MAP"),
+                    file("$outputDir/arg/abricate/sample_2/sample_2.txt").text.contains("COVERAGE_MAP")
+                ).match("abricate") },
+
+                // fARGene
+                { assert snapshot (
+                    path("$outputDir/arg/fargene/sample_1/class_b_1_2/results_summary.txt"),
+                    file("$outputDir/arg/fargene/sample_2/class_b_3/results_summary.txt").text.contains("class_B_3.hmm"),
+                    file("$outputDir/arg/fargene/sample_2/tet_efflux/results_summary.txt").text.contains("tet_efflux.hmm")
+                ).match("fargene") },
+
+                // hAMRonization
+                { assert new File("$outputDir/reports/hamronization_summarize/hamronization_complete_summary_taxonomy.tsv.gz").exists() },
+
+                // antiSMASH
+                { assert snapshot (
+                    file("$outputDir/bgc/antismash/sample_2/sample_2.gbk").text.contains("##antiSMASH-Data-START##"),
+                    file("$outputDir/bgc/antismash/sample_2/sample_2.log").text.contains("antiSMASH status: SUCCESS")
+                ).match("antismash") },
+
+                // GECCO
+                { assert snapshot (
+                    path("$outputDir/bgc/gecco/sample_2/sample_2.genes.tsv").text.contains("sequence_id"),
+                    path("$outputDir/bgc/gecco/sample_2/sample_2.features.tsv").text.contains("cluster_probability")
+                ).match("gecco") },
+
+                // hmmsearch (BGC)
+                { assert new File("$outputDir/bgc/hmmer_hmmsearch/sample_2/sample_2_ToyB.txt.gz").exists() }
+            )
+        }
+    }
+}

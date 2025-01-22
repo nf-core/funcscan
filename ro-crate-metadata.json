@@ -159,6 +159,7 @@
             },
             "url": ["https://github.com/nf-core/funcscan", "https://nf-co.re/funcscan/dev/"],
             "version": ["2.1.0dev"]
+
         },
         {
             "@id": "https://w3id.org/workflowhub/workflow-ro-crate#nextflow",
