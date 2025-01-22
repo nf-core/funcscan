@@ -29,8 +29,8 @@ When switched on, all tools of the given workflow will be run by default. If you
 
 **Example:** You want to run AMP and ARG screening but you don't need the DeepARG tool of the ARG workflow and the Macrel tool of the AMP workflow. Your command would be:
 
+```bash
 nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile docker --run_arg_screening --arg_skip_deeparg --run_amp_screening --amg_skip_macrel
-
 ```
 
 Note that the pipeline will create the following files in your working directory:
