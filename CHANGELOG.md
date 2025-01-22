@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.1.0 - [unreleased]
+## v2.1.0dev - [date]
 
 ### `Added`
 
@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#429](https://github.com/nf-core/funcscan/pull/429) Updated to nf-core template 3.1.0. (by @jfy133 and @jasmezz)
 - [#433](https://github.com/nf-core/funcscan/pull/433) Updated to nf-core template 3.1.1. (by @jfy133)
 - [#431](https://github.com/nf-core/funcscan/pull/431) Updated AMPcombi, Macrel, all MMseqs2 modules, MultiQC, Pyrodigal, and seqkit, added `--taxa_classification_mmseqs_compressed` parameter. (by @jasmezz)
+- [#438](https://github.com/nf-core/funcscan/pull/438) Updated to nf-core template 3.1.2. (by @jfy133)
 
 ### `Fixed`
 

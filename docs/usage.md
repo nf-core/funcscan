@@ -31,7 +31,6 @@ When switched on, all tools of the given workflow will be run by default. If you
 
 ```bash
 nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile docker --run_arg_screening --arg_skip_deeparg --run_amp_screening --amg_skip_macrel
-
 ```
 
 Note that the pipeline will create the following files in your working directory:
@@ -62,7 +61,6 @@ with:
 ```yaml title="params.yaml"
 input: './samplesheet.csv'
 outdir: './results/'
-genome: 'GRCh37'
 <...>
 ```
 
