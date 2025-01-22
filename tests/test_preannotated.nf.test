@@ -27,7 +27,7 @@ nextflow_pipeline {
                     path("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv").text.contains("MRWGYPLSLVLMALSVAAPMIYFRRKGWLR"),
                     path("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa"),
                     path("$outputDir/amp/ampir/sample_3/sample_3.ampir.tsv").text.contains("IPELEMRWGYPLSLVLMALSVAAPMIYFRRKGWLR"),
-                    path("$outputDir/amp/ampir/sample_3/sample_3.ampir.faa")
+                    path("$outputDir/amp/ampir/sample_3/sample_3.ampir.faa").text.contains(">NODE_882919_length_258_cov_0.935961_1 # 149 # 256 # -1 # ID=")
                 ).match("ampir") },
 
                 // AMPlify

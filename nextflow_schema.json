@@ -86,6 +86,14 @@
                     "help_text": "This flag specifies which tool for taxonomic classification should be activated. At the moment only 'MMseqs2' is incorporated in the pipeline.",
                     "description": "Specifies the tool used for taxonomic classification.",
                     "fa_icon": "fas fa-tools"
+                },
+                "taxa_classification_mmseqs_compressed": {
+                    "type": "integer",
+                    "default": 0,
+                    "enum": [0, 1],
+                    "help_text": "To compress MMseqs2 output files, choose 1, otherwise leave to 0. Compressing output files can lead to errors when the output is actually empty. In that case, just leave this parameter to default. More details can be found in the [documentation (GitHub)](https://github.com/soedinglab/MMseqs2?tab=readme-ov-file#memory-requirements).\n\n>  Modifies tool parameter(s):\n> - mmseqs createdb --compressed <0|1>\n> - mmseqs createtsv --compressed <0|1>\n> - mmseqs databases --compressed <0|1>\n> - mmseqs taxonomy --compressed <0|1>",
+                    "description": "If MMseqs2 is chosen as taxonomic classification tool: Specifies if the output of all MMseqs2 subcommands shall be compressed.",
+                    "fa_icon": "fas fa-file-archive"
                 }
             },
             "fa_icon": "fas fa-tag"

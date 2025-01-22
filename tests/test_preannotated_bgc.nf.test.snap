@@ -21,7 +21,7 @@
         "content": [
             "sample_1.bgc.gbk:md5,e50e429959e9c4bf0c4b97d9dcd54a08",
             "sample_2.bgc.gbk:md5,effe3cfc91772eb4e4b50ac46f13a941",
-            "sample_3.bgc.gbk:md5,c9028aca1282b314d296091e1f0b8e52"
+            "sample_3.bgc.gbk:md5,41920a93524a1bb32ae1003d69327642"
         ],
         "meta": {
             "nf-test": "0.9.0",
