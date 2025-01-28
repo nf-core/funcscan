@@ -4,11 +4,11 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { MULTIQC                } from '../modules/nf-core/multiqc/main'
-include { paramsSummaryMap       } from 'plugin/nf-schema'
-include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_funcscan_pipeline'
+include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
+include { paramsSummaryMap            } from 'plugin/nf-schema'
+include { paramsSummaryMultiqc        } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { softwareVersionsToYAML      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore_funcscan_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -96,13 +96,18 @@ workflow FUNCSCAN {
             fastas: true
         }
 
+    println('########## FINISHED GUINZIPPING ################# ')
+
     // Duplicate and filter the duplicated file for long contigs only for BGC
     // This is to speed up BGC run and prevent 'no hits found'  fails
     if (params.run_bgc_screening) {
+        println('########## GOING TO FILTER ################# ')
         SEQKIT_SEQ(ch_intermediate_input.fastas.map { meta, fasta, faa, gbk -> [meta, fasta] })
         ch_input_for_annotation = ch_intermediate_input.fastas
+            .dump(tag: 'ch_premap_seqkit')
             .map { meta, fasta, protein, gbk -> [meta, fasta] }
             .mix(SEQKIT_SEQ.out.fastx.map { meta, fasta -> [meta + [category: 'long'], fasta] })
+            .dump(tag: 'ch_prefilerseqkit')
             .filter { meta, fasta ->
                 if (fasta != [] && fasta.isEmpty()) {
                     log.warn("[nf-core/funcscan] Sample ${meta.id} does not have contigs longer than ${params.bgc_mincontiglength} bp. Will not be screened for BGCs.")
@@ -112,6 +117,7 @@ workflow FUNCSCAN {
         ch_versions = ch_versions.mix(SEQKIT_SEQ.out.versions)
     }
     else {
+        println('########## DID NOT FILTER ################# ')
         ch_input_for_annotation = ch_intermediate_input.fastas.map { meta, fasta, protein, gbk -> [meta, fasta] }
     }
 
@@ -121,21 +127,26 @@ workflow FUNCSCAN {
 
     // Some tools require annotated FASTAs
     if ((params.run_arg_screening && !params.arg_skip_deeparg) || params.run_amp_screening || params.run_bgc_screening) {
+        println('########## GOING TO ANNOTATE ################# ')
         ANNOTATION(ch_input_for_annotation)
         ch_versions = ch_versions.mix(ANNOTATION.out.versions)
 
         ch_new_annotation = ch_input_for_annotation
+            .dump(tag: 'preanotaitonjoin')
             .join(ANNOTATION.out.faa)
             .join(ANNOTATION.out.gbk)
+            .dump(tag: 'postannotaitonjoin')
     }
     else {
-        ch_new_annotation = ch_intermediate_input.fastas
+        println('########## DID NOT ANNOTATE ################# ')
+        ch_new_annotation = ch_intermediate_input.fastas.dump(tag: 'noannotation')
     }
 
     // Mix back the preannotated samples with the newly annotated ones
     ch_prepped_input = ch_new_annotation
         .filter { meta, fasta, faa, gbk -> meta.category != 'long' }
         .mix(ch_intermediate_input.preannotated)
+        .dump(tag: 'ch_prepped_input_fastas_premultimap_mixpreannotated')
         .multiMap { meta, fasta, faa, gbk ->
             fastas: [meta, fasta]
             faas: [meta, faa]
@@ -143,10 +154,11 @@ workflow FUNCSCAN {
         }
 
     if (params.run_bgc_screening) {
-
+        println('########## PREPPRING BGC SCREENING ################# ')
         ch_prepped_input_long = ch_new_annotation
             .filter { meta, fasta, faa, gbk -> meta.category == 'long' }
             .mix(ch_intermediate_input.preannotated)
+            .dump(tag: 'ch_prepped_input_fastas_premultimap_annotation')
             .multiMap { meta, fasta, faa, gbk ->
                 fastas: [meta, fasta]
                 faas: [meta, faa]
@@ -162,11 +174,13 @@ workflow FUNCSCAN {
     // This can be either on NT or AA level depending on annotation.
     // TODO: Only NT at the moment. AA tax. classification will be added only when its PR is merged.
     if (params.run_taxa_classification) {
-        TAXA_CLASS(ch_prepped_input.fastas)
+        println('########## GOING TO TAX CLASS ################# ')
+        TAXA_CLASS(ch_prepped_input.fastas.dump(tag: 'ch_prepped_input_fastas_tax'))
         ch_versions = ch_versions.mix(TAXA_CLASS.out.versions)
         ch_taxonomy_tsv = TAXA_CLASS.out.sample_taxonomy
     }
     else {
+        println('########## DID NOT TAX CLASS ################# ')
 
         ch_mmseqs_db = Channel.empty()
         ch_taxonomy_querydb = Channel.empty()
