@@ -170,6 +170,10 @@ workflow FUNCSCAN {
         TAXONOMIC CLASSIFICATION
     */
 
+    ch_prepped_input.fastas.dump(tag: 'ch_prepped_input_fastas_tax_fasta')
+    ch_prepped_input.faas.dump(tag: 'ch_prepped_input_fastas_tax_faas')
+    ch_prepped_input.gbks.dump(tag: 'ch_prepped_input_fastas_tax_gbks')
+
     // The final subworkflow reports need taxonomic classification.
     // This can be either on NT or AA level depending on annotation.
     // TODO: Only NT at the moment. AA tax. classification will be added only when its PR is merged.
@@ -178,6 +182,7 @@ workflow FUNCSCAN {
         TAXA_CLASS(ch_prepped_input.fastas.dump(tag: 'ch_prepped_input_fastas_tax'))
         ch_versions = ch_versions.mix(TAXA_CLASS.out.versions)
         ch_taxonomy_tsv = TAXA_CLASS.out.sample_taxonomy
+        println('########## FINSIHED TAX CLASS ################# ')
     }
     else {
         println('########## DID NOT TAX CLASS ################# ')
