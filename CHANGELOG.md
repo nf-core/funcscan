@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#433](https://github.com/nf-core/funcscan/pull/433) Updated to nf-core template 3.1.1. (by @jfy133)
 - [#431](https://github.com/nf-core/funcscan/pull/431) Updated AMPcombi, Macrel, all MMseqs2 modules, MultiQC, Pyrodigal, and seqkit, added `--taxa_classification_mmseqs_compressed` parameter. (by @jasmezz)
 - [#438](https://github.com/nf-core/funcscan/pull/438) Updated to nf-core template 3.1.2. (by @jfy133)
+- [#441](https://github.com/nf-core/funcscan/pull/441) Updated to nf-core template 3.2.0, updated MultiQC. (by @jasmezz and @jfy133)
 - [#440](https://github.com/nf-core/funcscan/pull/440) Updated Bakta and introduced new parameter `--annotation_bakta_hmms`. (by @jasmezz)
 
 ### `Fixed`
@@ -30,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | Bakta     | 1.9.3            | 1.10.4      |
 | Macrel    | 1.2.0            | 1.4.0       |
 | MMseqs2   | 15.6f452         | 17.b804f    |
-| MultiQC   | 1.24.0           | 1.26        |
+| MultiQC   | 1.24.0           | 1.27        |
 | Pyrodigal | 3.3.0            | 3.6.3       |
 | seqkit    | 2.8.1            | 2.9.0       |
 
