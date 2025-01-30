@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#430](https://github.com/nf-core/funcscan/pull/430) Updated `rgi/main` module to fix incorrect variable name. (by @amizeranschi and @jasmezz)
 - [#435](https://github.com/nf-core/funcscan/pull/435) Fixed dependency errors within taxonomy merging scripts, updated the code and output for all three workflows. Bumped to version 0.1.1. (by @darcy220606)
 - [#437](https://github.com/nf-core/funcscan/pull/437) Fixed file name error when supplying already preprocessed CARD database for ARG workflow. (by @jasmezz)
+- [#446](https://github.com/nf-core/funcscan/pull/446) Updated antiSMASH modules to fix apptainer execution. (by @jasmezz and @jfy133)
 
 ### `Dependencies`
 

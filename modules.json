@@ -47,12 +47,12 @@
                     },
                     "antismash/antismashlite": {
                         "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "git_sha": "3e3be50f2096e4b8fcfadc0318c92f782d6ae969",
                         "installed_by": ["modules"]
                     },
                     "antismash/antismashlitedownloaddatabases": {
                         "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "git_sha": "1eb613d008eae2f5dc8368fc940f6a36758deca9",
                         "installed_by": ["modules"]
                     },
                     "argnorm": {
