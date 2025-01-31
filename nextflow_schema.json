@@ -352,6 +352,12 @@
                     "fa_icon": "fas fa-chart-pie",
                     "description": "Activate generation of circular genome plots.",
                     "help_text": "Activate this flag to generate genome plots (might be memory-intensive).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-plot`"
+                },
+                "annotation_bakta_hmms": {
+                    "type": "string",
+                    "description": "Supply a path of an HMM file of trusted hidden markov models in HMMER format for CDS annotation",
+                    "help_text": "Bakta accepts user-provided trusted HMMs via `--hmms` in HMMER's text format. If set, Bakta will adhere to the *trusted cutoff* specified in the HMM header. In addition, a max. evalue threshold of 1e-6 is applied. For more info please refer to the BAKTA [documentation](https://github.com/oschwengers/bakta).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--hmms`",
+                    "fa_icon": "fa-regular fa-square-check"
                 }
             },
             "fa_icon": "fas fa-file-signature"
