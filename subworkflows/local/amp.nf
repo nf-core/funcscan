@@ -126,7 +126,7 @@ workflow AMP {
 
     ch_ampcombi_summaries = AMPCOMBI2_PARSETABLES.out.tsv.map{ it[1] }.collect()
 
-    // AMPCOMBI2::PARSETABLES
+    // AMPCOMBI2::COMPLETE
     ch_summary_count = ch_ampcombi_summaries.map { it.size() }.sum()
 
     if ( ch_summary_count == 0 || ch_summary_count == 1 )  {

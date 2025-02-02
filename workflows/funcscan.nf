@@ -179,7 +179,7 @@ workflow FUNCSCAN {
     /*
         PROTEIN ANNOTATION
     */
-    if (params.run_protein_annotation_interproscan) {
+    if (params.run_protein_annotation) {
         def filtered_faas = ch_prepped_input.faas.filter { meta, file ->
             if (file != [] && file.isEmpty()) {
                 log.warn("[nf-core/funcscan] Annotation of the following sample produced an empty FAA file. InterProScan classification of the CDS requiring this file will not be executed: ${meta.id}")
