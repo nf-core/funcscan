@@ -135,7 +135,9 @@ MMseqs2 is currently the only taxonomic classification tool used in the pipeline
 
 ### InterProScan
 
-[InterProScan](https://github.com/ebi-pf-team/interproscan) is currently the only protein annotation tool that gives a snapshot of the protein families and domains for each coding region. By giving `--run_protein_annotation_interproscan`, the [InterPro database](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.67-99.0/) v5.67-99.0 is by default downloaded and prepared and the input sequences will be screened against the database. You can skip database downloading by the pipeline on each run by manually downloading and extracting the files from any [InterPro version](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/) and giving the resulting directory path to `--protein_annotation_interproscan_db`.
+[InterProScan](https://github.com/ebi-pf-team/interproscan) is currently the only protein annotation tool that gives a snapshot of the protein families and domains for each coding region.
+By giving `--run_protein_annotation_interproscan`, the [InterPro database](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.67-99.0/) v5.67-99.0 is by default downloaded and prepared and the input sequences will be screened against the database.
+You can skip database downloading by the pipeline on each run by manually downloading and extracting the files from any [InterPro version](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/) and giving the resulting directory path to `--protein_annotation_interproscan_db`.
 
 ```bash
 --function_interproscan_db 'path/to/InterPro_directory/'
@@ -273,8 +275,18 @@ This is due to an incompatibility issue of Prodigal's output `.gbk` file with mu
 :::tip
 
 - If `--run_protein_annotation_interproscan` is given, protein and domain classifications of the coding regions are generated and the output is then integrated into the `AMPcombi parsetables` resulting table for every sample and the complete summary files e.g., `Ampcombi_summary.tsv`.
-- In some cases, when the AMP workflow is turned on, only the summary files per sample will be created in the output folder with **NO** `Ampcombi_summary.tsv` and `Ampcombi_summary_cluster.tsv` files and hence no taxonomic classifications will be merged (if the taxonomic classification subworkflow is turned on). This can occur when strictly setting parameters which can lead to no AMP hits found in any of the samples or in only one sample. Look out for `[nf-core/funcscan] AMPCOMBI2: 0/1 file passed. Skipping AMPCOMBI2_COMPLETE, AMPCOMBI2_CLUSTER, and TAXONOMY MERGING steps.`in the stdout or `.nextflow.log` file.
-  :::
+
+- In some cases when the AMP and the taxonomic classification subworkflows are
+turned on, it can happen that only summary files per sample are created in the
+output folder with **NO** `Ampcombi_summary.tsv` and `Ampcombi_summary_cluster.
+tsv` files with no taxonomic classifications merged. This can occur if some AMP
+parameters are 'too strict' or only one AMP tool is run, which can lead to no AMP
+hits found in any of the samples or in only one sample. Look out for `[nf-core/
+funcscan] AMPCOMBI2: 0/1 file passed. Skipping AMPCOMBI2_COMPLETE,
+AMPCOMBI2_CLUSTER, and TAXONOMY MERGING steps.`in the stdout or `.nextflow.log`
+file. In that case we recommend to lower the amp threshold and run more than one
+AMP prediction tool.
+:::
 
 ### Abricate
 
@@ -519,7 +531,7 @@ The contents of the database directory should include directories such as `commo
 ```console
 deepbgc_db/
 ├── common
-  └── Pfam-hmm-models*.hmm.*
+A diifferent version of the database can be supplied to the pipeline by passing the InterProScan database directory to `--protein_annotation_interproscan_db path/to/interproscan_db/`. The directory can be created following with:
 └── <version-num>[0.1.0]
   ├── classifier
   | └── myClassifiers*.pkl
@@ -531,7 +543,7 @@ deepbgc_db/
 
 [InterProScan](https://github.com/ebi-pf-team/interproscan) is used to provide more information about the proteins annotated on the contigs. By default, turning on this subworkflow with `--run_protein_annotation_interproscan` will download and unzip the (as of now) latest [InterPro database](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.67-99.0/) v5.67-99.0. The database downloaded can be saved in the output directory `<output_directors>/databases/interproscan/*` if the `--save_db` is turned on. Note: the download can take upto 4 hours depending on teh bandwidth.
 
-A diifferent version of the database can be supplied to teh pipeline ba passing the InterProScan database directory to `--protein_annotation_interproscan_db path/to/interproscan_db/`. The directory can be created following with:
+A different version of the database can be supplied to the pipeline by passing the InterProScan database directory to `--protein_annotation_interproscan_db path/to/downloaded-untarred-interproscan_db-dir/`. The directory can be created following:
 
 ```
 curl -L https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.67-99.0/interproscan-5.67-99.0-64-bit.tar.gz -o interproscan_db/interproscan-5.67-99.0-64-bit.tar.gz
