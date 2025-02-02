@@ -1,6 +1,6 @@
 lint:
   actions_ci: false
-nf_core_version: 3.1.0
+nf_core_version: 3.2.0
 repository_type: pipeline
 template:
   author: Jasmin Frangenberg, Anan Ibrahim, Louisa Perelo, Moritz E. Beber, James A. Fellows Yates

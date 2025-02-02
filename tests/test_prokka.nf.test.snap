@@ -47,7 +47,7 @@
     "deeparg_tsv_ARG": {
         "content": [
             "sample_1.align.daa.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
-            "sample_2.align.daa.tsv:md5,06648de08caca0b7f42eab9576615226",
+            "sample_2.align.daa.tsv:md5,7802fb45d7343e492d3677fec67e6d0c",
             "sample_1.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9",
             "sample_2.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9"
         ],

@@ -99,18 +99,25 @@ workflow ARG {
             UNTAR_CARD ( [ [], file('https://card.mcmaster.ca/latest/data', checkIfExists: true) ] )
             ch_versions = ch_versions.mix( UNTAR_CARD.out.versions )
             rgi_db = UNTAR_CARD.out.untar.map{ it[1] }
+            RGI_CARDANNOTATION ( rgi_db )
+            card = RGI_CARDANNOTATION.out.db
+            ch_versions = ch_versions.mix( RGI_CARDANNOTATION.out.versions )
 
         } else {
 
             // Use user-supplied database
             rgi_db = params.arg_rgi_db
+            if (! rgi_db.contains("card_database_processed") ) {
+                RGI_CARDANNOTATION ( rgi_db )
+                card = RGI_CARDANNOTATION.out.db
+                ch_versions = ch_versions.mix( RGI_CARDANNOTATION.out.versions )
+            } else {
+                card = rgi_db
+            }
 
         }
 
-        RGI_CARDANNOTATION ( rgi_db )
-        ch_versions = ch_versions.mix( RGI_CARDANNOTATION.out.versions )
-
-        RGI_MAIN ( fastas, RGI_CARDANNOTATION.out.db, [] )
+        RGI_MAIN ( fastas, card, [] )
         ch_versions = ch_versions.mix( RGI_MAIN.out.versions )
 
         // Reporting

@@ -23,16 +23,16 @@ nextflow_pipeline {
 
                 // ampir
                 { assert snapshot(
-                    file("$outputDir/amp/ampir/sample_1/sample_1.ampir.tsv").text.contains("KKEJHB_00005"),
-                    file("$outputDir/amp/ampir/sample_1/sample_1.ampir.faa").text.contains("KKEJHB_00005"),
-                    file("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv").text.contains("KDEMFK_00005"),
-                    file("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa").text.contains("KDEMFK_00005")
+                    file("$outputDir/amp/ampir/sample_1/sample_1.ampir.tsv").text.contains("KKEJHB_005"),
+                    file("$outputDir/amp/ampir/sample_1/sample_1.ampir.faa").text.contains("KKEJHB_005"),
+                    file("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv").text.contains("KDEMFK_0005"),
+                    file("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa").text.contains("KDEMFK_0005")
                 ).match("ampir") },
 
                 // AMPlify
                 { assert snapshot(
-                    file("$outputDir/amp/amplify/sample_1/sample_1.amplify.tsv").text.contains("KKEJHB_00005"),
-                    file("$outputDir/amp/amplify/sample_2/sample_2.amplify.tsv").text.contains("KDEMFK_00005")
+                    file("$outputDir/amp/amplify/sample_1/sample_1.amplify.tsv").text.contains("KKEJHB_005"),
+                    file("$outputDir/amp/amplify/sample_2/sample_2.amplify.tsv").text.contains("KDEMFK_0005")
                 ).match("amplify") },
 
                 // Macrel
@@ -55,7 +55,7 @@ nextflow_pipeline {
 
                 // AMPcombi
                 { assert snapshot (
-                    file("$outputDir/reports/ampcombi2/sample_2/sample_2_ampcombi.tsv").text.contains("KDEMFK_00575"),
+                    file("$outputDir/reports/ampcombi2/sample_2/sample_2_ampcombi.tsv").text.contains("KDEMFK_0070"),
                 ).match("ampcombi") },
                 { assert new File("$outputDir/reports/ampcombi2/ampcombi_complete_summary_taxonomy.tsv.gz").exists() },
 
@@ -79,7 +79,7 @@ nextflow_pipeline {
                 ).match("fargene") },
 
                 // hAMRonization
-                { assert new File("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv.gz").exists() },
+                { assert new File("$outputDir/reports/hamronization_summarize/hamronization_complete_summary_taxonomy.tsv.gz").exists() },
 
                 // antiSMASH
                 { assert snapshot (

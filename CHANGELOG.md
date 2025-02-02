@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.1.0 - [unreleased]
+## v2.1.0dev - [date]
 
 ### `Added`
 
@@ -11,20 +11,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#427](https://github.com/nf-core/funcscan/pull/427) AMPcombi now can use multiple other databases for classifications. (by @darcy220606)
 - [#428](https://github.com/nf-core/funcscan/pull/428) Added InterProScan annotation workflow to the pipeline. The results are coupled to AMPcombi final table. (by @darcy220606)
 - [#429](https://github.com/nf-core/funcscan/pull/429) Updated to nf-core template 3.1.0. (by @jfy133 and @jasmezz)
+- [#433](https://github.com/nf-core/funcscan/pull/433) Updated to nf-core template 3.1.1. (by @jfy133)
+- [#431](https://github.com/nf-core/funcscan/pull/431) Updated AMPcombi, Macrel, all MMseqs2 modules, MultiQC, Pyrodigal, and seqkit, added `--taxa_classification_mmseqs_compressed` parameter. (by @jasmezz)
+- [#438](https://github.com/nf-core/funcscan/pull/438) Updated to nf-core template 3.1.2. (by @jfy133)
+- [#441](https://github.com/nf-core/funcscan/pull/441) Updated to nf-core template 3.2.0, updated MultiQC. (by @jasmezz and @jfy133)
+- [#440](https://github.com/nf-core/funcscan/pull/440) Updated Bakta and introduced new parameter `--annotation_bakta_hmms`. (by @jasmezz)
 
 ### `Fixed`
 
 - [#427](https://github.com/nf-core/funcscan/pull/427) Fixed the AMP reference database issues reported by users, due to non-ASCII characters. (by @darcy220606)
 - [#430](https://github.com/nf-core/funcscan/pull/430) Updated `rgi/main` module to fix incorrect variable name. (by @amizeranschi and @jasmezz)
+- [#435](https://github.com/nf-core/funcscan/pull/435) Fixed dependency errors within taxonomy merging scripts, updated the code and output for all three workflows. Bumped to version 0.1.1. (by @darcy220606)
+- [#437](https://github.com/nf-core/funcscan/pull/437) Fixed file name error when supplying already preprocessed CARD database for ARG workflow. (by @jasmezz)
+- [#446](https://github.com/nf-core/funcscan/pull/446) Updated antiSMASH modules to fix apptainer execution. (by @jasmezz and @jfy133)
 
 ### `Dependencies`
 
+=======
 | Tool         | Previous version | New version |
 | ------------ | ---------------- | ----------- |
 | AMPcombi     | 0.2.2            | 2.0.1       |
-| Macrel       | 1.2.0            | 1.4.0       |
-| MultiQC      | 1.24.0           | 1.25.1      |
+| Bakta        | 1.9.3            | 1.10.4      |
 | InterProScan | -                | 5.59_91.0   |
+| Macrel       | 1.2.0            | 1.4.0       |
+| MMseqs2      | 15.6f452         | 17.b804f    |
+| MultiQC      | 1.24.0           | 1.27        |
+| Pyrodigal    | 3.3.0            | 3.6.3       |
+| seqkit       | 2.8.1            | 2.9.0       |
 
 ### `Deprecated`
 
@@ -104,7 +117,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | GECCO         | 0.9.8            | 0.9.10      |
 | hAMRonization | 1.1.1            | 1.1.4       |
 | HMMER         | 3.3.2            | 3.4         |
-| MMSeqs        | NA               | 2:15.6f452  |
+| MMseqs2       | NA               | 15.6f452    |
 | MultiQC       | 1.15             | 1.24        |
 | Pyrodigal     | 2.1.0            | 3.3.0       |
 | RGI           | 5.2.1            | 6.0.3       |

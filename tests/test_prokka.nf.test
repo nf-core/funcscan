@@ -53,7 +53,7 @@ nextflow_pipeline {
                 ).match("macrel") },
 
                 // AMPcombi
-                { assert path("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("PROKKA_00019") },
+                { assert path("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("PROKKA_377") },
                 { assert snapshot(
                     path("$outputDir/reports/ampcombi2/Ampcombi_cluster.log"),
                     path("$outputDir/reports/ampcombi2/Ampcombi_complete.log"),
