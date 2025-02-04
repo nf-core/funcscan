@@ -68,6 +68,8 @@ hamronization_parser.add_argument("--taxonomy", dest="taxa3",nargs='+', help="En
 def reformat_mmseqs_taxonomy(mmseqs_taxonomy):
     """_summary_
     Reformats the taxonomy files and joins them in a list to be passed on to the tools functions
+    Note: Every database from MMseqs outputs a different number of columns. Only the first 4 and last 2 columns are constant
+            and the most important.
 
     Args:
         mmseqs_taxonomy (tsv): mmseqs output file per sample
@@ -75,9 +77,13 @@ def reformat_mmseqs_taxonomy(mmseqs_taxonomy):
     Returns:
         data frame: reformatted tables
     """
-    mmseqs2_df = pd.read_csv(mmseqs_taxonomy, sep='\t', header=None, names=['contig_id', 'taxid', 'rank_label', 'scientific_name', 'lineage', 'mmseqs_lineage_contig'])
-    # remove the lineage column
-    mmseqs2_df.drop('lineage', axis=1, inplace=True)
+    col_numbers = pd.read_csv(mmseqs_taxonomy, sep='\t', header=None, nrows=1).shape[1]
+    selected_cols_numbers = [0, 1, 2, 3, col_numbers - 1]
+    mmseqs2_df = pd.read_csv(mmseqs_taxonomy,
+                                sep='\t',
+                                header=None,
+                                usecols= selected_cols_numbers,
+                                names=['contig_id', 'taxid', 'rank_label', 'scientific_name', 'mmseqs_lineage_contig'])
     mmseqs2_df['mmseqs_lineage_contig'].unique()
     # convert any classification that has Eukaryota/root to NaN as funcscan targets bacteria ONLY **
     for i, row in mmseqs2_df.iterrows():
