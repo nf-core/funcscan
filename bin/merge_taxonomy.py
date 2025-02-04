@@ -68,7 +68,7 @@ hamronization_parser.add_argument("--taxonomy", dest="taxa3",nargs='+', help="En
 def reformat_mmseqs_taxonomy(mmseqs_taxonomy):
     """_summary_
     Reformats the taxonomy files and joins them in a list to be passed on to the tools functions
-    Note: Every database from MMseqs outputs a different number of columns only the first 4 and last 2 columns are constant
+    Note: Every database from MMseqs outputs a different number of columns. Only the first 4 and last 2 columns are constant
             and the most important.
 
     Args:
