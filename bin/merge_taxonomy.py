@@ -84,7 +84,6 @@ def reformat_mmseqs_taxonomy(mmseqs_taxonomy):
                                 header=None,
                                 usecols= selected_cols_numbers,
                                 names=['contig_id', 'taxid', 'rank_label', 'scientific_name', 'mmseqs_lineage_contig'])
-    # remove the lineage column
     mmseqs2_df['mmseqs_lineage_contig'].unique()
     # convert any classification that has Eukaryota/root to NaN as funcscan targets bacteria ONLY **
     for i, row in mmseqs2_df.iterrows():
