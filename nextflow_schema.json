@@ -519,7 +519,7 @@
                     "description": "Forces Pyrodigal to scan for motifs.",
                     "help_text": "Forces Pyrodigal to a full scan for motifs rather than activating the Shine-Dalgarno RBS finder, the default scanner for Pyrodigal to train for motifs.\n\nFor more information check the Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `-n`"
                 },
-                "annotation_pyrodigal_stopcodon": {
+                "annotation_pyrodigal_usespecialstopcharacter": {
                     "type": "boolean",
                     "fa_icon": "fa fa-star-of-life",
                     "description": "This forces Pyrodigal to append asterisks (`*`) as stop codon indicators.",
