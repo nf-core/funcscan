@@ -3,7 +3,7 @@
         "content": [
             "sample_1.align.daa.tsv:md5,0e71c37318bdc6cba792196d0455293d",
             "sample_2.align.daa.tsv:md5,1092ecd3cd6931653168b46c7afeb9e3",
-            "sample_3.align.daa.tsv:md5,b79070fe26acd1a10ae3aaf06b0d5901",
+            "sample_3.align.daa.tsv:md5,a9ed2f0651d75b318fde07a76b06d7b8",
             true,
             true,
             true
@@ -71,8 +71,8 @@
             "sample_1.potential.ARG.normalized.tsv:md5,d6732b4b9765bfa47e27ba673e24b6a4",
             "sample_2.ARG.normalized.tsv:md5,1a19b894a7315aaae5f799e4539e6619",
             "sample_2.potential.ARG.normalized.tsv:md5,b241e22f9116d8f518ba8526d52ac4dc",
-            "sample_3.ARG.normalized.tsv:md5,d40d387176649ce80827420fef6a0169",
-            "sample_3.potential.ARG.normalized.tsv:md5,f331efd21ea143c180a15ae56a5210d3"
+            "sample_3.ARG.normalized.tsv:md5,d7577c0066a31e173f9cb545820650bf",
+            "sample_3.potential.ARG.normalized.tsv:md5,6d0889215f0ad7f601502ca67c0ca89e"
         ],
         "meta": {
             "nf-test": "0.9.0",

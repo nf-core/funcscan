@@ -518,6 +518,13 @@
                     "fa_icon": "fas fa-barcode",
                     "description": "Forces Pyrodigal to scan for motifs.",
                     "help_text": "Forces Pyrodigal to a full scan for motifs rather than activating the Shine-Dalgarno RBS finder, the default scanner for Pyrodigal to train for motifs.\n\nFor more information check the Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `-n`"
+                },
+                "annotation_pyrodigal_usespecialstopcharacter": {
+                    "type": "boolean",
+                    "fa_icon": "fa fa-star-of-life",
+                    "description": "This forces Pyrodigal to append asterisks (`*`) as stop codon indicators. Do not use when running AMP workflow.",
+                    "help_text": "Some downstream tools like AMPlify cannot process sequences containing non-sequence characters like the stop codon indicator `*`. Thus, this flag is deactivated by default. Activate this flag to revert the behaviour and have Pyrodigal append `*` as stop codon indicator to annotated sequences.\n\nFor more information check the Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `--no-stop-codon`",
+                    "default": false
                 }
             },
             "fa_icon": "fas fa-file-signature"
