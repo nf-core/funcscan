@@ -72,11 +72,11 @@
 
 - [InterPro](https://doi.org/10.1093/nar/gkaa977)
 
-  > Blum, M., Chang, H-Y., Chuguransky, S., Grego, T., Kandasaamy, S., Mitchell, A., Nuka, G., Paysan-Lafosse, T., Qureshi, M., Raj, S., Richardson, L., Salazar, G.A., Williams, L., Bork, P., Bridge, A., Gough, J., Haft, D.H., Letunic, I., Marchler-Bauer, A., Mi, H., Natale, D.A., Necci, M., Orengo, C.A., Pandurangan, A.P., Rivoire, C., Sigrist, C.A., Sillitoe, I., Thanki, N., Thomas, P.D., Tosatto, S.C.E, Wu, C.H., Bateman, A., Finn, R.D. (2021) The InterPro protein families and domains database: 20 years on, Nucleic Acids Research, 49(D1), D344–D354.[DOI: 10.1093/nar/gkaa977](https://doi.org/10.1093/nar/gkaa977).
+  > Blum, M., Chang, H-Y., Chuguransky, S., Grego, T., Kandasaamy, S., Mitchell, A., Nuka, G., Paysan-Lafosse, T., Qureshi, M., Raj, S., Richardson, L., Salazar, G. A., Williams, L., Bork, P., Bridge, A., Gough, J., Haft, D. H., Letunic, I., Marchler-Bauer, A., Mi, H., Natale, D. A., Necci, M., Orengo, C. A., Pandurangan, A. P., Rivoire, C., Sigrist, C. A., Sillitoe, I., Thanki, N., Thomas, P. D., Tosatto, S. C. E, Wu, C. H., Bateman, A., Finn, R. D. (2021) The InterPro protein families and domains database: 20 years on. Nucleic Acids Research, 49(D1), D344–D354. [DOI: 10.1093/nar/gkaa977](https://doi.org/10.1093/nar/gkaa977)
 
 - [InterProScan](https://doi.org/10.1093/bioinformatics/btu031)
 
-  > Jones, P., Binns, D., Chang, H-Y., Fraser, M., Li, W., McAnulla, C., McWilliam, H., Maslen, J., Mitchell, A., Nuka, G., Pesseat, S., Quinn, A.F., Sangrador-Vegas, A., Scheremetjew, M., Yong, S-Y., Lopez, R., Hunter, S. (2014)InterProScan 5: genome-scale protein function classification, Bioinformatics, 30(9), 1236–1240. [DOI: 10.1093/bioinformatics/btu031](https://doi.org/10.1093/bioinformatics/btu031)
+  > Jones, P., Binns, D., Chang, H-Y., Fraser, M., Li, W., McAnulla, C., McWilliam, H., Maslen, J., Mitchell, A., Nuka, G., Pesseat, S., Quinn, A. F., Sangrador-Vegas, A., Scheremetjew, M., Yong, S-Y., Lopez, R., Hunter, S. (2014) InterProScan 5: genome-scale protein function classification. Bioinformatics, 30(9), 1236–1240. [DOI: 10.1093/bioinformatics/btu031](https://doi.org/10.1093/bioinformatics/btu031)
 
 - [Macrel](https://doi.org/10.7717/peerj.10555)
 

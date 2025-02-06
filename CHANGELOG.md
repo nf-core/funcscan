@@ -27,17 +27,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-=======
-| Tool | Previous version | New version |
+| Tool         | Previous Version | New Version |
 | ------------ | ---------------- | ----------- |
-| AMPcombi | 0.2.2 | 2.0.1 |
-| Bakta | 1.9.3 | 1.10.4 |
-| InterProScan | - | 5.59_91.0 |
-| Macrel | 1.2.0 | 1.4.0 |
-| MMseqs2 | 15.6f452 | 17.b804f |
-| MultiQC | 1.24.0 | 1.27 |
-| Pyrodigal | 3.3.0 | 3.6.3 |
-| seqkit | 2.8.1 | 2.9.0 |
+| AMPcombi     | 0.2.2            | 2.0.1       |
+| Bakta        | 1.9.3            | 1.10.4      |
+| InterProScan | -                | 5.59_91.0   |
+| Macrel       | 1.2.0            | 1.4.0       |
+| MMseqs2      | 15.6f452         | 17.b804f    |
+| MultiQC      | 1.24.0           | 1.27        |
+| Pyrodigal    | 3.3.0            | 3.6.3       |
+| seqkit       | 2.8.1            | 2.9.0       |
 
 ### `Deprecated`
 

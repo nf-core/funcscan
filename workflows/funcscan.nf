@@ -191,14 +191,12 @@ workflow FUNCSCAN {
         ch_versions = ch_versions.mix(SEQKIT_SEQ_FILTER.out.versions)
         ch_input_for_protein_annotation =  SEQKIT_SEQ_FILTER.out.fastx
 
-        PROTEIN_ANNOTATION (
-            ch_input_for_protein_annotation
-        )
+        PROTEIN_ANNOTATION ( ch_input_for_protein_annotation )
         ch_versions = ch_versions.mix(PROTEIN_ANNOTATION.out.versions)
 
         ch_interproscan_tsv = PROTEIN_ANNOTATION.out.tsv.map { meta, file ->
             if (file == [] || file.isEmpty()) {
-                log.warn("[nf-core/funcscan] Protein annotation with INTERPROSCAN produced an empty TSV file. No protein annotation will be added for ${meta.id}.")
+                log.warn("[nf-core/funcscan] Protein annotation with InterProScan produced an empty TSV file. No protein annotation will be added for sample ${meta.id}.")
                 [meta, []]
             } else {
                 [meta, file]

@@ -116,12 +116,12 @@ workflow AMP {
     // AMPCOMBI2::PARSETABLES
     if ( params.amp_ampcombi_db != null ) {
         AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input,  ch_input_for_ampcombi.faa,  ch_input_for_ampcombi.gbk, params.amp_ampcombi_db_id, params.amp_ampcombi_db, ch_input_for_ampcombi.interpro )
-        } else {
-            AMP_DATABASE_DOWNLOAD( params.amp_ampcombi_db_id )
-            ch_versions = ch_versions.mix( AMP_DATABASE_DOWNLOAD.out.versions )
-            ch_ampcombi_input_db = AMP_DATABASE_DOWNLOAD.out.db
-            AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_input_for_ampcombi.gbk, params.amp_ampcombi_db_id, ch_ampcombi_input_db, ch_input_for_ampcombi.interpro )
-        }
+    } else {
+        AMP_DATABASE_DOWNLOAD( params.amp_ampcombi_db_id )
+        ch_versions = ch_versions.mix( AMP_DATABASE_DOWNLOAD.out.versions )
+        ch_ampcombi_input_db = AMP_DATABASE_DOWNLOAD.out.db
+        AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_input_for_ampcombi.gbk, params.amp_ampcombi_db_id, ch_ampcombi_input_db, ch_input_for_ampcombi.interpro )
+    }
     ch_versions = ch_versions.mix( AMPCOMBI2_PARSETABLES.out.versions )
 
     ch_ampcombi_summaries = AMPCOMBI2_PARSETABLES.out.tsv.map{ it[1] }.collect()

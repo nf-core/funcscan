@@ -25,12 +25,12 @@ workflow PROTEIN_ANNOTATION {
                 .first()
         } else {
             INTERPROSCAN_DATABASE ( params.protein_annotation_interproscan_db_url )
-            ch_versions  = ch_versions.mix( INTERPROSCAN_DATABASE.out.versions )
+            ch_versions = ch_versions.mix( INTERPROSCAN_DATABASE.out.versions )
             ch_interproscan_db = ( INTERPROSCAN_DATABASE.out.db )
         }
 
         INTERPROSCAN( ch_faa_for_interproscan, ch_interproscan_db )
-        ch_versions  = ch_versions.mix( INTERPROSCAN.out.versions )
+        ch_versions = ch_versions.mix( INTERPROSCAN.out.versions )
         ch_interproscan_tsv = ch_interproscan_tsv.mix( INTERPROSCAN.out.tsv )
 
         // Current INTERPROSCAN version 5.59_91.0 only includes 13 columns and not 15 which ampcombi expects, so we added them here
