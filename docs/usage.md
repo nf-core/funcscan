@@ -531,8 +531,8 @@ deepbgc_db/
 A local version of the database can be supplied to the pipeline by passing the InterProScan database directory to `--protein_annotation_interproscan_db <path/to/downloaded-untarred-interproscan_db-dir/>`. The directory can be created by running (e.g. for database version 5.67-99.0):
 
 ```
-curl -L https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.67-99.0/interproscan-5.67-99.0-64-bit.tar.gz -o interproscan_db/interproscan-5.67-99.0-64-bit.tar.gz
-tar -xzf interproscan_db/interproscan-5.67-99.0-64-bit.tar.gz -C interproscan_db/
+curl -L https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.72-103.0/interproscan-5.72-103.0-64-bit.tar.gz -o interproscan_db/interproscan-5.72-103.0-64-bit.tar.gz
+tar -xzf interproscan_db/interproscan-5.72-103.0-64-bit.tar.gz -C interproscan_db/
 
 ```
 
