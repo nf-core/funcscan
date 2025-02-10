@@ -542,7 +542,7 @@
                 },
                 "protein_annotation_interproscan_db_url": {
                     "type": "string",
-                    "default": "http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.72-103.0/interproscan-5.72-103.0-64-bit.tar.gz",
+                    "default": "https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.72-103.0/interproscan-5.72-103.0-64-bit.tar.gz",
                     "help_text": "This allows the user to change the InterProScan database version that the pipeline will download for you automatically. To instead use a pre-downloaded database, please supply its path to `--protein_annotation_interproscan_db`. Changing this URL allows for the use of the latest database release. By default this is set to `http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.72-103.0/interproscan-5.72-103.0-64-bit.tar.gz`. ",
                     "description": "Change the database version used for annotation.",
                     "fa_icon": "fas fa-database"
