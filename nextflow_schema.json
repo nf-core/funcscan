@@ -582,7 +582,8 @@
                 "protein_annotation_interproscan_disableresidueannottsv": {
                     "type": "boolean",
                     "help_text": "This disables the addition of the annotations assigned according to the databases activated to the final `<sample>_interproscan.tsv` file.  Turning this on will remove the annotations from the final table. It is not recommended to use this option, as it will cause a run failure because the format of the resulting files will no longer be adequate for integration in the final summary tables. Currently, only applicable for AMPcombi2. \n\nFor more information about this flag see the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `--enable-tsv-residue-annot`\n",
-                    "description": "Removes annotations from TSV file."
+                    "description": "Removes annotations from TSV file.",
+                    "fa_icon": "fas fa-eraser"
                 }
             },
             "help_text": "This subworkflow adds additional protein annotations to all annotated coding regions. Currently, only annotation with InterProScan is integrated in the subworkflow.",
