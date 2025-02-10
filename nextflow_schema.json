@@ -556,6 +556,7 @@
                 },
                 "protein_annotation_interproscan_db": {
                     "type": "string",
+                    "help_text": "Use this to supply the path to a pre-downloaded InterProScan database. This can be any unzipped InterProScan version. By default the database version '5.72-103.0' is downloaded.\n\nFor more details on where to find different InterProScan databases see tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/UserDocs.html#obtaining-a-copy-of-interproscan).\n",
                     "description": "Path to pre-downloaded InterProScan database.",
                     "fa_icon": "fas fa-database"
                 },
@@ -570,11 +571,11 @@
                     "type": "boolean",
                     "help_text": "This increases the speed of functional annotation with InterProScan by pre-calculating matches found in the UniProtKB, thereby identifying unique matches in the query sequences for faster annotation. By default this is turned off.\n\nFor more information about this flag see the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `---diasable-precalc`",
                     "description": "Pre-calculates residue mutual matches.",
-                    "fa_icon": "fas fa-clock-rotate-left"
+                    "fa_icon": "fas fa-clock"
                 },
                 "protein_annotation_interproscan_enableresidueannot": {
                     "type": "boolean",
-                    "help_text": "Activating this flag  will remove the residue annotation from the final XML and JSON output files, which we do not supply as output files from InerProScan. \n\nFor more information about this flag see the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `--disable-residue-annot`",
+                    "help_text": "By default, this flag removes the residue annotation from the final XML and JSON output files, which we do not supply as output files from InterProScan.\n\nFor more information about this flag see the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `--disable-residue-annot`",
                     "description": "Enable residue annotation in XML and JSON files.",
                     "fa_icon": "fas fa-eraser"
                 },
