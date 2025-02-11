@@ -66,7 +66,7 @@
                     "fa_icon": "fas fa-check-circle"
                 }
             },
-            "fa_icon": "fa fa-list-ol"
+            "fa_icon": "fa fa-list"
         },
         "taxonomic_classification_general_options": {
             "title": "Taxonomic classification: general options",
@@ -523,8 +523,7 @@
                     "type": "boolean",
                     "fa_icon": "fa fa-star-of-life",
                     "description": "This forces Pyrodigal to append asterisks (`*`) as stop codon indicators. Do not use when running AMP workflow.",
-                    "help_text": "Some downstream tools like AMPlify cannot process sequences containing non-sequence characters like the stop codon indicator `*`. Thus, this flag is deactivated by default. Activate this flag to revert the behaviour and have Pyrodigal append `*` as stop codon indicator to annotated sequences.\n\nFor more information check the Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `--no-stop-codon`",
-                    "default": false
+                    "help_text": "Some downstream tools like AMPlify cannot process sequences containing non-sequence characters like the stop codon indicator `*`. Thus, this flag is deactivated by default. Activate this flag to revert the behaviour and have Pyrodigal append `*` as stop codon indicator to annotated sequences.\n\nFor more information check the Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `--no-stop-codon`"
                 }
             },
             "fa_icon": "fas fa-file-signature"
@@ -604,7 +603,7 @@
                     "fa_icon": "fas fa-ban"
                 }
             },
-            "fa_icon": "fa fa-plus-square"
+            "fa_icon": "fas fa-plus"
         },
         "amp_ampir": {
             "title": "AMP: ampir",
@@ -633,7 +632,7 @@
                     "fa_icon": "fas fa-ruler-horizontal"
                 }
             },
-            "fa_icon": "fa fa-plus-square"
+            "fa_icon": "fas fa-plus"
         },
         "amp_hmmsearch": {
             "title": "AMP: hmmsearch",
@@ -672,7 +671,7 @@
                     "fa_icon": "fas fa-save"
                 }
             },
-            "fa_icon": "fa fa-plus-square",
+            "fa_icon": "fas fa-plus",
             "help_text": "HMMER/hmmsearch is used for searching sequence databases for sequence homologs, and for making sequence alignments. It implements methods using probabilistic models called profile hidden Markov models (profile HMMs). `hmmsearch` is used to search one or more profiles against a sequence database.\n\nFor more information check the HMMER [documentation](http://hmmer.org/).\n\n"
         },
         "amp_macrel": {
@@ -687,7 +686,7 @@
                     "fa_icon": "fas fa-ban"
                 }
             },
-            "fa_icon": "fa fa-plus-square"
+            "fa_icon": "fas fa-plus"
         },
         "amp_ampcombi2_parsetables": {
             "title": "AMP: ampcombi2 parsetables",
@@ -785,7 +784,7 @@
                     "fa_icon": "fas fa-address-card"
                 }
             },
-            "fa_icon": "fa fa-plus-square"
+            "fa_icon": "fas fa-plus"
         },
         "amp_ampcombi2_cluster": {
             "title": "AMP: ampcombi2 cluster",
@@ -842,7 +841,7 @@
                     "fa_icon": "fas fa-book-dead"
                 }
             },
-            "fa_icon": "fa fa-plus-square"
+            "fa_icon": "fas fa-plus"
         },
         "arg_amrfinderplus": {
             "title": "ARG: AMRFinderPlus",
@@ -1182,7 +1181,7 @@
             "type": "object",
             "description": "These parameters influence general BGC settings like minimum input sequence length.",
             "default": "",
-            "fa_icon": "fa fa-sliders",
+            "fa_icon": "fas fa-angle-double-right",
             "properties": {
                 "bgc_mincontiglength": {
                     "type": "integer",
@@ -1293,7 +1292,7 @@
                     "fa_icon": "fas fa-search"
                 }
             },
-            "fa_icon": "fa fa-sliders"
+            "fa_icon": "fas fa-angle-double-right"
         },
         "bgc_deepbgc": {
             "title": "BGC: DeepBGC",
@@ -1375,7 +1374,7 @@
                     "help_text": "DeepBGC classification score threshold for assigning classes to BGCs.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--classifier-score`"
                 }
             },
-            "fa_icon": "fa fa-sliders"
+            "fa_icon": "fas fa-angle-double-right"
         },
         "bgc_gecco": {
             "title": "BGC: GECCO",
@@ -1423,7 +1422,7 @@
                     "fa_icon": "fas fa-ruler-horizontal"
                 }
             },
-            "fa_icon": "fa fa-sliders"
+            "fa_icon": "fas fa-angle-double-right"
         },
         "bgc_hmmsearch": {
             "title": "BGC: hmmsearch",
@@ -1462,7 +1461,7 @@
                     "fa_icon": "fas fa-save"
                 }
             },
-            "fa_icon": "fa fa-sliders"
+            "fa_icon": "fas fa-angle-double-right"
         },
         "institutional_config_options": {
             "title": "Institutional config options",
