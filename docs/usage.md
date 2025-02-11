@@ -273,7 +273,7 @@ This is due to an incompatibility issue of Prodigal's output `.gbk` file with mu
 
 - If `--run_protein_annotation` is activated, protein and domain classifications of the coding regions are generated and then used by the `ampcombi2/parsetables` module to create a table for every sample and afterwards the combined summary files, e.g. `Ampcombi_summary.tsv`.
 - In some cases when the AMP and the taxonomic classification subworkflows are turned on, it can happen that only summary files per sample are created in the output folder with **no** `Ampcombi_summary.tsv` and `Ampcombi_summary_cluster.tsv` files with no taxonomic classifications merged. This can occur if some AMP prediction parameters are 'too strict' or only one AMP tool is run, which can lead to no AMP hits found in any of the samples or in only one sample. Look out for the warning `[nf-core/funcscan] AMPCOMBI2: 0/1 file passed. Skipping AMPCOMBI2_COMPLETE, AMPCOMBI2_CLUSTER, and TAXONOMY MERGING steps.` in the stdout or `.nextflow.log` file. In that case we recommend to lower the AMP prediction thresholds and run more than one AMP prediction tool.
-:::
+  :::
 
 ### ABRicate
 
