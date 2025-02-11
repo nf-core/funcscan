@@ -17,18 +17,18 @@ include { MERGE_TAXONOMY_AMPCOMBI                                     } from '..
 
 workflow AMP {
     take:
-    fastas // tuple val(meta), path(contigs)
-    faas   // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
-    tsvs   // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
-    gbks   // tuple val(meta), path(ANNOTATION_ANNOTATION_TOOL.out.gbk)
+    fastas          // tuple val(meta), path(contigs)
+    faas            // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
+    tsvs            // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
+    gbks            // tuple val(meta), path(ANNOTATION_ANNOTATION_TOOL.out.gbk)
+    tsvs_interpro   // tuple val(meta), path(INTERPROSCAN.out.tsv)'
 
     main:
     ch_versions                    = Channel.empty()
     ch_ampresults_for_ampcombi     = Channel.empty()
-    ch_ampcombi_summaries          = Channel.empty()
     ch_macrel_faa                  = Channel.empty()
-    ch_ampcombi_complete           = Channel.empty()
-    ch_ampcombi_for_cluster        = Channel.empty()
+    ch_ampcombi_summaries          = Channel.empty()
+    ch_ampcombi_complete           = null
 
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
@@ -38,6 +38,7 @@ workflow AMP {
     ch_faa_for_ampir               = faas
     ch_faa_for_ampcombi            = faas
     ch_gbk_for_ampcombi            = gbks
+    ch_interpro_for_ampcombi       = tsvs_interpro
 
     // AMPLIFY
     if ( !params.amp_skip_amplify ) {
@@ -104,30 +105,40 @@ workflow AMP {
         .groupTuple()
         .join( ch_faa_for_ampcombi )
         .join( ch_gbk_for_ampcombi )
+        .join( ch_interpro_for_ampcombi )
         .multiMap{
             input: [ it[0], it[1] ]
             faa: it[2]
             gbk: it[3]
+            interpro: it [4]
         }
 
+    // AMPCOMBI2::PARSETABLES
     if ( params.amp_ampcombi_db != null ) {
-        AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_input_for_ampcombi.gbk, params.amp_ampcombi_db_id, params.amp_ampcombi_db, [] )
+        AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input,  ch_input_for_ampcombi.faa,  ch_input_for_ampcombi.gbk, params.amp_ampcombi_db_id, params.amp_ampcombi_db, ch_input_for_ampcombi.interpro )
     } else {
         AMP_DATABASE_DOWNLOAD( params.amp_ampcombi_db_id )
         ch_versions = ch_versions.mix( AMP_DATABASE_DOWNLOAD.out.versions )
         ch_ampcombi_input_db = AMP_DATABASE_DOWNLOAD.out.db
-        AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_input_for_ampcombi.gbk, params.amp_ampcombi_db_id, ch_ampcombi_input_db, [] )
+        AMPCOMBI2_PARSETABLES ( ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_input_for_ampcombi.gbk, params.amp_ampcombi_db_id, ch_ampcombi_input_db, ch_input_for_ampcombi.interpro )
     }
     ch_versions = ch_versions.mix( AMPCOMBI2_PARSETABLES.out.versions )
 
     ch_ampcombi_summaries = AMPCOMBI2_PARSETABLES.out.tsv.map{ it[1] }.collect()
 
-    AMPCOMBI2_COMPLETE ( ch_ampcombi_summaries )
-    ch_versions = ch_versions.mix( AMPCOMBI2_COMPLETE.out.versions )
+    // AMPCOMBI2::COMPLETE
+    ch_summary_count = ch_ampcombi_summaries.map { it.size() }.sum()
 
-    ch_ampcombi_complete = AMPCOMBI2_COMPLETE.out.tsv
+    if ( ch_summary_count == 0 || ch_summary_count == 1 )  {
+        log.warn("[nf-core/funcscan] AMPCOMBI2: ${ch_summary_count} file(s) passed. Skipping AMPCOMBI2_COMPLETE, AMPCOMBI2_CLUSTER, and TAXONOMY MERGING steps.")
+    } else {
+        AMPCOMBI2_COMPLETE(ch_ampcombi_summaries)
+        ch_versions = ch_versions.mix( AMPCOMBI2_COMPLETE.out.versions )
+        ch_ampcombi_complete = AMPCOMBI2_COMPLETE.out.tsv
                                 .filter { file -> file.countLines() > 1 }
+    }
 
+    // AMPCOMBI2::CLUSTER
     if ( ch_ampcombi_complete != null )  {
         AMPCOMBI2_CLUSTER ( ch_ampcombi_complete )
         ch_versions = ch_versions.mix( AMPCOMBI2_CLUSTER.out.versions )

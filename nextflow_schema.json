@@ -529,6 +529,54 @@
             },
             "fa_icon": "fas fa-file-signature"
         },
+        "protein_annotation": {
+            "title": "Protein Annotation: INTERPROSCAN",
+            "type": "object",
+            "description": "Functionally annotates all annotated coding regions.",
+            "default": "",
+            "properties": {
+                "run_protein_annotation": {
+                    "type": "boolean",
+                    "description": "Activates the functional annotation of annotated coding regions to provide more information about the codon regions classified.",
+                    "help_text": "Activates the annotation of annotated coding regions. "
+                },
+                "protein_annotation_tool": {
+                    "type": "string",
+                    "default": "InterProScan",
+                    "help_text": "This flag specifies which tool for protein annotation should be activated.\nAt the moment only [InterProScan](https://github.com/ebi-pf-team/interproscan) is incorporated in the pipeline. This annotates the locus tags to protein and domain levels according to the InterPro databases.\n\nMore details can be found in the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/index.html).",
+                    "description": "Specifies the tool used for further protein annotation.",
+                    "fa_icon": "fas fa-tools"
+                },
+                "protein_annotation_interproscan_db_url": {
+                    "type": "string",
+                    "default": "https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.72-103.0/interproscan-5.72-103.0-64-bit.tar.gz",
+                    "help_text": "This allows the user to change the InterProScan database version that the pipeline will download for you automatically. To instead use a pre-downloaded database, please supply its path to `--protein_annotation_interproscan_db`. Changing this URL allows for the use of the latest database release. By default this is set to `http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.72-103.0/interproscan-5.72-103.0-64-bit.tar.gz`. ",
+                    "description": "Change the database version used for annotation.",
+                    "fa_icon": "fas fa-database"
+                },
+                "protein_annotation_interproscan_db": {
+                    "type": "string",
+                    "help_text": "Use this to supply the path to a pre-downloaded InterProScan database. This can be any unzipped InterProScan version. By default the database version '5.72-103.0' is downloaded.\n\nFor more details on where to find different InterProScan databases see tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/UserDocs.html#obtaining-a-copy-of-interproscan).\n",
+                    "description": "Path to pre-downloaded InterProScan database.",
+                    "fa_icon": "fas fa-database"
+                },
+                "protein_annotation_interproscan_applications": {
+                    "type": "string",
+                    "default": "PANTHER,ProSiteProfiles,ProSitePatterns,Pfam",
+                    "help_text": "A comma-separated string specifying the database(s) to be used to annotate the coding regions annotated during the contig annotation workflow of the pipeline. By default these include `PANTHER,ProSiteProfiles,ProSitePatterns,Pfam`.\n- PANTHER (Protein ANalysis THrough Evolutionary Relationships): genes classified by their functions, using published scientific experimental evidence and evolutionary relationships.\n- PROSITE: protein domains, families, functional sites and specific patterns and profiles to identify them.\n- PFAM: protein families, represented by multiple sequence alignments and hidden Markov models (HMMs).\n\nThese databases were chosen based on the AMP workflow and therefore, with only these databases, do we guarantee the integration of the results to the AMPcombi final summary.\n\nNOTE: Currently, no integration of the results are implemented for the BGC and the ARG final summary tables.\n\nFor more information about all possible databases see the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `--applications`",
+                    "description": "Assigns the database(s) to be used to annotate the coding regions.",
+                    "fa_icon": "fas fa-database"
+                },
+                "protein_annotation_interproscan_enableprecalc": {
+                    "type": "boolean",
+                    "help_text": "This increases the speed of functional annotation with InterProScan by pre-calculating matches found in the UniProtKB, thereby identifying unique matches in the query sequences for faster annotation. By default this is turned off.\n\nFor more information about this flag see the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `---diasable-precalc`",
+                    "description": "Pre-calculates residue mutual matches.",
+                    "fa_icon": "fas fa-clock"
+                }
+            },
+            "help_text": "This subworkflow adds additional protein annotations to all annotated coding regions. Currently, only annotation with InterProScan is integrated in the subworkflow.",
+            "fa_icon": "fas fa-file-signature"
+        },
         "database_downloading_options": {
             "title": "Database downloading options",
             "type": "object",
@@ -1592,6 +1640,9 @@
         },
         {
             "$ref": "#/$defs/annotation_pyrodigal"
+        },
+        {
+            "$ref": "#/$defs/protein_annotation"
         },
         {
             "$ref": "#/$defs/database_downloading_options"

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#421](https://github.com/nf-core/funcscan/pull/421) Updated to nf-core template 3.0.2. (by @jfy133)
 - [#427](https://github.com/nf-core/funcscan/pull/427) AMPcombi now can use multiple other databases for classifications. (by @darcy220606)
+- [#428](https://github.com/nf-core/funcscan/pull/428) Added InterProScan annotation workflow to the pipeline. The results are coupled to AMPcombi final table. (by @darcy220606)
 - [#429](https://github.com/nf-core/funcscan/pull/429) Updated to nf-core template 3.1.0. (by @jfy133 and @jasmezz)
 - [#433](https://github.com/nf-core/funcscan/pull/433) Updated to nf-core template 3.1.1. (by @jfy133)
 - [#431](https://github.com/nf-core/funcscan/pull/431) Updated AMPcombi, Macrel, all MMseqs2 modules, MultiQC, Pyrodigal, and seqkit, added `--taxa_classification_mmseqs_compressed` parameter. (by @jasmezz)
@@ -28,15 +29,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool      | Previous version | New version |
-| --------- | ---------------- | ----------- |
-| AMPcombi  | 0.2.2            | 2.0.1       |
-| Bakta     | 1.9.3            | 1.10.4      |
-| Macrel    | 1.2.0            | 1.4.0       |
-| MMseqs2   | 15.6f452         | 17.b804f    |
-| MultiQC   | 1.24.0           | 1.27        |
-| Pyrodigal | 3.3.0            | 3.6.3       |
-| seqkit    | 2.8.1            | 2.9.0       |
+| Tool         | Previous Version | New Version |
+| ------------ | ---------------- | ----------- |
+| AMPcombi     | 0.2.2            | 2.0.1       |
+| Bakta        | 1.9.3            | 1.10.4      |
+| InterProScan | -                | 5.59_91.0   |
+| Macrel       | 1.2.0            | 1.4.0       |
+| MMseqs2      | 15.6f452         | 17.b804f    |
+| MultiQC      | 1.24.0           | 1.27        |
+| Pyrodigal    | 3.3.0            | 3.6.3       |
+| seqkit       | 2.8.1            | 2.9.0       |
 
 ### `Deprecated`
 

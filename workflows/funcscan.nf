@@ -19,11 +19,12 @@ include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { ANNOTATION                  } from '../subworkflows/local/annotation'
-include { AMP                         } from '../subworkflows/local/amp'
-include { ARG                         } from '../subworkflows/local/arg'
-include { BGC                         } from '../subworkflows/local/bgc'
-include { TAXA_CLASS                  } from '../subworkflows/local/taxa_class'
+include { ANNOTATION                } from '../subworkflows/local/annotation'
+include { PROTEIN_ANNOTATION        } from '../subworkflows/local/protein_annotation'
+include { AMP                       } from '../subworkflows/local/amp'
+include { ARG                       } from '../subworkflows/local/arg'
+include { BGC                       } from '../subworkflows/local/bgc'
+include { TAXA_CLASS                } from '../subworkflows/local/taxa_class'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -34,8 +35,9 @@ include { TAXA_CLASS                  } from '../subworkflows/local/taxa_class'
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { GUNZIP as GUNZIP_INPUT_PREP } from '../modules/nf-core/gunzip/main'
-include { SEQKIT_SEQ                  } from '../modules/nf-core/seqkit/seq/main'
+include { GUNZIP as GUNZIP_INPUT_PREP     } from '../modules/nf-core/gunzip/main'
+include { SEQKIT_SEQ as SEQKIT_SEQ_LENGTH } from '../modules/nf-core/seqkit/seq/main'
+include { SEQKIT_SEQ as SEQKIT_SEQ_FILTER } from '../modules/nf-core/seqkit/seq/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -99,17 +101,17 @@ workflow FUNCSCAN {
     // Duplicate and filter the duplicated file for long contigs only for BGC
     // This is to speed up BGC run and prevent 'no hits found'  fails
     if (params.run_bgc_screening) {
-        SEQKIT_SEQ(ch_intermediate_input.fastas.map { meta, fasta, faa, gbk -> [meta, fasta] })
+        SEQKIT_SEQ_LENGTH(ch_intermediate_input.fastas.map { meta, fasta, faa, gbk -> [meta, fasta] })
         ch_input_for_annotation = ch_intermediate_input.fastas
             .map { meta, fasta, protein, gbk -> [meta, fasta] }
-            .mix(SEQKIT_SEQ.out.fastx.map { meta, fasta -> [meta + [category: 'long'], fasta] })
+            .mix(SEQKIT_SEQ_LENGTH.out.fastx.map { meta, fasta -> [meta + [category: 'long'], fasta] })
             .filter { meta, fasta ->
                 if (fasta != [] && fasta.isEmpty()) {
                     log.warn("[nf-core/funcscan] Sample ${meta.id} does not have contigs longer than ${params.bgc_mincontiglength} bp. Will not be screened for BGCs.")
                 }
                 !fasta.isEmpty()
             }
-        ch_versions = ch_versions.mix(SEQKIT_SEQ.out.versions)
+        ch_versions = ch_versions.mix(SEQKIT_SEQ_LENGTH.out.versions)
     }
     else {
         ch_input_for_annotation = ch_intermediate_input.fastas.map { meta, fasta, protein, gbk -> [meta, fasta] }
@@ -175,6 +177,39 @@ workflow FUNCSCAN {
     }
 
     /*
+        PROTEIN ANNOTATION
+    */
+    if (params.run_protein_annotation) {
+        def filtered_faas = ch_prepped_input.faas.filter { meta, file ->
+            if (file != [] && file.isEmpty()) {
+                log.warn("[nf-core/funcscan] Annotation of the following sample produced an empty FAA file. InterProScan classification of the CDS requiring this file will not be executed: ${meta.id}")
+            }
+            !file.isEmpty()
+        }
+
+        SEQKIT_SEQ_FILTER(filtered_faas)
+        ch_versions = ch_versions.mix(SEQKIT_SEQ_FILTER.out.versions)
+        ch_input_for_protein_annotation =  SEQKIT_SEQ_FILTER.out.fastx
+
+        PROTEIN_ANNOTATION ( ch_input_for_protein_annotation )
+        ch_versions = ch_versions.mix(PROTEIN_ANNOTATION.out.versions)
+
+        ch_interproscan_tsv = PROTEIN_ANNOTATION.out.tsv.map { meta, file ->
+            if (file == [] || file.isEmpty()) {
+                log.warn("[nf-core/funcscan] Protein annotation with InterProScan produced an empty TSV file. No protein annotation will be added for sample ${meta.id}.")
+                [meta, []]
+            } else {
+                [meta, file]
+            }
+        }
+    } else {
+        ch_interproscan_tsv = ch_prepped_input.faas.map { meta, _ ->
+            [meta, []]
+        }
+    }
+
+
+    /*
         SCREENING
     */
 
@@ -192,6 +227,7 @@ workflow FUNCSCAN {
             },
             ch_taxonomy_tsv,
             ch_prepped_input.gbks,
+            ch_interproscan_tsv
         )
         ch_versions = ch_versions.mix(AMP.out.versions)
     }
@@ -211,6 +247,7 @@ workflow FUNCSCAN {
                 !file.isEmpty()
             },
             ch_prepped_input.gbks,
+            ch_interproscan_tsv
         )
         ch_versions = ch_versions.mix(AMP.out.versions)
     }
