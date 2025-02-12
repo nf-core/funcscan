@@ -23,8 +23,8 @@ To run any of the three screening workflows (AMP, ARG, and/or BGC), taxonomic cl
 - `--run_amp_screening`
 - `--run_arg_screening`
 - `--run_bgc_screening`
-- `--run_taxa_classification` (for additional taxonomic annotations)
-- `--run_protein_annotation` (for additional protein family and domain annotation)
+- `--run_taxa_classification` (for optional additional taxonomic annotations)
+- `--run_protein_annotation` (for optional additional protein family and domain annotation)
 
 When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them. The exception is HMMsearch, which needs to be explicitly switched on and provided with HMM screening files (AMP and BGC workflows, see [parameter documentation](/funcscan/parameters)). For the taxonomic classification, MMseqs2 is currently the only tool implemented in the pipeline. Likewise, InterProScan is the only tool for protein sequence annotation.
 
@@ -126,7 +126,7 @@ MMseqs2 is currently the only taxonomic classification tool used in the pipeline
 
   The contents of the directory should have files such as `<dbname>.version` and `<dbname>.taxonomy` in the top level.
 
-- An MMseqs2 ready database. These databases were compiled by the developers of MMseqs2 and can be called using their labels. All available options can be found [here](https://github.com/soedinglab/MMseqs2/wiki#downloading-databases). Only use those databases that have taxonomy files available (i.e. Taxonomy column shows "yes"). By default MMseqs2 in the pipeline uses '[Kalamari](https://github.com/lskatz/Kalamari)', and runs an aminoacid-based alignment. However, if the user requires a more comprehensive taxonomic classification, we recommend the use of [GTDB](https://gtdb.ecogenomic.org/), but for that please remember to increase the memory, CPU threads and time required for the process `MMSEQS_TAXONOMY`.
+- An MMseqs2 ready database. These databases were compiled by the developers of MMseqs2 and can be called using their labels. All available options can be found [here](https://github.com/soedinglab/MMseqs2/wiki#downloading-databases). Only use those databases that have taxonomy files available (i.e. Taxonomy column shows "yes"). By default MMseqs2 in the pipeline uses '[Kalamari](https://github.com/lskatz/Kalamari)', and runs an amino acid-based alignment. However, if the user requires a more comprehensive taxonomic classification, we recommend the use of [GTDB](https://gtdb.ecogenomic.org/), but for that please remember to increase the memory, CPU threads and time required for the process `MMSEQS_TAXONOMY`.
 
   ```bash
   --taxa_classification_mmseqs_db_id 'Kalamari'
@@ -261,7 +261,7 @@ amp_DRAMP_database/
 ```
 
 :::note{.fa-whale}
-For both [DRAMP](http://dramp.cpu-bioinfor.org/) and [APD](https://aps.unmc.edu/), AMPcombi removes entries that contain any non-amino-acid residues by default.
+For both [DRAMP](http://dramp.cpu-bioinfor.org/) and [APD](https://aps.unmc.edu/), AMPcombi removes entries that contain any non-amino acid residues by default.
 :::
 
 :::warning
