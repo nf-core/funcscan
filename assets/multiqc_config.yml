@@ -12,8 +12,8 @@ report_section_order:
     order: -1002
 
 run_modules:
-- prokka
-- custom_content
+  - prokka
+  - custom_content
 
 table_columns_visible:
   Prokka:

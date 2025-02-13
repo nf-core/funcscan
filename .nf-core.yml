@@ -12,6 +12,6 @@ template:
   org: nf-core
   outdir: .
   skip_features:
-  - igenomes
-  - fastqc
+    - igenomes
+    - fastqc
   version: 2.1.0
