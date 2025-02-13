@@ -10,7 +10,7 @@
    inkscape:version="1.3.2 (1:1.3.2+202311252150+091e20ef0f)"
    sodipodi:docname="funcscan_metro_workflow_dark.svg"
    xml:space="preserve"
-   inkscape:export-filename="funcscan_metro_workflow.png"
+   inkscape:export-filename="funcscan_metro_workflow_dark.png"
    inkscape:export-xdpi="300"
    inkscape:export-ydpi="300"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -37,7 +37,7 @@
      inkscape:window-x="0"
      inkscape:window-y="300"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g19"
      showguides="false"><inkscape:grid
        type="xygrid"
        id="grid12341"
@@ -2766,13 +2766,13 @@
        id="g19"
        transform="translate(0,-9.3815633)"><text
          xml:space="preserve"
-         style="font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';letter-spacing:0px;stroke-width:0.264583"
+         style="font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';letter-spacing:0px;stroke-width:0.264583;fill:#ffffff"
          x="4.6874471"
          y="111.47712"
          id="text21584"><tspan
            sodipodi:role="line"
            id="tspan21582"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';stroke-width:0.264583"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';stroke-width:0.264583;fill:#ffffff"
            x="4.6874471"
            y="111.47712">LEGEND</tspan></text><g
          id="g17"
