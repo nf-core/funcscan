@@ -16,7 +16,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#438](https://github.com/nf-core/funcscan/pull/438) Updated to nf-core template 3.1.2. (by @jfy133)
 - [#441](https://github.com/nf-core/funcscan/pull/441) Updated to nf-core template 3.2.0, updated MultiQC. (by @jasmezz and @jfy133)
 - [#440](https://github.com/nf-core/funcscan/pull/440) Updated Bakta and introduced new parameter `--annotation_bakta_hmms`. (by @jasmezz)
-- [#440](https://github.com/nf-core/funcscan/pull/440) Updated Bakta and introduced new parameter `--annotation_bakta_hmms`. (by @jasmezz)
 
 ### `Fixed`
 
