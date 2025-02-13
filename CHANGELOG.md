@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#438](https://github.com/nf-core/funcscan/pull/438) Updated to nf-core template 3.1.2. (by @jfy133)
 - [#441](https://github.com/nf-core/funcscan/pull/441) Updated to nf-core template 3.2.0, updated MultiQC. (by @jasmezz and @jfy133)
 - [#440](https://github.com/nf-core/funcscan/pull/440) Updated Bakta and introduced new parameter `--annotation_bakta_hmms`. (by @jasmezz)
+- [#440](https://github.com/nf-core/funcscan/pull/440) Updated Bakta and introduced new parameter `--annotation_bakta_hmms`. (by @jasmezz)
 
 ### `Fixed`
 
@@ -26,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#446](https://github.com/nf-core/funcscan/pull/446) Updated antiSMASH modules to fix apptainer execution. (by @jasmezz and @jfy133)
 - [#448](https://github.com/nf-core/funcscan/pull/448) Fixed taxonomy merge to work with output from GTDB/SILVA/KALAMARI. (by @darcy220606)
 - [#447](https://github.com/nf-core/funcscan/pull/447) Added `--annotation_pyrodigal_usespecialstopcharacter` parameter to improve AMPlify screening. (by @jasmezz)
-- [#452](https://github.com/nf-core/funcscan/pull/452) Updated all documentation, parameter pages, and metro map. (by @jasmezz and @jfy133)
+- [#454](https://github.com/nf-core/funcscan/pull/454) Update default CPU requirement of `ampcombi2/parsetables`. (by @jasmezz)
 
 ### `Dependencies`
 
