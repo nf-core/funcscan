@@ -26,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#446](https://github.com/nf-core/funcscan/pull/446) Updated antiSMASH modules to fix apptainer execution. (by @jasmezz and @jfy133)
 - [#448](https://github.com/nf-core/funcscan/pull/448) Fixed taxonomy merge to work with output from GTDB/SILVA/KALAMARI. (by @darcy220606)
 - [#447](https://github.com/nf-core/funcscan/pull/447) Added `--annotation_pyrodigal_usespecialstopcharacter` parameter to improve AMPlify screening. (by @jasmezz)
-- [#452](https://github.com/nf-core/funcscan/pull/452) Updated all documentation and parameter pages. (by @jasmezz)
+- [#452](https://github.com/nf-core/funcscan/pull/452) Updated all documentation, parameter pages, and metro map. (by @jasmezz and @jfy133)
 
 ### `Dependencies`
 
