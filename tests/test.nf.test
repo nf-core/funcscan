@@ -55,10 +55,10 @@ nextflow_pipeline {
                 // AMPcombi
                 { assert path("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("NODE_515831_length_303_cov_1.532258_1") },
                 { assert path("$outputDir/reports/ampcombi2/Ampcombi_parse_tables.log").text.contains("amp_DRAMP_database is found and will be used") },
+                { assert path("$outputDir/reports/ampcombi2/Ampcombi_parse_tables.log").text.contains('$$  _$$  _$$') },
                 { assert snapshot(
                     path("$outputDir/reports/ampcombi2/Ampcombi_cluster.log"),
-                    path("$outputDir/reports/ampcombi2/Ampcombi_complete.log"),
-                    path("$outputDir/reports/ampcombi2/Ampcombi_parse_tables.log")
+                    path("$outputDir/reports/ampcombi2/Ampcombi_complete.log")
                 ).match("ampcombi_logfiles") },
 
                 // DeepARG

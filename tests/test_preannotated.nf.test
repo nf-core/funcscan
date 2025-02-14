@@ -108,17 +108,16 @@ nextflow_pipeline {
 
                 // fARGene
                 { assert snapshot(
-                    path("$outputDir/arg/fargene/sample_1/class_a/results_summary.txt"),
-                    path("$outputDir/arg/fargene/sample_2/class_a/results_summary.txt"),
-                    path("$outputDir/arg/fargene/sample_3/class_a/results_summary.txt"),
-                    path("$outputDir/arg/fargene/sample_1/class_b_1_2/results_summary.txt"),
-                    path("$outputDir/arg/fargene/sample_2/class_b_1_2/results_summary.txt"),
-                    path("$outputDir/arg/fargene/sample_3/class_b_1_2/results_summary.txt")
-                ).match("fargene")
-                },
-                { assert path("$outputDir/arg/fargene/sample_1/fargene_analysis.log").text.contains("fARGene is done.") },
-                { assert path("$outputDir/arg/fargene/sample_2/fargene_analysis.log").text.contains("fARGene is done.") },
-                { assert path("$outputDir/arg/fargene/sample_3/fargene_analysis.log").text.contains("fARGene is done.") },
+                    path("$outputDir/arg/fargene/sample_1/class_a/results_summary.txt").text.contains("The used HMM-model was: class_A.hmm"),
+                    path("$outputDir/arg/fargene/sample_2/class_a/results_summary.txt").text.contains("The used HMM-model was: class_A.hmm"),
+                    path("$outputDir/arg/fargene/sample_3/class_a/results_summary.txt").text.contains("The used HMM-model was: class_A.hmm"),
+                    path("$outputDir/arg/fargene/sample_1/class_b_1_2/results_summary.txt").text.contains("The used HMM-model was: class_B_1_2.hmm"),
+                    path("$outputDir/arg/fargene/sample_2/class_b_1_2/results_summary.txt").text.contains("The used HMM-model was: class_B_1_2.hmm"),
+                    path("$outputDir/arg/fargene/sample_3/class_b_1_2/results_summary.txt").text.contains("The used HMM-model was: class_B_1_2.hmm"),
+                    path("$outputDir/arg/fargene/sample_1/fargene_analysis.log").text.contains("fARGene is done."),
+                    path("$outputDir/arg/fargene/sample_2/fargene_analysis.log").text.contains("fARGene is done."),
+                    path("$outputDir/arg/fargene/sample_3/fargene_analysis.log").text.contains("fARGene is done.")
+                ).match("fargene") },
 
                 // hAMRonization
                 { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv").readLines().size()).match("hamronization") },

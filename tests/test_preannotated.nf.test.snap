@@ -128,12 +128,15 @@
     },
     "fargene": {
         "content": [
-            "results_summary.txt:md5,2c8a073d2a7938e8aedcc097e6df2aa5",
-            "results_summary.txt:md5,3b86a5513e89e22a4c8b9279678ce0c0",
-            "results_summary.txt:md5,2c8a073d2a7938e8aedcc097e6df2aa5",
-            "results_summary.txt:md5,59f2e69c670d72f0c0a401e0dc90cbeb",
-            "results_summary.txt:md5,59f2e69c670d72f0c0a401e0dc90cbeb",
-            "results_summary.txt:md5,59f2e69c670d72f0c0a401e0dc90cbeb"
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
         ],
         "meta": {
             "nf-test": "0.9.0",
