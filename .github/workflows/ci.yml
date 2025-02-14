@@ -46,7 +46,7 @@ jobs:
       fail-fast: false
       matrix:
         NXF_VER:
-          - "24.04.2"
+          - "24.10.2"
           - "latest-everything"
         profile:
           - "conda"
@@ -70,7 +70,7 @@ jobs:
         # Exclude conda and singularity on dev
         exclude:
           - isMaster: false
-            profile: "conda"
+            profile: "docker"
           - isMaster: false
             profile: "singularity"
     steps:
