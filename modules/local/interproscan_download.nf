@@ -1,6 +1,6 @@
 process INTERPROSCAN_DATABASE {
     tag "interproscan_database_download"
-    label 'process_medium'
+    label 'process_long'
 
     conda "conda-forge::sed=4.7"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
