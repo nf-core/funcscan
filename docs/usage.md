@@ -134,11 +134,12 @@ MMseqs2 is currently the only taxonomic classification tool used in the pipeline
 
 ### InterProScan
 
-[InterProScan](https://github.com/ebi-pf-team/interproscan) is currently the only protein annotation tool that gives a snapshot of the protein families and domains for each coding region.
+[InterProScan](https://github.com/ebi-pf-team/interproscan) is currently the only protein annotation tool in this pipeline that gives a snapshot of the protein families and domains for each coding region.
 
-The protein annotation workflow is activated with the flag `--run_protein_annotation`. InterProScan is used as the only protein annotation tool at the moment and the [InterPro database](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.72-103.0) version 5.72-103.0 is downloaded and prepared to screen the input sequences against it.
+The protein annotation workflow is activated with the flag `--run_protein_annotation`.
+InterProScan is used as the only protein annotation tool at the moment and the [InterPro database](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.72-103.0) version 5.72-103.0 is downloaded and prepared to screen the input sequences against it.
 
-Since the database download is huge (5.5GB) and might take quite some time, you can skip the automatic database download on each run by manually downloading and extracting the files of any [InterPro version](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/) beforehand and providing the resulting directory path to `--protein_annotation_interproscan_db <path/to/interprodatabase>`.
+Since the database download is huge (5.5GB) and might take quite some time, you can skip the automatic database download (see section [Databases and reference files](usage/#interproscan-1) for details).
 
 :::info
 By default, the databases used by InterProScan is set as `PANTHER,ProSiteProfiles,ProSitePatterns,Pfam`. An addition of other application to the list does not guarantee that the results will be integrated correctly within `AMPcombi`.
@@ -245,7 +246,7 @@ This can then be passed to the pipeline with:
 
 The contents of the directory should have files such as `*.fasta` and `*.tsv` in the top level; a fasta file and the corresponding table with structural, functional and (if reported) taxonomic classifications. AMPcombi will then generate the corresponding `mmseqs2` directory, in which all binary files are prepared for downstream alignment of the recovered AMPs with [MMseqs2](https://github.com/soedinglab/MMseqs2). These can also be provided by the user by setting up an MMseqs2-compatible database using `mmseqs createdb *.fasta` in a directory called `mmseqs2`. An example file structure for [DRAMP](http://dramp.cpu-bioinfor.org/) used as the reference database:
 
-```bash
+```tree
 amp_DRAMP_database/
 ├── general_amps_2024_11_13.fasta
 ├── general_amps_2024_11_13.txt
@@ -260,7 +261,7 @@ amp_DRAMP_database/
     └── ref_DB.source
 ```
 
-:::note{.fa-whale}
+:::note
 For both [DRAMP](http://dramp.cpu-bioinfor.org/) and [APD](https://aps.unmc.edu/), AMPcombi removes entries that contain any non-amino acid residues by default.
 :::
 
@@ -511,7 +512,7 @@ deepbgc download
 You can then indicate the path to the database folder in the pipeline with `--bgc_deepbgc_db <path>/<to>/<deepbgc_db>/`.
 The contents of the database directory should include directories such as `common`, `0.1.0` in the top level:
 
-```console
+```tree
 deepbgc_db/
 ├── common
 └── <version-num>[0.1.0]
@@ -523,7 +524,11 @@ deepbgc_db/
 
 ### InterProScan
 
-[InterProScan](https://github.com/ebi-pf-team/interproscan) is used to provide more information about the proteins annotated on the contigs. By default, turning on this subworkflow with `--run_protein_annotation` will download and unzip the [InterPro database](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.72-103.0/) version 5.72-103.0. The database can be saved in the output directory `<output_directory>/databases/interproscan/` if the `--save_db` is turned on. Note: the huge database download (5.5GB) can take up to 4 hours depending on the bandwidth.
+[InterProScan](https://github.com/ebi-pf-team/interproscan) is used to provide more information about the proteins annotated on the contigs. By default, turning on this subworkflow with `--run_protein_annotation` will download and unzip the [InterPro database](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.72-103.0/) version 5.72-103.0. The database can be saved in the output directory `<output_directory>/databases/interproscan/` if the `--save_db` is turned on.
+
+:::note
+The huge database download (5.5GB) can take up to 4 hours depending on the bandwidth.
+:::
 
 A local version of the database can be supplied to the pipeline by passing the InterProScan database directory to `--protein_annotation_interproscan_db <path/to/downloaded-untarred-interproscan_db-dir/>`. The directory can be created by running (e.g. for database version 5.72-103.0):
 

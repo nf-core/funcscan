@@ -33,7 +33,7 @@ workflow PROTEIN_ANNOTATION {
         ch_versions = ch_versions.mix( INTERPROSCAN.out.versions )
         ch_interproscan_tsv = ch_interproscan_tsv.mix( INTERPROSCAN.out.tsv )
 
-        // Current INTERPROSCAN version 5.59_91.0 only includes 13 columns and not 15 which ampcombi expects, so we added them here
+        // Current INTERPROSCAN version 5.72-103.0 only includes 13 columns and not 15 which ampcombi expects, so we added them here
         ch_interproscan_tsv_modified = INTERPROSCAN.out.tsv
             .map { meta, tsv_path ->
                 def modified_tsv_path = "${workflow.workDir}/tmp/${meta.id}_interproscan.faa.tsv"
