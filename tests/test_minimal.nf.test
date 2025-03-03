@@ -4,9 +4,9 @@ nextflow_pipeline {
     script "main.nf"
     tag "pipeline"
     tag "nfcore_funcscan"
-    tag "test_nothing"
+    tag "test_minimal"
 
-    test("test_nothing_profile") {
+    test("test_minimal_profile") {
 
         when {
             params {
