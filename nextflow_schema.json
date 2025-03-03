@@ -85,13 +85,14 @@
                     "default": "mmseqs2",
                     "help_text": "This flag specifies which tool for taxonomic classification should be activated. At the moment only 'MMseqs2' is incorporated in the pipeline.",
                     "description": "Specifies the tool used for taxonomic classification.",
-                    "fa_icon": "fas fa-tools"
+                    "fa_icon": "fas fa-tools",
+                    "enum": ["mmseqs2"]
                 },
                 "taxa_classification_mmseqs_compressed": {
                     "type": "integer",
                     "default": 0,
                     "enum": [0, 1],
-                    "help_text": "To compress MMseqs2 output files, choose 1, otherwise leave to 0. Compressing output files can lead to errors when the output is actually empty. In that case, just leave this parameter to default. More details can be found in the [documentation (GitHub)](https://github.com/soedinglab/MMseqs2?tab=readme-ov-file#memory-requirements).\n\n>  Modifies tool parameter(s):\n> - mmseqs createdb --compressed <0|1>\n> - mmseqs createtsv --compressed <0|1>\n> - mmseqs databases --compressed <0|1>\n> - mmseqs taxonomy --compressed <0|1>",
+                    "help_text": "To compress MMseqs2 output files, choose `1`, otherwise leave to `0`. Compressing output files can lead to errors when the output is actually empty. In that case, just leave this parameter to its default value. More details can be found in the [documentation (GitHub)](https://github.com/soedinglab/MMseqs2?tab=readme-ov-file#memory-requirements).\n\n>  Modifies tool parameter(s):\n> - mmseqs createdb --compressed <0|1>\n> - mmseqs createtsv --compressed <0|1>\n> - mmseqs databases --compressed <0|1>\n> - mmseqs taxonomy --compressed <0|1>",
                     "description": "If MMseqs2 is chosen as taxonomic classification tool: Specifies if the output of all MMseqs2 subcommands shall be compressed.",
                     "fa_icon": "fas fa-file-archive"
                 }
@@ -544,7 +545,8 @@
                     "default": "InterProScan",
                     "help_text": "This flag specifies which tool for protein annotation should be activated.\nAt the moment only [InterProScan](https://github.com/ebi-pf-team/interproscan) is incorporated in the pipeline. This annotates the locus tags to protein and domain levels according to the InterPro databases.\n\nMore details can be found in the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/index.html).",
                     "description": "Specifies the tool used for further protein annotation.",
-                    "fa_icon": "fas fa-tools"
+                    "fa_icon": "fas fa-tools",
+                    "enum": ["InterProScan"]
                 },
                 "protein_annotation_interproscan_db_url": {
                     "type": "string",
@@ -555,14 +557,15 @@
                 },
                 "protein_annotation_interproscan_db": {
                     "type": "string",
-                    "help_text": "Use this to supply the path to a pre-downloaded InterProScan database. This can be any unzipped InterProScan version. By default the database version '5.72-103.0' is downloaded.\n\nFor more details on where to find different InterProScan databases see tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/UserDocs.html#obtaining-a-copy-of-interproscan).\n",
+                    "help_text": "Use this to supply the path to a pre-downloaded InterProScan database. This can be any unzipped InterProScan version.\n\nFor more details on where to find different InterProScan databases see tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/UserDocs.html#obtaining-a-copy-of-interproscan).\n",
                     "description": "Path to pre-downloaded InterProScan database.",
                     "fa_icon": "fas fa-database"
                 },
                 "protein_annotation_interproscan_applications": {
                     "type": "string",
                     "default": "PANTHER,ProSiteProfiles,ProSitePatterns,Pfam",
-                    "help_text": "A comma-separated string specifying the database(s) to be used to annotate the coding regions annotated during the contig annotation workflow of the pipeline. By default these include `PANTHER,ProSiteProfiles,ProSitePatterns,Pfam`.\n- PANTHER (Protein ANalysis THrough Evolutionary Relationships): genes classified by their functions, using published scientific experimental evidence and evolutionary relationships.\n- PROSITE: protein domains, families, functional sites and specific patterns and profiles to identify them.\n- PFAM: protein families, represented by multiple sequence alignments and hidden Markov models (HMMs).\n\nThese databases were chosen based on the AMP workflow and therefore, with only these databases, do we guarantee the integration of the results to the AMPcombi final summary.\n\nNOTE: Currently, no integration of the results are implemented for the BGC and the ARG final summary tables.\n\nFor more information about all possible databases see the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `--applications`",
+                    "pattern": "^\\w+(,\\w+)*",
+                    "help_text": "A comma-separated string specifying the database(s) to be used to annotate the coding regions annotated during the contig annotation workflow of the pipeline. By default these include `PANTHER,ProSiteProfiles,ProSitePatterns,Pfam`.\n- PANTHER (Protein ANalysis THrough Evolutionary Relationships): genes classified by their functions, using published scientific experimental evidence and evolutionary relationships.\n- PROSITE: protein domains, families, functional sites and specific patterns and profiles to identify them.\n- PFAM: protein families, represented by multiple sequence alignments and hidden Markov models (HMMs).\n\nThese databases were chosen based on the AMP workflow and therefore, with only these databases, do we guarantee the integration of the results to the AMPcombi final summary.\n\nNOTE: Currently, no integration of the results are implemented for the BGC and the ARG final summary tables.\n\nFor more information about all possible databases see the tool [documentation](https://interproscan-docs.readthedocs.io/en/v5/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `--applications`",
                     "description": "Assigns the database(s) to be used to annotate the coding regions.",
                     "fa_icon": "fas fa-database"
                 },
@@ -915,7 +918,7 @@
                     "type": "string",
                     "fa_icon": "fas fa-database",
                     "description": "Specify the path to the DeepARG database.",
-                    "help_text": "Specify the path to a local version of the DeepARG database (see the pipelines' usage [documentation](https://nf-co.re/funcscan/dev/docs/usage#databases-and-reference-files)).\n\nThe contents of the directory should include directories such as `database`, `moderl`, and files such as `deeparg.gz` etc. in the top level.\n\nIf no input is given, the module will download the database for you, however this is not recommended, as the database is large and this will take time.\n\n> Modifies tool parameter(s):\n> - DeepARG: `--data-path`"
+                    "help_text": "Specify the path to a local version of the DeepARG database (see the pipelines' usage [documentation](usage#databases-and-reference-files)).\n\nThe contents of the directory should include directories such as `database`, `moderl`, and files such as `deeparg.gz` etc. in the top level.\n\nIf no input is given, the module will download the database for you, however this is not recommended, as the database is large and this will take time.\n\n> Modifies tool parameter(s):\n> - DeepARG: `--data-path`"
                 },
                 "arg_deeparg_db_version": {
                     "type": "integer",

@@ -3,18 +3,15 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.1.0 - [2025-02-14]
+## v2.1.0 - [2025-03-03]
 
 ### `Added`
 
-- [#421](https://github.com/nf-core/funcscan/pull/421) Updated to nf-core template 3.0.2. (by @jfy133)
+- [#421](https://github.com/nf-core/funcscan/pull/421), [#429](https://github.com/nf-core/funcscan/pull/429), [#433](https://github.com/nf-core/funcscan/pull/433), [#438](https://github.com/nf-core/funcscan/pull/438), [#441](https://github.com/nf-core/funcscan/pull/441) Updated to nf-core template 3.0.2, 3.1.0, 3.1.1, 3.1.2, and 3.2.0. (by @jfy133 and @jasmezz)
 - [#427](https://github.com/nf-core/funcscan/pull/427) AMPcombi now can use multiple other databases for classifications. (by @darcy220606)
 - [#428](https://github.com/nf-core/funcscan/pull/428) Added InterProScan annotation workflow to the pipeline. The results are coupled to AMPcombi final table. (by @darcy220606)
-- [#429](https://github.com/nf-core/funcscan/pull/429) Updated to nf-core template 3.1.0. (by @jfy133 and @jasmezz)
-- [#433](https://github.com/nf-core/funcscan/pull/433) Updated to nf-core template 3.1.1. (by @jfy133)
 - [#431](https://github.com/nf-core/funcscan/pull/431) Updated AMPcombi, Macrel, all MMseqs2 modules, MultiQC, Pyrodigal, and seqkit, added `--taxa_classification_mmseqs_compressed` parameter. (by @jasmezz)
-- [#438](https://github.com/nf-core/funcscan/pull/438) Updated to nf-core template 3.1.2. (by @jfy133)
-- [#441](https://github.com/nf-core/funcscan/pull/441) Updated to nf-core template 3.2.0, updated MultiQC. (by @jasmezz and @jfy133)
+- [#441](https://github.com/nf-core/funcscan/pull/441) Updated MultiQC. (by @jasmezz and @jfy133)
 - [#440](https://github.com/nf-core/funcscan/pull/440) Updated Bakta and introduced new parameter `--annotation_bakta_hmms`. (by @jasmezz)
 
 ### `Fixed`
