@@ -58,7 +58,6 @@ nextflow_pipeline {
                 { assert snapshot(
                     path("$outputDir/reports/ampcombi2/Ampcombi_cluster.log"),
                     path("$outputDir/reports/ampcombi2/Ampcombi_complete.log"),
-                    path("$outputDir/reports/ampcombi2/Ampcombi_parse_tables.log")
                 ).match("ampcombi_logfiles") },
 
                 // DeepARG

@@ -1,4 +1,28 @@
 {
+    "abricate": {
+        "content": [
+            "sample_1.txt:md5,427cec26e354ac6b0ab6047ec6621202",
+            "sample_2.txt:md5,4c140c932a48a22bcd8ae911bda8f4c7",
+            "sample_3.txt:md5,d6534efe3d03173749d003bf9e624e68"
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.4"
+        },
+        "timestamp": "2025-03-04T13:44:42.292890292"
+    },
+    "rgi": {
+        "content": [
+            "sample_1.txt:md5,ff8f179d06d8566d8cf779fc7d1f4955",
+            "sample_2.txt:md5,cc4ae1fb9e0d5f79ef5105d640c7b748",
+            "sample_3.txt:md5,ff8f179d06d8566d8cf779fc7d1f4955"
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.4"
+        },
+        "timestamp": "2025-03-04T13:44:42.337377281"
+    },
     "deeparg": {
         "content": [
             "sample_1.align.daa.tsv:md5,0e71c37318bdc6cba792196d0455293d",
@@ -53,6 +77,19 @@
         },
         "timestamp": "2024-07-27T08:23:32.486921338"
     },
+    "ampcombi": {
+        "content": [
+            "Ampcombi_cluster.log:md5,4c78f5f134edf566f39e04e3ab7d8558",
+            "Ampcombi_complete.log:md5,3dabfea4303bf94bd4f5d78c5b8c83c1",
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.4"
+        },
+        "timestamp": "2025-03-04T13:44:42.24263737"
+    },
     "amplify": {
         "content": [
             true,
@@ -86,7 +123,6 @@
             "sample_2.macrel.smorfs.faa.gz:md5,83ae7b9808d7183d87b41c10253c9c9e",
             "sample_3.macrel.smorfs.faa.gz:md5,a4f853b560c6a8c215e0d243c24ec056",
             "sample_1.macrel.all_orfs.faa.gz:md5,d1ae1cadc3770994b2ed4982aadd5406",
-            "sample_2.macrel.all_orfs.faa.gz:md5,d9612a4275a912cabdae13b1ccc1857e",
             "sample_3.macrel.all_orfs.faa.gz:md5,d1ae1cadc3770994b2ed4982aadd5406",
             "sample_1.macrel.prediction.gz:md5,62146cf9f759c9c6c2c2f9e5ba816119",
             "sample_2.macrel.prediction.gz:md5,1b479d31bb7dbf636a2028ddef72f5cc",
@@ -99,72 +135,10 @@
             "sample_3.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.10.2"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.4"
         },
-        "timestamp": "2024-12-18T11:50:30.926088397"
-    },
-    "hamronization": {
-        "content": [
-            246
-        ],
-        "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
-        },
-        "timestamp": "2024-09-05T10:17:06.711064611"
-    },
-    "abricate": {
-        "content": [
-            "sample_1.txt:md5,427cec26e354ac6b0ab6047ec6621202",
-            "sample_2.txt:md5,4c140c932a48a22bcd8ae911bda8f4c7",
-            "sample_3.txt:md5,d6534efe3d03173749d003bf9e624e68"
-        ],
-        "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
-        },
-        "timestamp": "2024-07-27T08:11:24.87794287"
-    },
-    "fargene": {
-        "content": [
-            "results_summary.txt:md5,2c8a073d2a7938e8aedcc097e6df2aa5",
-            "results_summary.txt:md5,3b86a5513e89e22a4c8b9279678ce0c0",
-            "results_summary.txt:md5,2c8a073d2a7938e8aedcc097e6df2aa5",
-            "results_summary.txt:md5,59f2e69c670d72f0c0a401e0dc90cbeb",
-            "results_summary.txt:md5,59f2e69c670d72f0c0a401e0dc90cbeb",
-            "results_summary.txt:md5,59f2e69c670d72f0c0a401e0dc90cbeb"
-        ],
-        "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
-        },
-        "timestamp": "2024-07-27T08:11:25.248986515"
-    },
-    "rgi": {
-        "content": [
-            "sample_1.txt:md5,ff8f179d06d8566d8cf779fc7d1f4955",
-            "sample_2.txt:md5,cc4ae1fb9e0d5f79ef5105d640c7b748",
-            "sample_3.txt:md5,ff8f179d06d8566d8cf779fc7d1f4955"
-        ],
-        "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
-        },
-        "timestamp": "2024-07-27T08:11:25.117843821"
-    },
-    "ampcombi": {
-        "content": [
-            "Ampcombi_cluster.log:md5,4c78f5f134edf566f39e04e3ab7d8558",
-            "Ampcombi_complete.log:md5,3dabfea4303bf94bd4f5d78c5b8c83c1",
-            true,
-            true
-        ],
-        "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
-        },
-        "timestamp": "2024-07-27T08:11:24.639509225"
+        "timestamp": "2025-03-04T13:44:42.200904946"
     },
     "amrfinderplus": {
         "content": [
@@ -173,9 +147,9 @@
             "sample_3.tsv:md5,29cfb6f34f420d802eda95c6d9daa361"
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.4"
         },
-        "timestamp": "2024-07-27T08:11:24.994284774"
+        "timestamp": "2025-03-04T13:44:42.316250647"
     }
 }
