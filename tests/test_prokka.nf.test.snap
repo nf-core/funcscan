@@ -73,7 +73,7 @@
     "ampcombi_logfiles": {
         "content": [
             "Ampcombi_cluster.log:md5,4c78f5f134edf566f39e04e3ab7d8558",
-            "Ampcombi_complete.log:md5,3dabfea4303bf94bd4f5d78c5b8c83c1",
+            "Ampcombi_complete.log:md5,3dabfea4303bf94bd4f5d78c5b8c83c1"
         ],
         "meta": {
             "nf-test": "0.9.0",
