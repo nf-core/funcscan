@@ -3,7 +3,7 @@
 # Written by Anan Ibrahim and released under the MIT license.
 # See git repository (https://github.com/Darcy220606/AMPcombi) for full license text.
 # Date: March 2024
-# Version: 0.1.0
+# Version: 0.1.1
 
 # Required modules
 import sys
@@ -12,7 +12,7 @@ import pandas as pd
 import numpy as np
 import argparse
 
-tool_version = "0.1.0"
+tool_version = "0.1.1"
 #########################################
 # TOP LEVEL: AMPCOMBI
 #########################################
@@ -66,9 +66,24 @@ hamronization_parser.add_argument("--taxonomy", dest="taxa3",nargs='+', help="En
 # TAXONOMY
 #########################################
 def reformat_mmseqs_taxonomy(mmseqs_taxonomy):
-    mmseqs2_df = pd.read_csv(mmseqs_taxonomy, sep='\t', header=None, names=['contig_id', 'taxid', 'rank_label', 'scientific_name', 'lineage', 'mmseqs_lineage_contig'])
-    # remove the lineage column
-    mmseqs2_df.drop('lineage', axis=1, inplace=True)
+    """_summary_
+    Reformats the taxonomy files and joins them in a list to be passed on to the tools functions
+    Note: Every database from MMseqs outputs a different number of columns. Only the first 4 and last 2 columns are constant
+            and the most important.
+
+    Args:
+        mmseqs_taxonomy (tsv): mmseqs output file per sample
+
+    Returns:
+        data frame: reformatted tables
+    """
+    col_numbers = pd.read_csv(mmseqs_taxonomy, sep='\t', header=None, nrows=1).shape[1]
+    selected_cols_numbers = [0, 1, 2, 3, col_numbers - 1]
+    mmseqs2_df = pd.read_csv(mmseqs_taxonomy,
+                                sep='\t',
+                                header=None,
+                                usecols= selected_cols_numbers,
+                                names=['contig_id', 'taxid', 'rank_label', 'scientific_name', 'mmseqs_lineage_contig'])
     mmseqs2_df['mmseqs_lineage_contig'].unique()
     # convert any classification that has Eukaryota/root to NaN as funcscan targets bacteria ONLY **
     for i, row in mmseqs2_df.iterrows():
@@ -85,7 +100,19 @@ def reformat_mmseqs_taxonomy(mmseqs_taxonomy):
 # FUNCTION: AMPCOMBI
 #########################################
 def ampcombi_taxa(args):
-    merged_df = pd.DataFrame()
+    """_summary_
+    Merges AMPcombi tool output with taxonomy information.
+
+    Parameters:
+    ----------
+    args:
+        Contains arguments for AMPcombi file path (`amp`) and list of taxonomy file paths (`taxa1`).
+
+    Outputs:
+    -------
+    Creates a file named `ampcombi_complete_summary_taxonomy.tsv` containing the merged results.
+    """
+    combined_dfs = []
 
     # assign input args to variables
     ampcombi = args.amp
@@ -100,13 +127,6 @@ def ampcombi_taxa(args):
 
     # filter the tool df
     tool_df = pd.read_csv(ampcombi, sep='\t')
-    # remove the column with contig_id - duplicate #NOTE: will be fixed in AMPcombi v2.0.0
-    tool_df = tool_df.drop('contig_id', axis=1)
-    # make sure 1st and 2nd column have the same column labels
-    tool_df.rename(columns={tool_df.columns[0]: 'sample_id'}, inplace=True)
-    tool_df.rename(columns={tool_df.columns[1]: 'contig_id'}, inplace=True)
-    # grab the real contig id in another column copy for merging
-    tool_df['contig_id_merge'] = tool_df['contig_id'].str.rsplit('_', 1).str[0]
 
     # merge rows from taxa to ampcombi_df based on substring match in sample_id
     # grab the unique sample names from the taxonomy table
@@ -114,17 +134,18 @@ def ampcombi_taxa(args):
     # for every sampleID in taxadf merge the results
     for sampleID in samples_taxa:
         # subset ampcombi
-        subset_tool = tool_df.loc[tool_df['sample_id'].str.contains(sampleID)]
+        subset_tool = tool_df[tool_df['sample_id'].str.contains(sampleID, na=False)]
         # subset taxa
-        subset_taxa = taxa_df.loc[taxa_df['sample_id'].str.contains(sampleID)]
+        subset_taxa = taxa_df[taxa_df['sample_id'].str.contains(sampleID, na=False)]
         # merge
-        subset_df = pd.merge(subset_tool, subset_taxa, left_on = 'contig_id_merge', right_on='contig_id', how='left')
+        subset_df = pd.merge(subset_tool, subset_taxa, on='contig_id', how='left')
         # cleanup the table
-        columnsremove = ['contig_id_merge','contig_id_y', 'sample_id_y']
+        columnsremove = ['sample_id_y']
         subset_df.drop(columnsremove, axis=1, inplace=True)
-        subset_df.rename(columns={'contig_id_x': 'contig_id', 'sample_id_x':'sample_id'},inplace=True)
+        subset_df.rename(columns={'sample_id_x':'sample_id'},inplace=True)
         # append in the combined_df
-        merged_df = merged_df.append(subset_df, ignore_index=True)
+        combined_dfs.append(subset_df)
+    merged_df = pd.concat(combined_dfs, ignore_index=True)
 
     # write to file
     merged_df.to_csv('ampcombi_complete_summary_taxonomy.tsv', sep='\t', index=False)
@@ -133,7 +154,20 @@ def ampcombi_taxa(args):
 # FUNCTION: COMBGC
 #########################################
 def combgc_taxa(args):
-    merged_df = pd.DataFrame()
+    """_summary_
+
+    Merges comBGC tool output with taxonomy information.
+
+    Parameters:
+    ----------
+    args:
+        Contains arguments for comBGC file path (`bgc`) and list of taxonomy file paths (`taxa2`).
+
+    Outputs:
+    -------
+    Creates a file named `combgc_complete_summary_taxonomy.tsv` containing the merged results.
+    """
+    combined_dfs = []
 
     # assign input args to variables
     combgc = args.bgc
@@ -152,23 +186,24 @@ def combgc_taxa(args):
     tool_df.rename(columns={tool_df.columns[0]: 'sample_id'}, inplace=True)
     tool_df.rename(columns={tool_df.columns[1]: 'contig_id'}, inplace=True)
 
-    # merge rows from taxa to ampcombi_df based on substring match in sample_id
+    # merge rows from taxa to combgc_df based on substring match in sample_id
     # grab the unique sample names from the taxonomy table
     samples_taxa = taxa_df['sample_id'].unique()
     # for every sampleID in taxadf merge the results
     for sampleID in samples_taxa:
-        # subset ampcombi
-        subset_tool = tool_df.loc[tool_df['sample_id'].str.contains(sampleID)]
+        # subset tool
+        subset_tool = tool_df[tool_df['sample_id'].str.contains(sampleID, na=False)]
         # subset taxa
-        subset_taxa = taxa_df.loc[taxa_df['sample_id'].str.contains(sampleID)]
+        subset_taxa = taxa_df[taxa_df['sample_id'].str.contains(sampleID, na=False)]
         # merge
-        subset_df = pd.merge(subset_tool, subset_taxa, left_on = 'contig_id', right_on='contig_id', how='left')
+        subset_df = pd.merge(subset_tool, subset_taxa, on='contig_id', how='left')
         # cleanup the table
         columnsremove = ['sample_id_y']
         subset_df.drop(columnsremove, axis=1, inplace=True)
         subset_df.rename(columns={'sample_id_x':'sample_id'},inplace=True)
         # append in the combined_df
-        merged_df = merged_df.append(subset_df, ignore_index=True)
+        combined_dfs.append(subset_df)
+    merged_df = pd.concat(combined_dfs, ignore_index=True)
 
     # write to file
     merged_df.to_csv('combgc_complete_summary_taxonomy.tsv', sep='\t', index=False)
@@ -177,7 +212,19 @@ def combgc_taxa(args):
 # FUNCTION: HAMRONIZATION
 #########################################
 def hamronization_taxa(args):
-    merged_df = pd.DataFrame()
+    """_summary_
+    Merges hAMRonization tool output with taxonomy information.
+
+    Parameters:
+    ----------
+    args:
+        Contains arguments for hamronization file path (`arg`) and list of taxonomy file paths (`taxa2`).
+
+    Outputs:
+    -------
+    Creates a file named `hamronization_complete_summary_taxonomy.tsv` containing the merged results.
+    """
+    combined_dfs = []
 
     # assign input args to variables
     hamronization = args.arg
@@ -197,29 +244,46 @@ def hamronization_taxa(args):
     # reorder the columns
     new_order = ['sample_id', 'contig_id'] + [col for col in tool_df.columns if col not in ['sample_id', 'contig_id']]
     tool_df = tool_df.reindex(columns=new_order)
-    # grab the real contig id in another column copy for merging
-    tool_df['contig_id_merge'] = tool_df['contig_id'].str.rsplit('_', 1).str[0]
 
-    # merge rows from taxa to ampcombi_df based on substring match in sample_id
+    # merge rows from taxa to hamronization_df based on substring match in sample_id
     # grab the unique sample names from the taxonomy table
     samples_taxa = taxa_df['sample_id'].unique()
     # for every sampleID in taxadf merge the results
     for sampleID in samples_taxa:
-        # subset ampcombi
-        subset_tool = tool_df.loc[tool_df['sample_id'].str.contains(sampleID)]
+        # subset tool
+        subset_tool = tool_df[tool_df['sample_id'].str.contains(sampleID, na=False)]
         # subset taxa
-        subset_taxa = taxa_df.loc[taxa_df['sample_id'].str.contains(sampleID)]
-        # merge
-        subset_df = pd.merge(subset_tool, subset_taxa, left_on = 'contig_id_merge', right_on='contig_id', how='left')
-        # cleanup the table
-        columnsremove = ['contig_id_merge','contig_id_y', 'sample_id_y']
-        subset_df.drop(columnsremove, axis=1, inplace=True)
-        subset_df.rename(columns={'contig_id_x': 'contig_id', 'sample_id_x':'sample_id'},inplace=True)
-        # append in the combined_df
-        merged_df = merged_df.append(subset_df, ignore_index=True)
+        subset_taxa = taxa_df[taxa_df['sample_id'].str.contains(sampleID, na=False)]
+        # ensure strings
+        subset_tool['contig_id'] = subset_tool['contig_id'].astype(str)
+        subset_taxa['contig_id'] = subset_taxa['contig_id'].astype(str)
+        # rename columns to avoid dropping of mutual ones
+        rename_dict = {col: f"{col}_taxa" for col in subset_taxa.columns if col in subset_tool.columns}
+        subset_taxa = subset_taxa.rename(columns=rename_dict)
+
+        # merge by string
+        merged_rows = []
+        # iterate and find all matches
+        for _, tool_row in subset_tool.iterrows():
+            tool_contig_id = tool_row['contig_id']
+            matches = subset_taxa[subset_taxa['contig_id_taxa'].apply(lambda x: str(x) in tool_contig_id)]
+            # if match, merge row
+            if not matches.empty:
+                for _, taxa_row in matches.iterrows():
+                    merged_row = {**tool_row.to_dict(), **taxa_row.to_dict()}
+                    merged_rows.append(merged_row)
+            else:
+                # if no match keep row as is
+                merged_row = {**tool_row.to_dict()}
+                merged_rows.append(merged_row)
+
+        merged_df = pd.DataFrame(merged_rows)
+        combined_dfs.append(merged_df)
+
+    merged_df_final = pd.concat(combined_dfs, ignore_index=True)
 
     # write to file
-    merged_df.to_csv('hamronization_complete_summary_taxonomy.tsv', sep='\t', index=False)
+    merged_df_final.to_csv('hamronization_complete_summary_taxonomy.tsv', sep='\t', index=False)
 
 #########################################
 # SUBPARSERS: DEFAULT

@@ -18,7 +18,7 @@ nextflow_pipeline {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert new File("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/pipeline_info/nf_core_funcscan_software_mqc_versions.yml").exists() },
                 { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
 
                 // ampir
@@ -79,7 +79,7 @@ nextflow_pipeline {
                 ).match("fargene") },
 
                 // hAMRonization
-                { assert new File("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv.gz").exists() },
+                { assert new File("$outputDir/reports/hamronization_summarize/hamronization_complete_summary_taxonomy.tsv.gz").exists() },
 
                 // antiSMASH
                 { assert snapshot (

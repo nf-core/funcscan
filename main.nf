@@ -9,8 +9,6 @@
 ----------------------------------------------------------------------------------------
 */
 
-nextflow.enable.dsl = 2
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
@@ -20,14 +18,6 @@ nextflow.enable.dsl = 2
 include { FUNCSCAN                } from './workflows/funcscan'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_funcscan_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_funcscan_pipeline'
-
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    GENOME PARAMETER VALUES
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -51,10 +41,8 @@ workflow NFCORE_FUNCSCAN {
     FUNCSCAN (
         samplesheet
     )
-
     emit:
     multiqc_report = FUNCSCAN.out.multiqc_report // channel: /path/to/multiqc_report.html
-
 }
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -65,13 +53,11 @@ workflow NFCORE_FUNCSCAN {
 workflow {
 
     main:
-
     //
     // SUBWORKFLOW: Run initialisation tasks
     //
     PIPELINE_INITIALISATION (
         params.version,
-        params.help,
         params.validate_params,
         params.monochrome_logs,
         args,
@@ -85,7 +71,6 @@ workflow {
     NFCORE_FUNCSCAN (
         PIPELINE_INITIALISATION.out.samplesheet
     )
-
     //
     // SUBWORKFLOW: Run completion tasks
     //

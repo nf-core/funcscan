@@ -1,4 +1,20 @@
-repository_type: pipeline
 lint:
-  actions_ci: False ## TODO: re-activate once nf-test ci.yml structure updated
-nf_core_version: "2.14.1"
+  actions_ci: false
+  files_exist:
+    - conf/igenomes.config
+    - conf/igenomes_ignored.config
+nf_core_version: 3.2.0
+repository_type: pipeline
+template:
+  author: Jasmin Frangenberg, Anan Ibrahim, Louisa Perelo, Moritz E. Beber, James
+    A. Fellows Yates
+  description: Pipeline for screening for functional components of assembled contigs
+  force: false
+  is_nfcore: true
+  name: funcscan
+  org: nf-core
+  outdir: .
+  skip_features:
+    - igenomes
+    - fastqc
+  version: 2.1.0

@@ -17,7 +17,7 @@ nextflow_pipeline {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert new File("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/pipeline_info/nf_core_funcscan_software_mqc_versions.yml").exists() },
                 { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
 
                 // AMPir
@@ -27,7 +27,7 @@ nextflow_pipeline {
                     path("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv").text.contains("MRWGYPLSLVLMALSVAAPMIYFRRKGWLR"),
                     path("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa"),
                     path("$outputDir/amp/ampir/sample_3/sample_3.ampir.tsv").text.contains("IPELEMRWGYPLSLVLMALSVAAPMIYFRRKGWLR"),
-                    path("$outputDir/amp/ampir/sample_3/sample_3.ampir.faa")
+                    path("$outputDir/amp/ampir/sample_3/sample_3.ampir.faa").text.contains(">NODE_882919_length_258_cov_0.935961_1 # 149 # 256 # -1 # ID=")
                 ).match("ampir") },
 
                 // AMPlify
@@ -48,7 +48,6 @@ nextflow_pipeline {
                     path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.smorfs.faa.gz"),
                     path("$outputDir/amp/macrel/sample_3.macrel/sample_3.macrel.smorfs.faa.gz"),
                     path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.all_orfs.faa.gz"),
-                    path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.all_orfs.faa.gz"),
                     path("$outputDir/amp/macrel/sample_3.macrel/sample_3.macrel.all_orfs.faa.gz"),
                     path("$outputDir/amp/macrel/sample_1.macrel/sample_1.macrel.prediction.gz"),
                     path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.prediction.gz"),
@@ -60,6 +59,8 @@ nextflow_pipeline {
                     path("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel_log.txt"),
                     path("$outputDir/amp/macrel/sample_3.macrel/sample_3.macrel_log.txt")
                 ).match("macrel") },
+                { assert new File("$outputDir/amp/macrel/sample_2.macrel/sample_2.macrel.all_orfs.faa.gz").exists() },
+
 
                 // AMPcombi
                 { assert snapshot(
@@ -107,21 +108,18 @@ nextflow_pipeline {
                 ).match("rgi") },
 
                 // fARGene
-                { assert snapshot(
-                    path("$outputDir/arg/fargene/sample_1/class_a/results_summary.txt"),
-                    path("$outputDir/arg/fargene/sample_2/class_a/results_summary.txt"),
-                    path("$outputDir/arg/fargene/sample_3/class_a/results_summary.txt"),
-                    path("$outputDir/arg/fargene/sample_1/class_b_1_2/results_summary.txt"),
-                    path("$outputDir/arg/fargene/sample_2/class_b_1_2/results_summary.txt"),
-                    path("$outputDir/arg/fargene/sample_3/class_b_1_2/results_summary.txt")
-                ).match("fargene")
-                },
+                { assert path("$outputDir/arg/fargene/sample_1/class_a/results_summary.txt").text.contains("class_A.hmm") },
+                { assert path("$outputDir/arg/fargene/sample_2/class_a/results_summary.txt").text.contains("class_A.hmm") },
+                { assert path("$outputDir/arg/fargene/sample_3/class_a/results_summary.txt").text.contains("class_A.hmm") },
+                { assert path("$outputDir/arg/fargene/sample_1/class_b_1_2/results_summary.txt").text.contains("class_B_1_2.hmm") },
+                { assert path("$outputDir/arg/fargene/sample_2/class_b_1_2/results_summary.txt").text.contains("class_B_1_2.hmm") },
+                { assert path("$outputDir/arg/fargene/sample_3/class_b_1_2/results_summary.txt").text.contains("class_B_1_2.hmm") },
                 { assert path("$outputDir/arg/fargene/sample_1/fargene_analysis.log").text.contains("fARGene is done.") },
                 { assert path("$outputDir/arg/fargene/sample_2/fargene_analysis.log").text.contains("fARGene is done.") },
                 { assert path("$outputDir/arg/fargene/sample_3/fargene_analysis.log").text.contains("fARGene is done.") },
 
                 // hAMRonization
-                { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv").readLines().size()).match("hamronization") },
+                { assert new File("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv").exists() },
 
                 // argNorm
                 { assert snapshot(

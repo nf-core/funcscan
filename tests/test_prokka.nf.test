@@ -17,7 +17,7 @@ nextflow_pipeline {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert new File("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/pipeline_info/nf_core_funcscan_software_mqc_versions.yml").exists() },
                 { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
 
                 // AMPir
@@ -53,11 +53,11 @@ nextflow_pipeline {
                 ).match("macrel") },
 
                 // AMPcombi
-                { assert path("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("PROKKA_00019") },
+                { assert path("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("PROKKA_377") },
+                { assert path("$outputDir/reports/ampcombi2/Ampcombi_parse_tables.log").text.contains("amp_DRAMP_database is found and will be used") },
                 { assert snapshot(
                     path("$outputDir/reports/ampcombi2/Ampcombi_cluster.log"),
-                    path("$outputDir/reports/ampcombi2/Ampcombi_complete.log"),
-                    path("$outputDir/reports/ampcombi2/Ampcombi_parse_tables.log")
+                    path("$outputDir/reports/ampcombi2/Ampcombi_complete.log")
                 ).match("ampcombi_logfiles") },
 
                 // DeepARG

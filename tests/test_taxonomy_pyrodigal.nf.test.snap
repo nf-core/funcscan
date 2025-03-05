@@ -93,19 +93,19 @@
         "content": [
             "sample_1.macrel.smorfs.faa.gz:md5,1b5e2434860e635e95324d1804a3be7b",
             "sample_2.macrel.smorfs.faa.gz:md5,38108b5cdfdc2196afe67418b9b04682",
-            "sample_1.macrel.all_orfs.faa.gz:md5,86f6b3b590d1b22d9c5aa164f8a14080",
-            "sample_2.macrel.all_orfs.faa.gz:md5,fdb384925af50ecade05dccaff68afd8",
-            "sample_1.macrel.prediction.gz:md5,0c4b16e0838be56e012b99169863a168",
-            "sample_2.macrel.prediction.gz:md5,440deffd6b6d9986ce098e44c66db9ae",
-            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
-            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
+            "sample_1.macrel.all_orfs.faa.gz:md5,844bb10e2f84e1a2b2db56eb36391dcf",
+            "sample_2.macrel.all_orfs.faa.gz:md5,9c0b8b1c3b03d7b20aee0b57103861ab",
+            "sample_1.macrel.prediction.gz:md5,9553e1dae8a5b912da8d74fa3f1cd9eb",
+            "sample_2.macrel.prediction.gz:md5,ae155e454eb7abd7c48c06aad9261603",
+            "README.md:md5,cf088d9256ff7b7730699f17b64b4028",
+            "README.md:md5,cf088d9256ff7b7730699f17b64b4028",
             "sample_1.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
             "sample_2.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
+            "nextflow": "24.10.2"
         },
-        "timestamp": "2024-07-24T16:24:30.025771"
+        "timestamp": "2024-12-18T11:35:52.952483937"
     }
 }

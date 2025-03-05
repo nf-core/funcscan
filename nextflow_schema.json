@@ -1,10 +1,10 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/funcscan/master/nextflow_schema.json",
     "title": "nf-core/funcscan pipeline parameters",
     "description": "Pipeline for screening for functional components of assembled contigs",
     "type": "object",
-    "definitions": {
+    "$defs": {
         "input_output_options": {
             "title": "Input/output options",
             "type": "object",
@@ -66,7 +66,7 @@
                     "fa_icon": "fas fa-check-circle"
                 }
             },
-            "fa_icon": "fa fa-list-ol"
+            "fa_icon": "fa fa-list"
         },
         "taxonomic_classification_general_options": {
             "title": "Taxonomic classification: general options",
@@ -85,7 +85,16 @@
                     "default": "mmseqs2",
                     "help_text": "This flag specifies which tool for taxonomic classification should be activated. At the moment only 'MMseqs2' is incorporated in the pipeline.",
                     "description": "Specifies the tool used for taxonomic classification.",
-                    "fa_icon": "fas fa-tools"
+                    "fa_icon": "fas fa-tools",
+                    "enum": ["mmseqs2"]
+                },
+                "taxa_classification_mmseqs_compressed": {
+                    "type": "integer",
+                    "default": 0,
+                    "enum": [0, 1],
+                    "help_text": "To compress MMseqs2 output files, choose `1`, otherwise leave to `0`. Compressing output files can lead to errors when the output is actually empty. In that case, just leave this parameter to its default value. More details can be found in the [documentation (GitHub)](https://github.com/soedinglab/MMseqs2?tab=readme-ov-file#memory-requirements).\n\n>  Modifies tool parameter(s):\n> - mmseqs createdb --compressed <0|1>\n> - mmseqs createtsv --compressed <0|1>\n> - mmseqs databases --compressed <0|1>\n> - mmseqs taxonomy --compressed <0|1>",
+                    "description": "If MMseqs2 is chosen as taxonomic classification tool: Specifies if the output of all MMseqs2 subcommands shall be compressed.",
+                    "fa_icon": "fas fa-file-archive"
                 }
             },
             "fa_icon": "fas fa-tag"
@@ -152,15 +161,15 @@
                     "fa_icon": "fab fa-audible"
                 },
                 "taxa_classification_mmseqs_taxonomy_sensitivity": {
-                    "type": "string",
-                    "default": "5.0",
-                    "help_text": "This flag specifies the speed and sensitivity of the taxonomic search. It stands for how many kmers should be produced during the preliminary seeding stage. A very fast search requires a low value e.g. '1.0' and a a very sensitive search requires e.g. '7.0'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--s`",
+                    "type": "number",
+                    "default": 5.0,
+                    "help_text": "This flag specifies the speed and sensitivity of the taxonomic search. It stands for how many kmers should be produced during the preliminary seeding stage. A very fast search requires a low value e.g. '1.0' and a a very sensitive search requires e.g. '7.0'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `-s`",
                     "description": "Specify the speed and sensitivity for taxonomy assignment.",
                     "fa_icon": "fas fa-history"
                 },
                 "taxa_classification_mmseqs_taxonomy_orffilters": {
-                    "type": "string",
-                    "default": "2.0",
+                    "type": "number",
+                    "default": 2.0,
                     "help_text": "This flag specifies the sensitivity used for prefiltering the query ORF. Before the taxonomy-assigning step, MMseqs2 searches the predicted ORFs against the provided database. This value influences the speed with which the search is carried out. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--orf-filter-s`",
                     "description": "Specify the ORF search sensitivity in the prefilter step.",
                     "fa_icon": "fas fa-history"
@@ -344,6 +353,12 @@
                     "fa_icon": "fas fa-chart-pie",
                     "description": "Activate generation of circular genome plots.",
                     "help_text": "Activate this flag to generate genome plots (might be memory-intensive).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--skip-plot`"
+                },
+                "annotation_bakta_hmms": {
+                    "type": "string",
+                    "description": "Supply a path of an HMM file of trusted hidden markov models in HMMER format for CDS annotation",
+                    "help_text": "Bakta accepts user-provided trusted HMMs via `--hmms` in HMMER's text format. If set, Bakta will adhere to the *trusted cutoff* specified in the HMM header. In addition, a max. evalue threshold of 1e-6 is applied. For more info please refer to the BAKTA [documentation](https://github.com/oschwengers/bakta).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--hmms`",
+                    "fa_icon": "fa-regular fa-square-check"
                 }
             },
             "fa_icon": "fas fa-file-signature"
@@ -504,8 +519,64 @@
                     "fa_icon": "fas fa-barcode",
                     "description": "Forces Pyrodigal to scan for motifs.",
                     "help_text": "Forces Pyrodigal to a full scan for motifs rather than activating the Shine-Dalgarno RBS finder, the default scanner for Pyrodigal to train for motifs.\n\nFor more information check the Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `-n`"
+                },
+                "annotation_pyrodigal_usespecialstopcharacter": {
+                    "type": "boolean",
+                    "fa_icon": "fa fa-star-of-life",
+                    "description": "This forces Pyrodigal to append asterisks (`*`) as stop codon indicators. Do not use when running AMP workflow.",
+                    "help_text": "Some downstream tools like AMPlify cannot process sequences containing non-sequence characters like the stop codon indicator `*`. Thus, this flag is deactivated by default. Activate this flag to revert the behaviour and have Pyrodigal append `*` as stop codon indicator to annotated sequences.\n\nFor more information check the Pyrodigal [documentation](https://pyrodigal.readthedocs.io).\n\n> Modifies tool parameter(s):\n> - PYRODIGAL: `--no-stop-codon`"
                 }
             },
+            "fa_icon": "fas fa-file-signature"
+        },
+        "protein_annotation": {
+            "title": "Protein Annotation: INTERPROSCAN",
+            "type": "object",
+            "description": "Functionally annotates all annotated coding regions.",
+            "default": "",
+            "properties": {
+                "run_protein_annotation": {
+                    "type": "boolean",
+                    "description": "Activates the functional annotation of annotated coding regions to provide more information about the codon regions classified.",
+                    "help_text": "Activates the annotation of annotated coding regions. "
+                },
+                "protein_annotation_tool": {
+                    "type": "string",
+                    "default": "InterProScan",
+                    "help_text": "This flag specifies which tool for protein annotation should be activated.\nAt the moment only [InterProScan](https://github.com/ebi-pf-team/interproscan) is incorporated in the pipeline. This annotates the locus tags to protein and domain levels according to the InterPro databases.\n\nMore details can be found in the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/index.html).",
+                    "description": "Specifies the tool used for further protein annotation.",
+                    "fa_icon": "fas fa-tools",
+                    "enum": ["InterProScan"]
+                },
+                "protein_annotation_interproscan_db_url": {
+                    "type": "string",
+                    "default": "https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.72-103.0/interproscan-5.72-103.0-64-bit.tar.gz",
+                    "help_text": "This allows the user to change the InterProScan database version that the pipeline will download for you automatically. To instead use a pre-downloaded database, please supply its path to `--protein_annotation_interproscan_db`. Changing this URL allows for the use of the latest database release. By default this is set to `http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.72-103.0/interproscan-5.72-103.0-64-bit.tar.gz`. ",
+                    "description": "Change the database version used for annotation.",
+                    "fa_icon": "fas fa-database"
+                },
+                "protein_annotation_interproscan_db": {
+                    "type": "string",
+                    "help_text": "Use this to supply the path to a pre-downloaded InterProScan database. This can be any unzipped InterProScan version.\n\nFor more details on where to find different InterProScan databases see tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/UserDocs.html#obtaining-a-copy-of-interproscan).\n",
+                    "description": "Path to pre-downloaded InterProScan database.",
+                    "fa_icon": "fas fa-database"
+                },
+                "protein_annotation_interproscan_applications": {
+                    "type": "string",
+                    "default": "PANTHER,ProSiteProfiles,ProSitePatterns,Pfam",
+                    "pattern": "^\\w+(,\\w+)*",
+                    "help_text": "A comma-separated string specifying the database(s) to be used to annotate the coding regions annotated during the contig annotation workflow of the pipeline. By default these include `PANTHER,ProSiteProfiles,ProSitePatterns,Pfam`.\n- PANTHER (Protein ANalysis THrough Evolutionary Relationships): genes classified by their functions, using published scientific experimental evidence and evolutionary relationships.\n- PROSITE: protein domains, families, functional sites and specific patterns and profiles to identify them.\n- PFAM: protein families, represented by multiple sequence alignments and hidden Markov models (HMMs).\n\nThese databases were chosen based on the AMP workflow and therefore, with only these databases, do we guarantee the integration of the results to the AMPcombi final summary.\n\nNOTE: Currently, no integration of the results are implemented for the BGC and the ARG final summary tables.\n\nFor more information about all possible databases see the tool [documentation](https://interproscan-docs.readthedocs.io/en/v5/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `--applications`",
+                    "description": "Assigns the database(s) to be used to annotate the coding regions.",
+                    "fa_icon": "fas fa-database"
+                },
+                "protein_annotation_interproscan_enableprecalc": {
+                    "type": "boolean",
+                    "help_text": "This increases the speed of functional annotation with InterProScan by pre-calculating matches found in the UniProtKB, thereby identifying unique matches in the query sequences for faster annotation. By default this is turned off.\n\nFor more information about this flag see the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html).\n\n> Modifies tool parameter(s):\n> - InterProScan: `---diasable-precalc`",
+                    "description": "Pre-calculates residue mutual matches.",
+                    "fa_icon": "fas fa-clock"
+                }
+            },
+            "help_text": "This subworkflow adds additional protein annotations to all annotated coding regions. Currently, only annotation with InterProScan is integrated in the subworkflow.",
             "fa_icon": "fas fa-file-signature"
         },
         "database_downloading_options": {
@@ -535,7 +606,7 @@
                     "fa_icon": "fas fa-ban"
                 }
             },
-            "fa_icon": "fa fa-plus-square"
+            "fa_icon": "fas fa-plus"
         },
         "amp_ampir": {
             "title": "AMP: ampir",
@@ -564,7 +635,7 @@
                     "fa_icon": "fas fa-ruler-horizontal"
                 }
             },
-            "fa_icon": "fa fa-plus-square"
+            "fa_icon": "fas fa-plus"
         },
         "amp_hmmsearch": {
             "title": "AMP: hmmsearch",
@@ -603,7 +674,7 @@
                     "fa_icon": "fas fa-save"
                 }
             },
-            "fa_icon": "fa fa-plus-square",
+            "fa_icon": "fas fa-plus",
             "help_text": "HMMER/hmmsearch is used for searching sequence databases for sequence homologs, and for making sequence alignments. It implements methods using probabilistic models called profile hidden Markov models (profile HMMs). `hmmsearch` is used to search one or more profiles against a sequence database.\n\nFor more information check the HMMER [documentation](http://hmmer.org/).\n\n"
         },
         "amp_macrel": {
@@ -618,7 +689,7 @@
                     "fa_icon": "fas fa-ban"
                 }
             },
-            "fa_icon": "fa fa-plus-square"
+            "fa_icon": "fas fa-plus"
         },
         "amp_ampcombi2_parsetables": {
             "title": "AMP: ampcombi2 parsetables",
@@ -626,11 +697,18 @@
             "description": "Antimicrobial peptides parsing, filtering, and annotating submodule of AMPcombi2. More info: https://github.com/Darcy220606/AMPcombi",
             "default": "",
             "properties": {
+                "amp_ampcombi_db_id": {
+                    "type": "string",
+                    "description": "The name of the database used to classify the AMPs.",
+                    "help_text": "AMPcombi can use three different AMP databases to classify the recovered AMPS. These can either be: \n\n- [DRAMP database](http://dramp.cpu-bioinfor.org/downloads/): Only general AMPs are downloaded and filtered to remove any entry that has an instance of non amino acid residues in their sequence.\n\n- [APD](https://aps.unmc.edu/): Only experimentally validated AMPs are present.\n\n- [UniRef100](https://academic.oup.com/bioinformatics/article/23/10/1282/197795): Combines a more general protein dataset including curated and non curated AMPs. Helpful for identifying the clusters to remove any potential false positives. Beware: If the thresholds are for ampcombi are not strict enough, alignment with this database can take a long time. \n\nBy default this is set to 'DRAMP'. Other valid options include 'APD' or 'UniRef100'.\n\nFor more information check the AMPcombi [documentation](https://ampcombi.readthedocs.io/en/main/usage.html#parse-tables).",
+                    "fa_icon": "fas fa-address-book",
+                    "default": "DRAMP",
+                    "enum": ["DRAMP", "APD", "UniRef100"]
+                },
                 "amp_ampcombi_db": {
                     "type": "string",
-                    "description": "Path to AMPcombi reference database directory (DRAMP).",
-                    "help_text": "AMPcombi uses the 'general AMPs' dataset of the [DRAMP database](http://dramp.cpu-bioinfor.org/downloads/) for taxonomic classification. If you have a local version of it, you can provide the path to the directory(!) that contains the following reference database files:\n1. fasta file with `.fasta` file extension\n2. the corresponding table with with functional and taxonomic classifications in `.tsv` file extension.\n\nThe contents of the directory should have files such as `*.dmnd` and `*.fasta` in the top level.\n\nFor more information check the AMPcombi [documentation](https://github.com/Darcy220606/AMPcombi).",
-                    "fa_icon": "fas fa-address-book"
+                    "description": "The path to the folder containing the reference database files.",
+                    "help_text": "The path to the folder containing the reference database files (`*.fasta` and `*.tsv`); a fasta file and the corresponding table with structural, functional and if reported taxonomic classifications. AMPcombi will then generate the corresponding `mmseqs2` directory, in which all binary files are prepared for the downstream alignment of teh recovered AMPs with [MMseqs2](https://github.com/soedinglab/MMseqs2). These can also be provided by the user by setting up an mmseqs2 compatible database using `mmseqs createdb *.fasta` in a directory called `mmseqs2`.\n\nExample file structure for the reference database supplied by the user:\n\n```bash\namp_DRAMP_database/\n\u251c\u2500\u2500 general_amps_2024_11_13.fasta\n\u251c\u2500\u2500 general_amps_2024_11_13.txt\n\u2514\u2500\u2500 mmseqs2\n    \u251c\u2500\u2500 ref_DB\n    \u251c\u2500\u2500 ref_DB.dbtype\n    \u251c\u2500\u2500 ref_DB_h\n    \u251c\u2500\u2500 ref_DB_h.dbtype\n    \u251c\u2500\u2500 ref_DB_h.index\n    \u251c\u2500\u2500 ref_DB.index\n    \u251c\u2500\u2500 ref_DB.lookup\n    \u2514\u2500\u2500 ref_DB.source\n\nFor more information check the AMPcombi [documentation](https://ampcombi.readthedocs.io/en/main/usage.html#parse-tables)."
                 },
                 "amp_ampcombi_parsetables_cutoff": {
                     "type": "number",
@@ -641,7 +719,7 @@
                 },
                 "amp_ampcombi_parsetables_aalength": {
                     "type": "integer",
-                    "default": 100,
+                    "default": 120,
                     "description": "Filter out all amino acid fragments shorter than this number.",
                     "help_text": "Any AMP hit that does not satisfy this length cut-off will be removed from the final AMPcombi2 summary table.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--aminoacid_length`",
                     "fa_icon": "fas fa-ruler-horizontal"
@@ -709,7 +787,7 @@
                     "fa_icon": "fas fa-address-card"
                 }
             },
-            "fa_icon": "fa fa-plus-square"
+            "fa_icon": "fas fa-plus"
         },
         "amp_ampcombi2_cluster": {
             "title": "AMP: ampcombi2 cluster",
@@ -766,7 +844,7 @@
                     "fa_icon": "fas fa-book-dead"
                 }
             },
-            "fa_icon": "fa fa-plus-square"
+            "fa_icon": "fas fa-plus"
         },
         "arg_amrfinderplus": {
             "title": "ARG: AMRFinderPlus",
@@ -840,7 +918,7 @@
                     "type": "string",
                     "fa_icon": "fas fa-database",
                     "description": "Specify the path to the DeepARG database.",
-                    "help_text": "Specify the path to a local version of the DeepARG database (see the pipelines' usage [documentation](https://nf-co.re/funcscan/dev/docs/usage#databases-and-reference-files)).\n\nThe contents of the directory should include directories such as `database`, `moderl`, and files such as `deeparg.gz` etc. in the top level.\n\nIf no input is given, the module will download the database for you, however this is not recommended, as the database is large and this will take time.\n\n> Modifies tool parameter(s):\n> - DeepARG: `--data-path`"
+                    "help_text": "Specify the path to a local version of the DeepARG database (see the pipelines' usage [documentation](usage#databases-and-reference-files)).\n\nThe contents of the directory should include directories such as `database`, `moderl`, and files such as `deeparg.gz` etc. in the top level.\n\nIf no input is given, the module will download the database for you, however this is not recommended, as the database is large and this will take time.\n\n> Modifies tool parameter(s):\n> - DeepARG: `--data-path`"
                 },
                 "arg_deeparg_db_version": {
                     "type": "integer",
@@ -1106,7 +1184,7 @@
             "type": "object",
             "description": "These parameters influence general BGC settings like minimum input sequence length.",
             "default": "",
-            "fa_icon": "fa fa-sliders",
+            "fa_icon": "fas fa-angle-double-right",
             "properties": {
                 "bgc_mincontiglength": {
                     "type": "integer",
@@ -1192,14 +1270,12 @@
                 },
                 "bgc_antismash_pfam2go": {
                     "type": "boolean",
-                    "default": false,
                     "description": "Run Pfam to Gene Ontology mapping module.",
                     "help_text": "This maps the proteins to Pfam database to annotate BGC modules with functional information based on the protein families they contain. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--pfam2go`",
                     "fa_icon": "fas fa-search"
                 },
                 "bgc_antismash_rre": {
                     "type": "boolean",
-                    "default": false,
                     "description": "Run RREFinder precision mode on all RiPP gene clusters.",
                     "help_text": "This enables the prediction of regulatory elements on the BGC that help in the control of protein expression. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--rre`",
                     "fa_icon": "fas fa-search"
@@ -1214,13 +1290,12 @@
                 },
                 "bgc_antismash_tfbs": {
                     "type": "boolean",
-                    "default": false,
                     "description": "Run TFBS finder on all gene clusters.",
                     "help_text": "This enables the prediction of transcription factor binding sites which control the gene expression. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--tfbs`",
                     "fa_icon": "fas fa-search"
                 }
             },
-            "fa_icon": "fa fa-sliders"
+            "fa_icon": "fas fa-angle-double-right"
         },
         "bgc_deepbgc": {
             "title": "BGC: DeepBGC",
@@ -1302,7 +1377,7 @@
                     "help_text": "DeepBGC classification score threshold for assigning classes to BGCs.\n\nFor more information see the DeepBGC [documentation](https://github.com/Merck/deepbgc).\n\n> Modifies tool parameter(s)\n> -  DeepBGC: `--classifier-score`"
                 }
             },
-            "fa_icon": "fa fa-sliders"
+            "fa_icon": "fas fa-angle-double-right"
         },
         "bgc_gecco": {
             "title": "BGC: GECCO",
@@ -1350,7 +1425,7 @@
                     "fa_icon": "fas fa-ruler-horizontal"
                 }
             },
-            "fa_icon": "fa fa-sliders"
+            "fa_icon": "fas fa-angle-double-right"
         },
         "bgc_hmmsearch": {
             "title": "BGC: hmmsearch",
@@ -1389,7 +1464,7 @@
                     "fa_icon": "fas fa-save"
                 }
             },
-            "fa_icon": "fa fa-sliders"
+            "fa_icon": "fas fa-angle-double-right"
         },
         "institutional_config_options": {
             "title": "Institutional config options",
@@ -1439,41 +1514,6 @@
                 }
             }
         },
-        "max_job_request_options": {
-            "title": "Max job request options",
-            "type": "object",
-            "fa_icon": "fab fa-acquisitions-incorporated",
-            "description": "Set the top limit for requested resources for any single job.",
-            "help_text": "If you are running on a smaller system, a pipeline step requesting more resources than are available may cause the Nextflow to stop the run with an error. These options allow you to cap the maximum resources requested by any single job so that the pipeline will run on your system.\n\nNote that you can not _increase_ the resources requested by any job using these options. For that you will need your own configuration file. See [the nf-core website](https://nf-co.re/usage/configuration) for details.",
-            "properties": {
-                "max_cpus": {
-                    "type": "integer",
-                    "description": "Maximum number of CPUs that can be requested for any single job.",
-                    "default": 16,
-                    "fa_icon": "fas fa-microchip",
-                    "hidden": true,
-                    "help_text": "Use to set an upper-limit for the CPU requirement for each process. Should be an integer e.g. `--max_cpus 1`"
-                },
-                "max_memory": {
-                    "type": "string",
-                    "description": "Maximum amount of memory that can be requested for any single job.",
-                    "default": "128.GB",
-                    "fa_icon": "fas fa-memory",
-                    "pattern": "^\\d+(\\.\\d+)?\\.?\\s*(K|M|G|T)?B$",
-                    "hidden": true,
-                    "help_text": "Use to set an upper-limit for the memory requirement for each process. Should be a string in the format integer-unit e.g. `--max_memory '8.GB'`"
-                },
-                "max_time": {
-                    "type": "string",
-                    "description": "Maximum amount of time that can be requested for any single job.",
-                    "default": "240.h",
-                    "fa_icon": "far fa-clock",
-                    "pattern": "^(\\d+\\.?\\s*(s|m|h|d|day)\\s*)+$",
-                    "hidden": true,
-                    "help_text": "Use to set an upper-limit for the time requirement for each process. Should be a string in the format integer-unit e.g. `--max_time '2.h'`"
-                }
-            }
-        },
         "generic_options": {
             "title": "Generic options",
             "type": "object",
@@ -1481,12 +1521,6 @@
             "description": "Less common options for the pipeline, typically set in a config file.",
             "help_text": "These options are common to all nf-core pipelines and allow you to customise some of the core preferences for how the pipeline runs.\n\nTypically these options would be set in a Nextflow config file loaded for all pipeline runs, such as `~/.nextflow/config`.",
             "properties": {
-                "help": {
-                    "type": "boolean",
-                    "description": "Display help text.",
-                    "fa_icon": "fas fa-question-circle",
-                    "hidden": true
-                },
                 "version": {
                     "type": "boolean",
                     "description": "Display version and exit.",
@@ -1562,32 +1596,17 @@
                     "fa_icon": "fas fa-check-square",
                     "hidden": true
                 },
-                "validationShowHiddenParams": {
-                    "type": "boolean",
-                    "fa_icon": "far fa-eye-slash",
-                    "description": "Show all params when using `--help`",
-                    "hidden": true,
-                    "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters."
-                },
-                "validationFailUnrecognisedParams": {
-                    "type": "boolean",
-                    "fa_icon": "far fa-check-circle",
-                    "description": "Validation of parameters fails when an unrecognised parameter is found.",
-                    "hidden": true,
-                    "help_text": "By default, when an unrecognised parameter is found, it returns a warinig."
-                },
-                "validationLenientMode": {
-                    "type": "boolean",
-                    "fa_icon": "far fa-check-circle",
-                    "description": "Validation of parameters in lenient more.",
-                    "hidden": true,
-                    "help_text": "Allows string values that are parseable as numbers or booleans. For further information see [JSONSchema docs](https://github.com/everit-org/json-schema#lenient-mode)."
-                },
                 "pipelines_testdata_base_path": {
                     "type": "string",
                     "fa_icon": "far fa-check-circle",
                     "description": "Base URL or local path to location of pipeline test dataset files",
                     "default": "https://raw.githubusercontent.com/nf-core/test-datasets/",
+                    "hidden": true
+                },
+                "trace_report_suffix": {
+                    "type": "string",
+                    "fa_icon": "far calendar",
+                    "description": "Suffix to add to the trace report filename. Default is the date and time in the format yyyy-MM-dd_HH-mm-ss.",
                     "hidden": true
                 }
             }
@@ -1595,100 +1614,100 @@
     },
     "allOf": [
         {
-            "$ref": "#/definitions/input_output_options"
+            "$ref": "#/$defs/input_output_options"
         },
         {
-            "$ref": "#/definitions/screening_type_activation"
+            "$ref": "#/$defs/screening_type_activation"
         },
         {
-            "$ref": "#/definitions/taxonomic_classification_general_options"
+            "$ref": "#/$defs/taxonomic_classification_general_options"
         },
         {
-            "$ref": "#/definitions/taxonomic_classification_mmseqs2_databases"
+            "$ref": "#/$defs/taxonomic_classification_mmseqs2_databases"
         },
         {
-            "$ref": "#/definitions/taxonomic_classification_mmseqs2_taxonomy"
+            "$ref": "#/$defs/taxonomic_classification_mmseqs2_taxonomy"
         },
         {
-            "$ref": "#/definitions/annotation_general_options"
+            "$ref": "#/$defs/annotation_general_options"
         },
         {
-            "$ref": "#/definitions/annotation_bakta"
+            "$ref": "#/$defs/annotation_bakta"
         },
         {
-            "$ref": "#/definitions/annotation_prokka"
+            "$ref": "#/$defs/annotation_prokka"
         },
         {
-            "$ref": "#/definitions/annotation_prodigal"
+            "$ref": "#/$defs/annotation_prodigal"
         },
         {
-            "$ref": "#/definitions/annotation_pyrodigal"
+            "$ref": "#/$defs/annotation_pyrodigal"
         },
         {
-            "$ref": "#/definitions/database_downloading_options"
+            "$ref": "#/$defs/protein_annotation"
         },
         {
-            "$ref": "#/definitions/amp_amplify"
+            "$ref": "#/$defs/database_downloading_options"
         },
         {
-            "$ref": "#/definitions/amp_ampir"
+            "$ref": "#/$defs/amp_amplify"
         },
         {
-            "$ref": "#/definitions/amp_hmmsearch"
+            "$ref": "#/$defs/amp_ampir"
         },
         {
-            "$ref": "#/definitions/amp_macrel"
+            "$ref": "#/$defs/amp_hmmsearch"
         },
         {
-            "$ref": "#/definitions/amp_ampcombi2_parsetables"
+            "$ref": "#/$defs/amp_macrel"
         },
         {
-            "$ref": "#/definitions/amp_ampcombi2_cluster"
+            "$ref": "#/$defs/amp_ampcombi2_parsetables"
         },
         {
-            "$ref": "#/definitions/arg_amrfinderplus"
+            "$ref": "#/$defs/amp_ampcombi2_cluster"
         },
         {
-            "$ref": "#/definitions/arg_deeparg"
+            "$ref": "#/$defs/arg_amrfinderplus"
         },
         {
-            "$ref": "#/definitions/arg_fargene"
+            "$ref": "#/$defs/arg_deeparg"
         },
         {
-            "$ref": "#/definitions/arg_rgi"
+            "$ref": "#/$defs/arg_fargene"
         },
         {
-            "$ref": "#/definitions/arg_abricate"
+            "$ref": "#/$defs/arg_rgi"
         },
         {
-            "$ref": "#/definitions/arg_hamronization"
+            "$ref": "#/$defs/arg_abricate"
         },
         {
-            "$ref": "#/definitions/arg_argnorm"
+            "$ref": "#/$defs/arg_hamronization"
         },
         {
-            "$ref": "#/definitions/bgc_general_options"
+            "$ref": "#/$defs/arg_argnorm"
         },
         {
-            "$ref": "#/definitions/bgc_antismash"
+            "$ref": "#/$defs/bgc_general_options"
         },
         {
-            "$ref": "#/definitions/bgc_deepbgc"
+            "$ref": "#/$defs/bgc_antismash"
         },
         {
-            "$ref": "#/definitions/bgc_gecco"
+            "$ref": "#/$defs/bgc_deepbgc"
         },
         {
-            "$ref": "#/definitions/bgc_hmmsearch"
+            "$ref": "#/$defs/bgc_gecco"
         },
         {
-            "$ref": "#/definitions/institutional_config_options"
+            "$ref": "#/$defs/bgc_hmmsearch"
         },
         {
-            "$ref": "#/definitions/max_job_request_options"
+            "$ref": "#/$defs/institutional_config_options"
         },
         {
-            "$ref": "#/definitions/generic_options"
+            "$ref": "#/$defs/generic_options"
         }
     ]
 }

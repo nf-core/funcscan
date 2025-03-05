@@ -47,15 +47,15 @@
     "deeparg_tsv_ARG": {
         "content": [
             "sample_1.align.daa.tsv:md5,21822364379fe8f991d27cdb52a33d1d",
-            "sample_2.align.daa.tsv:md5,f448465df58785a87cdee53691a77bfe",
+            "sample_2.align.daa.tsv:md5,d59287f357de198639bdca5dbaede173",
             "sample_1.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9",
             "sample_2.mapping.ARG:md5,0e049e99eab4c55666062df21707d5b9"
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
+            "nextflow": "24.10.2"
         },
-        "timestamp": "2024-07-23T15:33:45.575881231"
+        "timestamp": "2024-12-18T12:41:33.325286058"
     },
     "ampir": {
         "content": [
@@ -66,21 +66,20 @@
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
+            "nextflow": "24.10.2"
         },
-        "timestamp": "2024-07-23T15:33:45.512274661"
+        "timestamp": "2024-12-18T12:41:33.055416682"
     },
     "ampcombi_logfiles": {
         "content": [
             "Ampcombi_cluster.log:md5,4c78f5f134edf566f39e04e3ab7d8558",
-            "Ampcombi_complete.log:md5,3dabfea4303bf94bd4f5d78c5b8c83c1",
-            "Ampcombi_parse_tables.log:md5,cb5dc95f6b64edc2f0eb56bb541660d5"
+            "Ampcombi_complete.log:md5,3dabfea4303bf94bd4f5d78c5b8c83c1"
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
+            "nextflow": "24.10.2"
         },
-        "timestamp": "2024-07-23T15:33:45.560675596"
+        "timestamp": "2024-12-18T12:41:33.230701016"
     },
     "amplify": {
         "content": [
@@ -89,28 +88,28 @@
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
+            "nextflow": "24.10.2"
         },
-        "timestamp": "2024-07-23T15:33:45.522977776"
+        "timestamp": "2024-12-18T12:41:33.1312123"
     },
     "macrel": {
         "content": [
             "sample_1.macrel.smorfs.faa.gz:md5,1b5e2434860e635e95324d1804a3be7b",
             "sample_2.macrel.smorfs.faa.gz:md5,38108b5cdfdc2196afe67418b9b04682",
-            "sample_1.macrel.all_orfs.faa.gz:md5,86f6b3b590d1b22d9c5aa164f8a14080",
-            "sample_2.macrel.all_orfs.faa.gz:md5,fdb384925af50ecade05dccaff68afd8",
-            "sample_1.macrel.prediction.gz:md5,0c4b16e0838be56e012b99169863a168",
-            "sample_2.macrel.prediction.gz:md5,440deffd6b6d9986ce098e44c66db9ae",
-            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
-            "README.md:md5,fa3706dfc95d0538a52c4d0d824be5fb",
+            "sample_1.macrel.all_orfs.faa.gz:md5,844bb10e2f84e1a2b2db56eb36391dcf",
+            "sample_2.macrel.all_orfs.faa.gz:md5,9c0b8b1c3b03d7b20aee0b57103861ab",
+            "sample_1.macrel.prediction.gz:md5,9553e1dae8a5b912da8d74fa3f1cd9eb",
+            "sample_2.macrel.prediction.gz:md5,ae155e454eb7abd7c48c06aad9261603",
+            "README.md:md5,cf088d9256ff7b7730699f17b64b4028",
+            "README.md:md5,cf088d9256ff7b7730699f17b64b4028",
             "sample_1.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
             "sample_2.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
+            "nextflow": "24.10.2"
         },
-        "timestamp": "2024-07-23T15:33:45.525854315"
+        "timestamp": "2024-12-18T10:35:54.749106433"
     },
     "amrfinderplus": {
         "content": [

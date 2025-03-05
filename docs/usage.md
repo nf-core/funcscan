@@ -18,20 +18,20 @@ nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
 
-To run any of the three screening workflows (AMP, ARG, and/or BGC) or taxonomic classification, switch them on by adding the respective flag(s) to the command:
+To run any of the three screening workflows (AMP, ARG, and/or BGC), taxonomic classification, and/or protein annotation, switch them on by adding the respective flag(s) to the command:
 
 - `--run_amp_screening`
 - `--run_arg_screening`
 - `--run_bgc_screening`
-- `--run_taxa_classification`
+- `--run_taxa_classification` (for optional additional taxonomic annotations)
+- `--run_protein_annotation` (for optional additional protein family and domain annotation)
 
-When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them. The exception is HMMsearch, which needs to be explicitly switched on and provided with HMM screening files (AMP and BGC workflows, see [parameter documentation](/funcscan/parameters)). For the taxonomic classification, MMseqs2 is currently the only tool implemented in the pipline.
+When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them. The exception is HMMsearch, which needs to be explicitly switched on and provided with HMM screening files (AMP and BGC workflows, see [parameter documentation](/funcscan/parameters)). For the taxonomic classification, MMseqs2 is currently the only tool implemented in the pipeline. Likewise, InterProScan is the only tool for protein sequence annotation.
 
 **Example:** You want to run AMP and ARG screening but you don't need the DeepARG tool of the ARG workflow and the Macrel tool of the AMP workflow. Your command would be:
 
 ```bash
 nextflow run nf-core/funcscan --input samplesheet.csv --outdir <OUTDIR> -profile docker --run_arg_screening --arg_skip_deeparg --run_amp_screening --amg_skip_macrel
-
 ```
 
 Note that the pipeline will create the following files in your working directory:
@@ -48,9 +48,8 @@ If you wish to repeatedly use the same parameters for multiple runs, rather than
 
 Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <file>`.
 
-:::warning
-Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
-:::
+> [!WARNING]
+> Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
 
 The above pipeline run specified with a params file in yaml format:
 
@@ -58,12 +57,11 @@ The above pipeline run specified with a params file in yaml format:
 nextflow run nf-core/funcscan -profile docker -params-file params.yaml
 ```
 
-with `params.yaml` containing:
+with:
 
-```yaml
+```yaml title="params.yaml"
 input: './samplesheet.csv'
 outdir: './results/'
-genome: 'GRCh37'
 <...>
 ```
 
@@ -79,7 +77,7 @@ nf-core/funcscan takes FASTA files as input, typically contigs or whole genome s
 
 The input samplesheet has to be a comma-separated file (`.csv`) with 2 (`sample`, and `fasta`) or 4 columns (`sample`, `fasta`, `protein`, `gbk`), and a header row as shown in the examples below.
 
-If you already have annotated contigs with peptide sequences and an annotation file in Genbank format (`.gbk.` or `.gbff`), you can supply these to the pipeline using the optional `protein` and `gbk` columns. If these additional columns are supplied, pipeline annotation (i.e. with bakta, prodigal, pyrodigal or prokka) will be skipped and the corresponding annotation files used instead.
+If you already have annotated contigs with peptide sequences and an annotation file in Genbank format (`.gbk.` or `.gbff`), you can supply these to the pipeline using the optional `protein` and `gbk` columns. If these additional columns are supplied, pipeline annotation (i.e. with bakta, prodigal, pyrodigal or prokka) will be skipped and your corresponding annotation files used instead.
 
 For two columns (without pre-annotated data):
 
@@ -109,10 +107,10 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 :::danger
 We highly recommend performing quality control on input contigs before running the pipeline. You may not receive results for some tools if none of the contigs in a FASTA file reach certain thresholds. Check parameter documentation for relevant minimum contig parameters.
 
-For example, ideally BGC screening requires contigs of at least 3,000 bp else downstream tools may crash.
+For example, ideally BGC screening requires contigs of at least 3,000 bp, otherwise downstream tools may crash.
 :::
 
-## Notes on screening tools and taxonomic classification
+## Notes on screening tools, taxonomic and functional classifications
 
 The implementation of some tools in the pipeline may have some particular behaviours that you should be aware of before you run the pipeline.
 
@@ -128,27 +126,40 @@ MMseqs2 is currently the only taxonomic classification tool used in the pipeline
 
   The contents of the directory should have files such as `<dbname>.version` and `<dbname>.taxonomy` in the top level.
 
-- An MMseqs2 ready database. These databases were compiled by the developers of MMseqs2 and can be called using their labels. All available options can be found [here](https://github.com/soedinglab/MMseqs2/wiki#downloading-databases). Only use those databases that have taxonomy files available (i.e., Taxonomy == Yes). By default mmseqs2 in the pipeline uses '[Kalamari](https://github.com/lskatz/Kalamari)', and runs an aminoacid based alignment. However, if the user requires a more comprehensive taxonomic classification, we recommend the use of [GTDB](https://gtdb.ecogenomic.org/), but for that please remember to increase the memory, CPU threads and time required for the process `MMSEQS_TAXONOMY`.
+- An MMseqs2 ready database. These databases were compiled by the developers of MMseqs2 and can be called using their labels. All available options can be found [here](https://github.com/soedinglab/MMseqs2/wiki#downloading-databases). Only use those databases that have taxonomy files available (i.e. Taxonomy column shows "yes"). By default MMseqs2 in the pipeline uses '[Kalamari](https://github.com/lskatz/Kalamari)', and runs an amino acid-based alignment. However, if the user requires a more comprehensive taxonomic classification, we recommend the use of [GTDB](https://gtdb.ecogenomic.org/), but for that please remember to increase the memory, CPU threads and time required for the process `MMSEQS_TAXONOMY`.
 
   ```bash
   --taxa_classification_mmseqs_db_id 'Kalamari'
   ```
 
+### InterProScan
+
+[InterProScan](https://github.com/ebi-pf-team/interproscan) is currently the only protein annotation tool in this pipeline that gives a snapshot of the protein families and domains for each coding region.
+
+The protein annotation workflow is activated with the flag `--run_protein_annotation`.
+InterProScan is used as the only protein annotation tool at the moment and the [InterPro database](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.72-103.0) version 5.72-103.0 is downloaded and prepared to screen the input sequences against it.
+
+Since the database download is huge (5.5GB) and might take quite some time, you can skip the automatic database download (see section [Databases and reference files](usage/#interproscan-1) for details).
+
+:::info
+By default, the databases used by InterProScan is set as `PANTHER,ProSiteProfiles,ProSitePatterns,Pfam`. An addition of other application to the list does not guarantee that the results will be integrated correctly within `AMPcombi`.
+:::
+
 ### antiSMASH
 
-antiSMASH has a minimum contig parameter, in which only contigs of a certain length (or longer) will be screened. In cases where no hits are found in these, the tool ends successfully without hits. However if no contigs in an input file reach that minimum threshold, the tool will end with a 'failure' code, and cause the pipeline to crash.
+antiSMASH has a minimum contig parameter, in which only contigs of a certain length (or longer) will be screened. If no contigs in an input file reach that minimum threshold, the tool will end with a 'failure' code, and cause the pipeline to crash.
 
 When the annotation is run with Prokka, the resulting `.gbk` file passed to antiSMASH may produce the error `translation longer than location allows` and end the pipeline run. This Prokka bug has been reported before (see [discussion on GitHub](https://github.com/antismash/antismash/discussions/450)) and is not likely to be fixed soon.
 
 :::warning
-If antiSMASH is run for BGC detection, we recommend to **not** run Prokka for annotation but instead use the default annotation tool (Pyrodigal) or switch to Prodigal, or (for bacteria only!) Bakta.
+If antiSMASH is run for BGC detection, we recommend to **not** run Prokka for annotation but instead use the default annotation tool (Pyrodigal), or switch to Prodigal or (for bacteria only!) Bakta.
 :::
 
 ## Databases and reference files
 
 Various tools of nf-core/funcscan use databases and reference files to operate.
 
-nf-core/funcscan offers the functionality to auto-download databases for you, and as these databases can be very large, and we suggest to store these files in a central place from where you can reuse them across pipeline runs.
+nf-core/funcscan offers the functionality to auto-download databases for you, and as these databases can be very large, we suggest to store these files in a central place from where you can reuse them across pipeline runs.
 
 If your infrastructure has internet access (particularly on compute nodes), we **highly recommend** allowing the pipeline to download these databases for you on a first run, saving these to your results directory with `--save_db`, then moving these to a different location (in case you wish to delete the results directory of this first run). An exception to this is HMM files where no auto-downloading functionality is possible.
 
@@ -224,21 +235,48 @@ wget https://github.com/nf-core/funcscan/raw/<PIPELINE_VERSION>/bin/ampcombi_dow
 python3 ampcombi_download.py
 ```
 
-However, the user can also supply their own custom AMP database by following the guidelines in [AMPcombi](https://github.com/Darcy220606/AMPcombi).
+In addition to [DRAMP](http://dramp.cpu-bioinfor.org/), two more reference databases can be used to classify the recovered AMPs in the AMP workflow; [APD](https://aps.unmc.edu/) and [UniRef100](https://academic.oup.com/bioinformatics/article/23/10/1282/197795). Only one database can be used at a time using `--amp_ampcombi_db_id <database_name>`.
+
+However, the user can also supply their own custom AMP database by following the guidelines in [AMPcombi](https://ampcombi.readthedocs.io/en/main/).
 This can then be passed to the pipeline with:
 
 ```bash
 --amp_ampcombi_db '/<path>/<to>/<ampcombi_database>
 ```
 
-The contents of the directory should have files such as `*.dmnd` and `*.fasta` in the top level.
+The contents of the directory should have files such as `*.fasta` and `*.tsv` in the top level; a fasta file and the corresponding table with structural, functional and (if reported) taxonomic classifications. AMPcombi will then generate the corresponding `mmseqs2` directory, in which all binary files are prepared for downstream alignment of the recovered AMPs with [MMseqs2](https://github.com/soedinglab/MMseqs2). These can also be provided by the user by setting up an MMseqs2-compatible database using `mmseqs createdb *.fasta` in a directory called `mmseqs2`. An example file structure for [DRAMP](http://dramp.cpu-bioinfor.org/) used as the reference database:
+
+```tree
+amp_DRAMP_database/
+├── general_amps_2024_11_13.fasta
+├── general_amps_2024_11_13.txt
+└── mmseqs2
+    ├── ref_DB
+    ├── ref_DB.dbtype
+    ├── ref_DB_h
+    ├── ref_DB_h.dbtype
+    ├── ref_DB_h.index
+    ├── ref_DB.index
+    ├── ref_DB.lookup
+    └── ref_DB.source
+```
+
+:::note
+For both [DRAMP](http://dramp.cpu-bioinfor.org/) and [APD](https://aps.unmc.edu/), AMPcombi removes entries that contain any non-amino acid residues by default.
+:::
 
 :::warning
 The pipeline will automatically run Pyrodigal instead of Prodigal if the parameters `--run_annotation_tool prodigal --run_amp_screening` are both provided.
 This is due to an incompatibility issue of Prodigal's output `.gbk` file with multiple downstream tools.
 :::
 
-### Abricate
+:::tip
+
+- If `--run_protein_annotation` is activated, protein and domain classifications of the coding regions are generated and then used by the `ampcombi2/parsetables` module to create a table for every sample and afterwards the combined summary files, e.g. `Ampcombi_summary.tsv`.
+- In some cases when the AMP and the taxonomic classification subworkflows are turned on, it can happen that only summary files per sample are created in the output folder with **no** `Ampcombi_summary.tsv` and `Ampcombi_summary_cluster.tsv` files with no taxonomic classifications merged. This can occur if some AMP prediction parameters are 'too strict' or only one AMP tool is run, which can lead to no AMP hits found in any of the samples or in only one sample. Look out for the warning `[nf-core/funcscan] AMPCOMBI2: 0/1 file passed. Skipping AMPCOMBI2_COMPLETE, AMPCOMBI2_CLUSTER, and TAXONOMY MERGING steps.` in the stdout or `.nextflow.log` file. In that case we recommend to lower the AMP prediction thresholds and run more than one AMP prediction tool.
+  :::
+
+### ABRicate
 
 The default ABRicate installation comes with a series of 'default' databases:
 
@@ -349,10 +387,7 @@ conda activate deeparg
 
 2. Run `deeparg download_data -o /<path>/<to>/<database_location>/`
 
-Or download the files directly from
-
-1. the [DeepARG FTP site](https://bench.cs.vt.edu/ftp/data/gustavo1/deeparg/database/)
-2. the [DeepARG database Zenodo archive](https://zenodo.org/record/8280582)
+Or download the files directly from the [DeepARG database Zenodo archive](https://zenodo.org/record/8280582).
 
 Note that more recent database versions maybe available from the [ARGMiner service](https://bench.cs.vt.edu/argminer/#/home).
 
@@ -446,7 +481,6 @@ conda activate antismash-lite
 --bgc_antismash_installdir '/<path>/<to>/<antismash>/<dir>/antismash'
 ```
 
-Note that the names of the supplied folders must differ from each other (e.g. `antismash_db` and `antismash_dir`).
 The contents of the database directory should include directories such as `as-js/`, `clusterblast/`, `clustercompare/` etc. in the top level.
 The contents of the installation directory should include directories such as `common/` `config/` and files such as `custom_typing.py` `custom_typing.pyi` etc. in the top level.
 
@@ -464,7 +498,7 @@ The flag `--save_db` saves the pipeline-downloaded databases in your results dir
 ### DeepBGC
 
 DeepBGC relies on trained models and Pfams to run its analysis.
-nf-core/funcscan will download these databases for you. If the flag `--save_db` is set, the downloaded files will be stored in the output directory under `databases/deepbgc/`.
+nf-core/funcscan will download these databases for you. If the flag `--save_db` is set, the downloaded files will be stored in the output directory under `<output_directory>/databases/deepbgc/`.
 
 Alternatively, you can download the database locally with:
 
@@ -478,10 +512,9 @@ deepbgc download
 You can then indicate the path to the database folder in the pipeline with `--bgc_deepbgc_db <path>/<to>/<deepbgc_db>/`.
 The contents of the database directory should include directories such as `common`, `0.1.0` in the top level:
 
-```console
+```tree
 deepbgc_db/
 ├── common
-  └── Pfam-hmm-models*.hmm.*
 └── <version-num>[0.1.0]
   ├── classifier
   | └── myClassifiers*.pkl
@@ -489,9 +522,52 @@ deepbgc_db/
     └── myDetectors*.pkl
 ```
 
+### InterProScan
+
+[InterProScan](https://github.com/ebi-pf-team/interproscan) is used to provide more information about the proteins annotated on the contigs. By default, turning on this subworkflow with `--run_protein_annotation` will download and unzip the [InterPro database](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.72-103.0/) version 5.72-103.0. The database can be saved in the output directory `<output_directory>/databases/interproscan/` if the `--save_db` is turned on.
+
+:::note
+The huge database download (5.5GB) can take up to 4 hours depending on the bandwidth.
+:::
+
+A local version of the database can be supplied to the pipeline by passing the InterProScan database directory to `--protein_annotation_interproscan_db <path/to/downloaded-untarred-interproscan_db-dir/>`. The directory can be created by running (e.g. for database version 5.72-103.0):
+
+```
+curl -L https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.72-103.0/interproscan-5.72-103.0-64-bit.tar.gz -o interproscan_db/interproscan-5.72-103.0-64-bit.tar.gz
+tar -xzf interproscan_db/interproscan-5.72-103.0-64-bit.tar.gz -C interproscan_db/
+
+```
+
+The contents of the database directory should include the directory `data` in the top level with a couple of subdirectories:
+
+```
+interproscan_db/
+    └── data/
+    ├── antifam
+    ├── cdd
+    ├── funfam
+    ├── gene3d
+    ├── hamap
+    ├── ncbifam
+    ├── panther
+    | └── [18.0]
+    ├── pfam
+    | └── [36.0]
+    ├── phobius
+    ├── pirsf
+    ├── pirsr
+    ├── prints
+    ├── prosite
+    | └── [2023_05]
+    ├── sfld
+    ├── smart
+    ├── superfamily
+    └── tmhmm
+```
+
 ## Updating the pipeline
 
-When you run the above command, Nextflow automatically pulls the pipeline code from GitHub and stores it as a cached version. When running the pipeline after this, it will always use the cached version if available - even if the pipeline has been updated since. To make sure that you're running the latest version of the pipeline, make sure that you regularly update the cached version of the pipeline:
+When you run the below command, Nextflow automatically pulls the pipeline code from GitHub and stores it as a cached version. When running the pipeline after this, it will always use the cached version if available - even if the pipeline has been updated since. To make sure that you're running the latest version of the pipeline, make sure that you regularly update the cached version of the pipeline:
 
 ```bash
 nextflow pull nf-core/funcscan
@@ -499,23 +575,21 @@ nextflow pull nf-core/funcscan
 
 ## Reproducibility
 
-It is a good idea to specify a pipeline version when running the pipeline on your data. This ensures that a specific version of the pipeline code and software are used when you run your pipeline. If you keep using the same tag, you'll be running the same version of the pipeline, even if there have been changes to the code since.
+It is a good idea to specify the pipeline version when running the pipeline on your data. This ensures that a specific version of the pipeline code and software are used when you run your pipeline. If you keep using the same tag, you'll be running the same version of the pipeline, even if there have been changes to the code since.
 
 First, go to the [nf-core/funcscan releases page](https://github.com/nf-core/funcscan/releases) and find the latest pipeline version - numeric only (eg. `1.3.1`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.3.1`. Of course, you can switch to another version by changing the number after the `-r` flag.
 
 This version number will be logged in reports when you run the pipeline, so that you'll know what you used when you look back in the future. For example, at the bottom of the MultiQC reports.
 
-To further assist in reproducibility, you can use share and re-use [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
+To further assist in reproducibility, you can use share and reuse [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
 
-:::tip
-If you wish to share such profile (such as upload as supplementary material for academic publications), make sure to NOT include cluster specific paths to files, nor institutional specific profiles.
-:::
+> [!TIP]
+> If you wish to share such profile (such as upload as supplementary material for academic publications), make sure to NOT include cluster specific paths to files, nor institutional specific profiles.
 
 ## Core Nextflow arguments
 
-:::note
-These options are part of Nextflow and use a _single_ hyphen (pipeline parameters use a double-hyphen).
-:::
+> [!NOTE]
+> These options are part of Nextflow and use a _single_ hyphen (pipeline parameters use a double-hyphen)
 
 ### `-profile`
 
@@ -523,11 +597,10 @@ Use this parameter to choose a configuration profile. Profiles can give configur
 
 Several generic profiles are bundled with the pipeline which instruct the pipeline to use software packaged using different methods (Docker, Singularity, Podman, Shifter, Charliecloud, Apptainer, Conda) - see below.
 
-:::info
-We highly recommend the use of Docker or Singularity containers for full pipeline reproducibility, however when this is not possible, Conda is also supported.
-:::
+> [!IMPORTANT]
+> We highly recommend the use of Docker or Singularity containers for full pipeline reproducibility, however when this is not possible, Conda is also supported.
 
-The pipeline also dynamically loads configurations from [https://github.com/nf-core/configs](https://github.com/nf-core/configs) when it runs, making multiple config profiles for various institutional clusters available at run time. For more information and to see if your system is available in these configs please see the [nf-core/configs documentation](https://github.com/nf-core/configs#documentation).
+The pipeline also dynamically loads configurations from [https://github.com/nf-core/configs](https://github.com/nf-core/configs) when it runs, making multiple config profiles for various institutional clusters available at run time. For more information and to check if your system is supported, please see the [nf-core/configs documentation](https://github.com/nf-core/configs#documentation).
 
 Note that multiple profiles can be loaded, for example: `-profile test,docker` - the order of arguments is important!
 They are loaded in sequence, so later profiles can overwrite earlier profiles.
@@ -568,13 +641,13 @@ Specify the path to a specific config file (this is a core Nextflow command). Se
 
 ### Resource requests
 
-Whilst the default requirements set within the pipeline will hopefully work for most people and with most input data, you may find that you want to customise the compute resources that the pipeline requests. Each step in the pipeline has a default set of requirements for number of CPUs, memory and time. For most of the steps in the pipeline, if the job exits with any of the error codes specified [here](https://github.com/nf-core/rnaseq/blob/4c27ef5610c87db00c3c5a3eed10b1d161abf575/conf/base.config#L18) it will automatically be resubmitted with higher requests (2 x original, then 3 x original). If it still fails after the third attempt then the pipeline execution is stopped.
+Whilst the default requirements set within the pipeline will hopefully work for most people and with most input data, you may find that you want to customise the compute resources that the pipeline requests. Each step in the pipeline has a default set of requirements for number of CPUs, memory and time. For most of the pipeline steps, if the job exits with any of the error codes specified [here](https://github.com/nf-core/rnaseq/blob/4c27ef5610c87db00c3c5a3eed10b1d161abf575/conf/base.config#L18) it will automatically be resubmitted with higher resources request (2 x original, then 3 x original). If it still fails after the third attempt then the pipeline execution is stopped.
 
 To change the resource requests, please see the [max resources](https://nf-co.re/docs/usage/configuration#max-resources) and [tuning workflow resources](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources) section of the nf-core website.
 
 ### Custom Containers
 
-In some cases you may wish to change which container or conda environment a step of the pipeline uses for a particular tool. By default nf-core pipelines use containers and software from the [biocontainers](https://biocontainers.pro/) or [bioconda](https://bioconda.github.io/) projects. However in some cases the pipeline specified version maybe out of date.
+In some cases, you may wish to change the container or conda environment used by a pipeline steps for a particular tool. By default, nf-core pipelines use containers and software from the [biocontainers](https://biocontainers.pro/) or [bioconda](https://bioconda.github.io/) projects. However, in some cases the pipeline specified version maybe out of date.
 
 To use a different container from the default container or conda environment specified in a pipeline, please see the [updating tool versions](https://nf-co.re/docs/usage/configuration#updating-tool-versions) section of the nf-core website.
 
@@ -591,14 +664,6 @@ In most cases, you will only need to create a custom config as a one-off but if 
 See the main [Nextflow documentation](https://www.nextflow.io/docs/latest/config.html) for more information about creating your own configuration files.
 
 If you have any questions or issues please send us a message on [Slack](https://nf-co.re/join/slack) on the [`#configs` channel](https://nfcore.slack.com/channels/configs).
-
-## Azure Resource Requests
-
-To be used with the `azurebatch` profile by specifying the `-profile azurebatch`.
-We recommend providing a compute `params.vm_type` of `Standard_D16_v3` VMs by default but these options can be changed if required.
-
-Note that the choice of VM size depends on your quota and the overall workload during the analysis.
-For a thorough list, please refer the [Azure Sizes for virtual machines in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/sizes).
 
 ## Running in the background
 

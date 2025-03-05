@@ -4,9 +4,9 @@ nextflow_pipeline {
     script "main.nf"
     tag "pipeline"
     tag "nfcore_funcscan"
-    tag "test_nothing"
+    tag "test_minimal"
 
-    test("test_nothing_profile") {
+    test("test_minimal_profile") {
 
         when {
             params {
@@ -17,7 +17,7 @@ nextflow_pipeline {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert new File("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/pipeline_info/nf_core_funcscan_software_mqc_versions.yml").exists() },
                 { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
             )
         }
