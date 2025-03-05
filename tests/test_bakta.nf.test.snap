@@ -74,7 +74,6 @@
         "content": [
             "Ampcombi_cluster.log:md5,4c78f5f134edf566f39e04e3ab7d8558",
             "Ampcombi_complete.log:md5,3dabfea4303bf94bd4f5d78c5b8c83c1",
-            "Ampcombi_parse_tables.log:md5,ff27d0c3657ce99d2c29a136f598e4f8"
         ],
         "meta": {
             "nf-test": "0.9.0",

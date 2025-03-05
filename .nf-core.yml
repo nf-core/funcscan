@@ -1,5 +1,8 @@
 lint:
   actions_ci: false
+  files_exist:
+    - conf/igenomes.config
+    - conf/igenomes_ignored.config
 nf_core_version: 3.2.0
 repository_type: pipeline
 template:
