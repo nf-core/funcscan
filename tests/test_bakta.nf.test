@@ -54,6 +54,7 @@ nextflow_pipeline {
 
                 // AMPcombi
                 { assert path("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("KDEMFK_0115") },
+                { assert path("$outputDir/reports/ampcombi2/Ampcombi_parse_tables.log").text.contains("amp_DRAMP_database is found and will be used") },
                 { assert snapshot(
                     path("$outputDir/reports/ampcombi2/Ampcombi_cluster.log"),
                     path("$outputDir/reports/ampcombi2/Ampcombi_complete.log")
