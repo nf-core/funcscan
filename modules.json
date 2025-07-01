@@ -200,6 +200,26 @@
                         "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
                         "installed_by": ["modules"]
                     },
+                    "rundbcan/cazymeannotation": {
+                        "branch": "master",
+                        "git_sha": "d06da24d16537815f9699c4a4edd4a6ec5bc517f",
+                        "installed_by": ["modules"]
+                    },
+                    "rundbcan/database": {
+                        "branch": "master",
+                        "git_sha": "d06da24d16537815f9699c4a4edd4a6ec5bc517f",
+                        "installed_by": ["modules"]
+                    },
+                    "rundbcan/easycgc": {
+                        "branch": "master",
+                        "git_sha": "d06da24d16537815f9699c4a4edd4a6ec5bc517f",
+                        "installed_by": ["modules"]
+                    },
+                    "rundbcan/easysubstrate": {
+                        "branch": "master",
+                        "git_sha": "d06da24d16537815f9699c4a4edd4a6ec5bc517f",
+                        "installed_by": ["modules"]
+                    },
                     "seqkit/seq": {
                         "branch": "master",
                         "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",

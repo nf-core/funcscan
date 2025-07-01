@@ -24,6 +24,7 @@ include { PROTEIN_ANNOTATION        } from '../subworkflows/local/protein_annota
 include { AMP                       } from '../subworkflows/local/amp'
 include { ARG                       } from '../subworkflows/local/arg'
 include { BGC                       } from '../subworkflows/local/bgc'
+include { DBCAN                     } from '../subworkflows/local/dbcan'
 include { TAXA_CLASS                } from '../subworkflows/local/taxa_class'
 
 /*
@@ -86,24 +87,26 @@ workflow FUNCSCAN {
         .map { meta, files ->
             def fasta_found = files.find { it.toString().tokenize('.').last().matches('fasta|fas|fna|fa') }
             def faa_found = files.find { it.toString().endsWith('.faa') }
+            def gff_found = files.find { it.toString().endsWith('.gff') }
             def gbk_found = files.find { it.toString().tokenize('.').last().matches('gbk|gbff') }
             def fasta = fasta_found != null ? fasta_found : []
             def faa = faa_found != null ? faa_found : []
+            def gff = gff_found != null ? gff_found : []
             def gbk = gbk_found != null ? gbk_found : []
 
-            [meta, fasta, faa, gbk]
+            [meta, fasta, faa, gff, gbk]
         }
-        .branch { meta, fasta, faa, gbk ->
-            preannotated: gbk != []
+        .branch { meta, fasta, faa, gff, gbk ->
+            preannotated: gff != [] || gbk != []
             fastas: true
         }
 
     // Duplicate and filter the duplicated file for long contigs only for BGC
     // This is to speed up BGC run and prevent 'no hits found'  fails
     if (params.run_bgc_screening) {
-        SEQKIT_SEQ_LENGTH(ch_intermediate_input.fastas.map { meta, fasta, faa, gbk -> [meta, fasta] })
+        SEQKIT_SEQ_LENGTH(ch_intermediate_input.fastas.map { meta, fasta, faa, gff, gbk -> [meta, fasta] })
         ch_input_for_annotation = ch_intermediate_input.fastas
-            .map { meta, fasta, protein, gbk -> [meta, fasta] }
+            .map { meta, fasta, protein, gff, gbk -> [meta, fasta] }
             .mix(SEQKIT_SEQ_LENGTH.out.fastx.map { meta, fasta -> [meta + [category: 'long'], fasta] })
             .filter { meta, fasta ->
                 if (fasta != [] && fasta.isEmpty()) {
@@ -122,12 +125,13 @@ workflow FUNCSCAN {
     */
 
     // Some tools require annotated FASTAs
-    if ((params.run_arg_screening && !params.arg_skip_deeparg) || params.run_amp_screening || params.run_bgc_screening) {
+    if ((params.run_arg_screening && !params.arg_skip_deeparg) || params.run_amp_screening || params.run_bgc_screening || params.run_dbcan_screening) {
         ANNOTATION(ch_input_for_annotation)
         ch_versions = ch_versions.mix(ANNOTATION.out.versions)
 
         ch_new_annotation = ch_input_for_annotation
             .join(ANNOTATION.out.faa)
+            .join(ANNOTATION.out.gff)
             .join(ANNOTATION.out.gbk)
     }
     else {
@@ -138,20 +142,22 @@ workflow FUNCSCAN {
     ch_prepped_input = ch_new_annotation
         .filter { meta, fasta, faa, gbk -> meta.category != 'long' }
         .mix(ch_intermediate_input.preannotated)
-        .multiMap { meta, fasta, faa, gbk ->
+        .multiMap { meta, fasta, faa, gff, gbk ->
             fastas: [meta, fasta]
             faas: [meta, faa]
+            gffs: [meta, gff]
             gbks: [meta, gbk]
         }
 
     if (params.run_bgc_screening) {
 
         ch_prepped_input_long = ch_new_annotation
-            .filter { meta, fasta, faa, gbk -> meta.category == 'long' }
+            .filter { meta, fasta, faa, gff, gbk -> meta.category == 'long' }
             .mix(ch_intermediate_input.preannotated)
-            .multiMap { meta, fasta, faa, gbk ->
+            .multiMap { meta, fasta, faa, gff, gbk ->
                 fastas: [meta, fasta]
                 faas: [meta, faa]
+                gffs: [meta, gff]
                 gbks: [meta, gbk]
             }
     }
@@ -355,6 +361,21 @@ workflow FUNCSCAN {
             },
         )
         ch_versions = ch_versions.mix(BGC.out.versions)
+    }
+
+    /*
+        DBCANs
+    */
+    if ( params.run_dbcan_screening ) {
+        DBCAN (
+            ch_prepped_input.faas.filter { meta, file ->
+                if (file != [] && file.isEmpty()) {
+                    log.warn("[nf-core/funcscan] Annotation of following sample produced an empty FAA file. DBCAN screening tools requiring this file will not be executed: ${meta.id}")
+                }
+                !file.isEmpty()
+            },
+            ch_prepped_input.gffs
+        )
     }
 
     //

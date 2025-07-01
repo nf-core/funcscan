@@ -7,10 +7,11 @@ The output of nf-core/funcscan provides reports for each of the functional group
 - **antibiotic resistance genes** (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) – summarised by [hAMRonization](https://github.com/pha4ge/hAMRonization). Results from ABRicate, AMRFinderPlus, and DeepARG are normalised to [ARO](https://obofoundry.org/ontology/aro.html) by [argNorm](https://github.com/BigDataBiology/argNorm).)
 - **antimicrobial peptides** (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) – summarised by [AMPcombi](https://github.com/Darcy220606/AMPcombi))
 - **biosynthetic gene clusters** (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org) – summarised by [comBGC](#combgc))
+- carbohydrate-active enzyme (CAZyme) annotation, CAZyme gene clusters and substrate (tools: [run_dbcan](https://github.com/bcb-unl/run_dbcan))
 
 As a general workflow, we recommend to first look at the summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each result. The tool-specific output directories also includes the output from the functional annotation steps of either [prokka](https://github.com/tseemann/prokka), [pyrodigal](https://github.com/althonos/pyrodigal), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set. Additionally, taxonomic classifications from [MMseqs2](https://github.com/soedinglab/MMseqs2) are saved if the `--taxa_classification_mmseqs_db_savetmp` and `--taxa_classification_mmseqs_taxonomy_savetmp` flags are set.
 
-Similarly, all downloaded databases are saved (i.e. from [MMseqs2](https://github.com/soedinglab/MMseqs2), [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [RGI](https://github.com/arpcard/rgi), and/or [AMPcombi](https://github.com/Darcy220606/AMPcombi)) into the output directory `<outdir>/databases/` if the `--save_db` flag was set.
+Similarly, all downloaded databases are saved (i.e. from [MMseqs2](https://github.com/soedinglab/MMseqs2), [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [RGI](https://github.com/arpcard/rgi), and/or [AMPcombi](https://github.com/Darcy220606/AMPcombi), [run_dbcan](https://github.com/bcb-unl/run_dbcan)) into the output directory `<outdir>/databases/` if the `--save_db` flag was set.
 
 Furthermore, for reproducibility, versions of all software used in the run is presented in a [MultiQC](http://multiqc.info) report.
 
@@ -41,6 +42,10 @@ results/
 |   ├── deepbgc/
 |   ├── gecco/
 |   └── hmmsearch/
+├── dbcan/
+|   ├── cazyme_annotation/
+|   ├── cgc/
+|   └── substrate/
 ├── databases/
 ├── multiqc/
 ├── pipeline_info/
@@ -101,6 +106,10 @@ Biosynthetic Gene Clusters (BGCs):
 - [deepBGC](#deepbgc) - biosynthetic gene cluster detection, using a deep learning model.
 - [GECCO](#gecco) – biosynthetic gene cluster detection, using Conditional Random Fields (CRFs).
 - [hmmsearch](#hmmsearch) – biosynthetic gene cluster detection, based on hidden Markov models.
+
+Carbohydrate-active enzyme (CAZYMEs)
+
+- [run_dbcan](https://github.com/bcb-unl/run_dbcan) - carbohydrate-active enzyme (CAZyme), CAZyme gene clusters and substrate.
 
 Output Summaries:
 
@@ -465,6 +474,47 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 </details>
 
 [GECCO](https://gecco.embl.de) is a fast and scalable method for identifying putative novel Biosynthetic Gene Clusters (BGCs) in genomic and metagenomic data using Conditional Random Fields (CRFs).
+
+### CAZyme annotation tools
+
+#### run_dbcan
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `dbcan/`
+  - `cazyme_annotation`
+    - `*_overview.tsv/`: TSV file containing the results of dbCAN CAZyme annotation.
+    - `*_dbCAN_hmm_results.tsv`: TSV file containing the detailed dbCAN HMM results for CAZyme annotation.
+    - `*_dbCANsub_hmm_results.tsv`: TSV file containing the detailed dbCAN subfamily results for CAZyme annotation.
+    - `*_diamond.out`: TSV file containing the detailed dbCAN diamond results for CAZyme annotation.
+  - `cgc`
+    - `*_overview.tsv/`: TSV file containing the results of dbCAN CAZyme annotation.
+    - `*_dbCAN_hmm_results.tsv`: TSV file containing the detailed dbCAN HMM results for CAZyme annotation.
+    - `*_dbCANsub_hmm_results.tsv`: TSV file containing the detailed dbCAN subfamily results for CAZyme annotation.
+    - `*_diamond.out`: TSV file containing the detailed dbCAN diamond results for CAZyme annotation.
+    - `*_cgc.gff`: GFF file containing the CAZyme gene clusters (CGC) identified by dbCAN. This file is generated from the dbCAN annotation and contains the locations of CAZyme gene clusters in the genome.
+    - `*_cgc_standard_out.tsv`: Standard output file from dbCAN for CAZyme gene clusters (CGC) in a tabular format. This file summarizes the CAZyme gene clusters identified in the genome.
+    - `*_diamond.out.tc`: TSV file containing the diamond output for transporter annotation.
+    - `*_TF_hmm_results.tsv`: TSV file containing the results of Transcription factor.
+    - `*_STP_hmm_results.tsv`: TSV file containing the results of signaling transduction proteins (STP) annotation.
+  - `substrate`
+    - `*_overview.tsv/`: TSV file containing the results of dbCAN CAZyme annotation.
+    - `*_dbCAN_hmm_results.tsv`: TSV file containing the detailed dbCAN HMM results for CAZyme annotation.
+    - `*_dbCANsub_hmm_results.tsv`: TSV file containing the detailed dbCAN subfamily results for CAZyme annotation.
+    - `*_diamond.out`: TSV file containing the detailed dbCAN diamond results for CAZyme annotation.
+    - `*_cgc.gff`: GFF file containing the CAZyme gene clusters (CGC) identified by dbCAN. This file is generated from the dbCAN annotation and contains the locations of CAZyme gene clusters in the genome.
+    - `*_cgc_standard_out.tsv`: Standard output file from dbCAN for CAZyme gene clusters (CGC) in a tabular format. This file summarizes the CAZyme gene clusters identified in the genome.
+    - `*_diamond.out.tc`: TSV file containing the diamond output for transporter annotation.
+    - `*_TF_hmm_results.tsv`: TSV file containing the results of Transcription factor.
+    - `*_STP_hmm_results.tsv`: TSV file containing the results of signaling transduction proteins (STP) annotation.
+    - `*_total_cgc_info.tsv`: TSV file summarizing the total additional genes in the genome.
+    - `*_substrate_prediction.tsv`: TSV file containing the substrate predictions based on the CGC annotations from dbCAN.
+    - `*_synteny_pdf/`: Directory containing the synteny plots in PDF format for the CAZyme gene clusters (CGC) identified by dbCAN. This directory will contain one or more PDF files showing the syntenic regions of the CGC in the genome.
+
+</details>
+
+[run_dbcan](https://github.com/bcb-unl/run_dbcan) is an automated tool for carbohydrate-active enzyme (CAZyme), CAZyme gene cluster and substrate annotation.
 
 ### Summary tools
 

@@ -64,6 +64,11 @@
                     "type": "boolean",
                     "description": "Activate biosynthetic gene cluster screening tools.",
                     "fa_icon": "fas fa-check-circle"
+                },
+                "run_dbcan_screening": {
+                    "type": "boolean",
+                    "description": "Activate CAZyme and CAZyme gene cluster screening tools.",
+                    "fa_icon": "fas fa-check-circle"
                 }
             },
             "fa_icon": "fa fa-list"
@@ -1465,6 +1470,24 @@
                 }
             },
             "fa_icon": "fas fa-angle-double-right"
+        },
+        "dbcan": {
+            "title": "DBCAN",
+            "type": "object",
+            "description": "Carbohydrate-active Enzyme Annotation based on pre-defined HMM models. More info: https://run-dbcan.readthedocs.io/en/latest",
+            "default": "",
+            "properties": {
+                "dbcan_skip_cgc": {
+                    "type": "boolean",
+                    "description": "Skip CGC during the DBCAN screening.",
+                    "fa_icon": "fas fa-ban"
+                },
+                "dbcan_skip_substrate": {
+                    "type": "boolean",
+                    "description": "Skip Substrate during the DBCAN screening.",
+                    "fa_icon": "fas fa-ban"
+                }
+            }
         },
         "institutional_config_options": {
             "title": "Institutional config options",
