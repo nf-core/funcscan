@@ -43,8 +43,8 @@ workflow DBCAN {
             gff: [meta, gff, 'prodigal']
         }
 
-    // Run DBCAN CGC Annotation when annotation_tool is `prodigal` or `pyrodigal`
-    if ( !params.dbcan_skip_cgc && (params.annotation_tool == "prodigal" || params.annotation_tool == "pyrodigal") ) {
+    // Run DBCAN CGC Annotation
+    if ( !params.dbcan_skip_cgc ) {
         RUNDBCAN_EASYCGC (
             ch_input_for_dbcan.faa,
             ch_input_for_dbcan.gff,
@@ -53,8 +53,8 @@ workflow DBCAN {
         ch_versions = ch_versions.mix(RUNDBCAN_EASYCGC.out.versions)
     }
 
-    // Run DBCAN Substrate Annotation when annotation tool is `prodigal` or `pyrodigal`
-    if ( !params.dbcan_skip_substrate && (params.annotation_tool == "prodigal" || params.annotation_tool == "pyrodigal") ) {
+    // Run DBCAN Substrate Annotation
+    if ( !params.dbcan_skip_substrate ) {
         RUNDBCAN_EASYSUBSTRATE (
             ch_input_for_dbcan.faa,
             ch_input_for_dbcan.gff,
