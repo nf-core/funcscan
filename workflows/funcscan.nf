@@ -117,7 +117,7 @@ workflow FUNCSCAN {
         ch_versions = ch_versions.mix(SEQKIT_SEQ_LENGTH.out.versions)
     }
     else {
-        ch_input_for_annotation = ch_intermediate_input.fastas.map { meta, fasta, protein, gbk -> [meta, fasta] }
+        ch_input_for_annotation = ch_intermediate_input.fastas.map { meta, fasta, protein, gff, gbk  -> [meta, fasta] }
     }
 
     /*
@@ -140,7 +140,7 @@ workflow FUNCSCAN {
 
     // Mix back the preannotated samples with the newly annotated ones
     ch_prepped_input = ch_new_annotation
-        .filter { meta, fasta, faa, gbk -> meta.category != 'long' }
+        .filter { meta, fasta, faa, gff, gbk -> meta.category != 'long' }
         .mix(ch_intermediate_input.preannotated)
         .multiMap { meta, fasta, faa, gff, gbk ->
             fastas: [meta, fasta]
