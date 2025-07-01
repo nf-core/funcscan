@@ -65,6 +65,8 @@ jobs:
           - "test_taxonomy_prokka"
           - "test_preannotated"
           - "test_preannotated_bgc"
+          - "test_dbcan_pyrodigal"
+          - "test_preannotated_dbcan"
         isMaster:
           - ${{ github.base_ref == 'master' }}
         # Exclude conda and singularity on dev
