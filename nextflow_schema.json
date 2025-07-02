@@ -1727,6 +1727,9 @@
             "$ref": "#/$defs/bgc_hmmsearch"
         },
         {
+            "$ref": "#/$defs/dbcan"
+        },
+        {
             "$ref": "#/$defs/institutional_config_options"
         },
         {
