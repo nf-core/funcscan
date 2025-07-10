@@ -19,23 +19,23 @@ workflow DBCAN {
     ch_versions = Channel.empty()
 
     // When adding new tool that requires FAA, make sure to update conditions
-    // in funcscan.nf around annotation and AMP subworkflow execution
+    // in funcscan.nf around annotation and dbCAN subworkflow execution
     // to ensure annotation is executed!
     ch_faas_for_rundbcan = faas
     ch_gffs_for_rundbcan = gffs
 
-    // RUN DBCAN
+    // Download dbCAN database
     RUNDBCAN_DATABASE ()
     ch_versions = ch_versions.mix(RUNDBCAN_DATABASE.out.versions)
 
-    // RUN CAZyme Annotation
+    // CAZyme annotation
     RUNDBCAN_CAZYMEANNOTATION (
         ch_faas_for_rundbcan,
         RUNDBCAN_DATABASE.out.dbcan_db
     )
     ch_versions = ch_versions.mix(RUNDBCAN_CAZYMEANNOTATION.out.versions)
 
-    // Prepare input for DBCAN CGC and SUBSTRATE
+    // Prepare input for dbCAN CGC and substrate annotation
     ch_input_for_dbcan = ch_faas_for_rundbcan
         .join(ch_gffs_for_rundbcan)
         .multiMap { meta, faa, gff ->
@@ -43,7 +43,7 @@ workflow DBCAN {
             gff: [meta, gff, 'prodigal']
         }
 
-    // Run DBCAN CGC Annotation
+    // CGC annotation
     if ( !params.dbcan_skip_cgc ) {
         RUNDBCAN_EASYCGC (
             ch_input_for_dbcan.faa,
@@ -53,7 +53,7 @@ workflow DBCAN {
         ch_versions = ch_versions.mix(RUNDBCAN_EASYCGC.out.versions)
     }
 
-    // Run DBCAN Substrate Annotation
+    // substrate annotation
     if ( !params.dbcan_skip_substrate ) {
         RUNDBCAN_EASYSUBSTRATE (
             ch_input_for_dbcan.faa,

@@ -1472,19 +1472,19 @@
             "fa_icon": "fas fa-angle-double-right"
         },
         "dbcan": {
-            "title": "DBCAN",
+            "title": "dbCAN",
             "type": "object",
-            "description": "Carbohydrate-active Enzyme Annotation based on pre-defined HMM models. More info: https://run-dbcan.readthedocs.io/en/latest",
+            "description": "Carbohydrate-active enzyme annotation based on pre-defined HMM models.\n\nFor more information check the dbCAN [documentation](https://run-dbcan.readthedocs.io/en/latest)",
             "default": "",
             "properties": {
                 "dbcan_skip_cgc": {
                     "type": "boolean",
-                    "description": "Skip CGC during the DBCAN screening.",
+                    "description": "Skip CGC during the dbCAN screening.",
                     "fa_icon": "fas fa-ban"
                 },
                 "dbcan_skip_substrate": {
                     "type": "boolean",
-                    "description": "Skip Substrate during the DBCAN screening.",
+                    "description": "Skip substrate during the dbCAN screening.",
                     "fa_icon": "fas fa-ban"
                 }
             }
