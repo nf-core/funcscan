@@ -24,7 +24,7 @@ include { PROTEIN_ANNOTATION        } from '../subworkflows/local/protein_annota
 include { AMP                       } from '../subworkflows/local/amp'
 include { ARG                       } from '../subworkflows/local/arg'
 include { BGC                       } from '../subworkflows/local/bgc'
-include { DBCAN                     } from '../subworkflows/local/dbcan'
+include { CAZYME                    } from '../subworkflows/local/cazyme'
 include { TAXA_CLASS                } from '../subworkflows/local/taxa_class'
 
 /*
@@ -364,13 +364,13 @@ workflow FUNCSCAN {
     }
 
     /*
-        DBCANs
+        CAZYMEs
     */
     if ( params.run_dbcan_screening ) {
-        DBCAN (
+        CAZYME (
             ch_prepped_input.faas.filter { meta, file ->
                 if (file != [] && file.isEmpty()) {
-                    log.warn("[nf-core/funcscan] Annotation of following sample produced an empty FAA file. DBCAN screening tools requiring this file will not be executed: ${meta.id}")
+                    log.warn("[nf-core/funcscan] Annotation of following sample produced an empty FAA file. CAZyme screening tools requiring this file will not be executed: ${meta.id}")
                 }
                 !file.isEmpty()
             },

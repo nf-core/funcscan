@@ -8,7 +8,7 @@ include { RUNDBCAN_EASYCGC          } from '../../modules/nf-core/rundbcan/easyc
 include { RUNDBCAN_EASYSUBSTRATE    } from '../../modules/nf-core/rundbcan/easysubstrate/main'
 
 
-workflow DBCAN {
+workflow CAZYME {
 
     take:
     faas    // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
