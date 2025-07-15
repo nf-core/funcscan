@@ -25,6 +25,7 @@ To run any of the three screening workflows (AMP, ARG, and/or BGC), taxonomic cl
 - `--run_bgc_screening`
 - `--run_taxa_classification` (for optional additional taxonomic annotations)
 - `--run_protein_annotation` (for optional additional protein family and domain annotation)
+- `--run_cazyme_annotation` (for optional additional carbohydrate-active enzyme annotation)
 
 When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them. The exception is HMMsearch, which needs to be explicitly switched on and provided with HMM screening files (AMP and BGC workflows, see [parameter documentation](/funcscan/parameters)). For the taxonomic classification, MMseqs2 is currently the only tool implemented in the pipeline. Likewise, InterProScan is the only tool for protein sequence annotation.
 
@@ -564,6 +565,25 @@ interproscan_db/
     ├── superfamily
     └── tmhmm
 ```
+
+### Run_dbCAN
+
+The [run_dbcan](https://github.com/bcb-unl/run_dbcan) tool requires a pre-built database to perform carbohydrate-active enzyme (CAZyme) annotation.
+To download the database automatically, install the [`dbcan`](https://bioconda.github.io/recipes/dbcan/README.html) package:
+
+```
+conda create -n dbcan -c bioconda dbcan
+conda activate dbcan
+```
+
+Then, download the database:
+
+```
+run_dbcan database --db_dir <path/to/your/db>
+```
+
+Replace `<path/to/your/db>` with your preferred directory path for storing the database files. Once the database download is complete (), the file are ready for use with the `run_dbcan` tool without additional configurations or modifications.
+
 
 ## Updating the pipeline
 
