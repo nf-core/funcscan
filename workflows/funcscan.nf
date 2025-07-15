@@ -69,7 +69,7 @@ workflow FUNCSCAN {
 
     // Some tools require uncompressed input
     ch_input_prep = ch_samplesheet
-        .map { meta, fasta, faa, gbk -> [meta + [category: 'all'], [fasta, faa, gbk]] }
+        .map { meta, fasta, faa, gbk, gff -> [meta + [category: 'all'], [fasta, faa, gbk, gff]] }
         .transpose()
         .branch {
             compressed: it[1].toString().endsWith('.gz')
