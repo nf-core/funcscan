@@ -65,7 +65,7 @@
                     "description": "Activate biosynthetic gene cluster screening tools.",
                     "fa_icon": "fas fa-check-circle"
                 },
-                "run_dbcan_screening": {
+                "run_cazyme_screening": {
                     "type": "boolean",
                     "description": "Activate CAZyme and CAZyme gene cluster screening tools.",
                     "fa_icon": "fas fa-check-circle"

@@ -125,7 +125,7 @@ workflow FUNCSCAN {
     */
 
     // Some tools require annotated FASTAs
-    if ((params.run_arg_screening && !params.arg_skip_deeparg) || params.run_amp_screening || params.run_bgc_screening || params.run_dbcan_screening) {
+    if ((params.run_arg_screening && !params.arg_skip_deeparg) || params.run_amp_screening || params.run_bgc_screening || params.run_cazyme_screening) {
         ANNOTATION(ch_input_for_annotation)
         ch_versions = ch_versions.mix(ANNOTATION.out.versions)
 
@@ -366,7 +366,7 @@ workflow FUNCSCAN {
     /*
         CAZYMEs
     */
-    if ( params.run_dbcan_screening ) {
+    if ( params.run_cazyme_screening ) {
         CAZYME (
             ch_prepped_input.faas.filter { meta, file ->
                 if (file != [] && file.isEmpty()) {
