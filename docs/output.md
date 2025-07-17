@@ -482,22 +482,23 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 <details markdown="1">
 <summary>Output files</summary>
 
-- `dbcan/`
-  - `cazyme`
-    - `*_overview.tsv`: TSV file containing the results of dbCAN CAZyme annotation
-    - `*_dbCAN_hmm_results.tsv`: TSV file containing the detailed dbCAN HMM results for CAZyme annotation
-    - `*_dbCANsub_hmm_results.tsv`: TSV file containing the detailed dbCAN subfamily results for CAZyme annotation
-    - `*_diamond.out`: TSV file containing the detailed dbCAN diamond results for CAZyme annotation
-  - `cgc`
-    - `*_cgc.gff`: GFF file containing the CAZyme gene clusters (CGC) identified by dbCAN. This file is generated from the dbCAN annotation and contains the locations of CAZyme gene clusters in the genome.
-    - `*_cgc_standard_out.tsv`: Standard output file from dbCAN for CAZyme gene clusters (CGC) in a tabular format. This file summarizes the CAZyme gene clusters identified in the genome.
-    - `*_diamond.out.tc`: TSV file containing the diamond output for transporter annotation
-    - `*_TF_hmm_results.tsv`: TSV file containing the results of transcription factor screening
-    - `*_STP_hmm_results.tsv`: TSV file containing the results of signaling transduction proteins (STP) annotation.
-  - `substrate`
-    - `*_total_cgc_info.tsv`: TSV file summarizing the total additional genes in the genome
-    - `*_substrate_prediction.tsv`: TSV file containing the substrate predictions based on the CGC annotations from dbCAN
-    - `*_synteny_pdf/`: Directory containing one or more PDF files showing the syntenic regions of the CGCs in DNA sequence as identified by dbCAN
+- `cazyme/`
+  - `dbcan`
+    - `cazyme_annotation`
+      - `<sample.id>_overview.tsv`: TSV file containing the results of dbCAN CAZyme annotation
+      - `<sample.id>_dbCAN_hmm_results.tsv`: TSV file containing the detailed dbCAN HMM results for CAZyme annotation
+      - `<sample.id>_dbCANsub_hmm_results.tsv`: TSV file containing the detailed dbCAN subfamily results for CAZyme annotation
+      - `<sample.id>_diamond.out`: TSV file containing the detailed dbCAN diamond results for CAZyme annotation
+    - `cgc`
+      - `<sample.id>_cgc.gff`: GFF file containing the CAZyme gene clusters (CGC) identified by dbCAN. This file is generated from the dbCAN annotation and contains the locations of CAZyme gene clusters in the genome.
+      - `<sample.id>_cgc_standard_out.tsv`: Standard output file from dbCAN for CAZyme gene clusters (CGC) in a tabular format. This file summarizes the CAZyme gene clusters identified in the genome.
+      - `<sample.id>_diamond.out.tc`: TSV file containing the diamond output for transporter annotation
+      - `<sample.id>_TF_hmm_results.tsv`: TSV file containing the results of transcription factor screening
+      - `<sample.id>_STP_hmm_results.tsv`: TSV file containing the results of signaling transduction proteins (STP) annotation.
+    - `substrate`
+      - `<sample.id>_total_cgc_info.tsv`: TSV file summarizing the total additional genes in the genome
+      - `<sample.id>_substrate_prediction.tsv`: TSV file containing the substrate predictions based on the CGC annotations from dbCAN
+      - `<sample.id>_synteny_pdf/`: Directory containing one or more PDF files showing the syntenic regions of the CGCs in DNA sequence as identified by dbCAN
 
 </details>
 
