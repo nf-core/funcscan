@@ -578,7 +578,7 @@ conda activate dbcan
 
 Then, download the database:
 
-```
+```bash
 run_dbcan database --db_dir <path/to/your/db>
 ```
 
