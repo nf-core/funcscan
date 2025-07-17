@@ -571,7 +571,7 @@ interproscan_db/
 The [run_dbcan](https://github.com/bcb-unl/run_dbcan) tool requires a pre-built database to perform carbohydrate-active enzyme (CAZyme) annotation.
 To download the database automatically, install the [`dbcan`](https://bioconda.github.io/recipes/dbcan/README.html) package:
 
-```
+```bash
 conda create -n dbcan -c bioconda dbcan
 conda activate dbcan
 ```
