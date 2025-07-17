@@ -582,7 +582,7 @@ Then, download the database:
 run_dbcan database --db_dir <path/to/your/db>
 ```
 
-Replace `<path/to/your/db>` with your preferred directory path for storing the database files. Once the database download is complete (), the file are ready for use with the `run_dbcan` tool without additional configurations or modifications.
+Replace `<path/to/your/db>` with your preferred directory path for storing the database files. Once the database download is complete, the file are ready for use with the `run_dbcan` tool without additional configurations or modifications.
 
 
 ## Updating the pipeline
