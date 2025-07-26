@@ -45,7 +45,7 @@
         "required": ["sample", "fasta"],
         "dependentRequired": {
             "protein": ["gbk"],
-            "gbk": ["protein"]
+            "gbk": ["protein"],
             "gff": ["protein"]
         }
     },
