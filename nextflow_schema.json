@@ -1471,12 +1471,17 @@
             },
             "fa_icon": "fas fa-angle-double-right"
         },
-        "dbcan": {
+        "cayme_dbcan": {
             "title": "dbCAN",
             "type": "object",
             "description": "Carbohydrate-active enzyme annotation based on pre-defined HMM models.\n\nFor more information check the dbCAN [documentation](https://run-dbcan.readthedocs.io/en/latest)",
             "default": "",
             "properties": {
+                "cazyme_skip_dbcan": {
+                    "type": "boolean",
+                    "description": "Skip dbCAN during the CAZyme screening.",
+                    "fa_icon": "fas fa-ban"
+                },
                 "dbcan_skip_cgc": {
                     "type": "boolean",
                     "description": "Skip CGC during the dbCAN screening.",
@@ -1727,7 +1732,7 @@
             "$ref": "#/$defs/bgc_hmmsearch"
         },
         {
-            "$ref": "#/$defs/dbcan"
+            "$ref": "#/$defs/cazyme_dbcan"
         },
         {
             "$ref": "#/$defs/institutional_config_options"
