@@ -40,7 +40,7 @@ workflow CAZYME {
         .join(ch_gffs_for_rundbcan)
         .multiMap { meta, faa, gff ->
             faa: [meta, faa]
-            gff: [meta, gff, 'prodigal']
+            gff: [meta, gff, params.dbcan_gff_type] // One samplesheet can only have one gff type, mixed mode is not supported now.
         }
 
     // CGC annotation
