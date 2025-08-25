@@ -1491,6 +1491,14 @@
                     "type": "boolean",
                     "description": "Skip substrate during the dbCAN screening.",
                     "fa_icon": "fas fa-ban"
+                },
+                "dbcan_gff_type": {
+                    "type": "string",
+                    "default": "prodigal",
+                    "description": "GFF type used to annotate CAZymes in the input GFF file.",
+                    "help_text": "This flag specifies the type of GFF file that is used to annotate CAZymes in the input GFF file. It is used to ensure that the correct gene annotations are used for the CAZyme screening. For more information check the dbCAN [documentation](https://run-dbcan.readthedocs.io/en/latest/user_guide/CGC_information_generation.html#input-gff-file-types).",
+                    "fa_icon": "fas fa-database",
+                    "enum": ["NCBI_prok", "prodigal", "NCBI_euk", "JGI"]
                 }
             }
         },
