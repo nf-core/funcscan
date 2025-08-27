@@ -5,8 +5,9 @@ nextflow_pipeline {
     tag "pipeline"
     tag "nfcore_funcscan"
     tag "test_taxonomy_bakta"
+    profile "test_taxonomy_bakta"
 
-    test("test_taxonomy_bakta") {
+    test("-profile test_taxonomy") {
 
         when {
             params {

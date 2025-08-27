@@ -5,8 +5,9 @@ nextflow_pipeline {
     tag "pipeline"
     tag "nfcore_funcscan"
     tag "test_bgc_prokka"
+    profile "test_bgc_prokka"
 
-    test("test_bgc_prokka_profile") {
+    test("-profile test_bgc_prokka") {
 
         when {
             params {

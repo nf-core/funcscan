@@ -2,11 +2,11 @@ nextflow_pipeline {
 
     name "Test pipeline: NFCORE_FUNCSCAN"
     script "main.nf"
-    tag "pipeline"
     tag "nfcore_funcscan"
     tag "test_full"
+    profile "test_full"
 
-    test("test_full_profile") {
+    test("-profile test_full") {
 
         when {
             params {

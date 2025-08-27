@@ -41,8 +41,7 @@
                     "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
                     "fa_icon": "fas fa-file-signature"
                 }
-            },
-            "help_text": ""
+            }
         },
         "screening_type_activation": {
             "title": "Screening type activation",
@@ -94,10 +93,8 @@
                     "enum": ["mmseqs2"]
                 },
                 "taxa_classification_mmseqs_compressed": {
-                    "type": "integer",
-                    "default": 0,
-                    "enum": [0, 1],
-                    "help_text": "To compress MMseqs2 output files, choose `1`, otherwise leave to `0`. Compressing output files can lead to errors when the output is actually empty. In that case, just leave this parameter to its default value. More details can be found in the [documentation (GitHub)](https://github.com/soedinglab/MMseqs2?tab=readme-ov-file#memory-requirements).\n\n>  Modifies tool parameter(s):\n> - mmseqs createdb --compressed <0|1>\n> - mmseqs createtsv --compressed <0|1>\n> - mmseqs databases --compressed <0|1>\n> - mmseqs taxonomy --compressed <0|1>",
+                    "type": "boolean",
+                    "help_text": "To compress MMseqs2 output files, choose `true` otherwise leave to `false`. Compressing output files can lead to errors when the output is actually empty. In that case, just leave this parameter to its default value. More details can be found in the [documentation (GitHub)](https://github.com/soedinglab/MMseqs2?tab=readme-ov-file#memory-requirements).\n\n>  Modifies tool parameter(s):\n> - mmseqs createdb --compressed <0|1>\n> - mmseqs createtsv --compressed <0|1>\n> - mmseqs databases --compressed <0|1>\n> - mmseqs taxonomy --compressed <0|1>",
                     "description": "If MMseqs2 is chosen as taxonomic classification tool: Specifies if the output of all MMseqs2 subcommands shall be compressed.",
                     "fa_icon": "fas fa-file-archive"
                 }
@@ -1413,7 +1410,7 @@
                     "description": "The p-value cutoff for protein domains to be included.",
                     "fa_icon": "fas fa-filter",
                     "default": 1e-9,
-                    "help_text": "The p-value cutoff for protein domains to be included.\n\nFor more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--pfilter`"
+                    "help_text": "For more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--pfilter`"
                 },
                 "bgc_gecco_threshold": {
                     "type": "number",

@@ -5,8 +5,9 @@ nextflow_pipeline {
     tag "pipeline"
     tag "nfcore_funcscan"
     tag "test_prokka"
+    profile "test_prokka"
 
-    test("test_prokka_profile") {
+    test("-profile test_prokka") {
 
         when {
             params {
@@ -97,8 +98,8 @@ nextflow_pipeline {
                     path("$outputDir/arg/fargene/sample_1/class_b_1_2/results_summary.txt"),
                     path("$outputDir/arg/fargene/sample_2/class_b_1_2/results_summary.txt")
                 ).match("fargene") },
-                { assert path("$outputDir/arg/fargene/sample_1/fargene_analysis.log").text.contains("fARGene is done.") },
-                { assert path("$outputDir/arg/fargene/sample_2/fargene_analysis.log").text.contains("fARGene is done.") },
+                { assert path("$outputDir/arg/fargene/sample_1/sample_1-class_b_1_2.log").text.contains("fARGene is done.") },
+                { assert path("$outputDir/arg/fargene/sample_2/sample_2-class_b_1_2.log").text.contains("fARGene is done.") },
 
                 // hAMRonization
                 { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv")).match("hamronization_summarize") },

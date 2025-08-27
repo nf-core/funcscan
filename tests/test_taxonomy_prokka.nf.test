@@ -5,8 +5,9 @@ nextflow_pipeline {
     tag "pipeline"
     tag "nfcore_funcscan"
     tag "test_taxonomy_prokka"
+    profile "test_taxonomy_prokka"
 
-    test("test_taxonomy_prokka") {
+    test("-profile test_taxonomy_prokka") {
 
         when {
             params {

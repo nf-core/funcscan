@@ -5,8 +5,9 @@ nextflow_pipeline {
     tag "pipeline"
     tag "nfcore_funcscan"
     tag "test_preannotated"
+    profile "test_preannotated"
 
-    test("test_preannotated_profile") {
+    test("-profile test_preannotated") {
 
         when {
             params {
@@ -114,9 +115,9 @@ nextflow_pipeline {
                 { assert path("$outputDir/arg/fargene/sample_1/class_b_1_2/results_summary.txt").text.contains("class_B_1_2.hmm") },
                 { assert path("$outputDir/arg/fargene/sample_2/class_b_1_2/results_summary.txt").text.contains("class_B_1_2.hmm") },
                 { assert path("$outputDir/arg/fargene/sample_3/class_b_1_2/results_summary.txt").text.contains("class_B_1_2.hmm") },
-                { assert path("$outputDir/arg/fargene/sample_1/fargene_analysis.log").text.contains("fARGene is done.") },
-                { assert path("$outputDir/arg/fargene/sample_2/fargene_analysis.log").text.contains("fARGene is done.") },
-                { assert path("$outputDir/arg/fargene/sample_3/fargene_analysis.log").text.contains("fARGene is done.") },
+                { assert path("$outputDir/arg/fargene/sample_1/sample_1-class_b_1_2.log").text.contains("fARGene is done.") },
+                { assert path("$outputDir/arg/fargene/sample_2/sample_2-class_b_1_2.log").text.contains("fARGene is done.") },
+                { assert path("$outputDir/arg/fargene/sample_3/sample_3-class_b_1_2.log").text.contains("fARGene is done.") },
 
                 // hAMRonization
                 { assert new File("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv").exists() },

@@ -5,8 +5,9 @@ nextflow_pipeline {
     tag "pipeline"
     tag "nfcore_funcscan"
     tag "test_bgc_pyrodigal"
+    profile "test_bgc_pyrodigal"
 
-    test("test_bgc_pyrodigal_profile") {
+    test("-profile test_bgc_pyrodigal") {
 
         when {
             params {

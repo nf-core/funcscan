@@ -7,7 +7,7 @@
                 "nf-core": {
                     "abricate/run": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "2bf398ba510572f6eb0d8c9a97413f57d0e951f4",
                         "installed_by": ["modules"]
                     },
                     "ampcombi2/cluster": {

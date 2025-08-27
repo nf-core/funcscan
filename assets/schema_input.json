@@ -10,7 +10,7 @@
             "sample": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Sample name must be provided and cannot contain spaces",
+                "errorMessage": "Sample ID must be provided, must be an integer or string and cannot contain spaces",
                 "meta": ["id"]
             },
             "fasta": {
