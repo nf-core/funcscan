@@ -30,9 +30,9 @@
 
   > Blin, K., Shaw, S., Augustijn, H. E., Reitz, Z. L., Biermann, F., Alanjary, M., Fetter, A., Terlouw B. R., Metcalf, W. W., Helfrich, E. J. N., van Wezel, G. P., Medema, M. H., & Weber, T. (2023). antiSMASH 7.0: new and improved predictions for detection, regulation, chemical structures and visualisation. Nucleic acids research, 51(W1), W46–W50. [DOI: 10.1093/nar/gkad344](https://doi.org/10.1093/nar/gkad344)
 
-- [argNorm](https://doi.org/10.5204/rep.eprints.252448)
+- [argNorm](https://doi.org/10.1093/bioinformatics/btaf173)
 
-  > Ugarcina Perovic, S., Ramji, V., Chong, H., Duan, Y., Maguire, F., Coelho, L. P. (2024). argNorm: Normalization of antibiotic resistance gene annotations to the Antibiotic Resistance Ontology (ARO). [Preprint] (Unpublished) [DOI: 10.5204/rep.eprints.252448](https://doi.org/10.5204/rep.eprints.252448)
+  > Ugarcina Perovic, S., Ramji, V., Chong, H., Duan, Y., Maguire, F., Coelho, L. P. (2025). argNorm: normalization of antibiotic resistance gene annotations to the Antibiotic Resistance Ontology (ARO), Bioinformatics, btaf173. [DOI: 10.1093/bioinformatics/btaf173](https://doi.org/10.1093/bioinformatics/btaf173)
 
 - [Bakta](https://doi.org/10.1099/mgen.0.000685)
 

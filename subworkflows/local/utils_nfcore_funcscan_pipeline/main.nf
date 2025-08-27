@@ -70,8 +70,7 @@ workflow PIPELINE_INITIALISATION {
     // Create channel from input file provided through params.input
     //
 
-    Channel
-        .fromList(samplesheetToList(input, "${projectDir}/assets/schema_input.json"))
+    Channel.fromList(samplesheetToList(input, "${projectDir}/assets/schema_input.json"))
         .set { ch_samplesheet }
 
     emit:
@@ -136,23 +135,6 @@ workflow PIPELINE_COMPLETION {
 // Check and validate pipeline parameters
 //
 def validateInputParameters() {
-    // Validate antiSMASH inputs for containers
-    // 1. Make sure that either both or none of the antiSMASH directories are supplied
-    if (['docker', 'singularity'].contains(workflow.containerEngine) && ((params.run_bgc_screening && !params.bgc_antismash_db && params.bgc_antismash_installdir && !params.bgc_skip_antismash) || (params.run_bgc_screening && params.bgc_antismash_db && !params.bgc_antismash_installdir && !params.bgc_skip_antismash))) {
-        error("[nf-core/funcscan] ERROR: You supplied either the antiSMASH database or its installation directory, but not both. Please either supply both directories or none (letting the pipeline download them instead).")
-    }
-    else if (['docker', 'singularity'].contains(workflow.containerEngine) && (params.run_bgc_screening && params.bgc_antismash_db && params.bgc_antismash_installdir && !params.bgc_skip_antismash)) {
-        antismash_database_dir = new File(params.bgc_antismash_db)
-        antismash_install_dir = new File(params.bgc_antismash_installdir)
-        if (antismash_database_dir.name == antismash_install_dir.name) {
-            error("[nf-core/funcscan] ERROR: Your supplied antiSMASH database and installation directories have identical names: " + antismash_install_dir.name + ".\nPlease make sure to name them differently, for example:\n - Database directory:      " + antismash_database_dir.parent + "/antismash_db\n - Installation directory:  " + antismash_install_dir.parent + "/antismash_dir")
-        }
-    }
-
-    // 3. Give warning if not using container system assuming conda
-    if (params.run_bgc_screening && (!params.bgc_antismash_db) && !params.bgc_skip_antismash && (session.config.conda && session.config.conda.enabled)) {
-        log.warn("[nf-core/funcscan] Running antiSMASH download database module, and detected conda has been enabled. Assuming using conda for pipeline run. Check config if this is not expected!")
-    }
 }
 
 //
@@ -202,7 +184,7 @@ def toolCitationText() {
         !params.arg_skip_amrfinderplus ? "AMRfinderplus (Feldgarden et al. 2021)," : "",
         !params.arg_skip_deeparg ? "deepARG (Arango-Argoty 2018)," : "",
         !params.arg_skip_abricate ? "ABRicate (Seemann 2020)," : "",
-        !params.arg_skip_argnorm ? ". The outputs from ARG screening tools were normalized to the antibiotic resistance ontology using argNorm (Perovic et al. 2024)," : "",
+        !params.arg_skip_argnorm ? ". The outputs from ARG screening tools were normalized to the antibiotic resistance ontology using argNorm (Ugarcina Perovic et al. 2025)," : "",
         ". The output from the antimicrobial resistance gene screening tools were standardised and summarised with hAMRonization (Maguire et al. 2023).",
     ].join(' ').trim().replaceAll(', +.', ".")
 
@@ -252,15 +234,15 @@ def toolBibliographyText() {
         !params.arg_skip_fargene ? '<li>Berglund, F., Österlund, T., Boulund, F., Marathe, N. P., Larsson, D., & Kristiansson, E. (2019). Identification and reconstruction of novel antibiotic resistance genes from metagenomes. Microbiome, 7(1), 52. DOI: <a href="https://doi.org/10.1186/s40168-019-0670-1">10.1186/s40168-019-0670-1</a></li>' : "",
         !params.arg_skip_rgi ? '<li>Alcock, B. P., Raphenya, A. R., Lau, T., Tsang, K. K., Bouchard, M., Edalatmand, A., Huynh, W., Nguyen, A. V., Cheng, A. A., Liu, S., Min, S. Y., Miroshnichenko, A., Tran, H. K., Werfalli, R. E., Nasir, J. A., Oloni, M., Speicher, D. J., Florescu, A., Singh, B., Faltyn, M., … McArthur, A. G. (2020). CARD 2020: antibiotic resistome surveillance with the comprehensive antibiotic resistance database. Nucleic acids research, 48(D1), D517–D525. DOI: <a href="https://doi.org/10.1093/nar/gkz935">10.1093/nar/gkz935</a></li>' : "",
         !params.arg_skip_amrfinderplus ? '<li>Feldgarden, M., Brover, V., Gonzalez-Escalona, N., Frye, J. G., Haendiges, J., Haft, D. H., Hoffmann, M., Pettengill, J. B., Prasad, A. B., Tillman, G. E., Tyson, G. H., & Klimke, W. (2021). AMRFinderPlus and the Reference Gene Catalog facilitate examination of the genomic links among antimicrobial resistance, stress response, and virulence. Scientific reports, 11(1), 12728. DOI: <a href="https://doi.org/10.1038/s41598-021-91456-0">10.1038/s41598-021-91456-0</a></li>' : "",
-        !params.arg_skip_deeparg ? '<li>Arango-Argoty, G., Garner, E., Pruden, A., Heath, L. S., Vikesland, P., & Zhang, L. (2018). DeepARG: a deep learning approach for predicting antibiotic resistance genes from metagenomic data. Microbiome, 6(1), 23. DOI: <a href="https://doi.org/10.1186/s40168-018-0401-z">10.1186/s40168-018-0401-z' : "",
+        !params.arg_skip_deeparg ? '<li>Arango-Argoty, G., Garner, E., Pruden, A., Heath, L. S., Vikesland, P., & Zhang, L. (2018). DeepARG: a deep learning approach for predicting antibiotic resistance genes from metagenomic data. Microbiome, 6(1), 23. DOI: <a href="https://doi.org/10.1186/s40168-018-0401-z">10.1186/s40168-018-0401-z</a>' : "",
         !params.arg_skip_abricate ? '<li>Seemann, T. (2020). ABRicate. Github <a href="https://github.com/tseemann/abricate">https://github.com/tseemann/abricate</a>.</li>' : "",
-        !params.arg_skip_argnorm ? '<li>Perovic, S. U., Ramji, V., Chong, H., Duan, Y., Maguire, F., Coelho, L. P. (2024). argNorm. DOI: <a href="https://zenodo.org/doi/10.5281/zenodo.10963591" 10.5281/zenodo.10963591</a>.</li>' : "",
+        !params.arg_skip_argnorm ? '<li>Ugarcina Perovic, S., Ramji, V., Chong, H., Duan, Y., Maguire, F., Coelho, L. P. (2025). argNorm: normalization of antibiotic resistance gene annotations to the Antibiotic Resistance Ontology (ARO), Bioinformatics, btaf173. DOI: <a href="https://doi.org/10.1093/bioinformatics/btaf173">10.1093/bioinformatics/btaf173</a></li>' : "",
         '<li>Public Health Alliance for Genomic Epidemiology (pha4ge). (2022). Parse multiple Antimicrobial Resistance Analysis Reports into a common data structure. Github. Retrieved October 5, 2022, from <a href="https://github.com/pha4ge/hAMRonization">https://github.com/pha4ge/hAMRonization</a></li>',
     ].join(' ').trim().replaceAll(', +.', ".")
 
 
     def bgc_text = [
-        !params.bgc_skip_antismash ? '<li>Blin, K., Shaw, S., Kloosterman, A. M., Charlop-Powers, Z., van Wezel, G. P., Medema, M. H., & Weber, T. (2021). antiSMASH 6.0: improving cluster detection and comparison capabilities. Nucleic acids research, 49(W1), W29–W35. DOI: <a href="https://doi.org/10.1093/nar/gkab335"10.1093/nar/gkab335</a></li>' : "",
+        !params.bgc_skip_antismash ? '<li>Blin, K., Shaw, S., Kloosterman, A. M., Charlop-Powers, Z., van Wezel, G. P., Medema, M. H., & Weber, T. (2021). antiSMASH 6.0: improving cluster detection and comparison capabilities. Nucleic acids research, 49(W1), W29–W35. DOI: <a href="https://doi.org/10.1093/nar/gkab335">10.1093/nar/gkab335</a></li>' : "",
         !params.bgc_skip_deepbgc ? '<li>Hannigan, G. D., Prihoda, D., Palicka, A., Soukup, J., Klempir, O., Rampula, L., Durcak, J., Wurst, M., Kotowski, J., Chang, D., Wang, R., Piizzi, G., Temesi, G., Hazuda, D. J., Woelk, C. H., & Bitton, D. A. (2019). A deep learning genome-mining strategy for biosynthetic gene cluster prediction. Nucleic acids research, 47(18), e110. DOI: <a href="https://doi.org/10.1093/nar/gkz654">10.1093/nar/gkz654</a></li>' : "",
         !params.bgc_skip_gecco ? '<li>Carroll, L. M. , Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. bioRxiv DOI: <a href="https://doi.org/10.1101/2021.05.03.442509">0.1101/2021.05.03.442509</a></li>' : "",
         '<li>Frangenberg, J. Fellows Yates, J. A., Ibrahim, A., Perelo, L., & Beber, M. E. (2023). nf-core/funcscan: 1.0.0 - German Rollmops - 2023-02-15. <a href="https://doi.org/10.5281/zenodo.7643100">https://doi.org/10.5281/zenodo.7643100</a></li>',

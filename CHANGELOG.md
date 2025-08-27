@@ -7,17 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [#477](https://github.com/nf-core/funcscan/pull/477), [#480](https://github.com/nf-core/funcscan/pull/477) Updated to nf-core template 3.2.1., 3.3.1 (by @jasmezz, @jfy133)
+- [#477](https://github.com/nf-core/funcscan/pull/477), [#480](https://github.com/nf-core/funcscan/pull/477), [#484](https://github.com/nf-core/funcscan/pull/484) Updated to nf-core template 3.2.1., 3.3.1, 3.3.2 (by @jasmezz, @jfy133)
+- [#482](https://github.com/nf-core/funcscan/pull/482) Added vertical workflow diagram. (by @jasmezz)
 
 ### `Fixed`
 
 - [#469](https://github.com/nf-core/funcscan/pull/469) Updated descriptions from 'nextflow_schema.json' and 'schema_input.json'. (by @andreirie)
 - [#471](https://github.com/nf-core/funcscan/pull/471) Fixed fARGene config parameter `ext.args`. (by @jasmezz)
-- [#479](https://github.com/nf-core/funcscan/pull/479) Fixed ABRicate report file not using correct pipeline sample ID as ID (fix by @jasmezz, @jfy133)
+- [#479](https://github.com/nf-core/funcscan/pull/479) Fixed ABRicate report file not using correct pipeline sample ID as ID. (fix by @jasmezz, @jfy133)
+- [#486](https://github.com/nf-core/funcscan/pull/486) Updated argNorm citation. (by @Vedanth-Ramji, @jasmezz)
 
 ### `Dependencies`
 
+| Tool      | Previous Version | New Version |
+| --------- | ---------------- | ----------- |
+| antiSMASH | 7.1.0            | 8.0.1       |
+
 ### `Deprecated`
+
+- [#478](https://github.com/nf-core/funcscan/pull/478) Removed `--bgc_antismash_installdir` as new antiSMASH module container no longer requires mounting of this directory for execution. (by @mberacochea and @jfy133)
 
 ## v2.1.0 - Egyptian Koshari - [2025-03-05]
 

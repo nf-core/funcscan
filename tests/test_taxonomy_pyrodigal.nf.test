@@ -24,16 +24,16 @@ nextflow_pipeline {
 
                 // ampir
                 { assert snapshot(
-                    file("$outputDir/amp/ampir/sample_1/sample_1.ampir.tsv").text.contains("NODE_882919_length_258_cov_0.935961_1"),
-                    file("$outputDir/amp/ampir/sample_1/sample_1.ampir.faa").text.contains("NODE_882919_length_258_cov_0.935961_1"),
-                    file("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv").text.contains("NODE_882919_length_258_cov_0.935961_1"),
-                    file("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa").text.contains("NODE_882919_length_258_cov_0.935961_1")
+                    file("$outputDir/amp/ampir/sample_1/sample_1.ampir.tsv").text.contains("NODE_11237_length_1334_cov_2.500391_2"),
+                    file("$outputDir/amp/ampir/sample_1/sample_1.ampir.faa").text.contains("NODE_11237_length_1334_cov_2.500391_2"),
+                    file("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv").text.contains("NODE_11237_length_1334_cov_2.500391_2"),
+                    file("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa").text.contains("NODE_11237_length_1334_cov_2.500391_2")
                 ).match("ampir") },
 
                 // AMPlify
                 { assert snapshot(
-                    file("$outputDir/amp/amplify/sample_1/sample_1.amplify.tsv").text.contains("NODE_882919_length_258_cov_0.935961_1"),
-                    file("$outputDir/amp/amplify/sample_2/sample_2.amplify.tsv").text.contains("NODE_882919_length_258_cov_0.935961_1")
+                    file("$outputDir/amp/amplify/sample_1/sample_1.amplify.tsv").text.contains("NODE_11237_length_1334_cov_2.500391_2"),
+                    file("$outputDir/amp/amplify/sample_2/sample_2.amplify.tsv").text.contains("NODE_11237_length_1334_cov_2.500391_2")
                 ).match("amplify") },
 
                 // Macrel

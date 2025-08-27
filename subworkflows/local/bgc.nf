@@ -2,18 +2,16 @@
     Run BGC screening tools
 */
 
-include { UNTAR as UNTAR_CSS                       } from '../../modules/nf-core/untar/main'
-include { UNTAR as UNTAR_DETECTION                 } from '../../modules/nf-core/untar/main'
-include { UNTAR as UNTAR_MODULES                   } from '../../modules/nf-core/untar/main'
-include { ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES } from '../../modules/nf-core/antismash/antismashlitedownloaddatabases/main'
-include { ANTISMASH_ANTISMASHLITE                  } from '../../modules/nf-core/antismash/antismashlite/main'
-include { GECCO_RUN                                } from '../../modules/nf-core/gecco/run/main'
-include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH   } from '../../modules/nf-core/hmmer/hmmsearch/main'
-include { DEEPBGC_DOWNLOAD                         } from '../../modules/nf-core/deepbgc/download/main'
-include { DEEPBGC_PIPELINE                         } from '../../modules/nf-core/deepbgc/pipeline/main'
-include { COMBGC                                   } from '../../modules/local/combgc'
-include { TABIX_BGZIP as BGC_TABIX_BGZIP           } from '../../modules/nf-core/tabix/bgzip/main'
-include { MERGE_TAXONOMY_COMBGC                    } from '../../modules/local/merge_taxonomy_combgc'
+include { UNTAR as UNTAR_ANTISMASHDB             } from '../../modules/nf-core/untar/main'
+include { ANTISMASH_ANTISMASHDOWNLOADDATABASES   } from '../../modules/nf-core/antismash/antismashdownloaddatabases/main'
+include { ANTISMASH_ANTISMASH                    } from '../../modules/nf-core/antismash/antismash/main'
+include { GECCO_RUN                              } from '../../modules/nf-core/gecco/run/main'
+include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH } from '../../modules/nf-core/hmmer/hmmsearch/main'
+include { DEEPBGC_DOWNLOAD                       } from '../../modules/nf-core/deepbgc/download/main'
+include { DEEPBGC_PIPELINE                       } from '../../modules/nf-core/deepbgc/pipeline/main'
+include { COMBGC                                 } from '../../modules/local/combgc'
+include { TABIX_BGZIP as BGC_TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip/main'
+include { MERGE_TAXONOMY_COMBGC                  } from '../../modules/local/merge_taxonomy_combgc'
 
 workflow BGC {
     take:
@@ -33,54 +31,26 @@ workflow BGC {
 
     // ANTISMASH
     if (!params.bgc_skip_antismash) {
-        // Check whether user supplies database and/or antismash directory. If not, obtain them via the module antismashlite/antismashlitedownloaddatabases.
+        // Check whether user supplies database and/or antismash directory. If not, obtain them via the module antismash/antismashdownloaddatabases.
         // Important for future maintenance: For CI tests, only the "else" option below is used. Both options should be tested locally whenever the antiSMASH module gets updated.
-        if (params.bgc_antismash_db && params.bgc_antismash_installdir) {
-
-            ch_antismash_databases = Channel
-                .fromPath(params.bgc_antismash_db, checkIfExists: true)
-                .first()
-
-            ch_antismash_directory = Channel
-                .fromPath(params.bgc_antismash_installdir, checkIfExists: true)
-                .first()
+        if (params.bgc_antismash_db && file(params.bgc_antismash_db, checkIfExists: true).extension == 'gz') {
+            UNTAR_ANTISMASHDB([[id: 'antismashdb'], file(params.bgc_antismash_db, checkIfExists: true)])
+            ch_antismash_databases = UNTAR_ANTISMASHDB.out.untar.map { _meta, dir -> [dir] }
         }
-        else if (params.bgc_antismash_db && (session.config.conda && session.config.conda.enabled)) {
-
-            ch_antismash_databases = Channel
-                .fromPath(params.bgc_antismash_db, checkIfExists: true)
-                .first()
-
-            ch_antismash_directory = []
+        else if (params.bgc_antismash_db && file(params.bgc_antismash_db, checkIfExists: true).isDirectory()) {
+            ch_antismash_databases = Channel.fromPath(params.bgc_antismash_db, checkIfExists: true).first()
         }
         else {
-
-            // May need to update on each new version of antismash-lite due to changes to scripts inside these tars
-            ch_css_for_antismash = "https://github.com/nf-core/test-datasets/raw/724737e23a53085129cd5e015acafbf7067822ca/data/delete_me/antismash/css.tar.gz"
-            ch_detection_for_antismash = "https://github.com/nf-core/test-datasets/raw/c3174c50bf654e477bf329dbaf72acc8345f9b7a/data/delete_me/antismash/detection.tar.gz"
-            ch_modules_for_antismash = "https://github.com/nf-core/test-datasets/raw/c3174c50bf654e477bf329dbaf72acc8345f9b7a/data/delete_me/antismash/modules.tar.gz"
-
-            UNTAR_CSS([[], ch_css_for_antismash])
-            ch_versions = ch_versions.mix(UNTAR_CSS.out.versions)
-
-            UNTAR_DETECTION([[], ch_detection_for_antismash])
-            ch_versions = ch_versions.mix(UNTAR_DETECTION.out.versions)
-
-            UNTAR_MODULES([[], ch_modules_for_antismash])
-            ch_versions = ch_versions.mix(UNTAR_MODULES.out.versions)
-
-            ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES(UNTAR_CSS.out.untar.map { it[1] }, UNTAR_DETECTION.out.untar.map { it[1] }, UNTAR_MODULES.out.untar.map { it[1] })
-            ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.versions)
-            ch_antismash_databases = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.database
-
-            ch_antismash_directory = ANTISMASH_ANTISMASHLITEDOWNLOADDATABASES.out.antismash_dir
+            ANTISMASH_ANTISMASHDOWNLOADDATABASES()
+            ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHDOWNLOADDATABASES.out.versions)
+            ch_antismash_databases = ANTISMASH_ANTISMASHDOWNLOADDATABASES.out.database
         }
 
-        ANTISMASH_ANTISMASHLITE(gbks, ch_antismash_databases, ch_antismash_directory, [])
+        ANTISMASH_ANTISMASH(gbks, ch_antismash_databases, [])
 
-        ch_versions = ch_versions.mix(ANTISMASH_ANTISMASHLITE.out.versions)
-        ch_antismashresults = ANTISMASH_ANTISMASHLITE.out.knownclusterblast_dir
-            .mix(ANTISMASH_ANTISMASHLITE.out.gbk_input)
+        ch_versions = ch_versions.mix(ANTISMASH_ANTISMASH.out.versions)
+        ch_antismashresults = ANTISMASH_ANTISMASH.out.knownclusterblast_dir
+            .mix(ANTISMASH_ANTISMASH.out.gbk_input)
             .groupTuple()
             .map { meta, files ->
                 [meta, files.flatten()]
@@ -89,8 +59,8 @@ workflow BGC {
         // Filter out samples with no BGC hits
         ch_antismashresults_for_combgc = ch_antismashresults
             .join(fastas, remainder: false)
-            .join(ANTISMASH_ANTISMASHLITE.out.gbk_results, remainder: false)
-            .map { meta, gbk_input, fasta, gbk_results ->
+            .join(ANTISMASH_ANTISMASH.out.gbk_results, remainder: false)
+            .map { meta, gbk_input, _fasta, _gbk_results ->
                 [meta, gbk_input]
             }
 
@@ -101,8 +71,7 @@ workflow BGC {
     if (!params.bgc_skip_deepbgc) {
         if (params.bgc_deepbgc_db) {
 
-            ch_deepbgc_database = Channel
-                .fromPath(params.bgc_deepbgc_db, checkIfExists: true)
+            ch_deepbgc_database = Channel.fromPath(params.bgc_deepbgc_db, checkIfExists: true)
                 .first()
         }
         else {
@@ -193,8 +162,7 @@ workflow BGC {
         MERGE_TAXONOMY_COMBGC(ch_combgc_summaries, ch_mmseqs_taxonomy_list)
         ch_versions = ch_versions.mix(MERGE_TAXONOMY_COMBGC.out.versions)
 
-        ch_tabix_input = Channel
-            .of(['id': 'combgc_complete_summary_taxonomy'])
+        ch_tabix_input = Channel.of(['id': 'combgc_complete_summary_taxonomy'])
             .combine(MERGE_TAXONOMY_COMBGC.out.tsv)
 
         BGC_TABIX_BGZIP(ch_tabix_input)

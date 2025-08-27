@@ -463,34 +463,25 @@ antiSMASH requires several databases for the detection of potential biosynthetic
 
 nf-core/funcscan can download these databases for you, however this is very slow and pipeline runtime will be improved if you download them separately and supply them to the pipeline.
 
-The same applies for the antiSMASH installation directory, which is also a required parameter for the pipeline when using containers, due to some slight incompatibility when using such engines.
-
 To supply the database directories to the pipeline:
 
-1. Install antiSMASH from [bioconda](https://bioconda.github.io/recipes/antismash-lite/README.html). To ensure database compatibility, please use the same version as is used in your nf-core/funcscan release (check version in file `<pipeline_installation>/<path>/funcscan/modules/nf-core/antismash/antismashlite/environment.yml`).
+1. Install antiSMASH. To ensure database compatibility, please use the same version as is used in your nf-core/funcscan release (check version in file `<pipeline_installation>/<path>/funcscan/modules/nf-core/antismash/antismash/environment.yml`).
 
-```bash
-conda create -n antismash-lite -c bioconda antismash-lite
-conda activate antismash-lite
-```
+   For example installing via [bioconda](https://bioconda.github.io/recipes/antismash-lite/README.html):
+
+   ```bash
+   conda create -n antismash-lite -c bioconda antismash-lite
+   conda activate antismash-lite
+   ```
 
 2. Run the command `download-antismash-databases`. Use `--database-dir` to specify a new location.
 3. You can then supply the paths to the resulting databases and the whole installation directory with:
 
-```bash
---bgc_antismash_db '/<path>/<to>/<antismash>/<db>/'
---bgc_antismash_installdir '/<path>/<to>/<antismash>/<dir>/antismash'
-```
+   ```bash
+   --bgc_antismash_db '/<path>/<to>/<antismash>/<db>/'
+   ```
 
 The contents of the database directory should include directories such as `as-js/`, `clusterblast/`, `clustercompare/` etc. in the top level.
-The contents of the installation directory should include directories such as `common/` `config/` and files such as `custom_typing.py` `custom_typing.pyi` etc. in the top level.
-
-:::info
-If installing with conda, the installation directory will be `lib/python3.10/site-packages/antismash` from the base directory of your conda install or conda environment directory.
-:::
-
-Note that the names of the two required folders must differ from each other (i.e., the `--bgc_antismash_db` directory must not be called `antismash`).
-If they are not provided, the databases will be auto-downloaded upon each BGC screening run of the pipeline.
 
 :::info
 The flag `--save_db` saves the pipeline-downloaded databases in your results directory. You can then move these to a central cache directory of your choice for re-use in the future.

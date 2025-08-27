@@ -2,14 +2,14 @@
     "antismash_css": {
         "content": [
             [
-                "bacteria.css:md5,39c0ca9cbc64cb824dc958b26b5b4ab8"
+                "bacteria.css:md5,e5b4d3ceaa91b03f6393d9b3d5f072e7"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2024-07-24T10:45:25.720352923"
+        "timestamp": "2025-07-08T14:06:24.158167102"
     },
     "deepbgc_bgc_gbk": {
         "content": [
