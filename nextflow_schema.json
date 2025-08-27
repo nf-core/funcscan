@@ -1468,7 +1468,7 @@
             },
             "fa_icon": "fas fa-angle-double-right"
         },
-        "cayme_dbcan": {
+        "cazyme_dbcan": {
             "title": "dbCAN",
             "type": "object",
             "description": "Carbohydrate-active enzyme annotation based on pre-defined HMM models.\n\nFor more information check the dbCAN [documentation](https://run-dbcan.readthedocs.io/en/latest)",
