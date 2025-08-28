@@ -35,7 +35,7 @@
     },
     "-profile test": {
         "content": [
-            57,
+            61,
             {
                 "ABRICATE_RUN": {
                     "abricate": "1.0.1"
@@ -98,6 +98,9 @@
                 "GUNZIP_PYRODIGAL_GBK": {
                     "gunzip": 1.13
                 },
+                "GUNZIP_PYRODIGAL_GFF": {
+                    "gunzip": 1.13
+                },
                 "HAMRONIZATION_ABRICATE": {
                     "hamronization": "1.1.4"
                 },
@@ -116,7 +119,10 @@
                 "MACREL_CONTIGS": {
                     "macrel": "1.4.0"
                 },
-                "PYRODIGAL": {
+                "PYRODIGAL_GBK": {
+                    "pyrodigal": "3.6.3"
+                },
+                "PYRODIGAL_GFF": {
                     "pyrodigal": "3.6.3"
                 },
                 "RGI_CARDANNOTATION": {
@@ -137,9 +143,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.3"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-18T09:03:18.913706717"
+        "timestamp": "2025-08-28T12:48:37.438422987"
     },
     "rgi": {
         "content": [
