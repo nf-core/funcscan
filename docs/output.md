@@ -493,7 +493,7 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
       - `<sample.id>_diamond.out.tc`: TSV file containing the diamond output for transporter annotation
       - `<sample.id>_TF_hmm_results.tsv`: TSV file containing the results of transcription factor screening
       - `<sample.id>_STP_hmm_results.tsv`: TSV file containing the results of signaling transduction proteins (STP) annotation.
-    - `substrate`
+    - `substrate/`
       - `<sample.id>_total_cgc_info.tsv`: TSV file summarizing the total additional genes in the genome
       - `<sample.id>_substrate_prediction.tsv`: TSV file containing the substrate predictions based on the CGC annotations from dbCAN
       - `<sample.id>_synteny_pdf/`: Directory containing one or more PDF files showing the syntenic regions of the CGCs in DNA sequence as identified by dbCAN
