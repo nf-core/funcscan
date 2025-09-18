@@ -492,7 +492,7 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
       - `<sample.id>_cgc_standard_out.tsv`: Standard output file from dbCAN for CAZyme gene clusters (CGC) in a tabular format. This file summarizes the CAZyme gene clusters identified in the genome.
       - `<sample.id>_diamond.out.tc`: TSV file containing the diamond output for transporter annotation
       - `<sample.id>_TF_hmm_results.tsv`: TSV file containing the results of transcription factor screening
-      - `<sample.id>_STP_hmm_results.tsv`: TSV file containing the results of signaling transduction proteins (STP) annotation.
+      - `<sample.id>_STP_hmm_results.tsv`: TSV file containing the results of signaling transduction proteins (STP) annotation
     - `substrate/`
       - `<sample.id>_total_cgc_info.tsv`: TSV file summarizing the total additional genes in the genome
       - `<sample.id>_substrate_prediction.tsv`: TSV file containing the substrate predictions based on the CGC annotations from dbCAN
