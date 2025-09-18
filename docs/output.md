@@ -42,10 +42,8 @@ results/
 |   ├── deepbgc/
 |   ├── gecco/
 |   └── hmmsearch/
-├── dbcan/
-|   ├── cazyme/
-|   ├── cgc/
-|   └── substrate/
+├── cazyme/
+|      └── dbcan/
 ├── databases/
 ├── multiqc/
 ├── pipeline_info/
