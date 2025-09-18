@@ -481,7 +481,7 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 <summary>Output files</summary>
 
 - `cazyme/`
-  - `dbcan`
+  - `dbcan/`
     - `cazyme_annotation`
       - `<sample.id>_overview.tsv`: TSV file containing the results of dbCAN CAZyme annotation
       - `<sample.id>_dbCAN_hmm_results.tsv`: TSV file containing the detailed dbCAN HMM results for CAZyme annotation
