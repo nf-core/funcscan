@@ -24,16 +24,23 @@ workflow CAZYME {
     ch_faas_for_rundbcan = faas
     ch_gffs_for_rundbcan = gffs
 
-    // Download dbCAN database
-    RUNDBCAN_DATABASE ()
-    ch_versions = ch_versions.mix(RUNDBCAN_DATABASE.out.versions)
+    // Prepare channel for database
+    if (!params.cazyme_skip_dbcan && params.cazyme_dbcan_db) {
+        ch_dbcan_db = Channel
+            .from(params.cazyme_dbcan_db, checkIfExists: true)
+            .first()
+    }
+    else if (!params.cazyme_skip_dbcan && !params.cazyme_dbcan_db) {
+        // Download dbCAN database
+        RUNDBCAN_DATABASE ()
+        ch_versions = ch_versions.mix(RUNDBCAN_DATABASE.out.versions)
+        ch_dbcan_db = RUNDBCAN_DATABASE.out.dbcan_db
+    }
 
-    // CAZyme annotation
-    RUNDBCAN_CAZYMEANNOTATION (
-        ch_faas_for_rundbcan,
-        RUNDBCAN_DATABASE.out.dbcan_db
-    )
-    ch_versions = ch_versions.mix(RUNDBCAN_CAZYMEANNOTATION.out.versions)
+    if (!params.cazyme_skip_dbcan) {
+        // CAZyme annotation
+        RUNDBCAN_CAZYMEANNOTATION (ch_faas_for_rundbcan, ch_dbcan_db)
+        ch_versions = ch_versions.mix(RUNDBCAN_CAZYMEANNOTATION.out.versions)
 
     // Prepare input for dbCAN CGC and substrate annotation
     ch_input_for_dbcan = ch_faas_for_rundbcan
