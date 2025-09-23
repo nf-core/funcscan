@@ -42,32 +42,43 @@ workflow CAZYME {
         RUNDBCAN_CAZYMEANNOTATION (ch_faas_for_rundbcan, ch_dbcan_db)
         ch_versions = ch_versions.mix(RUNDBCAN_CAZYMEANNOTATION.out.versions)
 
-    // Prepare input for dbCAN CGC and substrate annotation
-    ch_input_for_dbcan = ch_faas_for_rundbcan
-        .join(ch_gffs_for_rundbcan)
-        .multiMap { meta, faa, gff ->
-            faa: [meta, faa]
-            gff: [meta, gff, params.dbcan_gff_type] // One samplesheet can only have one gff type, mixed mode is not supported now.
+        // Prepare input for dbCAN CGC and substrate annotation
+        if ( !params.dbcan_skip_cgc || !params.dbcan_skip_substrate ) {
+            ch_input_for_dbcan = ch_faas_for_rundbcan
+                .join(ch_gffs_for_rundbcan)
+                .filter { meta, faa, gff ->
+                    if (meta.gff_type == null) {
+                        log.warn "Skipping sample ${meta.id ?: 'unknown'} for dbcan cgc/substrate annotation due to null gff_type"
+                        return false
+                    }
+                    return true
+                }
+                .multiMap { meta, faa, gff ->
+                    faa: [meta, faa]
+                    gff: [meta, gff, meta.gff_type]
+                }
+
+            // CGC annotation
+            if ( !params.dbcan_skip_cgc ) {
+                RUNDBCAN_EASYCGC (
+                    ch_input_for_dbcan.faa,
+                    ch_input_for_dbcan.gff,
+                    ch_dbcan_db
+                )
+                ch_versions = ch_versions.mix(RUNDBCAN_EASYCGC.out.versions)
+            }
+
+
+            // substrate annotation
+            if ( !params.dbcan_skip_substrate ) {
+                RUNDBCAN_EASYSUBSTRATE (
+                    ch_input_for_dbcan.faa,
+                    ch_input_for_dbcan.gff,
+                    ch_dbcan_db
+                )
+                ch_versions = ch_versions.mix(RUNDBCAN_EASYSUBSTRATE.out.versions)
+            }
         }
-
-    // CGC annotation
-    if ( !params.dbcan_skip_cgc ) {
-        RUNDBCAN_EASYCGC (
-            ch_input_for_dbcan.faa,
-            ch_input_for_dbcan.gff,
-            RUNDBCAN_DATABASE.out.dbcan_db
-        )
-        ch_versions = ch_versions.mix(RUNDBCAN_EASYCGC.out.versions)
-    }
-
-    // substrate annotation
-    if ( !params.dbcan_skip_substrate ) {
-        RUNDBCAN_EASYSUBSTRATE (
-            ch_input_for_dbcan.faa,
-            ch_input_for_dbcan.gff,
-            RUNDBCAN_DATABASE.out.dbcan_db
-        )
-        ch_versions = ch_versions.mix(RUNDBCAN_EASYSUBSTRATE.out.versions)
     }
 
     emit:
