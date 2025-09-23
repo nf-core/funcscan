@@ -40,6 +40,12 @@
                 "exists": true,
                 "pattern": "^\\S+\\.(gff|gff3)(\\.gz)?$",
                 "errorMessage": "Input file for feature annotations has incorrect file format. File must end in `.gff`, `.gff.gz` or `.gff3`, or `.gff3.gz`"
+            },
+            "gff_type": {
+                "type": "string",
+                "enum": ["NCBI_prok", "prodigal", "NCBI_euk", "JGI"],
+                "errorMessage": "GFF type must be one of: NCBI_prok, prodigal, NCBI_euk, or JGI",
+                "meta": ["gff_type"]
             }
         },
         "required": ["sample", "fasta"],
