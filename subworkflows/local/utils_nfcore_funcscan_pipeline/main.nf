@@ -197,6 +197,11 @@ def toolCitationText() {
         ". The output from the biosynthetic gene cluster screening tools were standardised and summarised with comBGC (Frangenberg et al. 2023).",
     ].join(' ').replaceAll(', +.', ".").trim()
 
+    def cazyme_text = [
+        "The following carbohydrate-active enzymes (CAZymes) screening tools were used:",
+        !params.cazyme_skip_dbcan ? "dbCAN3 (Zheng, Jinfang, et al. 2023)," : "",
+    ].join(' ').replaceAll(', +.', ".").trim()
+
     def postprocessing_text = "Run statistics were reported using MultiQC (Ewels et al. 2016)."
 
     def citation_text = [
@@ -205,6 +210,7 @@ def toolCitationText() {
         params.run_amp_screening ? amp_text : "",
         params.run_arg_screening ? arg_text : "",
         params.run_bgc_screening ? bgc_text : "",
+        params.run_cazyme_screening ? cazyme_text : "",
         postprocessing_text,
     ].join(' ').trim()
 
