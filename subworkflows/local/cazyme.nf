@@ -27,7 +27,7 @@ workflow CAZYME {
     // Prepare channel for database
     if (!params.cazyme_skip_dbcan && params.cazyme_dbcan_db) {
         ch_dbcan_db = Channel
-            .from(params.cazyme_dbcan_db, checkIfExists: true)
+            .fromPath(params.cazyme_dbcan_db, checkIfExists: true)
             .first()
     }
     else if (!params.cazyme_skip_dbcan && !params.cazyme_dbcan_db) {
@@ -47,8 +47,8 @@ workflow CAZYME {
             ch_input_for_dbcan = ch_faas_for_rundbcan
                 .join(ch_gffs_for_rundbcan)
                 .filter { meta, faa, gff ->
-                    if (meta.gff_type == null) {
-                        log.warn "Skipping sample ${meta.id ?: 'unknown'} for dbcan cgc/substrate annotation due to null gff_type"
+                    if (!gff || !meta.gff_type) {
+                        log.warn "Skipping sample: ${meta.id ?: 'unknown'} for dbcan cgc and substrate annotation due to empty gff or gff_type"
                         return false
                     }
                     return true
