@@ -1,7 +1,7 @@
 lint:
   files_exist:
-  - conf/igenomes.config
-  - conf/igenomes_ignored.config
+    - conf/igenomes.config
+    - conf/igenomes_ignored.config
 nf_core_version: 3.3.2
 repository_type: pipeline
 template:
@@ -14,6 +14,6 @@ template:
   org: nf-core
   outdir: .
   skip_features:
-  - igenomes
-  - fastqc
+    - igenomes
+    - fastqc
   version: 3.1.0dev
