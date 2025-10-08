@@ -145,7 +145,7 @@ workflow FUNCSCAN {
     // Add gff_type to meta for cazyme screening
     if ((params.run_cazyme_screening && !params.cazyme_skip_dbcan && (!params.dbcan_skip_cgc || !params.dbcan_skip_substrate)) && params.annotation_tool in ['pyrodigal', 'prodigal', 'prokka', 'bakta']) {
       ch_new_annotation_short.map { meta, fasta, faa, gff, gbk ->
-          def new_meta = meta + [gff_type: 'prodigal']  // Only Use 'prodigal' as dbcan does not distinguish 'pyrodigal' and 'prodigal' 
+          def new_meta = meta + [gff_type: 'prodigal']  // Only Use 'prodigal' as dbcan does not distinguish 'pyrodigal' and 'prodigal'
           [new_meta, fasta, faa, gff, gbk]
       }.set { ch_new_annotation_short }
     }
