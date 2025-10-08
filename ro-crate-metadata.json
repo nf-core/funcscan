@@ -105,7 +105,7 @@
             },
             "mentions": [
                 {
-                    "@id": "#5f160c11-62e2-46b2-bd75-dc51fdc81961"
+                    "@id": "#3ed90dad-d644-49c4-b014-ffea7a5710ae"
                 }
             ],
             "name": "nf-core/funcscan"
@@ -144,7 +144,7 @@
                 }
             ],
             "dateCreated": "",
-            "dateModified": "2025-07-08T10:27:35Z",
+            "dateModified": "2025-09-17T09:10:19Z",
             "dct:conformsTo": "https://bioschemas.org/profiles/ComputationalWorkflow/1.0-RELEASE/",
             "keywords": [
                 "nf-core",
@@ -187,10 +187,10 @@
             },
             "url": [
                 "https://github.com/nf-core/funcscan",
-                "https://nf-co.re/funcscan/dev/"
+                "https://nf-co.re/funcscan/3.0.0/"
             ],
             "version": [
-                "2.2.0dev"
+                "3.0.0"
             ]
         },
         {
@@ -206,11 +206,11 @@
             "version": "!>=24.10.5"
         },
         {
-            "@id": "#5f160c11-62e2-46b2-bd75-dc51fdc81961",
+            "@id": "#3ed90dad-d644-49c4-b014-ffea7a5710ae",
             "@type": "TestSuite",
             "instance": [
                 {
-                    "@id": "#9f1a7fa1-71fa-4c11-86b4-885d882c9038"
+                    "@id": "#a2e78515-0dc1-4c04-ab70-11bdd5a17c9c"
                 }
             ],
             "mainEntity": {
@@ -219,7 +219,7 @@
             "name": "Test suite for nf-core/funcscan"
         },
         {
-            "@id": "#9f1a7fa1-71fa-4c11-86b4-885d882c9038",
+            "@id": "#a2e78515-0dc1-4c04-ab70-11bdd5a17c9c",
             "@type": "TestInstance",
             "name": "GitHub Actions workflow for testing nf-core/funcscan",
             "resource": "repos/nf-core/funcscan/actions/workflows/nf-test.yml",

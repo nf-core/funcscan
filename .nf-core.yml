@@ -5,9 +5,10 @@ lint:
 nf_core_version: 3.3.2
 repository_type: pipeline
 template:
-  author: Jasmin Frangenberg, Anan Ibrahim, Louisa Perelo, Moritz E. Beber, James
-    A. Fellows Yates
-  description: Pipeline for screening for functional components of assembled contigs
+  author: Jasmin Frangenberg, Anan Ibrahim, Louisa Perelo, Moritz E. Beber,
+    James A. Fellows Yates
+  description: Pipeline for screening for functional components of assembled
+    contigs
   force: false
   is_nfcore: true
   name: funcscan
@@ -16,4 +17,4 @@ template:
   skip_features:
     - igenomes
     - fastqc
-  version: 2.2.0dev
+  version: 3.0.0

@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.2.0dev - [date]
+## v3.0.0 - French Chocolatine - [2025-10-04]
 
 ### `Added`
 
@@ -16,12 +16,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#471](https://github.com/nf-core/funcscan/pull/471) Fixed fARGene config parameter `ext.args`. (by @jasmezz)
 - [#479](https://github.com/nf-core/funcscan/pull/479) Fixed ABRicate report file not using correct pipeline sample ID as ID. (fix by @jasmezz, @jfy133)
 - [#486](https://github.com/nf-core/funcscan/pull/486) Updated argNorm citation. (by @Vedanth-Ramji, @jasmezz)
+- [#498](https://github.com/nf-core/funcscan/pull/498) Fix failing conda CI checks. (by @jasmezz)
 
 ### `Dependencies`
 
-| Tool      | Previous Version | New Version |
-| --------- | ---------------- | ----------- |
-| antiSMASH | 7.1.0            | 8.0.1       |
+| Tool          | Previous Version | New Version |
+| ------------- | ---------------- | ----------- |
+| antiSMASH     | 7.1.0            | 8.0.1       |
+| RGI           | 6.0.3            | 6.0.5       |
+| amrfinderplus | 3.12.8           | 4.0.23      |
+| hAMRonization | 1.1.4            | 1.1.9       |
 
 ### `Deprecated`
 

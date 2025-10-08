@@ -13,15 +13,15 @@
     },
     "rgi": {
         "content": [
-            "sample_1.txt:md5,ff8f179d06d8566d8cf779fc7d1f4955",
-            "sample_2.txt:md5,cc4ae1fb9e0d5f79ef5105d640c7b748",
-            "sample_3.txt:md5,ff8f179d06d8566d8cf779fc7d1f4955"
+            "sample_1.txt:md5,81ec2a38460c0f819bdf292b2b1578d3",
+            "sample_2.txt:md5,e6d448a8a75f4e86efa6eaabebeb16a8",
+            "sample_3.txt:md5,81ec2a38460c0f819bdf292b2b1578d3"
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.4"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-03-04T13:44:42.337377281"
+        "timestamp": "2025-09-03T11:52:36.96182499"
     },
     "deeparg": {
         "content": [
@@ -55,15 +55,15 @@
     },
     "argnorm_amrfinderplus": {
         "content": [
-            "sample_1.normalized.tsv:md5,0a7f76ceb606ac46730a51dd57290768",
-            "sample_2.normalized.tsv:md5,602afce3ee0ee179855c848bd87208fe",
-            "sample_3.normalized.tsv:md5,d4fb8fbd890217eb4d667d7a4dd80c9b"
+            "sample_1.normalized.tsv:md5,60a9221fa3cf542c0e9c096e2bbeae89",
+            "sample_2.normalized.tsv:md5,65fbed197c2d4bb9fb7f1488636a086b",
+            "sample_3.normalized.tsv:md5,98b2fe3ac1e84223f01adc3c807a31b3"
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.7"
         },
-        "timestamp": "2024-07-27T08:11:25.55764618"
+        "timestamp": "2025-10-04T12:56:24.732353072"
     },
     "argnorm_abricate": {
         "content": [
@@ -142,14 +142,14 @@
     },
     "amrfinderplus": {
         "content": [
-            "sample_1.tsv:md5,29cfb6f34f420d802eda95c6d9daa361",
-            "sample_2.tsv:md5,d9b6565167d603a1f07cff2374db8eb2",
-            "sample_3.tsv:md5,29cfb6f34f420d802eda95c6d9daa361"
+            "sample_1.tsv:md5,eb4750e0e1af93600e0b638baab1346b",
+            "sample_2.tsv:md5,4b128a34049d077025d9a450751470d7",
+            "sample_3.tsv:md5,eb4750e0e1af93600e0b638baab1346b"
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.4"
+            "nextflow": "25.04.7"
         },
-        "timestamp": "2025-03-04T13:44:42.316250647"
+        "timestamp": "2025-10-04T06:29:57.229328422"
     }
 }

@@ -7,7 +7,7 @@ nextflow_pipeline {
     tag "test_taxonomy_bakta"
     profile "test_taxonomy_bakta"
 
-    test("-profile test_taxonomy") {
+    test("-profile test_taxonomy_bakta") {
 
         when {
             params {

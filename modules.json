@@ -37,12 +37,12 @@
                     },
                     "amrfinderplus/run": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "a621003186ea59091561005bce7ce5fd645c7f07",
                         "installed_by": ["modules"]
                     },
                     "amrfinderplus/update": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "a621003186ea59091561005bce7ce5fd645c7f07",
                         "installed_by": ["modules"]
                     },
                     "antismash/antismash": {
@@ -107,32 +107,32 @@
                     },
                     "hamronization/abricate": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "9b7b08382573ec53d275470e5ff0e4a8200a1459",
                         "installed_by": ["modules"]
                     },
                     "hamronization/amrfinderplus": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "9b7b08382573ec53d275470e5ff0e4a8200a1459",
                         "installed_by": ["modules"]
                     },
                     "hamronization/deeparg": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "9b7b08382573ec53d275470e5ff0e4a8200a1459",
                         "installed_by": ["modules"]
                     },
                     "hamronization/fargene": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "9b7b08382573ec53d275470e5ff0e4a8200a1459",
                         "installed_by": ["modules"]
                     },
                     "hamronization/rgi": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "9b7b08382573ec53d275470e5ff0e4a8200a1459",
                         "installed_by": ["modules"]
                     },
                     "hamronization/summarize": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "9b7b08382573ec53d275470e5ff0e4a8200a1459",
                         "installed_by": ["modules"]
                     },
                     "hmmer/hmmsearch": {
@@ -192,12 +192,12 @@
                     },
                     "rgi/cardannotation": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "531d8a465158c5842f416623017997462a240e16",
                         "installed_by": ["modules"]
                     },
                     "rgi/main": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "531d8a465158c5842f416623017997462a240e16",
                         "installed_by": ["modules"]
                     },
                     "rundbcan/cazymeannotation": {

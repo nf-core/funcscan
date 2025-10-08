@@ -470,8 +470,8 @@ To supply the database directories to the pipeline:
    For example installing via [bioconda](https://bioconda.github.io/recipes/antismash-lite/README.html):
 
    ```bash
-   conda create -n antismash-lite -c bioconda antismash-lite
-   conda activate antismash-lite
+   conda create -n antismash -c bioconda antismash
+   conda activate antismash
    ```
 
 2. Run the command `download-antismash-databases`. Use `--database-dir` to specify a new location.
