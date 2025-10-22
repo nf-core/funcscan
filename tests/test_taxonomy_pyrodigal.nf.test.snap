@@ -1,0 +1,111 @@
+{
+    "abricate": {
+        "content": [
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T16:24:30.025771"
+    },
+    "fargene": {
+        "content": [
+            "results_summary.txt:md5,59f2e69c670d72f0c0a401e0dc90cbeb",
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-07-08T17:09:16.376010656"
+    },
+    "rgi": {
+        "content": [
+            "sample_1.txt:md5,601f0a16c0e999c2c5272d81f61bdf2f",
+            "sample_2.txt:md5,601f0a16c0e999c2c5272d81f61bdf2f"
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-09-04T13:36:58.680604681"
+    },
+    "ampir": {
+        "content": [
+            true,
+            true,
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-07-09T10:06:03.105360543"
+    },
+    "gecco": {
+        "content": [
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T16:24:30.025771"
+    },
+    "ampcombi": {
+        "content": [
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T16:24:30.025771"
+    },
+    "antismash": {
+        "content": [
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-24T16:24:30.025771"
+    },
+    "amplify": {
+        "content": [
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-07-09T09:42:45.928041857"
+    },
+    "macrel": {
+        "content": [
+            "sample_1.macrel.smorfs.faa.gz:md5,d906dafa3edaf17ad0b283ceaac00129",
+            "sample_2.macrel.smorfs.faa.gz:md5,faf3f0398024fda693705e573c0b8f68",
+            "sample_1.macrel.all_orfs.faa.gz:md5,fda2e1cd8495b7e7806770a9e79b4b13",
+            "sample_2.macrel.all_orfs.faa.gz:md5,94caf88cd21d4ba0c151cf897a974748",
+            "sample_1.macrel.prediction.gz:md5,316bb36d8a45b05bc3b7093d9aff1a07",
+            "sample_2.macrel.prediction.gz:md5,6218424f3b5fae4f901280875f0d90db",
+            "README.md:md5,cf088d9256ff7b7730699f17b64b4028",
+            "README.md:md5,cf088d9256ff7b7730699f17b64b4028",
+            "sample_1.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "sample_2.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-07-08T16:49:46.559792762"
+    }
+}
