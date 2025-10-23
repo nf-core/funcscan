@@ -11,7 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#501](https://github.com/nf-core/funcscan/pull/501) Fixed issue with BAKTA HMMs not being staged correctly (reported by Yusuke Hioki, fix by @jfy133)
+
 ### `Dependencies`
+
+| Tool  | Previous Version | New Version |
+| ----- | ---------------- | ----------- |
+| Bakta | 1.10.4           | 1.11.4      |
 
 ### `Deprecated`
 
