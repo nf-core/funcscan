@@ -35,7 +35,6 @@
     },
     "-profile test": {
         "content": [
-            57,
             {
                 "ABRICATE_RUN": {
                     "abricate": "1.0.1"

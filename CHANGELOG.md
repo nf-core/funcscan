@@ -3,9 +3,11 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## dev [unreleased]
+## v3.1.0dev - [date]
 
 ### `Added`
+
+- [#500](https://github.com/nf-core/funcscan/pull/500) Updated pipeline template to nf-core/tools version 3.4.1 (by @jfy133)
 
 ### `Fixed`
 
