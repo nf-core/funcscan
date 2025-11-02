@@ -120,7 +120,7 @@ workflow BGC {
             }
 
         GECCO_CONVERT(ch_gecco_clusters_and_gbk)    
-
+    }
     // HMMSEARCH
     if (params.bgc_run_hmmsearch) {
         if (params.bgc_hmmsearch_models) {
