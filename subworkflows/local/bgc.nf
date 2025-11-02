@@ -12,7 +12,7 @@ include { DEEPBGC_PIPELINE                       } from '../../modules/nf-core/d
 include { COMBGC                                 } from '../../modules/local/combgc'
 include { TABIX_BGZIP as BGC_TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip/main'
 include { MERGE_TAXONOMY_COMBGC                  } from '../../modules/local/merge_taxonomy_combgc'
-incude  { GECCO_CONVERT                          } from '../../modules/nf-core/gecco/convert/main'
+include { GECCO_CONVERT                          } from '../../modules/nf-core/gecco/convert/main'
 
 workflow BGC {
     take:
