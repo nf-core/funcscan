@@ -106,7 +106,7 @@ workflow BGC {
     }
 
     // GECCO CONVERT
-    if (params.gecco_convert_enable) {
+    if (params.run_gecco_convert) {
         ch_gecco_clusters_and_gbk = GECCO_RUN.out.clusters
             .join(GECCO_RUN.out.gbk)  
             .map { meta, clusters_file, gbk_file ->
