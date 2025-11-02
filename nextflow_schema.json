@@ -5,6 +5,34 @@
     "description": "Pipeline for screening for functional components of assembled contigs",
     "type": "object",
     "$defs": {
+
+        "gecco_options": {
+            "title": "GECCO biosynthetic gene cluster prediction options",
+            "type": "object",
+            "description": "Parameters for running GECCO BGC prediction",
+            "default": "",
+            "properties": {
+                "gecco_convert_enable": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Enable conversion of contig FASTA files to GECCO-compatible format.",
+                    "help_text": "GECCO requires contig FASTA files to be in a specific format. Enabling this option will convert the input FASTA files to the required format before running GECCO.\n\n> Modifies tool parameter(s):\n> - gecco convert: `--enable`"
+                },
+                "gecco_convert_mode": {
+                    "type": "string",
+                    "default": "default",
+                    "description": "Mode for converting contig FASTA files for GECCO.",
+                    "help_text": "Select the mode for converting contig FASTA files. 'default' uses standard conversion settings, while 'custom' allows for user-defined parameters.\n\n> Modifies tool parameter(s):\n> - gecco convert: `--mode`"
+                },
+                "gecco_convert_format": {
+                    "type": "string",
+                    "default": "gff",
+                    "description": "Output format for converted contig files.",
+                    "help_text": "Specify the output format for the converted contig files. Options include 'fasta' and 'genbank'.\n\n> Modifies tool parameter(s):\n> - gecco convert: `--format`"
+                }
+            },
+            "fa_icon": "fas fa-angle-double-right"
+        },
         "input_output_options": {
             "title": "Input/output options",
             "type": "object",
