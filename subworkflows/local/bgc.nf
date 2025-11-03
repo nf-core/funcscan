@@ -108,18 +108,14 @@ workflow BGC {
     // GECCO CONVERT
     if (params.run_gecco_convert) {
         ch_gecco_clusters_and_gbk = GECCO_RUN.out.clusters
-            .join(GECCO_RUN.out.gbk)  
+            .join(GECCO_RUN.out.gbk)
             .map { meta, clusters_file, gbk_file ->
-                def mode   = params.gecco_convert_mode   ?: 'clusters'
-                def format = params.gecco_convert_format ?: 'gff'
-                [ meta, 
-                  (mode == 'clusters' ? clusters_file : null), 
-                  (mode == 'gbk'      ? gbk_file      : null), 
-                  mode, 
-                  format ]
+                [ meta, clusters_file, gbk_file ]
             }
+        ch_gecco_mode = Channel.value( params.gecco_convert_mode ?: 'clusters' )
+        ch_gecco_format = Channel.value( params.gecco_convert_format ?: 'gff' )
 
-        GECCO_CONVERT(ch_gecco_clusters_and_gbk)    
+        GECCO_CONVERT(ch_gecco_clusters_and_gbk, ch_gecco_mode, ch_gecco_format)
     }
     // HMMSEARCH
     if (params.bgc_run_hmmsearch) {
