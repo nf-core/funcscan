@@ -112,8 +112,8 @@ workflow BGC {
             .map { meta, clusters_file, gbk_file ->
                 [ meta, clusters_file, gbk_file ]
             }
-        ch_gecco_mode = Channel.value( params.gecco_convert_mode ?: 'clusters' )
-        ch_gecco_format = Channel.value( params.gecco_convert_format ?: 'gff' )
+        ch_gecco_mode = Channel.value( params.gecco_convert_mode)
+        ch_gecco_format = Channel.value( params.gecco_convert_format)
 
         GECCO_CONVERT(ch_gecco_clusters_and_gbk, ch_gecco_mode, ch_gecco_format)
     }
