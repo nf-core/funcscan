@@ -12,7 +12,7 @@
             "description": "Parameters for running GECCO BGC prediction",
             "default": "",
             "properties": {
-                "gecco_convert_enable": {
+                "run_gecco_convert": {
                     "type": "boolean",
                     "default": false,
                     "description": "Enable conversion of contig FASTA files to GECCO-compatible format.",
@@ -20,7 +20,7 @@
                 },
                 "gecco_convert_mode": {
                     "type": "string",
-                    "default": "default",
+                    "default": "clusters",
                     "description": "Mode for converting contig FASTA files for GECCO.",
                     "help_text": "Select the mode for converting contig FASTA files. 'default' uses standard conversion settings, while 'custom' allows for user-defined parameters.\n\n> Modifies tool parameter(s):\n> - gecco convert: `--mode`"
                 },
