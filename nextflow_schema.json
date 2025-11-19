@@ -1732,7 +1732,7 @@
             "$ref": "#/$defs/bgc_gecco"
         },
         {
-            "$ref": "#/$defs/gecco_options"
+            "$ref": "#/$defs/bgc_gecco_convert"
         },
         {
             "$ref": "#/$defs/bgc_hmmsearch"
