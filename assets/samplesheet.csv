@@ -1,3 +1,4 @@
-sample,fastq_1,fastq_2
-SAMPLE_PAIRED_END,/path/to/fastq/files/AEG588A1_S1_L002_R1_001.fastq.gz,/path/to/fastq/files/AEG588A1_S1_L002_R2_001.fastq.gz
-SAMPLE_SINGLE_END,/path/to/fastq/files/AEG588A4_S4_L003_R1_001.fastq.gz,
+sample,fasta,protein,gbk
+sample_1,https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/wastewater_metagenome_contigs_1.fasta.gz,https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/wastewater_metagenome_contigs_prokka_1.faa,https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/wastewater_metagenome_contigs_prokka_1.gbk
+sample_2,https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/wastewater_metagenome_contigs_2.fasta.gz,https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/wastewater_metagenome_contigs_prokka_2.faa.gz,https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/wastewater_metagenome_contigs_prokka_2.gbk.gz
+sample_3,https://raw.githubusercontent.com/nf-core/test-datasets/funcscan/wastewater_metagenome_contigs.fasta
