@@ -451,32 +451,27 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 
 [deepBGC](https://github.com/Merck/deepbgc) detects BGCs in bacterial and fungal genomes using deep learning. DeepBGC employs a Bidirectional Long Short-Term Memory Recurrent Neural Network and a word2vec-like vector embedding of Pfam protein domains. Product class and activity of detected BGCs is predicted using a Random Forest classifier.
 
-#### GECCO
+#### GECCO & GECCO CONVERT
 
 <details markdown="1">
 <summary>Output files</summary>
 
 - `gecco/`
+  - **GECCO**
   - `*.genes.tsv/`: TSV file containing detected/predicted genes with BGC probability scores
   - `*.features.tsv`: TSV file containing identified domains
   - `*.clusters.tsv`: TSV file containing coordinates of predicted clusters and BGC types
   - `*_cluster_*.gbk`: GenBank file (if clusters were found) containing sequence with annotations; one file per GECCO hit
 
-</details>
-
-[GECCO](https://gecco.embl.de) is a fast and scalable method for identifying putative novel Biosynthetic Gene Clusters (BGCs) in genomic and metagenomic data using Conditional Random Fields (CRFs).
-
-#### GECCO CONVERT
-<details markdown="1">
-<summary>Output files</summary>
-
-- `gecco/`
+  - **GECCO CONVERT**
   - `*.gff`: GFF3 converted cluster tables containing the position and metadata for all the predicted clusters
   - `*.region*.gbk`: Converted and aliased GenBank files so that they can be loaded by BiG-SLiCE
   - `*.faa`: Amino-acid FASTA converted GenBank files of all the proteins in a cluster
   - `*.fna`:Nucleotide sequence FASTA converted GenBank files from the cluster
+  **ONLY IF --run_gecco_convert**
+  </details>
 
-</details>
+[GECCO](https://gecco.embl.de) is a fast and scalable method for identifying putative novel Biosynthetic Gene Clusters (BGCs) in genomic and metagenomic data using Conditional Random Fields (CRFs).
 
 [GECCO CONVERT] (https://gecco.embl.de) is an option in gecco which does file conversion into formats like GFF3, GenBank, or FASTA for further analysis.
 
