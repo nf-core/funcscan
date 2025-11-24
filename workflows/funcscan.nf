@@ -388,6 +388,7 @@ workflow FUNCSCAN {
             },
             ch_prepped_input.gffs
         )
+       ch_versions = ch_versions.mix(CAZYME.out.versions)
     }
 
     //
