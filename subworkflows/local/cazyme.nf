@@ -15,7 +15,6 @@ workflow CAZYME {
     gffs    // tuple val(meta), path(ANNOTATION_ANNOTATION_TOOL.out.gff)
 
     main:
-
     ch_versions = Channel.empty()
 
     // When adding new tool that requires FAA, make sure to update conditions
