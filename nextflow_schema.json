@@ -1489,7 +1489,8 @@
                     "description": "Skip substrate during the dbCAN screening.",
                     "fa_icon": "fas fa-ban"
                 }
-            }
+            },
+            "fa_icon": "fas fa-angle-double-right"
         },
         "institutional_config_options": {
             "title": "Institutional config options",
