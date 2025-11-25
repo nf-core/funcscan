@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - [#500](https://github.com/nf-core/funcscan/pull/500) Updated pipeline template to nf-core/tools version 3.4.1 (by @jfy133)
+- [#506](https://github.com/nf-core/funcscan/pull/506) Gecco convert (by @SkyLexS)
 
 ### `Fixed`
 
