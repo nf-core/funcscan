@@ -1425,23 +1425,25 @@
             "description": "Settings for converting GECCO output files.",
             "default": "",
             "properties": {
-                "run_gecco_convert": {
+                "bgc_gecco_runconvert": {
                     "type": "boolean",
                     "default": false,
                     "description": "Enable GECCO file conversion.",
-                    "help_text": "Converts GECCO output into formats like GFF3, GenBank, or FASTA for further analysis. Modifies tool parameter - gecco convert: `--run_gecco_convert true`"
+                    "help_text": "Converts GECCO output into formats like GFF3, GenBank, or FASTA for further analysis. Modifies tool parameter - gecco convert: `--bgc_gecco_runconvert true`"
                 },
-                "gecco_convert_mode": {
+                "bgc_gecco_convertmode": {
                     "type": "string",
                     "default": "clusters",
-                    "description": "Select conversion mode.",
-                    "help_text": "Either clusters or gbk folder output, depending on what is reformatted. Modifies tool parameter: - gecco convert: `--gecco_convert_mode `"
+                    "enum": ["clusters", "gbk"],
+                    "description": "Specify conversion mode for GECCO convert.",
+                    "help_text": "Either clusters or gbk folder output, depending on what is reformatted. Modifies tool parameter: - gecco convert: `--bgc_gecco_convertmode `"
                 },
-                "gecco_convert_format": {
+                "bgc_gecco_convertformat": {
                     "type": "string",
                     "default": "gff",
-                    "description": "Set output format.",
-                    "help_text": "Choose output format: 'gff', 'fasta', or 'genbank'. Modifies tool parameter: - gecco convert: `--gecco_convert_format`"
+                    "enum": ["gff", "gbk", "fna", "faa"],
+                    "description": "Specify output format for GECCO convert.",
+                    "help_text": "Choose output format: 'gff', 'fasta', or 'genbank'. Modifies tool parameter: - gecco convert: `--bgc_gecco_convertformat`"
                 }
             },
             "fa_icon": "fas fa-angle-double-right"

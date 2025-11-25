@@ -66,6 +66,7 @@ workflow BGC {
             }
 
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(ch_antismashresults_for_combgc)
+
     }
 
     // DEEPBGC
@@ -106,14 +107,14 @@ workflow BGC {
     }
 
     // GECCO CONVERT
-    if (params.run_gecco_convert) {
+    if (params.bgc_gecco_runconvert) {
         ch_gecco_clusters_and_gbk = GECCO_RUN.out.clusters
             .join(GECCO_RUN.out.gbk)
             .map { meta, clusters_file, gbk_file ->
                 [ meta, clusters_file, gbk_file ]
             }
 
-        GECCO_CONVERT(ch_gecco_clusters_and_gbk, params.gecco_convert_mode, params.gecco_convert_format)
+        GECCO_CONVERT(ch_gecco_clusters_and_gbk, params.bgc_gecco_convertmode, params.bgc_gecco_convertformat)
     }
     // HMMSEARCH
     if (params.bgc_run_hmmsearch) {

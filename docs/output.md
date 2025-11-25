@@ -451,7 +451,7 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 
 [deepBGC](https://github.com/Merck/deepbgc) detects BGCs in bacterial and fungal genomes using deep learning. DeepBGC employs a Bidirectional Long Short-Term Memory Recurrent Neural Network and a word2vec-like vector embedding of Pfam protein domains. Product class and activity of detected BGCs is predicted using a Random Forest classifier.
 
-#### GECCO & GECCO CONVERT
+#### GECCO
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -464,16 +464,16 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
   - `*_cluster_*.gbk`: GenBank file (if clusters were found) containing sequence with annotations; one file per GECCO hit
 
   - **GECCO CONVERT**
-  - `*.gff`: GFF3 converted cluster tables containing the position and metadata for all the predicted clusters
-  - `*.region*.gbk`: Converted and aliased GenBank files so that they can be loaded by BiG-SLiCE
-  - `*.faa`: Amino-acid FASTA converted GenBank files of all the proteins in a cluster
-  - `*.fna`:Nucleotide sequence FASTA converted GenBank files from the cluster
-  **ONLY IF --run_gecco_convert**
+  - `*.gff`: GFF3 converted cluster tables containing the position and metadata for all the predicted clusters (only if `--bgc_gecco_runconvert`)
+  - `*.region*.gbk`: Converted and aliased GenBank files so that they can be loaded by BiG-SLiCE (only if `--bgc_gecco_runconvert`)
+  - `*.faa`: Amino-acid FASTA converted GenBank files of all the proteins in a cluster (only if `--bgc_gecco_runconvert`)
+  - `*.fna`:Nucleotide sequence FASTA converted GenBank files from the cluster (only if `--bgc_gecco_runconvert`)
   </details>
 
 [GECCO](https://gecco.embl.de) is a fast and scalable method for identifying putative novel Biosynthetic Gene Clusters (BGCs) in genomic and metagenomic data using Conditional Random Fields (CRFs).
 
 [GECCO CONVERT] (https://gecco.embl.de) is an option in gecco which does file conversion into formats like GFF3, GenBank, or FASTA for further analysis.
+The additional  GFF3, GenBank, or FASTA files from `--bgc_gecco_runconvert`, can be useful for additional further analysis of the BGC hits.
 
 ### Summary tools
 
