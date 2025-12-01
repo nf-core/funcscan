@@ -472,7 +472,6 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 
 [GECCO](https://gecco.embl.de) is a fast and scalable method for identifying putative novel Biosynthetic Gene Clusters (BGCs) in genomic and metagenomic data using Conditional Random Fields (CRFs).
 
-[GECCO CONVERT] (https://gecco.embl.de) is an option in gecco which does file conversion into formats like GFF3, GenBank, or FASTA for further analysis.
 The additional GFF3, GenBank, or FASTA files from `--bgc_gecco_runconvert`, can be useful for additional further analysis of the BGC hits.
 
 ### Summary tools
