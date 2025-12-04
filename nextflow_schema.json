@@ -10,10 +10,7 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": [
-                "input",
-                "outdir"
-            ],
+            "required": ["input", "outdir"],
             "properties": {
                 "input": {
                     "type": "string",
@@ -88,9 +85,7 @@
                     "help_text": "This flag specifies which tool for taxonomic classification should be activated. At the moment only 'MMseqs2' is incorporated in the pipeline.",
                     "description": "Specifies the tool used for taxonomic classification.",
                     "fa_icon": "fas fa-tools",
-                    "enum": [
-                        "mmseqs2"
-                    ]
+                    "enum": ["mmseqs2"]
                 },
                 "taxa_classification_mmseqs_compressed": {
                     "type": "boolean",
@@ -203,12 +198,7 @@
                     "type": "string",
                     "default": "pyrodigal",
                     "description": "Specify which annotation tool to use for some downstream tools.",
-                    "enum": [
-                        "prodigal",
-                        "pyrodigal",
-                        "prokka",
-                        "bakta"
-                    ],
+                    "enum": ["prodigal", "pyrodigal", "prokka", "bakta"],
                     "fa_icon": "fas fa-edit"
                 },
                 "save_annotations": {
@@ -237,10 +227,7 @@
                     "description": "Download full or light version of the Bakta database if not supplying own database.",
                     "help_text": "If you want the pipeline to download the Bakta database for you, you can choose between the full (33.1 GB) and light (1.3 GB) version. The full version is generally recommended for best annotation results, because it contains all of these:\n\n- UPS: unique protein sequences identified via length and MD5 hash digests (100% coverage & 100% sequence identity)\n- IPS: identical protein sequences comprising seeds of UniProt's UniRef100 protein sequence clusters\n- PSC: protein sequences clusters comprising seeds of UniProt's UniRef90 protein sequence clusters\n- PSCC: protein sequences clusters of clusters comprising annotations of UniProt's UniRef50 protein sequence clusters\n\nIf download bandwidth, storage, memory, or run duration requirements become an issue, go for the light version (which only contains PSCCs) by modifying the `annotation_bakta_db_downloadtype` flag.\n\nMore details can be found in the [documentation](https://github.com/oschwengers/bakta#database)\n\n>  Modifies tool parameter(s):\n> - BAKTA_DBDOWNLOAD: `--type`",
                     "fa_icon": "fas fa-database",
-                    "enum": [
-                        "full",
-                        "light"
-                    ],
+                    "enum": ["full", "light"],
                     "default": "full"
                 },
                 "annotation_bakta_singlemode": {
@@ -269,11 +256,7 @@
                 "annotation_bakta_gram": {
                     "type": "string",
                     "default": "?",
-                    "enum": [
-                        "+",
-                        "-",
-                        "?"
-                    ],
+                    "enum": ["+", "-", "?"],
                     "description": "Specify the type of bacteria to be annotated to detect signaling peptides.",
                     "help_text": "Specify the type of bacteria expected in the input dataset for correct annotation of the signal peptide predictions. More details can be found in the [documentation](https://github.com/oschwengers/bakta/blob/main/README.md#usage).\n\n>  Modifies tool parameter(s):\n> - BAKTA: `--gram`",
                     "fa_icon": "far fa-plus-square"
@@ -401,12 +384,7 @@
                     "fa_icon": "fas fa-crown",
                     "description": "Specify the kingdom that the input represents.",
                     "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n> ⚠️ Prokka cannot annotate Eukaryotes.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--kingdom`",
-                    "enum": [
-                        "Archaea",
-                        "Bacteria",
-                        "Mitochondria",
-                        "Viruses"
-                    ]
+                    "enum": ["Archaea", "Bacteria", "Mitochondria", "Viruses"]
                 },
                 "annotation_prokka_gcode": {
                     "type": "integer",
@@ -565,9 +543,7 @@
                     "help_text": "This flag specifies which tool for protein annotation should be activated.\nAt the moment only [InterProScan](https://github.com/ebi-pf-team/interproscan) is incorporated in the pipeline. This annotates the locus tags to protein and domain levels according to the InterPro databases.\n\nMore details can be found in the tool [documentation](https://interproscan-docs.readthedocs.io/en/latest/index.html).",
                     "description": "Specifies the tool used for further protein annotation.",
                     "fa_icon": "fas fa-tools",
-                    "enum": [
-                        "InterProScan"
-                    ]
+                    "enum": ["InterProScan"]
                 },
                 "protein_annotation_interproscan_db_url": {
                     "type": "string",
@@ -645,10 +621,7 @@
                     "default": "precursor",
                     "description": "Specify which machine learning classification model to use.",
                     "help_text": "Ampir uses a supervised statistical machine learning approach to predict AMPs. It incorporates two support vector machine classification models, \"precursor\" and \"mature\". \n\nThe precursor module is better for predicted proteins from a translated transcriptome or translated gene models. The alternative model (mature) is best suited for AMP sequences after post-translational processing, typically from direct proteomic sequencing.\n\nMore information can be found in the ampir [documentation](https://ampir.marine-omics.net/).\n\n> Modifies tool parameter(s):\n> - AMPir: `model =`",
-                    "enum": [
-                        "precursor",
-                        "mature"
-                    ],
+                    "enum": ["precursor", "mature"],
                     "fa_icon": "fas fa-layer-group"
                 },
                 "amp_ampir_minlength": {
@@ -727,11 +700,7 @@
                     "help_text": "AMPcombi can use three different AMP databases to classify the recovered AMPS. These can either be: \n\n- [DRAMP database](http://dramp.cpu-bioinfor.org/downloads/): Only general AMPs are downloaded and filtered to remove any entry that has an instance of non amino acid residues in their sequence.\n\n- [APD](https://aps.unmc.edu/): Only experimentally validated AMPs are present.\n\n- [UniRef100](https://academic.oup.com/bioinformatics/article/23/10/1282/197795): Combines a more general protein dataset including curated and non curated AMPs. Helpful for identifying the clusters to remove any potential false positives. Beware: If the thresholds are for ampcombi are not strict enough, alignment with this database can take a long time. \n\nBy default this is set to 'DRAMP'. Other valid options include 'APD' or 'UniRef100'.\n\nFor more information check the AMPcombi [documentation](https://ampcombi.readthedocs.io/en/main/usage.html#parse-tables).",
                     "fa_icon": "fas fa-address-book",
                     "default": "DRAMP",
-                    "enum": [
-                        "DRAMP",
-                        "APD",
-                        "UniRef100"
-                    ]
+                    "enum": ["DRAMP", "APD", "UniRef100"]
                 },
                 "amp_ampcombi_db": {
                     "type": "string",
@@ -958,10 +927,7 @@
                 "arg_deeparg_model": {
                     "type": "string",
                     "default": "LS",
-                    "enum": [
-                        "LS",
-                        "SS"
-                    ],
+                    "enum": ["LS", "SS"],
                     "description": "Specify which model to use (short or long sequences).",
                     "help_text": "Specify which model to use: short sequences for reads (`SS`), or long sequences for genes (`LS`). In the vast majority of cases we recommend using the `LS` model when using funcscan\n\nFor more information check the DeepARG [documentation](https://bitbucket.org/gusphdproj/deeparg-ss/src/master/deeparg/).\n\n> Modifies tool parameter(s):\n> - DeepARG: `--model`",
                     "fa_icon": "fas fa-layer-group"
@@ -1094,10 +1060,7 @@
                     "default": "BLAST",
                     "description": "Specify the alignment tool to be used.",
                     "help_text": "Specifies the alignment tool to be used. By default RGI runs BLAST and this is also set as default in the nf-core/funcscan pipeline. With this flag the user can choose between BLAST and DIAMOND for the alignment step.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--alignment_tool`",
-                    "enum": [
-                        "BLAST",
-                        "DIAMOND"
-                    ],
+                    "enum": ["BLAST", "DIAMOND"],
                     "fa_icon": "fas fa-align-justify"
                 },
                 "arg_rgi_includeloose": {
@@ -1123,12 +1086,7 @@
                     "default": "NA",
                     "description": "Specify a more specific data-type of input (e.g. plasmid, chromosome).",
                     "help_text": "This flag is used to specify the data type used as input to RGI. By default this is set as 'NA', which makes no assumptions on input data.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--data`",
-                    "enum": [
-                        "NA",
-                        "wgs",
-                        "plasmid",
-                        "chromosome"
-                    ],
+                    "enum": ["NA", "wgs", "plasmid", "chromosome"],
                     "fa_icon": "fas fa-dna"
                 },
                 "arg_rgi_split_prodigal_jobs": {
@@ -1195,11 +1153,7 @@
                 "arg_hamronization_summarizeformat": {
                     "type": "string",
                     "default": "tsv",
-                    "enum": [
-                        "interactive",
-                        "tsv",
-                        "json"
-                    ],
+                    "enum": ["interactive", "tsv", "json"],
                     "help_text": "Specifies which summary report format to apply with `hamronize summarize`: tsv, json or interactive (html)\n\n>  Modifies tool parameter(s)\n> - hamronize summarize: `-t`, `--summary_type`",
                     "description": "Specifies summary output format.",
                     "fa_icon": "far fa-file-code"
@@ -1303,11 +1257,7 @@
                     "description": "Defines which level of strictness to use for HMM-based cluster detection.",
                     "help_text": "Levels of strictness correspond to screening different groups of 'how well-defined' clusters are. For example, `loose` will include screening for 'poorly defined' clusters (e.g. saccharides), `relaxed` for partially present clusters (e.g. certain types of NRPS), whereas `strict` will screen for well-defined clusters such as Ketosynthases.\n\nYou can see the rules for the levels of strictness [here](https://github.com/antismash/antismash/tree/master/antismash/detection/hmm_detection/cluster_rules).\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--hmmdetection-strictness`",
                     "fa_icon": "fas fa-search",
-                    "enum": [
-                        "relaxed",
-                        "strict",
-                        "loose"
-                    ]
+                    "enum": ["relaxed", "strict", "loose"]
                 },
                 "bgc_antismash_pfam2go": {
                     "type": "boolean",
@@ -1327,10 +1277,7 @@
                     "description": "Specify which taxonomic classification of input sequence to use.",
                     "help_text": "This specifies which set of secondary metabolites to screen for, based on the taxon type the secondary metabolites are from.\n\nThis will run different pipelines depending on whether the input sequences are from bacteria or fungi.\n\nFor more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--taxon`",
                     "fa_icon": "fas fa-bacteria",
-                    "enum": [
-                        "bacteria",
-                        "fungi"
-                    ]
+                    "enum": ["bacteria", "fungi"]
                 },
                 "bgc_antismash_tfbs": {
                     "type": "boolean",
@@ -1476,22 +1423,14 @@
                 "bgc_gecco_convertmode": {
                     "type": "string",
                     "default": "clusters",
-                    "enum": [
-                        "clusters",
-                        "gbk"
-                    ],
+                    "enum": ["clusters", "gbk"],
                     "description": "Specify conversion mode for GECCO convert.",
                     "help_text": "Either clusters or gbk folder output, depending on what is reformatted. Modifies tool parameter: - gecco convert: `--bgc_gecco_convertmode `"
                 },
                 "bgc_gecco_convertformat": {
                     "type": "string",
                     "default": "gff",
-                    "enum": [
-                        "gff",
-                        "gbk",
-                        "fna",
-                        "faa"
-                    ],
+                    "enum": ["gff", "gbk", "fna", "faa"],
                     "description": "Specify output format for GECCO convert.",
                     "help_text": "Choose output format: 'gff', 'fasta', or 'genbank'. Modifies tool parameter: - gecco convert: `--bgc_gecco_convertformat`"
                 }
@@ -1604,14 +1543,7 @@
                     "description": "Method used to save pipeline results to output directory.",
                     "help_text": "The Nextflow `publishDir` option specifies which intermediate files should be saved to the output directory. This option tells the pipeline what method should be used to move these files. See [Nextflow docs](https://www.nextflow.io/docs/latest/process.html#publishdir) for details.",
                     "fa_icon": "fas fa-copy",
-                    "enum": [
-                        "symlink",
-                        "rellink",
-                        "link",
-                        "copy",
-                        "copyNoFollow",
-                        "move"
-                    ],
+                    "enum": ["symlink", "rellink", "link", "copy", "copyNoFollow", "move"],
                     "hidden": true
                 },
                 "email_on_fail": {
@@ -1688,10 +1620,7 @@
                     "hidden": true
                 },
                 "help": {
-                    "type": [
-                        "boolean",
-                        "string"
-                    ],
+                    "type": ["boolean", "string"],
                     "description": "Display the help message."
                 },
                 "help_full": {
