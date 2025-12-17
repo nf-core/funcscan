@@ -40,7 +40,7 @@ nextflow_pipeline {
                     path("$outputDir/bgc/gecco/sample_2/sample_2.genes.tsv"),   // channel: genes
                     path("$outputDir/bgc/gecco/sample_2/sample_2.features.tsv"), // channel: features
                     path("$outputDir/bgc/gecco/sample_2/sample_2.clusters.tsv"), // channel: clusters
-                    path("$outputDir/bgc/gecco/sample_2/*.gbk"), // from gecco convert
+                    file("$outputDir/bgc/gecco/sample_2/NODE_18_length_18230_cov_4.622228.region001.gbk").name, // from gecco convert
                 ).match("gecco") }
             )
         }
