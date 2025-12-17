@@ -1417,22 +1417,22 @@
                 },
                 "bgc_gecco_runconvert": {
                     "type": "boolean",
-                    "description": "Enable GECCO file conversion.",
-                    "help_text": "Converts GECCO output into formats like GFF3, GenBank, or FASTA for further analysis. Modifies tool parameter - gecco convert: `--bgc_gecco_runconvert true`"
+                    "description": "Enable GECCO file conversion to formats for downstream analysis.",
+                    "help_text": "Converts GECCO output into formats like GFF3, GenBank, or FASTA for further analysis."
                 },
                 "bgc_gecco_convertmode": {
                     "type": "string",
                     "default": "clusters",
                     "enum": ["clusters", "gbk"],
                     "description": "Specify conversion mode for GECCO convert.",
-                    "help_text": "Either clusters or gbk folder output, depending on what is reformatted. Modifies tool parameter: - gecco convert: `--bgc_gecco_convertmode `"
+                    "help_text": "Either clusters or gbk folder output, depending on what is reformatted.\n\n Modifies tool parameter:\n- gecco convert: `gecco convert <mode>`"
                 },
                 "bgc_gecco_convertformat": {
                     "type": "string",
                     "default": "gff",
-                    "enum": ["gff", "gbk", "fna", "faa"],
+                    "enum": ["gff", "bigslice", "fna", "faa"],
                     "description": "Specify output format for GECCO convert.",
-                    "help_text": "Choose output format: 'gff', 'fasta', or 'genbank'. Modifies tool parameter: - gecco convert: `--bgc_gecco_convertformat`"
+                    "help_text": "Choose output format for clusters mode: 'gff', or gbk mode: 'bigslice', 'fna', or 'faa'.\n\nModifies tool parameter:\n- gecco convert: `--format`"
                 }
             },
             "fa_icon": "fas fa-angle-double-right"

@@ -17,9 +17,9 @@ include { GECCO_CONVERT                          } from '../../modules/nf-core/g
 workflow BGC {
     take:
     fastas // tuple val(meta), path(PREPPED_INPUT.out.fna)
-    faas   // tuple val(meta), path(<ANNO_TOOL>.out.faa)
-    gbks   // tuple val(meta), path(<ANNO_TOOL>.out.gbk)
-    tsvs   // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
+    faas // tuple val(meta), path(<ANNO_TOOL>.out.faa)
+    gbks // tuple val(meta), path(<ANNO_TOOL>.out.gbk)
+    tsvs // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
 
     main:
     ch_versions = Channel.empty()
@@ -66,14 +66,14 @@ workflow BGC {
             }
 
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(ch_antismashresults_for_combgc)
-
     }
 
     // DEEPBGC
     if (!params.bgc_skip_deepbgc) {
         if (params.bgc_deepbgc_db) {
 
-            ch_deepbgc_database = Channel.fromPath(params.bgc_deepbgc_db, checkIfExists: true)
+            ch_deepbgc_database = Channel
+                .fromPath(params.bgc_deepbgc_db, checkIfExists: true)
                 .first()
         }
         else {
@@ -111,10 +111,11 @@ workflow BGC {
         ch_gecco_clusters_and_gbk = GECCO_RUN.out.clusters
             .join(GECCO_RUN.out.gbk)
             .map { meta, clusters_file, gbk_file ->
-                [ meta, clusters_file, gbk_file ]
+                [meta, clusters_file, gbk_file]
             }
 
         GECCO_CONVERT(ch_gecco_clusters_and_gbk, params.bgc_gecco_convertmode, params.bgc_gecco_convertformat)
+        ch_versions = ch_versions.mix(GECCO_CONVERT.out.versions)
     }
     // HMMSEARCH
     if (params.bgc_run_hmmsearch) {
@@ -174,7 +175,8 @@ workflow BGC {
         MERGE_TAXONOMY_COMBGC(ch_combgc_summaries, ch_mmseqs_taxonomy_list)
         ch_versions = ch_versions.mix(MERGE_TAXONOMY_COMBGC.out.versions)
 
-        ch_tabix_input = Channel.of(['id': 'combgc_complete_summary_taxonomy'])
+        ch_tabix_input = Channel
+            .of(['id': 'combgc_complete_summary_taxonomy'])
             .combine(MERGE_TAXONOMY_COMBGC.out.tsv)
 
         BGC_TABIX_BGZIP(ch_tabix_input)
