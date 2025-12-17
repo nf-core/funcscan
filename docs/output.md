@@ -463,7 +463,6 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
   - `*.clusters.tsv`: TSV file containing coordinates of predicted clusters and BGC types
   - `*_cluster_*.gbk`: GenBank file (if clusters were found) containing sequence with annotations; one file per GECCO hit
 
-  - **GECCO CONVERT**
   - `*.gff`: GFF3 converted cluster tables containing the position and metadata for all the predicted clusters (only if `--bgc_gecco_runconvert`)
   - `*.region*.gbk`: Converted and aliased GenBank files so that they can be loaded by BiG-SLiCE (only if `--bgc_gecco_runconvert`)
   - `*.faa`: Amino-acid FASTA converted GenBank files of all the proteins in a cluster (only if `--bgc_gecco_runconvert`)
