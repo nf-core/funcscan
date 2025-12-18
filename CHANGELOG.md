@@ -8,11 +8,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - [#500](https://github.com/nf-core/funcscan/pull/500) Updated pipeline template to nf-core/tools version 3.4.1 (by @jfy133)
+- [#508](https://github.com/nf-core/funcscan/pull/508) Added support for antiSMASH's --clusterhmmer, --fullhmmer, and --tigrfam options (❤️ to @yusukepockyby for requesting, @jfy133)
 - [#506](https://github.com/nf-core/funcscan/pull/506) Added support GECCO convert for generation of additional files useful for downstream analysis (by @SkyLexS)
 
 ### `Fixed`
 
+- [#501](https://github.com/nf-core/funcscan/pull/501) Fixed issue with BAKTA HMMs not being staged correctly (reported by Yusuke Hioki, fix by @jfy133)
+
 ### `Dependencies`
+
+| Tool    | Previous Version | New Version |
+| ------- | ---------------- | ----------- |
+| MultiQC | 1.27             | 1.32        |
+| Bakta   | 1.10.4           | 1.11.4      |
 
 ### `Deprecated`
 

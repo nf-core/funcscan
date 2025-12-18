@@ -1284,6 +1284,24 @@
                     "description": "Run TFBS finder on all gene clusters.",
                     "help_text": "This enables the prediction of transcription factor binding sites which control the gene expression. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--tfbs`",
                     "fa_icon": "fas fa-search"
+                },
+                "bgc_antismash_clusterhmmer": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-glass-martini-alt",
+                    "description": "Run antiSMASH with --clusterhmmer mode with Pfam profiles",
+                    "help_text": "For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--clusterhmmer`"
+                },
+                "bgc_antismash_fullhmmer": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-glass-martini",
+                    "description": "Run antiSMASH with --fullhmmer mode with Pfam profiles",
+                    "help_text": "For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--fullhmmer`"
+                },
+                "bgc_antismash_tigrfam": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-cat",
+                    "description": "Run antiSMASH with --tigrfam annotation activated",
+                    "help_text": "For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--tigrfam`"
                 }
             },
             "fa_icon": "fas fa-angle-double-right"
