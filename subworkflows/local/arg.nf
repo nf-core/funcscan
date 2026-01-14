@@ -25,21 +25,20 @@ include { ARGNORM as ARGNORM_AMRFINDERPLUS } from '../../modules/nf-core/argnorm
 
 workflow ARG {
     take:
-    fastas      // tuple val(meta), path(contigs)
+    fastas // tuple val(meta), path(contigs)
     annotations
-    tsvs        // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
+    tsvs // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
 
     main:
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     // Prepare HAMRONIZATION reporting channel
-    ch_input_to_hamronization_summarize = Channel.empty()
+    ch_input_to_hamronization_summarize = channel.empty()
 
     // AMRfinderplus run
     // Prepare channel for database
     if (!params.arg_skip_amrfinderplus && params.arg_amrfinderplus_db) {
-        ch_amrfinderplus_db = Channel
-            .fromPath(params.arg_amrfinderplus_db, checkIfExists: true)
+        ch_amrfinderplus_db = channel.fromPath(params.arg_amrfinderplus_db, checkIfExists: true)
             .first()
     }
     else if (!params.arg_skip_amrfinderplus && !params.arg_amrfinderplus_db) {
@@ -66,14 +65,14 @@ workflow ARG {
 
     // fARGene run
     if (!params.arg_skip_fargene) {
-        ch_fargene_classes = Channel.fromList(params.arg_fargene_hmmmodel.tokenize(','))
+        ch_fargene_classes = channel.fromList(params.arg_fargene_hmmmodel.tokenize(','))
 
         ch_fargene_input = fastas
             .combine(ch_fargene_classes)
-            .map { meta, fastas, hmm_class ->
+            .map { meta, fastafiles, hmm_class ->
                 def meta_new = meta.clone()
                 meta_new['hmm_class'] = hmm_class
-                [meta_new, fastas, hmm_class]
+                [meta_new, fastafiles, hmm_class]
             }
             .multiMap {
                 fastas: [it[0], it[1]]
@@ -128,8 +127,7 @@ workflow ARG {
 
     // DeepARG prepare download
     if (!params.arg_skip_deeparg && params.arg_deeparg_db) {
-        ch_deeparg_db = Channel
-            .fromPath(params.arg_deeparg_db, checkIfExists: true)
+        ch_deeparg_db = channel.fromPath(params.arg_deeparg_db, checkIfExists: true)
             .first()
     }
     else if (!params.arg_skip_deeparg && !params.arg_deeparg_db) {
@@ -203,8 +201,7 @@ workflow ARG {
         MERGE_TAXONOMY_HAMRONIZATION(HAMRONIZATION_SUMMARIZE.out.tsv, ch_mmseqs_taxonomy_list)
         ch_versions = ch_versions.mix(MERGE_TAXONOMY_HAMRONIZATION.out.versions)
 
-        ch_tabix_input = Channel
-            .of(['id': 'hamronization_combined_report'])
+        ch_tabix_input = channel.of(['id': 'hamronization_combined_report'])
             .combine(MERGE_TAXONOMY_HAMRONIZATION.out.tsv)
 
         ARG_TABIX_BGZIP(ch_tabix_input)

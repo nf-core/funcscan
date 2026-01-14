@@ -26,13 +26,13 @@ process RGI_CARDANNOTATION {
         -i ${card}/card.json \\
         ${args}
 
-    DB_VERSION=\$(ls card_database_*_all.fasta | sed "s/card_database_v\\([0-9].*[0-9]\\).*/\\1/")
+    export DB_VERSION=\$(ls card_database_*_all.fasta | sed "s/card_database_v\\([0-9].*[0-9]\\).*/\\1/")
 
     mkdir card_database_processed
     mv card*.fasta card_database_processed
     cp ${card}/* card_database_processed
 
-    RGI_VERSION=\$(rgi main --version)
+    export RGI_VERSION=\$(rgi main --version)
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -49,8 +49,8 @@ process RGI_CARDANNOTATION {
     mkdir card_database_processed
     mv card*.fasta card_database_processed
 
-    RGI_VERSION=\$(rgi main --version)
-    DB_VERSION=stub_version
+    export RGI_VERSION=\$(rgi main --version)
+    export DB_VERSION=stub_version
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

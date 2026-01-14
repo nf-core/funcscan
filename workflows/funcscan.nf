@@ -60,9 +60,9 @@ workflow FUNCSCAN {
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     */
 
-    ch_multiqc_config = Channel.fromPath("${projectDir}/assets/multiqc_config.yml", checkIfExists: true)
-    ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multiqc_config, checkIfExists: true) : Channel.empty()
-    ch_multiqc_logo = params.multiqc_logo ? Channel.fromPath(params.multiqc_logo, checkIfExists: true) : Channel.empty()
+    ch_multiqc_config = channel.fromPath("${projectDir}/assets/multiqc_config.yml", checkIfExists: true)
+    ch_multiqc_custom_config = params.multiqc_config ? channel.fromPath(params.multiqc_config, checkIfExists: true) : channel.empty()
+    ch_multiqc_logo = params.multiqc_logo ? channel.fromPath(params.multiqc_logo, checkIfExists: true) : channel.empty()
     ch_multiqc_custom_methods_description = params.multiqc_methods_description ? file(params.multiqc_methods_description, checkIfExists: true) : file("${projectDir}/assets/methods_description_template.yml", checkIfExists: true)
 
 
@@ -170,10 +170,10 @@ workflow FUNCSCAN {
     }
     else {
 
-        ch_mmseqs_db = Channel.empty()
-        ch_taxonomy_querydb = Channel.empty()
-        ch_taxonomy_querydb_taxdb = Channel.empty()
-        ch_taxonomy_tsv = Channel.empty()
+        ch_mmseqs_db = channel.empty()
+        ch_taxonomy_querydb = channel.empty()
+        ch_taxonomy_querydb_taxdb = channel.empty()
+        ch_taxonomy_tsv = channel.empty()
     }
 
     /*
@@ -360,7 +360,7 @@ workflow FUNCSCAN {
     //
     // Collate and save software versions
     //
-    def topic_versions = Channel.topic("versions")
+    def topic_versions = channel.topic("versions")
         .distinct()
         .branch { entry ->
             versions_file: entry instanceof Path

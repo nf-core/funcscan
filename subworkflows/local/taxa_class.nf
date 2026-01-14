@@ -12,19 +12,18 @@ workflow TAXA_CLASS {
     contigs // tuple val(meta), path(contigs)
 
     main:
-    ch_versions = Channel.empty()
-    ch_mmseqs_db = Channel.empty()
-    ch_taxonomy_querydb = Channel.empty()
-    ch_taxonomy_querydb_taxdb = Channel.empty()
-    ch_taxonomy_tsv = Channel.empty()
+    ch_versions = channel.empty()
+    ch_mmseqs_db = channel.empty()
+    ch_taxonomy_querydb = channel.empty()
+    ch_taxonomy_querydb_taxdb = channel.empty()
+    ch_taxonomy_tsv = channel.empty()
 
     if (params.taxa_classification_tool == 'mmseqs2') {
 
         // Download the ref db if not supplied by user
         // MMSEQS_DATABASE
         if (params.taxa_classification_mmseqs_db != null) {
-            ch_mmseqs_db = Channel
-                .fromPath(params.taxa_classification_mmseqs_db, checkIfExists: true)
+            ch_mmseqs_db = channel.fromPath(params.taxa_classification_mmseqs_db, checkIfExists: true)
                 .first()
         }
         else {
