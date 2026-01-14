@@ -4,11 +4,11 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
-include { paramsSummaryMap            } from 'plugin/nf-schema'
-include { paramsSummaryMultiqc        } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { softwareVersionsToYAML      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore_funcscan_pipeline'
+include { MULTIQC                         } from '../modules/nf-core/multiqc/main'
+include { paramsSummaryMap                } from 'plugin/nf-schema'
+include { paramsSummaryMultiqc            } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { softwareVersionsToYAML          } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { methodsDescriptionText          } from '../subworkflows/local/utils_nfcore_funcscan_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -19,12 +19,12 @@ include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { ANNOTATION                } from '../subworkflows/local/annotation'
-include { PROTEIN_ANNOTATION        } from '../subworkflows/local/protein_annotation'
-include { AMP                       } from '../subworkflows/local/amp'
-include { ARG                       } from '../subworkflows/local/arg'
-include { BGC                       } from '../subworkflows/local/bgc'
-include { TAXA_CLASS                } from '../subworkflows/local/taxa_class'
+include { ANNOTATION                      } from '../subworkflows/local/annotation'
+include { PROTEIN_ANNOTATION              } from '../subworkflows/local/protein_annotation'
+include { AMP                             } from '../subworkflows/local/amp'
+include { ARG                             } from '../subworkflows/local/arg'
+include { BGC                             } from '../subworkflows/local/bgc'
+include { TAXA_CLASS                      } from '../subworkflows/local/taxa_class'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -189,21 +189,23 @@ workflow FUNCSCAN {
 
         SEQKIT_SEQ_FILTER(filtered_faas)
         ch_versions = ch_versions.mix(SEQKIT_SEQ_FILTER.out.versions)
-        ch_input_for_protein_annotation =  SEQKIT_SEQ_FILTER.out.fastx
+        ch_input_for_protein_annotation = SEQKIT_SEQ_FILTER.out.fastx
 
-        PROTEIN_ANNOTATION ( ch_input_for_protein_annotation )
+        PROTEIN_ANNOTATION(ch_input_for_protein_annotation)
         ch_versions = ch_versions.mix(PROTEIN_ANNOTATION.out.versions)
 
         ch_interproscan_tsv = PROTEIN_ANNOTATION.out.tsv.map { meta, file ->
             if (file == [] || file.isEmpty()) {
                 log.warn("[nf-core/funcscan] Protein annotation with InterProScan produced an empty TSV file. No protein annotation will be added for sample ${meta.id}.")
                 [meta, []]
-            } else {
+            }
+            else {
                 [meta, file]
             }
         }
-    } else {
-        ch_interproscan_tsv = ch_prepped_input.faas.map { meta, _ ->
+    }
+    else {
+        ch_interproscan_tsv = ch_prepped_input.faas.map { meta, _files ->
             [meta, []]
         }
     }
@@ -227,7 +229,7 @@ workflow FUNCSCAN {
             },
             ch_taxonomy_tsv,
             ch_prepped_input.gbks,
-            ch_interproscan_tsv
+            ch_interproscan_tsv,
         )
         ch_versions = ch_versions.mix(AMP.out.versions)
     }
@@ -247,7 +249,7 @@ workflow FUNCSCAN {
                 !file.isEmpty()
             },
             ch_prepped_input.gbks,
-            ch_interproscan_tsv
+            ch_interproscan_tsv,
         )
         ch_versions = ch_versions.mix(AMP.out.versions)
     }
@@ -369,9 +371,9 @@ workflow FUNCSCAN {
 
     def topic_versions_string = topic_versions.versions_tuple
         .map { process, tool, version ->
-            [ process[process.lastIndexOf(':')+1..-1], "  ${tool}: ${version}" ]
+            [process[process.lastIndexOf(':') + 1..-1], "  ${tool}: ${version}"]
         }
-        .groupTuple(by:0)
+        .groupTuple(by: 0)
         .map { process, tool_versions ->
             tool_versions.unique().sort()
             "${process}:\n${tool_versions.join('\n')}"
@@ -391,25 +393,31 @@ workflow FUNCSCAN {
     //
     // MODULE: MultiQC
     //
-    ch_multiqc_config        = channel.fromPath(
-        "$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-    ch_multiqc_custom_config = params.multiqc_config ?
-        channel.fromPath(params.multiqc_config, checkIfExists: true) :
-        channel.empty()
-    ch_multiqc_logo          = params.multiqc_logo ?
-        channel.fromPath(params.multiqc_logo, checkIfExists: true) :
-        channel.empty()
+    ch_multiqc_config = channel.fromPath(
+        "${projectDir}/assets/multiqc_config.yml",
+        checkIfExists: true
+    )
+    ch_multiqc_custom_config = params.multiqc_config
+        ? channel.fromPath(params.multiqc_config, checkIfExists: true)
+        : channel.empty()
+    ch_multiqc_logo = params.multiqc_logo
+        ? channel.fromPath(params.multiqc_logo, checkIfExists: true)
+        : channel.empty()
 
-    summary_params      = paramsSummaryMap(
-        workflow, parameters_schema: "nextflow_schema.json")
+    summary_params = paramsSummaryMap(
+        workflow,
+        parameters_schema: "nextflow_schema.json"
+    )
     ch_workflow_summary = channel.value(paramsSummaryMultiqc(summary_params))
     ch_multiqc_files = ch_multiqc_files.mix(
-        ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
-    ch_multiqc_custom_methods_description = params.multiqc_methods_description ?
-        file(params.multiqc_methods_description, checkIfExists: true) :
-        file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
-    ch_methods_description                = channel.value(
-        methodsDescriptionText(ch_multiqc_custom_methods_description))
+        ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml')
+    )
+    ch_multiqc_custom_methods_description = params.multiqc_methods_description
+        ? file(params.multiqc_methods_description, checkIfExists: true)
+        : file("${projectDir}/assets/methods_description_template.yml", checkIfExists: true)
+    ch_methods_description = channel.value(
+        methodsDescriptionText(ch_multiqc_custom_methods_description)
+    )
 
     ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
     ch_multiqc_files = ch_multiqc_files.mix(
