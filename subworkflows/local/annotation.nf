@@ -80,7 +80,22 @@ workflow ANNOTATION {
             ch_bakta_db = BAKTA_BAKTADBDOWNLOAD.out.db
         }
 
-        BAKTA_BAKTA(fasta, ch_bakta_db, [], [])
+        // BAKTA HMM download
+        if (params.annotation_bakta_hmms) {
+            ch_bakta_hmm = Channel.fromPath(params.annotation_bakta_hmms, checkIfExists: true).first()
+        }
+        else {
+            ch_bakta_hmm = []
+        }
+
+        BAKTA_BAKTA(
+            fasta,
+            ch_bakta_db,
+            [],
+            [],
+            [],
+            ch_bakta_hmm,
+        )
         ch_versions = ch_versions.mix(BAKTA_BAKTA.out.versions)
         ch_multiqc_files = BAKTA_BAKTA.out.txt.collect { it[1] }.ifEmpty([])
         ch_annotation_faa = BAKTA_BAKTA.out.faa

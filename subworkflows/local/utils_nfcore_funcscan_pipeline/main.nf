@@ -165,6 +165,14 @@ workflow PIPELINE_COMPLETION {
 // Check and validate pipeline parameters
 //
 def validateInputParameters() {
+    if (params.run_bgc_screening && !params.bgc_skip_gecco && params.bgc_gecco_runconvert) {
+        if (params.bgc_gecco_convertmode == 'gbk' && params.bgc_gecco_convertformat == 'gff') {
+            error("[nf-core/funcscan] ERROR: when specifying --bgc_gecco_convertmode 'gbk', --bgc_gecco_convertformat can only be set to 'bigslice', 'fna' or 'faa'. You specified --bgc_gecco_convertformat '${params.bgc_gecco_convertformat}'. Check input!")
+        }
+        if (params.bgc_gecco_convertmode == 'clusters' && params.bgc_gecco_convertformat != 'gff') {
+            error("[nf-core/funcscan] ERROR: when specifying --bgc_gecco_convertmode 'clusters', --bgc_gecco_convertformat can only be set to 'gff'. You specified --bgc_gecco_convertformat '${params.bgc_gecco_convertformat}'. Check input!")
+        }
+    }
 }
 
 //

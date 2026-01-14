@@ -12,6 +12,7 @@ include { DEEPBGC_PIPELINE                       } from '../../modules/nf-core/d
 include { COMBGC                                 } from '../../modules/local/combgc'
 include { TABIX_BGZIP as BGC_TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip/main'
 include { MERGE_TAXONOMY_COMBGC                  } from '../../modules/local/merge_taxonomy_combgc'
+include { GECCO_CONVERT                          } from '../../modules/nf-core/gecco/convert/main'
 
 workflow BGC {
     take:
@@ -104,6 +105,17 @@ workflow BGC {
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(ch_geccoresults_for_combgc)
     }
 
+    // GECCO CONVERT
+    if (params.bgc_gecco_runconvert) {
+        ch_gecco_clusters_and_gbk = GECCO_RUN.out.clusters
+            .join(GECCO_RUN.out.gbk)
+            .map { meta, clusters_file, gbk_file ->
+                [meta, clusters_file, gbk_file]
+            }
+
+        GECCO_CONVERT(ch_gecco_clusters_and_gbk, params.bgc_gecco_convertmode, params.bgc_gecco_convertformat)
+        ch_versions = ch_versions.mix(GECCO_CONVERT.out.versions)
+    }
     // HMMSEARCH
     if (params.bgc_run_hmmsearch) {
         if (params.bgc_hmmsearch_models) {

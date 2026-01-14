@@ -38,7 +38,9 @@ nextflow_pipeline {
                 // GECCO
                 { assert snapshot(
                     path("$outputDir/bgc/gecco/sample_2/sample_2.genes.tsv"),   // channel: genes
-                    path("$outputDir/bgc/gecco/sample_2/sample_2.features.tsv") // channel: features
+                    path("$outputDir/bgc/gecco/sample_2/sample_2.features.tsv"), // channel: features
+                    path("$outputDir/bgc/gecco/sample_2/sample_2.clusters.tsv"), // channel: clusters
+                    path("$outputDir/bgc/gecco/sample_2/PROKKA_2_cluster_1.fna"), // from gecco convert
                 ).match("gecco") }
             )
         }

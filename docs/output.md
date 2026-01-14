@@ -457,14 +457,20 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 <summary>Output files</summary>
 
 - `gecco/`
+  - **GECCO**
   - `*.genes.tsv/`: TSV file containing detected/predicted genes with BGC probability scores
   - `*.features.tsv`: TSV file containing identified domains
   - `*.clusters.tsv`: TSV file containing coordinates of predicted clusters and BGC types
   - `*_cluster_*.gbk`: GenBank file (if clusters were found) containing sequence with annotations; one file per GECCO hit
-
-</details>
+  - `*.gff`: GFF3 converted cluster tables containing the position and metadata for all the predicted clusters (only if `--bgc_gecco_runconvert --bgc_gecco_convertmode clusters --bgc_gecco_convertformat gff`)
+  - `*.region*.gbk`: Converted and aliased GenBank files so that they can be loaded by BiG-SLiCE (only if `--bgc_gecco_runconvert --bgc_gecco_convertmode gbk --bgc_gecco_convertformat bigslice`)
+  - `*.faa`: Amino-acid FASTA converted GenBank files of all the proteins in a cluster (only if `--bgc_gecco_runconvert --bgc_gecco_convertmode gbk --bgc_gecco_convertformat faa`)
+  - `*.fna`:Nucleotide sequence FASTA converted GenBank files from the cluster (only if `--bgc_gecco_runconvert --bgc_gecco_convertmode gbk --bgc_gecco_convertformat fna`)
+  </details>
 
 [GECCO](https://gecco.embl.de) is a fast and scalable method for identifying putative novel Biosynthetic Gene Clusters (BGCs) in genomic and metagenomic data using Conditional Random Fields (CRFs).
+
+The additional GFF3, GenBank, or FASTA files from `--bgc_gecco_runconvert`, can be useful for additional further analysis of the BGC hits.
 
 ### Summary tools
 
