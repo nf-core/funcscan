@@ -16,8 +16,8 @@ process RGI_MAIN {
     tuple val(meta), path("*.json"), emit: json
     tuple val(meta), path("*.txt"), emit: tsv
     tuple val(meta), path("temp/"), emit: tmp
-    env RGI_VERSION, emit: tool_version
-    env DB_VERSION, emit: db_version
+    env 'RGI_VERSION', emit: tool_version
+    env 'DB_VERSION', emit: db_version
     path "versions.yml", emit: versions
 
     when:
@@ -43,7 +43,7 @@ process RGI_MAIN {
     }
 
     """
-    export DB_VERSION=\$(ls ${card}/card_database_*_all.fasta | sed "s/${card}\\/card_database_v\\([0-9].*[0-9]\\).*/\\1/")
+    DB_VERSION=\$(ls ${card}/card_database_*_all.fasta | sed "s/${card}\\/card_database_v\\([0-9].*[0-9]\\).*/\\1/")
 
     rgi \\
         load \\
@@ -64,7 +64,7 @@ process RGI_MAIN {
     mkdir temp/
     for FILE in *.xml *.fsa *.{nhr,nin,nsq} *.draft *.potentialGenes *{variant,rrna,protein,predictedGenes,overexpression,homolog}.json; do [[ -e \$FILE ]] && mv \$FILE temp/; done
 
-    export RGI_VERSION=\$(rgi main --version)
+    RGI_VERSION=\$(rgi main --version)
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -79,8 +79,8 @@ process RGI_MAIN {
     touch test.json
     touch test.txt
 
-    export RGI_VERSION=\$(rgi main --version)
-    export DB_VERSION=stub_version
+    RGI_VERSION=\$(rgi main --version)
+    DB_VERSION=stub_version
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

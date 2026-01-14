@@ -11,8 +11,8 @@ process RGI_CARDANNOTATION {
 
     output:
     path ("card_database_processed"), emit: db
-    env RGI_VERSION, emit: tool_version
-    env DB_VERSION, emit: db_version
+    env 'RGI_VERSION', emit: tool_version
+    env 'DB_VERSION', emit: db_version
     path "versions.yml", emit: versions
 
     when:
@@ -26,13 +26,13 @@ process RGI_CARDANNOTATION {
         -i ${card}/card.json \\
         ${args}
 
-    export DB_VERSION=\$(ls card_database_*_all.fasta | sed "s/card_database_v\\([0-9].*[0-9]\\).*/\\1/")
+    DB_VERSION=\$(ls card_database_*_all.fasta | sed "s/card_database_v\\([0-9].*[0-9]\\).*/\\1/")
 
     mkdir card_database_processed
     mv card*.fasta card_database_processed
     cp ${card}/* card_database_processed
 
-    export RGI_VERSION=\$(rgi main --version)
+    RGI_VERSION=\$(rgi main --version)
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -49,8 +49,8 @@ process RGI_CARDANNOTATION {
     mkdir card_database_processed
     mv card*.fasta card_database_processed
 
-    export RGI_VERSION=\$(rgi main --version)
-    export DB_VERSION=stub_version
+    RGI_VERSION=\$(rgi main --version)
+    DB_VERSION=stub_version
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
