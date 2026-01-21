@@ -95,6 +95,11 @@
                         "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
                         "installed_by": ["modules"]
                     },
+                    "gecco/convert": {
+                        "branch": "master",
+                        "git_sha": "2aa243bd8a9b20122ed6fb5d2d3c75b963eef171",
+                        "installed_by": ["modules"]
+                    },
                     "gecco/run": {
                         "branch": "master",
                         "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
@@ -192,12 +197,12 @@
                     },
                     "rgi/cardannotation": {
                         "branch": "master",
-                        "git_sha": "531d8a465158c5842f416623017997462a240e16",
+                        "git_sha": "70c072e30155e7671be828762be16576bd4afca7",
                         "installed_by": ["modules"]
                     },
                     "rgi/main": {
                         "branch": "master",
-                        "git_sha": "531d8a465158c5842f416623017997462a240e16",
+                        "git_sha": "70c072e30155e7671be828762be16576bd4afca7",
                         "installed_by": ["modules"]
                     },
                     "seqkit/seq": {

@@ -2,17 +2,17 @@
     Run BGC screening tools
 */
 
-include { UNTAR as UNTAR_ANTISMASHDB             } from '../../modules/nf-core/untar/main'
-include { ANTISMASH_ANTISMASHDOWNLOADDATABASES   } from '../../modules/nf-core/antismash/antismashdownloaddatabases/main'
-include { ANTISMASH_ANTISMASH                    } from '../../modules/nf-core/antismash/antismash/main'
-include { GECCO_RUN                              } from '../../modules/nf-core/gecco/run/main'
-include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH } from '../../modules/nf-core/hmmer/hmmsearch/main'
-include { DEEPBGC_DOWNLOAD                       } from '../../modules/nf-core/deepbgc/download/main'
-include { DEEPBGC_PIPELINE                       } from '../../modules/nf-core/deepbgc/pipeline/main'
+include { UNTAR as UNTAR_ANTISMASHDB             } from '../../modules/nf-core/untar'
+include { ANTISMASH_ANTISMASHDOWNLOADDATABASES   } from '../../modules/nf-core/antismash/antismashdownloaddatabases'
+include { ANTISMASH_ANTISMASH                    } from '../../modules/nf-core/antismash/antismash'
+include { GECCO_RUN                              } from '../../modules/nf-core/gecco/run'
+include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH } from '../../modules/nf-core/hmmer/hmmsearch'
+include { DEEPBGC_DOWNLOAD                       } from '../../modules/nf-core/deepbgc/download'
+include { DEEPBGC_PIPELINE                       } from '../../modules/nf-core/deepbgc/pipeline'
 include { COMBGC                                 } from '../../modules/local/combgc'
-include { TABIX_BGZIP as BGC_TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip/main'
+include { TABIX_BGZIP as BGC_TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip'
 include { MERGE_TAXONOMY_COMBGC                  } from '../../modules/local/merge_taxonomy_combgc'
-include { GECCO_CONVERT                          } from '../../modules/nf-core/gecco/convert/main'
+include { GECCO_CONVERT                          } from '../../modules/nf-core/gecco/convert'
 
 workflow BGC {
     take:
@@ -22,8 +22,8 @@ workflow BGC {
     tsvs // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
 
     main:
-    ch_versions = Channel.empty()
-    ch_bgcresults_for_combgc = Channel.empty()
+    ch_versions = channel.empty()
+    ch_bgcresults_for_combgc = channel.empty()
 
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and AMP subworkflow execution
@@ -39,7 +39,7 @@ workflow BGC {
             ch_antismash_databases = UNTAR_ANTISMASHDB.out.untar.map { _meta, dir -> [dir] }
         }
         else if (params.bgc_antismash_db && file(params.bgc_antismash_db, checkIfExists: true).isDirectory()) {
-            ch_antismash_databases = Channel.fromPath(params.bgc_antismash_db, checkIfExists: true).first()
+            ch_antismash_databases = channel.fromPath(params.bgc_antismash_db, checkIfExists: true).first()
         }
         else {
             ANTISMASH_ANTISMASHDOWNLOADDATABASES()
@@ -72,8 +72,7 @@ workflow BGC {
     if (!params.bgc_skip_deepbgc) {
         if (params.bgc_deepbgc_db) {
 
-            ch_deepbgc_database = Channel
-                .fromPath(params.bgc_deepbgc_db, checkIfExists: true)
+            ch_deepbgc_database = channel.fromPath(params.bgc_deepbgc_db, checkIfExists: true)
                 .first()
         }
         else {
@@ -120,7 +119,7 @@ workflow BGC {
     // HMMSEARCH
     if (params.bgc_run_hmmsearch) {
         if (params.bgc_hmmsearch_models) {
-            ch_bgc_hmm_models = Channel.fromPath(params.bgc_hmmsearch_models, checkIfExists: true)
+            ch_bgc_hmm_models = channel.fromPath(params.bgc_hmmsearch_models, checkIfExists: true)
         }
         else {
             error('[nf-core/funcscan] error: hmm model files not found for --bgc_hmmsearch_models! Please check input.')
@@ -175,8 +174,7 @@ workflow BGC {
         MERGE_TAXONOMY_COMBGC(ch_combgc_summaries, ch_mmseqs_taxonomy_list)
         ch_versions = ch_versions.mix(MERGE_TAXONOMY_COMBGC.out.versions)
 
-        ch_tabix_input = Channel
-            .of(['id': 'combgc_complete_summary_taxonomy'])
+        ch_tabix_input = channel.of(['id': 'combgc_complete_summary_taxonomy'])
             .combine(MERGE_TAXONOMY_COMBGC.out.tsv)
 
         BGC_TABIX_BGZIP(ch_tabix_input)
