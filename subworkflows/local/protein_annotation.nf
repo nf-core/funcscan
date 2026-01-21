@@ -3,7 +3,7 @@
 */
 
 include { INTERPROSCAN_DATABASE } from '../../modules/local/interproscan_download'
-include { INTERPROSCAN          } from '../../modules/nf-core/interproscan/main'
+include { INTERPROSCAN          } from '../../modules/nf-core/interproscan'
 
 workflow PROTEIN_ANNOTATION {
     take:

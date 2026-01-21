@@ -2,10 +2,10 @@
     TAXONOMIC CLASSIFICATION
 */
 
-include { MMSEQS_CREATEDB  } from '../../modules/nf-core/mmseqs/createdb/main'
-include { MMSEQS_DATABASES } from '../../modules/nf-core/mmseqs/databases/main'
-include { MMSEQS_TAXONOMY  } from '../../modules/nf-core/mmseqs/taxonomy/main'
-include { MMSEQS_CREATETSV } from '../../modules/nf-core/mmseqs/createtsv/main'
+include { MMSEQS_CREATEDB  } from '../../modules/nf-core/mmseqs/createdb'
+include { MMSEQS_DATABASES } from '../../modules/nf-core/mmseqs/databases'
+include { MMSEQS_TAXONOMY  } from '../../modules/nf-core/mmseqs/taxonomy'
+include { MMSEQS_CREATETSV } from '../../modules/nf-core/mmseqs/createtsv'
 
 workflow TAXA_CLASS {
     take:
