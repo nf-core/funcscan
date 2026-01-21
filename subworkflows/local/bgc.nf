@@ -2,17 +2,17 @@
     Run BGC screening tools
 */
 
-include { UNTAR as UNTAR_ANTISMASHDB             } from '../../modules/nf-core/untar/main'
-include { ANTISMASH_ANTISMASHDOWNLOADDATABASES   } from '../../modules/nf-core/antismash/antismashdownloaddatabases/main'
-include { ANTISMASH_ANTISMASH                    } from '../../modules/nf-core/antismash/antismash/main'
-include { GECCO_RUN                              } from '../../modules/nf-core/gecco/run/main'
-include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH } from '../../modules/nf-core/hmmer/hmmsearch/main'
-include { DEEPBGC_DOWNLOAD                       } from '../../modules/nf-core/deepbgc/download/main'
-include { DEEPBGC_PIPELINE                       } from '../../modules/nf-core/deepbgc/pipeline/main'
+include { UNTAR as UNTAR_ANTISMASHDB             } from '../../modules/nf-core/untar'
+include { ANTISMASH_ANTISMASHDOWNLOADDATABASES   } from '../../modules/nf-core/antismash/antismashdownloaddatabases'
+include { ANTISMASH_ANTISMASH                    } from '../../modules/nf-core/antismash/antismash'
+include { GECCO_RUN                              } from '../../modules/nf-core/gecco/run'
+include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH } from '../../modules/nf-core/hmmer/hmmsearch'
+include { DEEPBGC_DOWNLOAD                       } from '../../modules/nf-core/deepbgc/download'
+include { DEEPBGC_PIPELINE                       } from '../../modules/nf-core/deepbgc/pipeline'
 include { COMBGC                                 } from '../../modules/local/combgc'
-include { TABIX_BGZIP as BGC_TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip/main'
+include { TABIX_BGZIP as BGC_TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip'
 include { MERGE_TAXONOMY_COMBGC                  } from '../../modules/local/merge_taxonomy_combgc'
-include { GECCO_CONVERT                          } from '../../modules/nf-core/gecco/convert/main'
+include { GECCO_CONVERT                          } from '../../modules/nf-core/gecco/convert'
 
 workflow BGC {
     take:

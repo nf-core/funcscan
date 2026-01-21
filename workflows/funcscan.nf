@@ -35,9 +35,9 @@ include { TAXA_CLASS                      } from '../subworkflows/local/taxa_cla
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { GUNZIP as GUNZIP_INPUT_PREP     } from '../modules/nf-core/gunzip/main'
-include { SEQKIT_SEQ as SEQKIT_SEQ_LENGTH } from '../modules/nf-core/seqkit/seq/main'
-include { SEQKIT_SEQ as SEQKIT_SEQ_FILTER } from '../modules/nf-core/seqkit/seq/main'
+include { GUNZIP as GUNZIP_INPUT_PREP     } from '../modules/nf-core/gunzip'
+include { SEQKIT_SEQ as SEQKIT_SEQ_LENGTH } from '../modules/nf-core/seqkit/seq'
+include { SEQKIT_SEQ as SEQKIT_SEQ_FILTER } from '../modules/nf-core/seqkit/seq'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

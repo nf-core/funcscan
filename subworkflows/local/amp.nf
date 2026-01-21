@@ -2,17 +2,17 @@
     Run AMP screening tools
 */
 
-include { MACREL_CONTIGS                         } from '../../modules/nf-core/macrel/contigs/main'
-include { HMMER_HMMSEARCH as AMP_HMMER_HMMSEARCH } from '../../modules/nf-core/hmmer/hmmsearch/main'
-include { AMPLIFY_PREDICT                        } from '../../modules/nf-core/amplify/predict/main'
-include { AMPIR                                  } from '../../modules/nf-core/ampir/main'
+include { MACREL_CONTIGS                         } from '../../modules/nf-core/macrel/contigs'
+include { HMMER_HMMSEARCH as AMP_HMMER_HMMSEARCH } from '../../modules/nf-core/hmmer/hmmsearch'
+include { AMPLIFY_PREDICT                        } from '../../modules/nf-core/amplify/predict'
+include { AMPIR                                  } from '../../modules/nf-core/ampir'
 include { AMP_DATABASE_DOWNLOAD                  } from '../../modules/local/amp_database_download'
 include { AMPCOMBI2_PARSETABLES                  } from '../../modules/nf-core/ampcombi2/parsetables'
 include { AMPCOMBI2_COMPLETE                     } from '../../modules/nf-core/ampcombi2/complete'
 include { AMPCOMBI2_CLUSTER                      } from '../../modules/nf-core/ampcombi2/cluster'
-include { GUNZIP as GUNZIP_MACREL_PRED ; GUNZIP as GUNZIP_MACREL_ORFS } from '../../modules/nf-core/gunzip/main'
-include { GUNZIP as AMP_GUNZIP_HMMER_HMMSEARCH   } from '../../modules/nf-core/gunzip/main'
-include { TABIX_BGZIP as AMP_TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip/main'
+include { GUNZIP as GUNZIP_MACREL_PRED ; GUNZIP as GUNZIP_MACREL_ORFS } from '../../modules/nf-core/gunzip'
+include { GUNZIP as AMP_GUNZIP_HMMER_HMMSEARCH   } from '../../modules/nf-core/gunzip'
+include { TABIX_BGZIP as AMP_TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip'
 include { MERGE_TAXONOMY_AMPCOMBI                } from '../../modules/local/merge_taxonomy_ampcombi'
 
 workflow AMP {

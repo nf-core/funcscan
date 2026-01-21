@@ -2,17 +2,17 @@
     Run annotation tools
 */
 
-include { PROKKA                         } from '../../modules/nf-core/prokka/main'
-include { PRODIGAL                       } from '../../modules/nf-core/prodigal/main'
-include { PYRODIGAL                      } from '../../modules/nf-core/pyrodigal/main'
-include { BAKTA_BAKTADBDOWNLOAD          } from '../../modules/nf-core/bakta/baktadbdownload/main'
-include { BAKTA_BAKTA                    } from '../../modules/nf-core/bakta/bakta/main'
-include { GUNZIP as GUNZIP_PRODIGAL_FNA  } from '../../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PRODIGAL_FAA  } from '../../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PRODIGAL_GBK  } from '../../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PYRODIGAL_FNA } from '../../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PYRODIGAL_FAA } from '../../modules/nf-core/gunzip/main'
-include { GUNZIP as GUNZIP_PYRODIGAL_GBK } from '../../modules/nf-core/gunzip/main'
+include { PROKKA                         } from '../../modules/nf-core/prokka'
+include { PRODIGAL                       } from '../../modules/nf-core/prodigal'
+include { PYRODIGAL                      } from '../../modules/nf-core/pyrodigal'
+include { BAKTA_BAKTADBDOWNLOAD          } from '../../modules/nf-core/bakta/baktadbdownload'
+include { BAKTA_BAKTA                    } from '../../modules/nf-core/bakta/bakta'
+include { GUNZIP as GUNZIP_PRODIGAL_FNA  } from '../../modules/nf-core/gunzip'
+include { GUNZIP as GUNZIP_PRODIGAL_FAA  } from '../../modules/nf-core/gunzip'
+include { GUNZIP as GUNZIP_PRODIGAL_GBK  } from '../../modules/nf-core/gunzip'
+include { GUNZIP as GUNZIP_PYRODIGAL_FNA } from '../../modules/nf-core/gunzip'
+include { GUNZIP as GUNZIP_PYRODIGAL_FAA } from '../../modules/nf-core/gunzip'
+include { GUNZIP as GUNZIP_PYRODIGAL_GBK } from '../../modules/nf-core/gunzip'
 
 workflow ANNOTATION {
     take:
