@@ -4,6 +4,15 @@ Changes in component 'nf-core/bakta/baktadbdownload'
 Changes in 'bakta/baktadbdownload/main.nf':
 --- modules/nf-core/bakta/baktadbdownload/main.nf
 +++ modules/nf-core/bakta/baktadbdownload/main.nf
+@@ -7,7 +7,7 @@
+         : 'biocontainers/bakta:1.11.4--pyhdfd78af_0'}"
+ 
+     output:
+-    path "db*", emit: db
++    path "db*/", emit: db
+     path "versions.yml", emit: versions
+ 
+     when:
 @@ -15,10 +15,15 @@
  
      script:
@@ -17,8 +26,8 @@ Changes in 'bakta/baktadbdownload/main.nf':
 -        download \\
 -        ${args}
 +        install \\
-+        ${args} \\
-+        --db-file *.xz
++        --db-file \$(find -name '*.xz')
++        # ${args} \\
  
      cat <<-END_VERSIONS > versions.yml
      "${task.process}":
@@ -29,13 +38,34 @@ Changes in 'bakta/baktadbdownload/main.nf':
 -        download \\
 -        ${args}"
 +        install \\
-+        ${args}" \\
 +        --db-file *.xz
++        # ${args} \\
  
      mkdir db
  
 
-'modules/nf-core/bakta/baktadbdownload/tests/main.nf.test' is unchanged
+Changes in 'bakta/baktadbdownload/tests/main.nf.test':
+--- modules/nf-core/bakta/baktadbdownload/tests/main.nf.test
++++ modules/nf-core/bakta/baktadbdownload/tests/main.nf.test
+@@ -30,7 +30,7 @@
+     }
+ 
+     test("Bakta database download - stub") {
+-
++    
+         options "-stub"
+ 
+         when {
+@@ -44,7 +44,7 @@
+             assertAll(
+                 { assert process.success },
+                 { assert snapshot(
+-                    process.out.db +
++                    process.out.db + 
+                     process.out.versions
+                     ).match() }
+             )
+
 'modules/nf-core/bakta/baktadbdownload/tests/nextflow.config' is unchanged
 'modules/nf-core/bakta/baktadbdownload/tests/main.nf.test.snap' is unchanged
 ************************************************************

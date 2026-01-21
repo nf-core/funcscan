@@ -14,35 +14,35 @@
                     },
                     "ampcombi2/cluster": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "ampcombi2/complete": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "ampcombi2/parsetables": {
                         "branch": "master",
-                        "git_sha": "637c3e1796ab13d4c91f3030932598aed94a4f87",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "ampir": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "amplify/predict": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
@@ -77,21 +77,21 @@
                     },
                     "argnorm": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "bakta/bakta": {
                         "branch": "master",
-                        "git_sha": "72c983560c9b9c2a02ff636451a5e5008f7d020b",
+                        "git_sha": "e753770db613ce014b3c4bc94f6cba443427b726",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "bakta/baktadbdownload": {
                         "branch": "master",
-                        "git_sha": "72c983560c9b9c2a02ff636451a5e5008f7d020b",
+                        "git_sha": "e753770db613ce014b3c4bc94f6cba443427b726",
                         "installed_by": [
                             "modules"
                         ],
@@ -99,41 +99,39 @@
                     },
                     "deeparg/downloaddata": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "deeparg/predict": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "deepbgc/download": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "deepbgc/pipeline": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "fargene": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
                     },
-<<<<<<< Updated upstream
-=======
                     "gecco/convert": {
                         "branch": "master",
                         "git_sha": "2aa243bd8a9b20122ed6fb5d2d3c75b963eef171",
@@ -141,17 +139,16 @@
                             "modules"
                         ]
                     },
->>>>>>> Stashed changes
                     "gecco/run": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "gunzip": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
@@ -165,14 +162,14 @@
                     },
                     "hamronization/amrfinderplus": {
                         "branch": "master",
-                        "git_sha": "9b7b08382573ec53d275470e5ff0e4a8200a1459",
+                        "git_sha": "e753770db613ce014b3c4bc94f6cba443427b726",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "hamronization/deeparg": {
                         "branch": "master",
-                        "git_sha": "9b7b08382573ec53d275470e5ff0e4a8200a1459",
+                        "git_sha": "e753770db613ce014b3c4bc94f6cba443427b726",
                         "installed_by": [
                             "modules"
                         ]
@@ -186,21 +183,21 @@
                     },
                     "hamronization/rgi": {
                         "branch": "master",
-                        "git_sha": "9b7b08382573ec53d275470e5ff0e4a8200a1459",
+                        "git_sha": "e753770db613ce014b3c4bc94f6cba443427b726",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "hamronization/summarize": {
                         "branch": "master",
-                        "git_sha": "9b7b08382573ec53d275470e5ff0e4a8200a1459",
+                        "git_sha": "e753770db613ce014b3c4bc94f6cba443427b726",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "hmmer/hmmsearch": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
@@ -242,7 +239,7 @@
                     },
                     "mmseqs/taxonomy": {
                         "branch": "master",
-                        "git_sha": "2dc4c0474a77f5f8709eb970d890ad102e92af6f",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
@@ -256,52 +253,42 @@
                     },
                     "prodigal": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "prokka": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "pyrodigal": {
                         "branch": "master",
-                        "git_sha": "938e803109104e30773f76a7142442722498fef1",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "rgi/cardannotation": {
                         "branch": "master",
-<<<<<<< Updated upstream
                         "git_sha": "531d8a465158c5842f416623017997462a240e16",
-                        "installed_by": ["modules"]
-                    },
-                    "rgi/main": {
-                        "branch": "master",
-                        "git_sha": "531d8a465158c5842f416623017997462a240e16",
-                        "installed_by": ["modules"]
-=======
-                        "git_sha": "70c072e30155e7671be828762be16576bd4afca7",
                         "installed_by": [
                             "modules"
                         ]
                     },
                     "rgi/main": {
                         "branch": "master",
-                        "git_sha": "70c072e30155e7671be828762be16576bd4afca7",
+                        "git_sha": "531d8a465158c5842f416623017997462a240e16",
                         "installed_by": [
                             "modules"
                         ]
->>>>>>> Stashed changes
                     },
                     "seqkit/seq": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
@@ -315,7 +302,7 @@
                     },
                     "untar": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
                         ]
@@ -333,7 +320,7 @@
                     },
                     "utils_nfcore_pipeline": {
                         "branch": "master",
-                        "git_sha": "271e7fc14eb1320364416d996fb077421f3faed2",
+                        "git_sha": "65f5e638d901a51534c68fd5c1c19e8112fb4df1",
                         "installed_by": [
                             "subworkflows"
                         ]

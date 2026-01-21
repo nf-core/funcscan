@@ -7,7 +7,7 @@ process BAKTA_BAKTADBDOWNLOAD {
         : 'biocontainers/bakta:1.11.4--pyhdfd78af_0'}"
 
     output:
-    path "db*", emit: db
+    path "db*/", emit: db
     path "versions.yml", emit: versions
 
     when:
