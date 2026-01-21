@@ -15,10 +15,15 @@ process BAKTA_BAKTADBDOWNLOAD {
 
     script:
     def args = task.ext.args ?: ''
+    def db_type = args.tokenize()[args.tokenize().indexOf('--type') + 1]
+    def url = db_type == 'light' ? "https://zenodo.org/records/14916843/files/db-light.tar.xz" : "https://zenodo.org/records/14916843/files/db.tar.xz"
     """
+    wget ${url} 
+
     bakta_db \\
-        download \\
-        ${args}
+        install \\
+        --db-file \$(find -name '*.xz')
+        # ${args} \\
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -30,8 +35,9 @@ process BAKTA_BAKTADBDOWNLOAD {
     def args = task.ext.args ?: ''
     """
     echo "bakta_db \\
-        download \\
-        ${args}"
+        install \\
+        --db-file *.xz
+        # ${args} \\
 
     mkdir db
 
