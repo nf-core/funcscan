@@ -207,7 +207,7 @@
                     },
                     "rundbcan/database": {
                         "branch": "master",
-                        "git_sha": "d06da24d16537815f9699c4a4edd4a6ec5bc517f",
+                        "git_sha": "d79f6bc5514d2d297ef51be1ee44373f63d55769",
                         "installed_by": ["modules"]
                     },
                     "rundbcan/easycgc": {
