@@ -95,6 +95,11 @@
                         "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
                         "installed_by": ["modules"]
                     },
+                    "gecco/convert": {
+                        "branch": "master",
+                        "git_sha": "2aa243bd8a9b20122ed6fb5d2d3c75b963eef171",
+                        "installed_by": ["modules"]
+                    },
                     "gecco/run": {
                         "branch": "master",
                         "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
