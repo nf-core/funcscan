@@ -23,8 +23,8 @@ workflow ANNOTATION {
     fasta // tuple val(meta), path(contigs)
 
     main:
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     if (params.annotation_tool == "pyrodigal" || (params.annotation_tool == "prodigal" && params.run_bgc_screening == true && (!params.bgc_skip_antismash || !params.bgc_skip_deepbgc || !params.bgc_skip_gecco)) || (params.annotation_tool == "prodigal" && params.run_amp_screening == true)) {
         // Need to use Pyrodigal for most BGC tools and AMPcombi because Prodigal GBK annotation format is incompatible with them.
@@ -86,7 +86,7 @@ workflow ANNOTATION {
 
         // BAKTA prepare download
         if (params.annotation_bakta_db) {
-            ch_bakta_db = Channel.fromPath(params.annotation_bakta_db, checkIfExists: true)
+            ch_bakta_db = channel.fromPath(params.annotation_bakta_db, checkIfExists: true)
                 .first()
         }
         else {

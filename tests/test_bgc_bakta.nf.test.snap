@@ -13,13 +13,13 @@
     },
     "deepbgc_bgc_gbk": {
         "content": [
-            "sample_2.bgc.gbk:md5,d7e7a8421ee13457487108f9d41aff54"
+            "sample_2.bgc.gbk:md5,580ca67831981d0447505a1eab2d6a11"
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.10.0"
+            "nextflow": "25.10.3"
         },
-        "timestamp": "2025-12-17T11:42:38.648657935"
+        "timestamp": "2026-01-25T15:52:28.72520036"
     },
     "gecco": {
         "content": [
