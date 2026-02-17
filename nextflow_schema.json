@@ -164,14 +164,14 @@
                 },
                 "taxa_classification_mmseqs_taxonomy_sensitivity": {
                     "type": "number",
-                    "default": 5,
+                    "default": 5.0,
                     "help_text": "This flag specifies the speed and sensitivity of the taxonomic search. It stands for how many kmers should be produced during the preliminary seeding stage. A very fast search requires a low value e.g. '1.0' and a a very sensitive search requires e.g. '7.0'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `-s`",
                     "description": "Specify the speed and sensitivity for taxonomy assignment.",
                     "fa_icon": "fas fa-history"
                 },
                 "taxa_classification_mmseqs_taxonomy_orffilters": {
                     "type": "number",
-                    "default": 2,
+                    "default": 2.0,
                     "help_text": "This flag specifies the sensitivity used for prefiltering the query ORF. Before the taxonomy-assigning step, MMseqs2 searches the predicted ORFs against the provided database. This value influences the speed with which the search is carried out. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--orf-filter-s`",
                     "description": "Specify the ORF search sensitivity in the prefilter step.",
                     "fa_icon": "fas fa-history"
@@ -388,7 +388,7 @@
                     "default": "Bacteria",
                     "fa_icon": "fas fa-crown",
                     "description": "Specify the kingdom that the input represents.",
-                    "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n> ⚠️ Prokka cannot annotate Eukaryotes.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--kingdom`",
+                    "help_text": "Specifies the kingdom that the input sample is derived from and/or you wish to screen for\n\n> \u26a0\ufe0f Prokka cannot annotate Eukaryotes.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--kingdom`",
                     "enum": ["Archaea", "Bacteria", "Mitochondria", "Viruses"]
                 },
                 "annotation_prokka_gcode": {
@@ -404,12 +404,13 @@
                     "type": "integer",
                     "default": 1,
                     "description": "Minimum contig size required for annotation (bp).",
-                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend that this should be more than 200 bp, if you plan to submit such annotations to NCBI.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--mincontiglen`",
+
+                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend that this should be \u2265 200 bp, if you plan to submit such annotations to NCBI.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--mincontiglen`",
                     "fa_icon": "fas fa-ruler-horizontal"
                 },
                 "annotation_prokka_evalue": {
                     "type": "number",
-                    "default": 0.000001,
+                    "default": 1e-6,
                     "description": "E-value cut-off.",
                     "help_text": "Specifiy the maximum E-value used for filtering the alignment hits.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--evalue`",
                     "fa_icon": "fas fa-sort-amount-down"
@@ -710,7 +711,7 @@
                 "amp_ampcombi_db": {
                     "type": "string",
                     "description": "The path to the folder containing the reference database files.",
-                    "help_text": "The path to the folder containing the reference database files (`*.fasta` and `*.tsv`); a fasta file and the corresponding table with structural, functional and if reported taxonomic classifications. AMPcombi will then generate the corresponding `mmseqs2` directory, in which all binary files are prepared for the downstream alignment of the recovered AMPs with [MMseqs2](https://github.com/soedinglab/MMseqs2). These can also be provided by the user by setting up an mmseqs2 compatible database using `mmseqs createdb *.fasta` in a directory called `mmseqs2`.\n\nExample file structure for the reference database supplied by the user:\n\n```bash\namp_DRAMP_database/\n├── general_amps_2024_11_13.fasta\n├── general_amps_2024_11_13.txt\n└── mmseqs2\n    ├── ref_DB\n    ├── ref_DB.dbtype\n    ├── ref_DB_h\n    ├── ref_DB_h.dbtype\n    ├── ref_DB_h.index\n    ├── ref_DB.index\n    ├── ref_DB.lookup\n    └── ref_DB.source```\n\nFor more information check the AMPcombi [documentation](https://ampcombi.readthedocs.io/en/main/usage.html#parse-tables)."
+                    "help_text": "The path to the folder containing the reference database files (`*.fasta` and `*.tsv`); a fasta file and the corresponding table with structural, functional and if reported taxonomic classifications. AMPcombi will then generate the corresponding `mmseqs2` directory, in which all binary files are prepared for the downstream alignment of the recovered AMPs with [MMseqs2](https://github.com/soedinglab/MMseqs2). These can also be provided by the user by setting up an mmseqs2 compatible database using `mmseqs createdb *.fasta` in a directory called `mmseqs2`.\n\nExample file structure for the reference database supplied by the user:\n\n```bash\namp_DRAMP_database/\n\u251c\u2500\u2500 general_amps_2024_11_13.fasta\n\u251c\u2500\u2500 general_amps_2024_11_13.txt\n\u2514\u2500\u2500 mmseqs2\n    \u251c\u2500\u2500 ref_DB\n    \u251c\u2500\u2500 ref_DB.dbtype\n    \u251c\u2500\u2500 ref_DB_h\n    \u251c\u2500\u2500 ref_DB_h.dbtype\n    \u251c\u2500\u2500 ref_DB_h.index\n    \u251c\u2500\u2500 ref_DB.index\n    \u251c\u2500\u2500 ref_DB.lookup\n    \u2514\u2500\u2500 ref_DB.source```\n\nFor more information check the AMPcombi [documentation](https://ampcombi.readthedocs.io/en/main/usage.html#parse-tables)."
                 },
                 "amp_ampcombi_parsetables_cutoff": {
                     "type": "number",
@@ -728,7 +729,7 @@
                 },
                 "amp_ampcombi_parsetables_dbevalue": {
                     "type": "number",
-                    "default": 5,
+                    "default": 5.0,
                     "description": "Remove all DRAMP annotations that have an e-value greater than this value.",
                     "help_text": "This e-value is used as a cut-off for the annotations from the internal Diamond alignment step (against the DRAMP database by default). Any e-value below this value will only remove the DRAMP classification and not the entire hit.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--db_evalue`",
                     "fa_icon": "fas fa-sort-numeric-down"
@@ -799,14 +800,14 @@
             "properties": {
                 "amp_ampcombi_cluster_covmode": {
                     "type": "number",
-                    "default": 0,
+                    "default": 0.0,
                     "description": "MMseqs2 coverage mode.",
                     "help_text": "This assigns the coverage mode to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More details can be found in the [MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_cov_mode`",
                     "fa_icon": "far fa-circle"
                 },
                 "amp_ampcombi_cluster_sensitivity": {
                     "type": "number",
-                    "default": 4,
+                    "default": 4.0,
                     "description": "Remove hits that have no stop codon upstream and downstream of the AMP.",
                     "help_text": "This assigns the sensitivity of alignment to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More information can be obtained in the [MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_sensitivity`",
                     "fa_icon": "fas fa-arrows-alt-h"
@@ -820,7 +821,7 @@
                 },
                 "amp_ampcombi_cluster_mode": {
                     "type": "number",
-                    "default": 1,
+                    "default": 1.0,
                     "description": "MMseqs2 clustering mode.",
                     "help_text": "This assigns the cluster mode to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More information can be obtained in the [MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_mode`",
                     "fa_icon": "fas fa-circle"
@@ -868,7 +869,7 @@
                 },
                 "arg_amrfinderplus_identmin": {
                     "type": "number",
-                    "default": -1,
+                    "default": -1.0,
                     "help_text": "Specify the minimum percentage amino-acid identity to reference protein or nucleotide identity for nucleotide reference must have if a BLAST alignment (based on methods: BLAST or PARTIAL) was detected, otherwise NA.\n\n If you specify `-1`, this means use a curated threshold if it exists and `0.9` otherwise.\n\nSetting this value to something other than `-1` will override any curated similarity cutoffs. For BLAST: alignment is > 90% of length and > 90% identity to a protein in the AMRFinderPlus database. For PARTIAL: alignment is > 50% of length, but < 90% of length and > 90% identity to the reference, and does not end at a contig boundary.\n\nFor more information check the AMRFinderPlus [documentation](https://github.com/ncbi/amr/wiki/Running-AMRFinderPlus#--organism-option).\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--ident_min`",
                     "description": "Minimum percent identity to reference sequence.",
                     "fa_icon": "fas fa-angle-left"
@@ -1070,14 +1071,16 @@
                 },
                 "arg_rgi_includeloose": {
                     "type": "boolean",
-                    "description": "Include all of loose, strict and perfect hits (i.e. more than 95% identity) found by RGI.",
+
+                    "description": "Include all of loose, strict and perfect hits (i.e. \u2265 95% identity) found by RGI.",
                     "help_text": "When activated RGI output will include 'Loose' hits in addition to 'Strict' and 'Perfect' hits. The 'Loose' algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_loose`",
                     "fa_icon": "far fa-hand-scissors"
                 },
                 "arg_rgi_includenudge": {
                     "type": "boolean",
                     "description": "Suppresses the default behaviour of RGI with `--arg_rgi_includeloose`.",
-                    "help_text": "This flag suppresses the default behaviour of RGI, by listing all 'Loose' matches of more than 95% identity as 'Strict' or 'Perfect', regardless of alignment length.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_nudge`",
+
+                    "help_text": "This flag suppresses the default behaviour of RGI, by listing all 'Loose' matches of \u2265 95% identity as 'Strict' or 'Perfect', regardless of alignment length.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_nudge`",
                     "fa_icon": "fas fa-hand-scissors"
                 },
                 "arg_rgi_lowquality": {
@@ -1465,6 +1468,22 @@
             },
             "fa_icon": "fas fa-angle-double-right"
         },
+        "bgc_bigslice": {
+            "title": "BGC: BiG-SLiCE",
+            "type": "object",
+            "default": "",
+            "properties": {
+                "bgc_bigslice_run": {
+                    "type": "boolean",
+                    "description": "Run BiG-SLiCE to cluster detected BGCs into gene cluster families (GCFs)."
+                },
+                "bgc_bigslice_db": {
+                    "type": "string",
+                    "description": "Path to the pre-downloaded BiG-SLiCE HMM database directory."
+                }
+            },
+            "description": "Parameters for BiG-SLiCE clustering of biosynthetic gene clusters (BGCs) into gene cluster families (GCFs). More info: https://github.com/medema-group/bigslice"
+        },
         "bgc_hmmsearch": {
             "title": "BGC: hmmsearch",
             "type": "object",
@@ -1781,6 +1800,9 @@
         },
         {
             "$ref": "#/$defs/bgc_gecco"
+        },
+        {
+            "$ref": "#/$defs/bgc_bigslice"
         },
         {
             "$ref": "#/$defs/bgc_hmmsearch"

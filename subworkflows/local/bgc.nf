@@ -13,6 +13,7 @@ include { COMBGC                                 } from '../../modules/local/com
 include { TABIX_BGZIP as BGC_TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip'
 include { MERGE_TAXONOMY_COMBGC                  } from '../../modules/local/merge_taxonomy_combgc'
 include { GECCO_CONVERT                          } from '../../modules/nf-core/gecco/convert'
+include { BIGSLICE                               } from '../../modules/nf-core/bigslice/run'
 
 workflow BGC {
     take:
@@ -115,6 +116,53 @@ workflow BGC {
 
         GECCO_CONVERT(ch_gecco_clusters_and_gbk, params.bgc_gecco_convertmode, params.bgc_gecco_convertformat)
         ch_versions = ch_versions.mix(GECCO_CONVERT.out.versions)
+    }
+    // BIGSLICE
+    // BigSLICE requires at least one of the following conditions:
+    //   1. antiSMASH is enabled (its GBK output is natively compatible with BigSLICE)
+    //   2. GECCO is enabled AND GECCO_CONVERT is enabled with format "bigslice"
+    if (params.bgc_bigslice_run) {
+
+        // Validate that BigSLICE has at least one compatible input source
+        if (params.bgc_skip_antismash && (params.bgc_skip_gecco || !params.bgc_gecco_runconvert || params.bgc_gecco_convertformat != 'bigslice')) {
+            error('[nf-core/funcscan] error: BigSLICE requires at least one of: (1) antiSMASH enabled, or (2) GECCO enabled with GECCO convert in bigslice format. Please check your parameters.')
+        }
+
+        // Prepare BigSLICE HMM database
+        if (params.bgc_bigslice_db) {
+            ch_bigslice_hmmdb = Channel.fromPath(params.bgc_bigslice_db, checkIfExists: true)
+                .first()
+        }
+        else {
+            error('[nf-core/funcscan] error: BigSLICE HMM database not found for --bgc_bigslice_db! Please check input.')
+        }
+
+        // Collect BigSLICE-compatible BGC inputs from available sources
+        ch_bigslice_input = Channel.empty()
+
+        // Source 1: antiSMASH GBK results (natively compatible with BigSLICE)
+        if (!params.bgc_skip_antismash) {
+            ch_bigslice_input = ch_bigslice_input.mix(
+                ANTISMASH_ANTISMASH.out.gbk_results
+            )
+        }
+
+        // Source 2: GECCO output converted to BigSLICE format via GECCO_CONVERT
+        if (!params.bgc_skip_gecco && params.bgc_gecco_runconvert && params.bgc_gecco_convertformat == 'bigslice') {
+            ch_bigslice_input = ch_bigslice_input.mix(
+                GECCO_CONVERT.out.bigslice
+            )
+        }
+
+        // Group all BGC files per sample and run BigSLICE
+        ch_bigslice_grouped = ch_bigslice_input
+            .groupTuple()
+            .map { meta, files ->
+                [meta, files.flatten()]
+            }
+
+        BIGSLICE(ch_bigslice_grouped, ch_bigslice_hmmdb)
+        ch_versions = ch_versions.mix(BIGSLICE.out.versions_bigslice)
     }
     // HMMSEARCH
     if (params.bgc_run_hmmsearch) {
