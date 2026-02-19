@@ -152,6 +152,7 @@ workflow BGC {
         }
 
         // Group all BGC files per sample and prepare structured input for BiG-SLiCE
+        input for BiG-SLiCE
         ch_bigslice_grouped = ch_bigslice_input
             .groupTuple()
             .map { meta, files ->
@@ -168,17 +169,18 @@ workflow BGC {
 
                 // Copy GBK files into the structured directory
                 flat.each { f ->
+                    def source = f.toPath()
                     def target = datasetDir.resolve(f.name)
-                    java.nio.file.Files.copy(f.toPath(), target, java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+                    java.nio.file.Files.copy(source, target, java.nio.file.StandardCopyOption.REPLACE_EXISTING)
                 }
 
                 // Create taxonomy file
-                def taxFile = taxDir.resolve("dataset_taxonomy.tsv")
+                def taxFile = taxDir.resolve("dataset_taxonomy.tsv").toFile()
                 taxFile.text = "accession\ttaxdomain\tphylum\tclass\torder\tfamily\tgenus\tspecies\torganism\n"
                 taxFile.append("${sample}/\tUnknown\tUnknown\tUnknown\tUnknown\tUnknown\tUnknown\tUnknown\tUnknown\n")
 
                 // Create datasets.tsv
-                def datasetsFile = inputDir.resolve("datasets.tsv")
+                def datasetsFile = inputDir.resolve("datasets.tsv").toFile()
                 datasetsFile.text = "# dataset_name\tdataset_path\ttaxonomy_path\tdescription\n"
                 datasetsFile.append("${dataset}\t${dataset}\ttaxonomy/dataset_taxonomy.tsv\tBGC analysis ${dataset}\n")
 
