@@ -117,7 +117,7 @@ workflow BGC {
         GECCO_CONVERT(ch_gecco_clusters_and_gbk, params.bgc_gecco_convertmode, params.bgc_gecco_convertformat)
         ch_versions = ch_versions.mix(GECCO_CONVERT.out.versions)
     }
-     // BIGSLICE
+   // BIGSLICE
     if (params.bgc_bigslice_run) {
 
         // Validate that BigSLICE has at least one compatible input source
@@ -152,8 +152,7 @@ workflow BGC {
         }
 
         // Group all BGC files per sample and prepare structured input for BiG-SLiCE
-        input for BiG-SLiCE
-        ch_bigslice_grouped = ch_bigslice_input
+ch_bigslice_grouped = ch_bigslice_input
             .groupTuple()
             .map { meta, files ->
                 def flat = files.flatten()
