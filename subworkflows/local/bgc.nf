@@ -117,10 +117,7 @@ workflow BGC {
         GECCO_CONVERT(ch_gecco_clusters_and_gbk, params.bgc_gecco_convertmode, params.bgc_gecco_convertformat)
         ch_versions = ch_versions.mix(GECCO_CONVERT.out.versions)
     }
-    // BIGSLICE
-    // BigSLICE requires at least one of the following conditions:
-    //   1. antiSMASH is enabled (its GBK output is natively compatible with BigSLICE)
-    //   2. GECCO is enabled AND GECCO_CONVERT is enabled with format "bigslice"
+     // BIGSLICE
     if (params.bgc_bigslice_run) {
 
         // Validate that BigSLICE has at least one compatible input source
@@ -154,11 +151,38 @@ workflow BGC {
             )
         }
 
-        // Group all BGC files per sample and run BigSLICE
+        // Group all BGC files per sample and prepare structured input for BiG-SLiCE
         ch_bigslice_grouped = ch_bigslice_input
             .groupTuple()
             .map { meta, files ->
-                [meta, files.flatten()]
+                def flat = files.flatten()
+
+                // Create the BiG-SLiCE directory structure in a temp directory
+                def sample = meta.id
+                def dataset = "antismash"
+                def inputDir = java.nio.file.Files.createTempDirectory("bigslice_input_${sample}_")
+                def datasetDir = inputDir.resolve(dataset).resolve(sample)
+                java.nio.file.Files.createDirectories(datasetDir)
+                def taxDir = inputDir.resolve("taxonomy")
+                java.nio.file.Files.createDirectories(taxDir)
+
+                // Copy GBK files into the structured directory
+                flat.each { f ->
+                    def target = datasetDir.resolve(f.name)
+                    java.nio.file.Files.copy(f.toPath(), target, java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+                }
+
+                // Create taxonomy file
+                def taxFile = taxDir.resolve("dataset_taxonomy.tsv")
+                taxFile.text = "accession\ttaxdomain\tphylum\tclass\torder\tfamily\tgenus\tspecies\torganism\n"
+                taxFile.append("${sample}/\tUnknown\tUnknown\tUnknown\tUnknown\tUnknown\tUnknown\tUnknown\tUnknown\n")
+
+                // Create datasets.tsv
+                def datasetsFile = inputDir.resolve("datasets.tsv")
+                datasetsFile.text = "# dataset_name\tdataset_path\ttaxonomy_path\tdescription\n"
+                datasetsFile.append("${dataset}\t${dataset}\ttaxonomy/dataset_taxonomy.tsv\tBGC analysis ${dataset}\n")
+
+                [meta, inputDir.toFile()]
             }
 
         BIGSLICE(ch_bigslice_grouped, ch_bigslice_hmmdb)
