@@ -72,18 +72,6 @@ Does not have to be in this precise order
 - Added entry to `CHANGELOG.md` (note: PR number can be added after)
   - Tagged issue reporter/feature requester as well as author of PR
 
-## Outside of pipeline repository
-
-- [ ] Make full test database
-  - [ ] See `taxprofiler` branch of test datasets for instructions how to get raw FASTAs
-  - [ ] Test database locally
-  - [ ] Once built and test, upload to iGenomes s3 (Ask James)
-  - [ ] Update `database_full_vX.X.csv` and README to include the new s3 URI and instructions
-  - [ ] Open PR against test-datasets, taxprofiler branch
-- [ ] Add a MultiQC module
-- [ ] Make a Taxpasta module
-- [ ] Add the database building module to nf-core/createtaxdb (where possible)
-
 ## Adding a new screening subworkflow workflow
 
 Screening subworkflows should
