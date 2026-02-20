@@ -13,9 +13,8 @@
 
 This checklist covers adding a specific tool to an _existing_ screening subworkflow.
 
-:::note
-Does not have to be in this precise order
-:::
+> [!NOTE]
+> Does not have to be in this precise order
 
 - [ ] Installed modules `nf-core modules install <tool>/<subtool>`
 - [ ] Added tools(s) to relevant `subworkflows/local/<screentype>.nf`
