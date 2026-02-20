@@ -23,6 +23,7 @@ To run any of the three screening workflows (AMP, ARG, and/or BGC), taxonomic cl
 - `--run_amp_screening`
 - `--run_arg_screening`
 - `--run_bgc_screening`
+- `--run_cazyme_annotation` (for optional additional carbohydrate-active enzyme annotation)
 - `--run_taxa_classification` (for optional additional taxonomic annotations)
 - `--run_protein_annotation` (for optional additional protein family and domain annotation)
 - `--run_cazyme_annotation` (for optional additional carbohydrate-active enzyme annotation)
