@@ -120,12 +120,10 @@ workflow BGC {
     // BIGSLICE
     if (params.bgc_bigslice_run) {
 
-        // Validate that BigSLICE has at least one compatible input source
         if (params.bgc_skip_antismash && (params.bgc_skip_gecco || !params.bgc_gecco_runconvert || params.bgc_gecco_convertformat != 'bigslice')) {
             error('[nf-core/funcscan] error: BigSLICE requires at least one of: (1) antiSMASH enabled, or (2) GECCO enabled with GECCO convert in bigslice format. Please check your parameters.')
         }
 
-        // Prepare BigSLICE HMM database
         if (params.bgc_bigslice_db) {
             ch_bigslice_hmmdb = Channel.fromPath(params.bgc_bigslice_db, checkIfExists: true)
                 .first()
@@ -134,35 +132,27 @@ workflow BGC {
             error('[nf-core/funcscan] error: BigSLICE HMM database not found for --bgc_bigslice_db! Please check input.')
         }
 
-        // Collect BigSLICE-compatible BGC inputs from available sources
         ch_bigslice_input = Channel.empty()
 
-        // Source 1: antiSMASH GBK results
         if (!params.bgc_skip_antismash) {
             ch_bigslice_input = ch_bigslice_input.mix(
                 ANTISMASH_ANTISMASH.out.gbk_results
             )
         }
 
-        // Source 2: GECCO output converted to BigSLICE format
         if (!params.bgc_skip_gecco && params.bgc_gecco_runconvert && params.bgc_gecco_convertformat == 'bigslice') {
             ch_bigslice_input = ch_bigslice_input.mix(
                 GECCO_CONVERT.out.bigslice
             )
         }
 
-        // Group all BGC files per sample
         ch_bigslice_grouped = ch_bigslice_input
             .groupTuple()
             .map { meta, files ->
                 [meta, files.flatten()]
             }
 
-        // Prepare structured input directory for BiG-SLiCE
-        BIGSLICE_PREP_INPUT(ch_bigslice_grouped)
-
-        // Run BigSLICE with prepared input
-        BIGSLICE(BIGSLICE_PREP_INPUT.out.input_dir, ch_bigslice_hmmdb)
+        BIGSLICE(ch_bigslice_grouped, ch_bigslice_hmmdb)
         ch_versions = ch_versions.mix(BIGSLICE.out.versions_bigslice)
     }
     // HMMSEARCH
