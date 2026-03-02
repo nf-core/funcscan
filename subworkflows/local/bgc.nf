@@ -117,7 +117,7 @@ workflow BGC {
         GECCO_CONVERT(ch_gecco_clusters_and_gbk, params.bgc_gecco_convertmode, params.bgc_gecco_convertformat)
         ch_versions = ch_versions.mix(GECCO_CONVERT.out.versions)
     }
-   // BIGSLICE
+    // BIGSLICE
     if (params.bgc_bigslice_run) {
 
         // Validate that BigSLICE has at least one compatible input source
@@ -137,56 +137,32 @@ workflow BGC {
         // Collect BigSLICE-compatible BGC inputs from available sources
         ch_bigslice_input = Channel.empty()
 
-        // Source 1: antiSMASH GBK results (natively compatible with BigSLICE)
+        // Source 1: antiSMASH GBK results
         if (!params.bgc_skip_antismash) {
             ch_bigslice_input = ch_bigslice_input.mix(
                 ANTISMASH_ANTISMASH.out.gbk_results
             )
         }
 
-        // Source 2: GECCO output converted to BigSLICE format via GECCO_CONVERT
+        // Source 2: GECCO output converted to BigSLICE format
         if (!params.bgc_skip_gecco && params.bgc_gecco_runconvert && params.bgc_gecco_convertformat == 'bigslice') {
             ch_bigslice_input = ch_bigslice_input.mix(
                 GECCO_CONVERT.out.bigslice
             )
         }
 
-        // Group all BGC files per sample and prepare structured input for BiG-SLiCE
-ch_bigslice_grouped = ch_bigslice_input
+        // Group all BGC files per sample
+        ch_bigslice_grouped = ch_bigslice_input
             .groupTuple()
             .map { meta, files ->
-                def flat = files.flatten()
-
-                // Create the BiG-SLiCE directory structure in a temp directory
-                def sample = meta.id
-                def dataset = "antismash"
-                def inputDir = java.nio.file.Files.createTempDirectory("bigslice_input_${sample}_")
-                def datasetDir = inputDir.resolve(dataset).resolve(sample)
-                java.nio.file.Files.createDirectories(datasetDir)
-                def taxDir = inputDir.resolve("taxonomy")
-                java.nio.file.Files.createDirectories(taxDir)
-
-                // Copy GBK files into the structured directory
-                flat.each { f ->
-                    def source = f.toPath()
-                    def target = datasetDir.resolve(f.name)
-                    java.nio.file.Files.copy(source, target, java.nio.file.StandardCopyOption.REPLACE_EXISTING)
-                }
-
-                // Create taxonomy file
-                def taxFile = taxDir.resolve("dataset_taxonomy.tsv").toFile()
-                taxFile.text = "accession\ttaxdomain\tphylum\tclass\torder\tfamily\tgenus\tspecies\torganism\n"
-                taxFile.append("${sample}/\tUnknown\tUnknown\tUnknown\tUnknown\tUnknown\tUnknown\tUnknown\tUnknown\n")
-
-                // Create datasets.tsv
-                def datasetsFile = inputDir.resolve("datasets.tsv").toFile()
-                datasetsFile.text = "# dataset_name\tdataset_path\ttaxonomy_path\tdescription\n"
-                datasetsFile.append("${dataset}\t${dataset}\ttaxonomy/dataset_taxonomy.tsv\tBGC analysis ${dataset}\n")
-
-                [meta, inputDir.toFile()]
+                [meta, files.flatten()]
             }
 
-        BIGSLICE(ch_bigslice_grouped, ch_bigslice_hmmdb)
+        // Prepare structured input directory for BiG-SLiCE
+        BIGSLICE_PREP_INPUT(ch_bigslice_grouped)
+
+        // Run BigSLICE with prepared input
+        BIGSLICE(BIGSLICE_PREP_INPUT.out.input_dir, ch_bigslice_hmmdb)
         ch_versions = ch_versions.mix(BIGSLICE.out.versions_bigslice)
     }
     // HMMSEARCH
