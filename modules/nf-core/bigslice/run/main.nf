@@ -15,7 +15,7 @@ process BIGSLICE {
     output:
     tuple val(meta), path("${prefix}/result/data.db")    , emit: db
     tuple val(meta), path("${prefix}/result/tmp/**/*.fa"), emit: fa
-    tuple val("${task.process}"), val('bigslice'), eval("echo 2.0.2"), topic: versions, emit: versions_bigslice
+    path "versions.yml"                                  , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -40,6 +40,11 @@ process BIGSLICE {
         -i input \\
         --program_db_folder ${hmmdb} \\
         ${prefix}
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        bigslice: 2.0.2
+    END_VERSIONS
     """
 
     stub:
@@ -51,5 +56,10 @@ process BIGSLICE {
     mkdir -p ${prefix}/result/tmp/2e555308dfc411186cf012334262f127
     touch ${prefix}/result/data.db
     touch ${prefix}/result/tmp/2e555308dfc411186cf012334262f127/test.fa
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        bigslice: 2.0.2
+    END_VERSIONS
     """
 }
