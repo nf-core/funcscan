@@ -153,7 +153,6 @@ workflow BGC {
             }
 
         BIGSLICE(ch_bigslice_grouped, ch_bigslice_hmmdb)
-        ch_versions = ch_versions.mix(BIGSLICE.out.versions)
     }
     // HMMSEARCH
     if (params.bgc_run_hmmsearch) {
