@@ -1519,11 +1519,13 @@
                 "dbcan_skip_cgc": {
                     "type": "boolean",
                     "description": "Skip CGC during the dbCAN screening.",
+                    "help_text": "CAZyme Gene Cluster (CGC) annotation requires a GFF file with gene coordinates to be provided in the samplesheet `gff` column. If no GFF is available, CGC annotation is automatically skipped per sample. Use this parameter to force skipping CGC annotation globally for all samples, for example when you do not need cluster-level analysis or wish to reduce run time.",
                     "fa_icon": "fas fa-ban"
                 },
                 "dbcan_skip_substrate": {
                     "type": "boolean",
-                    "description": "Skip substrate during the dbCAN screening.",
+                    "description": "Skip substrate prediction during the dbCAN screening.",
+                    "help_text": "Substrate prediction uses the CGC results to assign likely substrates to each CAZyme gene cluster and also requires a GFF file with gene coordinates to be provided in the samplesheet `gff` column. If no GFF is available, substrate prediction is automatically skipped per sample. Use this parameter to force skipping substrate prediction globally for all samples, for example when you are only interested in CAZyme annotation without cluster-level substrate assignment.",
                     "fa_icon": "fas fa-ban"
                 }
             },
