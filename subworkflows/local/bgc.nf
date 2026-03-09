@@ -13,7 +13,7 @@ include { COMBGC                                 } from '../../modules/local/com
 include { TABIX_BGZIP as BGC_TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip'
 include { MERGE_TAXONOMY_COMBGC                  } from '../../modules/local/merge_taxonomy_combgc'
 include { GECCO_CONVERT                          } from '../../modules/nf-core/gecco/convert'
-include { BIGSLICE                               } from '../../modules/nf-core/bigslice/run'
+include { BIGSLICE                               } from '../../modules/nf-core/bigslice'
 
 workflow BGC {
     take:
@@ -153,6 +153,7 @@ workflow BGC {
             }
 
         BIGSLICE(ch_bigslice_grouped, ch_bigslice_hmmdb)
+        ch_versions = ch_versions.mix( BIGSLICE.out.versions_bigslice )
     }
     // HMMSEARCH
     if (params.bgc_run_hmmsearch) {
