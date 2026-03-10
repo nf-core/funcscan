@@ -70,6 +70,11 @@
                         "git_sha": "72c983560c9b9c2a02ff636451a5e5008f7d020b",
                         "installed_by": ["modules"]
                     },
+                    "bigslice": {
+                        "branch": "master",
+                        "git_sha": "875cf13d1c974d62483fddd55a02456880363b5c",
+                        "installed_by": ["modules"]
+                    },
                     "deeparg/downloaddata": {
                         "branch": "master",
                         "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
