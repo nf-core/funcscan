@@ -10,7 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#500](https://github.com/nf-core/funcscan/pull/500) Updated pipeline template to nf-core/tools version 3.4.1 (by @jfy133)
 - [#508](https://github.com/nf-core/funcscan/pull/508) Added support for antiSMASH's --clusterhmmer, --fullhmmer, and --tigrfam options (❤️ to @yusukepockyby for requesting, @jfy133)
 - [#506](https://github.com/nf-core/funcscan/pull/506) Added support GECCO convert for generation of additional files useful for downstream analysis (by @SkyLexS)
-- Added BiG-SLiCE (`bigslice`) as a new BGC clustering tool in the BGC subworkflow. BiG-SLiCE clusters BGC sequences detected by antiSMASH and/or GECCO into Gene Cluster Families (GCFs) using an HMM-based approach. Activated with `--bgc_bigslice_run` and requires `--bgc_bigslice_db`. (by @SkyLexS)
+- [#507](https://github.com/nf-core/funcscan/pull/507) Updated to nf-core template v3.5.1 (by @jfy133)
+- [#510](https://github.com/nf-core funcscan/pull/510) Fixed code to make Nextflow strict-syntax compliant (by @jfy133)
+- [#519](https://github.com/nf-core/funcscan/pull/519)Added BiG-SLiCE (`bigslice`) as a new BGC clustering tool in the BGC subworkflow. BiG-SLiCE clusters BGC sequences detected by antiSMASH and/or GECCO into Gene Cluster Families (GCFs) using an HMM-based approach. Activated with `--bgc_bigslice_run` and requires `--bgc_bigslice_db`. (by @SkyLexS)
 
 ### `Fixed`
 
