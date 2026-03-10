@@ -169,6 +169,15 @@ When the annotation is run with Prokka, the resulting `.gbk` file passed to anti
 If antiSMASH is run for BGC detection, we recommend to **not** run Prokka for annotation but instead use the default annotation tool (Pyrodigal), or switch to Prodigal or (for bacteria only!) Bakta.
 :::
 
+### BiGSLiCE
+
+[BiG-SLiCE](https://github.com/medema-group/bigslice) clusters BGC sequences into Gene Cluster Families (GCFs). It is activated with `--bgc_bigslice_run` and requires at least one BGC source to be enabled:
+
+- antiSMASH (default BGC tool), **or**
+- GECCO with `--bgc_gecco_runconvert --bgc_gecco_convertmode gbk --bgc_gecco_convertformat bigslice`
+
+BiG-SLiCE does **not** discover BGCs itself — it takes GenBank-format BGC regions produced by antiSMASH and/or GECCO convert as input. The HMM database must be provided explicitly via `--bgc_bigslice_db` (see [BiGSLiCE database](#bigslice-1) for details); it is not auto-downloaded by the pipeline.
+
 ## Databases and reference files
 
 Various tools of nf-core/funcscan use databases and reference files to operate.
@@ -526,6 +535,25 @@ deepbgc_db/
   └── detector
     └── myDetectors*.pkl
 ```
+
+### BiGSLiCE
+
+BiG-SLiCE requires its own HMM database. Unlike most other tools, the pipeline does **not** auto-download this database — it **must** be supplied manually with `--bgc_bigslice_db`.
+
+Download the pre-built database archive from the BiG-SLiCE GitHub releases page:
+
+```bash
+wget https://github.com/medema-group/bigslice/releases/download/v2.0.0rc/bigslice-models.2022-11-30.tar.gz
+tar -xzf bigslice-models.2022-11-30.tar.gz
+```
+
+Then supply the extracted directory to the pipeline:
+
+```bash
+--bgc_bigslice_db '/<path>/<to>/<bigslice-models>/'
+```
+
+The contents of the database directory should contain subdirectories such as `biosynthetic_pfams/` and `sub_pfams/` in the top level.
 
 ### InterProScan
 
