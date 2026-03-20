@@ -265,7 +265,7 @@ def toolBibliographyText() {
         !params.amp_skip_amplify ? '<li>Li, C., Sutherland, D., Hammond, S. A., Yang, C., Taho, F., Bergman, L., Houston, S., Warren, R. L., Wong, T., Hoang, L., Cameron, C. E., Helbing, C. C., & Birol, I. (2022). AMPlify: attentive deep learning model for discovery of novel antimicrobial peptides effective against WHO priority pathogens. BMC genomics, 23(1), 77. DOI: <a href="https://doi.org/10.1186/s12864-022-08310-4">10.1186/s12864-022-08310-4</a></li>' : "",
         !params.amp_skip_macrel ? '<li>Santos-Júnior, C. D., Pan, S., Zhao, X. M., & Coelho, L. P. (2020). Macrel: antimicrobial peptide screening in genomes and metagenomes. PeerJ, 8, e10555. DOI: <a href="https://doi.org/10.7717/peerj.10555">10.7717/peerj.10555</a></li>' : "",
         !params.amp_skip_ampir ? '<li>Fingerhut, L., Miller, D. J., Strugnell, J. M., Daly, N. L., & Cooke, I. R. (2021). ampir: an R package for fast genome-wide prediction of antimicrobial peptides. Bioinformatics (Oxford, England), 36(21), 5262–5263. DOI: <a href="https://doi.org/10.1093/bioinformatics/btaa653">10.1093/bioinformatics/btaa653</a></li>' : "",
-        '<li>Ibrahim, A. & Perelo, L. (2023). Darcy220606/AMPcombi. DOI: <a href="https://doi.org/10.5281/zenodo.7639121">10.5281/zenodo.7639121</a></li>',
+        '<li>Ibrahim, A. & Perelo, L. (2023). paleobiotechnology/AMPcombi. DOI: <a href="https://doi.org/10.5281/zenodo.7639121">10.5281/zenodo.7639121</a></li>',
     ].join(' ').trim().replaceAll(', .', ".")
 
     def arg_text = [

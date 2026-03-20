@@ -691,7 +691,7 @@
         "amp_ampcombi2_parsetables": {
             "title": "AMP: ampcombi2 parsetables",
             "type": "object",
-            "description": "Antimicrobial peptides parsing, filtering, and annotating submodule of AMPcombi2. More info: https://github.com/Darcy220606/AMPcombi",
+            "description": "Antimicrobial peptides parsing, filtering, and annotating submodule of AMPcombi2. More info: https://github.com/paleobiotechnology/AMPcombi",
             "default": "",
             "properties": {
                 "amp_ampcombi_db_id": {
@@ -789,7 +789,7 @@
         "amp_ampcombi2_cluster": {
             "title": "AMP: ampcombi2 cluster",
             "type": "object",
-            "description": "Clusters the AMP candidates identified with AMPcombi. More info: https://github.com/Darcy220606/AMPcombi",
+            "description": "Clusters the AMP candidates identified with AMPcombi. More info: https://github.com/paleobiotechnology/AMPcombi",
             "default": "",
             "properties": {
                 "amp_ampcombi_cluster_covmode": {
