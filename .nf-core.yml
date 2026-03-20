@@ -3,7 +3,6 @@ lint:
     - conf/igenomes.config
     - conf/igenomes_ignored.config
   files_unchanged:
-  files_unchanged:
     - .github/PULL_REQUEST_TEMPLATE.md
     - .github/workflow/linting.yml
 nf_core_version: 3.5.2
