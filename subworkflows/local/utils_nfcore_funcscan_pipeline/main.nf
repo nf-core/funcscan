@@ -173,6 +173,14 @@ def validateInputParameters() {
             error("[nf-core/funcscan] ERROR: when specifying --bgc_gecco_convertmode 'clusters', --bgc_gecco_convertformat can only be set to 'gff'. You specified --bgc_gecco_convertformat '${params.bgc_gecco_convertformat}'. Check input!")
         }
     }
+    if (params.run_bgc_screening && params.bgc_bigslice_run) {
+        if (params.bgc_skip_antismash && (params.bgc_skip_gecco || !params.bgc_gecco_runconvert || params.bgc_gecco_convertformat != 'bigslice')) {
+            error('[nf-core/funcscan] ERROR: BigSLICE requires at least one of: (1) antiSMASH enabled, or (2) GECCO enabled with GECCO convert in bigslice format. Please check your parameters.')
+        }
+        if (!params.bgc_bigslice_db) {
+            error('[nf-core/funcscan] ERROR: BigSLICE HMM database not found for --bgc_bigslice_db! Please check input.')
+        }
+    }
 }
 
 //

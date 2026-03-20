@@ -171,12 +171,14 @@ If antiSMASH is run for BGC detection, we recommend to **not** run Prokka for an
 
 ### BiGSLiCE
 
-[BiG-SLiCE](https://github.com/medema-group/bigslice) clusters BGC sequences into Gene Cluster Families (GCFs). It is activated with `--bgc_bigslice_run` and requires at least one BGC source to be enabled:
+[BiG-SLiCE](https://github.com/medema-group/bigslice) clusters BGC sequences into Gene Cluster Families (GCFs).
+It is activated with `--bgc_bigslice_run` and requires at least one BGC source to be enabled:
 
-- antiSMASH (default BGC tool), **or**
+- antiSMASH (default BGC tool).
 - GECCO with `--bgc_gecco_runconvert --bgc_gecco_convertmode gbk --bgc_gecco_convertformat bigslice`
 
-BiG-SLiCE does **not** discover BGCs itself — it takes GenBank-format BGC regions produced by antiSMASH and/or GECCO convert as input. The HMM database must be provided explicitly via `--bgc_bigslice_db` (see [BiGSLiCE database](#bigslice-1) for details); it is not auto-downloaded by the pipeline.
+BiG-SLiCE does **not** discover BGCs itself — it takes GenBank-format BGC regions produced by antiSMASH and/or GECCO convert as input.
+The HMM database must be provided explicitly via `--bgc_bigslice_db` (see [BiGSLiCE database](#bigslice-1) for details); it is not auto-downloaded by the pipeline.
 
 ## Databases and reference files
 

@@ -445,7 +445,9 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 
 </details>
 
-[BiG-SLiCE](https://github.com/medema-group/bigslice) (**Bi**osynthetic **G**ene cluster **S**uper-**Li**near **C**lustering **E**ngine) is a highly scalable tool for the large-scale analysis and clustering of Biosynthetic Gene Clusters (BGCs) into Gene Cluster Families (GCFs). It takes BGC regions in GenBank format (e.g. output from antiSMASH or GECCO) along with an HMM database and produces an SQLite database of predicted BGC features and GCF assignments. BiG-SLiCE requires the HMM database to be supplied via `--bgc_bigslice_db` and is activated with `--bgc_bigslice_run`. It requires at least one of antiSMASH or GECCO (with convert in bigslice format) to be enabled.
+[BiG-SLiCE](https://github.com/medema-group/bigslice) (**Bi**osynthetic **G**ene cluster **S**uper-**Li**near **C**lustering **E**ngine) is a highly scalable tool for the large-scale analysis and clustering of Biosynthetic Gene Clusters (BGCs) into Gene Cluster Families (GCFs).
+It takes BGC regions in GenBank format (e.g. output from antiSMASH or GECCO) along with an HMM database and produces an SQLite database of predicted BGC features and GCF assignments.
+BiG-SLiCE requires the HMM database to be supplied via `--bgc_bigslice_db` and is activated with `--bgc_bigslice_run`. It requires at least one of antiSMASH or GECCO (with convert in bigslice format) to be enabled.
 
 #### deepBGC
 
