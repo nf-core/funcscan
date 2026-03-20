@@ -80,7 +80,7 @@ The input samplesheet has to be a comma-separated file (`.csv`) with 2 (`sample`
 
 If you already have annotated contigs with peptide sequences and an annotation file in Genbank format (`.gbk.` or `.gbff`), you can supply these to the pipeline using the optional `protein` and `gbk` columns. If these additional columns are supplied, pipeline annotation (i.e. with bakta, prodigal, pyrodigal or prokka) will be skipped and your corresponding annotation files used instead.
 
-Additionally, you can supply a GFF format annotation file via the optional `gff` column. When provided alongside `protein` and `gbk`, this enables dbCAN CAZyme Gene Cluster (CGC) and substrate prediction steps, which require gene coordinate information.
+Additionally, you can supply a GFF format annotation file via the optional `gff` column. When provided alongside `protein` and `gbk`, this enables dbCAN CAZyme Gene Cluster (CGC) and substrate prediction steps, which require gene coordinate information in `.gff` format.
 
 For two columns (without pre-annotated data):
 
