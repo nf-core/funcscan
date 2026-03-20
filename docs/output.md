@@ -5,13 +5,13 @@
 The output of nf-core/funcscan provides reports for each of the functional groups:
 
 - **antibiotic resistance genes** (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) – summarised by [hAMRonization](https://github.com/pha4ge/hAMRonization). Results from ABRicate, AMRFinderPlus, and DeepARG are normalised to [ARO](https://obofoundry.org/ontology/aro.html) by [argNorm](https://github.com/BigDataBiology/argNorm).)
-- **antimicrobial peptides** (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) – summarised by [AMPcombi](https://github.com/Darcy220606/AMPcombi))
+- **antimicrobial peptides** (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) – summarised by [AMPcombi](https://github.com/paleobiotechnology/AMPcombi))
 - **biosynthetic gene clusters** (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org) – summarised by [comBGC](#combgc))
 - **carbohydrate-active enzymes (CAZymes)**, CAZyme gene clusters and substrates (tools: [run_dbcan](https://github.com/bcb-unl/run_dbcan))
 
 As a general workflow, we recommend to first look at the summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each result. The tool-specific output directories also includes the output from the functional annotation steps of either [prokka](https://github.com/tseemann/prokka), [pyrodigal](https://github.com/althonos/pyrodigal), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set. Additionally, taxonomic classifications from [MMseqs2](https://github.com/soedinglab/MMseqs2) are saved if the `--taxa_classification_mmseqs_db_savetmp` and `--taxa_classification_mmseqs_taxonomy_savetmp` flags are set.
 
-Similarly, all downloaded databases are saved (i.e. from [MMseqs2](https://github.com/soedinglab/MMseqs2), [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [RGI](https://github.com/arpcard/rgi), [AMPcombi](https://github.com/Darcy220606/AMPcombi), and/or [run_dbcan](https://github.com/bcb-unl/run_dbcan)) into the output directory `<outdir>/databases/` if the `--save_db` flag was set.
+Similarly, all downloaded databases are saved (i.e. from [MMseqs2](https://github.com/soedinglab/MMseqs2), [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [RGI](https://github.com/arpcard/rgi), [AMPcombi](https://github.com/paleobiotechnology/AMPcombi), and/or [run_dbcan](https://github.com/bcb-unl/run_dbcan)) into the output directory `<outdir>/databases/` if the `--save_db` flag was set.
 
 Furthermore, for reproducibility, versions of all software used in the run is presented in a [MultiQC](http://multiqc.info) report.
 
@@ -583,12 +583,12 @@ In that case we recommend to lower the AMP prediction thresholds and run more th
 
 </details>
 
-[AMPcombi](https://github.com/Darcy220606/AMPcombi) summarizes the results of **antimicrobial peptide (AMP)** prediction tools (ampir, AMPlify, Macrel, and other non-nf-core supported tools) into a single table and aligns the hits against a reference AMP database for functional, structural and taxonomic classification using [MMseqs2](https://github.com/soedinglab/MMseqs2).
+[AMPcombi](https://github.com/paleobiotechnology/AMPcombi) summarizes the results of **antimicrobial peptide (AMP)** prediction tools (ampir, AMPlify, Macrel, and other non-nf-core supported tools) into a single table and aligns the hits against a reference AMP database for functional, structural and taxonomic classification using [MMseqs2](https://github.com/soedinglab/MMseqs2).
 It further assigns the physiochemical properties (e.g. hydrophobicity, molecular weight) using the [Biopython toolkit](https://github.com/biopython/biopython) and clusters the resulting AMP hits from all samples using [MMseqs2](https://github.com/soedinglab/MMseqs2).
 To further filter the recovered AMPs using the presence of signaling peptides, the output file `Ampcombi_summary_cluster.tsv` or `ampcombi_complete_summary_taxonomy.tsv.gz` can be used downstream as detailed [here](https://ampcombi.readthedocs.io/en/main/usage.html#signal-peptide).
 The final tables generated may also be visualized and explored using an interactive [user interface](https://ampcombi.readthedocs.io/en/main/visualization.html).
 
-<img src="https://raw.githubusercontent.com/Darcy220606/AMPcombi/main/docs/ampcombi_interface_screenshot2.png" alt="AMPcombi interface" width="650" height="300">
+<img src="https://raw.githubusercontent.com/paleobiotechnology/AMPcombi/main/docs/ampcombi_interface_screenshot2.png" alt="AMPcombi interface" width="650" height="300">
 
 #### hAMRonization
 

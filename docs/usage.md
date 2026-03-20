@@ -8,6 +8,8 @@
 
 nf-core/funcscan is a pipeline for efficient and parallelised screening of long nucleotide sequences such as contigs for antimicrobial peptide genes, antimicrobial resistance genes, and biosynthetic gene clusters. It can additionally identify the taxonomic origin of the sequences.
 
+- Want to contribute? Please see the pipeline [specific developer guidelines](usage/developing.md)
+
 ## Running the pipeline
 
 The typical command for running the pipeline is as follows:
