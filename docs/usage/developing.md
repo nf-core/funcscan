@@ -28,7 +28,7 @@ This checklist covers adding a specific tool to an _existing_ screening subworkf
   - [ ] (If applicable) Added new input files via dedicated input channel
   - [ ] (If applicable) Added tool specific input control conditions within the screening subworkflow's if/else statement
 - [ ] Added parameters and defaults added to `nextflow.config`
-  - [ ] Added all new parameters following [pipeline-specific conventions](pipeline-specific conventions)
+  - [ ] Added all new parameters following [pipeline-specific conventions](#pipeline-specific conventions)
   - [ ] (If applicable) Where possible, include parameter for supplying locally-downloaded database
 - [ ] Update `modules.conf`
   - [ ] Added `withName:` block
