@@ -41,7 +41,7 @@ This checklist covers adding a specific tool to an _existing_ screening subworkf
     - [ ] Checked all tool-specific pipeline parameters have short help text
     - [ ] (If appplicable) Checked all tool-specific pipeline parameters have validation checks added (e.g. number range, fixed list etc.)
     - [ ] Checked all tool-specific pipeline parameters have long-description with more information, including pointing to original documentation of tool itself
-    - [ ] (If applicable) Checked all tool-specific pipeline parameters have long the `Modifies tool parameter(s)` quote block
+    - [ ] (If applicable) Checked all tool-specific pipeline parameters have the `Modifies tool parameter(s)` quote block
   - [ ] Added citation to `CITATIONS.md` (citation style: APA 7th edition)
   - [ ] Added citation to the toolCitation/BibliographyText functions in `subworkflows/local/utils_nfcore_funcscan_pipeline`
     - [ ] Added in-text citation
@@ -55,7 +55,7 @@ This checklist covers adding a specific tool to an _existing_ screening subworkf
     - [ ] Added entry in introduction `tree` of whole output directory
     - [ ] Added entry in 'Pipeline overview' table of contents
     - [ ] Added dedicated 'Tool details' section in relevant subworkflow section including collapsable output list, description of a tool, and (ideally) description what primary output files can be used for
-      - [ ] Checked all output files specified in the `pattern:` section `publishDir` listed, if `pattern:` used, otherwise just all files found in results directory
+      - [ ] Checked all output files specified in the `pattern:` section of `publishDir` are listed if `pattern:` is used, otherwise just all files found in results directory
   - [ ] Added entry to 'Pipeline summary list' on `README.md`
   - [ ] (Optional) Added to pipeline metro map diagram (can be done just before release)
   - [ ] (First time contributor) add or move yourself to the Team list on `README.md`!
