@@ -1,14 +1,43 @@
 {
-    "dbcan": {
+    "dbcan_cazyme_annotation": {
         "content": [
             "sample_2_overview.tsv:md5,6c5ecb179166f0471f486d484acc8dd6",
-            "sample_2_cgc_standard_out.tsv:md5,6be9ab29b289ff46cc6e4b6fe48dc3d7",
-            "sample_2_substrate_prediction.tsv:md5,fe2a5ea9e19c4f1108798103547ff98d"
+            true,
+            true,
+            true,
+            true
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-02-03T14:10:45.29069119"
+        "timestamp": "2026-03-20T11:05:47.261899083"
+    },
+    "dbcan_substrate": {
+        "content": [
+            "sample_2_substrate_prediction.tsv:md5,fe2a5ea9e19c4f1108798103547ff98d",
+            true,
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-03-20T11:05:47.27892966"
+    },
+    "dbcan_cgc": {
+        "content": [
+            "sample_2_cgc_standard_out.tsv:md5,6be9ab29b289ff46cc6e4b6fe48dc3d7",
+            true,
+            true,
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-03-20T11:05:47.275441678"
     }
 }
