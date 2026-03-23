@@ -1098,8 +1098,8 @@
                 },
                 "arg_rgi_removetemporaryfiles": {
                     "type": "boolean",
-                    "description": "Specify to trigger RGI's internal cleanup of intermediate files",
-                    "help_text": "When running on fragmented (meta)genomes (i.e., has many contigs), RGI can produce a very large number of intermediate files (~4 files per contig).\nThis can sometimes fill up filesystems blocking downstream processes.\nActivate this option to allow RGI to clean up the files on completion of the process.\n\n> Modifies tool parameter(s):\n>   - RGI_MAIN: `--cllean`"
+                    "description": "Specify to trigger RGI's internal cleanup of intermediate files.",
+                    "help_text": "When running on fragmented (meta)genomes (i.e., has many contigs), RGI can produce a very large number of intermediate files (~4 files per contig).\nThis can sometimes fill up filesystems blocking downstream processes.\nActivate this option to allow RGI to clean up the files on completion of the process.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--clean`"
                 }
             },
             "fa_icon": "fas fa-bacteria"
