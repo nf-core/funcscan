@@ -26,7 +26,7 @@ workflow BGC {
     ch_bgcresults_for_combgc = channel.empty()
 
     // When adding new tool that requires FAA, make sure to update conditions
-    // in funcscan.nf around annotation and AMP subworkflow execution
+    // in funcscan.nf around annotation and BGC subworkflow execution
     // to ensure annotation is executed!
     ch_faa_for_bgc_hmmsearch = faas
 

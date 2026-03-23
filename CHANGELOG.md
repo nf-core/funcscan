@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#483](https://github.com/nf-core/funcscan/pull/483) **New screening workflow** for CAZyme Gene Cluster (CGC) and substrate prediction, through dbCAN (by @HaidYi)
+- [#483](https://github.com/nf-core/funcscan/pull/483) Added support for preannotated input with optional GFF column in samplesheet for dbCAN CAZyme Gene Cluster (CGC) and substrate prediction, with new `--dbcan_skip_cgc` and `--dbcan_skip_substrate` parameters (by @HaidYi)
 - [#500](https://github.com/nf-core/funcscan/pull/500) Updated pipeline template to nf-core/tools version 3.4.1 (by @jfy133)
 - [#508](https://github.com/nf-core/funcscan/pull/508) Added support for antiSMASH's --clusterhmmer, --fullhmmer, and --tigrfam options (❤️ to @yusukepockyby for requesting, @jfy133)
 - [#506](https://github.com/nf-core/funcscan/pull/506) Added support GECCO convert for generation of additional files useful for downstream analysis (by @SkyLexS)
@@ -21,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Tool    | Previous Version | New Version |
 | ------- | ---------------- | ----------- |
+| dbCAN   |                  | 5.2.6       |
 | MultiQC | 1.27             | 1.32        |
 | Bakta   | 1.10.4           | 1.11.4      |
 

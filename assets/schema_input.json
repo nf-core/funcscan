@@ -33,12 +33,26 @@
                 "exists": true,
                 "pattern": "^\\S+\\.(gbk|gbff)(\\.gz)?$",
                 "errorMessage": "Input file for feature annotations has incorrect file format. File must end in `.gbk`, `.gbk.gz` or `.gbff`, or `.gbff.gz`"
+            },
+            "gff": {
+                "type": "string",
+                "format": "file-path",
+                "exists": true,
+                "pattern": "^\\S+\\.(gff|gff3)(\\.gz)?$",
+                "errorMessage": "Input file for feature annotations has incorrect file format. File must end in `.gff`, `.gff.gz` or `.gff3`, or `.gff3.gz`"
+            },
+            "gff_type": {
+                "type": "string",
+                "enum": ["NCBI_prok", "prodigal", "NCBI_euk", "JGI"],
+                "errorMessage": "GFF type must be one of: NCBI_prok, prodigal, NCBI_euk, or JGI",
+                "meta": ["gff_type"]
             }
         },
         "required": ["sample", "fasta"],
         "dependentRequired": {
             "protein": ["gbk"],
-            "gbk": ["protein"]
+            "gbk": ["protein"],
+            "gff": ["protein"]
         }
     },
     "uniqueItems": true

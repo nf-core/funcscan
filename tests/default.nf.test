@@ -114,7 +114,17 @@ nextflow_pipeline {
                 { assert path("$outputDir/arg/fargene/sample_2/sample_2-class_b_1_2.log").text.contains("fARGene is done.") },
 
                 // hAMRonization
-                { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv")).match("hamronization_summarize") }
+                { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv")).match("hamronization_summarize") },
+
+                // dbCAN
+                { assert path("$outputDir/cazyme/dbcan/cazyme_annotation/sample_2/sample_2_overview.tsv").text.contains("dbCAN_hmm") },
+                { assert path("$outputDir/cazyme/dbcan/cgc/sample_2/sample_2_cgc_standard_out.tsv").text.contains("CGC#") },
+                { assert path("$outputDir/cazyme/dbcan/substrate/sample_2/sample_2_substrate_prediction.tsv").text.contains("#cgcid") },
+                { assert snapshot(
+                    path("$outputDir/cazyme/dbcan/cazyme_annotation/sample_2/sample_2_overview.tsv"),
+                    path("$outputDir/cazyme/dbcan/cgc/sample_2/sample_2_cgc_standard_out.tsv"),
+                    path("$outputDir/cazyme/dbcan/substrate/sample_2/sample_2_substrate_prediction.tsv")
+                ).match('dbcan') }
             )
         }
     }

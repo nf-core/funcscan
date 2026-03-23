@@ -25,6 +25,7 @@ To run any of the three screening workflows (AMP, ARG, and/or BGC), taxonomic cl
 - `--run_amp_screening`
 - `--run_arg_screening`
 - `--run_bgc_screening`
+- `--run_cazyme_annotation` (for optional additional carbohydrate-active enzyme annotation)
 - `--run_taxa_classification` (for optional additional taxonomic annotations)
 - `--run_protein_annotation` (for optional additional protein family and domain annotation)
 
@@ -77,9 +78,11 @@ nf-core/funcscan takes FASTA files as input, typically contigs or whole genome s
 --input '[path to samplesheet file]'
 ```
 
-The input samplesheet has to be a comma-separated file (`.csv`) with 2 (`sample`, and `fasta`) or 4 columns (`sample`, `fasta`, `protein`, `gbk`), and a header row as shown in the examples below.
+The input samplesheet has to be a comma-separated file (`.csv`) with 2 (`sample`, and `fasta`), 4 (`sample`, `fasta`, `protein`, `gbk`), or 5 (`sample`, `fasta`, `protein`, `gbk`, `gff`) columns, and a header row as shown in the examples below.
 
 If you already have annotated contigs with peptide sequences and an annotation file in Genbank format (`.gbk.` or `.gbff`), you can supply these to the pipeline using the optional `protein` and `gbk` columns. If these additional columns are supplied, pipeline annotation (i.e. with bakta, prodigal, pyrodigal or prokka) will be skipped and your corresponding annotation files used instead.
+
+Additionally, you can supply a GFF format annotation file via the optional `gff` column. When provided alongside `protein` and `gbk`, this enables dbCAN CAZyme Gene Cluster (CGC) and substrate prediction steps, which require gene coordinate information in `.gff` format.
 
 For two columns (without pre-annotated data):
 
@@ -97,12 +100,21 @@ sample_1,/<path>/<to>/wastewater_metagenome_contigs_1.fasta.gz,/<path>/<to>/wast
 sample_2,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gz,/<path>/<to>/wastewater_metagenome_contigs_2.faa,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gbk
 ```
 
-| Column    | Description                                                                                                                                                                                                           |
-| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This will be used to name all output files from the pipeline. Spaces in sample names are automatically converted to underscores (`_`).                                                            |
-| `fasta`   | Path or URL to a gzipped or uncompressed FASTA file. Accepted file suffixes are: `.fasta`, `.fna`, or `.fa`, or any of these with `.gz`, e.g. `.fa.gz`.                                                               |
-| `protein` | Optional path to a pre-generated amino acid FASTA file (`.faa`) containing protein annotations of `fasta`, optionally gzipped. Required to be supplied if `gbk` also given.                                           |
-| `gbk`     | Optional path to a pre-generated annotation file in Genbank format (`.gbk`, or `.gbff`) format containing annotations information of `fasta`, optionally gzipped. Required to be supplied if `protein` is also given. |
+For five columns (with pre-annotated data including GFF for dbCAN CGC/substrate):
+
+```csv title="samplesheet.csv"
+sample,fasta,protein,gbk,gff
+sample_1,/<path>/<to>/wastewater_metagenome_contigs_1.fasta.gz,/<path>/<to>/wastewater_metagenome_contigs_1.faa,/<path>/<to>/wastewater_metagenome_contigs_1.fasta.gbk,/<path>/<to>/wastewater_metagenome_contigs_1.gff
+sample_2,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gz,/<path>/<to>/wastewater_metagenome_contigs_2.faa,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gbk,/<path>/<to>/wastewater_metagenome_contigs_2.gff
+```
+
+| Column    | Description                                                                                                                                                                                                                             |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sample`  | Custom sample name. This will be used to name all output files from the pipeline. Spaces in sample names are automatically converted to underscores (`_`).                                                                              |
+| `fasta`   | Path or URL to a gzipped or uncompressed FASTA file. Accepted file suffixes are: `.fasta`, `.fna`, or `.fa`, or any of these with `.gz`, e.g. `.fa.gz`.                                                                                 |
+| `protein` | Optional path to a pre-generated amino acid FASTA file (`.faa`) containing protein annotations of `fasta`, optionally gzipped. Required to be supplied if `gbk` also given.                                                             |
+| `gbk`     | Optional path to a pre-generated annotation file in Genbank format (`.gbk`, or `.gbff`) format containing annotations information of `fasta`, optionally gzipped. Required to be supplied if `protein` is also given.                   |
+| `gff`     | Optional path to a pre-generated annotation file in GFF format (`.gff`) containing gene coordinate information of `fasta`, optionally gzipped. When provided alongside `protein` and `gbk`, enables dbCAN CGC and substrate prediction. |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -557,6 +569,26 @@ interproscan_db/
     ├── superfamily
     └── tmhmm
 ```
+
+### Run_dbCAN
+
+The [run_dbcan](https://github.com/bcb-unl/run_dbcan) tool requires a pre-built database to perform carbohydrate-active enzyme (CAZyme) annotation.
+To download the database automatically, install the [`dbcan`](https://bioconda.github.io/recipes/dbcan/README.html) package, e.g. with conda:
+
+```bash
+conda create -n dbcan -c bioconda dbcan
+conda activate dbcan
+```
+
+Then, download the database:
+
+```bash
+run_dbcan database --db_dir <path/to/your/db>
+```
+
+Replace `<path/to/your/db>` with your preferred directory path for storing the database files.
+Once the database download is complete, the file are ready for use with the `run_dbcan` tool without additional configurations or modifications.
+Supply the parameter `--cazyme_dbcan_db <path/to/your/db>` to use the downloaded database with nf-core/funcscan.
 
 ## Updating the pipeline
 

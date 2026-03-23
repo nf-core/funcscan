@@ -102,6 +102,10 @@
 
   > Alcock, B. P., Huynh, W., Chalil, R., Smith, K. W., Raphenya, A. R., Wlodarski, M. A., Edalatmand, A., Petkau, A., Syed, S. A., Tsang, K. K., Baker, S. J. C., Dave, M., McCarthy, M. C., Mukiri, K. M., Nasir, J. A., Golbon, B., Imtiaz, H., Jiang, X., Kaur, K., Kwong, M., Liang, Z. C., Niu, K. C., Shan, P., Yang, J. Y. J., Gray, K. L., Hoad, G. R., Jia, B., Bhando, T., Carfrae, L. A., Farha, M. A., French, S., Gordzevich, R., Rachwalski, K., Tu, M. M., Bordeleau, E., Dooley, D., Griffiths, E., Zubyk, H. L., Brown, E. D., Maguire, F., Beiko, R. G., Hsiao, W. W. L., Brinkman F. S. L., Van Domselaar, G., McArthur, A. G. (2023). CARD 2023: expanded curation, support for machine learning, and resistome prediction at the Comprehensive Antibiotic Resistance Database. Nucleic acids research, 51(D1):D690-D699. [DOI: 10.1093/nar/gkac920](https://doi.org/10.1093/nar/gkac920)
 
+- [dbCAN](https://doi.org/10.1093/nar/gkad328)
+
+  > Jinfang Zheng, Qiwei Ge, Yuchen Yan, Xinpeng Zhang, Le Huang, Yanbin Yin, dbCAN3: automated carbohydrate-active enzyme and substrate annotation, Nucleic Acids Research, Volume 51, Issue W1, 5 July 2023, Pages W115–W121. [DOI:10.1093/nar/gkad328](https://doi.org/10.1093/nar/gkad328)
+
 - [SeqKit](https://bioinf.shenwei.me/seqkit/)
 
   > Shen, W., Sipos, B., & Zhao, L. (2024). SeqKit2: A Swiss army knife for sequence and alignment processing. iMeta, e191. [https://doi.org/10.1002/imt2.191](https://doi.org/10.1002/imt2.191)
