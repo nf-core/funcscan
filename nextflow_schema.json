@@ -404,7 +404,7 @@
                     "type": "integer",
                     "default": 1,
                     "description": "Minimum contig size required for annotation (bp).",
-                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend that this should be ≥ 200 bp, if you plan to submit such annotations to NCBI.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--mincontiglen`",
+                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend that this should be more than 200 bp, if you plan to submit such annotations to NCBI.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--mincontiglen`",
                     "fa_icon": "fas fa-ruler-horizontal"
                 },
                 "annotation_prokka_evalue": {
@@ -1070,14 +1070,14 @@
                 },
                 "arg_rgi_includeloose": {
                     "type": "boolean",
-                    "description": "Include all of loose, strict and perfect hits (i.e. ≥ 95% identity) found by RGI.",
+                    "description": "Include all of loose, strict and perfect hits (i.e. more than 95% identity) found by RGI.",
                     "help_text": "When activated RGI output will include 'Loose' hits in addition to 'Strict' and 'Perfect' hits. The 'Loose' algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_loose`",
                     "fa_icon": "far fa-hand-scissors"
                 },
                 "arg_rgi_includenudge": {
                     "type": "boolean",
                     "description": "Suppresses the default behaviour of RGI with `--arg_rgi_includeloose`.",
-                    "help_text": "This flag suppresses the default behaviour of RGI, by listing all 'Loose' matches of ≥ 95% identity as 'Strict' or 'Perfect', regardless of alignment length.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_nudge`",
+                    "help_text": "This flag suppresses the default behaviour of RGI, by listing all 'Loose' matches of more than 95% identity as 'Strict' or 'Perfect', regardless of alignment length.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_nudge`",
                     "fa_icon": "fas fa-hand-scissors"
                 },
                 "arg_rgi_lowquality": {
@@ -1100,6 +1100,11 @@
                     "help_text": "For more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\nModifies tool parameter:\n> - RGI_MAIN: `--split_prodigal_jobs`",
                     "fa_icon": "fas fa-angle-double-down",
                     "default": true
+                },
+                "arg_rgi_removetemporaryfiles": {
+                    "type": "boolean",
+                    "description": "Specify to trigger RGI's internal cleanup of intermediate files.",
+                    "help_text": "When running on fragmented (meta)genomes (i.e., has many contigs), RGI can produce a very large number of intermediate files (~4 files per contig).\nThis can sometimes fill up filesystems blocking downstream processes.\nActivate this option to allow RGI to clean up the files on completion of the process.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--clean`"
                 }
             },
             "fa_icon": "fas fa-bacteria"
