@@ -133,9 +133,26 @@ However, pipelines with similar functionality have been developed, with the clos
 This pipeline meets all criteria of scalability and reproducibility on the same level as nf-core/funcscan because it is likewise written in Nextflow and in most parts based on the nf-core pipeline template.
 While focussing on somewhat different gene types (e.g. snRNA, mobilome), shared features include ARG and BGC prediction as well as aggregation of results.
 In contrast, nf-core/funcscan provides additional AMP screening, CAZyme screening, and the integration of taxonomic classifications for all genes.
-Regarding pipeline stability and reliability, nf-core/funcscan is the only pipeline to implement comprehensive unit tests on module and pipeline level, using the nf-test framework (Table 1).
+Regarding pipeline stability and reliability, nf-core/funcscan is the only pipeline to implement comprehensive unit tests on module and pipeline level, using the nf-test framework (Table \ref{tab:pipelines}).
 
-<!-- TODO: Here comes Table 1 with the pipeline/feature comparisons -->
+| Feature                                 | funcscan | mettannotator | bacannot | HT-ARGfinder | PathoFact | SqueezeMeta | MetaERG | ARGs-OAP |
+| --------------------------------------- | -------- | ------------- | -------- | ------------ | --------- | ----------- | ------- | -------- |
+| ARG screening                           | ✓        | ✓             | ✓        | ✓            | ✓         | (✓)         | (✓)     | ✓        |
+| AMP screening                           | ✓        | ✗             | ✗        | ✗            | ✗         | (✓)         | (✓)     | ✗        |
+| BGC screening                           | ✓        | ✓             | ✗        | ✗            | ✗         | (✗)         | (✗)     | ✗        |
+| CAZyme screening                        | ✓        | ✓             | ✗        | ✗            | ✗         | ✗           | ✗       | ✗        |
+| Taxonomic assignment of contigs         | ✓        | ✗             | ✗        | (✗)          | (✗)       | ✓           | ✓       | ✗        |
+| Results summary                         | ✓        | ✓             | ✓        | (✓)          | (✓)       | ✓           | ✓       | ✗        |
+| Container support (docker, singularity) | ✓        | ✓             | ✓        | ✗            | ✗         | ✗           | ✓       | (✗)      |
+| Modularity                              | ✓        | ✓             | ✓        | ✗            | ✓         | (✓)         | ✗       | ✗        |
+| One-click installation                  | ✓        | ✓             | ✓        | ✗            | ✗         | (✗)         | ✗       | ✗        |
+| Local installation possible             | ✓        | ✓             | ✓        | ✓            | ✓         | ✓           | ✓       | ✗        |
+| Web-based execution possible            | (✓)      | (✓)           | (✓)      | ✗            | ✗         | ✗           | ✗       | ✗        |
+| Software reviewing                      | ✓        | ✓             | ✗        | ✗            | ✗         | ✗           | ✗       | ✗        |
+| Automated unit tests                    | ✓        | (✗)           | (✗)      | (✗)          | (✗)       | ✗           | ✗       | ✗        |
+| License                                 | MIT      | Apache-2.0    | GPL-3.0  | None         | GPL-3.0   | GPL-3.0     | AFL     | AFL      |
+
+: Comparison of nf-core/funcscan with other related pipelines for ARG, AMP, and BGC discovery. Parentheses indicate either unspecific gene screening or partly fulfilled criteria. \label{tab:pipelines}
 
 # Software design
 
