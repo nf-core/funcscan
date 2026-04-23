@@ -114,14 +114,15 @@ These tools use different search algorithms and databases (e.g. deepBGC: machine
 Thus, to maximise the potential of detecting important functional genes, researchers often need to use multiple approaches to ensure maximum detection sensitivity across all metabolite categories.
 Since these tools are often developed as stand-alone tools they have to be executed separately.
 This renders analyses inefficient and thus impedes scalability and poses the risk of lowering reproducibility.
-While some tools are available as software containers (e.g. via docker, singularity), thus helping reproducibility of results, they require a series of steps to prepare input data and manually store and filter results.
-Additionally, standalone tools have their own unique output format, which These points strongly hamper efficiency and in many cases reproducibility of complex analyses.
+While some tools are available as software containers (e.g. via Docker, singularity), thus helping reproducibility of results, they require a series of steps to prepare input data and manually store and filter results.
+Additionally, stand-alone tools have their own unique output format, which These points strongly hamper efficiency and in many cases reproducibility of complex analyses.
 Overall, in order to obtain results from various tools in a uniform format, manual inspection is still necessary.
-This renders the comparison of results from large datasets against multiple tools very impractical if not impossible.
-Previous efforts to scale up the predictive power of different tools, including assembly, open reading frame (ORF) annotation, or gene-identification for functional prediction resulted in the generation of pipelines mettannotator, bacannot, SqueezeMeta, MetaErg, METABOLIC, HT-ARGfinder, ARGs-OAP, PathoFact, and antiSMASH.
+This renders the comparison of results from large datasets against multiple tools very impractical or impossible.
+Previous efforts to scale up the predictive power of different tools, including assembly, open reading frame (ORF) annotation, or gene-identification for functional prediction include pipelines such as mettannotator, bacannot, SqueezeMeta, MetaErg, METABOLIC, HT-ARGfinder, ARGs-OAP, PathoFact, and antiSMASH.
 However, so far, no pipeline has been created that allows for the identification and prediction of antimicrobial peptide (AMP) genes, ARGs, and biosynthetic gene clusters (BGCs) simultaneously from multiple samples in a harmonised manner.
-Finally, extensive command-line knowledge, the use of shell scripts, and manual installation of software dependencies to run many of these tools, effectively precludes thir use by biochemists, biomolecular scientists, and biologists who typically have limited computational training.
-Here, we present nf-core/funcscan, a Nextflow pipeline following nf-core best practices for the simultaneous screening of multiple functional and biosynthetic components from assembled contiguous sequences (contigs), specifically predicting ARGs, BGCs, AMP-encoding genes, and providing taxonomic information of the producing organisms from (meta)genomic sequences in a portable, reproducible, and scalable manner.
+Finally, extensive command-line knowledge, the use of shell scripts, and manual installation of software dependencies to run many of these tools, effectively precludes their use by biochemists, biomolecular scientists, and biologists who typically have limited computational training.
+Here, we present nf-core/funcscan, a Nextflow pipeline following nf-core best practices for the simultaneous screening of multiple functional and biosynthetic components from assembled contiguous sequences (contigs).
+The pipeline predicts ARGs, BGCs, AMP-encoding genes, and providing taxonomic information of the producing organisms from (meta)genomic sequences in a portable, reproducible, and scalable manner.
 This allows researchers to obtain a holistic view on the genomic context of identified genes for downstream analyses in the context of antimicrobial resistance
 
 # State of the field
@@ -143,7 +144,7 @@ Regarding pipeline stability and reliability, nf-core/funcscan is the only pipel
 | CAZyme screening                        | ✓        | ✓             | ✗        | ✗            | ✗         | ✗           | ✗       | ✗        |
 | Taxonomic assignment of contigs         | ✓        | ✗             | ✗        | (✗)          | (✗)       | ✓           | ✓       | ✗        |
 | Results summary                         | ✓        | ✓             | ✓        | (✓)          | (✓)       | ✓           | ✓       | ✗        |
-| Container support (docker, singularity) | ✓        | ✓             | ✓        | ✗            | ✗         | ✗           | ✓       | (✗)      |
+| Container support (Docker, Singularity) | ✓        | ✓             | ✓        | ✗            | ✗         | ✗           | ✓       | (✗)      |
 | Modularity                              | ✓        | ✓             | ✓        | ✗            | ✓         | (✓)         | ✗       | ✗        |
 | One-click installation                  | ✓        | ✓             | ✓        | ✗            | ✗         | (✗)         | ✗       | ✗        |
 | Local installation possible             | ✓        | ✓             | ✓        | ✓            | ✓         | ✓           | ✓       | ✗        |
@@ -165,7 +166,7 @@ Two additional classification workflows can be used to classify contigs taxonomi
 (2), depending on which workflows are selected by the user, the biosynthetic gene cluster (BGC, purple), antimicrobial peptide (AMP, orange), antibiotic resistance gene (ARG, yellow), or carbohydrate-active enzymes (CAZyme) workflows with their customisable parameters are executed.
 (3), the results of all tools for each gene category are aggregated and saved in a human- and machine-readable tabular format.\label{fig:workflow}](figure1.png)
 
-## Input pre-processing and open reading frame annotation
+## Input preprocessing and open reading frame annotation
 
 The pipeline processes a two- to four- column table (comma-separated, CSV format) sample-sheet as input.
 Sample names and paths to the respective nucleotide FASTA files containing (meta)genomic contigs or genomes to be screened are required.
@@ -196,7 +197,8 @@ Optionally, protein domains and families can be further annotated by InterProSca
 
 All screening tools of nf-core/funcscan have heterogeneous output formats and label their respective gene predictions differently.
 This hampers aggregation and cross-comparisons of results, requiring manual inspection and ‘clean up’ of results for downstream interpretation.
-To enable users to easily extract information for downstream analyses, nf-core/funcscan aggregates the output of all gene and taxonomic screening tools in each executed subworkflow into single human- and machine-readable tables in CSV format per gene type, thereby allowing direct comparison of gene classification with possible taxonomic sources.
+To enable users to easily extract information for downstream analyses, nf-core/funcscan aggregates the output of all gene and taxonomic screening tools in each executed subworkflow into single human- and machine-readable tables in CSV format per gene type.
+These aggregated tables allows direct comparison of gene classification with possible taxonomic sources.
 For the summary of ARGs we have used the existing hAMRonization software. Since similar tools do not exist for AMPs and BGCs, we developed two novel tools for the aggregation of these gene types.
 comBGC and AMPcombi parse the results of BGC and AMP prediction tools and summarise them into single tables, respectively.
 Furthermore, AMPcombi aligns the AMP hits against a reference AMP database for deeper functional classification.
@@ -206,18 +208,19 @@ Finally, three local pipeline modules merge the gene summaries with taxonomy res
 
 ## Reproducibility and scalability
 
-All nf-core pipelines utilise software environments (conda) or containers (Docker, Singularity), which have the advantage of isolating the dependencies of all workflows from each other and rendering pipeline execution highly reproducible, portable, and platform-independent.
+All nf-core pipelines utilise software environments (Conda) or containers (Docker, Singularity), which have the advantage of isolating the dependencies of all workflows from each other and rendering pipeline execution highly reproducible, portable, and platform-independent.
 Each tool of nf-core/funcscan is automatically pulled from the respective container registry when executing a pipeline run.
-The pipeline itself is easy to install as it has only few minimum dependencies (Nextflow itself, and one of Docker, Singularity, Podman, Shifter, Charliecloud, and conda).
+The pipeline itself is easy to install as it has only few minimum dependencies (Nextflow itself, and one of Docker, Singularity, Podman, Shifter, Charliecloud, and Conda).
 The configuration of the pipeline to the underlying computing system requires knowledge of its software environment and hardware resources.
-To facilitate easy configuration, nf-core provides already centralised configurations for more than 150 HPCs via the central nf-core/configs repository (https://github.com/nf-core/configs).
-The performance of each pipeline run (including software versions of all applied tools, memory and CPU usage) is summarised in HTML reports for all steps of all subworkflows for users to estimate future runtime and/or computational resources.
+To facilitate easy configuration, nf-core provides already centralised configurations for more than 150 HPCs via the central nf-core/configs repository ([https://github.com/nf-core/configs](https://github.com/nf-core/configs)).
+The performance of each pipeline run (including software versions of all applied tools, memory, and CPU usage) is summarised in HTML reports for all steps of all subworkflows for users to estimate future runtime and/or computational resources.
 
 # Research impact statement
 
 nf-core/funcscan has developed an active user community of scientific users and developers who continuously contribute ideas, bug reports and code via issues and pull requests on GitHub.
-An exemplary case in point is the contribution of a whole new workflow (CAZyme screening) by new community members.
-Discussions of pipeline as well as research domain related topics happen on the open-to-join nf-core workspace on the Slack platform, illustrating the public interest and pro-active efforts from scientific users to use, maintain, and improve the pipeline functionalities.
+The pipeline is already being actively used in research (https://www.mdpi.com/2076-2607/14/1/145, https://link.springer.com/article/10.1007/s12602-025-10718-9, https://pmc.ncbi.nlm.nih.gov/articles/PMC12051446/, https://link.springer.com/article/10.1007/s12223-026-01445-x)
+Additionally, the pipeline received a contribution of a whole new workflow (CAZyme screening) by new community members outside of the original developers.
+Discussions of pipeline as well as research domain related topics happen on the open-to-join nf-core workspace on the Slack platform. This illustrates the public interest and proactive efforts from scientific users to use, maintain, and improve the pipeline.functionalities.
 
 # AI usage disclosure
 
@@ -227,7 +230,7 @@ of this manuscript, or the preparation of supporting materials.
 # Acknowledgements
 
 We thank Vedanth Ramji for adding argNorm to the ARG subworkflow.
-A full list of nf-core community members is available at https://nf-co.re/contributors/.
+A full list of nf-core community members is available at [https://nf-co.re/contributors/](https://nf-co.re/contributors/).
 We thank Martin Klapper and Rosa Herbst for helpful feedback on relevant BGC and AMP properties during comBGC and AMPcombi development.
 J.F. received a fellowship from the International Leibniz Research School (under the head of the Jena School for Microbial Communication, JSMC).
 
