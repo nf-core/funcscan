@@ -1,8 +1,10 @@
 ---
-title: 'nf-core/funcscan: A Nextflow pipeline to identify the biosynthetic potential and resistome of bacterial (meta)genomes'
+title: "nf-core/funcscan: A Nextflow pipeline to identify the biosynthetic potential and resistome of bacterial (meta)genomes"
 tags:
   - nf-core
   - nextflow
+  - pipeline
+  - bioinformatics
   - AMP
   - AMR
   - antibiotic-resistance
@@ -36,16 +38,16 @@ authors:
     orcid: 0009-0002-6815-8608
     affiliation: 4
   - name: Haidong Yi
-  - orcid: 
+  - orcid:
     affiliation:
   - name: Xinpeng Zhang
-  - orcid: 
+  - orcid:
     affiliation:
   - name: Alexandru Mizeranschi
-  - orcid: 
+  - orcid:
     affiliation:
   - name: Dediu Codrin
-  - orcid: 
+  - orcid:
     affiliation:
   - name: Moritz E. Beber
     orcid: 0000-0003-2406-1978
@@ -62,42 +64,40 @@ authors:
     orcid: 0000-0002-4528-5877
     affiliation: "2, 3, 9, 10"
 affiliations:
- - name: Department of Paleobiotechnology, Leibniz Institute for Natural Product Research and Infection Biology Hans Knöll Institute, Germany
-   index: 1
- - name: Department of Archaeogenetics, Max Planck Institute for Evolutionary Anthropology, Germany
-   index: 2
- - name: Associated Research Group of Archaeogenetics, Leibniz Institute for Natural Product Research and Infection Biology Hans Knöll Institute, Germany
-   index: 3
- - name: Quantitative Biology Center (QBiC), University of Tübingen, Germany
-   index: 4
- - name: Institute for Globally Distributed Open Research and Education (IGDORE), Sweden
-   index: 5
- - name: nf-core community members are available at acknowledgments.
-   index: 6
- - name: M3 Research Center, Faculty of Medicine, University of Tübingen, Germany
-   index: 7
- - name: Department of Computer Science, Institute for Bioinformatics and Medical Informatics (IBMI), University of Tübingen, Tübingen, Germany
-   index: 8
- - name: Faculty of Biological Sciences, Friedrich-Schiller University Jena, Germany
-   index: 9
- - name: Department of Anthropology, Harvard University, USA
-   index: 10
- - name: Institute of Organic and Macromolecular Chemistry, Friedrich Schiller University Jena, Germany
-   index: 11
+  - name: Department of Paleobiotechnology, Leibniz Institute for Natural Product Research and Infection Biology Hans Knöll Institute, Germany
+    index: 1
+  - name: Department of Archaeogenetics, Max Planck Institute for Evolutionary Anthropology, Germany
+    index: 2
+  - name: Associated Research Group of Archaeogenetics, Leibniz Institute for Natural Product Research and Infection Biology Hans Knöll Institute, Germany
+    index: 3
+  - name: Quantitative Biology Center (QBiC), University of Tübingen, Germany
+    index: 4
+  - name: Institute for Globally Distributed Open Research and Education (IGDORE), Sweden
+    index: 5
+  - name: nf-core community members are available at acknowledgments.
+    index: 6
+  - name: M3 Research Center, Faculty of Medicine, University of Tübingen, Germany
+    index: 7
+  - name: Department of Computer Science, Institute for Bioinformatics and Medical Informatics (IBMI), University of Tübingen, Tübingen, Germany
+    index: 8
+  - name: Faculty of Biological Sciences, Friedrich-Schiller University Jena, Germany
+    index: 9
+  - name: Department of Anthropology, Harvard University, USA
+    index: 10
+  - name: Institute of Organic and Macromolecular Chemistry, Friedrich Schiller University Jena, Germany
+    index: 11
 date: 14 April 2026
 bibliography: paper.bib
-
 ---
 
 # Summary
 
-Genome-mining of bacterial DNA fosters the discovery of antimicrobial resistance-related genes as well as genes required for the biosynthesis of low molecular weight natural products or specialized metabolites.
-However, current approaches to identify these functional genes remain inefficient due to heterogeneous computational platforms, accessibility, scalability, and inconsistent reporting of results of bioinformatic analysis tools.
-Here, we present nf-core/funcscan, an open source bioinformatics best-practice Nextflow pipeline for the screening of functional features from assembled contigs or genomes.
-nf-core/funcscan currently integrates 13 tools to simultaneously predict antimicrobial peptides, antibiotic resistance genes, biosynthetic gene clusters, and taxonomic classification from partial or full genomes.
-It is straightforward to install, portable across platforms ranging from personal laptops to high-performance computing clusters, and fully reproducible via the use of software containers.
-Both command-line and graphical interfaces are supported.
-nf-core/funcscan also introduces standardized output formats, enabling the rapid evaluation, visualization, and interpretation of results.
+Genome-mining of bacterial DNA fosters the discovery of antimicrobial resistance-related genes as well as genes required for the biosynthesis of low molecular weight natural products or specialised metabolites.
+Despite the availability of many bioinformatic tools to identify such functional genes, screening of genomic features remains inefficient due to heterogeneous computational platforms, accessibility, scalability, and inconsistent reporting and formatting of the results.
+Here, we present nf-core/funcscan, an open source bioinformatics pipeline for the screening of microbial functional features from assembled contigs or genomes.
+The pipeline currently integrates 13 tools to simultaneously predict antimicrobial peptides, antibiotic resistance genes, biosynthetic gene clusters, and taxonomic classification from partial or full genomes.
+It also introduces standardised and aggregated output file reports across all tools, enabling the rapid evaluation, visualisation, and interpretation of results.
+Written in the Nextflow workflow language, it is straightforward to install, portable across platforms ranging from personal laptops to high-performance computing clusters, and fully reproducible via the use of software containers.
 
 # Statement of need
 
@@ -111,20 +111,20 @@ However, investigating antibiotic agents in combination with antibiotic resistan
 
 Due to this pressing problem, a large suite of different tools has been developed for the rapid identification of different functional gene types.
 These tools use different search algorithms and databases (e.g. deepBGC: machine-learning, antiSMASH: rule-based) for the prediction of microbial metabolites, which differ in quality and quantity of the predicted properties.
-Thus, to maximize the potential of detecting important functional genes, researchers often need to use multiple approaches to ensure maximum detection sensitivity across all metabolite categories.
+Thus, to maximise the potential of detecting important functional genes, researchers often need to use multiple approaches to ensure maximum detection sensitivity across all metabolite categories.
 Since these tools are often developed as standalone tools they have to be executed separately.
 This renders analyses inefficient and thus impedes scalability and poses the risk of lowering reproducibility.
 While some tools are available as software containers (e.g. via docker, singularity), thus helping reproducibility of results, they require a series of steps to prepare input data and manually store and filter results.
 Additionally, standalone tools have their own unique output format, which These points strongly hamper efficiency and in many cases reproducibility of complex analyses.
-Overall, in order to obtain results from various tools in a uniform format,  manual inspection is still necessary.
+Overall, in order to obtain results from various tools in a uniform format, manual inspection is still necessary.
 This renders the comparison of results from large datasets against multiple tools very impractical if not impossible.
-Previous efforts to scale up the predictive power of different tools, including  assembly, open reading frame (ORF) annotation, or gene-identifcation for functional prediction resulted in the genrationt of pipelines mettannotator, bacannot, SqueezeMeta, MetaErg, METABOLIC, HT-ARGfinder, ARGs-OAP, PathoFact, and antiSMASH.
-However, so far, no pipeline has been created that allows for the identification and prediction of antimicrobial peptide (AMP) genes, ARGs, and biosynthetic gene clusters (BGCs) simultaneously from multiple samples in a  harmonization manner.
-Finally, extensive command-line knowledge, the use of shell scripts, and manual installation of software dependencies to run many of these tools, effectively precludes thir use by  biochemists, biomolecular scientists, and biologists who typically have limited computational training.
+Previous efforts to scale up the predictive power of different tools, including assembly, open reading frame (ORF) annotation, or gene-identifcation for functional prediction resulted in the genrationt of pipelines mettannotator, bacannot, SqueezeMeta, MetaErg, METABOLIC, HT-ARGfinder, ARGs-OAP, PathoFact, and antiSMASH.
+However, so far, no pipeline has been created that allows for the identification and prediction of antimicrobial peptide (AMP) genes, ARGs, and biosynthetic gene clusters (BGCs) simultaneously from multiple samples in a harmonised manner.
+Finally, extensive command-line knowledge, the use of shell scripts, and manual installation of software dependencies to run many of these tools, effectively precludes thir use by biochemists, biomolecular scientists, and biologists who typically have limited computational training.
 Here, we present nf-core/funcscan, a Nextflow pipeline following nf-core best practices for the simultaneous screening of multiple functional and biosynthetic components from assembled contiguous sequences (contigs), specifically predicting ARGs, BGCs, AMP-encoding genes, and providing taxonomic information of the producing organisms from (meta)genomic sequences in a portable, reproducible, and scalable manner.
 This allows researchers to obtain a holistic view on the genomic context of identified genes for downstream analyses in the context of antimicrobial resistance
 
-# State of the field                                                                                                                  
+# State of the field
 
 The continuing decrease in sequencing costs and the subsequent increase in available sequenced prokaryotic genomes and metagenomes has gone hand-in-hand with the development of numerous bioinformatics tools to predict gene functions.
 Several pipelines have been developed to chain single-purpose tools together to provide a more comprehensive context.
@@ -157,7 +157,7 @@ Regarding pipeline stability and reliability, nf-core/funcscan is the only pipel
 # Software design
 
 nf-core/funcscan simultaneously predicts antimicrobial peptide (AMP) genes, antibiotic resistance genes (ARGs), biosynthetic gene clusters (BGCs) as well as carbohydrate active enzyme gene clusters (CGC) from partial or full (meta)genomic sequences.
-In addition, the bacterial taxonomy of input sequences is determined and standardized summaries of all tool outputs are provided (Fig. \ref{fig:workflow}).
+In addition, the bacterial taxonomy of input sequences is determined and standardised summaries of all tool outputs are provided (Fig. \ref{fig:workflow}).
 
 ![Workflow overview of nf-core/funcscan.
 (1), genomic sequences are prepared and annotated with one of four ORF annotation tools.
@@ -176,7 +176,7 @@ Open reading frames are predicted from the pre-processed sequences by one of fou
 If annotated sequence files as described above are provided in the samplesheet, this step is skipped.
 
 Various tools of nf-core/funcscan rely on databases and reference files to operate.
-The pipeline offers the functionality to download these databases automatically for the user, which can then be stored and reused in future pipeline runs to minimize pipeline runtime, network traffic, and possible download limits.
+The pipeline offers the functionality to download these databases automatically for the user, which can then be stored and reused in future pipeline runs to minimise pipeline runtime, network traffic, and possible download limits.
 The database download is applicable for MMSeqs2, Bakta, AMPcombi, AMRFinderPlus, DeepARG, RGI, antiSMASH, DeepBGC, and InterProScan.
 
 ## Gene prediction and taxonomic classification
@@ -188,17 +188,17 @@ In a second step, users can choose to scan genomic sequences in parallel with th
 - AMP subworkflow: ampir, AMPlify, hmmsearch, Macrel
 
 In an additional optional parallel screening step, all input sequences can be taxonomically classified by MMSeqs2 to determine likely source hosts of each functional hit.
-Characterizing the taxonomic origin of metagenomic contigs can inform users about potentially suitable hosts for downstream experiments, e.g. heterologous expression systems.
+Characterising the taxonomic origin of metagenomic contigs can inform users about potentially suitable hosts for downstream experiments, e.g. heterologous expression systems.
 The taxonomic classification supports a variety of reference databases (e.g. GTDB, UniProt, UniRef, NR, Kalamari) to suit different user requirements.
 Optionally, protein domains and families can be further annotated by InterProScan(37, 38).
 
 ## Aggregation of screening results
 
 All screening tools of nf-core/funcscan have heterogeneous output formats and label their respective gene predictions differently.
-This hampers aggregation and cross-comparisons of results, requiring  manual inspection and ‘clean up’ of results for downstream interpretation.
+This hampers aggregation and cross-comparisons of results, requiring manual inspection and ‘clean up’ of results for downstream interpretation.
 To enable users to easily extract information for downstream analyses, nf-core/funcscan aggregates the output of all gene and taxonomic screening tools in each executed subworkflow into single human- and machine-readable tables in CSV format per gene type, thereby allowing direct comparison of gene classification with possible taxonomic sources.
 For the summary of ARGs we have used the existing hAMRonization software. Since similar tools do not exist for AMPs and BGCs, we developed two novel tools for the aggregation of these gene types.
-comBGC and AMPcombi parse the results of BGC and AMP prediction tools and summarize them into single tables, respectively.
+comBGC and AMPcombi parse the results of BGC and AMP prediction tools and summarise them into single tables, respectively.
 Furthermore, AMPcombi aligns the AMP hits against a reference AMP database for deeper functional classification.
 To assist researchers in their choice of genes for testing in wet-lab heterologous expression systems, AMPcombi provides the ability to reduce false positive hits by additional post-screening filtering steps of AMP results.
 Reasonable default parameters are set by the pipeline and can be adjusted by the user.
@@ -206,12 +206,12 @@ Finally, three local pipeline modules merge the gene summaries with taxonomy res
 
 ## Reproducibility and scalability
 
-All nf-core pipelines utilize software environments (conda) or containers (Docker, Singularity), which have the advantage of isolating the dependencies of all workflows from each other and rendering pipeline execution highly reproducible, portable, and platform-independent.
+All nf-core pipelines utilise software environments (conda) or containers (Docker, Singularity), which have the advantage of isolating the dependencies of all workflows from each other and rendering pipeline execution highly reproducible, portable, and platform-independent.
 Each tool of nf-core/funcscan is automatically pulled from the respective container registry when executing a pipeline run.
 The pipeline itself is easy to install as it has only few minimum dependencies (Nextflow itself, and one of Docker, Singularity, Podman, Shifter, Charliecloud, and conda).
 The configuration of the pipeline to the underlying computing system requires knowledge of its software environment and hardware resources.
-To facilitate easy configuration, nf-core provides already centralized configurations for more than 150 HPCs via the central nf-core/configs repository (https://github.com/nf-core/configs).
-The performance of each pipeline run (including software versions of all applied tools, memory and CPU usage) is summarized in HTML reports for all steps of all subworkflows for users to estimate future runtime and/or computational resources.
+To facilitate easy configuration, nf-core provides already centralised configurations for more than 150 HPCs via the central nf-core/configs repository (https://github.com/nf-core/configs).
+The performance of each pipeline run (including software versions of all applied tools, memory and CPU usage) is summarsed in HTML reports for all steps of all subworkflows for users to estimate future runtime and/or computational resources.
 
 # Research impact statement
 
@@ -233,6 +233,6 @@ J.F. received a fellowship from the International Leibniz Research School (under
 
 This project was funded by grants from the Werner Siemens Foundation (Paleobiotechnology to C.W. and P.S.) and the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation, under Germany’s Excellence Strategy – EXC 2051 – Project-ID 390713860 to C.W. and P.S.).
 J.A.F.Y was funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) – project number 460129525 (NFDI4Microbiota, FlexFund project EnterArchaeo).
-This work was supported by the BMBF-funded de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) (031A532B, 031A533A, 031A533B, 031A534A, 031A535A, 031A537A, 031A537B, 031A537C, 031A537D, 031A538A). 
+This work was supported by the BMBF-funded de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) (031A532B, 031A533A, 031A533B, 031A534A, 031A535A, 031A537A, 031A537B, 031A537C, 031A537D, 031A538A).
 
 # References
