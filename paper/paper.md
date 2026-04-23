@@ -102,7 +102,7 @@ Written in the Nextflow workflow language, it is straightforward to install, por
 # Statement of need
 
 The emergence and spread of multidrug resistant microbial pathogens poses a serious threat to global health.
-Traditionally, most antiinfective drugs have been derived from bacterially produced low molecular weight natural products.
+Traditionally, most anti-infective drugs have been derived from bacterially produced low molecular weight natural products.
 To ensure self-resistance against antimicrobial agents, the producing bacteria typically exhibit resistance mechanisms.
 As a consequence, the evolution of antimicrobials and the corresponding resistance mechanisms are strongly correlated.
 Although antibiotic resistance is tightly linked to self-protection of the producing organisms, the recent excessive use of antibiotics and lack of global surveillance both in healthcare and agriculture has led to an explosion of multidrug resistant bacteria.
@@ -112,13 +112,13 @@ However, investigating antibiotic agents in combination with antibiotic resistan
 Due to this pressing problem, a large suite of different tools has been developed for the rapid identification of different functional gene types.
 These tools use different search algorithms and databases (e.g. deepBGC: machine-learning, antiSMASH: rule-based) for the prediction of microbial metabolites, which differ in quality and quantity of the predicted properties.
 Thus, to maximise the potential of detecting important functional genes, researchers often need to use multiple approaches to ensure maximum detection sensitivity across all metabolite categories.
-Since these tools are often developed as standalone tools they have to be executed separately.
+Since these tools are often developed as stand-alone tools they have to be executed separately.
 This renders analyses inefficient and thus impedes scalability and poses the risk of lowering reproducibility.
 While some tools are available as software containers (e.g. via docker, singularity), thus helping reproducibility of results, they require a series of steps to prepare input data and manually store and filter results.
 Additionally, standalone tools have their own unique output format, which These points strongly hamper efficiency and in many cases reproducibility of complex analyses.
 Overall, in order to obtain results from various tools in a uniform format, manual inspection is still necessary.
 This renders the comparison of results from large datasets against multiple tools very impractical if not impossible.
-Previous efforts to scale up the predictive power of different tools, including assembly, open reading frame (ORF) annotation, or gene-identifcation for functional prediction resulted in the genrationt of pipelines mettannotator, bacannot, SqueezeMeta, MetaErg, METABOLIC, HT-ARGfinder, ARGs-OAP, PathoFact, and antiSMASH.
+Previous efforts to scale up the predictive power of different tools, including assembly, open reading frame (ORF) annotation, or gene-identification for functional prediction resulted in the generation of pipelines mettannotator, bacannot, SqueezeMeta, MetaErg, METABOLIC, HT-ARGfinder, ARGs-OAP, PathoFact, and antiSMASH.
 However, so far, no pipeline has been created that allows for the identification and prediction of antimicrobial peptide (AMP) genes, ARGs, and biosynthetic gene clusters (BGCs) simultaneously from multiple samples in a harmonised manner.
 Finally, extensive command-line knowledge, the use of shell scripts, and manual installation of software dependencies to run many of these tools, effectively precludes thir use by biochemists, biomolecular scientists, and biologists who typically have limited computational training.
 Here, we present nf-core/funcscan, a Nextflow pipeline following nf-core best practices for the simultaneous screening of multiple functional and biosynthetic components from assembled contiguous sequences (contigs), specifically predicting ARGs, BGCs, AMP-encoding genes, and providing taxonomic information of the producing organisms from (meta)genomic sequences in a portable, reproducible, and scalable manner.
@@ -167,13 +167,13 @@ Two additional classification workflows can be used to classify contigs taxonomi
 
 ## Input pre-processing and open reading frame annotation
 
-The pipeline processes a two- to four- column table (comma-separated, CSV format) samplesheet as input.
+The pipeline processes a two- to four- column table (comma-separated, CSV format) sample-sheet as input.
 Sample names and paths to the respective nucleotide FASTA files containing (meta)genomic contigs or genomes to be screened are required.
-Optionally, preannotated sequence files can be supplied to the pipeline in a four-column samplesheet with open reading frame amino acid sequences in FASTA format, and their respective annotations in GenBank Flat File format.
+Optionally, pre-annotated sequence files can be supplied to the pipeline in a four-column sample-sheet with open reading frame amino acid sequences in FASTA format, and their respective annotations in GenBank Flat File format.
 During preprocessing, any gzipped sequence files are decompressed, and, when running the BGC subworkflow, short contigs are removed by SeqKit (default: contigs shorter than 3,000 bp).
 The latter step reduces the runtime of the pipeline by removing too-short sequences that would produce no biologically meaningful BGC results.
-Open reading frames are predicted from the pre-processed sequences by one of four annotation tools (Bakta, Prodigal, Prokka, and Pyrodigal).
-If annotated sequence files as described above are provided in the samplesheet, this step is skipped.
+Open reading frames are predicted from the preprocessed sequences by one of four annotation tools (Bakta, Prodigal, Prokka, and Pyrodigal).
+If annotated sequence files as described above are provided in the sample-sheet, this step is skipped.
 
 Various tools of nf-core/funcscan rely on databases and reference files to operate.
 The pipeline offers the functionality to download these databases automatically for the user, which can then be stored and reused in future pipeline runs to minimise pipeline runtime, network traffic, and possible download limits.
@@ -211,7 +211,7 @@ Each tool of nf-core/funcscan is automatically pulled from the respective contai
 The pipeline itself is easy to install as it has only few minimum dependencies (Nextflow itself, and one of Docker, Singularity, Podman, Shifter, Charliecloud, and conda).
 The configuration of the pipeline to the underlying computing system requires knowledge of its software environment and hardware resources.
 To facilitate easy configuration, nf-core provides already centralised configurations for more than 150 HPCs via the central nf-core/configs repository (https://github.com/nf-core/configs).
-The performance of each pipeline run (including software versions of all applied tools, memory and CPU usage) is summarsed in HTML reports for all steps of all subworkflows for users to estimate future runtime and/or computational resources.
+The performance of each pipeline run (including software versions of all applied tools, memory and CPU usage) is summarised in HTML reports for all steps of all subworkflows for users to estimate future runtime and/or computational resources.
 
 # Research impact statement
 
