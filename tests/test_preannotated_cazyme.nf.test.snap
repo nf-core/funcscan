@@ -1,0 +1,43 @@
+{
+    "dbcan_cazyme_annotation": {
+        "content": [
+            "sample_1_overview.tsv:md5,50196767ad06de55cc8f1c22e44113f4",
+            true,
+            true,
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-03-20T11:35:42.859693037"
+    },
+    "dbcan_substrate": {
+        "content": [
+            "sample_3_substrate_prediction.tsv:md5,fe2a5ea9e19c4f1108798103547ff98d",
+            true,
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-03-20T11:35:42.874618198"
+    },
+    "dbcan_cgc": {
+        "content": [
+            "sample_3_cgc_standard_out.tsv:md5,abb57231cd60c8b20f78e3d822a7094d",
+            true,
+            true,
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-03-20T11:35:42.8704081"
+    }
+}
