@@ -117,13 +117,13 @@ This impedes scalability due to inefficiency and additionally poses an increased
 While some tools are available as software containers (e.g. via Docker, Singularity), thus helping reproducibility of results, they often require a series of steps to prepare input data and manually store and filter results.
 Additionally, stand-alone tools have their own unique output format, making cross-comparison of the results between different tools nontrivial, and often results in manual processing and inspection - again further restricting scalability.
 
-Previous efforts to scale up the predictive power of different tools, including (meta)genomic assembly, open reading frame (ORF) annotation, or gene-identification for functional prediction include pipelines such as mettannotator, bacannot, SqueezeMeta, MetaErg, METABOLIC, HT-ARGfinder, ARGs-OAP, PathoFact, and antiSMASH.
+Previous efforts to scale up the predictive power of different tools for functional gene prediction include pipelines such as mettannotator, bacannot, SqueezeMeta, MetaErg, METABOLIC, HT-ARGfinder, ARGs-OAP, PathoFact, and antiSMASH.
 However, to our knowledge, no pipeline has been created that allows for the identification and prediction of antimicrobial peptide (AMP) genes, ARGs, and biosynthetic gene clusters (BGCs) simultaneously from multiple samples in a harmonised manner.
 Additionally, extensive command-line knowledge and manual installation of software dependencies are required to run many of these existing pipelines.
 This effectively precludes their use by biochemists, biomolecular scientists, and biologists who typically have limited computational training.
 
 Here, we present nf-core/funcscan, a Nextflow pipeline following nf-core best practices for the simultaneous screening of multiple functional and biosynthetic components from assembled microbial contiguous sequences (contigs).
-The pipeline predicts ARGs, BGCs, AMP-encoding genes, and providing taxonomic information of the producing organisms from (meta)genomic sequences parallel in a portable, reproducible, and scalable manner.
+The pipeline predicts ARGs, BGCs, AMP-encoding genes, and provides taxonomic information of the producing organisms from (meta)genomic sequences parallel in a portable, reproducible, and scalable manner.
 This allows researchers to obtain a holistic view on the genomic context of identified genes for downstream analyses in the context of antimicrobial resistance
 
 # State of the field
@@ -151,7 +151,19 @@ Regarding pipeline stability and reliability, nf-core/funcscan is the only pipel
 | Local installation possible             | ✓        | ✓             | ✓        | ✓            | ✓         | ✓           | ✓       | ✗        |
 | Web-based execution possible            | (✓)      | (✓)           | (✓)      | ✗            | ✗         | ✗           | ✗       | ✗        |
 | Software reviewing                      | ✓        | ✓             | ✗        | ✗            | ✗         | ✗           | ✗       | ✗        |
-| Automated unit tests                    | ✓        | (✗)           | (✗)      | (✗)          | (✗)       | ✗           | ✗       | ✗        |
+| ARG screening                           | +        | +             | +        | +            | +         | (+)         | (+)     | +        |
+| AMP screening                           | +        | −             | −        | −            | −         | (+)         | (+)     | −        |
+| BGC screening                           | +        | +             | −        | −            | −         | (−)         | (−)     | −        |
+| CAZyme screening                        | +        | +             | −        | −            | −         | −           | −       | −        |
+| Taxonomic assignment of contigs         | +        | −             | −        | (−)          | (−)       | +           | +       | −        |
+| Results summary                         | +        | +             | +        | (+)          | (+)       | +           | +       | −        |
+| Container support (Docker, Singularity) | +        | +             | +        | −            | −         | −           | +       | (−)      |
+| Modularity                              | +        | +             | +        | −            | +         | (+)         | −       | −        |
+| One-click installation                  | +        | +             | +        | −            | −         | (−)         | −       | −        |
+| Local installation possible             | +        | +             | +        | +            | +         | +           | +       | −        |
+| Web-based execution possible            | (+)      | (+)           | (+)      | −            | −         | −           | −       | −        |
+| Software reviewing                      | +        | +             | −        | −            | −         | −           | −       | −        |
+| Automated unit tests                    | +        | +             | (−)      | (−)          | (−)       | −           | −       | −        |
 | License                                 | MIT      | Apache-2.0    | GPL-3.0  | None         | GPL-3.0   | GPL-3.0     | AFL     | AFL      |
 
 : Comparison of nf-core/funcscan with other related pipelines for ARG, AMP, and BGC discovery. Parentheses indicate either unspecific gene screening or partly fulfilled criteria. \label{tab:pipelines}
@@ -200,8 +212,9 @@ Reasonable default parameters for commonly tuned parameters of the screening too
 All screening tools of nf-core/funcscan have heterogeneous output formats and label their respective gene predictions differently.
 nf-core/funcscan aggregates the output of all gene and taxonomic screening tools in each executed subworkflow into single human- and machine-readable tables in CSV format per gene type using dedicated tools.
 For the summary of ARGs we have used the existing hAMRonization software.
-For AMPs AMPcombi parse the results of AMP prediction tools and summarise them into single tables, and aligns the AMP hits against a reference AMP database for deeper functional classification.
+For AMPs, AMPcombi parses and filters the results of AMP prediction tools, summarises them into single tables, and aligns the AMP hits against a reference AMP database for deeper functional classification.
 We wrote a custom script 'comBGC' for aggregating and standardising the output of the BGC tools.
+These summaries are finally complemented with results from the optional taxonomic classification workflow.
 
 ## Reproducibility and scalability
 
@@ -217,7 +230,7 @@ The performance of each pipeline run (including software versions of all applied
 nf-core/funcscan has developed an active user community of scientific users and developers who continuously contribute ideas, bug reports and code via issues and pull requests on GitHub.
 The pipeline is already being actively used in research (https://www.mdpi.com/2076-2607/14/1/145, https://link.springer.com/article/10.1007/s12602-025-10718-9, https://pmc.ncbi.nlm.nih.gov/articles/PMC12051446/, https://link.springer.com/article/10.1007/s12223-026-01445-x).
 Additionally, the pipeline received a contribution of a whole new workflow (CAZyme screening) by new community members outside of the original developers.
-Discussions of pipeline as well as research domain related topics happen on the open-to-join nf-core workspace on the Slack platform. This illustrates the public interest and proactive efforts from scientific users to use, maintain, and improve the pipeline.functionalities.
+Discussions of pipeline as well as research domain related topics happen on the open-to-join nf-core workspace on the Slack platform. This illustrates the public interest and proactive efforts from scientific users to use, maintain, and improve the pipeline functionalities.
 
 # AI usage disclosure
 
@@ -231,7 +244,7 @@ We thank Martin Klapper and Rosa Herbst for helpful feedback on relevant BGC and
 J.F. received a fellowship from the International Leibniz Research School (under the head of the Jena School for Microbial Communication, JSMC).
 
 This project was funded by grants from the Werner Siemens Foundation (Paleobiotechnology to C.W. and P.S.) and the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation, under Germany’s Excellence Strategy – EXC 2051 – Project-ID 390713860 to C.W. and P.S.).
-J.A.F.Y and C.W. was funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) – project number 460129525 (NFDI4Microbiota, FlexFund project EnterArchaeo).
+J.A.F.Y and C.W. were funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) – project number 460129525 (NFDI4Microbiota, FlexFund project EnterArchaeo).
 This work was supported by the BMBF-funded de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) (031A532B, 031A533A, 031A533B, 031A534A, 031A535A, 031A537A, 031A537B, 031A537C, 031A537D, 031A538A).
 
 # References
