@@ -139,18 +139,6 @@ Regarding pipeline stability and reliability, nf-core/funcscan is the only pipel
 
 | Feature                                 | funcscan | mettannotator | bacannot | HT-ARGfinder | PathoFact | SqueezeMeta | MetaERG | ARGs-OAP |
 | --------------------------------------- | -------- | ------------- | -------- | ------------ | --------- | ----------- | ------- | -------- |
-| ARG screening                           | ✓        | ✓             | ✓        | ✓            | ✓         | (✓)         | (✓)     | ✓        |
-| AMP screening                           | ✓        | ✗             | ✗        | ✗            | ✗         | (✓)         | (✓)     | ✗        |
-| BGC screening                           | ✓        | ✓             | ✗        | ✗            | ✗         | (✗)         | (✗)     | ✗        |
-| CAZyme screening                        | ✓        | ✓             | ✗        | ✗            | ✗         | ✗           | ✗       | ✗        |
-| Taxonomic assignment of contigs         | ✓        | ✗             | ✗        | (✗)          | (✗)       | ✓           | ✓       | ✗        |
-| Results summary                         | ✓        | ✓             | ✓        | (✓)          | (✓)       | ✓           | ✓       | ✗        |
-| Container support (Docker, Singularity) | ✓        | ✓             | ✓        | ✗            | ✗         | ✗           | ✓       | (✗)      |
-| Modularity                              | ✓        | ✓             | ✓        | ✗            | ✓         | (✓)         | ✗       | ✗        |
-| One-click installation                  | ✓        | ✓             | ✓        | ✗            | ✗         | (✗)         | ✗       | ✗        |
-| Local installation possible             | ✓        | ✓             | ✓        | ✓            | ✓         | ✓           | ✓       | ✗        |
-| Web-based execution possible            | (✓)      | (✓)           | (✓)      | ✗            | ✗         | ✗           | ✗       | ✗        |
-| Software reviewing                      | ✓        | ✓             | ✗        | ✗            | ✗         | ✗           | ✗       | ✗        |
 | ARG screening                           | +        | +             | +        | +            | +         | (+)         | (+)     | +        |
 | AMP screening                           | +        | −             | −        | −            | −         | (+)         | (+)     | −        |
 | BGC screening                           | +        | +             | −        | −            | −         | (−)         | (−)     | −        |
