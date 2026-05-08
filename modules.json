@@ -72,7 +72,12 @@
                     },
                     "bigslice": {
                         "branch": "master",
-                        "git_sha": "875cf13d1c974d62483fddd55a02456880363b5c",
+                        "git_sha": "8ff67cb10964982d41bae43ac3fe7ada16d09ef8",
+                        "installed_by": ["modules"]
+                    },
+                    "bigslice/downloaddb": {
+                        "branch": "master",
+                        "git_sha": "8ff67cb10964982d41bae43ac3fe7ada16d09ef8",
                         "installed_by": ["modules"]
                     },
                     "deeparg/downloaddata": {

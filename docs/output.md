@@ -439,6 +439,7 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
   - `<samplename>/`
     - `result/`
       - `data.db`: SQLite database containing results for BGCs, CDSs, Gene Cluster Families (GCFs), HMMs and HSPs.
+      - `tsv_export/` (optional): TSV exports of all parsed BGC metadata, vectorized features and clustering results. Only produced when `--bgc_bigslice_export_tsv` is set.
       - `tmp/`
         - `<run_id>/`
           - `*.fa`: predicted biosynthetic features as FASTA files, one file per hit HMM.
@@ -447,7 +448,8 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 
 [BiG-SLiCE](https://github.com/medema-group/bigslice) (**Bi**osynthetic **G**ene cluster **S**uper-**Li**near **C**lustering **E**ngine) is a highly scalable tool for the large-scale analysis and clustering of Biosynthetic Gene Clusters (BGCs) into Gene Cluster Families (GCFs).
 It takes BGC regions in GenBank format (e.g. output from antiSMASH or GECCO) along with an HMM database and produces an SQLite database of predicted BGC features and GCF assignments.
-BiG-SLiCE requires the HMM database to be supplied via `--bgc_bigslice_db` and is activated with `--bgc_bigslice_run`. It requires at least one of antiSMASH or GECCO (with convert in bigslice format) to be enabled.
+BiG-SLiCE requires the HMM database to be supplied via `--bgc_bigslice_db` and is activated with `--bgc_run_bigslice`. It requires at least one of antiSMASH or GECCO (with convert in bigslice format) to be enabled.
+All results are stored in a SQLite database (`data.db`) which can be explored with standard SQLite tools or via the [BiG-SLiCE interactive web interface](https://github.com/medema-group/bigslice#running-the-query-mode-and-visualization).
 
 #### deepBGC
 

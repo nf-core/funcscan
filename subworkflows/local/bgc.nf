@@ -14,6 +14,7 @@ include { TABIX_BGZIP as BGC_TABIX_BGZIP         } from '../../modules/nf-core/t
 include { MERGE_TAXONOMY_COMBGC                  } from '../../modules/local/merge_taxonomy_combgc'
 include { GECCO_CONVERT                          } from '../../modules/nf-core/gecco/convert'
 include { BIGSLICE                               } from '../../modules/nf-core/bigslice'
+include { BIGSLICE_DOWNLOADDB                    } from '../../modules/nf-core/bigslice/downloaddb'
 
 workflow BGC {
     take:
@@ -118,10 +119,7 @@ workflow BGC {
         ch_versions = ch_versions.mix(GECCO_CONVERT.out.versions)
     }
     // BIGSLICE
-    if (params.bgc_bigslice_run) {
-
-        ch_bigslice_hmmdb = Channel.fromPath(params.bgc_bigslice_db, checkIfExists: true)
-            .first()
+    if (params.bgc_run_bigslice) {
 
         def gecco_bigslice = !params.bgc_skip_gecco && params.bgc_gecco_runconvert && params.bgc_gecco_convertformat == 'bigslice'
 
@@ -134,12 +132,12 @@ workflow BGC {
         }
 
         ch_bigslice_grouped = ch_bigslice_input
-            .groupTuple()
-            .map { meta, files ->
-                [meta, files.flatten()]
-            }
-
-        BIGSLICE(ch_bigslice_grouped, ch_bigslice_hmmdb)
+            .map { _meta, files -> files }
+            .collect()
+            .map { files -> [ [id: 'bigslice'], files.flatten() ] }
+        
+        BIGSLICE_DOWNLOADDB([ id: 'bigslice_db' ])
+        BIGSLICE(ch_bigslice_grouped, BIGSLICE_DOWNLOADDB.out.db.map { _meta, db -> db }, params.bgc_bigslice_export_tsv)
     }
     // HMMSEARCH
     if (params.bgc_run_hmmsearch) {

@@ -173,12 +173,18 @@ def validateInputParameters() {
             error("[nf-core/funcscan] ERROR: when specifying --bgc_gecco_convertmode 'clusters', --bgc_gecco_convertformat can only be set to 'gff'. You specified --bgc_gecco_convertformat '${params.bgc_gecco_convertformat}'. Check input!")
         }
     }
-    if (params.run_bgc_screening && params.bgc_bigslice_run) {
+    if (params.run_bgc_screening && params.bgc_run_bigslice) {
         if (params.bgc_skip_antismash && (params.bgc_skip_gecco || !params.bgc_gecco_runconvert || params.bgc_gecco_convertformat != 'bigslice')) {
             error('[nf-core/funcscan] ERROR: BigSLICE requires at least one of: (1) antiSMASH enabled, or (2) GECCO enabled with GECCO convert in bigslice format. Please check your parameters.')
         }
-        if (!params.bgc_bigslice_db) {
-            error('[nf-core/funcscan] ERROR: BigSLICE HMM database not found for --bgc_bigslice_db! Please check input.')
+        if (params.bgc_bigslice_threshold != 0.4 && params.bgc_bigslice_threshold_pct != 0.0) {
+            error('[nf-core/funcscan] ERROR: --bgc_bigslice_threshold and --bgc_bigslice_threshold_pct are mutually exclusive. Please specify only one of the two.')
+        }
+        if (params.bgc_bigslice_complete) {
+            log.warn('[nf-core/funcscan] WARNING: --bgc_bigslice_complete restricts BiG-SLiCE clustering to complete (non-contig-edge) BGCs only. If all detected BGCs are fragmented (on_contig_edge = True), BiG-SLiCE will fail with "Not enough input for clustering." Consider removing --bgc_bigslice_complete if your input sequences are short or fragmented.')
+        }
+        if (params.bgc_bigslice_n_ranks != 1) {
+            log.warn("[nf-core/funcscan] WARNING: --bgc_bigslice_n_ranks is set to ${params.bgc_bigslice_n_ranks}. BiG-SLiCE will fail if this value exceeds the total number of BGCs detected in your dataset (n_neighbors must be <= n_samples). Consider using the default value (1) for small datasets.")
         }
     }
 }
@@ -240,6 +246,7 @@ def toolCitationText() {
         !params.bgc_skip_deepbgc ? "deepBGC (Hannigan et al. 2019)," : "",
         !params.bgc_skip_gecco ? "GECCO (Carroll et al. 2021)," : "",
         params.bgc_run_hmmsearch ? "HMMER (Eddy 2011)," : "",
+        params.bgc_run_bigslice ? "BiG-SLiCE (Kautsar et al. 2021, Kautsar et al. 2026)," : "",
         ". The output from the biosynthetic gene cluster screening tools were standardised and summarised with comBGC (Frangenberg et al. 2023).",
     ].join(' ').replaceAll(', +.', ".").trim()
 
@@ -297,6 +304,8 @@ def toolBibliographyText() {
         !params.bgc_skip_antismash ? '<li>Blin, K., Shaw, S., Vader, L., Szenei, J., Reitz, Z.L., Augustijn, H.E., Cediel-Becerra, J.D.D., de Crécy-Lagard, V., Koetsier, R.A., Williams, S.E., Cruz-Morales, P., Wongwas, S., Segurado Luchsinger, A.E., Biermann, F., Korenskaia, A., Zdouc, M.M., Meijer, D., Terlouw, B.R., van der Hooft, J.J.J., Ziemert, N., Helfrich, E.J.N., Masschelein, J., Corre, C., Chevrette, M.G., van Wezel, G.P., Medema, M.H., Weber, T., 2025. antiSMASH 8.0: extended gene cluster detection capabilities and analyses of chemistry, enzymology, and regulation. Nucleic Acids Res. 53, W32-W38. DOI: <a href="https://doi.org/10.1093/nar/gkaf334>10.1093/nar/gkaf334</a></li>' : "",
         !params.bgc_skip_deepbgc ? '<li>Hannigan, G. D., Prihoda, D., Palicka, A., Soukup, J., Klempir, O., Rampula, L., Durcak, J., Wurst, M., Kotowski, J., Chang, D., Wang, R., Piizzi, G., Temesi, G., Hazuda, D. J., Woelk, C. H., & Bitton, D. A. (2019). A deep learning genome-mining strategy for biosynthetic gene cluster prediction. Nucleic acids research, 47(18), e110. DOI: <a href="https://doi.org/10.1093/nar/gkz654">10.1093/nar/gkz654</a></li>' : "",
         !params.bgc_skip_gecco ? '<li>Carroll, L. M. , Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. bioRxiv DOI: <a href="https://doi.org/10.1101/2021.05.03.442509">0.1101/2021.05.03.442509</a></li>' : "",
+        params.bgc_run_bigslice ? '<li>Kautsar, S. A., van der Hooft, J. J. J., de Ridder, D., & Medema, M. H. (2021). BiG-SLiCE: A highly scalable tool maps the diversity of 1.2 million biosynthetic gene clusters. GigaScience, 10(1), giaa154. DOI: <a href="https://doi.org/10.1093/gigascience/giaa154">10.1093/gigascience/giaa154</a></li>' : "",
+        params.bgc_run_bigslice ? '<li>Kautsar, S. A., et al. (2026). BiG-SLiCE 2.0: improved gene cluster family diversity mapping. Nature Communications. DOI: <a href="https://doi.org/10.1038/s41467-026-68733-5">10.1038/s41467-026-68733-5</a></li>' : "",
         '<li>Frangenberg, J. Fellows Yates, J. A., Ibrahim, A., Perelo, L., & Beber, M. E. (2023). nf-core/funcscan: 1.0.0 - German Rollmops - 2023-02-15. <a href="https://doi.org/10.5281/zenodo.7643100">https://doi.org/10.5281/zenodo.7643100</a></li>',
     ].join(' ').replaceAll(', +.', ".").trim()
 
