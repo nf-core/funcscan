@@ -135,7 +135,7 @@ workflow BGC {
             .map { _meta, files -> files }
             .collect()
             .map { files -> [ [id: 'bigslice'], files.flatten() ] }
-        
+
         BIGSLICE_DOWNLOADDB([ id: 'bigslice_db' ])
         BIGSLICE(ch_bigslice_grouped, BIGSLICE_DOWNLOADDB.out.db.map { _meta, db -> db }, params.bgc_bigslice_export_tsv)
     }
