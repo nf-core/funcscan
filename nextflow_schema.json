@@ -404,7 +404,7 @@
                     "type": "integer",
                     "default": 1,
                     "description": "Minimum contig size required for annotation (bp).",
-                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend that this should be ≥ 200 bp, if you plan to submit such annotations to NCBI.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--mincontiglen`",                    
+                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend that this should be ≥ 200 bp, if you plan to submit such annotations to NCBI.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--mincontiglen`",
                     "fa_icon": "fas fa-ruler-horizontal"
                 },
                 "annotation_prokka_evalue": {
@@ -710,9 +710,8 @@
                 "amp_ampcombi_db": {
                     "type": "string",
                     "description": "The path to the folder containing the reference database files.",
-                    "help_text": "The path to the folder containing the reference database files (`*.fasta` and `*.tsv`); a fasta file and the corresponding table with structural, functional and if reported taxonomic classifications. AMPcombi will then generate the corresponding `mmseqs2` directory, in which all binary files are prepared for the downstream alignment of the recovered AMPs with [MMseqs2](https://github.com/soedinglab/MMseqs2). These can also be provided by the user by setting up an mmseqs2 compatible database using `mmseqs createdb *.fasta` in a directory called `mmseqs2`.\n\nExample file structure for the reference database supplied by the user:\n\n```bash\namp_DRAMP_database/\n├── general_amps_2024_11_13.fasta\n├── general_amps_2024_11_13.txt\n└── mmseqs2\n    ├── ref_DB\n    ├── ref_DB.dbtype\n    ├── ref_DB_h\n    ├── ref_DB_h.dbtype\n    ├── ref_DB_h.index\n    ├── ref_DB.index\n    ├── ref_DB.lookup\n    └── ref_DB.source```\n\nFor more information check the AMPcombi [documentation](https://ampcombi.readthedocs.io/en/main/usage.html#parse-tables)."                
-                
-                },      
+                    "help_text": "The path to the folder containing the reference database files (`*.fasta` and `*.tsv`); a fasta file and the corresponding table with structural, functional and if reported taxonomic classifications. AMPcombi will then generate the corresponding `mmseqs2` directory, in which all binary files are prepared for the downstream alignment of the recovered AMPs with [MMseqs2](https://github.com/soedinglab/MMseqs2). These can also be provided by the user by setting up an mmseqs2 compatible database using `mmseqs createdb *.fasta` in a directory called `mmseqs2`.\n\nExample file structure for the reference database supplied by the user:\n\n```bash\namp_DRAMP_database/\n├── general_amps_2024_11_13.fasta\n├── general_amps_2024_11_13.txt\n└── mmseqs2\n    ├── ref_DB\n    ├── ref_DB.dbtype\n    ├── ref_DB_h\n    ├── ref_DB_h.dbtype\n    ├── ref_DB_h.index\n    ├── ref_DB.index\n    ├── ref_DB.lookup\n    └── ref_DB.source```\n\nFor more information check the AMPcombi [documentation](https://ampcombi.readthedocs.io/en/main/usage.html#parse-tables)."
+                },
                 "amp_ampcombi_parsetables_cutoff": {
                     "type": "number",
                     "default": 0.6,
@@ -1071,14 +1070,14 @@
                 },
                 "arg_rgi_includeloose": {
                     "type": "boolean",
-                    "description": "Include all of loose, strict and perfect hits (i.e. ≥ 95% identity) found by RGI.",                    
+                    "description": "Include all of loose, strict and perfect hits (i.e. ≥ 95% identity) found by RGI.",
                     "help_text": "When activated RGI output will include 'Loose' hits in addition to 'Strict' and 'Perfect' hits. The 'Loose' algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_loose`",
                     "fa_icon": "far fa-hand-scissors"
                 },
                 "arg_rgi_includenudge": {
                     "type": "boolean",
                     "description": "Suppresses the default behaviour of RGI with `--arg_rgi_includeloose`.",
-                    "help_text": "This flag suppresses the default behaviour of RGI, by listing all 'Loose' matches of ≥ 95% identity as 'Strict' or 'Perfect', regardless of alignment length.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_nudge`",                    
+                    "help_text": "This flag suppresses the default behaviour of RGI, by listing all 'Loose' matches of ≥ 95% identity as 'Strict' or 'Perfect', regardless of alignment length.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_nudge`",
                     "fa_icon": "fas fa-hand-scissors"
                 },
                 "arg_rgi_lowquality": {
