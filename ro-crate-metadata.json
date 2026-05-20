@@ -32,6 +32,9 @@
                     "@id": "assets/"
                 },
                 {
+                    "@id": "bin/"
+                },
+                {
                     "@id": "conf/"
                 },
                 {
@@ -42,6 +45,9 @@
                 },
                 {
                     "@id": "modules/"
+                },
+                {
+                    "@id": "modules/local/"
                 },
                 {
                     "@id": "modules/nf-core/"
@@ -161,16 +167,25 @@
                 "screening",
                 "secondary-metabolites"
             ],
-            "license": ["MIT"],
-            "name": ["nf-core/funcscan"],
+            "license": [
+                "MIT"
+            ],
+            "name": [
+                "nf-core/funcscan"
+            ],
             "programmingLanguage": {
                 "@id": "https://w3id.org/workflowhub/workflow-ro-crate#nextflow"
             },
             "sdPublisher": {
                 "@id": "https://nf-co.re/"
             },
-            "url": ["https://github.com/nf-core/funcscan", "https://nf-co.re/funcscan/dev/"],
-            "version": ["3.1.0dev"]
+            "url": [
+                "https://github.com/nf-core/funcscan",
+                "https://nf-co.re/funcscan/dev/"
+            ],
+            "version": [
+                "3.1.0dev"
+            ]
         },
         {
             "@id": "https://w3id.org/workflowhub/workflow-ro-crate#nextflow",
@@ -221,6 +236,11 @@
             "description": "Additional files"
         },
         {
+            "@id": "bin/",
+            "@type": "Dataset",
+            "description": "Scripts that must be callable from a pipeline process"
+        },
+        {
             "@id": "conf/",
             "@type": "Dataset",
             "description": "Configuration files"
@@ -239,6 +259,11 @@
             "@id": "modules/",
             "@type": "Dataset",
             "description": "Modules used by the pipeline"
+        },
+        {
+            "@id": "modules/local/",
+            "@type": "Dataset",
+            "description": "Pipeline-specific modules"
         },
         {
             "@id": "modules/nf-core/",
@@ -349,7 +374,14 @@
         {
             "@id": "#933743ff-4fce-45fe-8383-96879c84b382",
             "@type": "Person",
+            "email": "jfy133@gmail.com",
             "name": "James A. Fellows Yates"
+        },
+        {
+            "@id": "https://orcid.org/0009-0004-5961-4709",
+            "@type": "Person",
+            "email": "73216762+jasmezz@users.noreply.github.com",
+            "name": "Jasmin Frangenberg"
         }
     ]
 }
