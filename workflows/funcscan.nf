@@ -19,13 +19,13 @@ include { methodsDescriptionText          } from '../subworkflows/local/utils_nf
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { ANNOTATION                } from '../subworkflows/local/annotation'
-include { PROTEIN_ANNOTATION        } from '../subworkflows/local/protein_annotation'
-include { AMP                       } from '../subworkflows/local/amp'
-include { ARG                       } from '../subworkflows/local/arg'
-include { BGC                       } from '../subworkflows/local/bgc'
-include { CAZYME                    } from '../subworkflows/local/cazyme'
-include { TAXA_CLASS                } from '../subworkflows/local/taxa_class'
+include { ANNOTATION                      } from '../subworkflows/local/annotation'
+include { PROTEIN_ANNOTATION              } from '../subworkflows/local/protein_annotation'
+include { AMP                             } from '../subworkflows/local/amp'
+include { ARG                             } from '../subworkflows/local/arg'
+include { BGC                             } from '../subworkflows/local/bgc'
+include { CAZYME                          } from '../subworkflows/local/cazyme'
+include { TAXA_CLASS                      } from '../subworkflows/local/taxa_class'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -49,23 +49,21 @@ include { SEQKIT_SEQ as SEQKIT_SEQ_FILTER } from '../modules/nf-core/seqkit/seq'
 workflow FUNCSCAN {
     take:
     ch_samplesheet // channel: samplesheet read in from --input
+    multiqc_config
+    multiqc_logo
+    multiqc_methods_description
+    outdir
 
     main:
 
-    ch_versions = channel.empty()
-    ch_multiqc_files = channel.empty()
+    def ch_versions = channel.empty()
+    def ch_multiqc_files = channel.empty()
 
     /*
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         CONFIG FILES
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     */
-
-    ch_multiqc_config = channel.fromPath("${projectDir}/assets/multiqc_config.yml", checkIfExists: true)
-    ch_multiqc_custom_config = params.multiqc_config ? channel.fromPath(params.multiqc_config, checkIfExists: true) : channel.empty()
-    ch_multiqc_logo = params.multiqc_logo ? channel.fromPath(params.multiqc_logo, checkIfExists: true) : channel.empty()
-    ch_multiqc_custom_methods_description = params.multiqc_methods_description ? file(params.multiqc_methods_description, checkIfExists: true) : file("${projectDir}/assets/methods_description_template.yml", checkIfExists: true)
-
 
     // Some tools require uncompressed input
     ch_input_prep = ch_samplesheet
@@ -117,7 +115,7 @@ workflow FUNCSCAN {
         ch_versions = ch_versions.mix(SEQKIT_SEQ_LENGTH.out.versions)
     }
     else {
-        ch_input_for_annotation = ch_intermediate_input.fastas.map { meta, fasta, protein, gff, gbk  -> [meta, fasta] }
+        ch_input_for_annotation = ch_intermediate_input.fastas.map { meta, fasta, protein, gff, gbk -> [meta, fasta] }
     }
 
     /*
@@ -139,16 +137,17 @@ workflow FUNCSCAN {
     }
 
     // Mix back the preannotated samples with the newly annotated ones
-    ch_new_annotation_short = ch_new_annotation
-        .filter { meta, fasta, faa, gff, gbk -> meta.category != 'long' }
+    ch_new_annotation_short = ch_new_annotation.filter { meta, fasta, faa, gff, gbk -> meta.category != 'long' }
 
     // Add gff_type to meta for cazyme screening
     if ((params.run_cazyme_screening && !params.cazyme_skip_dbcan && (!params.dbcan_skip_cgc || !params.dbcan_skip_substrate)) && params.annotation_tool in ['pyrodigal', 'prodigal', 'prokka', 'bakta']) {
         ch_new_annotation_for_mixing = ch_new_annotation_short.map { meta, fasta, faa, gff, gbk ->
-          def new_meta = meta + [gff_type: 'prodigal']  // Only Use 'prodigal' as dbcan does not distinguish 'pyrodigal' and 'prodigal'
-          [new_meta, fasta, faa, gff, gbk]
+            def new_meta = meta + [gff_type: 'prodigal']
+            // Only Use 'prodigal' as dbcan does not distinguish 'pyrodigal' and 'prodigal'
+            [new_meta, fasta, faa, gff, gbk]
         }
-    } else {
+    }
+    else {
         ch_new_annotation_for_mixing = ch_new_annotation_short
     }
 
@@ -380,17 +379,17 @@ workflow FUNCSCAN {
     /*
         CAZYMEs
     */
-    if ( params.run_cazyme_screening ) {
-        CAZYME (
+    if (params.run_cazyme_screening) {
+        CAZYME(
             ch_prepped_input.faas.filter { meta, file ->
                 if (file != [] && file.isEmpty()) {
                     log.warn("[nf-core/funcscan] Annotation of following sample produced an empty FAA file. CAZyme screening tools requiring this file will not be executed: ${meta.id}")
                 }
                 !file.isEmpty()
             },
-            ch_prepped_input.gffs
+            ch_prepped_input.gffs,
         )
-       ch_versions = ch_versions.mix(CAZYME.out.versions)
+        ch_versions = ch_versions.mix(CAZYME.out.versions)
     }
 
     //
@@ -413,68 +412,48 @@ workflow FUNCSCAN {
             "${process}:\n${tool_versions.join('\n')}"
         }
 
-    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+    def ch_collated_versions = softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
         .mix(topic_versions_string)
         .collectFile(
-            storeDir: "${params.outdir}/pipeline_info",
+            storeDir: "${outdir}/pipeline_info",
             name: 'nf_core_' + 'funcscan_software_' + 'mqc_' + 'versions.yml',
             sort: true,
             newLine: true,
         )
-        .set { ch_collated_versions }
-
 
     //
     // MODULE: MultiQC
     //
-    ch_multiqc_config = channel.fromPath(
-        "${projectDir}/assets/multiqc_config.yml",
-        checkIfExists: true
-    )
-    ch_multiqc_custom_config = params.multiqc_config
-        ? channel.fromPath(params.multiqc_config, checkIfExists: true)
-        : channel.empty()
-    ch_multiqc_logo = params.multiqc_logo
-        ? channel.fromPath(params.multiqc_logo, checkIfExists: true)
-        : channel.empty()
-
-    summary_params = paramsSummaryMap(
-        workflow,
-        parameters_schema: "nextflow_schema.json"
-    )
-    ch_workflow_summary = channel.value(paramsSummaryMultiqc(summary_params))
-    ch_multiqc_files = ch_multiqc_files.mix(
-        ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml')
-    )
-    ch_multiqc_custom_methods_description = params.multiqc_methods_description
-        ? file(params.multiqc_methods_description, checkIfExists: true)
-        : file("${projectDir}/assets/methods_description_template.yml", checkIfExists: true)
-    ch_methods_description = channel.value(
-        methodsDescriptionText(ch_multiqc_custom_methods_description)
-    )
-
     ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
-    ch_multiqc_files = ch_multiqc_files.mix(
-        ch_methods_description.collectFile(
-            name: 'methods_description_mqc.yaml',
-            sort: true,
-        )
-    )
+    def ch_summary_params = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
+    def ch_workflow_summary = channel.value(paramsSummaryMultiqc(ch_summary_params))
+    ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
+    def ch_multiqc_custom_methods_description = multiqc_methods_description
+        ? file(multiqc_methods_description, checkIfExists: true)
+        : file("${projectDir}/assets/methods_description_template.yml", checkIfExists: true)
+    def ch_methods_description = channel.value(methodsDescriptionText(ch_multiqc_custom_methods_description))
+    ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: true))
 
     if ((params.run_arg_screening && !params.arg_skip_deeparg) || (params.run_amp_screening && (params.amp_run_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir)) || params.run_bgc_screening) {
         ch_multiqc_files = ch_multiqc_files.mix(ANNOTATION.out.multiqc_files.collect { it[1] })
     }
 
     MULTIQC(
-        ch_multiqc_files.collect(),
-        ch_multiqc_config.toList(),
-        ch_multiqc_custom_config.toList(),
-        ch_multiqc_logo.toList(),
-        [],
-        [],
+        ch_multiqc_files.flatten().collect().map { files ->
+            [
+                [id: 'funcscan'],
+                files,
+                multiqc_config
+                    ? file(multiqc_config, checkIfExists: true)
+                    : file("${projectDir}/assets/multiqc_config.yml", checkIfExists: true),
+                multiqc_logo ? file(multiqc_logo, checkIfExists: true) : [],
+                [],
+                [],
+            ]
+        }
     )
 
     emit:
-    multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
+    multiqc_report = MULTIQC.out.report.map { _meta, report -> [report] }.toList() // channel: /path/to/multiqc_report.html
     versions       = ch_versions // channel: [ path(versions.yml) ]
 }
