@@ -133,16 +133,16 @@
                     "rgi-database": "4.0.1"
                 },
                 "RUNDBCAN_CAZYMEANNOTATION": {
-                    "dbcan": "5.2.9"
+                    "rundbcan": "5.2.9"
                 },
                 "RUNDBCAN_DATABASE": {
-                    "dbcan": "5.2.9"
+                    "rundbcan": "5.2.9"
                 },
                 "RUNDBCAN_EASYCGC": {
-                    "dbcan": "5.2.9"
+                    "rundbcan": "5.2.9"
                 },
                 "RUNDBCAN_EASYSUBSTRATE": {
-                    "dbcan": "5.2.9"
+                    "rundbcan": "5.2.9"
                 },
                 "UNTAR_CARD": {
                     "untar": 1.34
