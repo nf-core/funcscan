@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | Tool    | Previous Version | New Version |
 | ------- | ---------------- | ----------- |
 | dbCAN   |                  | 5.2.9       |
-| MultiQC | 1.27             | 1.32        |
+| MultiQC | 1.27             | 1.34        |
 | Bakta   | 1.10.4           | 1.11.4      |
 
 ### `Deprecated`
