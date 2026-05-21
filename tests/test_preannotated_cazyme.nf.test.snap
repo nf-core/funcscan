@@ -1,7 +1,7 @@
 {
     "dbcan_cazyme_annotation": {
         "content": [
-            "sample_1_overview.tsv:md5,50196767ad06de55cc8f1c22e44113f4",
+            "sample_1_overview.tsv:md5,91ffdad866503e16ddc284dd0316708e",
             true,
             true,
             true,
@@ -11,7 +11,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-20T11:35:42.859693037"
+        "timestamp": "2026-05-21T08:46:11.455283402"
     },
     "dbcan_substrate": {
         "content": [
@@ -28,7 +28,7 @@
     },
     "dbcan_cgc": {
         "content": [
-            "sample_3_cgc_standard_out.tsv:md5,abb57231cd60c8b20f78e3d822a7094d",
+            "sample_3_cgc_standard_out.tsv:md5,e0c5be2f4935fd0a655efe932df0266e",
             true,
             true,
             true,
@@ -38,6 +38,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-20T11:35:42.8704081"
+        "timestamp": "2026-05-21T08:46:11.492486953"
     }
 }

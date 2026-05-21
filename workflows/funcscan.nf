@@ -19,13 +19,13 @@ include { methodsDescriptionText          } from '../subworkflows/local/utils_nf
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { ANNOTATION                } from '../subworkflows/local/annotation'
-include { PROTEIN_ANNOTATION        } from '../subworkflows/local/protein_annotation'
-include { AMP                       } from '../subworkflows/local/amp'
-include { ARG                       } from '../subworkflows/local/arg'
-include { BGC                       } from '../subworkflows/local/bgc'
-include { CAZYME                    } from '../subworkflows/local/cazyme'
-include { TAXA_CLASS                } from '../subworkflows/local/taxa_class'
+include { ANNOTATION                      } from '../subworkflows/local/annotation'
+include { PROTEIN_ANNOTATION              } from '../subworkflows/local/protein_annotation'
+include { AMP                             } from '../subworkflows/local/amp'
+include { ARG                             } from '../subworkflows/local/arg'
+include { BGC                             } from '../subworkflows/local/bgc'
+include { CAZYME                          } from '../subworkflows/local/cazyme'
+include { TAXA_CLASS                      } from '../subworkflows/local/taxa_class'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -117,7 +117,7 @@ workflow FUNCSCAN {
         ch_versions = ch_versions.mix(SEQKIT_SEQ_LENGTH.out.versions)
     }
     else {
-        ch_input_for_annotation = ch_intermediate_input.fastas.map { meta, fasta, protein, gff, gbk  -> [meta, fasta] }
+        ch_input_for_annotation = ch_intermediate_input.fastas.map { meta, fasta, protein, gff, gbk -> [meta, fasta] }
     }
 
     /*
@@ -139,16 +139,17 @@ workflow FUNCSCAN {
     }
 
     // Mix back the preannotated samples with the newly annotated ones
-    ch_new_annotation_short = ch_new_annotation
-        .filter { meta, fasta, faa, gff, gbk -> meta.category != 'long' }
+    ch_new_annotation_short = ch_new_annotation.filter { meta, fasta, faa, gff, gbk -> meta.category != 'long' }
 
     // Add gff_type to meta for cazyme screening
     if ((params.run_cazyme_screening && !params.cazyme_skip_dbcan && (!params.dbcan_skip_cgc || !params.dbcan_skip_substrate)) && params.annotation_tool in ['pyrodigal', 'prodigal', 'prokka', 'bakta']) {
         ch_new_annotation_for_mixing = ch_new_annotation_short.map { meta, fasta, faa, gff, gbk ->
-          def new_meta = meta + [gff_type: 'prodigal']  // Only Use 'prodigal' as dbcan does not distinguish 'pyrodigal' and 'prodigal'
-          [new_meta, fasta, faa, gff, gbk]
+            def new_meta = meta + [gff_type: 'prodigal']
+            // Only Use 'prodigal' as dbcan does not distinguish 'pyrodigal' and 'prodigal'
+            [new_meta, fasta, faa, gff, gbk]
         }
-    } else {
+    }
+    else {
         ch_new_annotation_for_mixing = ch_new_annotation_short
     }
 
@@ -380,17 +381,16 @@ workflow FUNCSCAN {
     /*
         CAZYMEs
     */
-    if ( params.run_cazyme_screening ) {
-        CAZYME (
+    if (params.run_cazyme_screening) {
+        CAZYME(
             ch_prepped_input.faas.filter { meta, file ->
                 if (file != [] && file.isEmpty()) {
                     log.warn("[nf-core/funcscan] Annotation of following sample produced an empty FAA file. CAZyme screening tools requiring this file will not be executed: ${meta.id}")
                 }
                 !file.isEmpty()
             },
-            ch_prepped_input.gffs
+            ch_prepped_input.gffs,
         )
-       ch_versions = ch_versions.mix(CAZYME.out.versions)
     }
 
     //
