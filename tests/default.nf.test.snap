@@ -133,16 +133,16 @@
                     "rgi-database": "4.0.1"
                 },
                 "RUNDBCAN_CAZYMEANNOTATION": {
-                    "dbcan": "5.2.6"
+                    "rundbcan": "5.2.9"
                 },
                 "RUNDBCAN_DATABASE": {
-                    "dbcan": "5.2.6"
+                    "rundbcan": "5.2.9"
                 },
                 "RUNDBCAN_EASYCGC": {
-                    "dbcan": "5.2.6"
+                    "rundbcan": "5.2.9"
                 },
                 "RUNDBCAN_EASYSUBSTRATE": {
-                    "dbcan": "5.2.6"
+                    "rundbcan": "5.2.9"
                 },
                 "UNTAR_CARD": {
                     "untar": 1.34
@@ -219,7 +219,7 @@
     },
     "dbcan": {
         "content": [
-            "sample_2_overview.tsv:md5,6c5ecb179166f0471f486d484acc8dd6",
+            "sample_2_overview.tsv:md5,64fafea492cb0e28515985fb205117bd",
             "sample_2_cgc_standard_out.tsv:md5,6be9ab29b289ff46cc6e4b6fe48dc3d7",
             "sample_2_substrate_prediction.tsv:md5,fe2a5ea9e19c4f1108798103547ff98d"
         ],

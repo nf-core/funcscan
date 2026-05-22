@@ -9,14 +9,11 @@ include { RUNDBCAN_EASYSUBSTRATE    } from '../../modules/nf-core/rundbcan/easys
 
 
 workflow CAZYME {
-
     take:
-    faas    // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
-    gffs    // tuple val(meta), path(ANNOTATION_ANNOTATION_TOOL.out.gff)
+    faas // tuple val(meta), path(PROKKA/PRODIGAL.out.faa)
+    gffs // tuple val(meta), path(ANNOTATION_ANNOTATION_TOOL.out.gff)
 
     main:
-    ch_versions = Channel.empty()
-
     // When adding new tool that requires FAA, make sure to update conditions
     // in funcscan.nf around annotation and dbCAN subworkflow execution
     // to ensure annotation is executed!
@@ -31,23 +28,21 @@ workflow CAZYME {
     }
     else if (!params.cazyme_skip_dbcan && !params.cazyme_dbcan_db) {
         // Download dbCAN database
-        RUNDBCAN_DATABASE ()
-        ch_versions = ch_versions.mix(RUNDBCAN_DATABASE.out.versions)
+        RUNDBCAN_DATABASE()
         ch_dbcan_db = RUNDBCAN_DATABASE.out.dbcan_db
     }
 
     if (!params.cazyme_skip_dbcan) {
         // CAZyme annotation
-        RUNDBCAN_CAZYMEANNOTATION (ch_faas_for_rundbcan, ch_dbcan_db)
-        ch_versions = ch_versions.mix(RUNDBCAN_CAZYMEANNOTATION.out.versions)
+        RUNDBCAN_CAZYMEANNOTATION(ch_faas_for_rundbcan, ch_dbcan_db)
 
         // Prepare input for dbCAN CGC and substrate annotation
-        if ( !params.dbcan_skip_cgc || !params.dbcan_skip_substrate ) {
+        if (!params.dbcan_skip_cgc || !params.dbcan_skip_substrate) {
             ch_input_for_dbcan = ch_faas_for_rundbcan
                 .join(ch_gffs_for_rundbcan)
                 .filter { meta, faa, gff ->
                     if (!gff || !meta.gff_type) {
-                        log.warn "Skipping sample: ${meta.id ?: 'unknown'} for dbcan cgc and substrate annotation due to empty gff or gff_type"
+                        log.warn("Skipping sample: ${meta.id ?: 'unknown'} for dbcan cgc and substrate annotation due to empty gff or gff_type")
                         return false
                     }
                     return true
@@ -58,28 +53,23 @@ workflow CAZYME {
                 }
 
             // CGC annotation
-            if ( !params.dbcan_skip_cgc ) {
-                RUNDBCAN_EASYCGC (
+            if (!params.dbcan_skip_cgc) {
+                RUNDBCAN_EASYCGC(
                     ch_input_for_dbcan.faa,
                     ch_input_for_dbcan.gff,
-                    ch_dbcan_db
+                    ch_dbcan_db,
                 )
-                ch_versions = ch_versions.mix(RUNDBCAN_EASYCGC.out.versions)
             }
 
 
             // substrate annotation
-            if ( !params.dbcan_skip_substrate ) {
-                RUNDBCAN_EASYSUBSTRATE (
+            if (!params.dbcan_skip_substrate) {
+                RUNDBCAN_EASYSUBSTRATE(
                     ch_input_for_dbcan.faa,
                     ch_input_for_dbcan.gff,
-                    ch_dbcan_db
+                    ch_dbcan_db,
                 )
-                ch_versions = ch_versions.mix(RUNDBCAN_EASYSUBSTRATE.out.versions)
             }
         }
     }
-
-    emit:
-    versions = ch_versions
 }
