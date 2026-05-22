@@ -189,7 +189,7 @@ If you update images or graphics, follow the nf-core [style guidelines](https://
 - [ ] Parameter names structure: `<pipelinesection>_<toolname>_<parameter>`
   - All components of structure should not have `_`, i.e., they should all be concatenated: `amp_hmmsearch_savealignments` not `amp_hmmsearch_save_alignments`
   - Exception: subworkflow specific activation parameters must start with 'run': `run_<pipelinesection>_screening`, e.g. `run_arg_screening`
-  - Execption: tool specific skipping parameters must use 'skip' in the second position: `<pipelinesection>_skip_<toolname>`, e.g. `amp_skip_macrel`
+  - Exception: tool specific skipping parameters must use 'skip' in the second position: `<pipelinesection>_skip_<toolname>`, e.g. `amp_skip_macrel`
 
 ### Adding new tool workflow
 
