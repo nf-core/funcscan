@@ -169,6 +169,44 @@ When the annotation is run with Prokka, the resulting `.gbk` file passed to anti
 If antiSMASH is run for BGC detection, we recommend to **not** run Prokka for annotation but instead use the default annotation tool (Pyrodigal), or switch to Prodigal or (for bacteria only!) Bakta.
 :::
 
+### BiGSLiCE
+
+[BiG-SLiCE](https://github.com/medema-group/bigslice) clusters BGC sequences into Gene Cluster Families (GCFs).
+It is activated with `--bgc_run_bigslice` and requires at least one BGC source to be enabled:
+
+- antiSMASH (default BGC tool).
+- GECCO with `--bgc_gecco_runconvert --bgc_gecco_convertmode gbk --bgc_gecco_convertformat bigslice`
+
+BiG-SLiCE does **not** discover BGCs itself — it takes GenBank-format BGC regions produced by antiSMASH and/or GECCO convert as input.
+The HMM database must be provided explicitly via `--bgc_bigslice_db` (see [BiGSLiCE database](#databases-and-reference-files) for details); it is not auto-downloaded by the pipeline.
+
+By default BiG-SLiCE only writes a `data.db` SQLite database.
+To additionally export all results as tab-separated text files, pass `--bgc_bigslice_export_tsv`.
+
+The following optional parameters can be used to tune the clustering behaviour:
+
+| Pipeline parameter             | BiG-SLiCE flag    | Description                                                                                    |
+| ------------------------------ | ----------------- | ---------------------------------------------------------------------------------------------- |
+| `--bgc_bigslice_complete`      | `--complete`      | Force a full re-clustering run from scratch                                                    |
+| `--bgc_bigslice_threshold`     | `--threshold`     | Jaccard index threshold for GCF membership (default: 0.3)                                      |
+| `--bgc_bigslice_threshold_pct` | `--threshold_pct` | Percentage-based GCF membership threshold (mutually exclusive with `--bgc_bigslice_threshold`) |
+| `--bgc_bigslice_n_ranks`       | `--n_ranks`       | Number of initial GCF centroids (default: 3000)                                                |
+
+::: note
+`--bgc_bigslice_threshold` and `--bgc_bigslice_threshold_pct` are mutually exclusive — the pipeline will error at startup if both are set to non-default values.
+:::
+
+::: warning
+`--bgc_bigslice_complete` forces BiG-SLiCE to cluster **all** input BGCs, including those with no significant HMM hits.
+This requires a sufficiently large dataset; with fewer than ~10–15 samples the run will fail with `Exception: Not enough input for clustering`.
+:::
+
+::: warning
+`--bgc_bigslice_n_ranks` must be **smaller than the number of BGCs** in the input dataset.
+Setting it to a value larger than the dataset size will cause BiG-SLiCE to fail with `ValueError: Expected n_neighbors <= n_samples_fit`.
+The default of 3000 is suitable for large public datasets; reduce this value when working with smaller datasets.
+:::
+
 ## Databases and reference files
 
 Various tools of nf-core/funcscan use databases and reference files to operate.
@@ -526,6 +564,25 @@ deepbgc_db/
   └── detector
     └── myDetectors*.pkl
 ```
+
+### BiGSLiCE
+
+BiG-SLiCE requires its own HMM database. Unlike most other tools in funcscan, the pipeline does **not** auto-download this database — there is no built-in download command in the tool itself. The database must be downloaded manually and supplied with `--bgc_bigslice_db`.
+
+Download the latest pre-built database archive from the [BiG-SLiCE GitHub releases page](https://github.com/medema-group/bigslice/releases):
+
+```bash
+wget https://github.com/medema-group/bigslice/releases/latest/download/bigslice-models.tar.gz
+tar -xzf bigslice-models.tar.gz
+```
+
+Then supply the extracted directory to the pipeline:
+
+```bash
+--bgc_bigslice_db '/<path>/<to>/<bigslice-models>/'
+```
+
+The contents of the database directory should contain subdirectories such as `biosynthetic_pfams/` and `sub_pfams/` in the top level.
 
 ### InterProScan
 

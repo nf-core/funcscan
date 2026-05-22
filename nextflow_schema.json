@@ -1465,6 +1465,55 @@
             },
             "fa_icon": "fas fa-angle-double-right"
         },
+        "bgc_bigslice": {
+            "title": "BGC: BiG-SLiCE",
+            "type": "object",
+            "default": "",
+            "properties": {
+                "bgc_run_bigslice": {
+                    "type": "boolean",
+                    "description": "Run BiG-SLiCE to cluster detected BGCs into gene cluster families (GCFs)."
+                },
+                "bgc_bigslice_db": {
+                    "type": "string",
+                    "description": "Path to the pre-downloaded BiG-SLiCE HMM database directory.",
+                    "help_text": "Supply the path to a local copy of the BiG-SLiCE HMM database. The database can be downloaded from the BiG-SLiCE GitHub releases page:\n\n```bash\nwget https://github.com/medema-group/bigslice/releases/latest/download/bigslice-models.tar.gz\ntar -xzf bigslice-models.tar.gz\n```\n\nThe contents of the directory should contain subdirectories such as `biosynthetic_pfams/` and `sub_pfams/` in the top level.\n\n> Modifies tool parameter(s):\n> - BiG-SLiCE: `--program_db_folder`",
+                    "fa_icon": "fas fa-database"
+                },
+                "bgc_bigslice_export_tsv": {
+                    "type": "boolean",
+                    "description": "Export BiG-SLiCE results as TSV files in addition to the SQLite database.",
+                    "help_text": "Passes `--export-tsv` to BiG-SLiCE, which exports all parsed BGC metadata, vectorized features and clustering results as tab-separated text files alongside the default `data.db` SQLite database."
+                },
+                "bgc_bigslice_complete": {
+                    "type": "boolean",
+                    "description": "Run BiG-SLiCE in complete mode, re-clustering all BGCs into GCFs from scratch.",
+                    "help_text": "By default BiG-SLiCE continues from a previous run if the output folder exists. Activating this flag forces a full re-run of the clustering step, discarding any cached intermediate results.\n\n> Modifies tool parameter(s):\n> - BiG-SLiCE: `--complete`"
+                },
+                "bgc_bigslice_threshold": {
+                    "type": "number",
+                    "default": 0.4,
+                    "description": "Jaccard index threshold for considering a BGC as a member of a GCF.",
+                    "help_text": "Controls the minimum Jaccard index alignment score required for a BGC to be assigned to a Gene Cluster Family (GCF). Lower values increase sensitivity (more assignments) at the cost of specificity.\n\nFor more information see the BiG-SLiCE [documentation](https://github.com/medema-group/bigslice/wiki/Program-parameters).\n\n> Modifies tool parameter(s):\n> - BiG-SLiCE: `--threshold`",
+                    "fa_icon": "fas fa-sliders-h"
+                },
+                "bgc_bigslice_threshold_pct": {
+                    "type": "number",
+                    "default": 0.0,
+                    "description": "Percentage-based BGC-to-GCF membership threshold.",
+                    "help_text": "An alternative membership threshold expressed as a percentage of the total number of hits. When set above 0, a BGC is assigned to a GCF only if at least this percentage of its domain hits overlap with the GCF centroid.\n\nFor more information see the BiG-SLiCE [documentation](https://github.com/medema-group/bigslice/wiki/Program-parameters).\n\n> Modifies tool parameter(s):\n> - BiG-SLiCE: `--threshold_pct`",
+                    "fa_icon": "fas fa-percent"
+                },
+                "bgc_bigslice_n_ranks": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Number of best GCF hits to report for each BGC membership assignment.",
+                    "help_text": "Sets how many top-scoring GCF hits are recorded per BGC during the membership assignment step. Increasing this value reports more alternative GCF assignments per BGC at the cost of longer runtime.\n\nFor more information see the BiG-SLiCE [documentation](https://github.com/medema-group/bigslice/wiki/Program-parameters).\n\n> Modifies tool parameter(s):\n> - BiG-SLiCE: `--n_ranks`",
+                    "fa_icon": "fas fa-list-ol"
+                }
+            },
+            "description": "Parameters for BiG-SLiCE clustering of biosynthetic gene clusters (BGCs) into gene cluster families (GCFs). More info: https://github.com/medema-group/bigslice"
+        },
         "bgc_hmmsearch": {
             "title": "BGC: hmmsearch",
             "type": "object",
@@ -1774,6 +1823,9 @@
         },
         {
             "$ref": "#/$defs/bgc_gecco"
+        },
+        {
+            "$ref": "#/$defs/bgc_bigslice"
         },
         {
             "$ref": "#/$defs/bgc_hmmsearch"
