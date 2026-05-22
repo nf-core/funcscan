@@ -177,7 +177,7 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "af27af1be706e6a2bb8fe454175b0cdf77f47b49",
+                        "git_sha": "008f9d3e61209bf995edac3ba531f54e269e1215",
                         "installed_by": ["modules"]
                     },
                     "prodigal": {
@@ -207,22 +207,22 @@
                     },
                     "rundbcan/cazymeannotation": {
                         "branch": "master",
-                        "git_sha": "d79f6bc5514d2d297ef51be1ee44373f63d55769",
+                        "git_sha": "2c4a023fc1be85982b8952f3ffdb4aa3552f3f9f",
                         "installed_by": ["modules"]
                     },
                     "rundbcan/database": {
                         "branch": "master",
-                        "git_sha": "d79f6bc5514d2d297ef51be1ee44373f63d55769",
+                        "git_sha": "2c4a023fc1be85982b8952f3ffdb4aa3552f3f9f",
                         "installed_by": ["modules"]
                     },
                     "rundbcan/easycgc": {
                         "branch": "master",
-                        "git_sha": "d79f6bc5514d2d297ef51be1ee44373f63d55769",
+                        "git_sha": "2c4a023fc1be85982b8952f3ffdb4aa3552f3f9f",
                         "installed_by": ["modules"]
                     },
                     "rundbcan/easysubstrate": {
                         "branch": "master",
-                        "git_sha": "d79f6bc5514d2d297ef51be1ee44373f63d55769",
+                        "git_sha": "2c4a023fc1be85982b8952f3ffdb4aa3552f3f9f",
                         "installed_by": ["modules"]
                     },
                     "seqkit/seq": {
@@ -251,7 +251,7 @@
                     },
                     "utils_nfcore_pipeline": {
                         "branch": "master",
-                        "git_sha": "65f5e638d901a51534c68fd5c1c19e8112fb4df1",
+                        "git_sha": "a3fb7351b1fdb2b1de282b765816bbea190e86a8",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfschema_plugin": {
