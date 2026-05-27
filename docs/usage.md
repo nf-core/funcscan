@@ -185,10 +185,10 @@ To additionally export all results as tab-separated text files, pass `--bgc_bigs
 
 The following optional parameters can be used to tune the clustering behaviour:
 
-| Pipeline parameter             | BiG-SLiCE flag    | Description                                                                                    |
-| ------------------------------ | ----------------- | ---------------------------------------------------------------------------------------------- |
-| `--bgc_bigslice_complete`      | `--complete`      | Force a full re-clustering run from scratch                                                    |
-| `--bgc_bigslice_threshold`     | `--threshold`     | Jaccard index threshold for GCF membership (default: 0.3)                                      |
+| Pipeline parameter            | BiG-SLiCE flag    | Description                                                                                    |
+| ----------------------------- | ----------------- | ---------------------------------------------------------------------------------------------- |
+| `--bgc_bigslice_complete`     | `--complete`      | Force a full re-clustering run from scratch                                                    |
+| `--bgc_bigslice_threshold`    | `--threshold`     | Jaccard index threshold for GCF membership (default: 0.3)                                      |
 | `--bgc_bigslice_thresholdpct` | `--threshold_pct` | Percentage-based GCF membership threshold (mutually exclusive with `--bgc_bigslice_threshold`) |
 | `--bgc_bigslice_nranks`       | `--n_ranks`       | Number of initial GCF centroids (default: 3000)                                                |
 
