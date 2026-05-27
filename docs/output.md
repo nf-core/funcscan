@@ -6,7 +6,7 @@ The output of nf-core/funcscan provides reports for each of the functional group
 
 - **antibiotic resistance genes** (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) - summarised by [hAMRonization](https://github.com/pha4ge/hAMRonization). Results from ABRicate, AMRFinderPlus, and DeepARG are normalised to [ARO](https://obofoundry.org/ontology/aro.html) by [argNorm](https://github.com/BigDataBiology/argNorm).)
 - **antimicrobial peptides** (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) - summarised by [AMPcombi](https://github.com/paleobiotechnology/AMPcombi))
-- **biosynthetic gene clusters** (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org), [BiGSLiCE](https://github.com/medema-group/bigslice), - summarised by [comBGC](#combgc))
+- **biosynthetic gene clusters** (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org), [BiGSLiCE](https://github.com/medema-group/bigslice) - summarised by [comBGC](#combgc))
 - **carbohydrate-active enzymes (CAZymes)**, CAZyme gene clusters and substrates (tools: [run_dbcan](https://github.com/bcb-unl/run_dbcan))
 
 As a general workflow, we recommend to first look at the summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each result. The tool-specific output directories also includes the output from the functional annotation steps of either [prokka](https://github.com/tseemann/prokka), [pyrodigal](https://github.com/althonos/pyrodigal), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set. Additionally, taxonomic classifications from [MMseqs2](https://github.com/soedinglab/MMseqs2) are saved if the `--taxa_classification_mmseqs_db_savetmp` and `--taxa_classification_mmseqs_taxonomy_savetmp` flags are set.
@@ -489,7 +489,7 @@ The additional GFF3, GenBank, or FASTA files from `--bgc_gecco_runconvert`, can 
   - `<samplename>/`
     - `result/`
       - `data.db`: SQLite database containing results for BGCs, CDSs, Gene Cluster Families (GCFs), HMMs and HSPs.
-      - `tsv_export/` (optional): TSV exports of all parsed BGC metadata, vectorized features and clustering results. Only produced when `--bgc_bigslice_export_tsv` is set.
+      - `tsv_export/` (optional): TSV exports of all parsed BGC metadata, vectorized features and clustering results. Only produced when `--bgc_bigslice_exporttsv` is set.
       - `tmp/`
         - `<run_id>/`
           - `*.fa`: predicted biosynthetic features as FASTA files, one file per hit HMM.

@@ -181,7 +181,7 @@ BiG-SLiCE does **not** discover BGCs itself — it takes GenBank-format BGC regi
 The HMM database must be provided explicitly via `--bgc_bigslice_db` (see [BiGSLiCE database](#databases-and-reference-files) for details); it is not auto-downloaded by the pipeline.
 
 By default BiG-SLiCE only writes a `data.db` SQLite database.
-To additionally export all results as tab-separated text files, pass `--bgc_bigslice_export_tsv`.
+To additionally export all results as tab-separated text files, pass `--bgc_bigslice_exporttsv`.
 
 The following optional parameters can be used to tune the clustering behaviour:
 
@@ -189,11 +189,11 @@ The following optional parameters can be used to tune the clustering behaviour:
 | ------------------------------ | ----------------- | ---------------------------------------------------------------------------------------------- |
 | `--bgc_bigslice_complete`      | `--complete`      | Force a full re-clustering run from scratch                                                    |
 | `--bgc_bigslice_threshold`     | `--threshold`     | Jaccard index threshold for GCF membership (default: 0.3)                                      |
-| `--bgc_bigslice_threshold_pct` | `--threshold_pct` | Percentage-based GCF membership threshold (mutually exclusive with `--bgc_bigslice_threshold`) |
-| `--bgc_bigslice_n_ranks`       | `--n_ranks`       | Number of initial GCF centroids (default: 3000)                                                |
+| `--bgc_bigslice_thresholdpct` | `--threshold_pct` | Percentage-based GCF membership threshold (mutually exclusive with `--bgc_bigslice_threshold`) |
+| `--bgc_bigslice_nranks`       | `--n_ranks`       | Number of initial GCF centroids (default: 3000)                                                |
 
 ::: note
-`--bgc_bigslice_threshold` and `--bgc_bigslice_threshold_pct` are mutually exclusive — the pipeline will error at startup if both are set to non-default values.
+`--bgc_bigslice_threshold` and `--bgc_bigslice_thresholdpct` are mutually exclusive — the pipeline will error at startup if both are set to non-default values.
 :::
 
 ::: warning
@@ -202,7 +202,7 @@ This requires a sufficiently large dataset; with fewer than ~10–15 samples the
 :::
 
 ::: warning
-`--bgc_bigslice_n_ranks` must be **smaller than the number of BGCs** in the input dataset.
+`--bgc_bigslice_nranks` must be **smaller than the number of BGCs** in the input dataset.
 Setting it to a value larger than the dataset size will cause BiG-SLiCE to fail with `ValueError: Expected n_neighbors <= n_samples_fit`.
 The default of 3000 is suitable for large public datasets; reduce this value when working with smaller datasets.
 :::

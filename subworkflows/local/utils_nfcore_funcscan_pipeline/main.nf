@@ -182,14 +182,14 @@ def validateInputParameters() {
         if (params.bgc_skip_antismash && (params.bgc_skip_gecco || !params.bgc_gecco_runconvert || params.bgc_gecco_convertformat != 'bigslice')) {
             error('[nf-core/funcscan] ERROR: BigSLICE requires at least one of: (1) antiSMASH enabled, or (2) GECCO enabled with GECCO convert in bigslice format. Please check your parameters.')
         }
-        if (params.bgc_bigslice_threshold != 0.4 && params.bgc_bigslice_threshold_pct != 0.0) {
-            error('[nf-core/funcscan] ERROR: --bgc_bigslice_threshold and --bgc_bigslice_threshold_pct are mutually exclusive. Please specify only one of the two.')
+        if (params.bgc_bigslice_threshold != 0.4 && params.bgc_bigslice_thresholdpct != -1) {
+            error('[nf-core/funcscan] ERROR: --bgc_bigslice_threshold and --bgc_bigslice_thresholdpct are mutually exclusive. Please specify only one of the two.')
         }
         if (params.bgc_bigslice_complete) {
             log.warn('[nf-core/funcscan] WARNING: --bgc_bigslice_complete restricts BiG-SLiCE clustering to complete (non-contig-edge) BGCs only. If all detected BGCs are fragmented (on_contig_edge = True), BiG-SLiCE will fail with "Not enough input for clustering." Consider removing --bgc_bigslice_complete if your input sequences are short or fragmented.')
         }
-        if (params.bgc_bigslice_n_ranks != 1) {
-            log.warn("[nf-core/funcscan] WARNING: --bgc_bigslice_n_ranks is set to ${params.bgc_bigslice_n_ranks}. BiG-SLiCE will fail if this value exceeds the total number of BGCs detected in your dataset (n_neighbors must be <= n_samples). Consider using the default value (1) for small datasets.")
+        if (params.bgc_bigslice_nranks != 1) {
+            log.warn("[nf-core/funcscan] WARNING: --bgc_bigslice_nranks is set to ${params.bgc_bigslice_nranks}. BiG-SLiCE will fail if this value exceeds the total number of BGCs detected in your dataset (n_neighbors must be <= n_samples). Consider using the default value (1) for small datasets.")
         }
     }
 }

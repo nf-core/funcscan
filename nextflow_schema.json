@@ -1480,7 +1480,7 @@
                     "help_text": "Supply the path to a local copy of the BiG-SLiCE HMM database. The database can be downloaded from the BiG-SLiCE GitHub releases page:\n\n```bash\nwget https://github.com/medema-group/bigslice/releases/latest/download/bigslice-models.tar.gz\ntar -xzf bigslice-models.tar.gz\n```\n\nThe contents of the directory should contain subdirectories such as `biosynthetic_pfams/` and `sub_pfams/` in the top level.\n\n> Modifies tool parameter(s):\n> - BiG-SLiCE: `--program_db_folder`",
                     "fa_icon": "fas fa-database"
                 },
-                "bgc_bigslice_export_tsv": {
+                "bgc_bigslice_exporttsv": {
                     "type": "boolean",
                     "description": "Export BiG-SLiCE results as TSV files in addition to the SQLite database.",
                     "help_text": "Passes `--export-tsv` to BiG-SLiCE, which exports all parsed BGC metadata, vectorized features and clustering results as tab-separated text files alongside the default `data.db` SQLite database."
@@ -1497,14 +1497,14 @@
                     "help_text": "Controls the minimum Jaccard index alignment score required for a BGC to be assigned to a Gene Cluster Family (GCF). Lower values increase sensitivity (more assignments) at the cost of specificity.\n\nFor more information see the BiG-SLiCE [documentation](https://github.com/medema-group/bigslice/wiki/Program-parameters).\n\n> Modifies tool parameter(s):\n> - BiG-SLiCE: `--threshold`",
                     "fa_icon": "fas fa-sliders-h"
                 },
-                "bgc_bigslice_threshold_pct": {
+                "bgc_bigslice_thresholdpct": {
                     "type": "number",
-                    "default": 0.0,
+                    "default": -1,
                     "description": "Percentage-based BGC-to-GCF membership threshold.",
                     "help_text": "An alternative membership threshold expressed as a percentage of the total number of hits. When set above 0, a BGC is assigned to a GCF only if at least this percentage of its domain hits overlap with the GCF centroid.\n\nFor more information see the BiG-SLiCE [documentation](https://github.com/medema-group/bigslice/wiki/Program-parameters).\n\n> Modifies tool parameter(s):\n> - BiG-SLiCE: `--threshold_pct`",
                     "fa_icon": "fas fa-percent"
                 },
-                "bgc_bigslice_n_ranks": {
+                "bgc_bigslice_nranks": {
                     "type": "integer",
                     "default": 1,
                     "description": "Number of best GCF hits to report for each BGC membership assignment.",

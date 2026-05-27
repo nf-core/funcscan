@@ -67,7 +67,10 @@ nextflow_pipeline {
                     path("$outputDir/bgc/gecco/sample_2/sample_2.features.tsv"), // channel: features
                     path("$outputDir/bgc/gecco/sample_3/sample_3.genes.tsv"),    // channel: genes
                     path("$outputDir/bgc/gecco/sample_3/sample_3.features.tsv")  // channel: features
-                ).match("gecco") }
+                ).match("gecco") },
+
+                // BiGSLiCE
+                { assert new File("$outputDir/bgc/bigslice/result/data.db").exists() } // channel: output
             )
         }
     }

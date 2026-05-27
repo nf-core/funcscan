@@ -138,8 +138,15 @@ workflow BGC {
             .collect()
             .map { files -> [[id: 'bigslice'], files.flatten()] }
 
-        BIGSLICE_DOWNLOADDB([id: 'bigslice_db'])
-        BIGSLICE_BIGSLICE(ch_bigslice_grouped, BIGSLICE_DOWNLOADDB.out.db.map { _meta, db -> db }, params.bgc_bigslice_export_tsv)
+        if (params.bgc_bigslice_db) {
+            ch_bigslice_db = channel.fromPath(params.bgc_bigslice_db, checkIfExists: true)
+        }
+        else {
+            BIGSLICE_DOWNLOADDB([id: 'bigslice_db'])
+            ch_bigslice_db = BIGSLICE_DOWNLOADDB.out.db.map { _meta, db -> db }
+        }
+
+        BIGSLICE_BIGSLICE(ch_bigslice_grouped, ch_bigslice_db, params.bgc_bigslice_exporttsv)
     }
 
     // HMMSEARCH
