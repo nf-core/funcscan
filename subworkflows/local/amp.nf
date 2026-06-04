@@ -124,7 +124,6 @@ workflow AMP {
         ch_ampcombi_input_db = AMP_DATABASE_DOWNLOAD.out.db
         AMPCOMBI2_PARSETABLES(ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_input_for_ampcombi.gbk, params.amp_ampcombi_db_id, ch_ampcombi_input_db, ch_input_for_ampcombi.interpro)
     }
-    ch_versions = ch_versions.mix(AMPCOMBI2_PARSETABLES.out.versions)
 
     ch_ampcombi_summaries = AMPCOMBI2_PARSETABLES.out.tsv.map { it[1] }.collect()
 
@@ -136,14 +135,12 @@ workflow AMP {
     }
     else {
         AMPCOMBI2_COMPLETE(ch_ampcombi_summaries)
-        ch_versions = ch_versions.mix(AMPCOMBI2_COMPLETE.out.versions)
         ch_ampcombi_complete = AMPCOMBI2_COMPLETE.out.tsv.filter { file -> file.countLines() > 1 }
     }
 
     // AMPCOMBI2::CLUSTER
     if (ch_ampcombi_complete != null) {
         AMPCOMBI2_CLUSTER(ch_ampcombi_complete)
-        ch_versions = ch_versions.mix(AMPCOMBI2_CLUSTER.out.versions)
     }
     else {
         log.warn("[nf-core/funcscan] No AMP hits were found in the samples and so no clustering will be applied.")
