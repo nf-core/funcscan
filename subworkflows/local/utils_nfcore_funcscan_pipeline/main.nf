@@ -105,8 +105,14 @@ workflow PIPELINE_INITIALISATION {
     // Create channel from input file provided through params.input
     //
 
+    def samplesheet_list = samplesheetToList(input, "${projectDir}/assets/schema_input.json")
+
+    if (params.run_bgc_screening && params.bgc_run_bigslice && params.bgc_bigslice_complete && samplesheet_list.size() < 10) {
+        log.warn('[nf-core/funcscan] WARNING: --bgc_bigslice_complete is best suited to larger datasets. Your samplesheet contains fewer than 10 rows, so BiG-SLiCE may fail with "Not enough input for clustering".')
+    }
+
     Channel
-        .fromList(samplesheetToList(input, "${projectDir}/assets/schema_input.json"))
+        .fromList(samplesheet_list)
         .set { ch_samplesheet }
 
     emit:
@@ -184,9 +190,6 @@ def validateInputParameters() {
         }
         if (params.bgc_bigslice_threshold != 0.4 && params.bgc_bigslice_thresholdpct != -1) {
             error('[nf-core/funcscan] ERROR: --bgc_bigslice_threshold and --bgc_bigslice_thresholdpct are mutually exclusive. Please specify only one of the two.')
-        }
-        if (params.bgc_bigslice_complete) {
-            log.warn('[nf-core/funcscan] WARNING: --bgc_bigslice_complete restricts BiG-SLiCE clustering to complete (non-contig-edge) BGCs only. If all detected BGCs are fragmented (on_contig_edge = True), BiG-SLiCE will fail with "Not enough input for clustering." Consider removing --bgc_bigslice_complete if your input sequences are short or fragmented.')
         }
         if (params.bgc_bigslice_nranks != 1) {
             log.warn("[nf-core/funcscan] WARNING: --bgc_bigslice_nranks is set to ${params.bgc_bigslice_nranks}. BiG-SLiCE will fail if this value exceeds the total number of BGCs detected in your dataset (n_neighbors must be <= n_samples). Consider using the default value (1) for small datasets.")

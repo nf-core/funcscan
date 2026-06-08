@@ -70,7 +70,7 @@ nextflow_pipeline {
                 ).match("gecco") },
 
                 // BiGSLiCE
-                { assert new File("$outputDir/bgc/bigslice/result/data.db").exists() } // channel: output
+                { assert snapshot(path("$outputDir/bgc/bigslice/result/data.db")).match("bigslice_result_data_db") } // channel: output
             )
         }
     }

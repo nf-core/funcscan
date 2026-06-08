@@ -178,7 +178,7 @@ It is activated with `--bgc_run_bigslice` and requires at least one BGC source t
 - GECCO with `--bgc_gecco_runconvert --bgc_gecco_convertmode gbk --bgc_gecco_convertformat bigslice`
 
 BiG-SLiCE does **not** discover BGCs itself — it takes GenBank-format BGC regions produced by antiSMASH and/or GECCO convert as input.
-The HMM database must be provided explicitly via `--bgc_bigslice_db` (see [BiGSLiCE database](#databases-and-reference-files) for details); it is not auto-downloaded by the pipeline.
+If `--bgc_bigslice_db` is provided, the pipeline uses that database directly; otherwise it automatically downloads the BiG-SLiCE database via the `BIGSLICE_DOWNLOADDB` module.
 
 By default BiG-SLiCE only writes a `data.db` SQLite database.
 To additionally export all results as tab-separated text files, pass `--bgc_bigslice_exporttsv`.
@@ -198,7 +198,7 @@ The following optional parameters can be used to tune the clustering behaviour:
 
 ::: warning
 `--bgc_bigslice_complete` forces BiG-SLiCE to cluster **all** input BGCs, including those with no significant HMM hits.
-This requires a sufficiently large dataset; with fewer than ~10–15 samples the run will fail with `Exception: Not enough input for clustering`.
+This is only suitable for sufficiently large datasets; with fewer than ~10 samples the pipeline will warn that BiG-SLiCE may fail with `Exception: Not enough input for clustering`.
 :::
 
 ::: warning
