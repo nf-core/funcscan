@@ -133,6 +133,7 @@ workflow BGC {
         else {
             ch_bigslice_input = GECCO_CONVERT.out.bigslice
         }
+
         ch_bigslice_grouped = ch_bigslice_input
             .map { _meta, files -> files }
             .collect()

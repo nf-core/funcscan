@@ -44,7 +44,7 @@ nextflow_pipeline {
                 ).match("gecco") },
 
                 // BiGSLiCE
-                { assert snapshot(file("$outputDir/bgc/bigslice/result/data.db").name).match("bigslice_result_data_db") } // channel: output
+                { assert snapshot(file("$outputDir/bgc/bigslice/result/data.db").name).match("bigslice") } // channel: output
             )
         }
     }

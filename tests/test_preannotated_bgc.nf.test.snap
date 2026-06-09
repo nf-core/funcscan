@@ -44,7 +44,7 @@
         },
         "timestamp": "2024-07-24T10:49:00.44526019"
     },
-    "bigslice_result_data_db": {
+    "bigslice": {
         "content": [
             "data.db"
         ],
