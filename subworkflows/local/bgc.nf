@@ -13,6 +13,8 @@ include { COMBGC                                 } from '../../modules/local/com
 include { TABIX_BGZIP as BGC_TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip'
 include { MERGE_TAXONOMY_COMBGC                  } from '../../modules/local/merge_taxonomy_combgc'
 include { GECCO_CONVERT                          } from '../../modules/nf-core/gecco/convert'
+include { BIGSLICE_BIGSLICE                      } from '../../modules/nf-core/bigslice/bigslice'
+include { BIGSLICE_DOWNLOADDB                    } from '../../modules/nf-core/bigslice/downloaddb'
 
 workflow BGC {
     take:
@@ -116,6 +118,38 @@ workflow BGC {
         GECCO_CONVERT(ch_gecco_clusters_and_gbk, params.bgc_gecco_convertmode, params.bgc_gecco_convertformat)
         ch_versions = ch_versions.mix(GECCO_CONVERT.out.versions)
     }
+
+    // BIGSLICE
+    if (params.bgc_run_bigslice) {
+
+        def gecco_bigslice = !params.bgc_skip_gecco && params.bgc_gecco_runconvert && params.bgc_gecco_convertformat == 'bigslice'
+
+        if (!params.bgc_skip_antismash && gecco_bigslice) {
+            ch_bigslice_input = ANTISMASH_ANTISMASH.out.gbk_results.mix(GECCO_CONVERT.out.bigslice)
+        }
+        else if (!params.bgc_skip_antismash) {
+            ch_bigslice_input = ANTISMASH_ANTISMASH.out.gbk_results
+        }
+        else {
+            ch_bigslice_input = GECCO_CONVERT.out.bigslice
+        }
+
+        ch_bigslice_grouped = ch_bigslice_input
+            .map { _meta, files -> files }
+            .collect()
+            .map { files -> [[id: 'bigslice'], files.flatten()] }
+
+        if (params.bgc_bigslice_db) {
+            ch_bigslice_db = channel.fromPath(params.bgc_bigslice_db, checkIfExists: true)
+        }
+        else {
+            BIGSLICE_DOWNLOADDB([id: 'bigslice_db'])
+            ch_bigslice_db = BIGSLICE_DOWNLOADDB.out.db.map { _meta, db -> db }
+        }
+
+        BIGSLICE_BIGSLICE(ch_bigslice_grouped, ch_bigslice_db, params.bgc_bigslice_exporttsv)
+    }
+
     // HMMSEARCH
     if (params.bgc_run_hmmsearch) {
         if (params.bgc_hmmsearch_models) {
