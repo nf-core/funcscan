@@ -168,6 +168,5 @@ workflow AMP {
     emit:
     ampcombi_summaries     = ch_ampcombi_summaries
     ampcombi_summary_count = ch_summary_count
-    ampcombi_with_taxonomy = ch_ampcombi_with_taxonomy
     versions               = ch_versions
 }
