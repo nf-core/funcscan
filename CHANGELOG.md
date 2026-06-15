@@ -11,14 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [#483](https://github.com/nf-core/funcscan/pull/483) **New screening workflow** for CAZyme Gene Cluster (CGC) and substrate prediction, through dbCAN. (by @HaidYi)
-- [#483](https://github.com/nf-core/funcscan/pull/483) Added support for preannotated input with optional GFF column in samplesheet for dbCAN CAZyme Gene Cluster (CGC) and substrate prediction, with new `--dbcan_skip_cgc` and `--dbcan_skip_substrate` parameters. (by @HaidYi)
-- [#500](https://github.com/nf-core/funcscan/pull/500) Updated pipeline template to nf-core/tools version 3.4.1. (by @jfy133)
-- [#508](https://github.com/nf-core/funcscan/pull/508) Added support for antiSMASH's --clusterhmmer, --fullhmmer, and --tigrfam options. (❤️ to @yusukepockyby for requesting, @jfy133)
-- [#506](https://github.com/nf-core/funcscan/pull/506) Added support GECCO convert for generation of additional files useful for downstream analysis. (by @SkyLexS)
-- [#507](https://github.com/nf-core/funcscan/pull/507) Updated to nf-core template v3.5.1. (by @jfy133)
-- [#510](https://github.com/nf-core/funcscan/pull/510) Fixed code to make Nextflow strict-syntax compliant. (by @jfy133)
-- [#521](https://github.com/nf-core/funcscan/pull/521) Added option to turn on RGI's own cleanup of intermediate files. (❤️ to @SamD28 for requesting, added by @jfy133)
+- [#483](https://github.com/nf-core/funcscan/pull/483) **New screening workflow** for CAZyme Gene Cluster (CGC) and substrate prediction, through dbCAN (by @HaidYi)
+- [#483](https://github.com/nf-core/funcscan/pull/483) Added support for preannotated input with optional GFF column in samplesheet for dbCAN CAZyme Gene Cluster (CGC) and substrate prediction, with new `--dbcan_skip_cgc` and `--dbcan_skip_substrate` parameters (by @HaidYi)
+- [#500](https://github.com/nf-core/funcscan/pull/500) Updated pipeline template to nf-core/tools version 3.4.1 (by @jfy133)
+- [#508](https://github.com/nf-core/funcscan/pull/508) Added support for antiSMASH's --clusterhmmer, --fullhmmer, and --tigrfam options (❤️ to @yusukepockyby for requesting, @jfy133)
+- [#506](https://github.com/nf-core/funcscan/pull/506) Added support GECCO convert for generation of additional files useful for downstream analysis (by @SkyLexS)
+- [#507](https://github.com/nf-core/funcscan/pull/507) Updated to nf-core template v3.5.1 (by @jfy133)
+- [#510](https://github.com/nf-core funcscan/pull/510) Fixed code to make Nextflow strict-syntax compliant (by @jfy133)
+- [#521](https://github.com/nf-core funcscan/pull/521) Added option to turn on RGI's own cleanup of intermediate files (❤️ to @SamD28 for requesting, added by @jfy133)
+- [#519](https://github.com/nf-core/funcscan/pull/519) Added BiG-SLiCE (`bigslice`) as a new BGC clustering tool in the BGC subworkflow. Activated with `--bgc_run_bigslice` and requires `--bgc_bigslice_db` (by @SkyLexS)
+- [#528](https://github.com/nf-core/funcscan/pull/528) Updated pipeline template to nf-core/tools version 4.0.2 (by @jfy133)
 
 ### `Fixed`
 
@@ -26,12 +28,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool     | Previous Version | New Version |
-| -------- | ---------------- | ----------- |
+| Tool      | Previous Version | New Version |
+| --------- | ---------------- | ----------- |
+| dbCAN     |                  | 5.2.9       |
+| MultiQC   | 1.27             | 1.34        |
+| Bakta     | 1.10.4           | 1.11.4      |
+| BiG-SLiCE |                  | 2.0.2       |
+| nf-core   | 3.3.2            | 4.0.2       |
 | AMPcombi | 2.0.1            | 3.0.0       |
-| dbCAN    | -                | 5.2.9       |
-| MultiQC  | 1.27             | 1.34        |
-| Bakta    | 1.10.4           | 1.11.4      |
 
 ### `Deprecated`
 

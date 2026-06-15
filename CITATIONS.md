@@ -38,6 +38,12 @@
 
   > Schwengers, O., Jelonek, L., Dieckmann, M. A., Beyvers, S., Blom, J., & Goesmann, A. (2021). Bakta: rapid and standardized annotation of bacterial genomes via alignment-free sequence identification. Microbial Genomics, 7(11). [DOI: 10.1099/mgen.0.000685](https://doi.org/10.1099/mgen.0.000685)
 
+- [BiG-SLiCE](https://github.com/medema-group/bigslice)
+
+  > Kautsar, S. A., van der Hooft, J. J. J., de Ridder, D., & Medema, M. H. (2021). BiG-SLiCE: A highly scalable tool maps the diversity of 1.2 million biosynthetic gene clusters. GigaScience, 10(1), giaa154. [DOI: 10.1093/gigascience/giaa154](https://doi.org/10.1093/gigascience/giaa154)
+
+  > Kautsar, S. A., et al. (2026). BiG-SLiCE 2.0: improved gene cluster family diversity mapping. Nature Communications. [DOI: 10.1038/s41467-026-68733-5](https://doi.org/10.1038/s41467-026-68733-5)
+
 - [comBGC](https://github.com/nf-core/funcscan)
 
   > Frangenberg, J., Fellows Yates, J. A., Ibrahim, A., Perelo, L., & Beber, M. E. (2023). nf-core/funcscan: 1.0.0 - German Rollmops - 2023-02-15. [DOI: 10.5281/zenodo.7643100](https://doi.org/10.5281/zenodo.7643099)
