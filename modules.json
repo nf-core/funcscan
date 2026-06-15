@@ -22,7 +22,7 @@
                     },
                     "ampcombi2/parsetables": {
                         "branch": "master",
-                        "git_sha": "be790aafaa178554b403f862164eb27042f0b35a",
+                        "git_sha": "c1a390166649d20c9c9ee8c8e849721e5d28836c",
                         "installed_by": ["modules"]
                     },
                     "ampir": {

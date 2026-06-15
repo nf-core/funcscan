@@ -107,11 +107,11 @@ workflow AMP {
         .join(ch_faa_for_ampcombi)
         .join(ch_gbk_for_ampcombi)
         .join(ch_interpro_for_ampcombi)
-        .multiMap {
-            input: [it[0], it[1]]
-            faa: it[2]
-            gbk: it[3]
-            interpro: it[4]
+        .multiMap { files ->
+            input: [files[0], files[1]]
+            faa: files[2]
+            gbk: files[3]
+            interpro: files[4]
         }
 
     // AMPCOMBI2::PARSETABLES
@@ -125,17 +125,17 @@ workflow AMP {
         AMPCOMBI2_PARSETABLES(ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_input_for_ampcombi.gbk, params.amp_ampcombi_db_id, ch_ampcombi_input_db, ch_input_for_ampcombi.interpro)
     }
 
-    ch_ampcombi_summaries = AMPCOMBI2_PARSETABLES.out.tsv.map { it[1] }.collect()
+    ch_ampcombi_summaries = AMPCOMBI2_PARSETABLES.out.tsv.map { tsv -> tsv[1] }.collect()
 
     // AMPCOMBI2::COMPLETE
-    ch_summary_count = ch_ampcombi_summaries.map { it.size() }.sum()
+    ch_summary_count = ch_ampcombi_summaries.map { tsv -> tsv.size() }.sum()
 
     if (ch_summary_count == 0 || ch_summary_count == 1) {
         log.warn("[nf-core/funcscan] AMPCOMBI2: ${ch_summary_count} file(s) passed. Skipping AMPCOMBI2_COMPLETE, AMPCOMBI2_CLUSTER, and TAXONOMY MERGING steps.")
     }
     else {
         AMPCOMBI2_COMPLETE(ch_ampcombi_summaries)
-        ch_ampcombi_complete = AMPCOMBI2_COMPLETE.out.tsv.filter { file -> file.countLines() > 1 }
+        ch_ampcombi_complete = AMPCOMBI2_COMPLETE.out.tsv.filter { tsv -> tsv.countLines() > 1 }
     }
 
     // AMPCOMBI2::CLUSTER
@@ -151,10 +151,12 @@ workflow AMP {
         log.warn("[nf-core/funcscan] No AMP hits were found in the samples, therefore no Taxonomy will be merged ")
     }
     else if (params.run_taxa_classification && ch_ampcombi_complete != null) {
-        ch_mmseqs_taxonomy_list = tsvs.map { it[1] }.collect()
+        ch_mmseqs_taxonomy_list = tsvs.map { tsv -> tsv[1] }.collect()
 
         MERGE_TAXONOMY_AMPCOMBI(AMPCOMBI2_CLUSTER.out.cluster_tsv, ch_mmseqs_taxonomy_list)
         ch_versions = ch_versions.mix(MERGE_TAXONOMY_AMPCOMBI.out.versions)
+
+        ch_ampscombi_with_taxonomy = MERGE_TAXONOMY_AMPCOMBI.out.tsv
 
         ch_tabix_input = channel.of(['id': 'ampcombi_complete_summary_taxonomy'])
             .combine(MERGE_TAXONOMY_AMPCOMBI.out.tsv)
@@ -164,5 +166,8 @@ workflow AMP {
     }
 
     emit:
-    versions = ch_versions
+    ampcombi_summaries     = ch_ampcombi_summaries
+    ampcombi_summary_count = ch_summary_count
+    ampcombi_with_taxonomy = ch_ampscombi_with_taxonomy
+    versions               = ch_versions
 }
