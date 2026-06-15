@@ -35,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | Bakta     | 1.10.4           | 1.11.4      |
 | BiG-SLiCE |                  | 2.0.2       |
 | nf-core   | 3.3.2            | 4.0.2       |
-| AMPcombi | 2.0.1            | 3.0.0       |
+| AMPcombi  | 2.0.1            | 3.0.0       |
 
 ### `Deprecated`
 
