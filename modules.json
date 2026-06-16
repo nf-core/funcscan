@@ -197,7 +197,7 @@
                     },
                     "prokka": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "2dc23692bd1c3a23a12cfd959808a8fe7e3c6557",
                         "installed_by": ["modules"]
                     },
                     "pyrodigal": {

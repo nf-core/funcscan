@@ -75,7 +75,6 @@ workflow ANNOTATION {
     else if (params.annotation_tool == "prokka") {
 
         PROKKA(fasta, [], [])
-        ch_versions = ch_versions.mix(PROKKA.out.versions)
         ch_multiqc_files = PROKKA.out.txt.collect { it[1] }.ifEmpty([])
         ch_annotation_faa = PROKKA.out.faa
         ch_annotation_fna = PROKKA.out.fna
