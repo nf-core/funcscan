@@ -46,10 +46,10 @@
     },
     "ampir": {
         "content": [
-            false,
-            false,
-            false,
-            false
+            true,
+            true,
+            true,
+            true
         ],
         "timestamp": "2024-07-23T16:51:37.19218768",
         "meta": {
@@ -70,8 +70,8 @@
     },
     "amplify": {
         "content": [
-            false,
-            false
+            true,
+            true
         ],
         "timestamp": "2024-07-23T16:51:37.204985783",
         "meta": {
