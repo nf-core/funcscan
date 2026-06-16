@@ -12,17 +12,17 @@
                     },
                     "ampcombi2/cluster": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "be790aafaa178554b403f862164eb27042f0b35a",
                         "installed_by": ["modules"]
                     },
                     "ampcombi2/complete": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "be790aafaa178554b403f862164eb27042f0b35a",
                         "installed_by": ["modules"]
                     },
                     "ampcombi2/parsetables": {
                         "branch": "master",
-                        "git_sha": "637c3e1796ab13d4c91f3030932598aed94a4f87",
+                        "git_sha": "c1a390166649d20c9c9ee8c8e849721e5d28836c",
                         "installed_by": ["modules"]
                     },
                     "ampir": {

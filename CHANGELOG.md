@@ -3,7 +3,11 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v3.1.0dev - [date]
+## v4.0.0dev - [date]
+
+### `Breaking change`
+
+- [](https://github.com/nf-core/funcscan/pull/) Updated AMPcombi, changed parameter `amp_ampcombi_cluster_removesingletons` into `amp_ampcombi_cluster_keepsingletons`. (by @jasmezz)
 
 ### `Added`
 
@@ -20,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#501](https://github.com/nf-core/funcscan/pull/501) Fixed issue with BAKTA HMMs not being staged correctly (reported by Yusuke Hioki, fix by @jfy133)
+- [#501](https://github.com/nf-core/funcscan/pull/501) Fixed issue with BAKTA HMMs not being staged correctly. (reported by Yusuke Hioki, fix by @jfy133)
 
 ### `Dependencies`
 
@@ -31,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | Bakta     | 1.10.4           | 1.11.4      |
 | BiG-SLiCE |                  | 2.0.2       |
 | nf-core   | 3.3.2            | 4.0.2       |
+| AMPcombi  | 2.0.1            | 3.0.0       |
 
 ### `Deprecated`
 
@@ -38,7 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [#477](https://github.com/nf-core/funcscan/pull/477), [#480](https://github.com/nf-core/funcscan/pull/477), [#484](https://github.com/nf-core/funcscan/pull/484) Updated to nf-core template 3.2.1., 3.3.1, 3.3.2 (by @jasmezz, @jfy133)
+- [#477](https://github.com/nf-core/funcscan/pull/477), [#480](https://github.com/nf-core/funcscan/pull/477), [#484](https://github.com/nf-core/funcscan/pull/484) Updated to nf-core template 3.2.1., 3.3.1, 3.3.2. (by @jasmezz, @jfy133)
 - [#482](https://github.com/nf-core/funcscan/pull/482) Added vertical workflow diagram. (by @jasmezz)
 
 ### `Fixed`
@@ -130,7 +135,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#322](https://github.com/nf-core/funcscan/pull/322) Updated all modules: introduce environment.yml files. (by @jasmezz)
 - [#324](https://github.com/nf-core/funcscan/pull/324) Removed separate DeepARG test profile because database download is now stable. (by @jasmezz)
-- [#332](https://github.com/nf-core/funcscan/pull/332) & [#327](https://github.com/nf-core/funcscan/pull/327) Merged pipeline template of nf-core/tools version 2.12.1 (by @jfy133, @jasmezz)
+- [#332](https://github.com/nf-core/funcscan/pull/332) & [#327](https://github.com/nf-core/funcscan/pull/327) Merged pipeline template of nf-core/tools version 2.12.1. (by @jfy133, @jasmezz)
 - [#338](https://github.com/nf-core/funcscan/pull/338) Set `--meta` parameter to default for Bakta, with singlemode optional. (by @jasmezz)
 - [#343](https://github.com/nf-core/funcscan/pull/343) Added contig taxonomic classification using [MMseqs2](https://github.com/soedinglab/MMseqs2/). (by @darcy220606)
 - [#358](https://github.com/nf-core/funcscan/pull/358) Improved RGI databases handling, users can supply their own CARD now. (by @jasmezz)
@@ -203,7 +208,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#346](https://github.com/nf-core/funcscan/pull/346) Pinned version of nf-validation to 1.1.3
+- [#346](https://github.com/nf-core/funcscan/pull/346) Pinned version of nf-validation to 1.1.3.
 
 ### `Dependencies`
 
@@ -312,7 +317,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#237](https://github.com/nf-core/funcscan/pull/237) Reactivate DeepARG automatic database downloading and CI tests as server is now back up. (by @jfy133)
 - [#235](https://github.com/nf-core/funcscan/pull/235) Improved annotation speed by switching off pipeline-irrelevant Bakta annotation steps by default. (by @jasmezz)
 - [#235](https://github.com/nf-core/funcscan/pull/235) Renamed parameter `annotation_bakta_db` to `annotation_bakta_db_localpath`. (by @jasmezz)
-- [#242](https://github.com/nf-core/funcscan/pull/242) Fixed MACREL '.faa' issue that was generated when it was run on its own and upgraded MACREL from version `1.1.0` to `1.2.0` (by @Darcy220606)
+- [#242](https://github.com/nf-core/funcscan/pull/242) Fixed MACREL '.faa' issue that was generated when it was run on its own and upgraded MACREL from version `1.1.0` to `1.2.0`. (by @Darcy220606)
 - [#248](https://github.com/nf-core/funcscan/pull/248) Applied best-practice `error("message")` to all (sub)workflow files. (by @jasmezz)
 - [#254](https://github.com/nf-core/funcscan/pull/254) Further resource optimisation based on feedback from 'real world' datasets. (ongoing, reported by @alexhbnr and @Darcy220606, fix by @jfy133)
 - [#266](https://github.com/nf-core/funcscan/pull/266) Fixed wrong process name in base.config. (reported by @Darcy220606, fix by @jasmezz)
