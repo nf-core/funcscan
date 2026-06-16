@@ -839,10 +839,10 @@
                     "help_text": "This assigns the cluster sequence identity to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More information can be obtained in the [MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_seq_id`",
                     "fa_icon": "far fa-address-card"
                 },
-                "amp_ampcombi_cluster_removesingletons": {
+                "amp_ampcombi_cluster_keepsingletons": {
                     "type": "boolean",
-                    "description": "Remove any hits that form a single member cluster.",
-                    "help_text": "Removes any AMP hits that form a single-member cluster.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_remove_singletons`",
+                    "description": "Keep any hits that form a single member cluster.",
+                    "help_text": "Keeps any AMP hits that form a single-member cluster.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_keep_singletons`",
                     "fa_icon": "fas fa-book-dead"
                 }
             },
