@@ -23,16 +23,16 @@ nextflow_pipeline {
 
                 // AMPir
                 { assert snapshot(
-                    path("$outputDir/amp/ampir/sample_1/sample_1.ampir.tsv").text.contains("IstB-like ATP-binding domain-containing protein"),
-                    path("$outputDir/amp/ampir/sample_1/sample_1.ampir.faa").text.contains("IstB-like ATP-binding domain-containing protein"),
-                    path("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv").text.contains("IstB-like ATP-binding domain-containing protein"),
-                    path("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa").text.contains("IstB-like ATP-binding domain-containing protein")
+                    path("$outputDir/amp/ampir/sample_1/sample_1.ampir.tsv").text.contains("Fructose-bisphosphate aldolase"),
+                    path("$outputDir/amp/ampir/sample_1/sample_1.ampir.faa").text.contains("Fructose-bisphosphate aldolase"),
+                    path("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv").text.contains("Fructose-bisphosphate aldolase"),
+                    path("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa").text.contains("Fructose-bisphosphate aldolase")
                 ).match("ampir") },
 
                 // AMPlify
                 { assert snapshot(
-                    path("$outputDir/amp/amplify/sample_1/sample_1.amplify.tsv").text.contains("KKEJHB_001"),
-                    path("$outputDir/amp/amplify/sample_2/sample_2.amplify.tsv").text.contains("KDEMFK_0001")
+                    path("$outputDir/amp/amplify/sample_1/sample_1.amplify.tsv").text.contains("PROKKA_00001"),
+                    path("$outputDir/amp/amplify/sample_2/sample_2.amplify.tsv").text.contains("PROKKA_00001")
                 ).match("amplify") },
 
                 // HMMsearch
