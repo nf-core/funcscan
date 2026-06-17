@@ -97,7 +97,6 @@ workflow BGC {
             }
 
         GECCO_RUN(ch_gecco_input, [])
-        ch_versions = ch_versions.mix(GECCO_RUN.out.versions)
         ch_geccoresults_for_combgc = GECCO_RUN.out.gbk
             .mix(GECCO_RUN.out.clusters)
             .groupTuple()
@@ -116,7 +115,6 @@ workflow BGC {
             }
 
         GECCO_CONVERT(ch_gecco_clusters_and_gbk, params.bgc_gecco_convertmode, params.bgc_gecco_convertformat)
-        ch_versions = ch_versions.mix(GECCO_CONVERT.out.versions)
     }
 
     // BIGSLICE
