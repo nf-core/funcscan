@@ -62,12 +62,12 @@
                     },
                     "bakta/bakta": {
                         "branch": "master",
-                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "git_sha": "81fe5e6f07fa92ecfd1721373620e2538a1466eb",
                         "installed_by": ["modules"]
                     },
                     "bakta/baktadbdownload": {
                         "branch": "master",
-                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "git_sha": "81fe5e6f07fa92ecfd1721373620e2538a1466eb",
                         "installed_by": ["modules"]
                     },
                     "bigslice/bigslice": {
