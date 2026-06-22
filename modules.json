@@ -62,12 +62,12 @@
                     },
                     "bakta/bakta": {
                         "branch": "master",
-                        "git_sha": "72c983560c9b9c2a02ff636451a5e5008f7d020b",
+                        "git_sha": "81fe5e6f07fa92ecfd1721373620e2538a1466eb",
                         "installed_by": ["modules"]
                     },
                     "bakta/baktadbdownload": {
                         "branch": "master",
-                        "git_sha": "72c983560c9b9c2a02ff636451a5e5008f7d020b",
+                        "git_sha": "81fe5e6f07fa92ecfd1721373620e2538a1466eb",
                         "installed_by": ["modules"]
                     },
                     "bigslice/bigslice": {
@@ -107,12 +107,12 @@
                     },
                     "gecco/convert": {
                         "branch": "master",
-                        "git_sha": "2aa243bd8a9b20122ed6fb5d2d3c75b963eef171",
+                        "git_sha": "4e22228ad92f91569757aa831b6a1f91f6ffd435",
                         "installed_by": ["modules"]
                     },
                     "gecco/run": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "4e22228ad92f91569757aa831b6a1f91f6ffd435",
                         "installed_by": ["modules"]
                     },
                     "gunzip": {
@@ -197,7 +197,7 @@
                     },
                     "prokka": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "2dc23692bd1c3a23a12cfd959808a8fe7e3c6557",
                         "installed_by": ["modules"]
                     },
                     "pyrodigal": {

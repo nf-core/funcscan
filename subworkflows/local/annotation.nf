@@ -75,7 +75,6 @@ workflow ANNOTATION {
     else if (params.annotation_tool == "prokka") {
 
         PROKKA(fasta, [], [])
-        ch_versions = ch_versions.mix(PROKKA.out.versions)
         ch_multiqc_files = PROKKA.out.txt.collect { it[1] }.ifEmpty([])
         ch_annotation_faa = PROKKA.out.faa
         ch_annotation_fna = PROKKA.out.fna
@@ -91,7 +90,6 @@ workflow ANNOTATION {
         }
         else {
             BAKTA_BAKTADBDOWNLOAD()
-            ch_versions = ch_versions.mix(BAKTA_BAKTADBDOWNLOAD.out.versions)
             ch_bakta_db = BAKTA_BAKTADBDOWNLOAD.out.db
         }
 
@@ -111,7 +109,6 @@ workflow ANNOTATION {
             [],
             ch_bakta_hmm,
         )
-        ch_versions = ch_versions.mix(BAKTA_BAKTA.out.versions)
         ch_multiqc_files = BAKTA_BAKTA.out.txt.collect { it[1] }.ifEmpty([])
         ch_annotation_faa = BAKTA_BAKTA.out.faa
         ch_annotation_fna = BAKTA_BAKTA.out.fna
