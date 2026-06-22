@@ -218,22 +218,26 @@
                     "rundbcan/cazymeannotation": {
                         "branch": "master",
                         "git_sha": "2c4a023fc1be85982b8952f3ffdb4aa3552f3f9f",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/rundbcan/cazymeannotation/rundbcan-cazymeannotation.diff"
                     },
                     "rundbcan/database": {
                         "branch": "master",
                         "git_sha": "2c4a023fc1be85982b8952f3ffdb4aa3552f3f9f",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/rundbcan/database/rundbcan-database.diff"
                     },
                     "rundbcan/easycgc": {
                         "branch": "master",
                         "git_sha": "2c4a023fc1be85982b8952f3ffdb4aa3552f3f9f",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/rundbcan/easycgc/rundbcan-easycgc.diff"
                     },
                     "rundbcan/easysubstrate": {
                         "branch": "master",
                         "git_sha": "2c4a023fc1be85982b8952f3ffdb4aa3552f3f9f",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/rundbcan/easysubstrate/rundbcan-easysubstrate.diff"
                     },
                     "seqkit/seq": {
                         "branch": "master",
