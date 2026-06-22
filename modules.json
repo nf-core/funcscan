@@ -217,27 +217,23 @@
                     },
                     "rundbcan/cazymeannotation": {
                         "branch": "master",
-                        "git_sha": "2c4a023fc1be85982b8952f3ffdb4aa3552f3f9f",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/rundbcan/cazymeannotation/rundbcan-cazymeannotation.diff"
+                        "git_sha": "5e0b34c7ad0841e3e160b15a0180bf2b9be0e3bf",
+                        "installed_by": ["modules"]
                     },
                     "rundbcan/database": {
                         "branch": "master",
-                        "git_sha": "2c4a023fc1be85982b8952f3ffdb4aa3552f3f9f",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/rundbcan/database/rundbcan-database.diff"
+                        "git_sha": "5e0b34c7ad0841e3e160b15a0180bf2b9be0e3bf",
+                        "installed_by": ["modules"]
                     },
                     "rundbcan/easycgc": {
                         "branch": "master",
-                        "git_sha": "2c4a023fc1be85982b8952f3ffdb4aa3552f3f9f",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/rundbcan/easycgc/rundbcan-easycgc.diff"
+                        "git_sha": "5e0b34c7ad0841e3e160b15a0180bf2b9be0e3bf",
+                        "installed_by": ["modules"]
                     },
                     "rundbcan/easysubstrate": {
                         "branch": "master",
-                        "git_sha": "2c4a023fc1be85982b8952f3ffdb4aa3552f3f9f",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/rundbcan/easysubstrate/rundbcan-easysubstrate.diff"
+                        "git_sha": "5e0b34c7ad0841e3e160b15a0180bf2b9be0e3bf",
+                        "installed_by": ["modules"]
                     },
                     "seqkit/seq": {
                         "branch": "master",
