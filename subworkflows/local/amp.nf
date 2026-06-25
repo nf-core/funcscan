@@ -125,7 +125,7 @@ workflow AMP {
         AMPCOMBI2_PARSETABLES(ch_input_for_ampcombi.input, ch_input_for_ampcombi.faa, ch_input_for_ampcombi.gbk, params.amp_ampcombi_db_id, ch_ampcombi_input_db, ch_input_for_ampcombi.interpro)
     }
 
-    ch_ampcombi_summaries = AMPCOMBI2_PARSETABLES.out.tsv.map { tsv -> tsv[1] }.collect()
+    ch_ampcombi_summaries = AMPCOMBI2_PARSETABLES.out.tsv.collect { _meta, tsv -> tsv }
 
     // AMPCOMBI2::COMPLETE
     ch_summary_count = ch_ampcombi_summaries.map { tsv -> tsv.size() }.sum()
