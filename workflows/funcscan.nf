@@ -85,7 +85,7 @@ workflow FUNCSCAN {
         .map { meta, files ->
             def fasta_found = files.find { it.toString().tokenize('.').last().matches('fasta|fas|fna|fa') }
             def faa_found = files.find { it.toString().endsWith('.faa') }
-            def gff_found = files.find { it.toString().endsWith('.gff') }
+            def gff_found = files.find { it.toString().tokenize('.').last().matches('gff|gff3') }
             def gbk_found = files.find { it.toString().tokenize('.').last().matches('gbk|gbff') }
             def fasta = fasta_found != null ? fasta_found : []
             def faa = faa_found != null ? faa_found : []
