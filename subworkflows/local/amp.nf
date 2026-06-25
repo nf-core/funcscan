@@ -107,12 +107,12 @@ workflow AMP {
         .join(ch_faa_for_ampcombi)
         .join(ch_gbk_for_ampcombi)
         .join(ch_interpro_for_ampcombi)
-        .multiMap { files ->
-            input: [files[0], files[1]]
-            faa: files[2]
-            gbk: files[3]
-            interpro: files[4]
-        }
+        .multiMap { meta, seq_files, faa_files, gbk_files, interpro_files ->
+            input: [meta, seq_files]
+            faa: faa_files
+            gbk: gbk_files
+            interpro: interpro_files
+}
 
     // AMPCOMBI2::PARSETABLES
     if (params.amp_ampcombi_db != null) {
