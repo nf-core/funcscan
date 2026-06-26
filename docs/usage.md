@@ -25,9 +25,9 @@ To run any of the three screening workflows (AMP, ARG, and/or BGC), taxonomic cl
 - `--run_amp_screening`
 - `--run_arg_screening`
 - `--run_bgc_screening`
-- `--run_cazyme_annotation` (for optional additional carbohydrate-active enzyme annotation)
-- `--run_taxa_classification` (for optional additional taxonomic annotations)
-- `--run_protein_annotation` (for optional additional protein family and domain annotation)
+- `--run_cazyme_annotation`
+- `--run_taxa_classification` (for additional contextual taxonomic annotations)
+- `--run_protein_annotation` (for additional contextual protein family and domain annotation)
 
 When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them. The exception is HMMsearch, which needs to be explicitly switched on and provided with HMM screening files (AMP and BGC workflows, see [parameter documentation](/funcscan/parameters)). For the taxonomic classification, MMseqs2 is currently the only tool implemented in the pipeline. Likewise, InterProScan is the only tool for protein sequence annotation.
 
