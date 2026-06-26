@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Breaking change`
 
-- [](https://github.com/nf-core/funcscan/pull/) Updated AMPcombi, changed parameter `amp_ampcombi_cluster_removesingletons` into `amp_ampcombi_cluster_keepsingletons`. (by @jasmezz)
+- [#530](https://github.com/nf-core/funcscan/pull/#530) Updated AMPcombi, changed parameter `amp_ampcombi_cluster_removesingletons` into `amp_ampcombi_cluster_keepsingletons`. (by @jasmezz)
 
 ### `Added`
 
