@@ -104,17 +104,17 @@ workflow BGC {
                 [meta, files.flatten()]
             }
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(ch_geccoresults_for_combgc)
-    }
 
-    // GECCO CONVERT
-    if (params.bgc_gecco_runconvert) {
-        ch_gecco_clusters_and_gbk = GECCO_RUN.out.clusters
-            .join(GECCO_RUN.out.gbk)
-            .map { meta, clusters_file, gbk_file ->
-                [meta, clusters_file, gbk_file]
-            }
+        // GECCO CONVERT
+        if (params.bgc_gecco_runconvert) {
+            ch_gecco_clusters_and_gbk = GECCO_RUN.out.clusters
+                .join(GECCO_RUN.out.gbk)
+                .map { meta, clusters_file, gbk_file ->
+                    [meta, clusters_file, gbk_file]
+                }
 
-        GECCO_CONVERT(ch_gecco_clusters_and_gbk, params.bgc_gecco_convertmode, params.bgc_gecco_convertformat)
+            GECCO_CONVERT(ch_gecco_clusters_and_gbk, params.bgc_gecco_convertmode, params.bgc_gecco_convertformat)
+        }
     }
 
     // BIGSLICE

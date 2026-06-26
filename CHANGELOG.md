@@ -3,11 +3,11 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v4.0.0 - Chinese Baozi - [2026-06-22]
+## v4.0.0 - Chinese Baozi - [2026-06-26]
 
 ### `Breaking change`
 
-- [](https://github.com/nf-core/funcscan/pull/) Updated AMPcombi, changed parameter `amp_ampcombi_cluster_removesingletons` into `amp_ampcombi_cluster_keepsingletons`. (by @jasmezz)
+- [#530](https://github.com/nf-core/funcscan/pull/#530) Updated AMPcombi, changed parameter `amp_ampcombi_cluster_removesingletons` into `amp_ampcombi_cluster_keepsingletons`. (by @jasmezz)
 
 ### `Added`
 
