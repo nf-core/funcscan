@@ -186,7 +186,7 @@ def validateInputParameters() {
     // BIGSLICE parameter checks
     if (params.run_bgc_screening && params.bgc_run_bigslice) {
         if (params.bgc_skip_antismash && (params.bgc_skip_gecco || !params.bgc_gecco_runconvert || params.bgc_gecco_convertformat != 'bigslice')) {
-            error('[nf-core/funcscan] ERROR: BigSLICE requires at least one of: (1) antiSMASH enabled, or (2) GECCO enabled with GECCO convert in bigslice format. Please check your parameters.')
+            error('[nf-core/funcscan] ERROR: BigSLiCE requires at least one of: (1) antiSMASH enabled, or (2) GECCO enabled with GECCO convert in bigslice format. Please check your parameters.')
         }
         if (params.bgc_bigslice_threshold != 0.4 && params.bgc_bigslice_thresholdpct != -1) {
             error('[nf-core/funcscan] ERROR: --bgc_bigslice_threshold and --bgc_bigslice_thresholdpct are mutually exclusive. Please specify only one of the two.')
@@ -260,7 +260,7 @@ def toolCitationText() {
 
     def cazyme_text = [
         "The following carbohydrate-active enzymes (CAZymes) screening tools were used:",
-        !params.cazyme_skip_dbcan ? "dbCAN3 (Zheng, Jinfang, et al. 2023)," : "",
+        !params.cazyme_skip_dbcan ? "dbCAN3 (Zheng, et al. 2023)," : "",
     ].join(' ').replaceAll(', +.', ".").trim()
 
     def postprocessing_text = "Run statistics were reported using MultiQC (Ewels et al. 2016)."
@@ -311,17 +311,17 @@ def toolBibliographyText() {
     def bgc_text = [
         !params.bgc_skip_antismash ? '<li>Blin, K., Shaw, S., Vader, L., Szenei, J., Reitz, Z.L., Augustijn, H.E., Cediel-Becerra, J.D.D., de Crécy-Lagard, V., Koetsier, R.A., Williams, S.E., Cruz-Morales, P., Wongwas, S., Segurado Luchsinger, A.E., Biermann, F., Korenskaia, A., Zdouc, M.M., Meijer, D., Terlouw, B.R., van der Hooft, J.J.J., Ziemert, N., Helfrich, E.J.N., Masschelein, J., Corre, C., Chevrette, M.G., van Wezel, G.P., Medema, M.H., Weber, T., 2025. antiSMASH 8.0: extended gene cluster detection capabilities and analyses of chemistry, enzymology, and regulation. Nucleic Acids Res. 53, W32-W38. DOI: <a href="https://doi.org/10.1093/nar/gkaf334>10.1093/nar/gkaf334</a></li>' : "",
         !params.bgc_skip_deepbgc ? '<li>Hannigan, G. D., Prihoda, D., Palicka, A., Soukup, J., Klempir, O., Rampula, L., Durcak, J., Wurst, M., Kotowski, J., Chang, D., Wang, R., Piizzi, G., Temesi, G., Hazuda, D. J., Woelk, C. H., & Bitton, D. A. (2019). A deep learning genome-mining strategy for biosynthetic gene cluster prediction. Nucleic acids research, 47(18), e110. DOI: <a href="https://doi.org/10.1093/nar/gkz654">10.1093/nar/gkz654</a></li>' : "",
-        !params.bgc_skip_gecco ? '<li>Carroll, L. M. , Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. bioRxiv DOI: <a href="https://doi.org/10.1101/2021.05.03.442509">0.1101/2021.05.03.442509</a></li>' : "",
+        !params.bgc_skip_gecco ? '<li>Carroll, L. M., Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. bioRxiv DOI: <a href="https://doi.org/10.1101/2021.05.03.442509">0.1101/2021.05.03.442509</a></li>' : "",
         params.bgc_run_bigslice ? '<li>Kautsar, S. A., van der Hooft, J. J. J., de Ridder, D., & Medema, M. H. (2021). BiG-SLiCE: A highly scalable tool maps the diversity of 1.2 million biosynthetic gene clusters. GigaScience, 10(1), giaa154. DOI: <a href="https://doi.org/10.1093/gigascience/giaa154">10.1093/gigascience/giaa154</a></li>' : "",
         params.bgc_run_bigslice ? '<li>Kautsar, S. A., et al. (2026). BiG-SLiCE 2.0: improved gene cluster family diversity mapping. Nature Communications. DOI: <a href="https://doi.org/10.1038/s41467-026-68733-5">10.1038/s41467-026-68733-5</a></li>' : "",
         '<li>Frangenberg, J. Fellows Yates, J. A., Ibrahim, A., Perelo, L., & Beber, M. E. (2023). nf-core/funcscan: 1.0.0 - German Rollmops - 2023-02-15. <a href="https://doi.org/10.5281/zenodo.7643100">https://doi.org/10.5281/zenodo.7643100</a></li>',
     ].join(' ').replaceAll(', +.', ".").trim()
 
     def cazyme_text = [
-        !params.cazyme_skip_dbcan ? '<li>Jinfang Zheng, Qiwei Ge, Yuchen Yan, Xinpeng Zhang, Le Huang, Yanbin Yin, dbCAN3: automated carbohydrate-active enzyme and substrate annotation, Nucleic Acids Research, Volume 51, Issue W1, 5 July 2023, Pages W115–W121. DOI: <a href="https://doi.org/10.1093/nar/gkad328">10.1093/nar/gkad328</a></li>' : ""
+        !params.cazyme_skip_dbcan ? '<li>Zheng, J., Ge, Q., Yan, Y., Zhang, X., Huang, L., Yin Y. (2023). dbCAN3: automated carbohydrate-active enzyme and substrate annotation. Nucleic Acids Research, 51(W1), W115–W121. DOI: <a href="https://doi.org/10.1093/nar/gkad328">10.1093/nar/gkad328</a></li>' : ""
     ].join(' ').replaceAll(', +.', ".").trim()
 
-    def postprocessing_text = '<li>Ewels, P., Magnusson, M., Lundin, S., & Käller, M. (2016). MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics , 32(19), 3047–3048. <a href="https://doi.org/10.1093/bioinformatics/btw354">https://doi.org/10.1093/bioinformatics/btw354</a></li>'
+    def postprocessing_text = '<li>Ewels, P., Magnusson, M., Lundin, S., & Käller, M. (2016). MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics , 32(19), 3047–3048. DOI: <a href="https://doi.org/10.1093/bioinformatics/btw354">https://doi.org/10.1093/bioinformatics/btw354</a></li>'
 
     // Special as reused in multiple subworkflows, and we don't want to cause duplicates
     def hmmsearch_text = (params.run_amp_screening && params.amp_run_hmmsearch) || (params.run_bgc_screening && params.bgc_run_hmmsearch) ? '<li>Eddy S. R. (2011). Accelerated Profile HMM Searches. PLoS computational biology, 7(10), e1002195. DOI: <a href="https://doi.org/10.1371/journal.pcbi.1002195">10.1371/journal.pcbi.1002195</a></li>' : ""

@@ -42,7 +42,7 @@ workflow CAZYME {
                 .join(ch_gffs_for_rundbcan)
                 .filter { meta, faa, gff ->
                     if (!gff || !meta.gff_type) {
-                        log.warn("Skipping sample: ${meta.id ?: 'unknown'} for dbcan cgc and substrate annotation due to empty gff or gff_type")
+                        log.warn("Skipping sample: ${meta.id ?: 'unknown'} for dbcan CGC and substrate annotation due to empty gff or gff_type")
                         return false
                     }
                     return true
