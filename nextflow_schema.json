@@ -710,7 +710,7 @@
                 "amp_ampcombi_db": {
                     "type": "string",
                     "description": "The path to the folder containing the reference database files.",
-                    "help_text": "The path to the folder containing the reference database files (`*.fasta` and `*.tsv`); a fasta file and the corresponding table with structural, functional and if reported taxonomic classifications. AMPcombi will then generate the corresponding `mmseqs2` directory, in which all binary files are prepared for the downstream alignment of the recovered AMPs with [MMseqs2](https://github.com/soedinglab/MMseqs2). These can also be provided by the user by setting up an mmseqs2 compatible database using `mmseqs createdb *.fasta` in a directory called `mmseqs2`.\n\nExample file structure for the reference database supplied by the user:\n\n```bash\namp_DRAMP_database/\n├── general_amps_2024_11_13.fasta\n├── general_amps_2024_11_13.txt\n└── mmseqs2\n    ├── ref_DB\n    ├── ref_DB.dbtype\n    ├── ref_DB_h\n    ├── ref_DB_h.dbtype\n    ├── ref_DB_h.index\n    ├── ref_DB.index\n    ├── ref_DB.lookup\n    └── ref_DB.source```\n\nFor more information check the AMPcombi [documentation](https://ampcombi.readthedocs.io/en/main/usage.html#parse-tables)."
+                    "help_text": "The path to the folder containing the reference database files (`*.fasta` and `*.tsv`); a fasta file and the corresponding table with structural, functional and if reported taxonomic classifications. AMPcombi will then generate the corresponding `mmseqs2` directory, in which all binary files are prepared for the downstream alignment of the recovered AMPs with [MMseqs2](https://github.com/soedinglab/MMseqs2). These can also be provided by the user by setting up an mmseqs2 compatible database using `mmseqs createdb *.fasta` in a directory called `mmseqs2`.\n\nExample file structure for the reference database supplied by the user: \n\n
                 },
                 "amp_ampcombi_parsetables_cutoff": {
                     "type": "number",
@@ -1512,7 +1512,8 @@
                     "fa_icon": "fas fa-list-ol"
                 }
             },
-            "description": "Parameters for BiG-SLiCE clustering of biosynthetic gene clusters (BGCs) into gene cluster families (GCFs). More info: https://github.com/medema-group/bigslice"
+            "description": "Parameters for BiG-SLiCE clustering of biosynthetic gene clusters (BGCs) into gene cluster families (GCFs). More info: https://github.com/medema-group/bigslice",
+            "fa_icon": "fas fa-angle-double-right"
         },
         "bgc_hmmsearch": {
             "title": "BGC: hmmsearch",
@@ -1556,7 +1557,7 @@
         "cazyme_dbcan": {
             "title": "dbCAN",
             "type": "object",
-            "description": "Carbohydrate-active enzyme annotation based on pre-defined HMM models.\n\nFor more information check the dbCAN [documentation](https://run-dbcan.readthedocs.io/en/latest)",
+            "description": "Carbohydrate-active enzyme annotation based on pre-defined HMM models.\n\nFor more information check the dbCAN [documentation](https://run-dbcan.readthedocs.io/en/latest).",
             "default": "",
             "properties": {
                 "cazyme_skip_dbcan": {

@@ -465,7 +465,6 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
 <summary>Output files</summary>
 
 - `gecco/`
-  - **GECCO**
   - `*.genes.tsv/`: TSV file containing detected/predicted genes with BGC probability scores
   - `*.features.tsv`: TSV file containing identified domains
   - `*.clusters.tsv`: TSV file containing coordinates of predicted clusters and BGC types

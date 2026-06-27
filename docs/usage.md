@@ -8,7 +8,7 @@
 
 nf-core/funcscan is a pipeline for efficient and parallelised screening of long nucleotide sequences such as contigs for antimicrobial peptide genes, antimicrobial resistance genes, and biosynthetic gene clusters. It can additionally identify the taxonomic origin of the sequences.
 
-- Want to contribute? Please see the pipeline [specific developer guidelines](usage/developing.md)
+Want to contribute? Please see the pipeline [specific developer guidelines](usage/developing.md)
 
 ## Running the pipeline
 
@@ -192,16 +192,16 @@ The following optional parameters can be used to tune the clustering behaviour:
 | `--bgc_bigslice_thresholdpct` | `--threshold_pct` | Percentage-based GCF membership threshold (mutually exclusive with `--bgc_bigslice_threshold`) |
 | `--bgc_bigslice_nranks`       | `--n_ranks`       | Number of initial GCF centroids (default: 3000)                                                |
 
-::: note
+:::note
 `--bgc_bigslice_threshold` and `--bgc_bigslice_thresholdpct` are mutually exclusive — the pipeline will error at startup if both are set to non-default values.
 :::
 
-::: warning
+:::warning
 `--bgc_bigslice_complete` forces BiG-SLiCE to cluster **all** input BGCs, including those with no significant HMM hits.
 This is only suitable for sufficiently large datasets; with fewer than ~10 samples the pipeline will warn that BiG-SLiCE may fail with `Exception: Not enough input for clustering`.
 :::
 
-::: warning
+:::warning
 `--bgc_bigslice_nranks` must be **smaller than the number of BGCs** in the input dataset.
 Setting it to a value larger than the dataset size will cause BiG-SLiCE to fail with `ValueError: Expected n_neighbors <= n_samples_fit`.
 The default of 3000 is suitable for large public datasets; reduce this value when working with smaller datasets.
@@ -646,7 +646,7 @@ run_dbcan database --db_dir <path/to/your/db>
 ```
 
 Replace `<path/to/your/db>` with your preferred directory path for storing the database files.
-Once the database download is complete, the file are ready for use with the `run_dbcan` tool without additional configurations or modifications.
+Once the database download is complete, the files are ready for use with the `run_dbcan` tool without additional configurations or modifications.
 Supply the parameter `--cazyme_dbcan_db <path/to/your/db>` to use the downloaded database with nf-core/funcscan.
 
 ## Updating the pipeline
