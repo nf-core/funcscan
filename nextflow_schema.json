@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/nf-core/funcscan/master/nextflow_schema.json",
+    "$id": "https://raw.githubusercontent.com/nf-core/funcscan/main/nextflow_schema.json",
     "title": "nf-core/funcscan pipeline parameters",
     "description": "Pipeline for screening for functional components of assembled contigs",
     "type": "object",
@@ -62,6 +62,11 @@
                 "run_bgc_screening": {
                     "type": "boolean",
                     "description": "Activate biosynthetic gene cluster screening tools.",
+                    "fa_icon": "fas fa-check-circle"
+                },
+                "run_cazyme_screening": {
+                    "type": "boolean",
+                    "description": "Activate CAZyme and CAZyme gene cluster screening tools.",
                     "fa_icon": "fas fa-check-circle"
                 }
             },
@@ -159,14 +164,14 @@
                 },
                 "taxa_classification_mmseqs_taxonomy_sensitivity": {
                     "type": "number",
-                    "default": 5.0,
+                    "default": 5,
                     "help_text": "This flag specifies the speed and sensitivity of the taxonomic search. It stands for how many kmers should be produced during the preliminary seeding stage. A very fast search requires a low value e.g. '1.0' and a a very sensitive search requires e.g. '7.0'. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `-s`",
                     "description": "Specify the speed and sensitivity for taxonomy assignment.",
                     "fa_icon": "fas fa-history"
                 },
                 "taxa_classification_mmseqs_taxonomy_orffilters": {
                     "type": "number",
-                    "default": 2.0,
+                    "default": 2,
                     "help_text": "This flag specifies the sensitivity used for prefiltering the query ORF. Before the taxonomy-assigning step, MMseqs2 searches the predicted ORFs against the provided database. This value influences the speed with which the search is carried out. More details can be found in the [documentation](https://mmseqs.com/latest/userguide.pdf).\n\n>  Modifies tool parameter(s):\n> - mmseqs taxonomy: `--orf-filter-s`",
                     "description": "Specify the ORF search sensitivity in the prefilter step.",
                     "fa_icon": "fas fa-history"
@@ -399,7 +404,7 @@
                     "type": "integer",
                     "default": 1,
                     "description": "Minimum contig size required for annotation (bp).",
-                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend that this should be \u2265 200 bp, if you plan to submit such annotations to NCBI.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--mincontiglen`",
+                    "help_text": "Specify the minimum contig lengths to carry out annotations on. The Prokka developers recommend that this should be more than 200 bp, if you plan to submit such annotations to NCBI.\n\nFor more information please check the Prokka [documentation](https://github.com/tseemann/prokka).\n\n> Modifies tool parameter(s):\n> - Prokka: `--mincontiglen`",
                     "fa_icon": "fas fa-ruler-horizontal"
                 },
                 "annotation_prokka_evalue": {
@@ -691,7 +696,7 @@
         "amp_ampcombi2_parsetables": {
             "title": "AMP: ampcombi2 parsetables",
             "type": "object",
-            "description": "Antimicrobial peptides parsing, filtering, and annotating submodule of AMPcombi2. More info: https://github.com/Darcy220606/AMPcombi",
+            "description": "Antimicrobial peptides parsing, filtering, and annotating submodule of AMPcombi2. More info: https://github.com/paleobiotechnology/AMPcombi",
             "default": "",
             "properties": {
                 "amp_ampcombi_db_id": {
@@ -705,7 +710,7 @@
                 "amp_ampcombi_db": {
                     "type": "string",
                     "description": "The path to the folder containing the reference database files.",
-                    "help_text": "The path to the folder containing the reference database files (`*.fasta` and `*.tsv`); a fasta file and the corresponding table with structural, functional and if reported taxonomic classifications. AMPcombi will then generate the corresponding `mmseqs2` directory, in which all binary files are prepared for the downstream alignment of the recovered AMPs with [MMseqs2](https://github.com/soedinglab/MMseqs2). These can also be provided by the user by setting up an mmseqs2 compatible database using `mmseqs createdb *.fasta` in a directory called `mmseqs2`.\n\nExample file structure for the reference database supplied by the user:\n\n```bash\namp_DRAMP_database/\n\u251c\u2500\u2500 general_amps_2024_11_13.fasta\n\u251c\u2500\u2500 general_amps_2024_11_13.txt\n\u2514\u2500\u2500 mmseqs2\n    \u251c\u2500\u2500 ref_DB\n    \u251c\u2500\u2500 ref_DB.dbtype\n    \u251c\u2500\u2500 ref_DB_h\n    \u251c\u2500\u2500 ref_DB_h.dbtype\n    \u251c\u2500\u2500 ref_DB_h.index\n    \u251c\u2500\u2500 ref_DB.index\n    \u251c\u2500\u2500 ref_DB.lookup\n    \u2514\u2500\u2500 ref_DB.source```\n\nFor more information check the AMPcombi [documentation](https://ampcombi.readthedocs.io/en/main/usage.html#parse-tables)."
+                    "help_text": "The path to the folder containing the reference database files (`*.fasta` and `*.tsv`); a fasta file and the corresponding table with structural, functional and if reported taxonomic classifications. AMPcombi will then generate the corresponding `mmseqs2` directory, in which all binary files are prepared for the downstream alignment of the recovered AMPs with [MMseqs2](https://github.com/soedinglab/MMseqs2). These can also be provided by the user by setting up an mmseqs2 compatible database using `mmseqs createdb *.fasta` in a directory called `mmseqs2`.\n\nExample file structure for the reference database supplied by the user: \n\n"
                 },
                 "amp_ampcombi_parsetables_cutoff": {
                     "type": "number",
@@ -723,7 +728,7 @@
                 },
                 "amp_ampcombi_parsetables_dbevalue": {
                     "type": "number",
-                    "default": 5.0,
+                    "default": 5,
                     "description": "Remove all DRAMP annotations that have an e-value greater than this value.",
                     "help_text": "This e-value is used as a cut-off for the annotations from the internal Diamond alignment step (against the DRAMP database by default). Any e-value below this value will only remove the DRAMP classification and not the entire hit.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--db_evalue`",
                     "fa_icon": "fas fa-sort-numeric-down"
@@ -789,19 +794,19 @@
         "amp_ampcombi2_cluster": {
             "title": "AMP: ampcombi2 cluster",
             "type": "object",
-            "description": "Clusters the AMP candidates identified with AMPcombi. More info: https://github.com/Darcy220606/AMPcombi",
+            "description": "Clusters the AMP candidates identified with AMPcombi. More info: https://github.com/paleobiotechnology/AMPcombi",
             "default": "",
             "properties": {
                 "amp_ampcombi_cluster_covmode": {
                     "type": "number",
-                    "default": 0.0,
+                    "default": 0,
                     "description": "MMseqs2 coverage mode.",
                     "help_text": "This assigns the coverage mode to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More details can be found in the [MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_cov_mode`",
                     "fa_icon": "far fa-circle"
                 },
                 "amp_ampcombi_cluster_sensitivity": {
                     "type": "number",
-                    "default": 4.0,
+                    "default": 4,
                     "description": "Remove hits that have no stop codon upstream and downstream of the AMP.",
                     "help_text": "This assigns the sensitivity of alignment to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More information can be obtained in the [MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_sensitivity`",
                     "fa_icon": "fas fa-arrows-alt-h"
@@ -815,7 +820,7 @@
                 },
                 "amp_ampcombi_cluster_mode": {
                     "type": "number",
-                    "default": 1.0,
+                    "default": 1,
                     "description": "MMseqs2 clustering mode.",
                     "help_text": "This assigns the cluster mode to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More information can be obtained in the [MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_mode`",
                     "fa_icon": "fas fa-circle"
@@ -834,10 +839,10 @@
                     "help_text": "This assigns the cluster sequence identity to the MMseqs2 cluster module. This determines how AMPs are grouped into clusters. More information can be obtained in the [MMseqs2 documentation](https://mmseqs.com/latest/userguide.pdf).\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_seq_id`",
                     "fa_icon": "far fa-address-card"
                 },
-                "amp_ampcombi_cluster_removesingletons": {
+                "amp_ampcombi_cluster_keepsingletons": {
                     "type": "boolean",
-                    "description": "Remove any hits that form a single member cluster.",
-                    "help_text": "Removes any AMP hits that form a single-member cluster.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_remove_singletons`",
+                    "description": "Keep any hits that form a single member cluster.",
+                    "help_text": "Keeps any AMP hits that form a single-member cluster.\n\n> Modifies tool parameter(s):\n> - AMPCOMBI: `--cluster_keep_singletons`",
                     "fa_icon": "fas fa-book-dead"
                 }
             },
@@ -863,7 +868,7 @@
                 },
                 "arg_amrfinderplus_identmin": {
                     "type": "number",
-                    "default": -1.0,
+                    "default": -1,
                     "help_text": "Specify the minimum percentage amino-acid identity to reference protein or nucleotide identity for nucleotide reference must have if a BLAST alignment (based on methods: BLAST or PARTIAL) was detected, otherwise NA.\n\n If you specify `-1`, this means use a curated threshold if it exists and `0.9` otherwise.\n\nSetting this value to something other than `-1` will override any curated similarity cutoffs. For BLAST: alignment is > 90% of length and > 90% identity to a protein in the AMRFinderPlus database. For PARTIAL: alignment is > 50% of length, but < 90% of length and > 90% identity to the reference, and does not end at a contig boundary.\n\nFor more information check the AMRFinderPlus [documentation](https://github.com/ncbi/amr/wiki/Running-AMRFinderPlus#--organism-option).\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--ident_min`",
                     "description": "Minimum percent identity to reference sequence.",
                     "fa_icon": "fas fa-angle-left"
@@ -1065,14 +1070,14 @@
                 },
                 "arg_rgi_includeloose": {
                     "type": "boolean",
-                    "description": "Include all of loose, strict and perfect hits (i.e. \u2265 95% identity) found by RGI.",
+                    "description": "Include all of loose, strict and perfect hits (i.e. more than 95% identity) found by RGI.",
                     "help_text": "When activated RGI output will include 'Loose' hits in addition to 'Strict' and 'Perfect' hits. The 'Loose' algorithm works outside of the detection model cut-offs to provide detection of new, emergent threats and more distant homologs of AMR genes, but will also catalog homologous sequences and spurious partial matches that may not have a role in AMR.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_loose`",
                     "fa_icon": "far fa-hand-scissors"
                 },
                 "arg_rgi_includenudge": {
                     "type": "boolean",
                     "description": "Suppresses the default behaviour of RGI with `--arg_rgi_includeloose`.",
-                    "help_text": "This flag suppresses the default behaviour of RGI, by listing all 'Loose' matches of \u2265 95% identity as 'Strict' or 'Perfect', regardless of alignment length.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_nudge`",
+                    "help_text": "This flag suppresses the default behaviour of RGI, by listing all 'Loose' matches of more than 95% identity as 'Strict' or 'Perfect', regardless of alignment length.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--include_nudge`",
                     "fa_icon": "fas fa-hand-scissors"
                 },
                 "arg_rgi_lowquality": {
@@ -1095,6 +1100,11 @@
                     "help_text": "For more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\nModifies tool parameter:\n> - RGI_MAIN: `--split_prodigal_jobs`",
                     "fa_icon": "fas fa-angle-double-down",
                     "default": true
+                },
+                "arg_rgi_removetemporaryfiles": {
+                    "type": "boolean",
+                    "description": "Specify to trigger RGI's internal cleanup of intermediate files.",
+                    "help_text": "When running on fragmented (meta)genomes (i.e., has many contigs), RGI can produce a very large number of intermediate files (~4 files per contig).\nThis can sometimes fill up filesystems blocking downstream processes.\nActivate this option to allow RGI to clean up the files on completion of the process.\n\nFor more information check the RGI [documentation](https://github.com/arpcard/rgi).\n\n> Modifies tool parameter(s):\n> - RGI_MAIN: `--clean`"
                 }
             },
             "fa_icon": "fas fa-bacteria"
@@ -1284,6 +1294,24 @@
                     "description": "Run TFBS finder on all gene clusters.",
                     "help_text": "This enables the prediction of transcription factor binding sites which control the gene expression. For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--tfbs`",
                     "fa_icon": "fas fa-search"
+                },
+                "bgc_antismash_clusterhmmer": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-glass-martini-alt",
+                    "description": "Run antiSMASH with --clusterhmmer mode with Pfam profiles",
+                    "help_text": "For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--clusterhmmer`"
+                },
+                "bgc_antismash_fullhmmer": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-glass-martini",
+                    "description": "Run antiSMASH with --fullhmmer mode with Pfam profiles",
+                    "help_text": "For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--fullhmmer`"
+                },
+                "bgc_antismash_tigrfam": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-cat",
+                    "description": "Run antiSMASH with --tigrfam annotation activated",
+                    "help_text": "For more information see the antiSMASH [documentation](https://docs.antismash.secondarymetabolites.org/).\n\n> Modifies tool parameter(s):\n> - antiSMASH: `--tigrfam`"
                 }
             },
             "fa_icon": "fas fa-angle-double-right"
@@ -1414,8 +1442,77 @@
                     "description": "The minimum number of annotated genes that must separate a cluster from the edge.",
                     "help_text": "The minimum number of annotated genes that must separate a possible BGC cluster from the edge. Edge clusters will still be included if they are longer. A lower number will increase the number of false positives on small contigs. Used during BGC extraction.\n\nFor more information see the GECCO [documentation](https://github.com/zellerlab/GECCO).\n\n> Modifies tool parameter(s):\n> - GECCO: `--edge-distance`",
                     "fa_icon": "fas fa-ruler-horizontal"
+                },
+                "bgc_gecco_runconvert": {
+                    "type": "boolean",
+                    "description": "Enable GECCO file conversion to formats for downstream analysis.",
+                    "help_text": "Converts GECCO output into formats like GFF3, GenBank, or FASTA for further analysis."
+                },
+                "bgc_gecco_convertmode": {
+                    "type": "string",
+                    "default": "clusters",
+                    "enum": ["clusters", "gbk"],
+                    "description": "Specify conversion mode for GECCO convert.",
+                    "help_text": "Either clusters or gbk folder output, depending on what is reformatted.\n\n Modifies tool parameter:\n- gecco convert: `gecco convert <mode>`"
+                },
+                "bgc_gecco_convertformat": {
+                    "type": "string",
+                    "default": "gff",
+                    "enum": ["gff", "bigslice", "fna", "faa"],
+                    "description": "Specify output format for GECCO convert.",
+                    "help_text": "Choose output format for clusters mode: 'gff', or gbk mode: 'bigslice', 'fna', or 'faa'.\n\nModifies tool parameter:\n- gecco convert: `--format`"
                 }
             },
+            "fa_icon": "fas fa-angle-double-right"
+        },
+        "bgc_bigslice": {
+            "title": "BGC: BiG-SLiCE",
+            "type": "object",
+            "default": "",
+            "properties": {
+                "bgc_run_bigslice": {
+                    "type": "boolean",
+                    "description": "Run BiG-SLiCE to cluster detected BGCs into gene cluster families (GCFs)."
+                },
+                "bgc_bigslice_db": {
+                    "type": "string",
+                    "description": "Path to the pre-downloaded BiG-SLiCE HMM database directory.",
+                    "help_text": "Supply the path to a local copy of the BiG-SLiCE HMM database. The database can be downloaded from the BiG-SLiCE GitHub releases page:\n\n```bash\nwget https://github.com/medema-group/bigslice/releases/latest/download/bigslice-models.tar.gz\ntar -xzf bigslice-models.tar.gz\n```\n\nThe contents of the directory should contain subdirectories such as `biosynthetic_pfams/` and `sub_pfams/` in the top level.\n\n> Modifies tool parameter(s):\n> - BiG-SLiCE: `--program_db_folder`",
+                    "fa_icon": "fas fa-database"
+                },
+                "bgc_bigslice_exporttsv": {
+                    "type": "boolean",
+                    "description": "Export BiG-SLiCE results as TSV files in addition to the SQLite database.",
+                    "help_text": "Passes `--export-tsv` to BiG-SLiCE, which exports all parsed BGC metadata, vectorized features and clustering results as tab-separated text files alongside the default `data.db` SQLite database."
+                },
+                "bgc_bigslice_complete": {
+                    "type": "boolean",
+                    "description": "Run BiG-SLiCE in complete mode, re-clustering all BGCs into GCFs from scratch.",
+                    "help_text": "By default BiG-SLiCE continues from a previous run if the output folder exists. Activating this flag forces a full re-run of the clustering step, discarding any cached intermediate results.\n\n> Modifies tool parameter(s):\n> - BiG-SLiCE: `--complete`"
+                },
+                "bgc_bigslice_threshold": {
+                    "type": "number",
+                    "default": 0.4,
+                    "description": "Jaccard index threshold for considering a BGC as a member of a GCF.",
+                    "help_text": "Controls the minimum Jaccard index alignment score required for a BGC to be assigned to a Gene Cluster Family (GCF). Lower values increase sensitivity (more assignments) at the cost of specificity.\n\nFor more information see the BiG-SLiCE [documentation](https://github.com/medema-group/bigslice/wiki/Program-parameters).\n\n> Modifies tool parameter(s):\n> - BiG-SLiCE: `--threshold`",
+                    "fa_icon": "fas fa-sliders-h"
+                },
+                "bgc_bigslice_thresholdpct": {
+                    "type": "number",
+                    "default": -1,
+                    "description": "Percentage-based BGC-to-GCF membership threshold.",
+                    "help_text": "An alternative membership threshold expressed as a percentage of the total number of hits. When set above 0, a BGC is assigned to a GCF only if at least this percentage of its domain hits overlap with the GCF centroid.\n\nFor more information see the BiG-SLiCE [documentation](https://github.com/medema-group/bigslice/wiki/Program-parameters).\n\n> Modifies tool parameter(s):\n> - BiG-SLiCE: `--threshold_pct`",
+                    "fa_icon": "fas fa-percent"
+                },
+                "bgc_bigslice_nranks": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Number of best GCF hits to report for each BGC membership assignment.",
+                    "help_text": "Sets how many top-scoring GCF hits are recorded per BGC during the membership assignment step. Increasing this value reports more alternative GCF assignments per BGC at the cost of longer runtime.\n\nFor more information see the BiG-SLiCE [documentation](https://github.com/medema-group/bigslice/wiki/Program-parameters).\n\n> Modifies tool parameter(s):\n> - BiG-SLiCE: `--n_ranks`",
+                    "fa_icon": "fas fa-list-ol"
+                }
+            },
+            "description": "Parameters for BiG-SLiCE clustering of biosynthetic gene clusters (BGCs) into gene cluster families (GCFs). More info: https://github.com/medema-group/bigslice",
             "fa_icon": "fas fa-angle-double-right"
         },
         "bgc_hmmsearch": {
@@ -1453,6 +1550,38 @@
                     "help_text": "Save a simple tabular (space-delimited) file summarizing the per-domain output, with one data line per homologous domain detected in a query sequence for each homologous model.\n\nFor more information check the HMMER [documentation](http://hmmer.org/).\n\n>  Modifies tool parameter(s)\n> - hmmsearch:`--domtblout`",
                     "description": "Save a simple tabular file summarising the per-domain output.",
                     "fa_icon": "fas fa-save"
+                }
+            },
+            "fa_icon": "fas fa-angle-double-right"
+        },
+        "cazyme_dbcan": {
+            "title": "dbCAN",
+            "type": "object",
+            "description": "Carbohydrate-active enzyme annotation based on pre-defined HMM models.\n\nFor more information check the dbCAN [documentation](https://run-dbcan.readthedocs.io/en/latest).",
+            "default": "",
+            "properties": {
+                "cazyme_skip_dbcan": {
+                    "type": "boolean",
+                    "description": "Skip dbCAN during the CAZyme screening.",
+                    "fa_icon": "fas fa-ban"
+                },
+                "cazyme_dbcan_db": {
+                    "type": "string",
+                    "fa_icon": "fas fa-database",
+                    "description": "Path to local dbCAN database folder.",
+                    "help_text": "For more information of preparing dbCAN database, refer to the [documentation](https://run-dbcan.readthedocs.io/en/latest/user_guide/prepare_the_database.html)."
+                },
+                "dbcan_skip_cgc": {
+                    "type": "boolean",
+                    "description": "Skip CGC during the dbCAN screening.",
+                    "help_text": "CAZyme Gene Cluster (CGC) annotation requires a GFF file with gene coordinates to be provided in the samplesheet `gff` column. If no GFF is available, CGC annotation is automatically skipped per sample. Use this parameter to force skipping CGC annotation globally for all samples, for example when you do not need cluster-level analysis or wish to reduce run time.",
+                    "fa_icon": "fas fa-ban"
+                },
+                "dbcan_skip_substrate": {
+                    "type": "boolean",
+                    "description": "Skip substrate prediction during the dbCAN screening.",
+                    "help_text": "Substrate prediction uses the CGC results to assign likely substrates to each CAZyme gene cluster and also requires a GFF file with gene coordinates to be provided in the samplesheet `gff` column. If no GFF is available, substrate prediction is automatically skipped per sample. Use this parameter to force skipping substrate prediction globally for all samples, for example when you are only interested in CAZyme annotation without cluster-level substrate assignment.",
+                    "fa_icon": "fas fa-ban"
                 }
             },
             "fa_icon": "fas fa-angle-double-right"
@@ -1555,13 +1684,6 @@
                     "fa_icon": "fas fa-palette",
                     "hidden": true
                 },
-                "hook_url": {
-                    "type": "string",
-                    "description": "Incoming hook URL for messaging service",
-                    "fa_icon": "fas fa-people-group",
-                    "help_text": "Incoming hook URL for messaging service. Currently, MS Teams and Slack are supported.",
-                    "hidden": true
-                },
                 "multiqc_config": {
                     "type": "string",
                     "format": "file-path",
@@ -1599,6 +1721,18 @@
                     "fa_icon": "far calendar",
                     "description": "Suffix to add to the trace report filename. Default is the date and time in the format yyyy-MM-dd_HH-mm-ss.",
                     "hidden": true
+                },
+                "help": {
+                    "type": ["boolean", "string"],
+                    "description": "Display the help message."
+                },
+                "help_full": {
+                    "type": "boolean",
+                    "description": "Display the full detailed help message."
+                },
+                "show_hidden": {
+                    "type": "boolean",
+                    "description": "Display hidden parameters in the help message (only works when --help or --help_full are provided)."
                 }
             }
         }
@@ -1692,7 +1826,13 @@
             "$ref": "#/$defs/bgc_gecco"
         },
         {
+            "$ref": "#/$defs/bgc_bigslice"
+        },
+        {
             "$ref": "#/$defs/bgc_hmmsearch"
+        },
+        {
+            "$ref": "#/$defs/cazyme_dbcan"
         },
         {
             "$ref": "#/$defs/institutional_config_options"

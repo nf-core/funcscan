@@ -38,6 +38,12 @@
 
   > Schwengers, O., Jelonek, L., Dieckmann, M. A., Beyvers, S., Blom, J., & Goesmann, A. (2021). Bakta: rapid and standardized annotation of bacterial genomes via alignment-free sequence identification. Microbial Genomics, 7(11). [DOI: 10.1099/mgen.0.000685](https://doi.org/10.1099/mgen.0.000685)
 
+- [BiG-SLiCE](https://github.com/medema-group/bigslice)
+
+  > Kautsar, S. A., van der Hooft, J. J. J., de Ridder, D., & Medema, M. H. (2021). BiG-SLiCE: A highly scalable tool maps the diversity of 1.2 million biosynthetic gene clusters. GigaScience, 10(1), giaa154. [DOI: 10.1093/gigascience/giaa154](https://doi.org/10.1093/gigascience/giaa154)
+
+  > Kautsar, S. A., et al. (2026). BiG-SLiCE 2.0: improved gene cluster family diversity mapping. Nature Communications. [DOI: 10.1038/s41467-026-68733-5](https://doi.org/10.1038/s41467-026-68733-5)
+
 - [comBGC](https://github.com/nf-core/funcscan)
 
   > Frangenberg, J., Fellows Yates, J. A., Ibrahim, A., Perelo, L., & Beber, M. E. (2023). nf-core/funcscan: 1.0.0 - German Rollmops - 2023-02-15. [DOI: 10.5281/zenodo.7643100](https://doi.org/10.5281/zenodo.7643099)
@@ -58,9 +64,9 @@
 
   > Carroll, L. M., Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. bioRxiv. [DOI: 10.1101/2021.05.03.442509](https://doi.org/10.1101/2021.05.03.442509)
 
-- [AMPcombi](https://github.com/Darcy220606/AMPcombi)
+- [AMPcombi](https://github.com/paleobiotechnology/AMPcombi)
 
-  > Ibrahim, A. & Perelo, L. (2023). Darcy220606/AMPcombi. [DOI: 10.5281/zenodo.7639121](https://doi.org/10.5281/zenodo.7639121).
+  > Ibrahim, A. & Perelo, L. (2023). paleobiotechnology/AMPcombi. [DOI: 10.5281/zenodo.7639121](https://doi.org/10.5281/zenodo.7639121).
 
 - [hAMRonization](https://github.com/pha4ge/hAMRonization)
 
@@ -84,7 +90,7 @@
 
 - [MMseqs2](https://doi.org/10.1093/bioinformatics/btab184)
 
-  > Mirdita, M., Steinegger, M., Breitwieser, F., Söding, J., Levy Karin, E. (2021). Fast and sensitive taxonomic assignment to metagenomic contigs. Bioinformatics, 37(18),3029–3031. [DOI: 10.1093/bioinformatics/btab184](https://doi.org/10.1093/bioinformatics/btab184)
+  > Mirdita, M., Steinegger, M., Breitwieser, F., Söding, J., Levy Karin, E. (2021). Fast and sensitive taxonomic assignment to metagenomic contigs. Bioinformatics, 37(18), 3029–3031. [DOI: 10.1093/bioinformatics/btab184](https://doi.org/10.1093/bioinformatics/btab184)
 
 - [Prodigal](https://doi.org/10.1186/1471-2105-11-119)
 
@@ -100,7 +106,11 @@
 
 - [RGI](https://doi.org/10.1093/nar/gkac920)
 
-  > Alcock, B. P., Huynh, W., Chalil, R., Smith, K. W., Raphenya, A. R., Wlodarski, M. A., Edalatmand, A., Petkau, A., Syed, S. A., Tsang, K. K., Baker, S. J. C., Dave, M., McCarthy, M. C., Mukiri, K. M., Nasir, J. A., Golbon, B., Imtiaz, H., Jiang, X., Kaur, K., Kwong, M., Liang, Z. C., Niu, K. C., Shan, P., Yang, J. Y. J., Gray, K. L., Hoad, G. R., Jia, B., Bhando, T., Carfrae, L. A., Farha, M. A., French, S., Gordzevich, R., Rachwalski, K., Tu, M. M., Bordeleau, E., Dooley, D., Griffiths, E., Zubyk, H. L., Brown, E. D., Maguire, F., Beiko, R. G., Hsiao, W. W. L., Brinkman F. S. L., Van Domselaar, G., McArthur, A. G. (2023). CARD 2023: expanded curation, support for machine learning, and resistome prediction at the Comprehensive Antibiotic Resistance Database. Nucleic acids research, 51(D1):D690-D699. [DOI: 10.1093/nar/gkac920](https://doi.org/10.1093/nar/gkac920)
+  > Alcock, B. P., Huynh, W., Chalil, R., Smith, K. W., Raphenya, A. R., Wlodarski, M. A., Edalatmand, A., Petkau, A., Syed, S. A., Tsang, K. K., Baker, S. J. C., Dave, M., McCarthy, M. C., Mukiri, K. M., Nasir, J. A., Golbon, B., Imtiaz, H., Jiang, X., Kaur, K., Kwong, M., Liang, Z. C., Niu, K. C., Shan, P., Yang, J. Y. J., Gray, K. L., Hoad, G. R., Jia, B., Bhando, T., Carfrae, L. A., Farha, M. A., French, S., Gordzevich, R., Rachwalski, K., Tu, M. M., Bordeleau, E., Dooley, D., Griffiths, E., Zubyk, H. L., Brown, E. D., Maguire, F., Beiko, R. G., Hsiao, W. W. L., Brinkman F. S. L., Van Domselaar, G., McArthur, A. G. (2023). CARD 2023: expanded curation, support for machine learning, and resistome prediction at the Comprehensive Antibiotic Resistance Database. Nucleic acids research, 51(D1) D690-D699. [DOI: 10.1093/nar/gkac920](https://doi.org/10.1093/nar/gkac920)
+
+- [dbCAN](https://doi.org/10.1093/nar/gkad328)
+
+  > Zheng, J., Ge, Q., Yan, Y., Zhang, X., Huang, L., Yin Y. (2023). dbCAN3: automated carbohydrate-active enzyme and substrate annotation. Nucleic Acids Research, (51,W1) W115–W121. [DOI: 10.1093/nar/gkad328](https://doi.org/10.1093/nar/gkad328)
 
 - [SeqKit](https://bioinf.shenwei.me/seqkit/)
 

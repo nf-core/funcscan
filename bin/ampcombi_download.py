@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 #########################################
-# Authors: [Anan Ibrahim](https://github.com/Darcy220606/AMPcombi), [Louisa Perelo](https://github.com/louperelo)
+# Authors: [Anan Ibrahim](https://github.com/Darcy220606), [Louisa Perelo](https://github.com/louperelo)
 # File: amp_database.py
-# Source: https://github.com/Darcy220606/AMPcombi/blob/main/ampcombi/amp_database.py
+# Source: https://github.com/paleobiotechnology/AMPcombi/blob/main/ampcombi/amp_database.py
 # This source code is licensed under the MIT license
 #########################################
 

@@ -4,13 +4,14 @@
 
 The output of nf-core/funcscan provides reports for each of the functional groups:
 
-- **antibiotic resistance genes** (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) – summarised by [hAMRonization](https://github.com/pha4ge/hAMRonization). Results from ABRicate, AMRFinderPlus, and DeepARG are normalised to [ARO](https://obofoundry.org/ontology/aro.html) by [argNorm](https://github.com/BigDataBiology/argNorm).)
-- **antimicrobial peptides** (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) – summarised by [AMPcombi](https://github.com/Darcy220606/AMPcombi))
-- **biosynthetic gene clusters** (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org) – summarised by [comBGC](#combgc))
+- **antibiotic resistance genes** (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) - summarised by [hAMRonization](https://github.com/pha4ge/hAMRonization). Results from ABRicate, AMRFinderPlus, and DeepARG are normalised to [ARO](https://obofoundry.org/ontology/aro.html) by [argNorm](https://github.com/BigDataBiology/argNorm).)
+- **antimicrobial peptides** (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) - summarised by [AMPcombi](https://github.com/paleobiotechnology/AMPcombi))
+- **biosynthetic gene clusters** (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org), [BiGSLiCE](https://github.com/medema-group/bigslice) - summarised by [comBGC](#combgc))
+- **carbohydrate-active enzymes (CAZymes)**, CAZyme gene clusters and substrates (tools: [run_dbcan](https://github.com/bcb-unl/run_dbcan))
 
 As a general workflow, we recommend to first look at the summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each result. The tool-specific output directories also includes the output from the functional annotation steps of either [prokka](https://github.com/tseemann/prokka), [pyrodigal](https://github.com/althonos/pyrodigal), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set. Additionally, taxonomic classifications from [MMseqs2](https://github.com/soedinglab/MMseqs2) are saved if the `--taxa_classification_mmseqs_db_savetmp` and `--taxa_classification_mmseqs_taxonomy_savetmp` flags are set.
 
-Similarly, all downloaded databases are saved (i.e. from [MMseqs2](https://github.com/soedinglab/MMseqs2), [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [RGI](https://github.com/arpcard/rgi), and/or [AMPcombi](https://github.com/Darcy220606/AMPcombi)) into the output directory `<outdir>/databases/` if the `--save_db` flag was set.
+Similarly, all downloaded databases are saved (i.e. from [MMseqs2](https://github.com/soedinglab/MMseqs2), [antiSMASH](https://docs.antismash.secondarymetabolites.org), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [Bakta](https://github.com/oschwengers/bakta), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [RGI](https://github.com/arpcard/rgi), [AMPcombi](https://github.com/paleobiotechnology/AMPcombi), and/or [run_dbcan](https://github.com/bcb-unl/run_dbcan)) into the output directory `<outdir>/databases/` if the `--save_db` flag was set.
 
 Furthermore, for reproducibility, versions of all software used in the run is presented in a [MultiQC](http://multiqc.info) report.
 
@@ -38,9 +39,12 @@ results/
 |   └── rgi/
 ├── bgc/
 |   ├── antismash/
+|   ├── bigslice/
 |   ├── deepbgc/
 |   ├── gecco/
 |   └── hmmsearch/
+├── cazyme/
+|      └── dbcan/
 ├── databases/
 ├── multiqc/
 ├── pipeline_info/
@@ -71,45 +75,49 @@ Taxonomy classification of nucleotide sequences with:
 
 ORF prediction and annotation with any of:
 
-- [Pyrodigal](#pyrodigal) (default) – for open reading frame prediction.
-- [Prodigal](#prodigal) – for open reading frame prediction.
-- [Prokka](#prokka) – open reading frame prediction and functional protein annotation.
-- [Bakta](#bakta) – open reading frame prediction and functional protein annotation.
+- [Pyrodigal](#pyrodigal) (default) - for open reading frame prediction.
+- [Prodigal](#prodigal) - for open reading frame prediction.
+- [Prokka](#prokka) - open reading frame prediction and functional protein annotation.
+- [Bakta](#bakta) - open reading frame prediction and functional protein annotation.
 
 CDS domain annotation:
 
-- [InterProScan](#interproscan) (default) – for open reading frame protein and domain predictions.
+- [InterProScan](#interproscan) (default) - for open reading frame protein and domain predictions.
 
 Antimicrobial Resistance Genes (ARGs):
 
-- [ABRicate](#abricate) – antimicrobial resistance gene detection, based on alignment to one of several databases.
-- [AMRFinderPlus](#amrfinderplus) – antimicrobial resistance gene detection, using NCBI’s curated Reference Gene Database and curated collection of Hidden Markov Models.
-- [DeepARG](#deeparg) – antimicrobial resistance gene detection, using a deep learning model.
-- [fARGene](#fargene) – antimicrobial resistance gene detection, using Hidden Markov Models.
-- [RGI](#rgi) – antimicrobial resistance gene detection, based on alignment to the CARD database.
+- [ABRicate](#abricate) - antimicrobial resistance gene detection, based on alignment to one of several databases.
+- [AMRFinderPlus](#amrfinderplus) - antimicrobial resistance gene detection, using NCBI’s curated Reference Gene Database and curated collection of Hidden Markov Models.
+- [DeepARG](#deeparg) - antimicrobial resistance gene detection, using a deep learning model.
+- [fARGene](#fargene) - antimicrobial resistance gene detection, using Hidden Markov Models.
+- [RGI](#rgi) - antimicrobial resistance gene detection, based on alignment to the CARD database.
 
 Antimicrobial Peptides (AMPs):
 
-- [ampir](#ampir) – antimicrobial peptide detection, based on a supervised statistical machine learning approach.
-- [amplify](#amplify) – antimicrobial peptide detection, using a deep learning model.
-- [hmmsearch](#hmmsearch) – antimicrobial peptide detection, based on hidden Markov models.
-- [Macrel](#macrel) – antimicrobial peptide detection, using a machine learning approach.
+- [ampir](#ampir) - antimicrobial peptide detection, based on a supervised statistical machine learning approach.
+- [amplify](#amplify) - antimicrobial peptide detection, using a deep learning model.
+- [hmmsearch](#hmmsearch) - antimicrobial peptide detection, based on hidden Markov models.
+- [Macrel](#macrel) - antimicrobial peptide detection, using a machine learning approach.
 
 Biosynthetic Gene Clusters (BGCs):
 
-- [antiSMASH](#antismash) – biosynthetic gene cluster detection.
+- [antiSMASH](#antismash) - biosynthetic gene cluster detection.
 - [deepBGC](#deepbgc) - biosynthetic gene cluster detection, using a deep learning model.
-- [GECCO](#gecco) – biosynthetic gene cluster detection, using Conditional Random Fields (CRFs).
-- [hmmsearch](#hmmsearch) – biosynthetic gene cluster detection, based on hidden Markov models.
+- [GECCO](#gecco) - biosynthetic gene cluster detection, using Conditional Random Fields (CRFs).
+- [hmmsearch](#hmmsearch) - biosynthetic gene cluster detection, based on hidden Markov models.
+
+Carbohydrate-active enzymes (CAZYMEs)
+
+- [run_dbcan](https://github.com/bcb-unl/run_dbcan) - carbohydrate-active enzyme (CAZyme), CAZyme gene clusters and substrate detection.
 
 Output Summaries:
 
-- [AMPcombi](#ampcombi) – summary report of antimicrobial peptide gene output from various detection tools.
-- [hAMRonization](#hamronization) – summary of antimicrobial resistance gene output from various detection tools.
+- [AMPcombi](#ampcombi) - summary report of antimicrobial peptide gene output from various detection tools
+- [hAMRonization](#hamronization) - summary of antimicrobial resistance gene output from various detection tools
 - [argNorm](#argNorm) - Normalize ARG annotations from [ABRicate](#abricate), [AMRFinderPlus](#amrfinderplus), and [DeepARG](#deeparg) to the ARO
-- [comBGC](#combgc) – summary of biosynthetic gene cluster output from various detection tools.
-- [MultiQC](#multiqc) – report of all software and versions used in the pipeline.
-- [Pipeline information](#pipeline-information) – report metrics generated during the workflow execution.
+- [comBGC](#combgc) - summary of biosynthetic gene cluster output from various detection tools
+- [MultiQC](#multiqc) - report of all software and versions used in the pipeline
+- [Pipeline information](#pipeline-information) - report metrics generated during the workflow execution
 
 ## Tool details
 
@@ -386,7 +394,7 @@ Output Summaries:
 
 ### BGC detection tools
 
-[antiSMASH](#antismash), [deepBGC](#deepbgc), [GECCO](#gecco), [hmmsearch](#hmmsearch).
+[antiSMASH](#antismash), [deepBGC](#deepbgc), [GECCO](#gecco), [hmmsearch](#hmmsearch), [BiGSLiCE](#bigslice).
 
 Note that the BGC tools are run on a set of annotations generated on only long contigs (3000 bp or longer) by default. These specific filtered FASTA files are under `bgc/seqkit/`, and annotations files are under `annotation/<annotation_tool>/long/`, if the corresponding saving flags are specified (see [parameter docs](https://nf-co.re/funcscan/parameters)). However the same annotations _should_ also be annotation files in the sister `all/` directory.
 
@@ -461,10 +469,65 @@ Note that filtered FASTA is only used for BGC workflow for run-time optimisation
   - `*.features.tsv`: TSV file containing identified domains
   - `*.clusters.tsv`: TSV file containing coordinates of predicted clusters and BGC types
   - `*_cluster_*.gbk`: GenBank file (if clusters were found) containing sequence with annotations; one file per GECCO hit
+  - `*.gff`: GFF3 converted cluster tables containing the position and metadata for all the predicted clusters (only if `--bgc_gecco_runconvert --bgc_gecco_convertmode clusters --bgc_gecco_convertformat gff`)
+  - `*.region*.gbk`: Converted and aliased GenBank files so that they can be loaded by BiG-SLiCE (only if `--bgc_gecco_runconvert --bgc_gecco_convertmode gbk --bgc_gecco_convertformat bigslice`)
+  - `*.faa`: Amino-acid FASTA converted GenBank files of all the proteins in a cluster (only if `--bgc_gecco_runconvert --bgc_gecco_convertmode gbk --bgc_gecco_convertformat faa`)
+  - `*.fna`:Nucleotide sequence FASTA converted GenBank files from the cluster (only if `--bgc_gecco_runconvert --bgc_gecco_convertmode gbk --bgc_gecco_convertformat fna`)
+  </details>
+
+[GECCO](https://gecco.embl.de) is a fast and scalable method for identifying putative novel Biosynthetic Gene Clusters (BGCs) in genomic and metagenomic data using Conditional Random Fields (CRFs).
+
+The additional GFF3, GenBank, or FASTA files from `--bgc_gecco_runconvert`, can be useful for additional further analysis of the BGC hits.
+
+#### BiGSLiCE
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `bigslice/`
+  - `<samplename>/`
+    - `result/`
+      - `data.db`: SQLite database containing results for BGCs, CDSs, Gene Cluster Families (GCFs), HMMs and HSPs.
+      - `tsv_export/` (optional): TSV exports of all parsed BGC metadata, vectorized features and clustering results. Only produced when `--bgc_bigslice_exporttsv` is set.
+      - `tmp/`
+        - `<run_id>/`
+          - `*.fa`: predicted biosynthetic features as FASTA files, one file per hit HMM.
 
 </details>
 
-[GECCO](https://gecco.embl.de) is a fast and scalable method for identifying putative novel Biosynthetic Gene Clusters (BGCs) in genomic and metagenomic data using Conditional Random Fields (CRFs).
+[BiG-SLiCE](https://github.com/medema-group/bigslice) (**Bi**osynthetic **G**ene cluster **S**uper-**Li**near **C**lustering **E**ngine) is a highly scalable tool for the large-scale analysis and clustering of Biosynthetic Gene Clusters (BGCs) into Gene Cluster Families (GCFs).
+It takes BGC regions in GenBank format (e.g. output from antiSMASH or GECCO) along with an HMM database and produces an SQLite database of predicted BGC features and GCF assignments.
+BiG-SLiCE requires the HMM database to be supplied via `--bgc_bigslice_db` and is activated with `--bgc_run_bigslice`. It requires at least one of antiSMASH or GECCO (with convert in bigslice format) to be enabled.
+All results are stored in a SQLite database (`data.db`) which can be explored with standard SQLite tools or via the [BiG-SLiCE interactive web interface](https://github.com/medema-group/bigslice#running-the-query-mode-and-visualization).
+
+### CAZyme annotation tools
+
+#### run_dbcan
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `cazyme/`
+  - `dbcan/`
+    - `cazyme_annotation/`
+      - `<sample.id>_overview.tsv`: TSV file containing the results of dbCAN CAZyme annotation
+      - `<sample.id>_dbCAN_hmm_results.tsv`: TSV file containing the detailed dbCAN HMM results for CAZyme annotation
+      - `<sample.id>_dbCANsub_hmm_results.tsv`: TSV file containing the detailed dbCAN subfamily results for CAZyme annotation
+      - `<sample.id>_diamond.out`: TSV file containing the detailed dbCAN diamond results for CAZyme annotation
+    - `cgc/`
+      - `<sample.id>_cgc.gff`: GFF file containing the CAZyme gene clusters (CGC) identified by dbCAN. This file is generated from the dbCAN annotation and contains the locations of CAZyme gene clusters in the genome
+      - `<sample.id>_cgc_standard_out.tsv`: Standard output file from dbCAN for CAZyme gene clusters (CGC) in a tabular format. This file summarizes the CAZyme gene clusters identified in the genome
+      - `<sample.id>_diamond.out.tc`: TSV file containing the diamond output for transporter annotation
+      - `<sample.id>_TF_hmm_results.tsv`: TSV file containing the results of transcription factor screening
+      - `<sample.id>_STP_hmm_results.tsv`: TSV file containing the results of signaling transduction proteins (STP) annotation
+    - `substrate/`
+      - `<sample.id>_total_cgc_info.tsv`: TSV file summarizing the total additional genes in the genome
+      - `<sample.id>_substrate_prediction.tsv`: TSV file containing the substrate predictions based on the CGC annotations from dbCAN
+      - `<sample.id>_synteny_pdf/`: Directory containing one or more PDF files showing the syntenic regions of the CGCs in DNA sequence as identified by dbCAN
+
+</details>
+
+[run_dbcan](https://github.com/bcb-unl/run_dbcan) is an automated tool for carbohydrate-active enzyme (CAZyme), CAZyme gene cluster and substrate annotation.
 
 ### Summary tools
 
@@ -541,12 +604,12 @@ In that case we recommend to lower the AMP prediction thresholds and run more th
 
 </details>
 
-[AMPcombi](https://github.com/Darcy220606/AMPcombi) summarizes the results of **antimicrobial peptide (AMP)** prediction tools (ampir, AMPlify, Macrel, and other non-nf-core supported tools) into a single table and aligns the hits against a reference AMP database for functional, structural and taxonomic classification using [MMseqs2](https://github.com/soedinglab/MMseqs2).
+[AMPcombi](https://github.com/paleobiotechnology/AMPcombi) summarizes the results of **antimicrobial peptide (AMP)** prediction tools (ampir, AMPlify, Macrel, and other non-nf-core supported tools) into a single table and aligns the hits against a reference AMP database for functional, structural and taxonomic classification using [MMseqs2](https://github.com/soedinglab/MMseqs2).
 It further assigns the physiochemical properties (e.g. hydrophobicity, molecular weight) using the [Biopython toolkit](https://github.com/biopython/biopython) and clusters the resulting AMP hits from all samples using [MMseqs2](https://github.com/soedinglab/MMseqs2).
 To further filter the recovered AMPs using the presence of signaling peptides, the output file `Ampcombi_summary_cluster.tsv` or `ampcombi_complete_summary_taxonomy.tsv.gz` can be used downstream as detailed [here](https://ampcombi.readthedocs.io/en/main/usage.html#signal-peptide).
 The final tables generated may also be visualized and explored using an interactive [user interface](https://ampcombi.readthedocs.io/en/main/visualization.html).
 
-<img src="https://raw.githubusercontent.com/Darcy220606/AMPcombi/main/docs/ampcombi_interface_screenshot2.png" alt="AMPcombi interface" width="650" height="300">
+<img src="https://raw.githubusercontent.com/paleobiotechnology/AMPcombi/main/docs/ampcombi_interface_screenshot2.png" alt="AMPcombi interface" width="650" height="300">
 
 #### hAMRonization
 

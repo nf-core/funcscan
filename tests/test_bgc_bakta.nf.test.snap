@@ -13,23 +13,35 @@
     },
     "deepbgc_bgc_gbk": {
         "content": [
-            "sample_2.bgc.gbk:md5,d41d8cd98f00b204e9800998ecf8427e"
+            "sample_2.bgc.gbk:md5,580ca67831981d0447505a1eab2d6a11"
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.3"
         },
-        "timestamp": "2024-07-24T10:32:18.378687548"
+        "timestamp": "2026-01-25T15:52:28.72520036"
     },
     "gecco": {
         "content": [
-            "sample_2.genes.tsv:md5,66e3724c7e7da102bf58acd564211e8b",
-            "sample_2.features.tsv:md5,2ef146213836ca80d3079776f17c7cb2"
+            "sample_2.genes.tsv:md5,4e45a9882d7b9d5510fefe9f34329a96",
+            "sample_2.features.tsv:md5,b64ad7a5cb4af9971b1bd4b379ff2486",
+            "sample_2.clusters.tsv:md5,61a89e5684004b6c4e7b943c373e8d1e",
+            "NODE_18_length_18230_cov_4.622228.region001.gbk"
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.3"
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2024-07-24T10:32:18.404694725"
+        "timestamp": "2025-12-17T13:30:31.319332788"
+    },
+    "bigslice": {
+        "content": [
+            "data.db"
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-06-08T23:48:55.383676547"
     }
 }

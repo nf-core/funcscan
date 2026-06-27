@@ -8,6 +8,8 @@
 
 nf-core/funcscan is a pipeline for efficient and parallelised screening of long nucleotide sequences such as contigs for antimicrobial peptide genes, antimicrobial resistance genes, and biosynthetic gene clusters. It can additionally identify the taxonomic origin of the sequences.
 
+Want to contribute? Please see the pipeline [specific developer guidelines](usage/developing.md)
+
 ## Running the pipeline
 
 The typical command for running the pipeline is as follows:
@@ -23,8 +25,9 @@ To run any of the three screening workflows (AMP, ARG, and/or BGC), taxonomic cl
 - `--run_amp_screening`
 - `--run_arg_screening`
 - `--run_bgc_screening`
-- `--run_taxa_classification` (for optional additional taxonomic annotations)
-- `--run_protein_annotation` (for optional additional protein family and domain annotation)
+- `--run_cazyme_annotation`
+- `--run_taxa_classification` (for additional contextual taxonomic annotations)
+- `--run_protein_annotation` (for additional contextual protein family and domain annotation)
 
 When switched on, all tools of the given workflow will be run by default. If you don't need specific tools, you can explicitly skip them. The exception is HMMsearch, which needs to be explicitly switched on and provided with HMM screening files (AMP and BGC workflows, see [parameter documentation](/funcscan/parameters)). For the taxonomic classification, MMseqs2 is currently the only tool implemented in the pipeline. Likewise, InterProScan is the only tool for protein sequence annotation.
 
@@ -49,7 +52,7 @@ If you wish to repeatedly use the same parameters for multiple runs, rather than
 Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <file>`.
 
 > [!WARNING]
-> Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
+> Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/running/run-pipelines#configuring-pipelines), other infrastructural tweaks (such as output directories), or module arguments (args).
 
 The above pipeline run specified with a params file in yaml format:
 
@@ -75,9 +78,11 @@ nf-core/funcscan takes FASTA files as input, typically contigs or whole genome s
 --input '[path to samplesheet file]'
 ```
 
-The input samplesheet has to be a comma-separated file (`.csv`) with 2 (`sample`, and `fasta`) or 4 columns (`sample`, `fasta`, `protein`, `gbk`), and a header row as shown in the examples below.
+The input samplesheet has to be a comma-separated file (`.csv`) with 2 (`sample`, and `fasta`), 4 (`sample`, `fasta`, `protein`, `gbk`), or 5 (`sample`, `fasta`, `protein`, `gbk`, `gff`) columns, and a header row as shown in the examples below.
 
 If you already have annotated contigs with peptide sequences and an annotation file in Genbank format (`.gbk.` or `.gbff`), you can supply these to the pipeline using the optional `protein` and `gbk` columns. If these additional columns are supplied, pipeline annotation (i.e. with bakta, prodigal, pyrodigal or prokka) will be skipped and your corresponding annotation files used instead.
+
+Additionally, you can supply a GFF format annotation file via the optional `gff` column. When provided alongside `protein` and `gbk`, this enables dbCAN CAZyme Gene Cluster (CGC) and substrate prediction steps, which require gene coordinate information in `.gff` format.
 
 For two columns (without pre-annotated data):
 
@@ -95,19 +100,28 @@ sample_1,/<path>/<to>/wastewater_metagenome_contigs_1.fasta.gz,/<path>/<to>/wast
 sample_2,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gz,/<path>/<to>/wastewater_metagenome_contigs_2.faa,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gbk
 ```
 
-| Column    | Description                                                                                                                                                                                                           |
-| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This will be used to name all output files from the pipeline. Spaces in sample names are automatically converted to underscores (`_`).                                                            |
-| `fasta`   | Path or URL to a gzipped or uncompressed FASTA file. Accepted file suffixes are: `.fasta`, `.fna`, or `.fa`, or any of these with `.gz`, e.g. `.fa.gz`.                                                               |
-| `protein` | Optional path to a pre-generated amino acid FASTA file (`.faa`) containing protein annotations of `fasta`, optionally gzipped. Required to be supplied if `gbk` also given.                                           |
-| `gbk`     | Optional path to a pre-generated annotation file in Genbank format (`.gbk`, or `.gbff`) format containing annotations information of `fasta`, optionally gzipped. Required to be supplied if `protein` is also given. |
+For five columns (with pre-annotated data including GFF for dbCAN CGC/substrate):
+
+```csv title="samplesheet.csv"
+sample,fasta,protein,gbk,gff
+sample_1,/<path>/<to>/wastewater_metagenome_contigs_1.fasta.gz,/<path>/<to>/wastewater_metagenome_contigs_1.faa,/<path>/<to>/wastewater_metagenome_contigs_1.fasta.gbk,/<path>/<to>/wastewater_metagenome_contigs_1.gff
+sample_2,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gz,/<path>/<to>/wastewater_metagenome_contigs_2.faa,/<path>/<to>/wastewater_metagenome_contigs_2.fasta.gbk,/<path>/<to>/wastewater_metagenome_contigs_2.gff
+```
+
+| Column    | Description                                                                                                                                                                                                                                                                                      |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `sample`  | Custom sample name. This will be used to name all output files from the pipeline. Spaces in sample names are automatically converted to underscores (`_`).                                                                                                                                       |
+| `fasta`   | Path or URL to a gzipped or uncompressed FASTA file. Accepted file suffixes are: `.fasta`, `.fna`, or `.fa`, or any of these with `.gz`, e.g. `.fa.gz`.                                                                                                                                          |
+| `protein` | Optional path to a pre-generated amino acid FASTA file (`.faa`) containing protein annotations of `fasta`, optionally gzipped. Required to be supplied if `gbk` also given.                                                                                                                      |
+| `gbk`     | Optional path to a pre-generated annotation file in Genbank format (`.gbk`, or `.gbff`) format containing annotations information of `fasta`, optionally gzipped. Required to be supplied if `protein` is also given.                                                                            |
+| `gff`     | Optional path to a pre-generated annotation file in GFF format (`.gff`) containing gene coordinate information of `fasta`, optionally gzipped. When provided alongside `protein` and `gbk`, enables dbCAN CGC and substrate prediction. Must be in NCBI_prok, prodigal, NCBI_euk, or JGI format. |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
 :::danger
 We highly recommend performing quality control on input contigs before running the pipeline. You may not receive results for some tools if none of the contigs in a FASTA file reach certain thresholds. Check parameter documentation for relevant minimum contig parameters.
 
-For example, ideally BGC screening requires contigs of at least 3,000 bp, otherwise downstream tools may crash.
+For example, ideally BGC screening requires contigs of at least 3,000 bp, otherwise downstream tools may crash (see `--bgc_mincontiglength` in the [parameter documentation](https://nf-co.re/funcscan/dev/parameters/#bgc_mincontiglength)).
 :::
 
 ## Notes on screening tools, taxonomic and functional classifications
@@ -153,6 +167,44 @@ When the annotation is run with Prokka, the resulting `.gbk` file passed to anti
 
 :::warning
 If antiSMASH is run for BGC detection, we recommend to **not** run Prokka for annotation but instead use the default annotation tool (Pyrodigal), or switch to Prodigal or (for bacteria only!) Bakta.
+:::
+
+### BiGSLiCE
+
+[BiG-SLiCE](https://github.com/medema-group/bigslice) clusters BGC sequences into Gene Cluster Families (GCFs).
+It is activated with `--bgc_run_bigslice` and requires at least one BGC source to be enabled:
+
+- antiSMASH (default BGC tool).
+- GECCO with `--bgc_gecco_runconvert --bgc_gecco_convertmode gbk --bgc_gecco_convertformat bigslice`
+
+BiG-SLiCE does **not** discover BGCs itself — it takes GenBank-format BGC regions produced by antiSMASH and/or GECCO convert as input.
+If `--bgc_bigslice_db` is provided, the pipeline uses that database directly; otherwise it automatically downloads the BiG-SLiCE database via the `BIGSLICE_DOWNLOADDB` module.
+
+By default BiG-SLiCE only writes a `data.db` SQLite database.
+To additionally export all results as tab-separated text files, pass `--bgc_bigslice_exporttsv`.
+
+The following optional parameters can be used to tune the clustering behaviour:
+
+| Pipeline parameter            | BiG-SLiCE flag    | Description                                                                                    |
+| ----------------------------- | ----------------- | ---------------------------------------------------------------------------------------------- |
+| `--bgc_bigslice_complete`     | `--complete`      | Force a full re-clustering run from scratch                                                    |
+| `--bgc_bigslice_threshold`    | `--threshold`     | Jaccard index threshold for GCF membership (default: 0.3)                                      |
+| `--bgc_bigslice_thresholdpct` | `--threshold_pct` | Percentage-based GCF membership threshold (mutually exclusive with `--bgc_bigslice_threshold`) |
+| `--bgc_bigslice_nranks`       | `--n_ranks`       | Number of initial GCF centroids (default: 3000)                                                |
+
+:::note
+`--bgc_bigslice_threshold` and `--bgc_bigslice_thresholdpct` are mutually exclusive — the pipeline will error at startup if both are set to non-default values.
+:::
+
+:::warning
+`--bgc_bigslice_complete` forces BiG-SLiCE to cluster **all** input BGCs, including those with no significant HMM hits.
+This is only suitable for sufficiently large datasets; with fewer than ~10 samples the pipeline will warn that BiG-SLiCE may fail with `Exception: Not enough input for clustering`.
+:::
+
+:::warning
+`--bgc_bigslice_nranks` must be **smaller than the number of BGCs** in the input dataset.
+Setting it to a value larger than the dataset size will cause BiG-SLiCE to fail with `ValueError: Expected n_neighbors <= n_samples_fit`.
+The default of 3000 is suitable for large public datasets; reduce this value when working with smaller datasets.
 :::
 
 ## Databases and reference files
@@ -513,6 +565,27 @@ deepbgc_db/
     └── myDetectors*.pkl
 ```
 
+### BiGSLiCE
+
+BiG-SLiCE requires its own HMM database.
+The pipeline will try to download it for you.
+In case you are running offline, the database must be downloaded manually and supplied with `--bgc_bigslice_db`.
+
+Download the latest pre-built database archive from the [BiG-SLiCE GitHub releases page](https://github.com/medema-group/bigslice/releases):
+
+```bash
+wget https://github.com/medema-group/bigslice/releases/latest/download/bigslice-models.tar.gz
+tar -xzf bigslice-models.tar.gz
+```
+
+Then supply the extracted directory to the pipeline:
+
+```bash
+--bgc_bigslice_db '/<path>/<to>/<bigslice-models>/'
+```
+
+The contents of the database directory should contain subdirectories such as `biosynthetic_pfams/` and `sub_pfams/` in the top level.
+
 ### InterProScan
 
 [InterProScan](https://github.com/ebi-pf-team/interproscan) is used to provide more information about the proteins annotated on the contigs. By default, turning on this subworkflow with `--run_protein_annotation` will download and unzip the [InterPro database](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.72-103.0/) version 5.72-103.0. The database can be saved in the output directory `<output_directory>/databases/interproscan/` if the `--save_db` is turned on.
@@ -555,6 +628,26 @@ interproscan_db/
     ├── superfamily
     └── tmhmm
 ```
+
+### Run_dbCAN
+
+The [run_dbcan](https://github.com/bcb-unl/run_dbcan) tool requires a pre-built database to perform carbohydrate-active enzyme (CAZyme) annotation.
+To download the database automatically, install the [`dbcan`](https://bioconda.github.io/recipes/dbcan/README.html) package, e.g. with conda:
+
+```bash
+conda create -n dbcan -c bioconda dbcan
+conda activate dbcan
+```
+
+Then, download the database:
+
+```bash
+run_dbcan database --db_dir <path/to/your/db>
+```
+
+Replace `<path/to/your/db>` with your preferred directory path for storing the database files.
+Once the database download is complete, the files are ready for use with the `run_dbcan` tool without additional configurations or modifications.
+Supply the parameter `--cazyme_dbcan_db <path/to/your/db>` to use the downloaded database with nf-core/funcscan.
 
 ## Updating the pipeline
 
@@ -610,7 +703,7 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 - `shifter`
   - A generic configuration profile to be used with [Shifter](https://nersc.gitlab.io/development/shifter/how-to-use/)
 - `charliecloud`
-  - A generic configuration profile to be used with [Charliecloud](https://hpc.github.io/charliecloud/)
+  - A generic configuration profile to be used with [Charliecloud](https://charliecloud.io/)
 - `apptainer`
   - A generic configuration profile to be used with [Apptainer](https://apptainer.org/)
 - `wave`
@@ -634,19 +727,19 @@ Specify the path to a specific config file (this is a core Nextflow command). Se
 
 Whilst the default requirements set within the pipeline will hopefully work for most people and with most input data, you may find that you want to customise the compute resources that the pipeline requests. Each step in the pipeline has a default set of requirements for number of CPUs, memory and time. For most of the pipeline steps, if the job exits with any of the error codes specified [here](https://github.com/nf-core/rnaseq/blob/4c27ef5610c87db00c3c5a3eed10b1d161abf575/conf/base.config#L18) it will automatically be resubmitted with higher resources request (2 x original, then 3 x original). If it still fails after the third attempt then the pipeline execution is stopped.
 
-To change the resource requests, please see the [max resources](https://nf-co.re/docs/usage/configuration#max-resources) and [tuning workflow resources](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources) section of the nf-core website.
+To change the resource requests, please see the [max resources](https://nf-co.re/docs/running/configuration/nextflow-for-your-system#set-max-resources) and [customise process resources](https://nf-co.re/docs/running/configuration/nextflow-for-your-system#customize-process-resources) section of the nf-core website.
 
 ### Custom Containers
 
 In some cases, you may wish to change the container or conda environment used by a pipeline steps for a particular tool. By default, nf-core pipelines use containers and software from the [biocontainers](https://biocontainers.pro/) or [bioconda](https://bioconda.github.io/) projects. However, in some cases the pipeline specified version maybe out of date.
 
-To use a different container from the default container or conda environment specified in a pipeline, please see the [updating tool versions](https://nf-co.re/docs/usage/configuration#updating-tool-versions) section of the nf-core website.
+To use a different container from the default container or conda environment specified in a pipeline, please see the [updating tool versions](https://nf-co.re/docs/running/configuration/nextflow-for-your-system#update-tool-versions) section of the nf-core website.
 
 ### Custom Tool Arguments
 
 A pipeline might not always support every possible argument or option of a particular tool used in pipeline. Fortunately, nf-core pipelines provide some freedom to users to insert additional parameters that the pipeline does not include by default.
 
-To learn how to provide additional arguments to a particular tool of the pipeline, please see the [customising tool arguments](https://nf-co.re/docs/usage/configuration#customising-tool-arguments) section of the nf-core website.
+To learn how to provide additional arguments to a particular tool of the pipeline, please see the [customising tool arguments](https://nf-co.re/docs/running/configuration/nextflow-for-your-system#modifying-tool-arguments) section of the nf-core website.
 
 ### nf-core/configs
 

@@ -11,9 +11,9 @@
 include { UTILS_NFSCHEMA_PLUGIN   } from '../../nf-core/utils_nfschema_plugin'
 include { paramsSummaryMap        } from 'plugin/nf-schema'
 include { samplesheetToList       } from 'plugin/nf-schema'
+include { paramsHelp              } from 'plugin/nf-schema'
 include { completionEmail         } from '../../nf-core/utils_nfcore_pipeline'
 include { completionSummary       } from '../../nf-core/utils_nfcore_pipeline'
-include { imNotification          } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NFCORE_PIPELINE   } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NEXTFLOW_PIPELINE } from '../../nf-core/utils_nextflow_pipeline'
 
@@ -25,16 +25,19 @@ include { UTILS_NEXTFLOW_PIPELINE } from '../../nf-core/utils_nextflow_pipeline'
 
 workflow PIPELINE_INITIALISATION {
     take:
-    version           // boolean: Display version and exit
-    validate_params   // boolean: Boolean whether to validate parameters against the schema at runtime
-    monochrome_logs   // boolean: Do not use coloured log outputs
+    version // boolean: Display version and exit
+    validate_params // boolean: Boolean whether to validate parameters against the schema at runtime
+    monochrome_logs // boolean: Do not use coloured log outputs
     nextflow_cli_args //   array: List of positional nextflow CLI args
-    outdir            //  string: The output directory where the results will be saved
-    input             //  string: Path to input samplesheet
+    outdir //  string: The output directory where the results will be saved
+    input //  string: Path to input samplesheet
+    help // boolean: Display help message and exit
+    help_full // boolean: Show the full help message
+    show_hidden // boolean: Show hidden parameters in the help message
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // Print version and exit if required and dump pipeline parameters to JSON file
@@ -49,10 +52,42 @@ workflow PIPELINE_INITIALISATION {
     //
     // Validate parameters and generate parameter summary to stdout
     //
+
+    def before_text = ""
+    def after_text = ""
+    before_text = """
+-\033[2m----------------------------------------------------\033[0m-
+                                        \033[0;32m,--.\033[0;30m/\033[0;32m,-.\033[0m
+\033[0;34m        ___     __   __   __   ___     \033[0;32m/,-._.--~\'\033[0m
+\033[0;34m  |\\ | |__  __ /  ` /  \\ |__) |__         \033[0;33m}  {\033[0m
+\033[0;34m  | \\| |       \\__, \\__/ |  \\ |___     \033[0;32m\\`-._,-`-,\033[0m
+                                        \033[0;32m`._,._,\'\033[0m
+\033[0;35m  nf-core/funcscan ${workflow.manifest.version}\033[0m
+-\033[2m----------------------------------------------------\033[0m-
+"""
+    after_text = """${workflow.manifest.doi ? "\n* The pipeline\n" : ""}${workflow.manifest.doi.tokenize(",").collect { doi -> "    https://doi.org/${doi.trim().replace('https://doi.org/', '')}" }.join("\n")}${workflow.manifest.doi ? "\n" : ""}
+* The nf-core framework
+    https://doi.org/10.1038/s41587-020-0439-x
+
+* Software dependencies
+    https://github.com/nf-core/funcscan/blob/main/CITATIONS.md
+"""
+    if (monochrome_logs) {
+        before_text = before_text.replaceAll(/\033\[[0-9;]*m/, '')
+    }
+
+    command = "nextflow run ${workflow.manifest.name} -profile <docker/singularity/.../institute> --input samplesheet.csv --outdir <OUTDIR>"
+
     UTILS_NFSCHEMA_PLUGIN(
         workflow,
         validate_params,
         null,
+        help,
+        help_full,
+        show_hidden,
+        before_text,
+        after_text,
+        command,
     )
 
     //
@@ -70,7 +105,14 @@ workflow PIPELINE_INITIALISATION {
     // Create channel from input file provided through params.input
     //
 
-    Channel.fromList(samplesheetToList(input, "${projectDir}/assets/schema_input.json"))
+    def samplesheet_list = samplesheetToList(input, "${projectDir}/assets/schema_input.json")
+
+    if (params.run_bgc_screening && params.bgc_run_bigslice && params.bgc_bigslice_complete && samplesheet_list.size() < 10) {
+        log.warn('[nf-core/funcscan] WARNING: --bgc_bigslice_complete is best suited to larger datasets. Your samplesheet contains fewer than 10 rows, so BiG-SLiCE may fail with "Not enough input for clustering".')
+    }
+
+    Channel
+        .fromList(samplesheet_list)
         .set { ch_samplesheet }
 
     emit:
@@ -86,13 +128,12 @@ workflow PIPELINE_INITIALISATION {
 
 workflow PIPELINE_COMPLETION {
     take:
-    email           //  string: email address
-    email_on_fail   //  string: email address sent on pipeline failure
+    email //  string: email address
+    email_on_fail //  string: email address sent on pipeline failure
     plaintext_email // boolean: Send plain-text email instead of HTML
-    outdir          //    path: Path to output directory where results will be published
+    outdir //    path: Path to output directory where results will be published
     monochrome_logs // boolean: Disable ANSI colour codes in log output
-    hook_url        //  string: hook URL for notifications
-    multiqc_report  //  string: Path to MultiQC report
+    multiqc_report //  string: Path to MultiQC report
 
     main:
     summary_params = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
@@ -115,13 +156,10 @@ workflow PIPELINE_COMPLETION {
         }
 
         completionSummary(monochrome_logs)
-        if (hook_url) {
-            imNotification(summary_params, hook_url)
-        }
     }
 
     workflow.onError {
-        log.error("Pipeline failed. Please refer to troubleshooting docs: https://nf-co.re/docs/usage/troubleshooting")
+        log.error("Pipeline failed. Please refer to troubleshooting docs for common issues: https://nf-co.re/docs/running/troubleshooting")
     }
 }
 
@@ -135,6 +173,28 @@ workflow PIPELINE_COMPLETION {
 // Check and validate pipeline parameters
 //
 def validateInputParameters() {
+    // GECCO parameter checks
+    if (params.run_bgc_screening && !params.bgc_skip_gecco && params.bgc_gecco_runconvert) {
+        if (params.bgc_gecco_convertmode == 'gbk' && params.bgc_gecco_convertformat == 'gff') {
+            error("[nf-core/funcscan] ERROR: when specifying --bgc_gecco_convertmode 'gbk', --bgc_gecco_convertformat can only be set to 'bigslice', 'fna' or 'faa'. You specified --bgc_gecco_convertformat '${params.bgc_gecco_convertformat}'. Check input!")
+        }
+        if (params.bgc_gecco_convertmode == 'clusters' && params.bgc_gecco_convertformat != 'gff') {
+            error("[nf-core/funcscan] ERROR: when specifying --bgc_gecco_convertmode 'clusters', --bgc_gecco_convertformat can only be set to 'gff'. You specified --bgc_gecco_convertformat '${params.bgc_gecco_convertformat}'. Check input!")
+        }
+    }
+
+    // BIGSLICE parameter checks
+    if (params.run_bgc_screening && params.bgc_run_bigslice) {
+        if (params.bgc_skip_antismash && (params.bgc_skip_gecco || !params.bgc_gecco_runconvert || params.bgc_gecco_convertformat != 'bigslice')) {
+            error('[nf-core/funcscan] ERROR: BigSLiCE requires at least one of: (1) antiSMASH enabled, or (2) GECCO enabled with GECCO convert in bigslice format. Please check your parameters.')
+        }
+        if (params.bgc_bigslice_threshold != 0.4 && params.bgc_bigslice_thresholdpct != -1) {
+            error('[nf-core/funcscan] ERROR: --bgc_bigslice_threshold and --bgc_bigslice_thresholdpct are mutually exclusive. Please specify only one of the two.')
+        }
+        if (params.bgc_bigslice_nranks != 1) {
+            log.warn("[nf-core/funcscan] WARNING: --bgc_bigslice_nranks is set to ${params.bgc_bigslice_nranks}. BiG-SLiCE will fail if this value exceeds the total number of BGCs detected in your dataset (n_neighbors must be <= n_samples). Consider using the default value (1) for small datasets.")
+        }
+    }
 }
 
 //
@@ -194,7 +254,13 @@ def toolCitationText() {
         !params.bgc_skip_deepbgc ? "deepBGC (Hannigan et al. 2019)," : "",
         !params.bgc_skip_gecco ? "GECCO (Carroll et al. 2021)," : "",
         params.bgc_run_hmmsearch ? "HMMER (Eddy 2011)," : "",
+        params.bgc_run_bigslice ? "BiG-SLiCE (Kautsar et al. 2021, Kautsar et al. 2026)," : "",
         ". The output from the biosynthetic gene cluster screening tools were standardised and summarised with comBGC (Frangenberg et al. 2023).",
+    ].join(' ').replaceAll(', +.', ".").trim()
+
+    def cazyme_text = [
+        "The following carbohydrate-active enzymes (CAZymes) screening tools were used:",
+        !params.cazyme_skip_dbcan ? "dbCAN3 (Zheng, et al. 2023)," : "",
     ].join(' ').replaceAll(', +.', ".").trim()
 
     def postprocessing_text = "Run statistics were reported using MultiQC (Ewels et al. 2016)."
@@ -205,6 +271,7 @@ def toolCitationText() {
         params.run_amp_screening ? amp_text : "",
         params.run_arg_screening ? arg_text : "",
         params.run_bgc_screening ? bgc_text : "",
+        params.run_cazyme_screening ? cazyme_text : "",
         postprocessing_text,
     ].join(' ').trim()
 
@@ -227,7 +294,7 @@ def toolBibliographyText() {
         !params.amp_skip_amplify ? '<li>Li, C., Sutherland, D., Hammond, S. A., Yang, C., Taho, F., Bergman, L., Houston, S., Warren, R. L., Wong, T., Hoang, L., Cameron, C. E., Helbing, C. C., & Birol, I. (2022). AMPlify: attentive deep learning model for discovery of novel antimicrobial peptides effective against WHO priority pathogens. BMC genomics, 23(1), 77. DOI: <a href="https://doi.org/10.1186/s12864-022-08310-4">10.1186/s12864-022-08310-4</a></li>' : "",
         !params.amp_skip_macrel ? '<li>Santos-Júnior, C. D., Pan, S., Zhao, X. M., & Coelho, L. P. (2020). Macrel: antimicrobial peptide screening in genomes and metagenomes. PeerJ, 8, e10555. DOI: <a href="https://doi.org/10.7717/peerj.10555">10.7717/peerj.10555</a></li>' : "",
         !params.amp_skip_ampir ? '<li>Fingerhut, L., Miller, D. J., Strugnell, J. M., Daly, N. L., & Cooke, I. R. (2021). ampir: an R package for fast genome-wide prediction of antimicrobial peptides. Bioinformatics (Oxford, England), 36(21), 5262–5263. DOI: <a href="https://doi.org/10.1093/bioinformatics/btaa653">10.1093/bioinformatics/btaa653</a></li>' : "",
-        '<li>Ibrahim, A. & Perelo, L. (2023). Darcy220606/AMPcombi. DOI: <a href="https://doi.org/10.5281/zenodo.7639121">10.5281/zenodo.7639121</a></li>',
+        '<li>Ibrahim, A. & Perelo, L. (2023). paleobiotechnology/AMPcombi. Github <a href="https://github.com/paleobiotechnology/AMPcombi">https://github.com/paleobiotechnology/AMPcombi</a></li>',
     ].join(' ').trim().replaceAll(', .', ".")
 
     def arg_text = [
@@ -244,11 +311,17 @@ def toolBibliographyText() {
     def bgc_text = [
         !params.bgc_skip_antismash ? '<li>Blin, K., Shaw, S., Vader, L., Szenei, J., Reitz, Z.L., Augustijn, H.E., Cediel-Becerra, J.D.D., de Crécy-Lagard, V., Koetsier, R.A., Williams, S.E., Cruz-Morales, P., Wongwas, S., Segurado Luchsinger, A.E., Biermann, F., Korenskaia, A., Zdouc, M.M., Meijer, D., Terlouw, B.R., van der Hooft, J.J.J., Ziemert, N., Helfrich, E.J.N., Masschelein, J., Corre, C., Chevrette, M.G., van Wezel, G.P., Medema, M.H., Weber, T., 2025. antiSMASH 8.0: extended gene cluster detection capabilities and analyses of chemistry, enzymology, and regulation. Nucleic Acids Res. 53, W32-W38. DOI: <a href="https://doi.org/10.1093/nar/gkaf334>10.1093/nar/gkaf334</a></li>' : "",
         !params.bgc_skip_deepbgc ? '<li>Hannigan, G. D., Prihoda, D., Palicka, A., Soukup, J., Klempir, O., Rampula, L., Durcak, J., Wurst, M., Kotowski, J., Chang, D., Wang, R., Piizzi, G., Temesi, G., Hazuda, D. J., Woelk, C. H., & Bitton, D. A. (2019). A deep learning genome-mining strategy for biosynthetic gene cluster prediction. Nucleic acids research, 47(18), e110. DOI: <a href="https://doi.org/10.1093/nar/gkz654">10.1093/nar/gkz654</a></li>' : "",
-        !params.bgc_skip_gecco ? '<li>Carroll, L. M. , Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. bioRxiv DOI: <a href="https://doi.org/10.1101/2021.05.03.442509">0.1101/2021.05.03.442509</a></li>' : "",
+        !params.bgc_skip_gecco ? '<li>Carroll, L. M., Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. bioRxiv DOI: <a href="https://doi.org/10.1101/2021.05.03.442509">0.1101/2021.05.03.442509</a></li>' : "",
+        params.bgc_run_bigslice ? '<li>Kautsar, S. A., van der Hooft, J. J. J., de Ridder, D., & Medema, M. H. (2021). BiG-SLiCE: A highly scalable tool maps the diversity of 1.2 million biosynthetic gene clusters. GigaScience, 10(1), giaa154. DOI: <a href="https://doi.org/10.1093/gigascience/giaa154">10.1093/gigascience/giaa154</a></li>' : "",
+        params.bgc_run_bigslice ? '<li>Kautsar, S. A., et al. (2026). BiG-SLiCE 2.0: improved gene cluster family diversity mapping. Nature Communications. DOI: <a href="https://doi.org/10.1038/s41467-026-68733-5">10.1038/s41467-026-68733-5</a></li>' : "",
         '<li>Frangenberg, J. Fellows Yates, J. A., Ibrahim, A., Perelo, L., & Beber, M. E. (2023). nf-core/funcscan: 1.0.0 - German Rollmops - 2023-02-15. <a href="https://doi.org/10.5281/zenodo.7643100">https://doi.org/10.5281/zenodo.7643100</a></li>',
     ].join(' ').replaceAll(', +.', ".").trim()
 
-    def postprocessing_text = '<li>Ewels, P., Magnusson, M., Lundin, S., & Käller, M. (2016). MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics , 32(19), 3047–3048. <a href="https://doi.org/10.1093/bioinformatics/btw354">https://doi.org/10.1093/bioinformatics/btw354</a></li>'
+    def cazyme_text = [
+        !params.cazyme_skip_dbcan ? '<li>Zheng, J., Ge, Q., Yan, Y., Zhang, X., Huang, L., Yin Y. (2023). dbCAN3: automated carbohydrate-active enzyme and substrate annotation. Nucleic Acids Research, 51(W1), W115–W121. DOI: <a href="https://doi.org/10.1093/nar/gkad328">10.1093/nar/gkad328</a></li>' : ""
+    ].join(' ').replaceAll(', +.', ".").trim()
+
+    def postprocessing_text = '<li>Ewels, P., Magnusson, M., Lundin, S., & Käller, M. (2016). MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics , 32(19), 3047–3048. DOI: <a href="https://doi.org/10.1093/bioinformatics/btw354">https://doi.org/10.1093/bioinformatics/btw354</a></li>'
 
     // Special as reused in multiple subworkflows, and we don't want to cause duplicates
     def hmmsearch_text = (params.run_amp_screening && params.amp_run_hmmsearch) || (params.run_bgc_screening && params.bgc_run_hmmsearch) ? '<li>Eddy S. R. (2011). Accelerated Profile HMM Searches. PLoS computational biology, 7(10), e1002195. DOI: <a href="https://doi.org/10.1371/journal.pcbi.1002195">10.1371/journal.pcbi.1002195</a></li>' : ""
@@ -259,6 +332,7 @@ def toolBibliographyText() {
         params.run_amp_screening ? amp_text : "",
         params.run_arg_screening ? arg_text : "",
         params.run_bgc_screening ? bgc_text : "",
+        params.run_cazyme_screening ? cazyme_text : "",
         hmmsearch_text,
         postprocessing_text,
     ].join(' ').trim()

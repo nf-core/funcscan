@@ -23,16 +23,16 @@ nextflow_pipeline {
 
                 // AMPir
                 { assert snapshot(
-                    file("$outputDir/amp/ampir/sample_1/sample_1.ampir.tsv").text.contains("NODE_882919_length_258_cov_0.935961_1"),
-                    file("$outputDir/amp/ampir/sample_1/sample_1.ampir.faa").text.contains("NODE_882919_length_258_cov_0.935961_1"),
-                    file("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv").text.contains("NODE_882919_length_258_cov_0.935961_1"),
-                    file("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa").text.contains("NODE_882919_length_258_cov_0.935961_1")
+                    path("$outputDir/amp/ampir/sample_1/sample_1.ampir.tsv").text.contains("IstB-like ATP-binding domain-containing protein"),
+                    path("$outputDir/amp/ampir/sample_1/sample_1.ampir.faa").text.contains("IstB-like ATP-binding domain-containing protein"),
+                    path("$outputDir/amp/ampir/sample_2/sample_2.ampir.tsv").text.contains("IstB-like ATP-binding domain-containing protein"),
+                    path("$outputDir/amp/ampir/sample_2/sample_2.ampir.faa").text.contains("IstB-like ATP-binding domain-containing protein")
                 ).match("ampir") },
 
                 // AMPlify
                 { assert snapshot(
-                    file("$outputDir/amp/amplify/sample_1/sample_1.amplify.tsv").text.contains("NODE_882919_length_258_cov_0.935961_1"),
-                    file("$outputDir/amp/amplify/sample_2/sample_2.amplify.tsv").text.contains("NODE_882919_length_258_cov_0.935961_1")
+                    path("$outputDir/amp/amplify/sample_1/sample_1.amplify.tsv").text.contains("KKEJHB_001"),
+                    path("$outputDir/amp/amplify/sample_2/sample_2.amplify.tsv").text.contains("KDEMFK_0001")
                 ).match("amplify") },
 
                 // HMMsearch
@@ -55,7 +55,7 @@ nextflow_pipeline {
 
                 // AMPcombi
                 { assert path("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("KDEMFK_0115") },
-                { assert path("$outputDir/reports/ampcombi2/Ampcombi_parse_tables.log").text.contains("amp_DRAMP_database is found and will be used") },
+                { assert path("$outputDir/reports/ampcombi2/Ampcombi_parse_tables.log").text.contains("amp_APD_database is found and will be used") },
                 { assert snapshot(
                     path("$outputDir/reports/ampcombi2/Ampcombi_cluster.log"),
                     path("$outputDir/reports/ampcombi2/Ampcombi_complete.log")

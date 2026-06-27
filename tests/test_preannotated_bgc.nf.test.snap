@@ -43,5 +43,15 @@
             "nextflow": "24.04.3"
         },
         "timestamp": "2024-07-24T10:49:00.44526019"
+    },
+    "bigslice": {
+        "content": [
+            "data.db"
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-06-09T00:28:01.998866517"
     }
 }
