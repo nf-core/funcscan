@@ -121,7 +121,7 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 :::danger
 We highly recommend performing quality control on input contigs before running the pipeline. You may not receive results for some tools if none of the contigs in a FASTA file reach certain thresholds. Check parameter documentation for relevant minimum contig parameters.
 
-For example, ideally BGC screening requires contigs of at least 3,000 bp, otherwise downstream tools may crash.
+For example, ideally BGC screening requires contigs of at least 3,000 bp, otherwise downstream tools may crash (see `--bgc_mincontiglength` in the [parameter documentation](https://nf-co.re/funcscan/dev/parameters/#bgc_mincontiglength)).
 :::
 
 ## Notes on screening tools, taxonomic and functional classifications
