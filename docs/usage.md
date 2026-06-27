@@ -567,7 +567,9 @@ deepbgc_db/
 
 ### BiGSLiCE
 
-BiG-SLiCE requires its own HMM database. Unlike most other tools in funcscan, the pipeline does **not** auto-download this database — there is no built-in download command in the tool itself. The database must be downloaded manually and supplied with `--bgc_bigslice_db`.
+BiG-SLiCE requires its own HMM database.
+The pipeline will try to download it for you.
+In case you are running offline, the database must be downloaded manually and supplied with `--bgc_bigslice_db`.
 
 Download the latest pre-built database archive from the [BiG-SLiCE GitHub releases page](https://github.com/medema-group/bigslice/releases):
 
