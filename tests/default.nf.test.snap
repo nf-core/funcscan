@@ -148,7 +148,7 @@
                     "untar": 1.34
                 },
                 "Workflow": {
-                    "nf-core/funcscan": "v4.0.0"
+                    "nf-core/funcscan": "v4.0.1dev"
                 }
             }
         ],
