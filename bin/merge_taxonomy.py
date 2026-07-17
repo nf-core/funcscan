@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Written by Anan Ibrahim and released under the MIT license.
-# See git repository (https://github.com/Darcy220606/AMPcombi) for full license text.
+# See git repository (https://github.com/paleobiotechnology/AMPcombi) for full license text.
 # Date: March 2024
 # Version: 0.1.1
 

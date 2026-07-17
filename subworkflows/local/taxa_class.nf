@@ -2,29 +2,28 @@
     TAXONOMIC CLASSIFICATION
 */
 
-include { MMSEQS_CREATEDB  } from '../../modules/nf-core/mmseqs/createdb/main'
-include { MMSEQS_DATABASES } from '../../modules/nf-core/mmseqs/databases/main'
-include { MMSEQS_TAXONOMY  } from '../../modules/nf-core/mmseqs/taxonomy/main'
-include { MMSEQS_CREATETSV } from '../../modules/nf-core/mmseqs/createtsv/main'
+include { MMSEQS_CREATEDB  } from '../../modules/nf-core/mmseqs/createdb'
+include { MMSEQS_DATABASES } from '../../modules/nf-core/mmseqs/databases'
+include { MMSEQS_TAXONOMY  } from '../../modules/nf-core/mmseqs/taxonomy'
+include { MMSEQS_CREATETSV } from '../../modules/nf-core/mmseqs/createtsv'
 
 workflow TAXA_CLASS {
     take:
     contigs // tuple val(meta), path(contigs)
 
     main:
-    ch_versions = Channel.empty()
-    ch_mmseqs_db = Channel.empty()
-    ch_taxonomy_querydb = Channel.empty()
-    ch_taxonomy_querydb_taxdb = Channel.empty()
-    ch_taxonomy_tsv = Channel.empty()
+    ch_versions = channel.empty()
+    ch_mmseqs_db = channel.empty()
+    ch_taxonomy_querydb = channel.empty()
+    ch_taxonomy_querydb_taxdb = channel.empty()
+    ch_taxonomy_tsv = channel.empty()
 
     if (params.taxa_classification_tool == 'mmseqs2') {
 
         // Download the ref db if not supplied by user
         // MMSEQS_DATABASE
         if (params.taxa_classification_mmseqs_db != null) {
-            ch_mmseqs_db = Channel
-                .fromPath(params.taxa_classification_mmseqs_db, checkIfExists: true)
+            ch_mmseqs_db = channel.fromPath(params.taxa_classification_mmseqs_db, checkIfExists: true)
                 .first()
         }
         else {

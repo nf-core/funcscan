@@ -16,15 +16,13 @@ nextflow_pipeline {
         }
 
         then {
-            // stable_name: All files + folders in ${params.outdir}/ with a stable name
-            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
-            // stable_path: All files in ${params.outdir}/ with stable content
-            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
+            // stable_path: All files + folders in ${params.outdir}/ with a stable path (including file name)
+            def stable_path = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            // stable_content: All files in ${params.outdir}/ with stable content
+            def stable_content = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
+            assert workflow.success
             assertAll(
-                { assert workflow.success},
                 { assert snapshot(
-                    // Number of successful tasks
-                    workflow.trace.succeeded().size(),
                     // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
                     removeNextflowVersion("$outputDir/pipeline_info/nf_core_funcscan_software_mqc_versions.yml"),
                 ).match() },
@@ -66,7 +64,7 @@ nextflow_pipeline {
 
                 // AMPcombi
                 { assert path("$outputDir/reports/ampcombi2/Ampcombi_summary.tsv").text.contains("NODE_515831_length_303_cov_1.532258_1") },
-                { assert path("$outputDir/reports/ampcombi2/Ampcombi_parse_tables.log").text.contains("amp_DRAMP_database is found and will be used") },
+                { assert path("$outputDir/reports/ampcombi2/Ampcombi_parse_tables.log").text.contains("amp_APD_database is found and will be used") },
                 { assert snapshot(
                     path("$outputDir/reports/ampcombi2/Ampcombi_cluster.log"),
                     path("$outputDir/reports/ampcombi2/Ampcombi_complete.log"),
@@ -116,7 +114,17 @@ nextflow_pipeline {
                 { assert path("$outputDir/arg/fargene/sample_2/sample_2-class_b_1_2.log").text.contains("fARGene is done.") },
 
                 // hAMRonization
-                { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv")).match("hamronization_summarize") }
+                { assert snapshot(path("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv")).match("hamronization_summarize") },
+
+                // dbCAN
+                { assert path("$outputDir/cazyme/dbcan/cazyme_annotation/sample_2/sample_2_overview.tsv").text.contains("dbCAN_hmm") },
+                { assert path("$outputDir/cazyme/dbcan/cgc/sample_2/sample_2_cgc_standard_out.tsv").text.contains("CGC#") },
+                { assert path("$outputDir/cazyme/dbcan/substrate/sample_2/sample_2_substrate_prediction.tsv").text.contains("#cgcid") },
+                { assert snapshot(
+                    path("$outputDir/cazyme/dbcan/cazyme_annotation/sample_2/sample_2_overview.tsv"),
+                    path("$outputDir/cazyme/dbcan/cgc/sample_2/sample_2_cgc_standard_out.tsv"),
+                    path("$outputDir/cazyme/dbcan/substrate/sample_2/sample_2_substrate_prediction.tsv")
+                ).match('dbcan') }
             )
         }
     }

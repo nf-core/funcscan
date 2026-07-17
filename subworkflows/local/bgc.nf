@@ -2,30 +2,33 @@
     Run BGC screening tools
 */
 
-include { UNTAR as UNTAR_ANTISMASHDB             } from '../../modules/nf-core/untar/main'
-include { ANTISMASH_ANTISMASHDOWNLOADDATABASES   } from '../../modules/nf-core/antismash/antismashdownloaddatabases/main'
-include { ANTISMASH_ANTISMASH                    } from '../../modules/nf-core/antismash/antismash/main'
-include { GECCO_RUN                              } from '../../modules/nf-core/gecco/run/main'
-include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH } from '../../modules/nf-core/hmmer/hmmsearch/main'
-include { DEEPBGC_DOWNLOAD                       } from '../../modules/nf-core/deepbgc/download/main'
-include { DEEPBGC_PIPELINE                       } from '../../modules/nf-core/deepbgc/pipeline/main'
+include { UNTAR as UNTAR_ANTISMASHDB             } from '../../modules/nf-core/untar'
+include { ANTISMASH_ANTISMASHDOWNLOADDATABASES   } from '../../modules/nf-core/antismash/antismashdownloaddatabases'
+include { ANTISMASH_ANTISMASH                    } from '../../modules/nf-core/antismash/antismash'
+include { GECCO_RUN                              } from '../../modules/nf-core/gecco/run'
+include { HMMER_HMMSEARCH as BGC_HMMER_HMMSEARCH } from '../../modules/nf-core/hmmer/hmmsearch'
+include { DEEPBGC_DOWNLOAD                       } from '../../modules/nf-core/deepbgc/download'
+include { DEEPBGC_PIPELINE                       } from '../../modules/nf-core/deepbgc/pipeline'
 include { COMBGC                                 } from '../../modules/local/combgc'
-include { TABIX_BGZIP as BGC_TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip/main'
+include { TABIX_BGZIP as BGC_TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip'
 include { MERGE_TAXONOMY_COMBGC                  } from '../../modules/local/merge_taxonomy_combgc'
+include { GECCO_CONVERT                          } from '../../modules/nf-core/gecco/convert'
+include { BIGSLICE_BIGSLICE                      } from '../../modules/nf-core/bigslice/bigslice'
+include { BIGSLICE_DOWNLOADDB                    } from '../../modules/nf-core/bigslice/downloaddb'
 
 workflow BGC {
     take:
     fastas // tuple val(meta), path(PREPPED_INPUT.out.fna)
-    faas   // tuple val(meta), path(<ANNO_TOOL>.out.faa)
-    gbks   // tuple val(meta), path(<ANNO_TOOL>.out.gbk)
-    tsvs   // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
+    faas // tuple val(meta), path(<ANNO_TOOL>.out.faa)
+    gbks // tuple val(meta), path(<ANNO_TOOL>.out.gbk)
+    tsvs // tuple val(meta), path(MMSEQS_CREATETSV.out.tsv)
 
     main:
-    ch_versions = Channel.empty()
-    ch_bgcresults_for_combgc = Channel.empty()
+    ch_versions = channel.empty()
+    ch_bgcresults_for_combgc = channel.empty()
 
     // When adding new tool that requires FAA, make sure to update conditions
-    // in funcscan.nf around annotation and AMP subworkflow execution
+    // in funcscan.nf around annotation and BGC subworkflow execution
     // to ensure annotation is executed!
     ch_faa_for_bgc_hmmsearch = faas
 
@@ -38,7 +41,7 @@ workflow BGC {
             ch_antismash_databases = UNTAR_ANTISMASHDB.out.untar.map { _meta, dir -> [dir] }
         }
         else if (params.bgc_antismash_db && file(params.bgc_antismash_db, checkIfExists: true).isDirectory()) {
-            ch_antismash_databases = Channel.fromPath(params.bgc_antismash_db, checkIfExists: true).first()
+            ch_antismash_databases = channel.fromPath(params.bgc_antismash_db, checkIfExists: true).first()
         }
         else {
             ANTISMASH_ANTISMASHDOWNLOADDATABASES()
@@ -71,7 +74,7 @@ workflow BGC {
     if (!params.bgc_skip_deepbgc) {
         if (params.bgc_deepbgc_db) {
 
-            ch_deepbgc_database = Channel.fromPath(params.bgc_deepbgc_db, checkIfExists: true)
+            ch_deepbgc_database = channel.fromPath(params.bgc_deepbgc_db, checkIfExists: true)
                 .first()
         }
         else {
@@ -94,7 +97,6 @@ workflow BGC {
             }
 
         GECCO_RUN(ch_gecco_input, [])
-        ch_versions = ch_versions.mix(GECCO_RUN.out.versions)
         ch_geccoresults_for_combgc = GECCO_RUN.out.gbk
             .mix(GECCO_RUN.out.clusters)
             .groupTuple()
@@ -102,12 +104,54 @@ workflow BGC {
                 [meta, files.flatten()]
             }
         ch_bgcresults_for_combgc = ch_bgcresults_for_combgc.mix(ch_geccoresults_for_combgc)
+
+        // GECCO CONVERT
+        if (params.bgc_gecco_runconvert) {
+            ch_gecco_clusters_and_gbk = GECCO_RUN.out.clusters
+                .join(GECCO_RUN.out.gbk)
+                .map { meta, clusters_file, gbk_file ->
+                    [meta, clusters_file, gbk_file]
+                }
+
+            GECCO_CONVERT(ch_gecco_clusters_and_gbk, params.bgc_gecco_convertmode, params.bgc_gecco_convertformat)
+        }
+    }
+
+    // BIGSLICE
+    if (params.bgc_run_bigslice) {
+
+        def gecco_bigslice = !params.bgc_skip_gecco && params.bgc_gecco_runconvert && params.bgc_gecco_convertformat == 'bigslice'
+
+        if (!params.bgc_skip_antismash && gecco_bigslice) {
+            ch_bigslice_input = ANTISMASH_ANTISMASH.out.gbk_results.mix(GECCO_CONVERT.out.bigslice)
+        }
+        else if (!params.bgc_skip_antismash) {
+            ch_bigslice_input = ANTISMASH_ANTISMASH.out.gbk_results
+        }
+        else {
+            ch_bigslice_input = GECCO_CONVERT.out.bigslice
+        }
+
+        ch_bigslice_grouped = ch_bigslice_input
+            .map { _meta, files -> files }
+            .collect()
+            .map { files -> [[id: 'bigslice'], files.flatten()] }
+
+        if (params.bgc_bigslice_db) {
+            ch_bigslice_db = channel.fromPath(params.bgc_bigslice_db, checkIfExists: true)
+        }
+        else {
+            BIGSLICE_DOWNLOADDB([id: 'bigslice_db'])
+            ch_bigslice_db = BIGSLICE_DOWNLOADDB.out.db.map { _meta, db -> db }
+        }
+
+        BIGSLICE_BIGSLICE(ch_bigslice_grouped, ch_bigslice_db, params.bgc_bigslice_exporttsv)
     }
 
     // HMMSEARCH
     if (params.bgc_run_hmmsearch) {
         if (params.bgc_hmmsearch_models) {
-            ch_bgc_hmm_models = Channel.fromPath(params.bgc_hmmsearch_models, checkIfExists: true)
+            ch_bgc_hmm_models = channel.fromPath(params.bgc_hmmsearch_models, checkIfExists: true)
         }
         else {
             error('[nf-core/funcscan] error: hmm model files not found for --bgc_hmmsearch_models! Please check input.')
@@ -162,7 +206,7 @@ workflow BGC {
         MERGE_TAXONOMY_COMBGC(ch_combgc_summaries, ch_mmseqs_taxonomy_list)
         ch_versions = ch_versions.mix(MERGE_TAXONOMY_COMBGC.out.versions)
 
-        ch_tabix_input = Channel.of(['id': 'combgc_complete_summary_taxonomy'])
+        ch_tabix_input = channel.of(['id': 'combgc_complete_summary_taxonomy'])
             .combine(MERGE_TAXONOMY_COMBGC.out.tsv)
 
         BGC_TABIX_BGZIP(ch_tabix_input)

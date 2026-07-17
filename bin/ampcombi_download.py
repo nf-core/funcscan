@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 #########################################
-# Authors: [Anan Ibrahim](https://github.com/Darcy220606/AMPcombi), [Louisa Perelo](https://github.com/louperelo)
+# Authors: [Anan Ibrahim](https://github.com/Darcy220606), [Louisa Perelo](https://github.com/louperelo)
 # File: amp_database.py
-# Source: https://github.com/Darcy220606/AMPcombi/blob/main/ampcombi/amp_database.py
+# Source: https://github.com/paleobiotechnology/AMPcombi/blob/main/ampcombi/amp_database.py
 # This source code is licensed under the MIT license
 #########################################
 
@@ -58,7 +58,7 @@ def download_ref_db(database, threads):
             valid_sequence_pattern = re.compile("^[ACDEFGHIKLMNPQRSTVWY]+$")
             for index, row in db_df.iterrows():
                 sequence = row['Sequence']
-                if valid_sequence_pattern.match(sequence):
+                if pd.notna(sequence) and valid_sequence_pattern.match(sequence):
                     record = SeqRecord(Seq(sequence), id=str(row['DRAMP_ID']), description="")
                     records.append(record)
             output_file = f'{db}/general_amps_{date}.fasta'

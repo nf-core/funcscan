@@ -1,10 +1,10 @@
 process AMP_DATABASE_DOWNLOAD {
     label 'process_single'
 
-    conda "bioconda::ampcombi=2.0.1"
+    conda "bioconda::ampcombi=3.0.0"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/ampcombi:2.0.1--pyhdfd78af_0':
-        'biocontainers/ampcombi:2.0.1--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/ampcombi:3.0.0--pyhdfd78af_0':
+        'biocontainers/ampcombi:3.0.0--pyhdfd78af_0' }"
 
     input:
     val database_id

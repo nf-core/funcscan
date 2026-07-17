@@ -12,17 +12,17 @@
                     },
                     "ampcombi2/cluster": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "be790aafaa178554b403f862164eb27042f0b35a",
                         "installed_by": ["modules"]
                     },
                     "ampcombi2/complete": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "be790aafaa178554b403f862164eb27042f0b35a",
                         "installed_by": ["modules"]
                     },
                     "ampcombi2/parsetables": {
                         "branch": "master",
-                        "git_sha": "637c3e1796ab13d4c91f3030932598aed94a4f87",
+                        "git_sha": "c1a390166649d20c9c9ee8c8e849721e5d28836c",
                         "installed_by": ["modules"]
                     },
                     "ampir": {
@@ -62,12 +62,22 @@
                     },
                     "bakta/bakta": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "81fe5e6f07fa92ecfd1721373620e2538a1466eb",
                         "installed_by": ["modules"]
                     },
                     "bakta/baktadbdownload": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "81fe5e6f07fa92ecfd1721373620e2538a1466eb",
+                        "installed_by": ["modules"]
+                    },
+                    "bigslice/bigslice": {
+                        "branch": "master",
+                        "git_sha": "2fb71fb1a1e67f1fe470e73c53b685a763c443d9",
+                        "installed_by": ["modules"]
+                    },
+                    "bigslice/downloaddb": {
+                        "branch": "master",
+                        "git_sha": "8ff67cb10964982d41bae43ac3fe7ada16d09ef8",
                         "installed_by": ["modules"]
                     },
                     "deeparg/downloaddata": {
@@ -95,9 +105,14 @@
                         "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
                         "installed_by": ["modules"]
                     },
+                    "gecco/convert": {
+                        "branch": "master",
+                        "git_sha": "4e22228ad92f91569757aa831b6a1f91f6ffd435",
+                        "installed_by": ["modules"]
+                    },
                     "gecco/run": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "4e22228ad92f91569757aa831b6a1f91f6ffd435",
                         "installed_by": ["modules"]
                     },
                     "gunzip": {
@@ -172,7 +187,7 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "git_sha": "008f9d3e61209bf995edac3ba531f54e269e1215",
                         "installed_by": ["modules"]
                     },
                     "prodigal": {
@@ -182,7 +197,7 @@
                     },
                     "prokka": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "2dc23692bd1c3a23a12cfd959808a8fe7e3c6557",
                         "installed_by": ["modules"]
                     },
                     "pyrodigal": {
@@ -192,12 +207,32 @@
                     },
                     "rgi/cardannotation": {
                         "branch": "master",
-                        "git_sha": "531d8a465158c5842f416623017997462a240e16",
+                        "git_sha": "70c072e30155e7671be828762be16576bd4afca7",
                         "installed_by": ["modules"]
                     },
                     "rgi/main": {
                         "branch": "master",
-                        "git_sha": "531d8a465158c5842f416623017997462a240e16",
+                        "git_sha": "70c072e30155e7671be828762be16576bd4afca7",
+                        "installed_by": ["modules"]
+                    },
+                    "rundbcan/cazymeannotation": {
+                        "branch": "master",
+                        "git_sha": "5e0b34c7ad0841e3e160b15a0180bf2b9be0e3bf",
+                        "installed_by": ["modules"]
+                    },
+                    "rundbcan/database": {
+                        "branch": "master",
+                        "git_sha": "5e0b34c7ad0841e3e160b15a0180bf2b9be0e3bf",
+                        "installed_by": ["modules"]
+                    },
+                    "rundbcan/easycgc": {
+                        "branch": "master",
+                        "git_sha": "5e0b34c7ad0841e3e160b15a0180bf2b9be0e3bf",
+                        "installed_by": ["modules"]
+                    },
+                    "rundbcan/easysubstrate": {
+                        "branch": "master",
+                        "git_sha": "5e0b34c7ad0841e3e160b15a0180bf2b9be0e3bf",
                         "installed_by": ["modules"]
                     },
                     "seqkit/seq": {
@@ -221,17 +256,17 @@
                 "nf-core": {
                     "utils_nextflow_pipeline": {
                         "branch": "master",
-                        "git_sha": "c2b22d85f30a706a3073387f30380704fcae013b",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfcore_pipeline": {
                         "branch": "master",
-                        "git_sha": "51ae5406a030d4da1e49e4dab49756844fdd6c7a",
+                        "git_sha": "a3fb7351b1fdb2b1de282b765816bbea190e86a8",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfschema_plugin": {
                         "branch": "master",
-                        "git_sha": "2fd2cd6d0e7b273747f32e465fdc6bcc3ae0814e",
+                        "git_sha": "fdc08b8b1ae74f56686ce21f7ea11ad11990ce57",
                         "installed_by": ["subworkflows"]
                     }
                 }

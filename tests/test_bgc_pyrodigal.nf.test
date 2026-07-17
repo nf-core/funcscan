@@ -37,8 +37,14 @@ nextflow_pipeline {
 
                 // GECCO
                 { assert snapshot(
+                    path("$outputDir/bgc/gecco/sample_1/sample_1.genes.tsv"),   // channel: genes
+                    path("$outputDir/bgc/gecco/sample_1/sample_1.features.tsv"), // channel: features
+                    path("$outputDir/bgc/gecco/sample_1/sample_1.clusters.tsv"), // channel: clusters
+                    path("$outputDir/bgc/gecco/sample_1/sample_1.clusters.gff"), // from gecco convert
                     path("$outputDir/bgc/gecco/sample_2/sample_2.genes.tsv"),   // channel: genes
-                    path("$outputDir/bgc/gecco/sample_2/sample_2.features.tsv") // channel: features
+                    path("$outputDir/bgc/gecco/sample_2/sample_2.features.tsv"), // channel: features
+                    path("$outputDir/bgc/gecco/sample_2/sample_2.clusters.tsv"), // channel: clusters
+                    path("$outputDir/bgc/gecco/sample_2/sample_2.clusters.gff"), // from gecco convert
                 ).match("gecco") }
             )
         }
