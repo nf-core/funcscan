@@ -5,7 +5,7 @@ lint:
   files_unchanged:
     - .github/PULL_REQUEST_TEMPLATE.md
     - .github/workflows/linting.yml
-nf_core_version: 4.0.2
+nf_core_version: 4.0.3
 repository_type: pipeline
 template:
   author: Jasmin Frangenberg, Anan Ibrahim, Louisa Perelo, Moritz E. Beber, James
@@ -19,4 +19,4 @@ template:
   skip_features:
     - igenomes
     - fastqc
-  version: 3.1.0dev
+  version: 4.0.1dev
