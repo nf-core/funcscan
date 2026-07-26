@@ -92,33 +92,33 @@ bibliography: paper.bib
 
 # Summary
 
-Genome-mining of bacterial DNA fosters the discovery of antimicrobial resistance-related genes as well as genes required for the biosynthesis of low molecular weight natural products or specialised metabolites.
-Despite the availability of many bioinformatic tools to identify such functional genes, screening of genomic features remains inefficient due to heterogeneous computational platforms, accessibility, scalability, and inconsistent reporting and formatting of the results.
+Genome-mining of bacterial DNA enables the discovery of antimicrobial resistance-related genes as well as genes required for the biosynthesis of low molecular weight natural products or specialised metabolites.
+Despite the availability of many bioinformatic tools to identify such functional genes, screening of genomic features remains inefficient due to heterogenous software interfaces, reporting, and formatting of the output files of similar screening tools, limiting scalability ofr genome mining.
+
 Here, we present nf-core/funcscan, an open source bioinformatics pipeline for the screening of microbial functional features from assembled contigs or genomes.
-The pipeline currently integrates 13 tools to simultaneously predict antimicrobial peptides, antibiotic resistance genes, biosynthetic gene clusters, and taxonomic classification from partial or full genomes.
-It also introduces standardised and aggregated output file reports across all tools, enabling the rapid evaluation, visualisation, and interpretation of results.
-Written in the Nextflow workflow language, it is straightforward to install, portable across platforms ranging from personal laptops to high-performance computing clusters, and fully reproducible via the use of software containers.
+The pipeline currently integrates 16 tools to simultaneously predict antimicrobial peptides, antibiotic resistance genes, biosynthetic gene clusters, carbohydrate-activate enzymes, and taxonomic classification from partial or full genomes.
+It also implements standardised and aggregated output file reports to enable rapid comparison, evaluation, and interpretation of results.
+Written in the Nextflow workflow language and under the nf-core initiative, it is straightforward to install, portable across platforms ranging from personal laptops to high-performance computing clusters, and reproducible via the use of software containers.
 
 # Statement of need
 
 The emergence and spread of multidrug resistant microbial pathogens poses a serious threat to global health [@murray_global_2022; @noauthor_global_2022].
-Traditionally, most anti-infective drugs have been derived from bacterially produced low molecular weight natural products.
-To ensure self-resistance against antimicrobial agents, the producing bacteria typically exhibit resistance mechanisms.
+Traditionally, most anti-infective drugs have been derived from bacterially produced low molecular weight natural products, that have naturally evolved to ensure protection from each other.
 As a consequence, the evolution of antimicrobials and the corresponding resistance mechanisms are strongly correlated.
-Although antibiotic resistance is tightly linked to self-protection of the producing organisms, the recent excessive use of antibiotics and lack of global surveillance both in healthcare and agriculture has led to an explosion of multidrug resistant bacteria [@ventola_antibiotic_2015; @perry_prehistory_2016; @rascovan_exploring_2016].
-Over the past few decades, the spread of antibiotic resistance genes (ARGs) and pathogenic bacteria carrying them has grown to a major threat to human health.
-Identifying new antibiotic agents from novel sources in combination with antibiotic resistance mechanisms and ARG evolution has the potential to aid in the development of new antibiotics.
+The recent excessive use of antibiotics, the lack of global surveillance both in healthcare and agriculture, and decline in the discoverary of new antibiotics, has led to an explosion of multidrug resistant bacteria [@ventola_antibiotic_2015; @perry_prehistory_2016; @rascovan_exploring_2016].
+High-throughpout methods to discover new antibiotic agents from novel sources, in combination with antibiotic resistance mechanisms and ARG evolution, has the potential to aid in the development of new drugs.
 
-Due to this pressing problem, a large suite of different tools has been developed for the rapid identification of different functional gene types from sequencing data.
-These tools use different search algorithms and databases (e.g. deepBGC: machine-learning [@hannigan_deep_2019], antiSMASH: rule-based [@blin_antismash_2025]) for the prediction of different types of microbial metabolites.
-To maximise the potential of detecting important functional genes, researchers often need to use multiple approaches to ensure maximum detection sensitivity during screening.
-Since these tools are often developed as stand-alone tools with specific databases they have to be executed separately.
-This impedes scalability due to inefficiency and additionally poses an increased risk of lowering reproducibility when executed manually.
-While some tools are available as software containers (e.g. via Docker, Singularity), thus helping reproducibility of results, they often require a series of steps to prepare input data and manually store and filter results.
-Additionally, stand-alone tools have their own unique output formats, making cross-comparison of the results between different tools nontrivial, and often results in manual processing and inspection - again further restricting scalability.
+A large suite of different tools has been developed for the rapid identification of different functional gene types from sequencing data.
+These tools use different search algorithms and databases for the prediction of different types of microbial metabolites (e.g. deepBGC: machine-learning [@hannigan_deep_2019], vs antiSMASH: rule-based [@blin_antismash_2025]).
+To maximise detection, researchers often use multiple tools to ensure maximum detection sensitivity during screening for potential gene candidates.
+These tools are often developed as stand-alone software with specific databases, and have to be executed separately.
+These heterogenous installation and execution interfaces impedes scalability, and decreases reproducibility due to mistakes when executed manually.
+Furthermore, the tools require multiple steps to prepare inputs and manually process results.
+Finally, these stand-alone tools often have their own unique output formats.
+This makes cross-comparison of results between tools non-trivial, again resulting in inefficient manual processing and inspection.
 
-Previous efforts to scale up the predictive power of different tools for functional gene prediction include pipelines such as mettannotator [@gurbich_mettannotator_2025], bacannot [@almeida_scalable_2023], SqueezeMeta [@tamames_squeezemeta_2019], MetaErg [@dong_integrated_2019], METABOLIC [@zhou_metabolic_2022], HT-ARGfinder[@das_ht-argfinder_2022], ARGs-OAP [@yin_args-oap_2022], PathoFact [@de_nies_pathofact_2021], and antiSMASH.
-However, to our knowledge, no pipeline has been created that allows for the identification and prediction of antimicrobial peptide (AMP) genes, ARGs, biosynthetic gene clusters (BGCs), carbohydrate-active enzymes (CAZymes), and CAZyme gene clusters (CGCs) simultaneously from multiple samples in a harmonised manner.
+Previous efforts to scale up the predictive power of different tools for functional gene prediction include include mettannotator [@gurbich_mettannotator_2025], bacannot [@almeida_scalable_2023], SqueezeMeta [@tamames_squeezemeta_2019], MetaErg [@dong_integrated_2019], METABOLIC [@zhou_metabolic_2022], HT-ARGfinder[@das_ht-argfinder_2022], ARGs-OAP [@yin_args-oap_2022], PathoFact [@de_nies_pathofact_2021], and antiSMASH.
+However, to our knowledge, no pipeline has been created that allows for the identification and prediction of antimicrobial peptide (AMPs) genes, ARGs, biosynthetic gene clusters (BGCs), carbohydrate-active enzymes (CAZymes), and CAZyme gene clusters (CGCs) simultaneously from multiple samples in a harmonised manner. <!-- Hrmmm OK the CAZyme thing doesn't really fit in the antimicrobial argument now... If we were to remove antimicrobial context, and focus just on parallel functional gene screening (with a couple lines about antimicrobial stuff as an example why we want scalability and parallelisation), we could cut a lot of text -->
 Additionally, extensive command-line knowledge and manual installation of software dependencies are required to run many of these existing pipelines.
 This effectively precludes their use by biochemists, biomolecular scientists, and biologists who typically have limited computational training.
 
@@ -235,6 +235,7 @@ J.F. received a fellowship from the International Leibniz Research School (under
 
 This project was funded by grants from the Werner Siemens Foundation (Paleobiotechnology to C.W. and P.S.) and the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation, under Germany’s Excellence Strategy – EXC 2051 – Project-ID 390713860 to C.W. and P.S.).
 J.A.F.Y and C.W. were funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) – project number 460129525 (NFDI4Microbiota, FlexFund project EnterArchaeo).
+J.A.F.Y and C.W. were supported by the Max Planck Society.
 This work was supported by the BMBF-funded de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) (031A532B, 031A533A, 031A533B, 031A534A, 031A535A, 031A537A, 031A537B, 031A537C, 031A537D, 031A538A).
 
 # References
