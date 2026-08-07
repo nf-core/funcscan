@@ -38,31 +38,31 @@ authors:
     orcid: 0009-0002-6815-8608
     affiliation: 4
   - name: Haidong Yi
-  - orcid:
-    affiliation:
+    orcid:
+    affiliation: 5
   - name: Xinpeng Zhang
-  - orcid:
-    affiliation:
+    orcid:
+    affiliation: 5
+  - name: Dediu Octavian-Codrin
+    orcid: https://orcid.org/0009-0006-9204-8870
+    affiliation: 6
   - name: Alexandru Mizeranschi
-  - orcid:
-    affiliation:
-  - name: Dediu Codrin
-  - orcid:
-    affiliation:
+    orcid:
+    affiliation: 6
   - name: Moritz E. Beber
     orcid: 0000-0003-2406-1978
-    affiliation: 5
+    affiliation: 7
   - name: nf-core community
-    affiliation: 6
+    affiliation: 8
   - name: Sven Nahnsen
     orcid: 0000-0002-4375-0691
-    affiliation: "4, 7, 8"
+    affiliation: "4, 9, 10"
   - name: Pierre Stallforth
     orcid: 0000-0001-7260-9921
     affiliation: "1, 11"
   - name: Christina Warinner
     orcid: 0000-0002-4528-5877
-    affiliation: "2, 3, 9, 10"
+    affiliation: "2, 3, 12, 13"
 affiliations:
   - name: Department of Paleobiotechnology, Leibniz Institute for Natural Product Research and Infection Biology Hans Knöll Institute, Germany
     index: 1
@@ -72,20 +72,22 @@ affiliations:
     index: 3
   - name: Quantitative Biology Center (QBiC), University of Tübingen, Germany
     index: 4
-  - name: Institute for Globally Distributed Open Research and Education (IGDORE), Sweden
+  - name: St. Jude Children's Research Hospital, USA
     index: 5
-  - name: nf-core community members are available at acknowledgments.
-    index: 6
-  - name: M3 Research Center, Faculty of Medicine, University of Tübingen, Germany
+  - name: Institute for Globally Distributed Open Research and Education (IGDORE), Sweden
     index: 7
-  - name: Department of Computer Science, Institute for Bioinformatics and Medical Informatics (IBMI), University of Tübingen, Tübingen, Germany
+  - name: nf-core community members are available at acknowledgments.
     index: 8
-  - name: Faculty of Biological Sciences, Friedrich-Schiller University Jena, Germany
+  - name: M3 Research Center, Faculty of Medicine, University of Tübingen, Germany
     index: 9
-  - name: Department of Anthropology, Harvard University, USA
+  - name: Department of Computer Science, Institute for Bioinformatics and Medical Informatics (IBMI), University of Tübingen, Tübingen, Germany
     index: 10
   - name: Institute of Organic and Macromolecular Chemistry, Friedrich Schiller University Jena, Germany
     index: 11
+  - name: Faculty of Biological Sciences, Friedrich-Schiller University Jena, Germany
+    index: 12
+  - name: Department of Anthropology, Harvard University, USA
+    index: 13
 date: 14 April 2026
 bibliography: paper.bib
 ---
@@ -101,7 +103,7 @@ Written in the Nextflow workflow language, it is straightforward to install, por
 
 # Statement of need
 
-The emergence and spread of multidrug resistant microbial pathogens poses a serious threat to global health [@murray_global_2022; @noauthor_global_2022].
+The emergence and spread of multidrug resistant microbial pathogens poses a serious threat to global health [@murray_global_2022; @world_health_organization_global_2022].
 Traditionally, most anti-infective drugs have been derived from bacterially produced low molecular weight natural products.
 To ensure self-resistance against antimicrobial agents, the producing bacteria typically exhibit resistance mechanisms.
 As a consequence, the evolution of antimicrobials and the corresponding resistance mechanisms are strongly correlated.
@@ -185,10 +187,10 @@ The database download is applicable for AMPcombi [@herbst_actifensin_2025], AMRF
 
 In a second step, users can choose to scan genomic sequences in parallel with four dedicated workflows for AMPs, ARGs, BGCs, and CAZymes, applying up to currently a total of 13 gene identification tools:
 
-- ARG subworkflow: ABRicate [@torsten_seemann_abricate_2020], AMRFinderPlus, DeepARG, fARGene [@berglund_identification_2019], RGI
-- BGC subworkflow: antiSMASH, DeepBGC, GECCO [@carroll_accurate_2021], hmmsearch [@eddy_accelerated_2011]
-- AMP subworkflow: ampir [@fingerhut_ampir_2021], AMPlify [@li_models_2023, @li_amplify_2022], hmmsearch, Macrel [@santos-junior_macrel_2020]
-- CAZyme subworkflow: run_dbCAN [@zheng_dbcan3_2023]
+- **ARG subworkflow**: ABRicate [@torsten_seemann_abricate_2020], AMRFinderPlus, DeepARG, fARGene [@berglund_identification_2019], RGI
+- **BGC subworkflow**: antiSMASH, DeepBGC, GECCO [@carroll_accurate_2021], hmmsearch [@eddy_accelerated_2011]
+- **AMP subworkflow**: ampir [@fingerhut_ampir_2021], AMPlify [@li_models_2023, @li_amplify_2022], hmmsearch, Macrel [@santos-junior_macrel_2020]
+- **CAZyme subworkflow**: run_dbCAN [@zheng_dbcan3_2023]
 
 In an additional optional parallel screening step, all input sequences can be taxonomically classified by MMSeqs2 to determine likely source hosts of each functional hit.
 Characterising the taxonomic origin of metagenomic contigs can provide users information about potentially suitable hosts for downstream experiments, e.g. heterologous expression systems [@porse_biochemical_2018].
@@ -235,6 +237,6 @@ J.F. received a fellowship from the International Leibniz Research School (under
 
 This project was funded by grants from the Werner Siemens Foundation (Paleobiotechnology to C.W. and P.S.) and the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation, under Germany’s Excellence Strategy – EXC 2051 – Project-ID 390713860 to C.W. and P.S.).
 J.A.F.Y and C.W. were funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) – project number 460129525 (NFDI4Microbiota, FlexFund project EnterArchaeo).
-This work was supported by the BMBF-funded de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) (031A532B, 031A533A, 031A533B, 031A534A, 031A535A, 031A537A, 031A537B, 031A537C, 031A537D, 031A538A).
+This work was supported by the de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) and ELIXIR-DE (Forschungszentrum Jülich and W-de.NBI-001, W-de.NBI-004, W-de.NBI-008, W-de.NBI-010, W-de.NBI-013, W-de.NBI-014, W-de.NBI-016, W-de.NBI-022).
 
 # References
