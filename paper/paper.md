@@ -38,31 +38,31 @@ authors:
     orcid: 0009-0002-6815-8608
     affiliation: 4
   - name: Haidong Yi
-  - orcid:
-    affiliation:
+    orcid:
+    affiliation: 5
   - name: Xinpeng Zhang
-  - orcid:
-    affiliation:
+    orcid:
+    affiliation: 5
+  - name: Dediu Octavian-Codrin
+    orcid: https://orcid.org/0009-0006-9204-8870
+    affiliation: 6
   - name: Alexandru Mizeranschi
-  - orcid:
-    affiliation:
-  - name: Dediu Codrin
-  - orcid:
-    affiliation:
+    orcid:
+    affiliation: 6
   - name: Moritz E. Beber
     orcid: 0000-0003-2406-1978
-    affiliation: 5
+    affiliation: 7
   - name: nf-core community
-    affiliation: 6
+    affiliation: 8
   - name: Sven Nahnsen
     orcid: 0000-0002-4375-0691
-    affiliation: "4, 7, 8"
+    affiliation: "4, 9, 10"
   - name: Pierre Stallforth
     orcid: 0000-0001-7260-9921
     affiliation: "1, 11"
   - name: Christina Warinner
     orcid: 0000-0002-4528-5877
-    affiliation: "2, 3, 9, 10"
+    affiliation: "2, 3, 12, 13"
 affiliations:
   - name: Department of Paleobiotechnology, Leibniz Institute for Natural Product Research and Infection Biology Hans Knöll Institute, Germany
     index: 1
@@ -72,20 +72,22 @@ affiliations:
     index: 3
   - name: Quantitative Biology Center (QBiC), University of Tübingen, Germany
     index: 4
-  - name: Institute for Globally Distributed Open Research and Education (IGDORE), Sweden
+  - name: St. Jude Children's Research Hospital, USA
     index: 5
-  - name: nf-core community members are available at acknowledgments.
-    index: 6
-  - name: M3 Research Center, Faculty of Medicine, University of Tübingen, Germany
+  - name: Institute for Globally Distributed Open Research and Education (IGDORE), Sweden
     index: 7
-  - name: Department of Computer Science, Institute for Bioinformatics and Medical Informatics (IBMI), University of Tübingen, Tübingen, Germany
+  - name: nf-core community members are available at acknowledgments.
     index: 8
-  - name: Faculty of Biological Sciences, Friedrich-Schiller University Jena, Germany
+  - name: M3 Research Center, Faculty of Medicine, University of Tübingen, Germany
     index: 9
-  - name: Department of Anthropology, Harvard University, USA
+  - name: Department of Computer Science, Institute for Bioinformatics and Medical Informatics (IBMI), University of Tübingen, Tübingen, Germany
     index: 10
   - name: Institute of Organic and Macromolecular Chemistry, Friedrich Schiller University Jena, Germany
     index: 11
+  - name: Faculty of Biological Sciences, Friedrich-Schiller University Jena, Germany
+    index: 12
+  - name: Department of Anthropology, Harvard University, USA
+    index: 13
 date: 14 April 2026
 bibliography: paper.bib
 ---
@@ -107,7 +109,7 @@ Additionally, each tool often has its own unique output formats, making cross-co
 
 This necessity for manual execution and postprocessing of heterogenous outputs impacts the discovery of new drugs.
 For example, antibiotics are typically derived from naturally evolved, bacterially-produced, low molecular weight natural products, and the rate of discovery of novel molecules has seen recent plateauing.
-In combination with an explosion in the evolution of multidrug resistant bacteria [@ventola_antibiotic_2015; @perry_prehistory_2016; @rascovan_exploring_2016], and a lack of global surveillance both in healthcare and agriculture, this is contributing to a major threat to global health [@murray_global_2022; @noauthor_global_2022].
+In combination with an explosion in the evolution of multidrug resistant bacteria [@ventola_antibiotic_2015; @perry_prehistory_2016; @rascovan_exploring_2016], and a lack of global surveillance both in healthcare and agriculture, this is contributing to a major threat to global health [@murray_global_2022; @world_health_organization_global_2022].
 Therefore high-throughput and scalable approaches are needed to allow the rapid identification of metabolites from novel sources, as well as live monitoring of the spread of antibiotic resistance within microbial populations.
 
 Here, we present nf-core/funcscan, a Nextflow [@di_tommaso_nextflow_2017] pipeline following nf-core best practices [@ewels_nf-core_2020;@Langer2025-th] for the automated and in-parallel screening of different functional gene groups with multiple tools and databases.
@@ -174,10 +176,10 @@ When required, the pipeline will download required screening-tool databases auto
 Users choose to scan genomic sequences in parallel with up-to four dedicated subworkflows for AMPs, ARGs, BGCs, and CGCs.
 User can apply currently up to a total of 13 gene identification tools:
 
-- ARGs: ABRicate [@torsten_seemann_abricate_2020], AMRFinderPlus [@feldgarden_amrfinderplus_2021;@feldgarden_validating_2019], DeepARG [@arango-argoty_deeparg_2018], fARGene [@berglund_identification_2019], RGI [@alcock_card_2023]
-- BGCs: antiSMASH [@blin_antismash_2025], DeepBGC [@hannigan_deep_2019], GECCO [@carroll_accurate_2021], hmmsearch [@eddy_accelerated_2011]
-- AMPs: ampir [@fingerhut_ampir_2021], AMPlify [@li_models_2023, @li_amplify_2022], hmmsearch, Macrel [@santos-junior_macrel_2020]
-- CAZymes: run_dbCAN [@zheng_dbcan3_2023]
+- **ARGs**: ABRicate [@torsten_seemann_abricate_2020], AMRFinderPlus [@feldgarden_amrfinderplus_2021;@feldgarden_validating_2019], DeepARG [@arango-argoty_deeparg_2018], fARGene [@berglund_identification_2019], RGI [@alcock_card_2023]
+- **BGCs**: antiSMASH [@blin_antismash_2025], DeepBGC [@hannigan_deep_2019], GECCO [@carroll_accurate_2021], hmmsearch [@eddy_accelerated_2011]
+- **AMPs**: ampir [@fingerhut_ampir_2021], AMPlify [@li_models_2023, @li_amplify_2022], hmmsearch, Macrel [@santos-junior_macrel_2020]
+- **CAZymes**: run_dbCAN [@zheng_dbcan3_2023]
 
 To provide users information about potentially suitable hosts for downstream experiments, e.g. heterologous expression systems [@porse_biochemical_2018], an additional optional parallel workflow can taxonomically classify input contigs with MMSeqs2 [@mirdita_fast_2021].
 Optionally, generic protein domains and families can be further annotated with InterProScan [@jones_interproscan_2014].
@@ -222,6 +224,6 @@ J.F. received a fellowship from the International Leibniz Research School (under
 This project was funded by grants from the Werner Siemens Foundation (Paleobiotechnology to C.W. and P.S.) and the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation, under Germany’s Excellence Strategy – EXC 2051 – Project-ID 390713860 to C.W. and P.S.).
 J.A.F.Y and C.W. were funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) – project number 460129525 (NFDI4Microbiota, FlexFund project EnterArchaeo).
 J.A.F.Y and C.W. were supported by the Max Planck Society.
-This work was supported by the BMBF-funded de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) (031A532B, 031A533A, 031A533B, 031A534A, 031A535A, 031A537A, 031A537B, 031A537C, 031A537D, 031A538A).
+This work was supported by the de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) and ELIXIR-DE (Forschungszentrum Jülich and W-de.NBI-001, W-de.NBI-004, W-de.NBI-008, W-de.NBI-010, W-de.NBI-013, W-de.NBI-014, W-de.NBI-016, W-de.NBI-022).
 
 # References
