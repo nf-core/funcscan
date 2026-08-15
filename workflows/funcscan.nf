@@ -433,8 +433,8 @@ workflow FUNCSCAN {
     def ch_methods_description = channel.value(methodsDescriptionText(ch_multiqc_custom_methods_description))
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: true))
 
-    if ((params.run_arg_screening && !params.arg_skip_deeparg) || (params.run_amp_screening && (params.amp_run_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir)) || params.run_bgc_screening) {
-        ch_multiqc_files = ch_multiqc_files.mix(ANNOTATION.out.multiqc_files.collect { it[1] })
+    if ((params.run_arg_screening && !params.arg_skip_deeparg) || params.run_amp_screening || params.run_bgc_screening || params.run_cazyme_screening) {
+        ch_multiqc_files = ch_multiqc_files.mix(ANNOTATION.out.multiqc_files)
     }
 
     MULTIQC(
