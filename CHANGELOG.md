@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#543](https://github.com/nf-core/funcscan/pull/543) Added Bakta output support to MultiQC report by adding `bakta` to `run_modules` in `assets/multiqc_config.yml` and aligning the MultiQC file mixing condition with the ANNOTATION subworkflow condition. (by @jvfe)
+
 ### `Fixed`
 
 - [#538](https://github.com/nf-core/funcscan/pull/538) Fixed sequence validation to handle `NaN` values in DRAMP database download. (by @hindrek)
