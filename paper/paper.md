@@ -190,7 +190,7 @@ nf-core/funcscan integrates dedicated tools to aggregate and standardise heterog
 nf-core uses hAMRonization [@mendes_hamronization_2024] for ARGs, AMPcombi [@herbst_actifensin_2025] for AMPs, and a custom script 'comBGC' for BGC tool output aggregation.
 These summaries are finally optionally complemented with results from the taxonomic classification workflow.
 
-<!-- TODO: ARGNORM, BiG-SLiCE [@kautsar_big-slice_2021] -->
+Building on the aggragation of screening results, two optional downstream analyses can be executed for the ARG and BGC workflows. First, the ARG summary provided by hAMRonization can be further normalised and mapped to the antibiotic resistance ontology (ARO) by argNorm [@ugarcina_perovic_argnorm_2025]. This enhances ARG annotation by categorising drugs that ARGs confer resistance to. Secondly, BGCs predicted by antiSMASH and GECCO can be clustered into Gene Cluster Families (GCFs) by BiG-SLiCE [@kautsar_big-slice_2021] to enable comparative analysis of biosynthetic diversity across samples.
 
 ## Reproducibility and scalability
 
