@@ -98,7 +98,7 @@ Genome-mining of bacterial DNA enables the discovery of antimicrobial resistance
 However, execution of the multiple bioinformatic tools used in screening analyses remains inefficient due to heterogenous software interfaces, reporting, and formatting of the output files of similar tools, which limits scalability of such analyses.
 
 nf-core/funcscan is a portable and reproducible open source Nextflow bioinformatics pipeline for the screening of microbial functional features from assembled contigs or genomes.
-The pipeline executes up to 13 tools to simultaneously identify antimicrobial peptides, antibiotic resistance genes, biosynthetic gene clusters, carbohydrate-activate enzymes, and perform taxonomic classification of partial or full genomes.
+The pipeline executes up to 13 tools to simultaneously identify antimicrobial peptides, antibiotic resistance genes, biosynthetic gene clusters, carbohydrate-activate enzymes, and performs taxonomic classification of partial or full genomes.
 To facilitate efficient results comparison and evaluation, it supports cross-tool output file standardisation and aggregation.
 
 # Statement of need
@@ -108,7 +108,7 @@ However, heterogenous installation, inputs, and execution interfaces of these st
 Additionally, each tool often has its own unique output formats, making cross-comparison of results between tools and databases non-trivial, and again requiring inefficient manual postprocessing and inspection.
 
 This necessity for manual execution and postprocessing of heterogenous outputs impacts the discovery of new drugs.
-For example, antibiotics are typically derived from naturally evolved, bacterially-produced, low molecular weight natural products, and the rate of discovery of novel molecules has seen recent plateauing.
+For example, antibiotics are typically derived from naturally evolved, bacterially-produced, low molecular weight natural products, and the discovery rate of novel molecules has seen recent plateauing.
 In combination with an explosion in the evolution of multidrug resistant bacteria [@ventola_antibiotic_2015; @perry_prehistory_2016; @rascovan_exploring_2016], and a lack of global surveillance both in healthcare and agriculture, this is contributing to a major threat to global health [@murray_global_2022; @world_health_organization_global_2022].
 Therefore high-throughput and scalable approaches are needed to allow the rapid identification of metabolites from novel sources, as well as live monitoring of the spread of antibiotic resistance within microbial populations.
 
@@ -139,8 +139,6 @@ However, to our knowledge, these typically focused on singular gene categories o
 
 : Comparison of nf-core/funcscan with other related pipelines for ARG, AMP, and BGC discovery. Parentheses indicate either unspecific gene screening or partly fulfilled criteria. \label{tab:pipelines}
 
-<!-- TODO: note, I've removed HT-ARGfinder as it doesn't ave an open source license, to simplify teh table -->
-
 Extensive command-line knowledge and manual installation of software dependencies are also often required to run many of these existing pipelines.
 This can preclude use by biochemists, biologists, etc. who typically have limited computational training.
 In contrast, nf-core/funcscan aims to reduce complexity by screening from already assembled sequences, and end on aggregation of the screening results, through multiple methods for execution.
@@ -169,12 +167,12 @@ This sample-sheet contains sample names, paths to (meta)genomic FASTA files and 
 Preprocessing steps reduce runtime by removing too-short sequences with Seqkit [@Shen2024-mg], when they may produce no biologically meaningful results.
 Open reading frames are optionally predicted from the preprocessed sequences by one of four prokaryotic annotation tools: Bakta [@schwengers_bakta_2021], Prodigal [@Hyatt2010-yv], Prokka [@Seemann2014-ee], and Pyrodigal [@Larralde2022-uu].
 
-When required, the pipeline will download required screening-tool databases automatically for the user, and made available for future pipeline runs to minimise runtime and network traffic.
+When required, the pipeline downloads required screening-tool databases automatically for the user, and makes them available for future pipeline runs to minimise runtime and network traffic.
 
 ## Gene screening and taxonomic classification
 
-Users choose to scan genomic sequences in parallel with up-to four dedicated subworkflows for AMPs, ARGs, BGCs, and CGCs.
-User can apply currently up to a total of 13 gene identification tools:
+Users choose to scan genomic sequences in parallel with up-to four dedicated subworkflows for AMPs, ARGs, BGCs, and CAZymes.
+Up to a total of 13 gene identification tools can be applied:
 
 - **ARGs**: ABRicate [@torsten_seemann_abricate_2020], AMRFinderPlus [@feldgarden_amrfinderplus_2021;@feldgarden_validating_2019], DeepARG [@arango-argoty_deeparg_2018], fARGene [@berglund_identification_2019], RGI [@alcock_card_2023]
 - **BGCs**: antiSMASH [@blin_antismash_2025], DeepBGC [@hannigan_deep_2019], GECCO [@carroll_accurate_2021], hmmsearch [@eddy_accelerated_2011]
@@ -188,8 +186,8 @@ Pipeline parameters can be adjusted by userwritten- or nf-core GUI ([https://nf-
 
 ## Aggregation of screening results
 
-nf-core/funcscan integrates dedicated tools to aggregate and standardise heterogenous output formats (and gene labels) of multiple screening tools into a single human- and machine-readable tables in CSV format per gene type.
-nf-core uses hAMRonization [@mendes_hamronization_2024] for ARGs, AMPcombi [@herbst_actifensin_2025] for AMPs, and a custom script 'comBGC' for BGC tool output.
+nf-core/funcscan integrates dedicated tools to aggregate and standardise heterogenous output formats of multiple screening tools into a single human- and machine-readable tables in CSV format per gene type.
+nf-core uses hAMRonization [@mendes_hamronization_2024] for ARGs, AMPcombi [@herbst_actifensin_2025] for AMPs, and a custom script 'comBGC' for BGC tool output aggregation.
 These summaries are finally optionally complemented with results from the taxonomic classification workflow.
 
 <!-- TODO: ARGNORM, BiG-SLiCE [@kautsar_big-slice_2021] -->
@@ -197,7 +195,7 @@ These summaries are finally optionally complemented with results from the taxono
 ## Reproducibility and scalability
 
 All nf-core pipelines utilise software environments [from the Bioconda project, @Gruning2018-vr] or containers [e.g. Docker, Singularity, primarily from the Biocontainers project, @Da_Veiga_Leprevost2017-gl] for each integrated tool.
-This provides the advantage of isolating the dependencies of all workflows from each other reducing installation problems.
+This provides the advantage of isolating the dependencies of all workflows from each other, thereby reducing installation problems.
 The pipeline is thus easy to install with few minimum dependencies - Nextflow itself, and one of Nextflow-supported container/software environment management systems.
 For further portability, nf-core provides integrated configurations for more than 150 institutional computational infrastructure (e.g. HPCs) via nf-core/configs ([https://nf-co.re/configs](https://nf-co.re/configs)).
 Users on these infrastructure thus can run the pipelines with no-set up via a single parameter.
@@ -208,7 +206,7 @@ nf-core/funcscan has an active user community of scientific users and developers
 For example, the pipeline received the contribution of the CAZyme screening from community members outside of the original developers.
 User discussions and support on the pipeline and on related research topics occur on the nf-core Slack workspace.
 This illustrates the public interest and proactive efforts from scientific users to use, maintain, and improve the pipeline.
-The pipeline is also already actively being used in research [e.g., @Tighe2024-fq, @Janak2026-ek, Istanbullugil2026-fg, Liepa2026-sw].
+The pipeline is also already actively being used in research [e.g., @Tighe2024-fq, @Janak2026-ek, @Istanbullugil2026-fg, @Liepa2026-sw].
 
 # AI usage disclosure
 
