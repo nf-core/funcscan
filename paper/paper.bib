@@ -172,38 +172,6 @@
 	keywords = {metaerg},
 }
 
-@article{zhou_metabolic_2022,
-	title = {{METABOLIC}: high-throughput profiling of microbial genomes for functional traits, metabolism, biogeochemistry, and community-scale functional networks},
-	volume = {10},
-	issn = {2049-2618},
-	url = {https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-021-01213-8},
-	doi = {10.1186/s40168-021-01213-8},
-	shorttitle = {{METABOLIC}},
-	abstract = {Abstract
-            
-              Background
-              Advances in microbiome science are being driven in large part due to our ability to study and infer microbial ecology from genomes reconstructed from mixed microbial communities using metagenomics and single-cell genomics. Such omics-based techniques allow us to read genomic blueprints of microorganisms, decipher their functional capacities and activities, and reconstruct their roles in biogeochemical processes. Currently available tools for analyses of genomic data can annotate and depict metabolic functions to some extent; however, no standardized approaches are currently available for the comprehensive characterization of metabolic predictions, metabolite exchanges, microbial interactions, and microbial contributions to biogeochemical cycling.
-            
-            
-              Results
-              We present {METABOLIC} ({METabolic} And {BiogeOchemistry} {anaLyses} In {miCrobes}), a scalable software to advance microbial ecology and biogeochemistry studies using genomes at the resolution of individual organisms and/or microbial communities. The genome-scale workflow includes annotation of microbial genomes, motif validation of biochemically validated conserved protein residues, metabolic pathway analyses, and calculation of contributions to individual biogeochemical transformations and cycles. The community-scale workflow supplements genome-scale analyses with determination of genome abundance in the microbiome, potential microbial metabolic handoffs and metabolite exchange, reconstruction of functional networks, and determination of microbial contributions to biogeochemical cycles. {METABOLIC} can take input genomes from isolates, metagenome-assembled genomes, or single-cell genomes. Results are presented in the form of tables for metabolism and a variety of visualizations including biogeochemical cycling potential, representation of sequential metabolic transformations, community-scale microbial functional networks using a newly defined metric “{MW}-score” (metabolic weight score), and metabolic Sankey diagrams. {METABOLIC} takes {\textasciitilde} 3 h with 40 {CPU} threads to process {\textasciitilde} 100 genomes and corresponding metagenomic reads within which the most compute-demanding part of hmmsearch takes {\textasciitilde} 45 min, while it takes {\textasciitilde} 5 h to complete hmmsearch for {\textasciitilde} 3600 genomes. Tests of accuracy, robustness, and consistency suggest {METABOLIC} provides better performance compared to other software and online servers. To highlight the utility and versatility of {METABOLIC}, we demonstrate its capabilities on diverse metagenomic datasets from the marine subsurface, terrestrial subsurface, meadow soil, deep sea, freshwater lakes, wastewater, and the human gut.
-            
-            
-              Conclusion
-              
-                {METABOLIC} enables the consistent and reproducible study of microbial community ecology and biogeochemistry using a foundation of genome-informed microbial metabolism, and will advance the integration of uncultivated organisms into metabolic and biogeochemical models. {METABOLIC} is written in Perl and R and is freely available under {GPLv}3 at
-                https://github.com/{AnantharamanLab}/{METABOLIC}
-                .},
-	pages = {33},
-	number = {1},
-	journaltitle = {Microbiome},
-	shortjournal = {Microbiome},
-	author = {Zhou, Zhichao and Tran, Patricia Q. and Breister, Adam M. and Liu, Yang and Kieft, Kristopher and Cowley, Elise S. and Karaoz, Ulas and Anantharaman, Karthik},
-	urldate = {2023-07-18},
-	date = {2022-12},
-	langid = {english},
-}
-
 @article{das_ht-argfinder_2022,
 	title = {{HT}-{ARGfinder}: A Comprehensive Pipeline for Identifying Horizontally Transferred Antibiotic Resistance Genes and Directionality in Metagenomic Sequencing Data},
 	volume = {10},
@@ -357,7 +325,7 @@
 @online{torsten_seemann_abricate_2020,
 	title = {{ABRicate}},
 	url = {https://github.com/tseemann/abricate},
-	author = {{Torsten Seemann}},
+	author = {Seemann, Torsten},
 	date = {2020},
 	note = {Github},
 }
@@ -773,5 +741,452 @@
 	author = {Mendes, Inês and Griffiths, Emma and Manuele, Alex and Fornika, Dan and Tausch, Simon H and Le-Viet, Thanh and Phelan, Jody and Meehan, Conor J. and Raphenya, Amogelang R. and Alcock, Brian and Culp, Elizabeth and Lorenzo, Federico and Haim, Maria Sol and Witney, Adam and Black, Allison and Katz, Lee and Oluniyi, Paul and Olawoye, Idowu and Timme, Ruth and Neoh, Hui-min and Lam, Su Datt and Jamaluddin, Tengku Zetty Maztura Tengku and Nathan, Sheila and Ang, Mia Yang and Di Gregorio, Sabrina and Vandelannoote, Koen and Dusadeepong, Rutaiwan and Chindelevitch, Leonid and Nasar, Muhammad Ibtisam and Aanensen, David and Afolayan, Ayorinde Oluwatobiloba and Odih, Erkison Ewomazino and {McArthur}, Andrew Grant and Feldgarden, Michael and Galas, Marcelo M and Campos, Josefina and Okeke, Iruka N. and Underwood, Anthony and Page, Andrew J. and {MacCannell}, Duncan and Maguire, Finlay},
 	urldate = {2024-10-11},
 	date = {2024-03-11},
+	langid = {english},
+}
+
+@ARTICLE{Hyatt2010-yv,
+  title    = "Prodigal: prokaryotic gene recognition and translation initiation
+              site identification",
+  author   = "Hyatt, Doug and Chen, Gwo-Liang and Locascio, Philip F and Land,
+              Miriam L and Larimer, Frank W and Hauser, Loren J",
+  journal  = "BMC bioinformatics",
+  volume   =  11,
+  pages    =  119,
+  abstract = "BACKGROUND: The quality of automated gene prediction in microbial
+              organisms has improved steadily over the past decade, but there is
+              still room for improvement. Increasing the number of correct
+              identifications, both of genes and of the translation initiation
+              sites for each gene, and reducing the overall number of false
+              positives, are all desirable goals. RESULTS: With our years of
+              experience in manually curating genomes for the Joint Genome
+              Institute, we developed a new gene prediction algorithm called
+              Prodigal (PROkaryotic DYnamic programming Gene-finding ALgorithm).
+              With Prodigal, we focused specifically on the three goals of
+              improved gene structure prediction, improved translation
+              initiation site recognition, and reduced false positives. We
+              compared the results of Prodigal to existing gene-finding methods
+              to demonstrate that it met each of these objectives. CONCLUSION:
+              We built a fast, lightweight, open source gene prediction program
+              called Prodigal http://compbio.ornl.gov/prodigal/. Prodigal
+              achieved good results compared to existing methods, and we believe
+              it will be a valuable asset to automated microbial annotation
+              pipelines.",
+  month    =  mar,
+  year     =  2010,
+  url      = "http://dx.doi.org/10.1186/1471-2105-11-119",
+  doi      = "10.1186/1471-2105-11-119",
+  pmc      = "PMC2848648",
+  pmid     =  20211023,
+  issn     = "1471-2105",
+  language = "en"
+}
+
+@ARTICLE{Seemann2014-ee,
+  title    = "Prokka: rapid prokaryotic genome annotation",
+  author   = "Seemann, Torsten",
+  journal  = "Bioinformatics",
+  volume   =  30,
+  number   =  14,
+  pages    = "2068--2069",
+  abstract = "UNLABELLED: The multiplex capability and high yield of current day
+              DNA-sequencing instruments has made bacterial whole genome
+              sequencing a routine affair. The subsequent de novo assembly of
+              reads into contigs has been well addressed. The final step of
+              annotating all relevant genomic features on those contigs can be
+              achieved slowly using existing web- and email-based systems, but
+              these are not applicable for sensitive data or integrating into
+              computational pipelines. Here we introduce Prokka, a command line
+              software tool to fully annotate a draft bacterial genome in about
+              10 min on a typical desktop computer. It produces
+              standards-compliant output files for further analysis or viewing
+              in genome browsers. AVAILABILITY AND IMPLEMENTATION: Prokka is
+              implemented in Perl and is freely available under an open source
+              GPLv2 license from http://vicbioinformatics.com/.",
+  month    =  jul,
+  year     =  2014,
+  url      = "http://dx.doi.org/10.1093/bioinformatics/btu153",
+  doi      = "10.1093/bioinformatics/btu153",
+  pmid     =  24642063,
+  issn     = "1367-4803,1367-4811",
+  language = "en"
+}
+
+@ARTICLE{Larralde2022-uu,
+  title     = "Pyrodigal: Python bindings and interface to Prodigal, an
+               efficient method for gene prediction in prokaryotes",
+  author    = "Larralde, Martin",
+  journal   = "Journal of Open Source Software",
+  publisher = "The Open Journal",
+  volume    =  7,
+  number    =  72,
+  pages     =  4296,
+  abstract  = "Larralde, M., (2022). Pyrodigal: Python bindings and interface to
+               Prodigal, an efficient method for gene prediction in prokaryotes.
+               Journal of Open Source Software, 7(72), 4296,
+               https://doi.org/10.21105/joss.04296",
+  month     =  apr,
+  year      =  2022,
+  url       = "http://dx.doi.org/10.21105/joss.04296",
+  doi       = "10.21105/joss.04296",
+  issn      = "2475-9066"
+}
+
+@ARTICLE{Gruning2018-vr,
+  title    = "Bioconda: sustainable and comprehensive software distribution for
+              the life sciences",
+  author   = "Grüning, Björn and Dale, Ryan and Sjödin, Andreas and Chapman,
+              Brad A and Rowe, Jillian and Tomkins-Tinch, Christopher H and
+              Valieris, Renan and Köster, Johannes and {Bioconda Team}",
+  journal  = "Nature methods",
+  volume   =  15,
+  number   =  7,
+  pages    = "475--476",
+  month    =  jul,
+  year     =  2018,
+  url      = "http://dx.doi.org/10.1038/s41592-018-0046-7",
+  doi      = "10.1038/s41592-018-0046-7",
+  pmid     =  29967506,
+  issn     = "1548-7091,1548-7105",
+  language = "en"
+}
+
+@ARTICLE{Da_Veiga_Leprevost2017-gl,
+  title     = "{BioContainers}: an open-source and community-driven framework
+               for software standardization",
+  author    = "da Veiga Leprevost, Felipe and Grüning, Björn A and Alves
+               Aflitos, Saulo and Röst, Hannes L and Uszkoreit, Julian and
+               Barsnes, Harald and Vaudel, Marc and Moreno, Pablo and Gatto,
+               Laurent and Weber, Jonas and Bai, Mingze and Jimenez, Rafael C
+               and Sachsenberg, Timo and Pfeuffer, Julianus and Vera Alvarez,
+               Roberto and Griss, Johannes and Nesvizhskii, Alexey I and
+               Perez-Riverol, Yasset",
+  journal   = "Bioinformatics (Oxford, England)",
+  publisher = "Oxford University Press (OUP)",
+  volume    =  33,
+  number    =  16,
+  pages     = "2580--2582",
+  abstract  = "Abstract Motivation BioContainers (biocontainers.pro) is an
+               open-source and community-driven framework which provides
+               platform independent executable environments for bioinformatics
+               software. BioContainers allows labs of all sizes to easily
+               install bioinformatics software, maintain multiple versions of
+               the same software and combine tools into powerful analysis
+               pipelines. BioContainers is based on popular open-source projects
+               Docker and rkt frameworks, that allow software to be installed
+               and executed under an isolated and controlled environment. Also,
+               it provides infrastructure and basic guidelines to create, manage
+               and distribute bioinformatics containers with a special focus on
+               omics technologies. These containers can be integrated into more
+               comprehensive bioinformatics pipelines and different
+               architectures (local desktop, cloud environments or HPC
+               clusters). Availability and Implementation The software is freely
+               available at github.com/BioContainers/.",
+  month     =  aug,
+  year      =  2017,
+  url       = "https://academic.oup.com/bioinformatics/article-pdf/33/16/2580/49041124/bioinformatics_33_16_2580.pdf",
+  doi       = "10.1093/bioinformatics/btx192",
+  issn      = "1367-4803,1367-4811",
+  language  = "en"
+}
+
+@ARTICLE{Janak2026-ek,
+  title     = "When probiotics turn deadly: a case of Lacticaseibacillus
+               rhamnosus sepsis in a burn patient",
+  author    = "Janák, David and Bakalář, Bohumil and Fridrichová, Marta and
+               Zwinsova, Barbora and Zajíček, Robert and Lipový, Břetislav and
+               Borilova Linhartova, Petra",
+  journal   = "Folia microbiologica",
+  publisher = "Springer Science and Business Media LLC",
+  pages     = "1--6",
+  abstract  = "We report the first comprehensive documented case of sepsis
+               caused by Lacticaseibacillus rhamnosus infection, likely
+               resulting from high-dose probiotic supplementation. This sepsis
+               occured in a 36-year-old woman with deep partial- and
+               full-thickness burns covering 25\% of total body surface area.
+               The use of probiotics in patients with organ dysfunction and in
+               immunocompromised individuals is on the rise. The immune system
+               and intestinal barriers are often compromised in patients with
+               burns, which may facilitate the translocation of probiotic
+               bacteria into bloodstream and lead to bacteremia; however,
+               isolation of lactobacilli in blood cultures is often disregarded
+               and considered an artefact caused by contamination. This case
+               highlights that probiotic-associated L. rhamnosus sepsis,
+               although rare, can occur in these patients and excessive
+               probiotic use should therefore be avoided in these individuals.",
+  month     =  mar,
+  year      =  2026,
+  url       = "http://dx.doi.org/10.1007/s12223-026-01445-x",
+  keywords  = "Lacticaseibacillus rhamnosus ; Burns; Probiotics; Sepsis",
+  doi       = "10.1007/s12223-026-01445-x",
+  pmid      =  41820736,
+  issn      = "0015-5632,1874-9356",
+  language  = "en"
+}
+
+@ARTICLE{Tighe2024-fq,
+  title    = "Biomolecular analysis of arctic microorganisms capable of
+              psychrophilic growth on biodegradable and compostable plastic",
+  author   = "Tighe, S W and Curd, E and Tracy, K M and Finstad, K H and
+              Vellone, D L and Hadley, S R and Dragon, J A",
+  journal  = "Journal of Biomolecular Techniques",
+  volume   =  35,
+  number   =  4,
+  pages    = "3fc1f5fe.601df0cc",
+  abstract = "As climate change continues to disrupt the polar regions of our
+              planet, a comprehensive understanding of both phenotypic and
+              genotypic characteristics of naturally occurring psychrophilic
+              microorganisms is needed, not only from a microbial profiling and
+              taxonomic aspect but also from an industrial potential standpoint.
+              Knowing and understanding the organisms that have the genetic
+              potential to break down environmental contaminants, such as
+              microplastics, is of great interest. In this research, the primary
+              focus was to isolate and characterize the psychrophilic
+              microorganisms from a snow field near Ilulissat, Greenland and use
+              a multi-omics approach to identify and characterize the
+              biodegradation potential against certain biodegradable plastics.
+              Bacterial stains isolated from Greenland were inoculated into
+              small individual bioreactor tubes containing a minimal salts media
+              combined with either polylactic acid or the proprietary Novamont
+              material used in compostable bags. After 4 weeks of incubations at
+              6°C, turbidity (growth) was measured, and DNA and RNA were
+              extracted and sequenced to identify putative plastic-degrading
+              genes and biosynthetic gene clusters and determine if they are
+              actively expressed in culture conditions. Cultured bacteria
+              comprise 3 genera of bacteria: Pseudomonas, Duganella, and
+              Massilia. Culture tubes comprised Pseudomonas or Duganella
+              isolates alone or Pseudomonas in combination with either Duganella
+              or Massilia isolates. Genomes assembled from cultures contained
+              genes implicated in plastic degradation, and several contained the
+              complete pathway for octane oxidation. Cultures contained active
+              transcripts for most of the identified genes. Several biosynthetic
+              gene clusters were also identified, which may play a role in
+              biofilm formation or adaptation to psychrophilic growth. These
+              data are believed to be the first laboratory culture experiments
+              of psychrophilic microbial degradation of microplastics by
+              organisms isolated from polar regions.",
+  month    =  dec,
+  year     =  2024,
+  url      = "http://dx.doi.org/10.7171/3fc1f5fe.601df0cc",
+  doi      = "10.7171/3fc1f5fe.601df0cc",
+  pmc      = "PMC12051446",
+  pmid     =  40330174,
+  issn     = "1524-0215,1943-4731",
+  language = "en"
+}
+
+@ARTICLE{Istanbullugil2026-fg,
+  title     = "Koumiss microbiome: Investigation of the microbial composition
+               and functional potential of a unique beverage of fermented milk
+               produced at Kyrgyz mountains",
+  author    = "İstanbullugil, Fatih Ramazan and Sanli, Kemal and Ozturk, Tarık
+               and Keskin, Birsen Cevher and Düyşöbayeva, Ayturgan and Risvanli,
+               Ali and Acaröz, Ulas and Acaröz, Damla Arslan and Salykov, Ruslan
+               and Sahin, Mitat",
+  journal   = "Probiotics and Antimicrobial Proteins",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  18,
+  number    =  1,
+  pages     = "18--34",
+  abstract  = "This study aims to investigate the microbial composition of
+               koumiss made via traditional methods in Kyrgyz mountain pastures.
+               We collected koumiss samples produced in plastic (P), wood (T),
+               and leather (D) containers at household settings. These samples
+               were subjected to shotgun metagenomic sequencing. As a result of
+               the metagenome analyses, we identified a diversity of bacteria,
+               yeasts, bacteriophages, and archaea in koumiss produced within
+               different containers. Koumiss' microbial community was
+               predominantly composed of lactic acid bacteria (LAB),
+               particularly Lactobacillus helveticus and Lactococcus lactis.
+               Additional LAB species such as Lactobacillus kefiranofaciens,
+               Lactococcus raffinolactis, Lactiplantibacillus plantarum, and
+               Lactococcus cremoris, as well as non-LAB taxa such as Kluyvera
+               intermedia, Raoultella planticola, and Hafnia alvei were also
+               identified as part of the koumiss microbiota. Nonetheless, the
+               opportunistic pathogen, Enterobacter hormaechei, was among the
+               detected species. The most abundant yeast species was identified
+               as Brettanomyces bruxellensis. Other yeast species involving
+               Monosporozyma unispora, Monosporozyma servazzii, and Yarrowia
+               lipolytica were also detected within the metagenome. Despite the
+               type of container material not significantly affecting the
+               microbial diversity, Bifidobacterium spp. and bacteriophages were
+               identified at higher levels in plastic containers. We detected
+               various antimicrobial resistance genes and gene clusters that
+               produce bioactive compounds within koumiss samples. This study
+               highlights koumiss' rich microbial composition and its potential
+               health impacts. It underscores the importance of effectively
+               utilizing metagenomic and bioinformatics methods for better
+               comprehension of the microbiota of koumiss.",
+  month     =  jan,
+  year      =  2026,
+  url       = "http://dx.doi.org/10.1007/s12602-025-10718-9",
+  keywords  = "Fermented foods; Koumiss; Mare’s milk; Metagenome-assembled
+               genomes; Shotgun metagenomics",
+  doi       = "10.1007/s12602-025-10718-9",
+  pmid      =  40824425,
+  issn      = "1867-1306,1867-1314",
+  language  = "en"
+}
+
+@ARTICLE{Liepa2026-sw,
+  title     = "Urban wastewater metagenomics reveals the antibiotic resistance
+               gene distribution across Latvian municipalities",
+  author    = "Liepa, Edgars and Ustinova, Maija and Gudra, Dita and Roga, Ance
+               and Kalnina, Ineta and Dejus, Brigita and Dejus, Sandis and
+               Strods, Martins and Tomsone, Laura Elīna and Kibilds, Juris and
+               Bartkevics, Vadims and Berzins, Aivars and Dumpis, Uga and Juhna,
+               Talis and Fridmanis, Davids",
+  journal   = "Microorganisms",
+  publisher = "MDPI AG",
+  volume    =  14,
+  number    =  1,
+  pages     =  145,
+  abstract  = "Antimicrobial resistance (AMR) poses a global health threat, with
+               urban wastewater systems serving as key reservoirs for resistance
+               dissemination. This study aimed to investigate the relationships
+               among urban environments, bacterial communities, and AMR
+               patterns, and evaluate the specific municipal-scale drivers of
+               resistance gene distribution. Shotgun metagenomic analysis was
+               conducted on 45 wastewater samples collected from 15
+               municipalities across Latvia to determine the composition of the
+               resistome and its correlation with local factors. The analysis
+               identified 417 distinct antibiotic resistance genes (ARGs)
+               belonging to 108 families, with geographic location serving as
+               the primary driver of ARG distribution, which explained 65.87\%
+               of community variation (p = 0.001). Local industrial factors
+               demonstrated significant effects, with food industry wastewater
+               significantly influencing both bacterial taxonomy and ARG
+               profiles (p < 0.05). While the presence of a regional hospital
+               did not shape the overall municipal resistome,
+               hospital-associated wastewater showed 19 overlapping ARGs,
+               including clinically critical carbapenemases. Municipal
+               wastewater systems function as geographically structured
+               reservoirs of AMR that are shaped by localized industrial and
+               healthcare outputs. These findings support wastewater-based AMR
+               surveillance as a valuable tool for tracking specific resistance
+               sources.",
+  month     =  jan,
+  year      =  2026,
+  url       = "http://dx.doi.org/10.3390/microorganisms14010145",
+  keywords  = "Latvia; antibiotic resistance; metagenomics; resistome;
+               wastewater-based epidemiology (WBE)",
+  doi       = "10.3390/microorganisms14010145",
+  pmc       = "PMC12843809",
+  pmid      =  41597664,
+  issn      = "2076-2607,2076-2607",
+  language  = "en"
+}
+
+@ARTICLE{Shen2024-mg,
+  title     = "{SeqKit2}: A Swiss army knife for sequence and alignment
+               processing",
+  author    = "Shen, Wei and Sipos, Botond and Zhao, Liuyang",
+  journal   = "iMeta",
+  publisher = "Wiley",
+  pages     = "e191",
+  abstract  = "AbstractIn the era of ubiquitous high‐throughput sequencing
+               studies, there is a growing need for analysis tools that are not
+               just performant but also comprehensive and user‐friendly enough
+               to cater to both novice and advanced users. This article
+               introduces SeqKit2, the next iteration of the widely used
+               sequence analysis tool SeqKit, featuring expanded functionality,
+               performance optimizations, and support for additional compression
+               methods. Retaining a pragmatic subcommand architecture, SeqKit2
+               represents substantial enhancement through the inclusion of 19
+               additional subcommands, expanding its overall repertoire to a
+               total of 38 in eight categories. The new subcommands add
+               functionality such as amplicon processing and robust,
+               error‐tolerant parsing of sequence records. In addition, three
+               subcommands designed for real‐time analysis are added for
+               periodic monitoring of properties of FASTQ and Binary
+               Alignment/Map alignment records and real‐time streaming from
+               multiple sequence files. The performance of SeqKit2 is
+               benchmarked against the old version of SeqKit, Bioawk, Seqtk, and
+               SeqFu tools. SeqKit2 consistently outperforms its predecessor,
+               albeit with marginally higher memory usage, while maintaining
+               competitive runtimes against other tools. With its broad
+               functionality, proven usability, and ongoing development driven
+               by user feedback, we hope that bioinformaticians will find
+               SeqKit2 useful as a “Swiss army knife” of sequence and alignment
+               processing—equally adept at facilitating ad hoc analyses and
+               seamlessly integrating into larger pipelines.",
+  month     =  apr,
+  year      =  2024,
+  url       = "https://onlinelibrary.wiley.com/doi/abs/10.1002/imt2.191",
+  keywords  = "performance optimization; real-time analysis; sequence
+               processing; usability; user-friendly",
+  doi       = "10.1002/imt2.191",
+  issn      = "2770-596X,2770-5986",
+  language  = "en"
+}
+
+@ARTICLE{Langer2025-th,
+  title     = "Empowering bioinformatics communities with Nextflow and nf-core",
+  author    = "Langer, Björn E and Amaral, Andreia and Baudement, Marie-Odile
+               and Bonath, Franziska and Charles, Mathieu and Chitneedi, Praveen
+               Krishna and Clark, Emily L and Di Tommaso, Paolo and Djebali,
+               Sarah and Ewels, Philip A and Eynard, Sonia and Fellows Yates,
+               James A and Fischer, Daniel and Floden, Evan W and Foissac,
+               Sylvain and Gabernet, Gisela and Garcia, Maxime U and Gillard,
+               Gareth and Gundappa, Manu Kumar and Guyomar, Cervin and Hakkaart,
+               Christopher and Hanssen, Friederike and Harrison, Peter W and
+               Hörtenhuber, Matthias and Kurylo, Cyril and Kühn, Christa and
+               Lagarrigue, Sandrine and Lallias, Delphine and Macqueen, Daniel J
+               and Miller, Edmund and Mir-Pedrol, Júlia and Moreira, Gabriel
+               Costa Monteiro and Nahnsen, Sven and Patel, Harshil and Peltzer,
+               Alexander and Pitel, Frederique and Ramayo-Caldas, Yuliaxis and
+               Ribeiro-Dantas, Marcel da Câmara and Rocha, Dominique and
+               Salavati, Mazdak and Sokolov, Alexey and Espinosa-Carrasco, Jose
+               and Notredame, Cedric and Community, The Nf-Core",
+  journal   = "Genome Biology",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  26,
+  number    =  1,
+  pages     =  228,
+  abstract  = "Standardized analysis pipelines contribute to making data
+               bioinformatics research compliant with the paradigm of
+               Findability, Accessibility, Interoperability, and Reusability
+               (FAIR), and facilitate collaboration. Nextflow and Snakemake, two
+               popular command-line solutions, are increasingly adopted by
+               users, complementing GUI-based platforms such as Galaxy. We
+               report recent developments of the nf-core framework with the new
+               Nextflow Domain-Specific Language (DSL2). An extensive library of
+               modules and subworkflows enables research communities to adopt
+               common standards progressively, as resources and needs allow. We
+               present an overview of some of the research communities built
+               around nf-core and showcase its adoption by six EuroFAANG farmed
+               animal research consortia.",
+  month     =  jul,
+  year      =  2025,
+  url       = "http://dx.doi.org/10.1186/s13059-025-03673-9",
+  doi       = "10.1186/s13059-025-03673-9",
+  pmc       = "PMC12309086",
+  pmid      =  40731283,
+  issn      = "1474-7596,1474-760X",
+  language  = "en"
+}
+
+@article{ugarcina_perovic_argnorm_2025,
+	title = {{argNorm}: normalization of antibiotic resistance gene annotations to the Antibiotic Resistance Ontology ({ARO})},
+	volume = {41},
+	rights = {https://creativecommons.org/licenses/by/4.0/},
+	issn = {1367-4811},
+	url = {https://academic.oup.com/bioinformatics/article/doi/10.1093/bioinformatics/btaf173/8114632},
+	doi = {10.1093/bioinformatics/btaf173},
+	shorttitle = {{argNorm}},
+	abstract = {Abstract
+            
+              Summary
+              Currently available and frequently used tools for annotating antibiotic resistance genes ({ARGs}) in genomes and metagenomes provide results using inconsistent nomenclature. This makes the comparison of different {ARG} annotation outputs challenging. The comparability of {ARG} annotation outputs can be improved by mapping gene names and their categories to a common controlled vocabulary such as the Antibiotic Resistance Ontology ({ARO}). We developed {argNorm}, a command line tool and Python library, to normalize all detected genes across six {ARG} annotation tools (eight databases) to the {ARO}. {argNorm} also adds information to the outputs using the same {ARG} categorization so that they are comparable across tools.
+            
+            
+              Availability and implementation
+              {argNorm} is available as an open-source tool at: https://github.com/{BigDataBiology}/{argNorm}. It can also be downloaded as a {PyPI} package and is available on Bioconda and as an nf-core module.},
+	pages = {btaf173},
+	number = {5},
+	journaltitle = {Bioinformatics},
+	author = {Ugarcina Perovic, Svetlana and Ramji, Vedanth and Chong, Hui and Duan, Yiqian and Maguire, Finlay and Coelho, Luis Pedro},
+	editor = {Robinson, Peter},
+	urldate = {2026-08-20},
+	date = {2025-05-06},
 	langid = {english},
 }
