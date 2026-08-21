@@ -90,6 +90,9 @@ affiliations:
     index: 13
 date: 14 April 2026
 bibliography: paper.bib
+header-includes:
+  - \usepackage{rotating}
+  - \usepackage{booktabs}
 ---
 
 # Summary
@@ -117,27 +120,34 @@ The pipeline currently supports detection of antimicrobial peptide (AMPs) genes,
 
 # State of the field
 
-Previous efforts to scale up the predictive power of different tools for functional gene prediction include include mettannotator [@gurbich_mettannotator_2025], bacannot [@almeida_scalable_2023], SqueezeMeta [@tamames_squeezemeta_2019], MetaErg [@dong_integrated_2019], METABOLIC [@zhou_metabolic_2022], ARGs-OAP [@yin_args-oap_2022], and PathoFact [@de_nies_pathofact_2021] (Table 1).
-However, to our knowledge, these typically focused on singular gene categories or groups (e.g. antimicrobial resistance), aim to be 'end-to-end' pipelines including read preprocessing and assembly, or do not provide important contextual information about the potential hits (such as taxonomic information).
+Previous efforts to scale up the predictive power of different tools for functional gene prediction include mettannotator [@gurbich_mettannotator_2025], bacannot [@almeida_scalable_2023], PathoFact [@de_nies_pathofact_2021] SqueezeMeta [@tamames_squeezemeta_2019], MetaErg [@dong_integrated_2019], and ARGs-OAP [@yin_args-oap_2022] (Table 1).
+However, to our knowledge, these are typically focused on singular gene categories or groups (e.g. antimicrobial resistance), aim to be 'end-to-end' pipelines including read preprocessing and assembly, or do not provide important contextual information about the potential hits (such as taxonomic information).
 
-| Feature                                 | funcscan | mettannotator | bacannot | PathoFact | SqueezeMeta | MetaERG | ARGs-OAP |
-| --------------------------------------- | -------- | ------------- | -------- | --------- | ----------- | ------- | -------- |
-| ARG screening                           | +        | +             | +        | +         | (+)         | (+)     | +        |
-| AMP screening                           | +        | −             | −        | −         | (+)         | (+)     | −        |
-| BGC screening                           | +        | +             | −        | −         | (−)         | (−)     | −        |
-| CAZyme screening                        | +        | +             | −        | −         | −           | −       | −        |
-| Taxonomic assignment of contigs         | +        | −             | −        | (−)       | +           | +       | −        |
-| Results summary                         | +        | +             | +        | (+)       | +           | +       | −        |
-| Container support (Docker, Singularity) | +        | +             | +        | −         | −           | +       | (−)      |
-| Modularity                              | +        | +             | +        | +         | (+)         | −       | −        |
-| One-click installation                  | +        | +             | +        | −         | (−)         | −       | −        |
-| Local installation possible             | +        | +             | +        | +         | +           | +       | −        |
-| Web-based execution possible            | (+)      | (+)           | (+)      | −         | −           | −       | −        |
-| Software reviewing                      | +        | +             | −        | −         | −           | −       | −        |
-| Automated unit tests                    | +        | +             | (−)      | (−)       | −           | −       | −        |
-| License                                 | MIT      | Apache-2.0    | GPL-3.0  | GPL-3.0   | GPL-3.0     | AFL     | AFL      |
-
-: Comparison of nf-core/funcscan with other related pipelines for ARG, AMP, and BGC discovery. Parentheses indicate either unspecific gene screening or partly fulfilled criteria. \label{tab:pipelines}
+\begin{sidewaystable}
+\centering
+\caption{Comparison of nf-core/funcscan with other related pipelines for ARG, AMP, and BGC discovery. Parentheses indicate either unspecific gene screening or partly fulfilled criteria.}
+\label{tab:pipelines}
+\begin{tabular}{l|l|l|l|l|l|l|l}
+\toprule
+Feature & funcscan & mettannotator & bacannot & PathoFact & SqueezeMeta & MetaERG & ARGs-OAP \\
+\hline
+ARG screening & + & + & + & + & (+) & (+) & + \\
+AMP screening & + & − & − & − & (+) & (+) & − \\
+BGC screening & + & + & − & − & (−) & (−) & − \\
+CAZyme screening & + & + & − & − & − & − & − \\
+Taxonomic assignment of contigs & + & − & − & (−) & + & + & − \\
+Results summary & + & + & + & (+) & + & + & − \\
+Container support (Docker, Singularity) & + & + & + & − & − & + & (−) \\
+Modularity & + & + & + & + & (+) & − & − \\
+One-click installation & + & + & + & − & (−) & − & − \\
+Local installation possible & + & + & + & + & + & + & − \\
+Web-based execution possible & (+) & (+) & (+) & − & − & − & − \\
+Software reviewing & + & + & − & − & − & − & − \\
+Automated unit tests & + & + & (−) & (−) & − & − & − \\
+License & MIT & Apache-2.0 & GPL-3.0 & GPL-3.0 & GPL-3.0 & AFL & AFL \\
+\bottomrule
+\end{tabular}
+\end{sidewaystable}
 
 Extensive command-line knowledge and manual installation of software dependencies are also often required to run many of these existing pipelines.
 This can preclude use by biochemists, biologists, etc. who typically have limited computational training.
