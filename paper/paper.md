@@ -41,28 +41,28 @@ authors:
     orcid: 0000-0002-2591-1922
     affiliation: 6
   - name: Xinpeng Zhang
-    orcid:
-    affiliation: 6
+    orcid: 0000-0001-7567-8973
+    affiliation: 7
   - name: Octavian Codrin Dediu
     orcid: 0009-0006-9204-8870
-    affiliation: 7
+    affiliation: 8
   - name: Alexandru Mizeranschi
     orcid: 0000-0002-1168-6285
-    affiliation: "8,9"
+    affiliation: "9,10"
   - name: Moritz E. Beber
     orcid: 0000-0003-2406-1978
-    affiliation: 10
-  - name: nf-core community
     affiliation: 11
+  - name: nf-core community
+    affiliation: 12
   - name: Sven Nahnsen
     orcid: 0000-0002-4375-0691
-    affiliation: "5, 12, 13"
+    affiliation: "5, 13, 14"
   - name: Pierre Stallforth
     orcid: 0000-0001-7260-9921
-    affiliation: "1, 14"
+    affiliation: "1, 15"
   - name: Christina Warinner
     orcid: 0000-0002-4528-5877
-    affiliation: "3, 4, 15, 16"
+    affiliation: "3, 4, 16, 17"
 affiliations:
   - name: Department of Paleobiotechnology, Leibniz Institute for Natural Product Research and Infection Biology Hans Knöll Institute, Germany
     index: 1
@@ -76,26 +76,28 @@ affiliations:
     index: 5
   - name: St. Jude Children's Research Hospital, USA
     index: 6
-  - name: Faculty of Computer Science, West University of Timisoara, Romania
+  - name: Nebraska Food for Health Center, Department of Food Science and Technology, University of Nebraska, USA
     index: 7
-  - name: Research and Development Station for Bovine – Arad, Romania
+  - name: Faculty of Computer Science, West University of Timisoara, Romania
     index: 8
-  - name: Institute for Advanced Environmental Research, West University of Timisoara, Romania
+  - name: Research and Development Station for Bovine – Arad, Romania
     index: 9
-  - name: Institute for Globally Distributed Open Research and Education (IGDORE), Sweden
+  - name: Institute for Advanced Environmental Research, West University of Timisoara, Romania
     index: 10
-  - name: nf-core community members are available at acknowledgments.
+  - name: Institute for Globally Distributed Open Research and Education (IGDORE), Sweden
     index: 11
-  - name: M3 Research Center, Faculty of Medicine, University of Tübingen, Germany
+  - name: nf-core community members are available at acknowledgments.
     index: 12
-  - name: Department of Computer Science, Institute for Bioinformatics and Medical Informatics (IBMI), University of Tübingen, Germany
+  - name: M3 Research Center, Faculty of Medicine, University of Tübingen, Germany
     index: 13
-  - name: Institute of Organic and Macromolecular Chemistry, Friedrich Schiller University Jena, Germany
+  - name: Department of Computer Science, Institute for Bioinformatics and Medical Informatics (IBMI), University of Tübingen, Germany
     index: 14
-  - name: Faculty of Biological Sciences, Friedrich-Schiller University Jena, Germany
+  - name: Institute of Organic and Macromolecular Chemistry, Friedrich Schiller University Jena, Germany
     index: 15
-  - name: Department of Anthropology, Harvard University, USA
+  - name: Faculty of Biological Sciences, Friedrich-Schiller University Jena, Germany
     index: 16
+  - name: Department of Anthropology, Harvard University, USA
+    index: 17
 date: 14 April 2026
 bibliography: paper.bib
 header-includes:
