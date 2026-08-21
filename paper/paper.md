@@ -27,67 +27,75 @@ tags:
 authors:
   - name: Jasmin Frangenberg
     orcid: 0009-0004-5961-4709
-    affiliation: 1
+    affiliation: "1, 2"
   - name: James A. Fellows Yates
     orcid: 0000-0001-5585-6277
-    affiliation: "1, 2, 3" # (Multiple affiliations must be quoted)
+    affiliation: "1, 3, 4"
   - name: Anan Ibrahim
     orcid: 0000-0003-3719-901X
     affiliation: 1
   - name: Louisa Perelo
     orcid: 0009-0002-6815-8608
-    affiliation: 4
-  - name: Haidong Yi
-    orcid:
     affiliation: 5
+  - name: Haidong Yi
+    orcid: 0000-0002-2591-1922
+    affiliation: 6
   - name: Xinpeng Zhang
     orcid:
-    affiliation: 5
-  - name: Dediu Octavian-Codrin
-    orcid: https://orcid.org/0009-0006-9204-8870
     affiliation: 6
+  - name: Octavian Codrin Dediu
+    orcid: 0009-0006-9204-8870
+    affiliation: 7
   - name: Alexandru Mizeranschi
-    orcid:
-    affiliation: 6
+    orcid: 0000-0002-1168-6285
+    affiliation: "8,9"
   - name: Moritz E. Beber
     orcid: 0000-0003-2406-1978
-    affiliation: 7
+    affiliation: 10
   - name: nf-core community
-    affiliation: 8
+    affiliation: 11
   - name: Sven Nahnsen
     orcid: 0000-0002-4375-0691
-    affiliation: "4, 9, 10"
+    affiliation: "5, 12, 13"
   - name: Pierre Stallforth
     orcid: 0000-0001-7260-9921
-    affiliation: "1, 11"
+    affiliation: "1, 14"
   - name: Christina Warinner
     orcid: 0000-0002-4528-5877
-    affiliation: "2, 3, 12, 13"
+    affiliation: "3, 4, 15, 16"
 affiliations:
   - name: Department of Paleobiotechnology, Leibniz Institute for Natural Product Research and Infection Biology Hans Knöll Institute, Germany
     index: 1
-  - name: Department of Archaeogenetics, Max Planck Institute for Evolutionary Anthropology, Germany
+  - name: TIB – Leibniz Information Centre for Science and Technology, Germany
     index: 2
-  - name: Associated Research Group of Archaeogenetics, Leibniz Institute for Natural Product Research and Infection Biology Hans Knöll Institute, Germany
+  - name: Department of Archaeogenetics, Max Planck Institute for Evolutionary Anthropology, Germany
     index: 3
-  - name: Quantitative Biology Center (QBiC), University of Tübingen, Germany
+  - name: Associated Research Group of Archaeogenetics, Leibniz Institute for Natural Product Research and Infection Biology Hans Knöll Institute, Germany
     index: 4
-  - name: St. Jude Children's Research Hospital, USA
+  - name: Quantitative Biology Center (QBiC), University of Tübingen, Germany
     index: 5
-  - name: Institute for Globally Distributed Open Research and Education (IGDORE), Sweden
+  - name: St. Jude Children's Research Hospital, USA
+    index: 6
+  - name: Faculty of Computer Science, West University of Timisoara, Romania
     index: 7
-  - name: nf-core community members are available at acknowledgments.
+  - name: Research and Development Station for Bovine – Arad, Romania
     index: 8
-  - name: M3 Research Center, Faculty of Medicine, University of Tübingen, Germany
+  - name: Institute for Advanced Environmental Research, West University of Timisoara, Romania
     index: 9
-  - name: Department of Computer Science, Institute for Bioinformatics and Medical Informatics (IBMI), University of Tübingen, Tübingen, Germany
+  - name: Institute for Globally Distributed Open Research and Education (IGDORE), Sweden
     index: 10
-  - name: Institute of Organic and Macromolecular Chemistry, Friedrich Schiller University Jena, Germany
+  - name: nf-core community members are available at acknowledgments.
     index: 11
-  - name: Faculty of Biological Sciences, Friedrich-Schiller University Jena, Germany
+  - name: M3 Research Center, Faculty of Medicine, University of Tübingen, Germany
     index: 12
-  - name: Department of Anthropology, Harvard University, USA
+  - name: Department of Computer Science, Institute for Bioinformatics and Medical Informatics (IBMI), University of Tübingen, Germany
     index: 13
+  - name: Institute of Organic and Macromolecular Chemistry, Friedrich Schiller University Jena, Germany
+    index: 14
+  - name: Faculty of Biological Sciences, Friedrich-Schiller University Jena, Germany
+    index: 15
+  - name: Department of Anthropology, Harvard University, USA
+    index: 16
 date: 14 April 2026
 bibliography: paper.bib
 header-includes:
@@ -120,7 +128,7 @@ The pipeline currently supports detection of antimicrobial peptide (AMPs) genes,
 
 # State of the field
 
-Previous efforts to scale up the predictive power of different tools for functional gene prediction include mettannotator [@gurbich_mettannotator_2025], bacannot [@almeida_scalable_2023], PathoFact [@de_nies_pathofact_2021] SqueezeMeta [@tamames_squeezemeta_2019], MetaErg [@dong_integrated_2019], and ARGs-OAP [@yin_args-oap_2022] (Table 1).
+Previous efforts to scale up the predictive power of different tools for functional gene prediction include mettannotator [@gurbich_mettannotator_2025], bacannot [@almeida_scalable_2023], PathoFact [@de_nies_pathofact_2021] SqueezeMeta [@tamames_squeezemeta_2019], MetaErg [@dong_integrated_2019], and ARGs-OAP [@yin_args-oap_2022] (Table \ref{tab:pipelines}).
 However, to our knowledge, these are typically focused on singular gene categories or groups (e.g. antimicrobial resistance), aim to be 'end-to-end' pipelines including read preprocessing and assembly, or do not provide important contextual information about the potential hits (such as taxonomic information).
 
 \begin{sidewaystable}
@@ -200,7 +208,10 @@ nf-core/funcscan integrates dedicated tools to aggregate and standardise heterog
 nf-core uses hAMRonization [@mendes_hamronization_2024] for ARGs, AMPcombi [@herbst_actifensin_2025] for AMPs, and a custom script 'comBGC' for BGC tool output aggregation.
 These summaries are finally optionally complemented with results from the taxonomic classification workflow.
 
-Building on the aggragation of screening results, two optional downstream analyses can be executed for the ARG and BGC workflows. First, the ARG summary provided by hAMRonization can be further normalised and mapped to the antibiotic resistance ontology (ARO) by argNorm [@ugarcina_perovic_argnorm_2025]. This enhances ARG annotation by categorising drugs that ARGs confer resistance to. Secondly, BGCs predicted by antiSMASH and GECCO can be clustered into Gene Cluster Families (GCFs) by BiG-SLiCE [@kautsar_big-slice_2021] to enable comparative analysis of biosynthetic diversity across samples.
+Building on the aggragation of screening results, two optional downstream analyses can be executed for the ARG and BGC workflows.
+First, the ARG summary provided by hAMRonization can be further normalised and mapped to the antibiotic resistance ontology (ARO) by argNorm [@ugarcina_perovic_argnorm_2025].
+This enhances ARG annotation by categorising drugs that ARGs confer resistance to.
+Secondly, BGCs predicted by antiSMASH and GECCO can be clustered into Gene Cluster Families (GCFs) by BiG-SLiCE [@kautsar_big-slice_2021] to enable comparative analysis of biosynthetic diversity across samples.
 
 ## Reproducibility and scalability
 
@@ -228,10 +239,12 @@ We thank Vedanth Ramji for adding argNorm to the ARG subworkflow.
 A full list of nf-core community members is available at [https://nf-co.re/contributors/](https://nf-co.re/contributors/).
 We thank Martin Klapper and Rosa Herbst for helpful feedback on relevant BGC and AMP properties during comBGC and AMPcombi development.
 J.F. received a fellowship from the International Leibniz Research School (under the head of the Jena School for Microbial Communication, JSMC).
+This work was conducted while J.F. was affiliated with the Department of Paleobiotechnology, Leibniz Institute for Natural Product Research and Infection Biology Hans Knöll Institute, Germany.
 
 This project was funded by grants from the Werner Siemens Foundation (Paleobiotechnology to C.W. and P.S.) and the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation, under Germany’s Excellence Strategy – EXC 2051 – Project-ID 390713860 to C.W. and P.S.).
 J.A.F.Y and C.W. were funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) – project number 460129525 (NFDI4Microbiota, FlexFund project EnterArchaeo).
 J.A.F.Y and C.W. were supported by the Max Planck Society.
+O.C.D. and A.E.M. were supported with computing infrastructure access by the West University of Timisoara (hpc.uvt.ro), acquired via grant no. 240/2020, ID 911 POC/398/1/1, financed by the European structural funds and Romanian government funds, and the project "Romanian Hub for Artificial Intelligence - HRIA", in the program PCID-IF/709/PCIDIF_P4/OP1/RSO1.6/PCIDIF_A12 - Action 4.1 - MySMIS 351416.
 This work was supported by the de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) and ELIXIR-DE (Forschungszentrum Jülich and W-de.NBI-001, W-de.NBI-004, W-de.NBI-008, W-de.NBI-010, W-de.NBI-013, W-de.NBI-014, W-de.NBI-016, W-de.NBI-022).
 
 # References
