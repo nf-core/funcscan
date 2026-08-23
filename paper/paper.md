@@ -133,6 +133,9 @@ The pipeline currently supports detection of antimicrobial peptide (AMPs) genes,
 Previous efforts to scale up the predictive power of different tools for functional gene prediction include mettannotator [@gurbich_mettannotator_2025], bacannot [@almeida_scalable_2023], PathoFact [@de_nies_pathofact_2021] SqueezeMeta [@tamames_squeezemeta_2019], MetaErg [@dong_integrated_2019], and ARGs-OAP [@yin_args-oap_2022] (Table \ref{tab:pipelines}).
 However, to our knowledge, these are typically focused on singular gene categories or groups (e.g. antimicrobial resistance), aim to be 'end-to-end' pipelines including read preprocessing and assembly, or do not provide important contextual information about the potential hits (such as taxonomic information).
 
+In particular, the main factors that distinguish nf-core/funcscan from the most similar pipeline, mettannotator, are: support for metagenomic assembly input (rather than just genomes); automated taxonomic classification of contigs; more tools for ARG screening; AMP screening; and confirmed executable on other infrastructure than HPCs.
+Gene types which nf-core/funcscan does not screen for due to its focus on AMPs, ARGs, and BGCs but mettannotator does are CRISPR arrays, antiphage defense, non-coding RNA, and pseudogenes.
+
 \begin{sidewaystable}
 \centering
 \caption{Comparison of nf-core/funcscan with other related pipelines for ARG, AMP, and BGC discovery. Parentheses indicate either unspecific gene screening or partly fulfilled criteria.}
@@ -159,14 +162,9 @@ License & MIT & Apache-2.0 & GPL-3.0 & GPL-3.0 & GPL-3.0 & AFL & AFL \\
 \end{tabular}
 \end{sidewaystable}
 
-Extensive command-line knowledge and manual installation of software dependencies are also often required to run many of these existing pipelines.
+Extensive command-line knowledge and manual installation of software dependencies are also often required to run many of the existing pipelines.
 This can preclude use by biochemists, biologists, etc. who typically have limited computational training.
-In contrast, nf-core/funcscan aims to reduce complexity by screening from already assembled sequences, and end on aggregation of the screening results, through multiple methods for execution.
-
-The main factors that distinguish nf-core/funcscan from the most similar pipeline, metannotator, are: support for metagenomic assembly input (rather than just genomes); automated taxonomic classification of contigs; more ARG tools; standardised prediction output; and confirmed executable on other infrastructure than HPCs.
-
-<!-- TODO please can someone confirm, also I feel we should state what metannotator does that funcscan that does not -->
-<!-- TODO: OR we just simplfy and merge the differences from metannotator with the other points in the para above -->
+In contrast, nf-core/funcscan aims to reduce complexity by screening from already assembled sequences, and end on aggregation of the screening results, through multiple methods for execution (Table \ref{tab:pipelines}).
 
 # Workflow overview
 
