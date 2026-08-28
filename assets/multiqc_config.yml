@@ -10,10 +10,13 @@ report_section_order:
 
 run_modules:
   - prokka
+  - bakta
   - custom_content
 
 table_columns_visible:
   Prokka:
+    organism: false
+  Bakta:
     organism: false
 
 export_plots: true
@@ -26,3 +29,4 @@ custom_logo_title: "nf-core/funcscan"
 
 ## Tool specific configuration
 prokka_fn_snames: true
+bakta_fn_snames: true
