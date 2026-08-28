@@ -75,7 +75,7 @@ workflow ANNOTATION {
     else if (params.annotation_tool == "prokka") {
 
         PROKKA(fasta, [], [])
-        ch_multiqc_files = PROKKA.out.txt.collect { it[1] }.ifEmpty([])
+        ch_multiqc_files = PROKKA.out.txt.map{ _meta, prokka_txt -> [ prokka_txt ]}
         ch_annotation_faa = PROKKA.out.faa
         ch_annotation_fna = PROKKA.out.fna
         ch_annotation_gbk = PROKKA.out.gbk
@@ -95,7 +95,7 @@ workflow ANNOTATION {
 
         // BAKTA HMM download
         if (params.annotation_bakta_hmms) {
-            ch_bakta_hmm = Channel.fromPath(params.annotation_bakta_hmms, checkIfExists: true).first()
+            ch_bakta_hmm = channel.fromPath(params.annotation_bakta_hmms, checkIfExists: true).first()
         }
         else {
             ch_bakta_hmm = []
@@ -109,7 +109,7 @@ workflow ANNOTATION {
             [],
             ch_bakta_hmm,
         )
-        ch_multiqc_files = BAKTA_BAKTA.out.txt.collect { it[1] }.ifEmpty([])
+        ch_multiqc_files = BAKTA_BAKTA.out.txt.map{ _meta, bakta_txt -> [ bakta_txt ]}
         ch_annotation_faa = BAKTA_BAKTA.out.faa
         ch_annotation_fna = BAKTA_BAKTA.out.fna
         ch_annotation_gbk = BAKTA_BAKTA.out.gbff

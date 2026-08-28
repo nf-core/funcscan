@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#538](https://github.com/nf-core/funcscan/pull/538) Fixed sequence validation to handle `NaN` values in DRAMP database download. (by @hindrek)
+- [#545](https://github.com/nf-core/funcscan/pull/545) Fixed sample IDs for annotation statistics in MultiQC report. (by @jasmezz)
 
 ### `Dependencies`
 
