@@ -101,7 +101,7 @@
 	url = {https://academic.oup.com/nar/article/53/W1/W32/8119805},
 	doi = {10.1093/nar/gkaf334},
 	shorttitle = {{antiSMASH} 8.0},
-	abstract = {Abstract 
+	abstract = {Abstract
             Microorganisms synthesize small bioactive compounds through their secondary or specialized metabolism. Those compounds play an important role in microbial interactions and soil health, but are also crucial for the development of pharmaceuticals or agrochemicals. Over the past decades, advancements in genome sequencing have enabled the identification of large numbers of biosynthetic gene clusters directly from microbial genomes. Since its inception in 2011, {antiSMASH} (https://antismash.secondarymetabolites.org/), has become the leading tool for detecting and characterizing these gene clusters in bacteria and fungi. This paper introduces version 8 of {antiSMASH}, which has increased the number of detectable cluster types from 81 to 101, and has improved analysis support for terpenoids and tailoring enzymes, as well as improvements in the analysis of modular enzymes like polyketide synthases and nonribosomal peptide synthetases. These modifications keep {antiSMASH} up-to-date with developments in the field and extend its overall predictive capabilities for natural product genome mining.},
 	pages = {W32--W38},
 	issue = {W1},
@@ -120,17 +120,17 @@
 	doi = {10.12688/f1000research.139488.1},
 	abstract = {Background:
               Advancements in {DNA} sequencing technology have transformed the field of bacterial genomics, allowing for faster and more cost effective chromosome level assemblies compared to a decade ago. However, transforming raw reads into a complete genome model is a significant computational challenge due to the varying quality and quantity of data obtained from different sequencing instruments, as well as intrinsic characteristics of the genome and desired analyses. To address this issue, we have developed a set of container-based pipelines using Nextflow, offering both common workflows for inexperienced users and high levels of customization for experienced ones. Their processing strategies are adaptable based on the sequencing data type, and their modularity enables the incorporation of new components to address the community’s evolving needs.
-            
-            
+
+
               Methods:
               These pipelines consist of three parts: quality control, de novo genome
-            
+
             assembly, and bacterial genome annotation. In particular, the genome annotation pipeline provides a comprehensive overview of the genome, including standard gene prediction and functional inference, as well as predictions relevant to clinical applications such as virulence and resistance gene annotation, secondary metabolite detection, prophage and plasmid prediction, and more.
-            
+
               Results:
               The annotation results are presented in reports, genome browsers, and a web-based application that enables users to explore and interact with the genome annotation results.
-            
-            
+
+
               Conclusions:
               Overall, our user-friendly pipelines offer a seamless integration of computational tools to facilitate routine bacterial genomics research. The effectiveness of these is illustrated by examining the sequencing data of a clinical sample of Klebsiella pneumoniae.},
 	pages = {1205},
@@ -211,17 +211,17 @@
 	doi = {10.1186/s40168-020-00993-9},
 	shorttitle = {{PathoFact}},
 	abstract = {Abstract
-            
+
               Background
               Pathogenic microorganisms cause disease by invading, colonizing, and damaging their host. Virulence factors including bacterial toxins contribute to pathogenicity. Additionally, antimicrobial resistance genes allow pathogens to evade otherwise curative treatments. To understand causal relationships between microbiome compositions, functioning, and disease, it is essential to identify virulence factors and antimicrobial resistance genes in situ. At present, there is a clear lack of computational approaches to simultaneously identify these factors in metagenomic datasets.
-            
-            
+
+
               Results
               Here, we present {PathoFact}, a tool for the contextualized prediction of virulence factors, bacterial toxins, and antimicrobial resistance genes with high accuracy (0.921, 0.832 and 0.979, respectively) and specificity (0.957, 0.989 and 0.994). We evaluate the performance of {PathoFact} on simulated metagenomic datasets and perform a comparison to two other general workflows for the analysis of metagenomic data. {PathoFact} outperforms all existing workflows in predicting virulence factors and toxin genes. It performs comparably to one pipeline regarding the prediction of antimicrobial resistance while outperforming the others. We further demonstrate the performance of {PathoFact} on three publicly available case-control metagenomic datasets representing an actual infection as well as chronic diseases in which either pathogenic potential or bacterial toxins are hypothesized to play a role. In each case, we identify virulence factors and {AMR} genes which differentiated between the case and control groups, thereby revealing novel gene associations with the studied diseases.
-            
-            
+
+
               Conclusion
-              
+
                 {PathoFact} is an easy-to-use, modular, and reproducible pipeline for the identification of virulence factors, bacterial toxins, and antimicrobial resistance genes in metagenomic data. Additionally, our tool combines the prediction of these pathogenicity factors with the identification of mobile genetic elements. This provides further depth to the analysis by considering the genomic context of the pertinent genes. Furthermore, {PathoFact}’s modules for virulence factors, toxins, and antimicrobial resistance genes can be applied independently, thereby making it a flexible and versatile tool. {PathoFact}, its models, and databases are freely available at
                 https://pathofact.lcsb.uni.lu
                 .},
@@ -243,13 +243,13 @@
 	url = {https://academic.oup.com/bioinformatics/article/doi/10.1093/bioinformatics/btaf037/7978911},
 	doi = {10.1093/bioinformatics/btaf037},
 	shorttitle = {mettannotator},
-	abstract = {Abstract 
-             
-              Summary 
-              In recent years, there has been a surge in prokaryotic genome assemblies, coming from both isolated organisms and environmental samples. These assemblies often include novel species that are poorly represented in reference databases creating a need for a tool that can annotate both well-described and novel taxa, and can run at scale. Here, we present mettannotator—a comprehensive, scalable Nextflow pipeline for prokaryotic genome annotation that identifies coding and noncoding regions, predicts protein functions, including antimicrobial resistance, and delineates gene clusters. The pipeline summarizes these results in a {GFF} (General Feature Format) file that can be easily utilized in downstream analysis or visualized using common genome browsers. Here, we show how it works on 200 genomes from 29 prokaryotic phyla, including isolate genomes and known and novel metagenome-assembled genomes, and present metrics on its performance in comparison to other tools. 
-             
-             
-              Availability and implementation 
+	abstract = {Abstract
+
+              Summary
+              In recent years, there has been a surge in prokaryotic genome assemblies, coming from both isolated organisms and environmental samples. These assemblies often include novel species that are poorly represented in reference databases creating a need for a tool that can annotate both well-described and novel taxa, and can run at scale. Here, we present mettannotator—a comprehensive, scalable Nextflow pipeline for prokaryotic genome annotation that identifies coding and noncoding regions, predicts protein functions, including antimicrobial resistance, and delineates gene clusters. The pipeline summarizes these results in a {GFF} (General Feature Format) file that can be easily utilized in downstream analysis or visualized using common genome browsers. Here, we show how it works on 200 genomes from 29 prokaryotic phyla, including isolate genomes and known and novel metagenome-assembled genomes, and present metrics on its performance in comparison to other tools.
+
+
+              Availability and implementation
               The pipeline is written in Nextflow and Python and published under an open source Apache 2.0 licence. Instructions and source code can be accessed at https://github.com/{EBI}-Metagenomics/mettannotator. The pipeline is also available on {WorkflowHub}: https://workflowhub.eu/workflows/1069.},
 	pages = {btaf037},
 	number = {2},
@@ -355,9 +355,9 @@
 	url = {https://journals.asm.org/doi/10.1128/AAC.00483-19},
 	doi = {10.1128/AAC.00483-19},
 	abstract = {Antimicrobial resistance ({AMR}) is a major public health problem that requires publicly available tools for rapid analysis. To identify {AMR} genes in whole-genome sequences, the National Center for Biotechnology Information ({NCBI}) has produced {AMRFinder}, a tool that identifies {AMR} genes using a high-quality curated {AMR} gene reference database.
-          , 
+          ,
             {ABSTRACT}
-            
+
               Antimicrobial resistance ({AMR}) is a major public health problem that requires publicly available tools for rapid analysis. To identify {AMR} genes in whole-genome sequences, the National Center for Biotechnology Information ({NCBI}) has produced {AMRFinder}, a tool that identifies {AMR} genes using a high-quality curated {AMR} gene reference database. The Bacterial Antimicrobial Resistance Reference Gene Database consists of up-to-date gene nomenclature, a set of hidden Markov models ({HMMs}), and a curated protein family hierarchy. Currently, it contains 4,579 antimicrobial resistance proteins and more than 560 {HMMs}. Here, we describe {AMRFinder} and its associated database. To assess the predictive ability of {AMRFinder}, we measured the consistency between predicted {AMR} genotypes from {AMRFinder} and resistance phenotypes of 6,242 isolates from the National Antimicrobial Resistance Monitoring System ({NARMS}). This included 5,425
               Salmonella enterica
               , 770
@@ -417,10 +417,10 @@
 	url = {https://www.microbiologyresearch.org/content/journal/mgen/10.1099/mgen.0.000685},
 	doi = {10.1099/mgen.0.000685},
 	shorttitle = {Bakta},
-	abstract = {Command-line annotation software tools have continuously gained popularity compared to centralized online services due to the worldwide increase of sequenced bacterial genomes. However, results of existing command-line software pipelines heavily depend on taxon-specific databases or sufficiently well annotated reference genomes. Here, we introduce Bakta, a new command-line software tool for the robust, taxon-independent, thorough and, nonetheless, fast annotation of bacterial genomes. Bakta conducts a comprehensive annotation workflow including the detection of small proteins taking into account replicon metadata. The annotation of coding sequences is accelerated via an alignment-free sequence identification approach that in addition facilitates the precise assignment of public database cross-references. Annotation results are exported in {GFF}3 and International Nucleotide Sequence Database Collaboration ({INSDC})-compliant flat files, as well as comprehensive {JSON} files, facilitating automated downstream analysis. We compared Bakta to other rapid contemporary command-line annotation software tools in both targeted and taxonomically broad benchmarks including isolates and metagenomic-assembled genomes. We demonstrated that Bakta outperforms other tools in terms of functional annotations, the assignment of functional categories and database cross-references, whilst providing comparable wall-clock runtimes. Bakta is implemented in Python 3 and runs on {MacOS} and Linux systems. It is freely available under a {GPLv}3 license at 
-              https://github.com/oschwengers/bakta 
-              . An accompanying web version is available at 
-              https://bakta.computational.bio 
+	abstract = {Command-line annotation software tools have continuously gained popularity compared to centralized online services due to the worldwide increase of sequenced bacterial genomes. However, results of existing command-line software pipelines heavily depend on taxon-specific databases or sufficiently well annotated reference genomes. Here, we introduce Bakta, a new command-line software tool for the robust, taxon-independent, thorough and, nonetheless, fast annotation of bacterial genomes. Bakta conducts a comprehensive annotation workflow including the detection of small proteins taking into account replicon metadata. The annotation of coding sequences is accelerated via an alignment-free sequence identification approach that in addition facilitates the precise assignment of public database cross-references. Annotation results are exported in {GFF}3 and International Nucleotide Sequence Database Collaboration ({INSDC})-compliant flat files, as well as comprehensive {JSON} files, facilitating automated downstream analysis. We compared Bakta to other rapid contemporary command-line annotation software tools in both targeted and taxonomically broad benchmarks including isolates and metagenomic-assembled genomes. We demonstrated that Bakta outperforms other tools in terms of functional annotations, the assignment of functional categories and database cross-references, whilst providing comparable wall-clock runtimes. Bakta is implemented in Python 3 and runs on {MacOS} and Linux systems. It is freely available under a {GPLv}3 license at
+              https://github.com/oschwengers/bakta
+              . An accompanying web version is available at
+              https://bakta.computational.bio
               .},
 	number = {11},
 	journaltitle = {Microbial Genomics},
@@ -438,17 +438,17 @@
 	url = {https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giaa154/6092777},
 	doi = {10.1093/gigascience/giaa154},
 	shorttitle = {{BiG}-{SLiCE}},
-	abstract = {Abstract 
-             
-              Background 
-              Genome mining for biosynthetic gene clusters ({BGCs}) has become an integral part of natural product discovery. The \&gt;200,000 microbial genomes now publicly available hold information on abundant novel chemistry. One way to navigate this vast genomic diversity is through comparative analysis of homologous {BGCs}, which allows identification of cross-species patterns that can be matched to the presence of metabolites or biological activities. However, current tools are hindered by a bottleneck caused by the expensive network-based approach used to group these {BGCs} into gene cluster families ({GCFs}). 
-             
-             
-              Results 
-              Here, we introduce {BiG}-{SLiCE}, a tool designed to cluster massive numbers of {BGCs}. By representing them in Euclidean space, {BiG}-{SLiCE} can group {BGCs} into {GCFs} in a non-pairwise, near-linear fashion. We used {BiG}-{SLiCE} to analyze 1,225,071 {BGCs} collected from 209,206 publicly available microbial genomes and metagenome-assembled genomes within 10 days on a typical 36-core {CPU} server. We demonstrate the utility of such analyses by reconstructing a global map of secondary metabolic diversity across taxonomy to identify uncharted biosynthetic potential. {BiG}-{SLiCE} also provides a “query mode” that can efficiently place newly sequenced {BGCs} into previously computed {GCFs}, plus a powerful output visualization engine that facilitates user-friendly data exploration. 
-             
-             
-              Conclusions 
+	abstract = {Abstract
+
+              Background
+              Genome mining for biosynthetic gene clusters ({BGCs}) has become an integral part of natural product discovery. The \&gt;200,000 microbial genomes now publicly available hold information on abundant novel chemistry. One way to navigate this vast genomic diversity is through comparative analysis of homologous {BGCs}, which allows identification of cross-species patterns that can be matched to the presence of metabolites or biological activities. However, current tools are hindered by a bottleneck caused by the expensive network-based approach used to group these {BGCs} into gene cluster families ({GCFs}).
+
+
+              Results
+              Here, we introduce {BiG}-{SLiCE}, a tool designed to cluster massive numbers of {BGCs}. By representing them in Euclidean space, {BiG}-{SLiCE} can group {BGCs} into {GCFs} in a non-pairwise, near-linear fashion. We used {BiG}-{SLiCE} to analyze 1,225,071 {BGCs} collected from 209,206 publicly available microbial genomes and metagenome-assembled genomes within 10 days on a typical 36-core {CPU} server. We demonstrate the utility of such analyses by reconstructing a global map of secondary metabolic diversity across taxonomy to identify uncharted biosynthetic potential. {BiG}-{SLiCE} also provides a “query mode” that can efficiently place newly sequenced {BGCs} into previously computed {GCFs}, plus a powerful output visualization engine that facilitates user-friendly data exploration.
+
+
+              Conclusions
               {BiG}-{SLiCE} opens up new possibilities to accelerate natural product discovery and offers a first step towards constructing a global and searchable interconnected network of {BGCs}. As more genomes are sequenced from understudied taxa, more information can be mined to highlight their potentially novel chemistry. {BiG}-{SLiCE} is available via https://github.com/medema-group/bigslice.},
 	pages = {giaa154},
 	number = {1},
@@ -488,15 +488,15 @@
 	url = {https://academic.oup.com/bioinformatics/article/37/18/3029/6178277},
 	doi = {10.1093/bioinformatics/btab184},
 	abstract = {Abstract
-            
+
               Summary
               {MMseqs}2 taxonomy is a new tool to assign taxonomic labels to metagenomic contigs. It extracts all possible protein fragments from each contig, quickly retains those that can contribute to taxonomic annotation, assigns them with robust labels and determines the contig’s taxonomic identity by weighted voting. Its fragment extraction step is suitable for the analysis of all domains of life. {MMseqs}2 taxonomy is 2–18× faster than state-of-the-art tools and also contains new modules for creating and manipulating taxonomic reference databases as well as reporting and visualizing taxonomic assignments.
-            
-            
+
+
               Availability and implementation
               {MMseqs}2 taxonomy is part of the {MMseqs}2 free open-source software package available for Linux, {macOS} and Windows at https://mmseqs.com.
-            
-            
+
+
               Supplementary information
               Supplementary data are available at Bioinformatics online.},
 	pages = {3029--3031},
@@ -589,15 +589,15 @@
 	doi = {10.1093/bioinformatics/btaa653},
 	shorttitle = {ampir},
 	abstract = {Abstract
-            
+
               Summary
               Antimicrobial peptides ({AMPs}) are the key components of the innate immune system that protect against pathogens, regulate the microbiome and are promising targets for pharmaceutical research. Computational tools based on machine learning have the potential to aid discovery of genes encoding novel {AMPs} but existing approaches are not designed for genome-wide scans. To facilitate such genome-wide discovery of {AMPs} we developed a fast and accurate {AMP} classification framework, ampir. ampir is designed for high throughput, integrates well with existing bioinformatics pipelines, and has much higher classification accuracy than existing methods when applied to whole genome data.
-            
-            
+
+
               Availability and implementation
               ampir is implemented primarily in R with core feature calculation methods written in C++. Release versions are available via {CRAN} and work on all major operating systems. The development version is maintained at https://github.com/legana/ampir.
-            
-            
+
+
               Supplementary information
               Supplementary data are available at Bioinformatics online.},
 	pages = {5262--5263},
@@ -618,15 +618,15 @@
 	doi = {10.1186/s13104-023-06279-1},
 	shorttitle = {Models and data of {AMPlify}},
 	abstract = {Abstract
-            
+
               Objectives
-              
+
                 Antibiotic resistance is a rising global threat to human health and is prompting researchers to seek effective alternatives to conventional antibiotics, which include antimicrobial peptides ({AMPs}). Recently, we have reported {AMPlify}, an attentive deep learning model for predicting {AMPs} in databases of peptide sequences. In our tests, {AMPlify} outperformed the state-of-the-art. We have illustrated its use on data describing the American bullfrog (
                 Rana [Lithobates] catesbeiana
                 ) genome. Here we present the model files and training/test data sets we used in that study. The original model (the balanced model) was trained on a balanced set of {AMP} and non-{AMP} sequences curated from public databases. In this data note, we additionally provide a model trained on an imbalanced set, in which non-{AMP} sequences far outnumber {AMP} sequences. We note that the balanced and imbalanced models would serve different use cases, and both would serve the research community, facilitating the discovery and development of novel {AMPs}.
-              
-            
-            
+
+
+
               Data description
               This data note provides two sets of models, as well as two {AMP} and four non-{AMP} sequence sets for training and testing the balanced and imbalanced models. Each model set includes five single sub-models that form an ensemble model. The first model set corresponds to the original model trained on a balanced training set that has been described in the original {AMPlify} manuscript, while the second model set was trained on an imbalanced training set.},
 	pages = {11},
@@ -647,21 +647,21 @@
 	doi = {10.1186/s12864-022-08310-4},
 	shorttitle = {{AMPlify}},
 	abstract = {Abstract
-            
+
               Background
               Antibiotic resistance is a growing global health concern prompting researchers to seek alternatives to conventional antibiotics. Antimicrobial peptides ({AMPs}) are attracting attention again as therapeutic agents with promising utility in this domain, and using in silico methods to discover novel {AMPs} is a strategy that is gaining interest. Such methods can sift through large volumes of candidate sequences and reduce lab screening costs.
-            
-            
+
+
               Results
-              
+
                 Here we introduce {AMPlify}, an attentive deep learning model for {AMP} prediction, and demonstrate its utility in prioritizing peptide sequences derived from the
                 Rana [Lithobates] catesbeiana
                 (bullfrog) genome. We tested the bioactivity of our predicted peptides against a panel of bacterial species, including representatives from the World Health Organization’s priority pathogens list. Four of our novel {AMPs} were active against multiple species of bacteria, including a multi-drug resistant isolate of carbapenemase-producing
                 Escherichia coli
                 .
-              
-            
-            
+
+
+
               Conclusions
               We demonstrate the utility of deep learning based tools like {AMPlify} in our fight against antibiotic resistance. We expect such tools to play a significant role in discovering novel candidates of peptide-based alternatives to classical antibiotics.},
 	pages = {77},
@@ -683,14 +683,14 @@
 	shorttitle = {Macrel},
 	abstract = {Motivation
               Antimicrobial peptides ({AMPs}) have the potential to tackle multidrug-resistant pathogens in both clinical and non-clinical contexts. The recent growth in the availability of genomes and metagenomes provides an opportunity for in silico prediction of novel {AMP} molecules. However, due to the small size of these peptides, standard gene prospection methods cannot be applied in this domain and alternative approaches are necessary. In particular, standard gene prediction methods have low precision for short peptides, and functional classification by homology results in low recall.
-            
-            
+
+
               Results
               Here, we present Macrel (for metagenomic {AMP} classification and retrieval), which is an end-to-end pipeline for the prospection of high-quality {AMP} candidates from (meta)genomes. For this, we introduce a novel set of 22 peptide features. These were used to build classifiers which perform similarly to the state-of-the-art in the prediction of both antimicrobial and hemolytic activity of peptides, but with enhanced precision (using standard benchmarks as well as a stricter testing regime). We demonstrate that Macrel recovers high-quality {AMP} candidates using realistic simulations and real data.
-            
-            
+
+
               Availability
-              
+
                 Macrel is implemented in Python 3. It is available as open source at
                 https://github.com/{BigDataBiology}/macrel
                 and through bioconda. Classification of peptides or prediction of {AMPs} in contigs can also be performed on the webserver:
@@ -712,7 +712,7 @@
 	url = {https://academic.oup.com/nar/article/51/W1/W115/7147496},
 	doi = {10.1093/nar/gkad328},
 	shorttitle = {{dbCAN}3},
-	abstract = {Abstract 
+	abstract = {Abstract
             Carbohydrate active enzymes ({CAZymes}) are made by various organisms for complex carbohydrate metabolism. Genome mining of {CAZymes} has become a routine data analysis in (meta-)genome projects, owing to the importance of {CAZymes} in bioenergy, microbiome, nutrition, agriculture, and global carbon recycling. In 2012, {dbCAN} was provided as an online web server for automated {CAZyme} annotation. {dbCAN}2 (https://bcb.unl.edu/{dbCAN}2) was further developed in 2018 as a meta server to combine multiple tools for improved {CAZyme} annotation. {dbCAN}2 also included {CGC}-Finder, a tool for identifying {CAZyme} gene clusters ({CGCs}) in (meta-)genomes. We have updated the meta server to {dbCAN}3 with the following new functions and components: (i) {dbCAN}-sub as a profile Hidden Markov Model database ({HMMdb}) for substrate prediction at the {CAZyme} subfamily level; (ii) searching against experimentally characterized polysaccharide utilization loci ({PULs}) with known glycan substates of the {dbCAN}-{PUL} database for substrate prediction at the {CGC} level; (iii) a majority voting method to consider all {CAZymes} with substrate predicted from {dbCAN}-sub for substrate prediction at the {CGC} level; (iv) improved data browsing and visualization of substrate prediction results on the website. In summary, {dbCAN}3 not only inherits all the functions of {dbCAN}2, but also integrates three new methods for glycan substrate prediction.},
 	pages = {W115--W121},
 	issue = {W1},
@@ -730,7 +730,7 @@
 	shorttitle = {{hAMRonization}},
 	abstract = {Abstract
           The detection of antimicrobial resistance ({AMR}) markers directly from genomic or metagenomic data is becoming a standard clinical and public health procedure. This has resulted in the development of a number of different bioinformatic {AMR} prediction tools. Although many may implement similar principles, these tools differ significantly in their supported inputs, search algorithms, parameterisation, and underlying reference databases. Each of these tools generates a report of detected {AMR} genes or variants in a distinct, non-standard, format. This presents a huge barrier to the comparison of results and to the modularity of tools for {AMR} gene prediction within bioinformatic workflows.
-          
+
             In collaboration with 17 public health laboratories across 10 countries, the Public Health Alliance for Genomic Epidemiology ({PHA}4GE) (
             https://pha4ge.org
             ) data structures working group has developed and piloted a standardized output specification for the bioinformatic detection of {AMR} from microbial genomes. In this report, we discuss {hAMRonization}, a python package and command-line utility, which implements {PHA}4GE’s {AMR} specification to combine the outputs of disparate antimicrobial resistance gene detection tools into a single unified format. {hAMRonization} can be easily extended and currently supports 18 different tools (both species-agnostic and species-specific) for the detection of genes and/or variants conferring {AMR}. The harmonized reports are available in tabular form, {JSON} format or through an interactive {HTML} file (e.g.,
@@ -1174,11 +1174,11 @@
 	doi = {10.1093/bioinformatics/btaf173},
 	shorttitle = {{argNorm}},
 	abstract = {Abstract
-            
+
               Summary
               Currently available and frequently used tools for annotating antibiotic resistance genes ({ARGs}) in genomes and metagenomes provide results using inconsistent nomenclature. This makes the comparison of different {ARG} annotation outputs challenging. The comparability of {ARG} annotation outputs can be improved by mapping gene names and their categories to a common controlled vocabulary such as the Antibiotic Resistance Ontology ({ARO}). We developed {argNorm}, a command line tool and Python library, to normalize all detected genes across six {ARG} annotation tools (eight databases) to the {ARO}. {argNorm} also adds information to the outputs using the same {ARG} categorization so that they are comparable across tools.
-            
-            
+
+
               Availability and implementation
               {argNorm} is available as an open-source tool at: https://github.com/{BigDataBiology}/{argNorm}. It can also be downloaded as a {PyPI} package and is available on Bioconda and as an nf-core module.},
 	pages = {btaf173},
