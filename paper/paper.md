@@ -123,7 +123,7 @@ header-includes:
 # Summary
 
 Genome-mining of bacterial DNA enables the discovery of antimicrobial resistance-related genes, genes required for the biosynthesis of low molecular weight natural products, and other specialised metabolites.
-However, execution of the multiple bioinformatic tools used in screening analyses remains inefficient due to heterogenous software interfaces, reporting, and formatting of the output files of similar tools, which limits scalability of such analyses.
+However, execution of the multiple bioinformatic tools used in screening analyses remains inefficient due to heterogeneous software interfaces, reporting, and formatting of the output files of similar tools, which limits scalability of such analyses.
 
 nf-core/funcscan is a portable and reproducible open source Nextflow bioinformatics pipeline for the screening of microbial functional features from assembled contigs or genomes.
 The pipeline executes up to 13 tools to simultaneously identify antimicrobial peptides, antibiotic resistance genes, biosynthetic gene clusters, carbohydrate-activate enzymes, and performs taxonomic classification of partial or full genomes.
@@ -164,9 +164,8 @@ AMP screening & + & − & − & − & (+) & (+) & − \\
 BGC screening & + & + & − & − & (−) & (−) & − \\
 CAZyme screening & + & + & − & − & − & − & − \\
 Taxonomic assignment of contigs & + & − & − & (−) & + & + & − \\
-Results summary & + & + & + & (+) & + & + & − \\
+Output format standardisation & + & + & (+) & + & + & + & − \\
 Container support (Docker, Singularity) & + & + & + & − & − & + & (−) \\
-Modularity & + & + & + & + & (+) & − & − \\
 One-click installation & + & + & + & − & (−) & − & − \\
 Local installation possible & + & + & + & + & + & + & − \\
 Web-based execution possible & (+) & (+) & (+) & − & − & − & − \\
@@ -219,7 +218,7 @@ Pipeline parameters can be adjusted by user-written or nf-core GUI-generated ([h
 
 ## Aggregation of screening results
 
-nf-core/funcscan integrates dedicated tools to aggregate and standardise heterogenous output formats of multiple screening tools into a single human- and machine-readable table in CSV format per gene type.
+nf-core/funcscan integrates dedicated tools to aggregate and standardise heterogeneous output formats of multiple screening tools into a single human- and machine-readable table in CSV format per gene type.
 nf-core/funcscan uses hAMRonization [@mendes_hamronization_2024] for ARG, AMPcombi [@herbst_actifensin_2025] for AMP, and a custom script 'comBGC' for BGC tool output aggregation.
 These summaries are finally optionally complemented with results from the taxonomic classification workflow.
 
