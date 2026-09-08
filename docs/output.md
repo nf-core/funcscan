@@ -134,6 +134,7 @@ Output Summaries:
   - `<samplename>/`:
     - `*.tsv`: tab-separated table containing the taxonomic lineage of every contig. When a contig cannot be classified according to the database, it is assigned in the 'lineage' column as 'no rank | unclassified'.
 - `reports/<workflow>/<workflow>_complete_summary_taxonomy.tsv.gz`: tab-separated table containing the concatenated results from the <workflow> summary tables along with the taxonomic classification if the parameter `--run_taxa_classification` is called.
+
 </details>
 
 [MMseqs2](https://github.com/soedinglab/MMseqs2) classifies the taxonomic lineage of contigs based on the last common ancestor. The inferred taxonomic lineages are included in the final workflow summaries to annotate the potential source bacteria of the identified AMPs, ARGs, and/or BGCs.
