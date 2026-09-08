@@ -1,0 +1,155 @@
+{
+    "abricate": {
+        "content": [
+            "sample_1.txt:md5,a2fe953c04f18d4540f4ae93e3c34e86",
+            "sample_2.txt:md5,2bacf8d70b972bdd9a067b44511282d2",
+            "sample_3.txt:md5,6e9e9d2ef1df3e3febfd0840c815ec43"
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.4"
+        },
+        "timestamp": "2025-05-27T16:02:50.624388809"
+    },
+    "rgi": {
+        "content": [
+            "sample_1.txt:md5,81ec2a38460c0f819bdf292b2b1578d3",
+            "sample_2.txt:md5,e6d448a8a75f4e86efa6eaabebeb16a8",
+            "sample_3.txt:md5,81ec2a38460c0f819bdf292b2b1578d3"
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-09-03T11:52:36.96182499"
+    },
+    "deeparg": {
+        "content": [
+            "sample_1.align.daa.tsv:md5,0e71c37318bdc6cba792196d0455293d",
+            "sample_2.align.daa.tsv:md5,1092ecd3cd6931653168b46c7afeb9e3",
+            "sample_3.align.daa.tsv:md5,a9ed2f0651d75b318fde07a76b06d7b8",
+            true,
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-27T08:11:24.751995878"
+    },
+    "ampir": {
+        "content": [
+            true,
+            "sample_1.ampir.faa:md5,ab02c6e9c5f36ba9c31af97f95f9c317",
+            true,
+            "sample_2.ampir.faa:md5,12826875bd18623da78770187a7bbd2c",
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.3"
+        },
+        "timestamp": "2024-12-20T11:01:38.808336691"
+    },
+    "argnorm_amrfinderplus": {
+        "content": [
+            "sample_1.normalized.tsv:md5,60a9221fa3cf542c0e9c096e2bbeae89",
+            "sample_2.normalized.tsv:md5,65fbed197c2d4bb9fb7f1488636a086b",
+            "sample_3.normalized.tsv:md5,98b2fe3ac1e84223f01adc3c807a31b3"
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.7"
+        },
+        "timestamp": "2025-10-04T12:56:24.732353072"
+    },
+    "argnorm_abricate": {
+        "content": [
+            "sample_1.normalized.tsv:md5,3efd24328307b27f3848a542a6132848",
+            "sample_2.normalized.tsv:md5,418632e990e13cfb6348e714528e1c39",
+            "sample_3.normalized.tsv:md5,6e8b9ced29be5bd8f0d4b346ba57815f"
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.4"
+        },
+        "timestamp": "2025-05-27T16:02:50.658785482"
+    },
+    "ampcombi": {
+        "content": [
+            "Ampcombi_cluster.log:md5,4c78f5f134edf566f39e04e3ab7d8558",
+            "Ampcombi_complete.log:md5,3dabfea4303bf94bd4f5d78c5b8c83c1",
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.4"
+        },
+        "timestamp": "2025-03-04T13:44:42.24263737"
+    },
+    "amplify": {
+        "content": [
+            true,
+            true,
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-27T08:11:24.483855968"
+    },
+    "argnorm_deeparg": {
+        "content": [
+            "sample_1.ARG.normalized.tsv:md5,26aa409bfd0fc9096f2ac404760cc492",
+            "sample_1.potential.ARG.normalized.tsv:md5,d6732b4b9765bfa47e27ba673e24b6a4",
+            "sample_2.ARG.normalized.tsv:md5,1a19b894a7315aaae5f799e4539e6619",
+            "sample_2.potential.ARG.normalized.tsv:md5,b241e22f9116d8f518ba8526d52ac4dc",
+            "sample_3.ARG.normalized.tsv:md5,d7577c0066a31e173f9cb545820650bf",
+            "sample_3.potential.ARG.normalized.tsv:md5,6d0889215f0ad7f601502ca67c0ca89e"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.3"
+        },
+        "timestamp": "2024-07-27T08:23:32.446555281"
+    },
+    "macrel": {
+        "content": [
+            "sample_1.macrel.smorfs.faa.gz:md5,a4f853b560c6a8c215e0d243c24ec056",
+            "sample_2.macrel.smorfs.faa.gz:md5,83ae7b9808d7183d87b41c10253c9c9e",
+            "sample_3.macrel.smorfs.faa.gz:md5,a4f853b560c6a8c215e0d243c24ec056",
+            "sample_1.macrel.all_orfs.faa.gz:md5,d1ae1cadc3770994b2ed4982aadd5406",
+            "sample_3.macrel.all_orfs.faa.gz:md5,d1ae1cadc3770994b2ed4982aadd5406",
+            "sample_1.macrel.prediction.gz:md5,62146cf9f759c9c6c2c2f9e5ba816119",
+            "sample_2.macrel.prediction.gz:md5,1b479d31bb7dbf636a2028ddef72f5cc",
+            "sample_3.macrel.prediction.gz:md5,62146cf9f759c9c6c2c2f9e5ba816119",
+            "README.md:md5,cf088d9256ff7b7730699f17b64b4028",
+            "README.md:md5,cf088d9256ff7b7730699f17b64b4028",
+            "README.md:md5,cf088d9256ff7b7730699f17b64b4028",
+            "sample_1.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "sample_2.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "sample_3.macrel_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.4"
+        },
+        "timestamp": "2025-03-04T13:44:42.200904946"
+    },
+    "amrfinderplus": {
+        "content": [
+            "sample_1.tsv:md5,eb4750e0e1af93600e0b638baab1346b",
+            "sample_2.tsv:md5,4b128a34049d077025d9a450751470d7",
+            "sample_3.tsv:md5,eb4750e0e1af93600e0b638baab1346b"
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.7"
+        },
+        "timestamp": "2025-10-04T06:29:57.229328422"
+    }
+}
