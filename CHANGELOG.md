@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#539](https://github.com/nf-core/funcscan/pull/539), [#546](https://github.com/nf-core/funcscan/pull/546) Updated pipeline template to nf-core tools version 4.0.3 and 4.1.0. (by @jfy133 and @jasmezz)
 - [#543](https://github.com/nf-core/funcscan/pull/543) Added Bakta output support to MultiQC report by adding `bakta` to `run_modules` in `assets/multiqc_config.yml`. (by @jvfe)
 
 ### `Fixed`
@@ -17,9 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool | Previous Version | New Version |
-| ---- | ---------------- | ----------- |
-|      |                  |
+| Tool    | Previous Version | New Version |
+| ------- | ---------------- | ----------- |
+| MultiQC | 1.34             | 1.35        |
 
 ### `Deprecated`
 
