@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#539](https://github.com/nf-core/funcscan/pull/539) Updated pipeline template to nf-core tools version 4.0.3. (by @jfy133)
 - [#546](https://github.com/nf-core/funcscan/pull/546) Updated pipeline template to nf-core tools version 4.1.0. The lint workflow pins Nextflow to 25.10.7 until [nextflow-io/nextflow#7474](https://github.com/nextflow-io/nextflow/issues/7474) ships in a 26.04.x release. (by @jasmezz)
 - [#543](https://github.com/nf-core/funcscan/pull/543) Added Bakta output support to MultiQC report by adding `bakta` to `run_modules` in `assets/multiqc_config.yml`. (by @jvfe)
+- [#548](https://github.com/nf-core/funcscan/pull/548) Added `manifest.diagram` config attribute. (by @ewels)
 
 ### `Fixed`
 
