@@ -126,11 +126,11 @@
                 },
                 "RGI_CARDANNOTATION": {
                     "rgi": "6.0.5",
-                    "rgi-database": "4.0.1"
+                    "rgi-database": "4.0.2"
                 },
                 "RGI_MAIN": {
                     "rgi": "6.0.5",
-                    "rgi-database": "4.0.1"
+                    "rgi-database": "4.0.2"
                 },
                 "RUNDBCAN_CAZYMEANNOTATION": {
                     "rundbcan": "5.2.9"
