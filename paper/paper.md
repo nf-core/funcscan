@@ -133,7 +133,7 @@ To facilitate efficient results comparison and evaluation, it supports cross-too
 
 Researchers often use multiple tools to maximize detection sensitivity during genomic screening for potential gene candidates, as each tool uses different search algorithms and microbial metabolite databases.
 However, heterogeneous installations, inputs, and execution interfaces of these standalone tools impede scalability, and decrease reproducibility due to user-error when executed manually.
-Additionally, output formats are not standardized, making cross-comparison of results between tools and databases difficult and requiring inefficient manual postprocessing and inspection.
+Additionally, output formats are not standardised, making cross-comparison of results between tools and databases difficult and requiring inefficient manual postprocessing and inspection.
 
 The current need for manual execution and postprocessing impacts the discovery of new drugs.
 The rise of multidrug resistant bacteria [@ventola_antibiotic_2015; @perry_prehistory_2016; @rascovan_exploring_2016] and reduction of global surveillance in healthcare and agriculture pose major threats to global health [@murray_global_2022; @world_health_organization_global_2022].
@@ -147,7 +147,8 @@ The pipeline currently supports detection of biosynthetic gene clusters (BGCs), 
 Previous efforts to scale up the predictive power of different tools for functional gene prediction include mettannotator [@gurbich_mettannotator_2025], bacannot [@almeida_scalable_2023], PathoFact [@de_nies_pathofact_2021] SqueezeMeta [@tamames_squeezemeta_2019], MetaErg [@dong_integrated_2019], and ARGs-OAP [@yin_args-oap_2022] (Table \ref{tab:pipelines}).
 However, these tools and pipelines serve different goals, such as focusing on individual gene categories or functions (e.g., antimicrobial resistance) or aiming to be 'end-to-end' pipelines including read preprocessing and assembly, and some do not provide sufficient contextual information (e.g., taxonomy) for key downstream analyses.
 
-In particular, the main factors that distinguish nf-core/funcscan from the most similar pipeline, mettannotator, are: support for metagenomic assembly input rather than just genomes; automated taxonomic classification of contigs; more tools for ARG screening; support for AMP screening; and confirmed execution on other infrastructure than HPCs. Genomic functions which nf-core/funcscan does not screen for due to its focus on BGCs, AMPs, ARGs, and CAZymes/CGCs but mettannotator does are CRISPR arrays, antiphage defence, non-coding RNA, and pseudogenes.
+In particular, the main factors that distinguish nf-core/funcscan from the most similar pipeline, mettannotator, are: support for metagenomic assembly input rather than just genomes; automated taxonomic classification of contigs; more tools for ARG screening; support for AMP screening; and confirmed execution on other infrastructure than HPCs.
+Genomic functions which nf-core/funcscan does not screen for due to its focus on BGCs, AMPs, ARGs, and CAZymes/CGCs but mettannotator does are CRISPR arrays, antiphage defence, non-coding RNA, and pseudogenes.
 
 \begin{sidewaystable}
 \centering
@@ -228,10 +229,10 @@ This enhances ARG annotation by categorising drugs that ARGs confer resistance t
 
 ## Reproducibility and scalability
 
-All nf-core pipelines utilise software environments [from the Bioconda project, @Gruning2018-vr] or containers [e.g. Docker, Singularity, primarily from the Biocontainers project, @Da_Veiga_Leprevost2017-gl] for each integrated tool.
+All nf-core pipelines utilise software environments [from the Bioconda project, @Gruning2018-vr] or containers [e.g., Docker, Singularity, primarily from the Biocontainers project, @Da_Veiga_Leprevost2017-gl] for each integrated tool.
 This provides the advantage of isolating the dependencies of all workflows from each other, thereby reducing installation problems.
 The pipeline is thus easy to install with minimal dependencies - Nextflow itself, and one of Nextflow-supported container/software environment management systems.
-For further portability, nf-core provides integrated configurations for more than 150 institutional computational infrastructures (e.g. HPCs) via nf-core/configs ([https://nf-co.re/configs](https://nf-co.re/configs)).
+For further portability, nf-core provides integrated configurations for more than 150 institutional computational infrastructures (e.g., HPCs) via nf-core/configs ([https://nf-co.re/configs](https://nf-co.re/configs)).
 Users on these infrastructures thus can run the pipelines with no further setup via a single parameter.
 
 # Research impact statement
