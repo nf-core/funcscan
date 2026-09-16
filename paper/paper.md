@@ -59,10 +59,10 @@ authors:
     affiliation: "5, 13, 14"
   - name: Pierre Stallforth
     orcid: 0000-0001-7260-9921
-    affiliation: "1, 15"
+    affiliation: "1, 15, 16"
   - name: Christina Warinner
     orcid: 0000-0002-4528-5877
-    affiliation: "3, 4, 16, 17"
+    affiliation: "3, 4, 16, 17, 18"
 affiliations:
   - name: Department of Paleobiotechnology, Leibniz Institute for Natural Product Research and Infection Biology Hans Knöll Institute, Germany
     index: 1
@@ -107,13 +107,16 @@ affiliations:
   - name: Institute of Organic and Macromolecular Chemistry, Friedrich Schiller University Jena, Germany
     index: 15
     ror: "05qpz1x62"
-  - name: Faculty of Biological Sciences, Friedrich-Schiller University Jena, Germany
+  - name: Cluster of Excellence Balance of the Microverse, Friedrich Schiller University Jena, Germany
     index: 16
     ror: "05qpz1x62"
-  - name: Department of Anthropology, Harvard University, USA
+  - name: Faculty of Biological Sciences, Friedrich Schiller University Jena, Germany
     index: 17
+    ror: "05qpz1x62"
+  - name: Department of Anthropology, Harvard University, USA
+    index: 18
     ror: "03vek6s52"
-date: 14 April 2026
+date: 16 September 2026
 bibliography: paper.bib
 header-includes:
   - \usepackage{rotating}
@@ -145,7 +148,7 @@ The pipeline currently supports detection of biosynthetic gene clusters (BGCs), 
 # State of the field
 
 Previous efforts to scale up the predictive power of different tools for functional gene prediction include mettannotator [@gurbich_mettannotator_2025], bacannot [@almeida_scalable_2023], PathoFact [@de_nies_pathofact_2021] SqueezeMeta [@tamames_squeezemeta_2019], MetaErg [@dong_integrated_2019], and ARGs-OAP [@yin_args-oap_2022] (Table \ref{tab:pipelines}).
-However, these tools and pipelines serve different goals, such as focusing on individual gene categories or functions (e.g., antimicrobial resistance) or aiming to be 'end-to-end' pipelines including read preprocessing and assembly, and some do not provide sufficient contextual information (e.g., taxonomy) for key downstream analyses.
+However, these tools and pipelines serve different goals, such as focusing on individual gene categories or functions (e.g., antimicrobial resistance) or aiming to be 'end-to-end' pipelines that do not efficiently fit into existing workflows, for example by applying preferred read preparation and assembly steps. Furthermore, some pipelines do not provide sufficient contextual information (e.g., taxonomy) for key downstream laboratory analyses.
 
 In particular, the main factors that distinguish nf-core/funcscan from the most similar pipeline, mettannotator, are: support for metagenomic assembly input rather than just genomes; automated taxonomic classification of contigs; more tools for ARG screening; support for AMP screening; and confirmed execution on other infrastructure than HPCs.
 Genomic functions which nf-core/funcscan does not screen for due to its focus on BGCs, AMPs, ARGs, and CAZymes/CGCs but mettannotator does are CRISPR arrays, antiphage defence, non-coding RNA, and pseudogenes.
@@ -177,7 +180,7 @@ License & MIT & Apache-2.0 & GPL-3.0 & GPL-3.0 & GPL-3.0 & AFL & AFL \\
 
 Extensive command-line knowledge and manual installation of software dependencies are typically required to run many of the existing pipelines.
 This can make use of these tools difficult for biochemists and biologists who may have limited computational training.
-nf-core/funcscan aims to streamline this process by providing a single environment in which to run all tools, perform screening from already assembled sequences, and provide aggregation of the screening results, with customizable options for execution (Table \ref{tab:pipelines}).
+nf-core/funcscan aims to streamline this process by providing a single software in which to run all tools, perform screening from already assembled sequences, and provide aggregation of the screening results, with customizable options for execution (Table \ref{tab:pipelines}).
 
 # Workflow overview
 
