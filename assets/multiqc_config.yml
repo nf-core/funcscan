@@ -28,5 +28,6 @@ custom_logo_url: https://nf-co.re/funcscan
 custom_logo_title: "nf-core/funcscan"
 
 ## Tool specific configuration
-prokka_fn_snames: true
-bakta_fn_snames: true
+use_filename_as_sample_name:
+  - bakta
+  - prokka

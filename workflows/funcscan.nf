@@ -94,7 +94,7 @@ workflow FUNCSCAN {
 
             [meta, fasta, faa, gff, gbk]
         }
-        .branch { meta, fasta, faa, gff, gbk ->
+        .branch { _meta, _fasta, _faa, gff, gbk ->
             preannotated: gff != [] || gbk != []
             fastas: true
         }
@@ -102,9 +102,9 @@ workflow FUNCSCAN {
     // Duplicate and filter the duplicated file for long contigs only for BGC
     // This is to speed up BGC run and prevent 'no hits found'  fails
     if (params.run_bgc_screening) {
-        SEQKIT_SEQ_LENGTH(ch_intermediate_input.fastas.map { meta, fasta, faa, gff, gbk -> [meta, fasta] })
+        SEQKIT_SEQ_LENGTH(ch_intermediate_input.fastas.map { meta, fasta, _faa, _gff, _gbk -> [meta, fasta] })
         ch_input_for_annotation = ch_intermediate_input.fastas
-            .map { meta, fasta, protein, gff, gbk -> [meta, fasta] }
+            .map { meta, fasta, _protein, _gff, _gbk -> [meta, fasta] }
             .mix(SEQKIT_SEQ_LENGTH.out.fastx.map { meta, fasta -> [meta + [category: 'long'], fasta] })
             .filter { meta, fasta ->
                 if (fasta != [] && fasta.isEmpty()) {
@@ -115,7 +115,7 @@ workflow FUNCSCAN {
         ch_versions = ch_versions.mix(SEQKIT_SEQ_LENGTH.out.versions)
     }
     else {
-        ch_input_for_annotation = ch_intermediate_input.fastas.map { meta, fasta, protein, gff, gbk -> [meta, fasta] }
+        ch_input_for_annotation = ch_intermediate_input.fastas.map { meta, fasta, _protein, _gff, _gbk -> [meta, fasta] }
     }
 
     /*
@@ -137,7 +137,7 @@ workflow FUNCSCAN {
     }
 
     // Mix back the preannotated samples with the newly annotated ones
-    ch_new_annotation_short = ch_new_annotation.filter { meta, fasta, faa, gff, gbk -> meta.category != 'long' }
+    ch_new_annotation_short = ch_new_annotation.filter { meta, _fasta, _faa, _gff, _gbk -> meta.category != 'long' }
 
     // Add gff_type to meta for cazyme screening
     if ((params.run_cazyme_screening && !params.cazyme_skip_dbcan && (!params.dbcan_skip_cgc || !params.dbcan_skip_substrate)) && params.annotation_tool in ['pyrodigal', 'prodigal', 'prokka', 'bakta']) {
@@ -163,7 +163,7 @@ workflow FUNCSCAN {
     if (params.run_bgc_screening) {
 
         ch_prepped_input_long = ch_new_annotation
-            .filter { meta, fasta, faa, gff, gbk -> meta.category == 'long' }
+            .filter { meta, _fasta, _faa, _gff, _gbk -> meta.category == 'long' }
             .mix(ch_intermediate_input.preannotated)
             .multiMap { meta, fasta, faa, gff, gbk ->
                 fastas: [meta, fasta]
@@ -434,7 +434,7 @@ workflow FUNCSCAN {
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: true))
 
     if ((params.run_arg_screening && !params.arg_skip_deeparg) || (params.run_amp_screening && (params.amp_run_hmmsearch || !params.amp_skip_amplify || !params.amp_skip_ampir)) || params.run_bgc_screening) {
-        ch_multiqc_files = ch_multiqc_files.mix(ANNOTATION.out.multiqc_files.collect { it[1] })
+        ch_multiqc_files = ch_multiqc_files.mix(ANNOTATION.out.multiqc_files.collect().ifEmpty([]))
     }
 
     MULTIQC(
