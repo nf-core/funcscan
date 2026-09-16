@@ -28,12 +28,16 @@ authors:
   - name: Jasmin Frangenberg
     orcid: 0009-0004-5961-4709
     affiliation: "1, 2"
+    equal-contrib: true
+    corresponding: true
   - name: James A. Fellows Yates
     orcid: 0000-0001-5585-6277
     affiliation: "1, 3, 4"
+    equal-contrib: true
   - name: Anan Ibrahim
     orcid: 0000-0003-3719-901X
     affiliation: 1
+    equal-contrib: true
   - name: Louisa Perelo
     orcid: 0009-0002-6815-8608
     affiliation: 5
