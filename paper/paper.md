@@ -29,11 +29,11 @@ authors:
     orcid: 0009-0004-5961-4709
     affiliation: "1, 2"
     equal-contrib: true
-    corresponding: true
   - name: James A. Fellows Yates
     orcid: 0000-0001-5585-6277
     affiliation: "1, 3, 4"
     equal-contrib: true
+    corresponding: true
   - name: Anan Ibrahim
     orcid: 0000-0003-3719-901X
     affiliation: 1
@@ -67,6 +67,7 @@ authors:
   - name: Christina Warinner
     orcid: 0000-0002-4528-5877
     affiliation: "3, 4, 16, 17, 18"
+    corresponding: true
 affiliations:
   - name: Department of Paleobiotechnology, Leibniz Institute for Natural Product Research and Infection Biology Hans Knöll Institute, Germany
     index: 1
@@ -120,7 +121,7 @@ affiliations:
   - name: Department of Anthropology, Harvard University, USA
     index: 18
     ror: "03vek6s52"
-date: 16 September 2026
+date: 21 September 2026
 bibliography: paper.bib
 header-includes:
   - \usepackage{rotating}
