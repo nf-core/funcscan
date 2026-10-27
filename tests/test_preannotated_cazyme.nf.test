@@ -1,0 +1,52 @@
+nextflow_pipeline {
+
+    name "Test pipeline: NFCORE_FUNCSCAN"
+    script "main.nf"
+    tag "pipeline"
+    tag "nfcore_funcscan"
+    tag "test_preannotated_cazyme"
+    profile "test_preannotated_cazyme"
+
+    test("-profile test_preannotated_cazyme") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert new File("$outputDir/pipeline_info/nf_core_funcscan_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+
+                // dbCAN annotation
+                { assert snapshot (
+                    path("$outputDir/cazyme/dbcan/cazyme_annotation/sample_1/sample_1_overview.tsv"),
+                    path("$outputDir/cazyme/dbcan/cazyme_annotation/sample_1/sample_1_dbCAN_hmm_results.tsv").text.contains("dbCAN"),
+                    path("$outputDir/cazyme/dbcan/cazyme_annotation/sample_1/sample_1_dbCANsub_hmm_results.tsv").text.contains("dbCAN-sub"),
+                    path("$outputDir/cazyme/dbcan/cazyme_annotation/sample_1/sample_1_diamond.out").exists(),
+                    path("$outputDir/cazyme/dbcan/cazyme_annotation/sample_1/sample_1_overview.tsv").text.contains("dbCAN_hmm"),
+                ).match('dbcan_cazyme_annotation') },
+
+                // dbCAN cgc
+                { assert snapshot (
+                    path("$outputDir/cazyme/dbcan/cgc/sample_3/sample_3_cgc_standard_out.tsv"),
+                    path("$outputDir/cazyme/dbcan/cgc/sample_3/sample_3_cgc.gff").exists(),
+                    path("$outputDir/cazyme/dbcan/cgc/sample_3/sample_3_cgc_standard_out.tsv").text.contains("CGC#"),
+                    path("$outputDir/cazyme/dbcan/cgc/sample_3/sample_3_diamond.out.tc").exists(),
+                    path("$outputDir/cazyme/dbcan/cgc/sample_3/sample_3_STP_hmm_results.tsv").text.contains("HMM")
+                ).match('dbcan_cgc') },
+
+                // dbCAN substrate
+                { assert snapshot (
+                    path("$outputDir/cazyme/dbcan/substrate/sample_3/sample_3_substrate_prediction.tsv"),
+                    path("$outputDir/cazyme/dbcan/substrate/sample_3/sample_3_substrate_prediction.tsv").text.contains("#cgcid"),
+                    path("$outputDir/cazyme/dbcan/substrate/sample_3/sample_3_synteny_pdf").exists(),
+                    path("$outputDir/cazyme/dbcan/substrate/sample_3/sample_3_total_cgc_info.tsv").text.contains("Annotate")
+                ).match('dbcan_substrate') },
+            )
+        }
+    }
+}
