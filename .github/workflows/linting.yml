@@ -27,6 +27,13 @@ jobs:
 
       - name: Install Nextflow
         uses: nf-core/setup-nextflow@v3
+        with:
+          # nf-core/tools >=4.1.0 reads the pipeline config with `nextflow config -o json`,
+          # which on Nextflow 26.04.x fails with "No such variable: meta" on the closures
+          # nested inside the publishDir lists of conf/modules.config
+          # (nextflow-io/nextflow#7474). Fixed on edge by nextflow-io/nextflow#7375 and
+          # backported by nextflow-io/nextflow#7554; drop this pin once 26.04.7 is out.
+          version: "25.10.7"
 
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
         with:
