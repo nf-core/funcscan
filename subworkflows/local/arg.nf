@@ -43,13 +43,11 @@ workflow ARG {
     }
     else if (!params.arg_skip_amrfinderplus && !params.arg_amrfinderplus_db) {
         AMRFINDERPLUS_UPDATE()
-        ch_versions = ch_versions.mix(AMRFINDERPLUS_UPDATE.out.versions)
         ch_amrfinderplus_db = AMRFINDERPLUS_UPDATE.out.db
     }
 
     if (!params.arg_skip_amrfinderplus) {
-        AMRFINDERPLUS_RUN(fastas, ch_amrfinderplus_db)
-        ch_versions = ch_versions.mix(AMRFINDERPLUS_RUN.out.versions)
+        AMRFINDERPLUS_RUN(fastas.map { meta, fa -> [meta, fa, [], false] }, ch_amrfinderplus_db)
 
         // Reporting
         HAMRONIZATION_AMRFINDERPLUS(AMRFINDERPLUS_RUN.out.report, 'tsv', AMRFINDERPLUS_RUN.out.tool_version, AMRFINDERPLUS_RUN.out.db_version)

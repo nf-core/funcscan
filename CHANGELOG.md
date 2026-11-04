@@ -17,12 +17,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#538](https://github.com/nf-core/funcscan/pull/538) Fixed sequence validation to handle `NaN` values in DRAMP database download. (by @hindrek)
+- [#PRNUM](https://github.com/nf-core/funcscan/pull/PRNUM) Adapted to the updated `amrfinderplus/run` module, which takes `organism` and `is_proteins` as inputs instead of meta keys, and to topic-channel versions for AMRFinderPlus. (by @paulinefx)
 
 ### `Dependencies`
 
-| Tool    | Previous Version | New Version |
-| ------- | ---------------- | ----------- |
-| MultiQC | 1.34             | 1.35        |
+| Tool          | Previous Version | New Version |
+| ------------- | ---------------- | ----------- |
+| AMRFinderPlus | 4.0.23           | 4.2.7       |
+| MultiQC       | 1.34             | 1.35        |
 
 ### `Deprecated`
 

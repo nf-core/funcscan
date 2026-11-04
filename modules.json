@@ -36,13 +36,13 @@
                         "installed_by": ["modules"]
                     },
                     "amrfinderplus/run": {
-                        "branch": "master",
-                        "git_sha": "a621003186ea59091561005bce7ce5fd645c7f07",
+                        "branch": "amrfinderplus_run_meta_inputs",
+                        "git_sha": "8682f241fc5145dbee9a2615bf72a8b8e3444bb5",
                         "installed_by": ["modules"]
                     },
                     "amrfinderplus/update": {
                         "branch": "master",
-                        "git_sha": "a621003186ea59091561005bce7ce5fd645c7f07",
+                        "git_sha": "7b3452a23773f687ededb4befd037920e5a51341",
                         "installed_by": ["modules"]
                     },
                     "antismash/antismash": {
