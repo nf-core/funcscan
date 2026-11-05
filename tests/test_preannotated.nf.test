@@ -123,10 +123,11 @@ nextflow_pipeline {
                 { assert new File("$outputDir/reports/hamronization_summarize/hamronization_combined_report.tsv").exists() },
 
                 // argNorm
+                // AMRFinderPlus results include the live NCBI database version, so only the header is stable
                 { assert snapshot(
-                    path("$outputDir/arg/argnorm/amrfinderplus/sample_1.normalized.tsv"),
-                    path("$outputDir/arg/argnorm/amrfinderplus/sample_2.normalized.tsv"),
-                    path("$outputDir/arg/argnorm/amrfinderplus/sample_3.normalized.tsv")
+                    path("$outputDir/arg/argnorm/amrfinderplus/sample_1.normalized.tsv").readLines().first(),
+                    path("$outputDir/arg/argnorm/amrfinderplus/sample_2.normalized.tsv").readLines().first(),
+                    path("$outputDir/arg/argnorm/amrfinderplus/sample_3.normalized.tsv").readLines().first()
                 ).match("argnorm_amrfinderplus") },
 
                 { assert snapshot(
