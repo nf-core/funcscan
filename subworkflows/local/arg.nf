@@ -47,7 +47,8 @@ workflow ARG {
     }
 
     if (!params.arg_skip_amrfinderplus) {
-        AMRFINDERPLUS_RUN(fastas.map { meta, fa -> [meta, fa, [], false] }, ch_amrfinderplus_db)
+        ch_fastas_for_amrfinderplus = fastas.map { meta, fa -> [meta, fa, [], false] }
+        AMRFINDERPLUS_RUN(ch_fastas_for_amrfinderplus, ch_amrfinderplus_db)
 
         // Reporting
         HAMRONIZATION_AMRFINDERPLUS(AMRFINDERPLUS_RUN.out.report, 'tsv', AMRFINDERPLUS_RUN.out.tool_version, AMRFINDERPLUS_RUN.out.db_version)
