@@ -42,7 +42,8 @@ workflow ARG {
             .first()
     }
     else if (!params.arg_skip_amrfinderplus && !params.arg_amrfinderplus_db) {
-        AMRFINDERPLUS_UPDATE()
+        def amrfinderplus_db_version = params.arg_amrfinderplus_db_version == 'latest' ? '' : params.arg_amrfinderplus_db_version
+        AMRFINDERPLUS_UPDATE(amrfinderplus_db_version)
         ch_amrfinderplus_db = AMRFINDERPLUS_UPDATE.out.db
     }
 

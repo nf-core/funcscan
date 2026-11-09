@@ -371,13 +371,23 @@ The contents of the directory should have a directory named with the database na
 
 AMRFinderPlus relies on NCBI's curated Reference Gene Database and curated collection of Hidden Markov Models.
 
-nf-core/funcscan will download this database for you, unless the path to a local version is given with:
+By default, nf-core/funcscan downloads a fixed release of this database, set with `--arg_amrfinderplus_db_version`, so that results are reproducible between runs. Available releases are listed on the [NCBI FTP](https://ftp.ncbi.nlm.nih.gov/pathogen/Antimicrobial_resistance/AMRFinderPlus/database/), in the folder matching the AMRFinderPlus version of your nf-core/funcscan release (e.g. `4.2` for AMRFinderPlus 4.2.x). To download the most recent release instead, use:
 
 ```bash
---arg_amrfinderplus_db '/<path>/<to>/<amrfinderplus_db>/latest'
+--arg_amrfinderplus_db_version latest
 ```
 
-You must give the `latest` directory to the pipeline, and the contents of the directory should include files such as `*.nbd`, `*.nhr`, `versions.txt` etc. in the top level.
+:::warning
+argNorm normalises AMRFinderPlus hits with a fixed mapping table, which officially supports the NCBI Reference Gene Database v3.12 and v4.0. Genes added in more recent database releases may be missing from the argNorm results. The pipeline warns you when argNorm is activated together with `--arg_amrfinderplus_db_version latest` or your own `--arg_amrfinderplus_db`.
+:::
+
+You can also give the pipeline a local version of the database:
+
+```bash
+--arg_amrfinderplus_db '/<path>/<to>/<amrfinderplus_db>/<YYYY-MM-DD.v>'
+```
+
+The directory must be a single database release, containing files such as `*.nbd`, `*.nhr`, `version.txt` etc. in the top level.
 
 To obtain a local version of the database:
 
@@ -385,12 +395,20 @@ To obtain a local version of the database:
    To ensure database compatibility, please use the same version as is used in your nf-core/funcscan release (check version in file `<installation>/<path>/funcscan/modules/nf-core/amrfinderplus/run/environment.yml`).
 
 ```bash
-conda create -n amrfinderplus -c bioconda ncbi-amrfinderplus=3.12.8
+conda create -n amrfinderplus -c bioconda ncbi-amrfinderplus=4.2.7
 conda activate amrfinderplus
 ```
 
-2. Run `amrfinder --update`, which will download the latest version of the AMRFinderPlus database to the default location (location of the AMRFinderPlus binaries/data).
-   It creates a directory in the format YYYY-MM-DD.version (e.g., `<installation>/<path>/data/2024-01-31.1/`).
+2. Download and index a specific release (recommended, for reproducibility), replacing the version and the `4.2` folder as needed:
+
+```bash
+VERSION=2026-10-29.1
+wget -r -l 1 -np -nd -nH -e robots=off -R 'index.html*' -P amrfinderplus_db/${VERSION} \
+    https://ftp.ncbi.nlm.nih.gov/pathogen/Antimicrobial_resistance/AMRFinderPlus/database/4.2/${VERSION}/
+amrfinder_index amrfinderplus_db/${VERSION}
+```
+
+Alternatively, `amrfinder --update` downloads the latest release to the default location (location of the AMRFinderPlus binaries/data), in a directory in the format YYYY-MM-DD.version (e.g., `<installation>/<path>/data/2026-10-29.1/`).
 
 <details markdown="1">
 <summary>AMR related files in the database folder</summary>

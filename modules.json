@@ -41,8 +41,8 @@
                         "installed_by": ["modules"]
                     },
                     "amrfinderplus/update": {
-                        "branch": "master",
-                        "git_sha": "86a1000afbd6b209b7f72715622cad326964b96d",
+                        "branch": "amrfinderplus_update_db_version",
+                        "git_sha": "58747fdb8f0eaa9b0c9cd734ab22991795318487",
                         "installed_by": ["modules"]
                     },
                     "antismash/antismash": {

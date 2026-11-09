@@ -863,8 +863,16 @@
                 "arg_amrfinderplus_db": {
                     "type": "string",
                     "fa_icon": "fas fa-layer-group",
-                    "help_text": "Specify the path to a local version of the ARMFinderPlus database.\n\nYou must give the `latest` directory to the pipeline, and the contents of the directory should include files such as `*.nbd`, `*.nhr`, `versions.txt` etc. in the top level.\n\nIf no input is given, the pipeline will download the database for you.\n\n See the nf-core/funcscan usage [documentation](https://nf-co.re/funcscan/usage) for more information.\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--database`",
+                    "help_text": "Specify the path to a local version of the ARMFinderPlus database.\n\nThe directory must be a single database release, containing files such as `*.nbd`, `*.nhr`, `version.txt` etc. in the top level.\n\nIf no input is given, the pipeline will download the database release set with `--arg_amrfinderplus_db_version`.\n\n See the nf-core/funcscan usage [documentation](https://nf-co.re/funcscan/usage) for more information.\n\n> Modifies tool parameter(s):\n> - AMRFinderPlus: `--database`",
                     "description": "Specify the path to a local version of the ARMFinderPlus database."
+                },
+                "arg_amrfinderplus_db_version": {
+                    "type": "string",
+                    "default": "2026-10-29.1",
+                    "pattern": "^(latest|\\d{4}-\\d{2}-\\d{2}\\.\\d+)$",
+                    "fa_icon": "fas fa-code-branch",
+                    "description": "Version of the AMRFinderPlus database to download, or `latest`.",
+                    "help_text": "Specify which release of the AMRFinderPlus database the pipeline downloads when no `--arg_amrfinderplus_db` is given (e.g. `2026-10-29.1`). The default is pinned so that results are reproducible.\n\nAvailable releases are listed on the [NCBI FTP](https://ftp.ncbi.nlm.nih.gov/pathogen/Antimicrobial_resistance/AMRFinderPlus/database/), in the folder matching the AMRFinderPlus version of the pipeline (e.g. `4.2`).\n\nSet to `latest` to download the most recent release. Note that argNorm's mapping may not cover genes added in newer releases.\n\nIgnored if `--arg_amrfinderplus_db` is given."
                 },
                 "arg_amrfinderplus_identmin": {
                     "type": "number",
