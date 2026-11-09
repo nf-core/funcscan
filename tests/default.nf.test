@@ -24,7 +24,10 @@ nextflow_pipeline {
             assertAll(
                 { assert snapshot(
                     // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
-                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_funcscan_software_mqc_versions.yml"),
+                    // AMRFinderPlus database version is dropped as it changes with each NCBI database release
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_funcscan_software_mqc_versions.yml").collectEntries { process, tools ->
+                        [process, process == 'AMRFINDERPLUS_RUN' ? tools.findAll { tool, version -> tool != 'amrfinderplus_database' } : tools]
+                    },
                 ).match() },
 
                 { assert new File("$outputDir/pipeline_info/nf_core_funcscan_software_mqc_versions.yml").exists() },

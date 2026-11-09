@@ -42,14 +42,14 @@ workflow ARG {
             .first()
     }
     else if (!params.arg_skip_amrfinderplus && !params.arg_amrfinderplus_db) {
-        AMRFINDERPLUS_UPDATE()
-        ch_versions = ch_versions.mix(AMRFINDERPLUS_UPDATE.out.versions)
+        def amrfinderplus_db_version = params.arg_amrfinderplus_db_version == 'latest' ? '' : params.arg_amrfinderplus_db_version
+        AMRFINDERPLUS_UPDATE(amrfinderplus_db_version)
         ch_amrfinderplus_db = AMRFINDERPLUS_UPDATE.out.db
     }
 
     if (!params.arg_skip_amrfinderplus) {
-        AMRFINDERPLUS_RUN(fastas, ch_amrfinderplus_db)
-        ch_versions = ch_versions.mix(AMRFINDERPLUS_RUN.out.versions)
+        ch_fastas_for_amrfinderplus = fastas.map { meta, fa -> [meta, fa, [], false] }
+        AMRFINDERPLUS_RUN(ch_fastas_for_amrfinderplus, ch_amrfinderplus_db)
 
         // Reporting
         HAMRONIZATION_AMRFINDERPLUS(AMRFINDERPLUS_RUN.out.report, 'tsv', AMRFINDERPLUS_RUN.out.tool_version, AMRFINDERPLUS_RUN.out.db_version)

@@ -174,6 +174,12 @@ workflow PIPELINE_COMPLETION {
 // Check and validate pipeline parameters
 //
 def validateInputParameters() {
+    // AMRFinderPlus database and argNorm compatibility
+    if (params.run_arg_screening && !params.arg_skip_amrfinderplus && !params.arg_skip_argnorm && (params.arg_amrfinderplus_db || params.arg_amrfinderplus_db_version == 'latest')) {
+        def db_source = params.arg_amrfinderplus_db ? "a custom AMRFinderPlus database (--arg_amrfinderplus_db)" : "the latest AMRFinderPlus database (--arg_amrfinderplus_db_version latest)"
+        log.warn("[nf-core/funcscan] WARNING: You are using ${db_source} and have argNorm activated. This database may be more recent than argNorm supports, so some AMRFinderPlus hits may be missing from the argNorm results.")
+    }
+
     // GECCO parameter checks
     if (params.run_bgc_screening && !params.bgc_skip_gecco && params.bgc_gecco_runconvert) {
         if (params.bgc_gecco_convertmode == 'gbk' && params.bgc_gecco_convertformat == 'gff') {

@@ -64,11 +64,10 @@
                     "hmmer": 3.4
                 },
                 "AMRFINDERPLUS_RUN": {
-                    "amrfinderplus": "4.0.23",
-                    "amrfinderplus-database": null
+                    "amrfinderplus": "4.2.7"
                 },
                 "AMRFINDERPLUS_UPDATE": {
-                    "amrfinderplus": "4.0.23"
+                    "amrfinder": "4.2.7"
                 },
                 "DEEPARG_DOWNLOADDATA": {
                     "deeparg": "1.0.4"
