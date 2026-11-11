@@ -6,7 +6,7 @@ The output of nf-core/funcscan provides reports for each of the functional group
 
 - **antibiotic resistance genes** (tools: [ABRicate](https://github.com/tseemann/abricate), [AMRFinderPlus](https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder), [DeepARG](https://bitbucket.org/gusphdproj/deeparg-ss/src/master), [fARGene](https://github.com/fannyhb/fargene), [RGI](https://card.mcmaster.ca/analyze/rgi) - summarised by [hAMRonization](https://github.com/pha4ge/hAMRonization). Results from ABRicate, AMRFinderPlus, and DeepARG are normalised to [ARO](https://obofoundry.org/ontology/aro.html) by [argNorm](https://github.com/BigDataBiology/argNorm).)
 - **antimicrobial peptides** (tools: [Macrel](https://github.com/BigDataBiology/macrel), [AMPlify](https://github.com/bcgsc/AMPlify), [ampir](https://ampir.marine-omics.net), [hmmsearch](http://hmmer.org) - summarised by [AMPcombi](https://github.com/paleobiotechnology/AMPcombi))
-- **biosynthetic gene clusters** (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org), [BiGSLiCE](https://github.com/medema-group/bigslice) - summarised by [comBGC](#combgc))
+- **biosynthetic gene clusters** (tools: [antiSMASH](https://docs.antismash.secondarymetabolites.org), [DeepBGC](https://github.com/Merck/deepbgc), [GECCO](https://gecco.embl.de), [hmmsearch](http://hmmer.org), [BiG-SCAPE](https://github.com/medema-group/BiG-SCAPE), [BiGSLiCE](https://github.com/medema-group/bigslice) - summarised by [comBGC](#combgc))
 - **carbohydrate-active enzymes (CAZymes)**, CAZyme gene clusters and substrates (tools: [run_dbcan](https://github.com/bcb-unl/run_dbcan))
 
 As a general workflow, we recommend to first look at the summary reports ([ARGs](#hamronization), [AMPs](#ampcombi), [BGCs](#combgc)), to get a general overview of what hits have been found across all the tools of each functional group. After which, you can explore the specific output directories of each tool to get more detailed information about each result. The tool-specific output directories also includes the output from the functional annotation steps of either [prokka](https://github.com/tseemann/prokka), [pyrodigal](https://github.com/althonos/pyrodigal), [prodigal](https://github.com/hyattpd/Prodigal), or [Bakta](https://github.com/oschwengers/bakta) if the `--save_annotations` flag was set. Additionally, taxonomic classifications from [MMseqs2](https://github.com/soedinglab/MMseqs2) are saved if the `--taxa_classification_mmseqs_db_savetmp` and `--taxa_classification_mmseqs_taxonomy_savetmp` flags are set.
@@ -39,6 +39,7 @@ results/
 |   └── rgi/
 ├── bgc/
 |   ├── antismash/
+|   ├── bigscape/
 |   ├── bigslice/
 |   ├── deepbgc/
 |   ├── gecco/
@@ -395,7 +396,7 @@ Output Summaries:
 
 ### BGC detection tools
 
-[antiSMASH](#antismash), [deepBGC](#deepbgc), [GECCO](#gecco), [hmmsearch](#hmmsearch), [BiGSLiCE](#bigslice).
+[antiSMASH](#antismash), [deepBGC](#deepbgc), [GECCO](#gecco), [hmmsearch](#hmmsearch), [BiG-SCAPE](#big-scape), [BiGSLiCE](#bigslice).
 
 Note that the BGC tools are run on a set of annotations generated on only long contigs (3000 bp or longer) by default. These specific filtered FASTA files are under `bgc/seqkit/`, and annotations files are under `annotation/<annotation_tool>/long/`, if the corresponding saving flags are specified (see [parameter docs](https://nf-co.re/funcscan/parameters)). However the same annotations _should_ also be annotation files in the sister `all/` directory.
 
@@ -500,6 +501,33 @@ The additional GFF3, GenBank, or FASTA files from `--bgc_gecco_runconvert`, can 
 It takes BGC regions in GenBank format (e.g. output from antiSMASH or GECCO) along with an HMM database and produces an SQLite database of predicted BGC features and GCF assignments.
 BiG-SLiCE requires the HMM database to be supplied via `--bgc_bigslice_db` and is activated with `--bgc_run_bigslice`. It requires at least one of antiSMASH or GECCO (with convert in bigslice format) to be enabled.
 All results are stored in a SQLite database (`data.db`) which can be explored with standard SQLite tools or via the [BiG-SLiCE interactive web interface](https://github.com/medema-group/bigslice#running-the-query-mode-and-visualization).
+
+#### BiG-SCAPE
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `bigscape/`
+  - `index.html`: interactive visualisation of the BiG-SCAPE results. Open it in a web browser and load the `bigscape.db` database when prompted.
+  - `html_content/`: accessory files for the visualisation.
+  - `bigscape.db`: SQLite database containing all BGC records, domain hits, distances and gene cluster family (GCF) assignments.
+  - `<timestamp>.log`, `<timestamp>.config.log`: BiG-SCAPE run log and the configuration used.
+  - `output_files/`
+    - `<timestamp>_full.network`: all pairwise BGC distances calculated in the run.
+    - `<timestamp>_c<cutoff>/`: results for each GCF distance cutoff (`--bgc_bigscape_gcfcutoffs`).
+      - `record_annotations.tsv`: one row per BGC record, with its antiSMASH class, category, organism and taxonomy.
+      - `<bin>/`: one directory per analysis bin (depending on `--bgc_bigscape_classify` and `--bgc_bigscape_mix`).
+        - `<bin>_clustering_c<cutoff>.tsv`: GCF assignment of each BGC record.
+        - `<bin>_c<cutoff>.network`: network edges (pairwise distances below the cutoff).
+        - `GCF_trees/`: per-GCF alignments (`FAM_*_alignment.fasta`) and trees (`FAM_*.newick`), for GCFs with more than one member.
+
+</details>
+
+[BiG-SCAPE](https://github.com/medema-group/BiG-SCAPE) (**Bi**osynthetic **G**ene **S**imilarity **C**lustering **a**nd **P**rospecting **E**ngine) builds sequence similarity networks of BGCs and groups them into Gene Cluster Families (GCFs).
+It is activated with `--bgc_run_bigscape`, takes the antiSMASH BGC regions of all samples as input, and is run once across all samples.
+
+BGC record names in the output are prefixed with the sample name they originate from (e.g. `sample_1.PROKKA_1.region001.gbk_region_1`).
+BGCs that are identical between samples are kept as separate records, and will be placed in the same GCF at a distance of 0.
 
 ### CAZyme annotation tools
 

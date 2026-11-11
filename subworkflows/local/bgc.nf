@@ -15,6 +15,7 @@ include { MERGE_TAXONOMY_COMBGC                  } from '../../modules/local/mer
 include { GECCO_CONVERT                          } from '../../modules/nf-core/gecco/convert'
 include { BIGSLICE_BIGSLICE                      } from '../../modules/nf-core/bigslice/bigslice'
 include { BIGSLICE_DOWNLOADDB                    } from '../../modules/nf-core/bigslice/downloaddb'
+include { BIGSCAPE_BIGSCAPE                      } from '../../modules/nf-core/bigscape/bigscape'
 
 workflow BGC {
     take:
@@ -146,6 +147,23 @@ workflow BGC {
         }
 
         BIGSLICE_BIGSLICE(ch_bigslice_grouped, ch_bigslice_db, params.bgc_bigslice_exporttsv)
+    }
+
+    // BIGSCAPE
+    if (params.bgc_run_bigscape) {
+        // Prefix region files with the sample ID (contig-based names collide across samples) and tag their
+        // DEFINITION line, as BiG-SCAPE skips files with identical content. collectFile writes all files into
+        // a single directory, which is passed to BiG-SCAPE as its input directory.
+        ch_bigscape_input = ANTISMASH_ANTISMASH.out.gbk_results
+            .transpose()
+            .collectFile { meta, gbk ->
+                ["${meta.id}.${gbk.name}", gbk.text.replaceFirst(/(?m)^DEFINITION  /, "DEFINITION  [${meta.id}] ")]
+            }
+            .map { gbk -> gbk.parent }
+            .unique()
+            .map { dir -> [[id: 'bigscape'], dir] }
+
+        BIGSCAPE_BIGSCAPE(ch_bigscape_input, file(params.bgc_bigscape_pfam_db, checkIfExists: true))
     }
 
     // HMMSEARCH

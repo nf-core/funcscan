@@ -1515,6 +1515,65 @@
             "description": "Parameters for BiG-SLiCE clustering of biosynthetic gene clusters (BGCs) into gene cluster families (GCFs). More info: https://github.com/medema-group/bigslice",
             "fa_icon": "fas fa-angle-double-right"
         },
+        "bgc_bigscape": {
+            "title": "BGC: BiG-SCAPE",
+            "type": "object",
+            "default": "",
+            "properties": {
+                "bgc_run_bigscape": {
+                    "type": "boolean",
+                    "description": "Run BiG-SCAPE to build sequence similarity networks of antiSMASH-detected BGCs and group them into gene cluster families (GCFs).",
+                    "help_text": "BiG-SCAPE is run once across all samples, using the antiSMASH region GenBank files as input. It therefore requires antiSMASH to be enabled (i.e., `--bgc_skip_antismash` must not be set).\n\nBefore clustering, each region file is prefixed with its sample name, so that BGCs can be traced back to their sample of origin in the BiG-SCAPE output.",
+                    "fa_icon": "fas fa-project-diagram"
+                },
+                "bgc_bigscape_pfam_db": {
+                    "type": "string",
+                    "default": "https://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam37.0/Pfam-A.hmm.gz",
+                    "description": "Path or URL to a Pfam-A HMM database file (`Pfam-A.hmm` or `Pfam-A.hmm.gz`).",
+                    "help_text": "By default, the Pfam 37.0 `Pfam-A.hmm.gz` file is downloaded from the EBI FTP server at run time. If you are running offline or want to reuse a local copy, download it beforehand and supply the path to the file:\n\n```bash\nwget https://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam37.0/Pfam-A.hmm.gz\n```\n\nCustom HMM files must follow the Pfam format, including `ACC` (accession) and `TC` (trusted cutoff) lines.\n\n> Modifies tool parameter(s):\n> - BiG-SCAPE: `--pfam-path`",
+                    "pattern": "^\\S+\\.hmm(\\.gz)?$",
+                    "fa_icon": "fas fa-database"
+                },
+                "bgc_bigscape_classify": {
+                    "type": "string",
+                    "default": "category",
+                    "enum": ["none", "class", "category", "legacy"],
+                    "description": "Method used by BiG-SCAPE to split BGCs into analysis bins.",
+                    "help_text": "`class` and `category` use the antiSMASH BGC classes (e.g. T2PKS) or categories (e.g. PKS) to run separate analyses per bin. `legacy` uses the BiG-SCAPE v1 groups and is intended for antiSMASH versions up to 7. `none` applies no classification, in which case `--bgc_bigscape_mix` must be set.\n\nFor more information see the BiG-SCAPE [wiki](https://github.com/medema-group/BiG-SCAPE/wiki).\n\n> Modifies tool parameter(s):\n> - BiG-SCAPE: `--classify`",
+                    "fa_icon": "fas fa-layer-group"
+                },
+                "bgc_bigscape_mix": {
+                    "type": "boolean",
+                    "description": "Additionally calculate distances in a 'mix' bin, i.e. an all-vs-all comparison of all BGCs regardless of class.",
+                    "help_text": "> Modifies tool parameter(s):\n> - BiG-SCAPE: `--mix`",
+                    "fa_icon": "fas fa-random"
+                },
+                "bgc_bigscape_gcfcutoffs": {
+                    "type": ["string", "number"],
+                    "default": "0.3",
+                    "description": "Comma-separated list of distance cutoff(s) used to define gene cluster families.",
+                    "help_text": "A separate set of GCFs is generated for each cutoff, e.g. `0.3,0.5`.\n\n> Modifies tool parameter(s):\n> - BiG-SCAPE: `--gcf-cutoffs`",
+                    "pattern": "^\\d*\\.?\\d+(,\\d*\\.?\\d+)*$",
+                    "fa_icon": "fas fa-sliders-h"
+                },
+                "bgc_bigscape_recordtype": {
+                    "type": "string",
+                    "default": "region",
+                    "enum": ["region", "cand_cluster", "protocluster", "proto_core"],
+                    "description": "Type of antiSMASH record to use for comparisons.",
+                    "help_text": "If the requested record type is not present in a GenBank file, BiG-SCAPE falls back to the next higher level record type (hierarchy: region > cand_cluster > protocluster > proto_core).\n\n> Modifies tool parameter(s):\n> - BiG-SCAPE: `--record-type`",
+                    "fa_icon": "fas fa-dna"
+                },
+                "bgc_bigscape_includesingletons": {
+                    "type": "boolean",
+                    "description": "Include singletons (BGCs not connected to any other BGC) in the networks and all respective output.",
+                    "help_text": "> Modifies tool parameter(s):\n> - BiG-SCAPE: `--include-singletons`",
+                    "fa_icon": "fas fa-circle"
+                }
+            },
+            "description": "Parameters for BiG-SCAPE similarity network analysis of biosynthetic gene clusters (BGCs) into gene cluster families (GCFs). More info: https://github.com/medema-group/BiG-SCAPE",
+            "fa_icon": "fas fa-angle-double-right"
+        },
         "bgc_hmmsearch": {
             "title": "BGC: hmmsearch",
             "type": "object",
@@ -1827,6 +1886,9 @@
         },
         {
             "$ref": "#/$defs/bgc_bigslice"
+        },
+        {
+            "$ref": "#/$defs/bgc_bigscape"
         },
         {
             "$ref": "#/$defs/bgc_hmmsearch"

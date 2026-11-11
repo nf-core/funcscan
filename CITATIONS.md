@@ -38,6 +38,10 @@
 
   > Schwengers, O., Jelonek, L., Dieckmann, M. A., Beyvers, S., Blom, J., & Goesmann, A. (2021). Bakta: rapid and standardized annotation of bacterial genomes via alignment-free sequence identification. Microbial Genomics, 7(11). [DOI: 10.1099/mgen.0.000685](https://doi.org/10.1099/mgen.0.000685)
 
+- [BiG-SCAPE](https://github.com/medema-group/BiG-SCAPE)
+
+  > Navarro-Muñoz, J. C., Selem-Mojica, N., Mullowney, M. W., Kautsar, S. A., Tryon, J. H., Parkinson, E. I., De Los Santos, E. L. C., Yeong, M., Cruz-Morales, P., Abubucker, S., Roeters, A., Lokhorst, W., Fernandez-Guerra, A., Cappelini, L. T. D., Goering, A. W., Thomson, R. J., Metcalf, W. W., Kelleher, N. L., Barona-Gomez, F., & Medema, M. H. (2020). A computational framework to explore large-scale biosynthetic diversity. Nature Chemical Biology, 16(1), 60–68. [DOI: 10.1038/s41589-019-0400-9](https://doi.org/10.1038/s41589-019-0400-9)
+
 - [BiG-SLiCE](https://github.com/medema-group/bigslice)
 
   > Kautsar, S. A., van der Hooft, J. J. J., de Ridder, D., & Medema, M. H. (2021). BiG-SLiCE: A highly scalable tool maps the diversity of 1.2 million biosynthetic gene clusters. GigaScience, 10(1), giaa154. [DOI: 10.1093/gigascience/giaa154](https://doi.org/10.1093/gigascience/giaa154)

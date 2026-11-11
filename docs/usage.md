@@ -207,6 +207,34 @@ Setting it to a value larger than the dataset size will cause BiG-SLiCE to fail 
 The default of 3000 is suitable for large public datasets; reduce this value when working with smaller datasets.
 :::
 
+### BiG-SCAPE
+
+[BiG-SCAPE](https://github.com/medema-group/BiG-SCAPE) builds sequence similarity networks of BGCs and groups them into Gene Cluster Families (GCFs).
+It is activated with `--bgc_run_bigscape` and requires antiSMASH to be enabled, as it uses the antiSMASH BGC region GenBank files as input.
+BiG-SCAPE does **not** discover BGCs itself, and is run once on the BGCs of all samples together.
+
+Before running BiG-SCAPE, the pipeline prefixes each antiSMASH region file with its sample name (e.g. `sample_1.PROKKA_1.region001.gbk`) and adds the sample name to the GenBank `DEFINITION` line.
+This keeps every BGC traceable to its sample of origin, and prevents BiG-SCAPE from discarding BGCs that are identical between samples (BiG-SCAPE otherwise skips GenBank files with duplicate content).
+
+BiG-SCAPE requires a Pfam-A HMM database, which by default is downloaded at run time (see the BiG-SCAPE entry under [Databases and reference files](#databases-and-reference-files)).
+
+The following optional parameters can be used to tune the analysis:
+
+| Pipeline parameter                 | BiG-SCAPE flag         | Description                                                                           |
+| ---------------------------------- | ---------------------- | ------------------------------------------------------------------------------------- |
+| `--bgc_bigscape_classify`          | `--classify`           | How to split BGCs into analysis bins: `none`, `class`, `category` (default), `legacy` |
+| `--bgc_bigscape_mix`               | `--mix`                | Additionally run an all-vs-all comparison of all BGCs regardless of class             |
+| `--bgc_bigscape_gcfcutoffs`        | `--gcf-cutoffs`        | Comma-separated distance cutoff(s) used to define GCFs (default: `0.3`)               |
+| `--bgc_bigscape_recordtype`        | `--record-type`        | antiSMASH record type to compare (default: `region`)                                  |
+| `--bgc_bigscape_includesingletons` | `--include-singletons` | Include BGCs that are not connected to any other BGC in the output                    |
+
+:::note
+`--bgc_bigscape_classify none` must be combined with `--bgc_bigscape_mix`, otherwise there is nothing for BiG-SCAPE to compare; the pipeline will error at startup in this case.
+:::
+
+Any other BiG-SCAPE option (e.g. `--alignment-mode`, `--hybrids-off`, `--include-classes`) can be supplied via a custom config file by overriding `ext.args` of the `BIGSCAPE_BIGSCAPE` process.
+Note that comparisons against MIBiG reference BGCs (`--mibig-version`) are not configured by the pipeline, as BiG-SCAPE downloads MIBiG at run time.
+
 ## Databases and reference files
 
 Various tools of nf-core/funcscan use databases and reference files to operate.
@@ -585,6 +613,26 @@ Then supply the extracted directory to the pipeline:
 ```
 
 The contents of the database directory should contain subdirectories such as `biosynthetic_pfams/` and `sub_pfams/` in the top level.
+
+### BiG-SCAPE
+
+BiG-SCAPE requires a Pfam-A HMM database.
+By default, the pipeline downloads the Pfam 37.0 `Pfam-A.hmm.gz` file from the EBI FTP server at run time.
+In case you are running offline, or want to avoid downloading the file (~300 MB) on every run, download it manually and supply it with `--bgc_bigscape_pfam_db`:
+
+```bash
+wget https://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam37.0/Pfam-A.hmm.gz
+```
+
+```bash
+--bgc_bigscape_pfam_db '/<path>/<to>/Pfam-A.hmm.gz'
+```
+
+Both the compressed (`.hmm.gz`) and uncompressed (`.hmm`) files are accepted.
+
+:::warning
+Custom HMM files must follow the Pfam format, including `ACC` (accession) and `TC` (trusted cutoff) lines for each model, otherwise BiG-SCAPE will fail.
+:::
 
 ### InterProScan
 

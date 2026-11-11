@@ -196,6 +196,16 @@ def validateInputParameters() {
             log.warn("[nf-core/funcscan] WARNING: --bgc_bigslice_nranks is set to ${params.bgc_bigslice_nranks}. BiG-SLiCE will fail if this value exceeds the total number of BGCs detected in your dataset (n_neighbors must be <= n_samples). Consider using the default value (1) for small datasets.")
         }
     }
+
+    // BIGSCAPE parameter checks
+    if (params.run_bgc_screening && params.bgc_run_bigscape) {
+        if (params.bgc_skip_antismash) {
+            error('[nf-core/funcscan] ERROR: BiG-SCAPE requires antiSMASH output. Please remove --bgc_skip_antismash or do not specify --bgc_run_bigscape.')
+        }
+        if (params.bgc_bigscape_classify == 'none' && !params.bgc_bigscape_mix) {
+            error("[nf-core/funcscan] ERROR: --bgc_bigscape_classify 'none' requires --bgc_bigscape_mix, otherwise BiG-SCAPE has no BGC bins to compare. Please check your parameters.")
+        }
+    }
 }
 
 //
@@ -256,6 +266,7 @@ def toolCitationText() {
         !params.bgc_skip_gecco ? "GECCO (Carroll et al. 2021)," : "",
         params.bgc_run_hmmsearch ? "HMMER (Eddy 2011)," : "",
         params.bgc_run_bigslice ? "BiG-SLiCE (Kautsar et al. 2021, Kautsar et al. 2026)," : "",
+        params.bgc_run_bigscape ? "BiG-SCAPE (Navarro-Muñoz et al. 2020)," : "",
         ". The output from the biosynthetic gene cluster screening tools were standardised and summarised with comBGC (Frangenberg et al. 2023).",
     ].join(' ').replaceAll(', +.', ".").trim()
 
@@ -315,6 +326,7 @@ def toolBibliographyText() {
         !params.bgc_skip_gecco ? '<li>Carroll, L. M., Larralde, M., Fleck, J. S., Ponnudurai, R., Milanese, A., Cappio Barazzone, E. & Zeller, G. (2021). Accurate de novo identification of biosynthetic gene clusters with GECCO. bioRxiv DOI: <a href="https://doi.org/10.1101/2021.05.03.442509">0.1101/2021.05.03.442509</a></li>' : "",
         params.bgc_run_bigslice ? '<li>Kautsar, S. A., van der Hooft, J. J. J., de Ridder, D., & Medema, M. H. (2021). BiG-SLiCE: A highly scalable tool maps the diversity of 1.2 million biosynthetic gene clusters. GigaScience, 10(1), giaa154. DOI: <a href="https://doi.org/10.1093/gigascience/giaa154">10.1093/gigascience/giaa154</a></li>' : "",
         params.bgc_run_bigslice ? '<li>Kautsar, S. A., et al. (2026). BiG-SLiCE 2.0: improved gene cluster family diversity mapping. Nature Communications. DOI: <a href="https://doi.org/10.1038/s41467-026-68733-5">10.1038/s41467-026-68733-5</a></li>' : "",
+        params.bgc_run_bigscape ? '<li>Navarro-Muñoz, J. C., Selem-Mojica, N., Mullowney, M. W., Kautsar, S. A., Tryon, J. H., Parkinson, E. I., De Los Santos, E. L. C., Yeong, M., Cruz-Morales, P., Abubucker, S., Roeters, A., Lokhorst, W., Fernandez-Guerra, A., Cappelini, L. T. D., Goering, A. W., Thomson, R. J., Metcalf, W. W., Kelleher, N. L., Barona-Gomez, F., & Medema, M. H. (2020). A computational framework to explore large-scale biosynthetic diversity. Nature Chemical Biology, 16(1), 60–68. DOI: <a href="https://doi.org/10.1038/s41589-019-0400-9">10.1038/s41589-019-0400-9</a></li>' : "",
         '<li>Frangenberg, J. Fellows Yates, J. A., Ibrahim, A., Perelo, L., & Beber, M. E. (2023). nf-core/funcscan: 1.0.0 - German Rollmops - 2023-02-15. <a href="https://doi.org/10.5281/zenodo.7643100">https://doi.org/10.5281/zenodo.7643100</a></li>',
     ].join(' ').replaceAll(', +.', ".").trim()
 
