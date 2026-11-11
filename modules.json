@@ -70,6 +70,11 @@
                         "git_sha": "81fe5e6f07fa92ecfd1721373620e2538a1466eb",
                         "installed_by": ["modules"]
                     },
+                    "bigscape/bigscape": {
+                        "branch": "master",
+                        "git_sha": "7b3452a23773f687ededb4befd037920e5a51341",
+                        "installed_by": ["modules"]
+                    },
                     "bigslice/bigslice": {
                         "branch": "master",
                         "git_sha": "2fb71fb1a1e67f1fe470e73c53b685a763c443d9",
