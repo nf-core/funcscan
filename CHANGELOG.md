@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#546](https://github.com/nf-core/funcscan/pull/546) Updated pipeline template to nf-core tools version 4.1.0. The lint workflow pins Nextflow to 25.10.7 until [nextflow-io/nextflow#7474](https://github.com/nextflow-io/nextflow/issues/7474) ships in a 26.04.x release. (by @jasmezz)
 - [#543](https://github.com/nf-core/funcscan/pull/543) Added Bakta output support to MultiQC report by adding `bakta` to `run_modules` in `assets/multiqc_config.yml`. (by @jvfe)
 - [#548](https://github.com/nf-core/funcscan/pull/548) Added `manifest.diagram` config attribute. (by @ewels)
+- [#564](https://github.com/nf-core/funcscan/pull/564) Added BiG-SCAPE (`bigscape`) for similarity network analysis of antiSMASH-detected BGCs into gene cluster families (GCFs) in the BGC subworkflow. Activated with `--bgc_run_bigscape`. (❤️ to @juanmobovi for requesting, added by @jvfe)
 
 ### `Fixed`
 
@@ -20,9 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool    | Previous Version | New Version |
-| ------- | ---------------- | ----------- |
-| MultiQC | 1.34             | 1.35        |
+| Tool      | Previous Version | New Version |
+| --------- | ---------------- | ----------- |
+| BiG-SCAPE | -                | 2.0.3       |
+| MultiQC   | 1.34             | 1.35        |
 
 ### `Deprecated`
 
