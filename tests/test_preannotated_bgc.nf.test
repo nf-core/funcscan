@@ -70,7 +70,12 @@ nextflow_pipeline {
                 ).match("gecco") },
 
                 // BiGSLiCE
-                { assert snapshot(file("$outputDir/bgc/bigslice/result/data.db").name).match("bigslice") } // channel: output
+                { assert snapshot(file("$outputDir/bgc/bigslice/result/data.db").name).match("bigslice") }, // channel: output
+
+                // BiG-SCAPE (output_files subdirectories are timestamped)
+                { assert path("$outputDir/bgc/bigscape/index.html").exists() },                                                                                                                         // channel: output
+                { assert path("$outputDir/bgc/bigscape/bigscape.db").exists() },                                                                                                                        // channel: output
+                { assert new File("$outputDir/bgc/bigscape/output_files").listFiles().find { it.name.endsWith('_c0.3') }.toPath().resolve('record_annotations.tsv').readLines().count { it.startsWith('sample_') } == 3 } // channel: output
             )
         }
     }
