@@ -187,7 +187,7 @@ Extensive command-line knowledge and manual installation of software dependencie
 This can make use of these tools difficult for biochemists and biologists who may have limited computational training.
 nf-core/funcscan aims to streamline this process by providing a single software in which to run all tools, perform screening from already assembled sequences, and provide aggregation of the screening results, with customizable options for execution (Table \ref{tab:pipelines}).
 
-# Workflow overview
+# Software design
 
 nf-core/funcscan simultaneously predicts BGCs, AMPs, ARGs, and CAZymes/CGCs from partial or full (meta)genomic sequences.
 Output files from the tools of each of the categories are aggregated and standardised for easy cross-comparison (Fig. \ref{fig:workflow}).
@@ -230,10 +230,9 @@ nf-core/funcscan uses a custom script 'comBGC' for BGC tool output aggregation, 
 These summaries are finally optionally complemented with results from the taxonomic classification workflow.
 
 Building on the aggragation of screening results, two optional post-processing steps can be executed for the BGC and ARG workflows.
-BGCs predicted by antiSMASH and GECCO can be clustered into Gene Cluster Families (GCFs) by BiG-SLiCE [@kautsar_big-slice_2021] to enable comparative analysis of biosynthetic diversity across samples. 
+BGCs predicted by antiSMASH and GECCO can be clustered into Gene Cluster Families (GCFs) by BiG-SLiCE [@kautsar_big-slice_2021] to enable comparative analysis of biosynthetic diversity across samples.
 The ARG summary provided by hAMRonization can be further normalised and mapped to the antibiotic resistance ontology (ARO) by argNorm [@ugarcina_perovic_argnorm_2025].
 This enhances ARG annotation by categorising drugs that ARGs confer resistance to.
-
 
 ## Reproducibility and scalability
 
